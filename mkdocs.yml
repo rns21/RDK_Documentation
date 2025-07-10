@@ -1,0 +1,81 @@
+site_name: RDK Documentation
+site_url: https://rdkcentral.github.com/RDK_Documentation
+
+repo_name: RDK_Documentation
+repo_url: https://github.com/rdkcentral/RDK_Documentation   
+
+plugins:
+  - search
+theme:
+  name: material
+  logo: assets/logo.png
+  custom_dir: overrides  
+  favicon: assets/favicon.ico
+  highlightjs: true
+  user_color_mode_toggle: true
+  features:
+    - navigation.footer
+    - navigation.tabs
+    - toc.follow
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+    - content.tabs.link
+    - content.tabs
+    - content.width
+    - navigation.expand
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/link
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to system preference
+  font:
+    text: 'IBM Plex Sans'
+    code: 'Fira Code'
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.emoji:
+      emoji_generator: "!!python/name:materialx.emoji.to_svg"
+extra_css:
+  - assets/stylesheets/extra.css
+extra_javascript:
+  - assets/javascripts/extra.js
+nav:
+  - Home: README.md
+  - Entertainment:
+    - Overview: ./entertainment/docs/README.md
+    - Architecture: ./entertainment/docs/Architecture.md
+    - Features: ./connectivity/docs/overview01.md
+    - Try Out RDK: ./connectivity/docs/overview02.md
+    - Porting Kit: ./connectivity/docs/overview03.md
+    - Core Components: ./connectivity/docs/overview04.md
+    - Device Profiles: ./connectivity/docs/overview05.md
+  - Connectivity:
+    - Overview: ./connectivity/docs/overview.md
+    - Architecture: ./connectivity/docs/overview06.md
+    - Features: ./connectivity/docs/overview07.md
+    - Try Out RDK: ./connectivity/docs/overview08.md
+    - Porting Kit: ./connectivity/docs/overview09.md
+    - Core Components: ./connectivity/docs/overview10.md
+    - Device Profiles: ./connectivity/docs/overview11.md
+  - Getting Started: 
+    - Entertainment: ./preview-rdk/docs/preview-rdk-video.md
+    - Connectivity: ./preview-rdk/docs/preview-rdk-broadband.md
