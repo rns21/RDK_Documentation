@@ -1,9 +1,9 @@
-name: Deploy MkDocs on Tag
+name: Deploy Versioned MkDocs on Tag
 
 on:
   push:
     tags:
-      - '*'  # Triggers only when a tag like v1.0.0 is pushed
+      - '*'  # Runs only when tags like v1.0.0 are pushed
 
 jobs:
   deploy:
@@ -26,8 +26,16 @@ jobs:
       - name: Build MkDocs site
         run: mkdocs build
 
-      - name: Deploy to GitHub Pages
+      - name: Copy site to versioned folder
+        run: |
+          TAG_NAME=${GITHUB_REF##*/}
+          mkdir -p versioned-site/$TAG_NAME
+          cp -r site/* versioned-site/$TAG_NAME/
+
+      - name: Deploy to GitHub Pages (versioned)
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+          publish_dir: versioned-site
+          keep_files: true  # Keeps older versions on the site
+
