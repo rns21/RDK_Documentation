@@ -1,50 +1,49 @@
-// sidebar toggle
-document.addEventListener("DOMContentLoaded", function () {
-  const exploreBtn = document.getElementById("exploreBtn");
-  const connectivityExploreBtn = document.getElementById("connectivityExploreBtn");
-  const sidebar = document.getElementById("sidebar");
-  const connectivitySidebar = document.getElementById("connectivitySidebar");
+function toggleFeatures(event, containerId) {
+  const button = event.currentTarget;
+  const card = button.closest(".custom-box");
+  const features = document.getElementById(containerId);
   const overlay = document.getElementById("overlay");
+  const headerTop = document.querySelector(".md-top");
+  const backToTopIcon = document.querySelector(".md-icon");
+  const mdHeader = document.querySelector(".md-header");
 
-  let activeButton = null;
-  let highlightTimeout = null;
+  const isVisible = !features.classList.contains("hidden");
 
-  function closeAllSidebars() {
-    sidebar?.classList.remove("visible");
-    connectivitySidebar?.classList.remove("visible");
-    overlay?.classList.remove("visible");
+  // Hide all feature containers and remove highlights
+  document.querySelectorAll(".features-container").forEach(fc => fc.classList.add("hidden"));
+  document.querySelectorAll(".explore-button").forEach(btn => btn.classList.remove("highlight"));
 
-    if (activeButton) {
-      activeButton.classList.remove("highlight");
-      activeButton = null;
-    }
+  if (isVisible) {
+    features.classList.add("hidden");
+    overlay.classList.add("hidden");
+    headerTop?.classList.remove("hidden");
+    backToTopIcon?.classList.remove("hidden");
+    mdHeader.style.position = "";
+  } else {
+    features.classList.remove("hidden");
+    button.classList.add("highlight"); // highlight only the clicked button
+    overlay.classList.remove("hidden");
+    headerTop?.classList.add("hidden");
+    backToTopIcon?.classList.add("hidden");
+    mdHeader.style.position = "relative";
 
-    if (highlightTimeout) {
-      clearTimeout(highlightTimeout);
-      highlightTimeout = null;
-    }
+    const outsideClickListener = function (e) {
+      if (!features.contains(e.target) && !button.contains(e.target)) {
+        features.classList.add("hidden");
+        button.classList.remove("highlight");
+        overlay.classList.add("hidden");
+        headerTop?.classList.remove("hidden");
+        backToTopIcon?.classList.remove("hidden");
+        mdHeader.style.position = "";
+        document.removeEventListener("pointerup", outsideClickListener);
+      }
+    };
+
+    document.addEventListener("pointerup", outsideClickListener);
   }
+}
 
-  function toggleSidebar(button, targetSidebar) {
-    const isVisible = targetSidebar.classList.contains("visible");
 
-    if (isVisible) {
-      closeAllSidebars();
-    } else {
-      closeAllSidebars();
-      targetSidebar.classList.add("visible");
-      overlay.classList.add("visible");
-
-      activeButton = button;
-      activeButton.classList.add("highlight");
-    }
-  }
-
-  exploreBtn?.addEventListener("click", () => toggleSidebar(exploreBtn, sidebar));
-  connectivityExploreBtn?.addEventListener("click", () => toggleSidebar(connectivityExploreBtn, connectivitySidebar));
-  overlay?.addEventListener("click", closeAllSidebars);
-
-});
 
 
 //tabs section

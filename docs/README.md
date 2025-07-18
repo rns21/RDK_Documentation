@@ -1,27 +1,66 @@
 ---
 title: "RDK Documentation?"
-description: "RDK is the software that helps run video, broadband, and IoT devices more efficiently by standardizing the software stacks that run on most TV set-top boxes, internet gateways, and IoT devices in the home"
+description: "An open platform powering both entertainment and connectivity"
 hide:
   - navigation
   - toc
 ---
+
 <!-- Top two cards -->
 <div class="section-wrapper">
-  <div style="display: flex; justify-content: center; gap: 2.8%; padding: 0px; flex-wrap: wrap;">
+  <div class="cards-wrapper" style="display: flex; justify-content: center; gap: 2.8%; padding: 0px; flex-wrap: wrap;">
+<!-- Entertainment Card -->
+<div class="card-wrapper">
 <div class="custom-box">
   <div class="custom-box-horizontal full-image-layout">
     <div class="image-section">
       <img src="./assets/Entertainment.png" alt="Entertainment Image" />
     </div>
     <div class="text-section">
-     <div class="text-inner">
-      <h2>Entertainment</h2>
-      <p>A platform designed to streamline video application and device development.</p>
-      <button id="exploreBtn" class="explore-button">Explore</button>
-     </div>
+      <div class="text-inner">
+        <h2>Entertainment</h2>
+        <p>Build Apps, manage media and UI layers in a video platform</p>
+        <button class="explore-button" onclick="toggleFeatures(event,'entertainmentFeatures')">Explore</button>
+      </div>
     </div>
   </div>
 </div>
+  <!-- Collapsible Feature Section -->
+  <div id="entertainmentFeatures" class="features-container hidden">
+    <div class="feature-box">
+      <div class="icon">
+        <img src="assets/icons/icon1.png" alt="Features Icon">
+      </div>
+      <div class="info">
+        <h4><a href="/entertainment/docs/features.md">Features</a></h4>
+        <p>Manage broadband stack and device control in a network device</p>
+      </div>
+    </div>
+    <div class="feature-box">
+   <div class="icon"><img src="assets/icons/icon3.png" alt="Components Icon"></div>
+    <div class="info">
+      <h4><a href="/entertainment/docs/components.md">RDK Components</a></h4>
+      <p>Access detailed documentation on various RDK components.</p>
+    </div>
+    </div>
+    <div class="feature-box">
+     <div class="icon"><img src="assets/icons/icon5.png" alt="Components Icon"></div>
+    <div class="info">
+      <h4><a href="/entertainment/docs/components.md">Test your device</a></h4>
+      <p>Explore tools to test your RDK devices effectively.</p>
+    </div>
+    </div>
+    <div class="feature-box">
+       <div class="icon"><img src="assets/icons/icon2.png" alt="Port RDK Icon"></div>
+    <div class="info">
+      <h4><a href="/entertainment/docs/portingkit.md">Port RDK</a></h4>
+      <p>Learn how to port RDK and get it running on your platform.</p>
+    </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->
+<div class="card-wrapper">
 <div class="custom-box">
   <div class="custom-box-horizontal full-image-layout">
     <div class="image-section">
@@ -31,13 +70,46 @@ hide:
      <div class="text-inner">
       <h2>Connectivity</h2>
       <p>Framework that enables high-speed internet delivery for service providers. </p>
-      <button id="connectivityExploreBtn"class="explore-button">Explore</button>
+      <button class="explore-button" onclick="toggleFeatures(event,'connectivityFeatures')">Explore</button>
+    </div>
+    </div>
+  </div>
+</div>
+  <!-- Collapsible Feature Section -->
+  <div id="connectivityFeatures" class="features-container hidden">
+    <div class="feature-box">
+      <div class="icon">
+        <img src="assets/icons/icon1.png" alt="Features Icon">
+      </div>
+      <div class="info">
+        <h4><a href="/entertainment/docs/features.md">Feats</a></h4>
+        <p>Explore the various features offered by RDK middleware.</p>
+      </div>
+    </div>
+    <div class="feature-box">
+   <div class="icon"><img src="assets/icons/icon3.png" alt="Components Icon"></div>
+    <div class="info">
+      <h4><a href="/entertainment/docs/components.md">RDK Components</a></h4>
+      <p>Access detailed documentation on various RDK components.</p>
+    </div>
+    </div>
+    <div class="feature-box">
+     <div class="icon"><img src="assets/icons/icon5.png" alt="Components Icon"></div>
+    <div class="info">
+      <h4><a href="/entertainment/docs/components.md">Test your device</a></h4>
+      <p>Explore tools to test your RDK devices effectively.</p>
+    </div>
+    </div>
+    <div class="feature-box">
+       <div class="icon"><img src="assets/icons/icon2.png" alt="Port RDK Icon"></div>
+    <div class="info">
+      <h4><a href="/entertainment/docs/portingkit.md">Port RDK</a></h4>
+      <p>Learn how to port RDK and get it running on your platform.</p>
     </div>
     </div>
   </div>
 </div>
 </div>
-
 <!-- Tabs section -->
 <div class="tabs-wrapper">
 <h1  style="text-align:center">Developer Resources</h1>
@@ -127,83 +199,4 @@ hide:
   </div>
 </div>
 </div>
-
-<!-- Entertainment sidebar -->
-<div id="sidebar" class="sidebar">
-  <div class="sidebar-card">
-    <div class="icon"><img src="assets/icons/icon1.png" alt="Features Icon"></div>
-    <div class="info">
-      <h4><a href="/entertainment/docs/features.md">Features</a></h4>
-      <p>Explore the various features offered by RDK middleware.</p>
-    </div>
-  </div>
-  <div class="sidebar-card">
-    <div class="icon"><img src="assets/icons/icon2.png" alt="Port RDK Icon"></div>
-    <div class="info">
-      <h4><a href="/entertainment/docs/portingkit.md">Port RDK</a></h4>
-      <p>Learn how to port RDK and get it running on your platform.</p>
-    </div>
-  </div>
-  <div class="sidebar-card">
-    <div class="icon"><img src="assets/icons/icon3.png" alt="Components Icon"></div>
-    <div class="info">
-      <h4><a href="/entertainment/docs/components.md">RDK Components</a></h4>
-      <p>Access detailed documentation on various RDK components.</p>
-    </div>
-  </div>
-   <div class="sidebar-card">
-    <div class="icon"><img src="assets/icons/icon5.png" alt="Components Icon"></div>
-    <div class="info">
-      <h4><a href="/entertainment/docs/components.md">Test your device</a></h4>
-      <p>Explore tools to test your RDK devices effectively.</p>
-    </div>
-  </div>
-   <div class="sidebar-card">
-    <div class="icon"><img src="assets/icons/icon4.png" alt="Components Icon"></div>
-    <div class="info">
-      <h4><a href="/entertainment/docs/components.md">RDK Components</a></h4>
-      <p>Access detailed documentation on various RDK components.</p>
-    </div>
-  </div>
-</div>
-
-<!-- Connectivity Sidebar -->
-<div id="connectivitySidebar" class="sidebar">
-  <div class="sidebar-card">
-    <div class="icon"><img src="assets/icons/icon1.png" alt="Features Icon"></div>
-    <div class="info">
-      <h4><a href="/entertainment/docs/features.md">Features</a></h4>
-      <p>Explore the various features offered by RDK middleware.</p>
-    </div>
-  </div>
-  <div class="sidebar-card">
-    <div class="icon"><img src="assets/icons/icon2.png" alt="Port RDK Icon"></div>
-    <div class="info">
-      <h4><a href="/entertainment/docs/portingkit.md">Port RDK</a></h4>
-      <p>Learn how to port RDK and get it running on your platform.</p>
-    </div>
-  </div>
-  <div class="sidebar-card">
-    <div class="icon"><img src="assets/icons/icon3.png" alt="Components Icon"></div>
-    <div class="info">
-      <h4><a href="/entertainment/docs/components.md">RDK Components</a></h4>
-      <p>Access detailed documentation on various RDK components.</p>
-    </div>
-  </div>
-   <div class="sidebar-card">
-    <div class="icon"><img src="assets/icons/icon5.png" alt="Components Icon"></div>
-    <div class="info">
-      <h4><a href="/entertainment/docs/components.md">Test your device</a></h4>
-      <p>Explore tools to test your RDK devices effectively.</p>
-    </div>
-  </div>
-   <div class="sidebar-card">
-    <div class="icon"><img src="assets/icons/icon4.png" alt="Components Icon"></div>
-    <div class="info">
-      <h4><a href="/entertainment/docs/components.md">RDK Components</a></h4>
-      <p>Access detailed documentation on various RDK components.</p>
-    </div>
-  </div>
-</div>
-
 <div id="overlay" class="overlay hidden"></div>
