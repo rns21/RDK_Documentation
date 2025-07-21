@@ -1,8 +1,8 @@
 site_name: RDK Documentation
 site_url: https://rdkcentral.github.com/RDK_Documentation
 
-repo_name: RDK_Documentation
-repo_url: https://github.com/rdkcentral/RDK_Documentation   
+repo_name: Source Code
+repo_url: https://github.com/rdkcentral   
 
 plugins:
   - search

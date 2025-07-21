@@ -27,8 +27,20 @@ body,
     margin-bottom: 6px;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     height:37px;
-    width: 80%;
+    width: auto;
+    max-width: none;
+    padding-right: 14px;
+}
+.md-source__repository{
+    max-width: none !important;
+    text-overflow: unset !important;
+    overflow: visible !important;
+    white-space: nowrap !important;
+}
+.md-source__icon{
+    margin-right: 6px;
 }
 .md-header__source a:hover{
     background-color: #0054ad;
