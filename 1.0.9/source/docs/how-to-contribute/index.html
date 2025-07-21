@@ -1,0 +1,2651 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://rdkcentral.github.com/RDK_Documentation/source/docs/how-to-contribute/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>How to Contribute - RDK Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#how-to-contribute" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="RDK Documentation" class="md-header__button md-logo" aria-label="RDK Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RDK Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              How to Contribute
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rdkcentral" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../entertainment/docs/" class="md-tabs__link">
+          
+  
+  
+  Entertainment
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../connectivity/docs/overview/" class="md-tabs__link">
+          
+  
+  
+  Connectivity
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../preview-rdk/docs/preview-rdk-video/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="RDK Documentation" class="md-nav__button md-logo" aria-label="RDK Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    RDK Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rdkcentral" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entertainment
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Entertainment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../entertainment/docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../entertainment/docs/Architecture.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/overview01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/overview02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/overview03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Porting Kit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/overview04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Core Components
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/overview05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Connectivity
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Connectivity
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/overview06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/overview07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/overview08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/overview09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Porting Kit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/overview10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Core Components
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/overview11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../preview-rdk/docs/preview-rdk-video/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Entertainment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../preview-rdk/docs/preview-rdk-broadband/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectivity
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#before-you-contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before You Contribute
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Before You Contribute">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-cla" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a CLA?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-reviews" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Reviews
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-submission-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Submission Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contributor-license-agreement-cla-rdk-central-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributor License Agreement (CLA) - RDK Central Github
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cla-assistant" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLA assistant
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-contribution-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Contribution Process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Contribution Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-contribution-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Contribution Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Contribution Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#branch-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branch Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contribution-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contribution Process
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-management-facility-cmf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Management Facility (CMF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmf-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMF Contributions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Support
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jira-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      JIRA Guidelines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JIRA Guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-to-create-a-jira-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where to Create a JIRA ticket
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jira-guideline-for-patches-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      JIRA Guideline for Patches Contributions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jira-guideline-for-new-feature-contribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      JIRA Guideline for New Feature Contribution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mandatory-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mandatory information
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mandatory information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ticket-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ticket Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supplementary-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supplementary Information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-submission-process-rdk-central-gerrit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Submission Process - RDK Central Gerrit
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Submission Process - RDK Central Gerrit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-jira-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a JIRA ticket
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clone-the-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clone the Repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#work-on-the-change-commit-to-local-clone" class="md-nav__link">
+    <span class="md-ellipsis">
+      Work on the change, commit to local clone
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#push-the-new-changes-for-gerrit-for-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      Push the new changes for Gerrit for review
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#review-notifications-and-addition-of-new-reviewers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review notifications and addition of new reviewers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scan-and-build-on-code-submission" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scan and build on code submission
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-review-and-scoring-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code review and scoring process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#submit-code-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submit code change
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abandon-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abandon change
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#submitted-merge-pending" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submitted, Merge Pending
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-needs-to-be-reworked" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change needs to be reworked
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gerrit-merge-failure-as-a-result-of-a-conflict" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gerrit merge failure as a result of a conflict
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdk-components-product-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      RDK Components - Product Branch
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-submission-process-rdk-central-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Submission Process - RDK Central GitHub
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Submission Process - RDK Central GitHub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdk-central-github-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      RDK Central GitHub Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-pull-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub Pull Requests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub Fork
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-workflow-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub Workflow Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-your-github-access-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure your Github access token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-protected-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub Protected Branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contributor-license-agreement-cla" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributor License Agreement (CLA)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributor License Agreement (CLA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compliance-scanning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compliance Scanning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-secrets-scanning" class="md-nav__link">
+    <span class="md-ellipsis">
+      git-secrets Scanning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-of-how-to-push-the-code-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example of how to push the code changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example of how to push the code changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-fork-the-component-from-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Fork the component from GitHub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-creating-a-new-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Creating a new Branch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-clone-the-component-with-new-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Clone the Component with new branch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-work-on-changes-and-gerrit-commands-to-push-the-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Work on changes and Gerrit commands to push the changes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-create-pull-request-for-review-the-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Create pull request for review the changes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-working-on-review-comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Working on review comments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documenting-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documenting the Code
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documenting the Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-to-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why to Document?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Document?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools-required-for-doxygen-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tools Required for Doxygen Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-generate-document-using-doxygen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to Generate Document using Doxygen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-add-module-level-information-to-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to add module level information to components
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#doxygen-guideline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Doxygen Guideline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Doxygen Guideline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Style
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation Style">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system" class="md-nav__link">
+    <span class="md-ellipsis">
+      System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file" class="md-nav__link">
+    <span class="md-ellipsis">
+      File
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumerated-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enumerated Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous" class="md-nav__link">
+    <span class="md-ellipsis">
+      Miscellaneous
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-doxygen-environment-on-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up Doxygen Environment on Linux
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+  
+    <a href="https://github.com/rdkcentral/edit/master/docs/source/docs/how-to-contribute.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="how-to-contribute">How to Contribute</h1>
+<h2 id="before-you-contribute">Before You Contribute</h2>
+<p>In order to contribute code, first-time users are requested to agree to the license at <a href="https://wiki.rdkcentral.com/signup.action">RDK Central Wiki</a>. As an unaffiliated individual, you must sign the  <a href="https://wiki.rdkcentral.com/claagreement.action">CLA</a> . You can complete that process online.</p>
+<h3 id="what-is-a-cla">What is a CLA?</h3>
+<p>The Contributor License Agreement is necessary mainly because you own the copyright to your changes, even after your contribution becomes part of our codebase, so we need your permission to use and distribute your code. We also need to be sure of various other things — for instance that you‘ll tell us if you know that your code infringes on other people’s patents.</p>
+<p>You don‘t have to sign the CLA until after you’ve submitted your code for review and a member has approved it, but you must do it before we can put your code into our codebase. Before you start working on a larger contribution, get in touch with us to discuss your idea so that we can help out and possibly guide you. Early coordination makes it much easier to avoid frustration later on.</p>
+<h3 id="code-reviews">Code Reviews</h3>
+<p>All submissions, including submissions by project members, require review. We use both Gerrit (
+<a href="https://code.rdkcentral.com">Gerrit Code Review</a>
+) and Github
+(
+<a href="https://github.com/rdkcentral">Github Code Review</a>
+) depending on where the repo is hosted.
+Currently, team-member submissions are reviewed privately, and external submissions go through public reviews.</p>
+<h3 id="code-submission-process">Code Submission Process</h3>
+<p>The following steps explain the submission process:</p>
+<ul>
+<li>Ensure you or your company have signed the appropriate CLA as discussed in the
+     
+    Before You Contribute
+     
+    section above.</li>
+<li>Rebase your changes down into a single git commit.</li>
+<li>Run
+     
+    <code>git push command</code>
+     
+    to upload the review to
+     
+    <a href="http://code.rdkcentral.com">code.rdkcentral</a>
+    .</li>
+<li>Someone from the maintainers team reviews the code, adding comments on any things that need to change before the code can be submitted.</li>
+<li>If you need to make changes, make them locally, test them, then
+     
+    <code>git commit   -- amend</code>
+     
+    to add them to the
+     
+    existing
+     
+    commit. Then return to step 2.</li>
+<li>If you do not need to make any more changes, a maintainer integrates the change into our private repository, and it is pushed out to the public repository after some time.</li>
+</ul>
+<h3 id="contributor-license-agreement-cla-rdk-central-github">Contributor License Agreement (CLA) - RDK Central Github</h3>
+<p>The RDK CLA facilitates the acceptance and sharing of RDK contributions within the community.</p>
+<p>When you contribute to an RDK open source project on GitHub via a new pull request, a bot will evaluate whether you have signed the CLA. The bot will comment on the pull request, including a link to accept the agreement.</p>
+<p>CLA assistant enables contributors to sign CLAs from within a pull request. The CLA is stored as a GitHub Gist file and linked with the repository/organization in CLA assistant.</p>
+<h3 id="cla-assistant">CLA assistant</h3>
+<ul>
+<li>Comments on each opened pull request to ask the contributor to sign the CLA.</li>
+<li>Allows contributors to sign a CLA from within a pull request.</li>
+<li>Authenticates the signee with his or her GitHub account.</li>
+<li>Updates the status of a pull request when the contributor agrees to the CLA.</li>
+<li>Automatically asks users to re-sign the CLA for each new pull request in the event the associated Gist &amp; CLA has changed.</li>
+<li>Repository owners can review a list of users who signed the CLA for each version of it.</li>
+</ul>
+<p>Note - CLA assistant is provided by SAP as a free hosted offering under: 
+<a href="https://cla-assistant.io/">cla-assistant.io</a>  </p>
+<hr />
+<h2 id="code-contribution-process">Code Contribution Process</h2>
+<h3 id="code-contribution-workflow">Code Contribution Workflow</h3>
+<p>The Code Contribution Workflow is designed to facilitate community involvement in the development of RDK components. The structured process ensures that contributions are reviewed, validated and integrated effectively, maintaining high standards of quality throughout.</p>
+<h4 id="branch-overview">Branch Overview</h4>
+<ol>
+<li>
+<p><strong>Product Branch</strong></p>
+<ul>
+<li>The Product Branch is a deployment-ready branch where the community submits changes for review. This branch serves as the main integration point for code that meets rigorous testing qualifications.</li>
+<li>For more information on the components hosted in the product branch, refer to the CMF Gerrit and the RDK Central GitHub repository.</li>
+</ul>
+</li>
+<li>
+<p><strong>Monthly Sprint Branch (rdk-dev-yymm)</strong></p>
+<ul>
+<li>Created monthly as a new CMF integration branch, this branch is based on the product branch.</li>
+<li>It is hosted per repository and aims to incorporate community changes as early as possible.</li>
+<li>Once community changes are approved, they will be cherry-picked to the monthly sprint branch, making them available before the final down-streaming to the regression branch.</li>
+</ul>
+</li>
+<li>
+<p><strong>Regression Branch</strong></p>
+<ul>
+<li>This branch is used for validating contributions.</li>
+<li>Approved changes are down-streamed here for pre-deployment validation through the established testing process.</li>
+<li>Defects and features will be planned in monthly sprints, with timelines published to contributors.</li>
+<li>Contributions pending validation will be available in monthly development iteration branches.</li>
+</ul>
+</li>
+</ol>
+<h4 id="contribution-process">Contribution Process</h4>
+<ul>
+<li>Users will make code contributions to the rdk-next branch. This process includes:<ul>
+<li>Code reviews</li>
+<li>Build verification</li>
+<li>License compliance scans</li>
+<li>Test validation</li>
+</ul>
+</li>
+<li>Once the changes are successfully validated, changes are cherry-picked to the monthly sprint branch (rdk-dev-yymm).</li>
+<li>These changes are then down-streamed to the regression branch for further pre-deployment testing.</li>
+<li>After successful validation, the changes are cherry-picked to the product branch, completing the integration into the main deployment-ready branch.</li>
+</ul>
+<p><img alt="codecontributionworkflow.png" src="../../images/codecontributionworkflow.png" /></p>
+<p>Component owners/reviewers/approvers, defined as specific groups in Gerrit, will be added to the review by default. You may request additional feedback by specifically adding reviewers via the Gerrit web GUI. </p>
+<hr />
+<h2 id="development-workflow">Development Workflow</h2>
+<p>This section describes the general RDK development work-flow and related topics. The general pattern for successfully accepting a change is as follows:</p>
+<ul>
+<li>Discuss on mailing list to get general consensus about approach.</li>
+<li>Pull latest code.</li>
+<li>Build on your supported platform.</li>
+<li>Develop features or fix bugs following
+     
+    <a href="https://wiki.rdkcentral.com/display/RDK/Coding+Guideline">RDK Coding standards</a>
+    .</li>
+<li>Submit to Gerrit for review.</li>
+<li>Review and respond to reviewer comments.</li>
+<li>Change accepted and merged.</li>
+</ul>
+<p>For a detailed step by step description, please refer: <a href="https://wiki.rdkcentral.com/display/CMF/Gerrit+Development+Workflow">Gerrit Development Workflow</a>
+.</p>
+<h3 id="code-management-facility-cmf">Code Management Facility (CMF)</h3>
+<p>On a periodic basis, RDK code is tested and released to the community as
+ 
+<a href="https://wiki.rdkcentral.com/display/CMF/CMF+Releases">CMF releases</a>
+.
+This will be generic RDK code without dependency to any platform. CMF code can be built for
+ 
+<a href="https://rdktools.rdkcentral.com/tools__certification/raspberry_pi/index.html">raspberry-pi</a>
+ 
+or can be ported to a specific platform
+(
+<a href="https://wiki.rdkcentral.com/display/RDK/Vendor+Porting+Guide">RDK Porting</a>
+).
+And once the component owner approves this change, it will be available to the community in RDK central.</p>
+<h3 id="cmf-contributions">CMF Contributions</h3>
+<p>While working with CMF stack, one might find ways to enhance RDK code by adding new features or bug fixes as RDK contribution. The general CMF contribution workflow is as follows:</p>
+<p><img alt="cmfcontribution" src="../../images/cmfcontribution.png" /></p>
+<p>Detailed information on contributing code changes to RDK can be found here: 
+<a href="https://wiki.rdkcentral.com/display/CMF/Code+Management+Documentation">Code Management Documentation</a></p>
+<h3 id="getting-support">Getting Support</h3>
+<p>Support tickets can be raised to get request support from RDK Community Support team. This can be for the bugs you face, doubts you have or any code contributions which you think might enhance RDK. RDK Support ticket can be raised here:
+<a href="mailto:support@rdkcentral.com">support@rdkcentral</a>
+.</p>
+<hr />
+<h2 id="jira-guidelines">JIRA Guidelines</h2>
+<h3 id="where-to-create-a-jira-ticket">Where to Create a JIRA ticket</h3>
+<ul>
+<li>Log in to JIRA 
+    <a href="https://jira.rdkcentral.com/jira/secure/Dashboard.jspa">jira.rdkcentral</a>
+     using rdkcentral credentials</li>
+<li>Create a JIRA ticket under
+    <a href="https://jira.rdkcentral.com/jira/projects/RDKDEV/issues">RDKDEV</a>
+    (for Video) or
+    <a href="https://jira.rdkcentral.com/jira/projects/RDKBDEV/issues">RDKBDEV</a>
+    (for Broadband).</li>
+<li>Click on the Create button</li>
+</ul>
+<p>A Snap shot for how to create a JIRA.</p>
+<p><img alt="how_to_create_jira_001.png" src="../../images/how_to_create_jira_001.png" /></p>
+<h3 id="jira-guideline-for-patches-contributions">JIRA Guideline for Patches Contributions</h3>
+<p>Issue type corresponds to the type of contributions we are making. The following issue types can be possible for patches contribution<br />
+√ Incident - Build failure incident issues with the code verification steps such as Black duck scan, Jenkins verification etc.<br />
+√ Bug - Bugs in existing component code. To report a bug, users must create a ticket with type
+<strong>Bug</strong>
+and provide as much information as possible, including:</p>
+<ul>
+<li>A clear and concise description of the bug</li>
+<li>Steps to reproduce the bug</li>
+<li>The expected behavior</li>
+<li>The actual behavior</li>
+<li>Any relevant screenshots, logs or videos</li>
+</ul>
+<p>√ Task - An individual task which may be part of enhancement of existing feature, etc.<br />
+√ Improvement - Improvements such as code refactoring or enhancements in current code.</p>
+<p>Summary and Descriptions are mandatory fields need to be filled.</p>
+<p>Click on Create button to Create a new JIRA. Sample example is provided below.</p>
+<p><img alt="how_to_create_jira_002.png" src="../../images/how_to_create_jira_002.png" /></p>
+<p><strong>Note:</strong>
+To know more about how to refresh the patches click <a href="../how-to-refresh-the-patches/">here</a>
+.</p>
+<h3 id="jira-guideline-for-new-feature-contribution">JIRA Guideline for New Feature Contribution</h3>
+<p>A feature contribution should follow after creating an appropriate JIRA project. This will present a clear picture about the architecture, testing details and other information which will be helpful during the acceptance process of the contribution.</p>
+<h3 id="mandatory-information">Mandatory information</h3>
+<p><img alt="issue-type" src="../../images/issue-type.png" /></p>
+<h4 id="project">Project</h4>
+<pre><code>For Video &amp; build system (Yocto) related contributions, the ticket should be created under RDKDEV. For broadband, the ticket should be created under RDKBDEV project.
+</code></pre>
+<h4 id="issue-type">Issue Type</h4>
+<pre><code>√ New feature - New feature contributions.
+</code></pre>
+<h4 id="ticket-status">Ticket Status</h4>
+<pre><code>Status should be initially Open, and transitioned to the appropriate value while the contribution is being worked on.
+</code></pre>
+<h4 id="summary">Summary</h4>
+<p>A brief summary about what we are trying to contribute </p>
+<h4 id="description">Description</h4>
+<p>A descriptive information about the contribution should be present so that component developers &amp; architecture team can do assessment of the feature. Below details are desirable if the contribution is a new feature or having an significant impact on the current architecture.</p>
+<p><div class="highlight"><pre><span></span><code>Brief introduction on what the current system lacks &amp; what needs to be done:
+1. Individual task/highlighted point \#1 brief description.
+2. Individual task/highlighted point \#2 brief description.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>The following items should be considered/addressed in the documentation for any RDK design initiative
+JIRA Update Checklist
+-----------------------
+The following JIRA fields MUST be filled in to be considered &quot;Definition Complete&quot;:
+\* RDK SoC, RDK OEM - populate these fields for any user story where we have dependency on OEM and/or SoC to perform work in the completion of this user story. Select all that apply, or “None” if there is no dependency.
+\* OEM/SoC Impact Details - description of impact (or &quot;see Solution Overview&quot; if included in the architecture specification)
+\* Platforms - ensure correct list of devices
+\* Validation - type of testing
+\* Regression - is regression required?
+\* Dependency - Internal/External
+\* Description - Solution Overview and Architecture Checklist
+Testing impact/Guidance
+------------------------
+\* Impacted modules
+\* Test process
+Automated Testing
+------------------
+\* Automation test procedure.
+Diagnostics, Telemetry and Logging
+-----------------------------------
+\* N/A
+Outbound Network Connections
+------------------------------
+\* Does this component make outbound connection requests?
+\* If yes, do the connection requests retry in the case of failure?
+\*\* Do the repeated requests use an exponential back-off?
+\*\* If a maximum back-off has been defined, is it greater than 10 minutes?
+Security
+----------
+\* For Security Review - Do feature elements:
+\*\* make any changes to network port assignments?
+\*\* change iptables rules?
+\*\* require credentials, passwords, secret data?
+\*\* make any changes to our network connections?
+\*\* connect to new services or servers?
+\*\* use data input from users or external tools?
+\*\* use any cryptographic functions?
+\*\* create or disclose proprietary or sensitive Co. or device data?
+\*\* properly log operational and configuration changes?
+\*\* If possible describe what could happen if feature elements are:
+\*\*\* spoofed?
+\*\*\* tampered with?
+\*\*\* used by an unauthorized actor?
+\*\* Advanced questions (optional)
+\*\*\* what happens if a record of actions taken is destroyed?
+\*\*\* what happens if an attacker attempts to DOS with the feature?
+SI Concerns
+-------------
+\* Yes/No/Any
+Performance expectations
+-------------------------
+\* Yes/No/Any
+Timing consideration
+----------------------
+\* If Any.
+</code></pre></div></p>
+<h3 id="supplementary-information">Supplementary Information</h3>
+<p><img alt="impact.png" src="../../images/impact.png" />
+  
+<img alt="testing.png" src="../../images/testing.png" /></p>
+<ol>
+<li>Impacted component(s) - Fill in list of impacted RDK components</li>
+<li>RDK SI Impact - System Integration impacts</li>
+<li>CPE SW Components - Component names.</li>
+<li>Test Notes - Describe what tests are performed to validate this contribution and the procedure.</li>
+<li>Unit Test Result - Description.</li>
+</ol>
+<hr />
+<h2 id="code-submission-process-rdk-central-gerrit">Code Submission Process - RDK Central Gerrit</h2>
+<p>In order to contribute code, first-time users are requested to agree to the license at
+<a href="https://wiki.rdkcentral.com/signup.action">wiki.rdkcentral</a>
+.</p>
+<p>RDK components are hosted at 
+<a href="https://code.rdkcentral.com/">code.rdkcentral</a>
+. You can submit your code changes for review via that site using the workflow outlined below.</p>
+<h3 id="create-a-jira-ticket">Create a JIRA ticket</h3>
+<ul>
+<li>Refer to 
+<a href="https://wiki.rdkcentral.com/display/RDK/JIRA+Guidelines">JIRA Guidelines</a>
+for creating a JIRA before pushing your code changes in rdkcentral.</li>
+</ul>
+<h3 id="clone-the-repository">Clone the Repository</h3>
+<p>Clone the component repository from the Gerrit server code.rdkcentral into a local workspace</p>
+<p><strong>Clone with commit-msg hook</strong>
+ (to add Change-ID footer to commit messages)</p>
+<div class="highlight"><pre><span></span><code>git clone https://code.rdkcentral.com/r/&amp;lt;component-name&amp;gt; &amp;lt;component-name&amp;gt; -b &amp;lt;branch-name&amp;gt;
+cd &amp;lt;component-name&amp;gt;
+gitdir=$(git rev-parse --git-dir); curl -o $&amp;#123;gitdir&amp;#125;/hooks/commit-msg https://code.rdkcentral.com/r/tools/hooks/commit-msg ; chmod +x $&amp;#123;gitdir&amp;#125;/hooks/commit-msg
+</code></pre></div>
+<p><a href="https://wiki.rdkcentral.com/display/RDK/Source+Code+Repositories">Click here</a>
+to find the details about <component-name> &amp; <branch-name> for code submission.</p>
+<p>**Note: **
+The commit-msg hook is installed in the local Git repository and is a prerequisite for Gerrit to accept commits. The inclusion of the unique Change-ID in the commit message allows Gerrit to automatically associate a new version of a change back to its original review.</p>
+<p><strong>Note:</strong>
+ You may need to configure your Git identity on the cloned repository. The email address that your local Git uses should match the email address listed in Gerrit.</p>
+<p>Example commands to run are as follows:</p>
+<div class="highlight"><pre><span></span><code>$ git config user.name &quot;John Doe&quot;
+$ git config user.email &quot;john.doe@example.org&quot;
+</code></pre></div>
+<h3 id="work-on-the-change-commit-to-local-clone">Work on the change, commit to local clone</h3>
+<p>Each commit constitutes a change in Gerrit and must be approved separately. It is recommended to squash several commits into one that represents a change to the project.</p>
+<p>If necessary, it is possible to squash a series of commits into a single commit before publishing them, using interactive rebase:</p>
+<div class="highlight"><pre><span></span><code>$ git rebase --interactive
+</code></pre></div>
+<p>It is important to preserve the 
+<em>Change-Id</em>
+ line when editing and there should only be one "pick" entry at the end of this process. The end result is to submit one change to Gerrit.</p>
+<h3 id="push-the-new-changes-for-gerrit-for-review">Push the new changes for Gerrit for review</h3>
+<p>Commits will be BLOCKED if the format of the commit message does not comply with the standard. You will see a warning as to why the commit was blocked.</p>
+<p><strong>Mandatory Information in Commit Message</strong></p>
+<ol>
+<li>Associated JIRA ticket (Following the
+<a href="https://wiki.rdkcentral.com/display/RDK/JIRA+Guidelines">Guideline</a>
+to create a JIRA)</li>
+<li>Reason for change information</li>
+<li>Test procedure by which change can be verified</li>
+<li>Possible risks of failure</li>
+</ol>
+<div class="highlight"><pre><span></span><code>$ git commit --amend
+</code></pre></div>
+<p><Add your commit message in below format></p>
+<div class="highlight"><pre><span></span><code>&amp;lt;JIRA TICKET \#1&amp;gt;, &amp;lt;JIRA TICKET \#2&amp;gt;, &amp;lt;JIRA TICKET \#n&amp;gt; : &amp;lt;one line summary of change&amp;gt;
+&amp;lt;empty line&amp;gt;
+Reason for change: &amp;lt;explanation of change&amp;gt;
+Test Procedure: &amp;lt; test procedure&amp;gt;
+Risks: &amp;lt;side effects and other considerations&amp;gt; [Note: state None if there are no other considerations]
+&amp;lt;empty line&amp;gt;
+Signed-off-by: Your Name &amp;lt;your_name@email.com&amp;gt;
+</code></pre></div>
+<p>Submit your code changes for review</p>
+<div class="highlight"><pre><span></span><code>$ git push origin HEAD:refs/for/&amp;lt;branch&amp;gt;
+</code></pre></div>
+<p>When interfacing with Gerrit you push to a virtual branch /refs/for/&lt;branch&gt;, representing "code review before submission to branch". Gerrit will subsequently assign a unique URL for the change, to facilitate access and review via the web UI.</p>
+<p><strong>Notes:</strong>
+ </p>
+<ul>
+<li><em>HEAD</em>
+ is a Git symbolic reference to the most recent commit on the current branch. When you change branches, 
+<em>HEAD</em>
+ is updated to refer to the new branch's latest commit.</li>
+<li>The 
+<em>refspec</em>
+ in the git push operation takes the form 
+<strong><em>source:destination</em></strong>
+ (
+<strong><em>source</em></strong>
+ is the local ref being pushed, 
+<strong><em>destination</em></strong>
+is the remote ref being updated).</li>
+</ul>
+<h3 id="review-notifications-and-addition-of-new-reviewers">Review notifications and addition of new reviewers</h3>
+<p>Component owners/reviewers/approvers, defined as specific groups in Gerrit, will be added to the review by default. You may request additional feedback by specifically adding reviewers via the Gerrit web GUI. </p>
+<h3 id="scan-and-build-on-code-submission">Scan and build on code submission</h3>
+<p>BlackDuck, copyright scanning and build jobs will be triggered automatically from CMF Jenkins. The output of these jobs is integrated into the Gerrit voting process via custom labels and will reflect any 'red flag' in a file that has new code changes, whether introduced in the new change/patch-set or not. Scans will post any findings as comments in the Gerrit review. Build jobs also do that, but in addition will upload the build log to the corresponding JIRA ticket (if there is one) as an attachment.</p>
+<h3 id="code-review-and-scoring-process">Code review and scoring process</h3>
+<p>Reviewers can comment on and score a given change.<br />
+The default set of rules for enabling a code change for submission requires:</p>
+<ul>
+<li>a Code Review score of +2; this can only be provided by the component owner or an admin;</li>
+<li>+1 score on any mandatory Gerrit labels configured for the project.</li>
+</ul>
+<p>The result of the scoring process and validation rules is to enable the 
+<em>Submit</em>
+ action on the Gerrit Web UI and subsequent merge capability to the target branch.</p>
+<p><strong>Label: Code Review (Highlighted in yellow color)</strong>
+ For a change to be mergeable, the latest patch set must have a '+2' value approval in this category or label, and no '-2 Do not submit'. Thus -2 on any patch set can block a submit, while +2 on the latest patch set enables it for merging.</p>
+<p><strong>Labels: Blackduck/Copyright/Component-Build (Highlighted in yellow color)</strong>
+ For a change to be mergeable, the change must have a '+1' score on these labels, and no '-1 Fails'. Thus, '-1 Fails' can block a submit, while '+1' enables a submit.</p>
+<p><img alt="gerrit_001.png" src="../../images/gerrit_001.png" /></p>
+<h3 id="submit-code-change">Submit code change</h3>
+<p>Only authorized users, i.e. component owners, component approvers or admins, can submit the change allowing Gerrit to merge it to the target branch as soon as possible. A change can be submitted, having satisfied the approval conditions described earlier, by clicking the 'Submit Patch Set n' button within the Gerrit UI. When a change has been Submitted, it is automatically merged to the target branch by Gerrit.</p>
+<h3 id="abandon-change">Abandon change</h3>
+<p>Depending on the review outcome, it might be decided to abandon the change. The component owner or an authorised user may abandon the change by clicking the "Abandon Change" button. The abandoned changes are not removed from the Gerrit database and can be restored at a later stage.</p>
+<h3 id="submitted-merge-pending">Submitted, Merge Pending</h3>
+<p>If a change depends on another change that is still in review, it will enter this state. It will be merged automatically by Gerrit once all its dependencies are submitted and merged.</p>
+<h3 id="change-needs-to-be-reworked">Change needs to be reworked</h3>
+<p>If you need to rework a change, you need to push another commit with the same 
+<em>Change-ID</em>
+ as the original in its commit message.<br />
+This is the mechanism Gerrit uses to associate or link the two items. The <code>--amend</code> option to the Git commit command prevents a new 
+<em>Change-ID</em>
+ being generated by the 
+<em>commit-msg</em>
+ hook.</p>
+<p>The basic steps are outlined below.</p>
+<p>First, fetch the change. If you still have the checkout that was used to push the original change, you can skip this step.</p>
+<div class="highlight"><pre><span></span><code>$ git fetch https://user@code.rdkcentral.com/r/component1 refs/changes/02/2/1 &amp;&amp; git checkout FETCH_HEAD
+</code></pre></div>
+<p>where the numbering scheme for fetching the changes is as follows:</p>
+<p>refs/changes/&lt;last two digits of change number&gt; &lt;change number&gt; &lt;patch set number&gt;</p>
+<p><img alt="gerrit_002.png" src="../../images/gerrit_002.png" /></p>
+<p>Next, make any necessary source changes, and do:</p>
+<div class="highlight"><pre><span></span><code>$ git commit --amend
+$ git push origin HEAD:refs/for/&amp;lt;branch&amp;gt;
+</code></pre></div>
+<p>A new patch set is now appended to the Gerrit review item, and this will go through the same review process as before.</p>
+<h3 id="gerrit-merge-failure-as-a-result-of-a-conflict">Gerrit merge failure as a result of a conflict</h3>
+<p>Essentially this means that the remote branch has evolved since this change was started and now software conflicts with changes in the remote branch. The developer must resolve the merge conflicts in their local clone and then push another patch-set.<br />
+The process is resumed at step 4, with the important distinction of committing with the --amend option, once the developer pulls the latest changes. 
+<strong>Note:</strong>
+ A summary of the steps involved, assuming the local branch still exists: </p>
+<p>Rebase the local branch to the latest state of origin/&lt;branch&gt;;Resolve all conflicts; Commit with the <code>--amend</code> option; Push changes to Gerrit for review. After this change a new patch set is created for the change.</p>
+<p><strong>Note:</strong>
+If the local branch no longer exists, the steps are as follows:</p>
+<div class="highlight"><pre><span></span><code>$ git fetch https://user@code.rdkcentral.com/r/rdk_component_1 refs/changes/58/58/2 &amp;&amp; git checkout FETCH_HEAD
+$ git rebase origin/&amp;lt;branch&amp;gt;
+[Edit the conflicting file, cleaning up the &amp;lt;&amp;lt;&amp;lt;&amp;lt;, ==== &amp;gt;&amp;gt;&amp;gt; markers surrounding the conflicting lines]
+$ git add &amp;lt;file&amp;gt;
+$ git commit --amend
+$ git push origin HEAD:refs/for/&amp;lt;branch&amp;gt;
+</code></pre></div>
+<h3 id="rdk-components-product-branch">RDK Components - Product Branch</h3>
+<p>Following RDK components are hosted at 
+<a href="https://code.rdkcentral.com/">code.rdkcentral</a>
+. Follow the Instructions to submit your code changes.</p>
+<p>Example of how to use
+<strong>git clone</strong>
+for meta-rdk-ext component:  git clone
+<a href="https://code.rdkcentral.com/r/plugins/gitiles/rdk/components/generic/rdk-oe/meta-rdk-ext">https://code.rdkcentral.com/r/plugins/gitiles/rdk/components/generic/rdk-oe/meta-rdk-ext</a>
+ -b rdk-next</p>
+<p>List of open-sourced and licensed repositories hosted in RDK central gerrit can be found from
+<a href="https://wiki.rdkcentral.com/display/RDK/Source+Code+Repositories">Source Code Repositories</a>
+.</p>
+<hr />
+<h2 id="code-submission-process-rdk-central-github">Code Submission Process - RDK Central GitHub</h2>
+<h3 id="introduction">Introduction</h3>
+<p>GitHub is a Git repository hosting service, but it adds many of its own features. While Git is a command line tool, GitHub provides a Web-based graphical interface.</p>
+<p>GitHub Enterprise is the on-premises version of
+<a href="https://gitHub.com">GitHub</a>
+and is available on VMware, AWS, and OpenStack KVM, on your own servers or in a private cloud. GitHub Enterprise operates on your infrastructure with your existing information security controls from firewalls and VPNs, to IAM and monitoring systems.</p>
+<p>CMF GitHub Organizations</p>
+<p>There is one primary RDKM Code Management organizations, namely RDKcentral. This organization hosts the open-source repositories for projects pertaining to RDK-V, RDK-B and RDK-C profiles.</p>
+<ul>
+<li><a href="https://github.com/rdkcentral">github/rdkcentral</a></li>
+</ul>
+<h3 id="rdk-central-github-components">RDK Central GitHub Components</h3>
+<p>Please refer to this link to see all the repositories 
+<a href="https://wiki.rdkcentral.com/display/RDK/Source+Code+Repositories">Source Code Repositories</a>
+.</p>
+<h3 id="github-pull-requests">GitHub Pull Requests</h3>
+<p>Pull requests let you tell others about changes you've pushed to a branch in a repository on GitHub. Once a pull request is opened, you can review the potential changes with collaborators and add follow-up commits before your changes are merged into the base branch. Anyone with read permissions to a repository can create a pull request, but you must have write permissions to create a branch. If you want to create a new branch for your pull request and don't have write permissions to the repository, you can fork the repository first. Pull requests can only be opened between two branches that are different.</p>
+<h3 id="github-fork">GitHub Fork</h3>
+<p>A ‘fork’ is a personal copy of another user's repository that lives on your GitHub account. Forks allow you to freely make changes to a project without affecting the original. A forked project also remains attached to the original, allowing you to submit a pull request to the original's author to update with your changes, ensuring you’re always working off a recent or up-to-date codebase.</p>
+<h3 id="github-workflow-steps">GitHub Workflow Steps</h3>
+<ul>
+<li>Create a Fork by simply clicking on the 'fork' button of the repository page on GitHub.</li>
+<li>Clone your Fork, the clone command creates a local git repository from your remote fork on GitHub.</li>
+<li>git clone 
+    <a href="https://github.com/USERNAME/REPOSITORY.git]">https://github.com/USERNAME/REPOSITORY.git</a></li>
+<li>Modify the Code in your local clone and commit the changes to your local clone using the git commit command.</li>
+<li>Push your Changes by invoking the git push command, from your workspace, to upload your changes to your remote fork on GitHub.</li>
+<li>Create a Pull Request by clicking the 'pull request' button on the GitHub page of your remote fork.</li>
+</ul>
+<h3 id="configure-your-github-access-token">Configure your Github access token</h3>
+<p>In the recent past support for direct password authentication was removed from Github. You will need to generate a Github personal token to push your code changes RDK Central Github.</p>
+<p>To create your personal token, you have to go to
+<a href="http://github.com">github.com</a>
+-&gt; Settings -&gt; Developer Settings -&gt; Personal Access Token -&gt; Generate New Token.</p>
+<p>Note - While creating a new token, it will ask for Github configuration options selection – Select everything.</p>
+<p>Once the Github token is generated successfull, you will need to add an entry an entry to the ~/.netrc file OR you can directly use this token as your Github password in the command line to push the code changes.</p>
+<p>Example: how to add Github credential on ~/.netrc file
+<div class="highlight"><pre><span></span><code>machine
+<span class="o">[</span>github.com<span class="o">](</span>http://github.com<span class="o">)</span>
+login<span class="w"> </span>your-github-handle-name<span class="w"> </span>password<span class="w"> </span>ghp_BCy09kNYxg82no6OnliSJQVngGi9K1234567
+</code></pre></div></p>
+<h3 id="github-protected-branches">GitHub Protected Branches</h3>
+<p>Protected branches ensure that collaborators on your repository cannot make irrevocable changes to branches. Enabling protected branches also allows you to enable other optional checks and requirements, like required status checks and required reviews.</p>
+<p>A custom CMF branch protection scheme is deployed in each repository in order to enforce the desired workflows. This scheme imposes the following rules:</p>
+<ul>
+<li>Require pull request reviews before merging</li>
+<li>Require status checks to pass before merging<ul>
+<li>blackduck</li>
+<li>copyright</li>
+<li>license/cla</li>
+<li>component-build</li>
+</ul>
+</li>
+</ul>
+<p>Required status checks ensure that all required CI tests are passing before collaborators can make changes to a protected branch. Status checks are based on external processes, such as continuous integration builds, code compliance scanning, which run for each push you make to a repository. You can see the pending, passing, or failing state of status checks next to individual commits in your pull request.</p>
+<h3 id="contributor-license-agreement-cla">Contributor License Agreement (CLA)</h3>
+<p>The RDK CLA facilitates the acceptance and sharing of RDK contributions within the community.</p>
+<p>When you contribute to an RDK open source project on GitHub via a new pull request, a bot will evaluate whether you have signed the CLA. The bot will comment on the pull request, including a link to accept the agreement.</p>
+<p>CLA assistant enables contributors to sign CLAs from within a pull request. The CLA is stored as a GitHub Gist file and linked with the repository/organization in CLA assistant.</p>
+<p>CLA assistant:</p>
+<ul>
+<li>Comments on each opened pull request to ask the contributor to sign the CLA</li>
+<li>Allows contributors to sign a CLA from within a pull request</li>
+<li>Authenticates the signee with his or her GitHub account</li>
+<li>Updates the status of a pull request when the contributor agrees to the CLA</li>
+<li>Automatically asks users to re-sign the CLA for each new pull request in the event the associated Gist &amp; CLA has changed</li>
+<li>Repository owners can review a list of users who signed the CLA for each version of it.</li>
+</ul>
+<p>Note - CLA assistant is provided by SAP as a free hosted offering under: 
+<a href="http://cla-assistant.io">cla-assistant.io</a></p>
+<h4 id="compliance-scanning">Compliance Scanning</h4>
+<p>CMF uses BlackDuck (Protex) to check incoming contributions for license compliance. BlackDuck is normally a very manual tool but a significant level of automation has been developed by the team to reduce manual intervention, but it still requires a human to oversee it.</p>
+<p>Compliance scanning is looking for several things:</p>
+<ul>
+<li>Addition of source code with a conflicting license (e.g. LGPL code in an Apache component).</li>
+<li>Modification of an opensource component with code of a conflicting license.</li>
+<li>Incorrect or proprietary copyright attribution.</li>
+</ul>
+<p>The key points are as follows:</p>
+<ul>
+<li>Scan contribution in GitHub Pull Request.</li>
+<li>Scan is automatically triggered by a webhook.</li>
+<li>Results in scan of the contribution only, i.e. only the changes.</li>
+<li>Required Status Check, associated with the Blackduck scan is updated.</li>
+<li>Summary of the scan including any code matches are provided via a link to an associated Gist.</li>
+</ul>
+<p>OSS Engineer and interested parties are notified of scan failures (violations, pending identifications or reviews etc) via AWS Mailing list and Slack.</p>
+<h4 id="git-secrets-scanning">git-secrets Scanning</h4>
+<p>git-secrets is a tool created by AWS Labs that scans commits and commit messages and aims to prevent passwords and other sensitive information being committed to a git repository. The tool can also scan files or folders to look for secrets such as an AWS Access Key ID and AWS Secret Access Keys in a repository. git-secrets scans commits, commit messages, and merge commits to prevent adding secrets into your git repositories. If a commit, commit message, or any commit in merge history matches one of the configured prohibited regular expression patterns, then the commit is rejected.</p>
+<h3 id="example-of-how-to-push-the-code-changes">Example of how to push the code changes</h3>
+<h4 id="step-1-fork-the-component-from-github">Step 1: Fork the component from GitHub</h4>
+<p>Sign-in to GitHub with your own credentials.</p>
+<p>Search for the Component.</p>
+<p>Fork the component from GitHub. Forking will create a copy (i.e., your own WORKSPACE) of an original component to work.</p>
+<p><img alt="fork.png" src="../../images/fork.png" /></p>
+<h4 id="step-2-creating-a-new-branch">Step 2: Creating a new Branch</h4>
+<p>From the file tree view on the left, select the
+ 
+branch dropdown menu, In the "Find or create a branch..." text field, type a unique name for your new branch, then click
+ 
+<strong>Create branch</strong>
+.</p>
+<p><img alt="branch_creation.png" src="../../images/branch_creation.png" /></p>
+<h4 id="step-3-clone-the-component-with-new-branch">Step 3: Clone the Component with new branch</h4>
+<p>Click on the "Clone or download" button to get the clone URL from GitHub. Ensure your GitHub username present in the URL to start work with your own workspace.</p>
+<p><img alt="git_clone.png" src="../../images/git_clone.png" /></p>
+<div class="highlight"><pre><span></span><code>abcd123@dvm-yocto4-docker-abcd123:~/builds/meta_wan$ git clone https://github.com/Sukanya673/meta-rdk-wan.git -b new_branch_1
+Cloning into &#39;meta-rdk-wan&#39;...
+remote: Enumerating objects: 276, done.
+remote: Counting objects: 100% (117/117), done.
+remote: Compressing objects: 100% (71/71), done.
+remote: Total 276 (delta 95), refused 47 (delta 41), pack-reused 159 (from 1)
+Receiving objects: 100% (276/276), 59.05 kiB | 2.68 MiB/s, done.
+Resolving deltas: 100% (141/141), done.
+abcd123@dvm-yocto4-docker-abcd123:~/builds/meta_wan$
+</code></pre></div>
+<h4 id="step-4-work-on-changes-and-gerrit-commands-to-push-the-changes">Step 4: Work on changes and Gerrit commands to push the changes</h4>
+<p>Make the code changes, and commit the changes</p>
+<table class="wrapped" style={{textAlign: 'left'}}>
+<tbody style={{textAlign: 'left'}}>
+<tr style={{textAlign: 'left'}}>
+<td style={{textAlign: 'left'}}><p>cd 
+meta_wan</p>
+<pre><code>git clone https://github.com/Sukanya673/meta-rdk-wan.git -b new_branch_1</code></pre>
+<p>Modify your code.</p>
+<p>$ git status<br />
+   Here You will see the files you have locally modified.<br />
+   <br />
+$ git add &lt;FILE_NAME&gt;<br />
+$ git commit -a <br />
+   Add the following to your commit message.<br />
+        JIRA-ID Write a small description<br />
+        &lt;One empty line&gt;<br />
+        Reason for change:<br />
+        Test Procedure:<br />
+        Risks: <br />
+        Signed-off-by:</p>
+<p>$ git push</p>
+<p>After submitting your changes, follow the next step to create a PR.</p></td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="step-5-create-pull-request-for-review-the-changes">Step 5: Create pull request for review the changes</h4>
+<p>Once submitted the changes need to create pull request from GitHub for review.
+<strong>Pull requests</strong>
+ 
+let you tell others about changes you've pushed to a branch in a repository on
+ 
+GitHub
+. Once a
+ 
+<strong>pull request</strong>
+ 
+is opened, you can discuss and review the potential changes with collaborators and add follow-up commits before your changes are merged into the base branch.</p>
+<ul>
+<li>Click on "Compare &amp; pull request" button.</li>
+</ul>
+<p><img alt="create_pr_1.png" src="../../images/create_pr_1.png" /></p>
+<ul>
+<li>Provide the commit request and Click on "Create pull request" button.</li>
+</ul>
+<p><img alt="create_pr_2.png" src="../../images/create_pr_2.png" /></p>
+<ul>
+<li>Pull Request page will be created.</li>
+</ul>
+<p><img alt="create_pr_3.png" src="../../images/create_pr_3.png" /></p>
+<h4 id="step-6-working-on-review-comments">Step 6: Working on review comments</h4>
+<p>Once you've created a pull request, you can push commits from your workspace to add them to your existing pull request. These commits will appear in chronological order within your pull request and the changes will be visible in the "Files changed" tab.</p>
+<p>Other contributors can review your proposed changes, add review comments, contribute to the pull request discussion, and even add commits to the pull request.  </p>
+<hr />
+<h2 id="documenting-the-code">Documenting the Code</h2>
+<h3 id="why-to-document">Why to Document?</h3>
+<p>Writing documentation improves the design of your code. Talking through your API and design decisions on paper allows you to think about them in a more formalized way. A nice side effect is that it allows people to contribute code that follows your original intentions as well.</p>
+<h3 id="how-to-document">How to Document?</h3>
+<p>RDK component code is documented following the Doxygen standards and guidelines. Doxygen is a popular open-source tool for generating documentation from annotated C/C++ sources. Also, Doxygen supports documenting code written in other programming languages, such as Python, PHP, Java, etc.</p>
+<h3 id="tools-required-for-doxygen-documentation">Tools Required for Doxygen Documentation</h3>
+<p>The following tools are required to be installed in Linux machine (through apt-get install) to generate documentation with respect to various data flow diagrams.</p>
+<ol>
+<li><strong>doxygen</strong>
+: It is a tool for a documentation system for various programming languages such as C++, C, Java and Objective-C.</li>
+<li><strong>graphviz</strong>
+: Rich set of graph drawing tools. It was required to fulfill the need for centralized documentation presenting all available tools in the graphviz package.</li>
+<li><strong>dot</strong>
+: Filter for drawing directed graphs. A graph that can be drawn as hierarchy. It reads attributed graph files and writes drawings. By default, the output format dot is the input file with layout coordinates appended.</li>
+<li><strong>perl</strong>
+: It is a script file used by doxygen, and it should be present in the system.</li>
+<li><strong>mscgen</strong>
+: Message Sequence Chart Renderer. This will help to make sequence diagram for Doxygen documentation.</li>
+</ol>
+<h3 id="steps-to-generate-document-using-doxygen">Steps to Generate Document using Doxygen</h3>
+<p>The following are the steps to generate documentation using Doxygen tool.</p>
+<ol>
+<li>Create a new folder “example_name". This is where the final report will reside.</li>
+<li>Go to directory “example_name”.</li>
+<li>Reference doxygen configuration file</li>
+<li>Doxygen.dox: used for customizing the index page.</li>
+<li>doxygen.css: style sheet file used for formatting html output.</li>
+<li>Doxyfile: Configuration file that is needed for generating doxygen output.</li>
+<li>RDK-Logo.png: RDK Logo.</li>
+<li>Check out all the RDK component source code (Source code must be Doxygen complaint) for which document needs to be generated, for example:</li>
+<li>$ git clone <a href="https://code.rdkcentral.com/r/rdk/components/generic/wifi">https://code.rdkcentral.com/r/rdk/components/generic/wifi</a>
+  
+wifi</li>
+<li>Edit Doxyfile and set all configurations as required, given below are examples</li>
+<li>PROJECT_NAME  /* Name of the project */</li>
+<li>INPUT   /* Path of source code provided as input for document generation*/</li>
+<li>OUTPUT_DIRECTORY /* output folder path */</li>
+<li>Edit doxygen.dox, if the index page needs to be customized, add module names that will be shown in output index page.</li>
+<li>Edit doxygen.css, for output formats, fonts, etc.</li>
+<li>Use the following command at the command prompt, to generate html report.</li>
+<li>$ 
+<strong>doxygen Doxyfile</strong></li>
+<li>Doxygen Output HTML report will be available at '/example_name/OUTPUT_DIRECTORY/html' folder, open index.html file to see Doxygen report.</li>
+</ol>
+<h3 id="steps-to-add-module-level-information-to-components">Steps to add module level information to components</h3>
+<p>Refer to below
+<strong>Doxygen Guideline Section</strong>
+for uniform style of adding Doxygen comments for the RDK system.  </p>
+<hr />
+<h2 id="doxygen-guideline">Doxygen Guideline</h2>
+<h3 id="introduction_1">Introduction</h3>
+<p>The purpose of this page is to provide a uniform style of Doxygen commenting for the RDK system. It will serve as a reference for current and future developers while documenting the RDK system as it evolves. Ultimately, this will establish a consistent manner of documentation to enhance the simplicity, readability, scalability, writability, reliability, and maintainability of the system. </p>
+<h3 id="documentation-style">Documentation Style</h3>
+<p>Doxygen documentation can be generated in many formats (HTML, LaTeX, RTF, PDF, DOC). HTML generation has support for more plugins and is easier to refactor as the system changes. Doxygen style should follow a consistent format to aid development across different IDEs, reducing issues when generating documentation.</p>
+<div class="highlight"><pre><span></span><code>/\*\*
+\* @tagname
+\*/
+</code></pre></div>
+<p>This is an example of a Java doc style Doxygen tag, since it uses the “@” symbol. Tags using the “\tagname” style are considered Qt style Doxygen tags.There should be a header file containing only Doxygen tags or a separate Doxygen file that acts as a guide for the components, classes, methods, and variables (e.g. DoxygenMainpage.h). This can be done using the @mainpage tag at the top of the file.</p>
+<h4 id="system">System</h4>
+<p>There should be a header file containing only Doxygen tags or a separate Doxygen file that acts as a guide for the components, classes, methods, and variables (e.g., DoxygenMainpage.h). This can be done using the @mainpage tag at the top of the file.</p>
+<div class="highlight"><pre><span></span><code>/\*\*
+\* @mainpage Title of Document
+\*
+\*/
+</code></pre></div>
+<h4 id="file">File</h4>
+<p>A file should contain the @file tag at the top of the file. This supports generation of a file list tab on the main page. It also helps when files contain multiple classes.</p>
+<div class="highlight"><pre><span></span><code>/\*\*
+\* @file FileName.h
+\*
+\* @brief Brief file description.
+\*
+\* Verbose file description.
+\*/
+</code></pre></div>
+<h4 id="classes">Classes</h4>
+<p>Classes can be tagged in a number of different ways, but in general they are tagged using the @brief and @class tags before the class declaration. Having the @author, @date, and @version supports tractability as the system is versioned throughout the software lifecycle. When updating classes, update comments like this:</p>
+<div class="highlight"><pre><span></span><code>\#include &amp;lt;iostream&amp;gt;
+using namespace std;
+/\*\*
+\* @brief Brief class description
+\*
+\* Verbose description of class.
+\*
+\* @class Class Name
+\*/
+class ClassName &amp;#123;
+public:
+ClassName();
+~ClassName();
+int var1; /\*\*&amp;lt; Comment about public member variable\*/
+/\*\*
+\*@brief Brief method description
+\*
+\* Verbose description of method
+\*
+\*@param Parameter in the method’s definition
+\*
+\*@return Return value of method
+\*/
+int Function1(int x);
+protected:
+int var2; /\*\*&amp;lt; Comment about protected member variable\*/
+/\*\*
+\*@brief Brief method description
+\*
+\* Verbose description of method
+\*
+\*@param Parameter in the method’s definition
+\*
+\*@return Return value of method
+\*/
+int Function2(int x);
+private:
+int var3; /\*\*&amp;lt; Comment about private member variable\*/
+/\*\*
+\*@brief Brief method description
+\*
+\* Verbose description of method
+\*
+\*@param Parameter in the method’s definition
+\*
+\*@return Return value of method
+\*/
+int Function3(int x);
+&amp;#125;;
+</code></pre></div>
+<h4 id="structs">Structs</h4>
+<p>A struct can be tagged in the same way a class, but it is best to use the
+ 
+@struct
+ 
+tag. When updating structs, update comments like this:</p>
+<div class="highlight"><pre><span></span><code>/\*\*
+\*@brief Brief struct description
+\*
+\*@struct Struct Name
+\*/
+</code></pre></div>
+<h4 id="methods">Methods</h4>
+<p>Methods can be tagged in a number of ways, but in general the
+ 
+@brief
+, 
+@details
+, 
+@param
+,
+and
+ 
+@return
+ 
+tags are used before a method’s declaration or implementation. When updating methods, update comments like this:</p>
+<div class="highlight"><pre><span></span><code>/\*\*
+\*@brief Brief method description
+\*
+\* Verbose description of method
+\*
+\*@param Parameter in the method’s definition
+\*
+\*@return Return value of method
+\*@retval Verbose explanation of return values
+\*/
+int addNumbers(int x)
+&amp;#123;
+int sum = 0;
+sum += x; 
+return sum; 
+&amp;#125;
+</code></pre></div>
+<h4 id="variables">Variables</h4>
+<p>When updating variables, update comments like this:</p>
+<div class="highlight"><pre><span></span><code>int number; /\*\*&amp;lt; Comment about number\*/
+</code></pre></div>
+<h4 id="enumerated-types">Enumerated Types</h4>
+<p>Enumerated types are tagged using the 
+@enum
+.  When updating enum types, update comments like this:</p>
+<div class="highlight"><pre><span></span><code>/\*\*
+\*@brief Brief enum description
+\*
+\*@enum enum Name
+\*/
+</code></pre></div>
+<h4 id="miscellaneous">Miscellaneous</h4>
+<p>There are many tags you can use with HTML markup to create unique Doxygen documentation for a given file, class, method, or variable. The following are common tags that should be used when appropriate.</p>
+<p><div class="highlight"><pre><span></span><code>/\*\*
+\*@note A brief remark about the implementation to help clarify.
+\*
+\*@attention An important remark that may cause code to break.
+\*
+\*@warning An import remark that may depend on random conditions etc.
+\*
+\*@see A reference to a class or a link to documentation (e.g. http://document.1a.com)
+\*/
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>/\*\*
+\*@bug A remark about a known bug in the code.
+\*
+\*@todo A remark of what needs to be done to fix issues or remaining work.
+\*
+\*/
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>/\*\*
+\*@a Formats following word in special font (used for hyperlinks)
+\*
+\*@b Formats following word in bold
+\*
+\*@em Formats following word in italic
+\*
+\*@c Formats following word in monospaced typewriter font
+\*
+\*/
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>/\*\*
+\* - bulleted list item1
+\* - sub bulleted item1
+\*
+\* - bulleted list item2
+\*
+\*/
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>/\*\*
+\* -# numbered list item1
+\* -# numbered list item2
+\*
+\*/
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>/\*\*
+\*@code
+i++;
+\*@endcode
+\*/
+</code></pre></div></p>
+<h3 id="setting-up-doxygen-environment-on-linux">Setting up Doxygen Environment on Linux</h3>
+<p>Tools Required for Doxygen Documentation:</p>
+<div class="highlight"><pre><span></span><code>Following Tools are need to be installed in Linux machine (through apt-get install) to generate documentation with respect to various data flow diagrams.
+    $ sudo apt-get install &quot;doxy\*&quot;
+    $ sudo apt-get install graphviz
+    $ sudo apt-get install dot
+    $ sudo apt-get install mscgen
+    $ sudo apt-get install perl
+</code></pre></div>
+<p>Check the doxygen version by using command:  
+<code>$ doxygen --version</code>
+Graphviz: 
+<a href="http://www.graphviz.org/">graphviz.org</a>
+(Click the Download link on the left side of the page)</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <div class="bottom-banner compact-footer">
+
+  <!-- Devices Section -->
+  <div class="banner-group">
+    <h3>Devices</h3>
+    <div class="sub-columns">
+      <ul>
+        <li><a href="/devices/mobile/">SOC Platforms</a></li>
+        <li><a href="/devices/tv/">Remotes</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Developer Tools -->
+  <div class="banner-group">
+    <h3>Dev Tools</h3>
+    <div class="sub-columns">
+      <ul>
+        <li><a href="/connectivity/wifi/">TDK</a></li>
+        <li><a href="/connectivity/bluetooth/">Automatics</a></li>
+        <!-- <li><a href="/connectivity/5g/">Platforms</a></li> -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- Support -->
+  <div class="banner-group">
+    <h3>Support</h3>
+    <div class="sub-columns">
+      <ul>
+        <li><a href="/test/plans/">FAQ</a></li>
+        <li><a href="/test/reports/">Articles</a></li>
+        <!-- <li><a href="/test/automation/">Quick Links</a></li> -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- Device Management -->
+  <div class="banner-group management-group">
+    <h3>Management</h3>
+    <div class="sub-columns">
+      <ul>
+        <li><a href="/entertainment/movies/">XConf</a></li>
+        <li><a href="/entertainment/games/">Telemetry</a></li>
+        <li><a href="/entertainment/live-tv/">Web PA</a></li>
+        <li><a href="/entertainment/events/">USP PA</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Help Section -->
+  <div class="banner-group help-group">
+    <h3>Need Help?</h3>
+    <p>Email us for support</p>
+    <a href="mailto:support@rdkcentral.com" class="help-button">Get Support</a>
+  </div>
+</div>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width", "navigation.expand"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+        <script src="../../../assets/javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>
