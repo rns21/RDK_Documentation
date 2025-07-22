@@ -1,11 +1,12 @@
 site_name: RDK Documentation
-site_url: https://rdkcentral.github.com/RDK_Documentation
+site_url: https://github.com/
 
 repo_name: Source Code
 repo_url: https://github.com/rdkcentral   
 
 plugins:
   - search
+  - mermaid2
 theme:
   name: material
   logo: assets/logo.png
