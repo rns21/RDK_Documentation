@@ -27,14 +27,3 @@ The front end of any video device is the user interface that consumers will see.
 **Try Out RDK**
 
 If you want to play around RDK, a port of RDK is available on the popular open source platform Raspberry Pi. A guide on how to bring up RDK for Entertainment in Raspberry Pi is available [here](./try-out-rdk-video.md)
-
-sample text
-
-=== "Option A"
-
-    This is the content for Option A.
-
-=== "Option B"
-
-    This is the content for Option B.
-

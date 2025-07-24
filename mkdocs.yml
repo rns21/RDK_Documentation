@@ -63,20 +63,20 @@ nav:
   - Home: README.md
   - Entertainment:
     - Overview: ./entertainment/docs/README.md
-    - Architecture: ./entertainment/docs/Architecture.md
-    - Features: ./connectivity/docs/overview01.md
-    - Try Out RDK: ./connectivity/docs/overview02.md
-    - Porting Kit: ./connectivity/docs/overview03.md
-    - Core Components: ./connectivity/docs/overview04.md
-    - Device Profiles: ./connectivity/docs/overview05.md
+    - Architecture: ./entertainment/docs/architecture.md
+    - Features: ./entertainment/docs/features.md
+    - Try Out RDK: ./entertainment/docs/tryout_rdkv.md
+    - Porting Kit: ./entertainment/docs/hpk.md
+    - Core Components: ./entertainment/docs/rdkv_components.md
+    - Device Profiles: ./entertainment/docs/video_profiles.md
+    - Releases: https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes
   - Connectivity:
-    - Overview: ./connectivity/docs/overview.md
-    - Architecture: ./connectivity/docs/overview06.md
-    - Features: ./connectivity/docs/overview07.md
-    - Try Out RDK: ./connectivity/docs/overview08.md
-    - Porting Kit: ./connectivity/docs/overview09.md
-    - Core Components: ./connectivity/docs/overview10.md
-    - Device Profiles: ./connectivity/docs/overview11.md
+    - Overview: ./connectivity/docs/README.md
+    - Architecture: ./connectivity/docs/architecture.md
+    - Features: ./connectivity/docs/features.md
+    - Try Out RDK: ./connectivity/docs/tryout_rdkb.md
+    - Core Components: ./connectivity/docs/rdkb_components.md
+    - Releases: https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases
   - Getting Started: 
     - Entertainment: ./preview-rdk/docs/preview-rdk-video.md
     - Connectivity: ./preview-rdk/docs/preview-rdk-broadband.md

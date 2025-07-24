@@ -32,29 +32,29 @@ hide:
         <img src="assets/icons/icon1.png" alt="Features Icon">
       </div>
       <div class="info">
-        <h4><a href=./entertainment/docs/features/>Features</a></h4>
-        <p>Explore the various features and standards that are supported in RDK</p>
+        <h4><a href="/entertainment/docs/features.md">Features</a></h4>
+        <p>Manage broadband stack and device control in a network device</p>
       </div>
     </div>
     <div class="feature-box">
    <div class="icon"><img src="assets/icons/icon3.png" alt="Components Icon"></div>
     <div class="info">
-      <h4><a href=./entertainment/docs/rdkv_components/>Core Components</a></h4>
-      <p>Access detailed documentation on various Core RDK components</p>
+      <h4><a href="/entertainment/docs/components.md">RDK Components</a></h4>
+      <p>Access detailed documentation on various RDK components.</p>
     </div>
     </div>
     <div class="feature-box">
      <div class="icon"><img src="assets/icons/icon5.png" alt="Components Icon"></div>
     <div class="info">
-      <h4><a href=./entertainment/docs/architecture/>Architecture</a></h4>
-      <p>Dive deep into the RDK7 Architecture and how different layers interface each other</p>
+      <h4><a href="/entertainment/docs/components.md">Test your device</a></h4>
+      <p>Explore tools to test your RDK devices effectively.</p>
     </div>
     </div>
     <div class="feature-box">
        <div class="icon"><img src="assets/icons/icon2.png" alt="Port RDK Icon"></div>
     <div class="info">
-      <h4><a href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">Latest Releases</a></h4>
-      <p>Details on the latest release for video platforms - RDK7</p>
+      <h4><a href="/entertainment/docs/portingkit.md">Port RDK</a></h4>
+      <p>Learn how to port RDK and get it running on your platform.</p>
     </div>
     </div>
   </div>
@@ -82,29 +82,29 @@ hide:
         <img src="assets/icons/icon1.png" alt="Features Icon">
       </div>
       <div class="info">
-        <h4><a href="./connectivity/docs/features/">Features</a></h4>
-        <p>Explore the various features and standards that are supported in RDK</p>
+        <h4><a href="/entertainment/docs/features.md">Feats</a></h4>
+        <p>Explore the various features offered by RDK middleware.</p>
       </div>
     </div>
     <div class="feature-box">
    <div class="icon"><img src="assets/icons/icon3.png" alt="Components Icon"></div>
     <div class="info">
-      <h4><a href="./connectivity/docs/rdkb_components/">Core Components</a></h4>
-      <p>Access detailed documentation on various Core RDK components</p>
+      <h4><a href="/entertainment/docs/components.md">RDK Components</a></h4>
+      <p>Access detailed documentation on various RDK components.</p>
     </div>
     </div>
     <div class="feature-box">
      <div class="icon"><img src="assets/icons/icon5.png" alt="Components Icon"></div>
     <div class="info">
-      <h4><a href="./connectivity/docs/architecture/">Architecture</a></h4>
-      <p>Dive deep into the RDK middleware architecture and how different layers interface each other</p>
+      <h4><a href="/entertainment/docs/components.md">Test your device</a></h4>
+      <p>Explore tools to test your RDK devices effectively.</p>
     </div>
     </div>
     <div class="feature-box">
        <div class="icon"><img src="assets/icons/icon2.png" alt="Port RDK Icon"></div>
     <div class="info">
-      <h4><a href="https://wiki.rdkcentral.com/display/CMF/RDKB_2025q2_kirkstone">Latest Releases</a></h4>
-      <p>Details on the latest release for broadband platforms - 2025 Q2</p>
+      <h4><a href="/entertainment/docs/portingkit.md">Port RDK</a></h4>
+      <p>Learn how to port RDK and get it running on your platform.</p>
     </div>
     </div>
   </div>
@@ -121,18 +121,16 @@ hide:
   
   <!-- entertainment tab -->
   <div id="entertainment" class="content active">
-    <div class="box blue">
-     <div class="color-bar"></div>
+    <div class="box">
      <div class="box-content">
       <h3>Getting Started</h3>
       <div class="box-text">
       <p>Start exploring RDK software, build RDK in your own setup, and try out RDK in a reference platform.</p>
       </div>
-      <a href=./entertainment/docs/tryout_rdkv/ ><button>Explore</button></a>
+      <a href="https://rdkcentral.github.io/firebolt/" ><button>Explore</button></a>
       </div>
     </div>
-    <div class="box yellow">
-      <div class="color-bar"></div>
+    <div class="box">
       <div class="box-content">
       <h3>Develop an App</h3>
       <div class="box-text">
@@ -141,69 +139,64 @@ hide:
          <a href="https://rdkcentral.github.io/firebolt/" ><button>Explore</button></a>
      </div>
     </div>
-    <div class="box green">
-     <div class="color-bar"></div>
+    <div class="box">
      <div class="box-content">
       <h3>Port RDK</h3>
       <div class="box-text">
       <p>Explore how the port RDK and get it up and running in your platform.</p>
       </div>
-         <a href=./entertainment/docs/hpk/ ><button>Explore</button></a>
+         <a href="https://rdkcentral.github.io/firebolt/" ><button>Explore</button></a>
       </div>
     </div>
-    <div class="box orange">
-     <div class="color-bar"></div>
+    <div class="box">
      <div class="box-content">
       <h3>Test RDK Device</h3>
       <div class="box-text">
       <p>Explore how the open source tools from RDK can be used to test your RDK devices.</p>
       </div>
-         <a href=./tools/docs/TDK/ ><button>Explore</button></a>
+         <a href="https://rdkcentral.github.io/firebolt/" ><button>Explore</button></a>
     </div>
     </div>
   </div>
   <!-- Connectivity tab -->
   <div id="connectivity" class="content">
-   <div class="box blue">
-     <div class="color-bar"></div>
+    <div class="box">
      <div class="box-content">
       <h3>Getting Started</h3>
       <div class="box-text">
       <p>Start exploring RDK software, and try out RDK in a reference platform</p>
       </div>
-      <a href=./connectivity/docs/tryout_rdkb/ ><button>Explore</button></a>
-      </div>
+         <a href="https://rdkcentral.github.io/firebolt/" ><button>Explore</button></a>
+     </div>
     </div>
-    <div class="box yellow">
-      <div class="color-bar"></div>
+    <div class="box">
       <div class="box-content">
-      <h3>Features</h3>
+      <h3>Develop an App</h3>
       <div class="box-text">
       <p>Explore the various features and standards that are supported in RDK</p>
       </div>
-         <a href=./connectivity/docs/features/ ><button>Explore</button></a>
+         <a href="https://rdkcentral.github.io/firebolt/" ><button>Explore</button></a>
      </div>
     </div>
-    <div class="box green">
-     <div class="color-bar"></div>
-     <div class="box-content">
-      <h3>Core Components</h3>
+    <div class="box">
+       <div class="box-content">
+      <h3>Port RDK</h3>
       <div class="box-text">
-      <p>Refer the detailed documentation on Core RDK Components</p>
+      <p>Explore how to port RDK and get it up and running in your platform</p>
       </div>
-         <a href=./connectivity/docs/rdkb_components/ ><button>Explore</button></a>
+         <a href="https://rdkcentral.github.io/firebolt/" ><button>Explore</button></a>
       </div>
     </div>
-    <div class="box orange">
-     <div class="color-bar"></div>
+    <div class="box">
      <div class="box-content">
       <h3>Test RDK Device</h3>
       <div class="box-text">
       <p>Explore how the open source tools from RDK can be used to test your RDK devices</p>
       </div>
-         <a href=./tools/docs/TDK/ ><button>Explore</button></a>
+         <a href="https://rdkcentral.github.io/firebolt/" ><button>Explore</button></a>
+      </div>
     </div>
-    </div>
+  </div>
 </div>
 </div>
 <div id="overlay" class="overlay hidden"></div>

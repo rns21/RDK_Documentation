@@ -1,6 +1,4 @@
 ---
-title: "RDK Documentation?"
-description: "RDK is the software that helps run video, broadband, and IoT devices more efficiently by standardizing the software stacks that run on most TV set-top boxes, internet gateways, and IoT devices in the home"
 hide:
   - navigation
   - toc
@@ -32,7 +30,7 @@ hide:
       <p>
         A deciding factor of any software stack is the number of user centric features that are supported by that software.  To know what are the features supported by the RDK software stack for various target profiles, follow the below link
         <br><br>
-        <a href="./tryoutrdkv/">Click Here</a>
+        <a href="./features/">Click Here</a>
       </p>
     </div>
   </div>
@@ -45,7 +43,7 @@ hide:
       <p>
         From the fundamental RDK IP STB to the more sophisticated RDK TV, RDK offers a variety of device profiles: IP STB, Hybrid STB, and RDK TV. To know the details of core components available across profiles, as well as on the differentiating components, please follow below link
         <br><br>
-        <a href="./deviceprofiles/">Click Here</a>
+        <a href="./video_profiles/">Click Here</a>
       </p>
     </div>
   </div>
@@ -57,7 +55,7 @@ hide:
       <p>
         The best way to experience RDK is to try out RDK youself in a platform. Get yourself started in exploring RDK, by generating an RDK build of your own, and then getting it up on the popular generic reference platform Raspberry Pi 4
         <br><br>
-        <a href="./tryoutrdkv/">Click Here</a>
+        <a href="./tryout_rdkv/">Click Here</a>
       </p>
     </div>
   </div>
@@ -70,7 +68,7 @@ hide:
       <p>
          If you are trying to bring up/ port RDK to your SOC platform, you can refer to the Hardware Porting Kit to understand the various HAL APIs that need to be implemented in order to complete the RDK Porting
         <br><br>
-        <a href="./deviceprofiles/">Click Here</a>
+        <a href="./hpk/">Click Here</a>
       </p>
     </div>
   </div>
@@ -82,7 +80,7 @@ hide:
       <p>
         To understand the architecture of each RDK component, how the component interfaces with other components as well as other layers of RDK, please follow the below link
         <br><br>
-        <a href="./components/">Click Here</a>
+        <a href="./rdkv_components/">Click Here</a>
       </p>
     </div>
   </div>
@@ -90,11 +88,6 @@ hide:
 </div>
 
 ---
-<h2 style="color: #009485;margin-top: 5px; margin-bottom: 10px;font-family: Arial, sans-serif;text-align:center;"> Need Help?</h2>
-<p style="text-align:center">If you require support/have questions, you can always email the RDK Central support team to get help<p>
-<div style="text-align: center; margin-top: 10px;">
-  <a href="mailto:support@rdkcentral.com" style="display: inline-block; margin-top: 10px; padding: 10px 10px; background-color: var(--md-accent-fg-color); color: white !important; text-decoration: none; border-radius: 5px;">Get Support</a>
-
 <style>
 .md-content__button{
   display:none !important
