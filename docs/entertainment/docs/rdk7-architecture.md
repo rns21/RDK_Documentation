@@ -8,7 +8,7 @@ RDK7 is the newest open source software release, representing the first release 
 
 The following key principles of RDK7 illustrate the areas of change and focus from RDK-V previous releases:
 
-![image-2025-7-9_11-2-7-png](./images/image-2025-7-9_11-2-7-png)
+![Keyprinciples](./images/Keyprinciples.png)
 
 The Layered Design provides clear separation of functional responsibilities through distinct vendor, middleware, and application layers with independent development and update cycles. Hardware Abstraction reduces the cost of SoC/OEM deliver & platform through standardized hardware abstraction layer (HAL) and simplified platform adaptation. Application Community focuses on standardization of portable 3rd party apps, consistent APIs for application developers, and Firebolt framework for OTT integration. Quality & Robustness involves major transformation of delivery process to ensure quality, independent testing of each layer, and consistent development environment. Rapid Innovation is achieved through utilization of common tooling and patterns. Broadcast Functionality enables separation of broadcast technology from IP platform.
 
@@ -60,7 +60,7 @@ The application layer enables rapid development and deployment of new features a
 
 The detailed architecture diagram illustrates the complete RDK7 software stack, showing the relationships between the different layers and components:
 
-![rdkarchitecture-png](./images/rdkarchitecture-png)
+![DetailedArchitecture](./images/Detailedarchitecture.png)
 
 The RDK7 architecture includes key components across multiple layers. The Hardware Layer at the bottom is the physical hardware, which varies by device manufacturer. The Vendor Layer sits directly above the hardware, providing the necessary drivers and adaptations. The Middleware Layer serves as the core of the RDK7 platform, providing standardized services and APIs. The Application Layer forms the top layer, containing user-facing applications and experiences. The Thunder Framework provides a unified approach to component development and communication. The Firebolt Framework standardizes interfaces for OTT applications and services. The architecture emphasizes clear separation of concerns, standardized interfaces between layers, and modular component design to enable independent development and updates of different parts of the system.
 

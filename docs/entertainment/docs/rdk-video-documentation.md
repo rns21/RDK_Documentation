@@ -49,11 +49,11 @@ is an open source Smart TV profile that allows manufacturers and operators to bu
 
 -   Features
     : A detailed list of features supported by RDK-V is available at 
-    [Features](https://wiki.rdkcentral.com/display/RDK/RDK7+Features)
+    [Features](./rdk7-features.md)
     .
 -   Architecture
     : For RDK-V architecture details and structuring of RDK-V Components, follow
-    [Architecture](https://wiki.rdkcentral.com/display/RDK/RDK7+Architecture)
+    [Architecture](./rdk7-architecture.md)
     .
 -   Components
     : For detailed documentation of RDK-V components, follow
