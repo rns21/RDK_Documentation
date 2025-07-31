@@ -17,7 +17,7 @@ hide:
       <p>
         The latest release of RDK6 comes with major changes in its architecture, including Firebolt - RDK's resident app platform - and the vendor porting kit - among other major changes. To know more details of the RDK Architecture, follow the below link
         <br><br>
-        <a href="./architecture/">Click Here</a>
+        <a href="./rdk7-architecture/">Click Here</a>
       </p>
     </div>
   </div>
@@ -30,7 +30,7 @@ hide:
       <p>
         A deciding factor of any software stack is the number of user centric features that are supported by that software.  To know what are the features supported by the RDK software stack for various target profiles, follow the below link
         <br><br>
-        <a href="./features/">Click Here</a>
+        <a href="./rdk7-features/">Click Here</a>
       </p>
     </div>
   </div>
@@ -68,7 +68,7 @@ hide:
       <p>
          If you are trying to bring up/ port RDK to your SOC platform, you can refer to the Hardware Porting Kit to understand the various HAL APIs that need to be implemented in order to complete the RDK Porting
         <br><br>
-        <a href="./hpk/">Click Here</a>
+        <a href="./rdk7-vendor-porting-guide/">Click Here</a>
       </p>
     </div>
   </div>

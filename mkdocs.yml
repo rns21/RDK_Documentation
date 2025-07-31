@@ -16,6 +16,7 @@ theme:
   user_color_mode_toggle: true
   features:
     - navigation.footer
+    - navigation.indexes
     - navigation.tabs
     - toc.follow
     - navigation.top
@@ -63,10 +64,10 @@ nav:
   - Home: README.md
   - Entertainment:
     - Overview: ./entertainment/docs/README.md
-    - Architecture: ./entertainment/docs/architecture.md
-    - Features: ./entertainment/docs/features.md
+    - Architecture: ./entertainment/docs/rdk7-architecture.md
+    - Features: ./entertainment/docs/rdk7-features.md
     - Try Out RDK: ./entertainment/docs/tryout_rdkv.md
-    - Porting Kit: ./entertainment/docs/hpk.md
+    - Porting Kit: ./entertainment/docs/rdk7-vendor-porting-guide.md
     - Core Components: ./entertainment/docs/rdkv_components.md
     - Device Profiles: ./entertainment/docs/video_profiles.md
     - Releases: https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes

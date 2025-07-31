@@ -15,7 +15,7 @@ Details of how to port third-party software stacks or applications to a SoC plat
 
 | RDK Version                                                                                   | Vendor Porting Kit Version                                                                 | Applicability         |
 |-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|------------------------|
-| [RDK7 Release Notes](https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes)<br>7         | [1.4.5](https://rdkcentral.github.io/rdk-hpk-documentation/)                                | IP STB, IP TV profiles |
+| [RDK7](https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes)        | [1.4.5](https://rdkcentral.github.io/rdk-hpk-documentation/1.4.4.0/)                                | IP STB, IP TV profiles |
 
 
 ------------------------------------------------------------------------

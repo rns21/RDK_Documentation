@@ -8,7 +8,7 @@ RDK7 is the newest open source software release, representing the first release 
 
 The following key principles of RDK7 illustrate the areas of change and focus from RDK-V previous releases:
 
-![Keyprinciples](./images/Keyprinciples.png)
+![Keyprinciples](../images/Keyprinciples.png)
 
 The Layered Design provides clear separation of functional responsibilities through distinct vendor, middleware, and application layers with independent development and update cycles. Hardware Abstraction reduces the cost of SoC/OEM deliver & platform through standardized hardware abstraction layer (HAL) and simplified platform adaptation. Application Community focuses on standardization of portable 3rd party apps, consistent APIs for application developers, and Firebolt framework for OTT integration. Quality & Robustness involves major transformation of delivery process to ensure quality, independent testing of each layer, and consistent development environment. Rapid Innovation is achieved through utilization of common tooling and patterns. Broadcast Functionality enables separation of broadcast technology from IP platform.
 
@@ -18,7 +18,7 @@ The Layered Design provides clear separation of functional responsibilities thro
 
 A quick architecture overview of RDK7 to help associate the capabilities with the software stack is given below.
 
-![rdk7architecture](./images/rdk7architecture.png)
+![rdk7architecture](../images/rdk7architecture.png)
 
 The architecture consists of three main layers. The Application Layer contains Firebolt Apps, Lightning UI, and Firebolt Framework. The Middleware Layer contains Thunder Framework, ENT Services, Media Framework, DRM Systems, and Device Management. The Vendor Layer contains HAL Implementation, Drivers, BSP, and Hardware Adaptation. The Application Layer connects to the Middleware Layer, which connects to the Vendor Layer.
 
@@ -60,7 +60,7 @@ The application layer enables rapid development and deployment of new features a
 
 The detailed architecture diagram illustrates the complete RDK7 software stack, showing the relationships between the different layers and components:
 
-![DetailedArchitecture](./images/Detailedarchitecture.png)
+![DetailedArchitecture](../images/Detailedarchitecture.png)
 
 The RDK7 architecture includes key components across multiple layers. The Hardware Layer at the bottom is the physical hardware, which varies by device manufacturer. The Vendor Layer sits directly above the hardware, providing the necessary drivers and adaptations. The Middleware Layer serves as the core of the RDK7 platform, providing standardized services and APIs. The Application Layer forms the top layer, containing user-facing applications and experiences. The Thunder Framework provides a unified approach to component development and communication. The Firebolt Framework standardizes interfaces for OTT applications and services. The architecture emphasizes clear separation of concerns, standardized interfaces between layers, and modular component design to enable independent development and updates of different parts of the system.
 
@@ -70,7 +70,7 @@ The RDK7 architecture includes key components across multiple layers. The Hardwa
 
 RDK7 introduces a revolutionary layered build approach that significantly improves development efficiency. The build setup is divided into independent Stack layer projects, each comprising components that are developed separately and delivered as binary packages (IPK). These stack layers are then assembled into the final image using the Image Assembler tool.
 
-![buildsystem](./images/buildsystem.png)
+![buildsystem](../images/buildsystem.png)
 
 The build system architecture includes the Reference OSS Layer that serves as a reference Yocto distribution layer with CVE patches, the Vendor Layer that contains vendor-specific code and hardware adaptations, the RDK Middleware Layer that contains core RDK middleware components, and the Application Layer that contains user-facing applications and services. The RDKE framework serves as the backbone of this layered architecture, designed to work seamlessly with Yocto without disrupting its normal functionalities while requiring minimal maintenance. It accommodates layering requirements without modifying Yocto's default tasks or variables.
 
@@ -116,7 +116,7 @@ The RDKE framework accommodates specific requirements for the layered build syst
 
 The typical flow of a request through the RDK7 stack:
 
-![componentinteraction](./images/componentinteraction.png)
+![componentinteraction](../images/componentinteraction.png)
 
 The system follows a standardized request-response flow where the Application sends request to Firebolt Framework, Firebolt Framework translates request for ENT Services, ENT Services processes request and sends to Thunder Framework, Thunder Framework processes request and sends to Hardware Abstraction Layer, HAL executes command on Hardware, Hardware returns result to HAL, HAL processes result and sends to Thunder Framework, Thunder Framework formats response and sends to ENT Services, ENT Services translates response for Firebolt Framework, and Firebolt Framework returns result to Application. This standardized flow ensures consistent behavior across different hardware platforms and enables rapid innovation through common patterns.
 
