@@ -1,15 +1,10 @@
 # RDK7 Vendor Porting Guide
-
-------------------------------------------------------------------------
-
-This document helps vendors understand how to create a 
-successful
-port of RDK on their platform with the help of the HAL API Specification for different RDK Components, as well as how the port can be successfully certified. Depending on the device profile ( IP STB or IP TV
-), vendors may choose the relevant components and perform the port by implementing the HAL layer.
+---
+This document helps vendors understand how to create a successful port of RDK on their platform with the help of the HAL API Specification for different RDK Components, as well as how the port can be successfully certified. Depending on the device profile ( IP STB or IP TV ), vendors may choose the relevant components and perform the port by implementing the HAL layer.
 
 Details of how to port third-party software stacks or applications to a SoC platform are out of the scope of this porting guide.
 
-------------------------------------------------------------------------
+---
 
 # Version details
 
@@ -17,41 +12,28 @@ Details of how to port third-party software stacks or applications to a SoC plat
 |-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|------------------------|
 | [RDK7](https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes)        | [1.4.5](https://rdkcentral.github.io/rdk-hpk-documentation/1.4.4.0/)                                | IP STB, IP TV profiles |
 
-
-------------------------------------------------------------------------
+---
 
 # Prerequisites
 
 The vendor is expected to have certain prerequisites before proceeding to the porting process, which include:
 
 -   **RDK device profile:**
+    -   Decide on the profile by referring to the available RDK profiles ( IP STB or IP TV ) and have a platform with the expected capabilities for the chosen profile. Depending on the device profile selected, the components that are required to be ported are available in the HAL table below. 
 
-    -   Decide on the profile by referring to the available RDK profiles ( IP STB or IP TV )
-         and
-        have
-        a platform with the expected capabilities for the chosen profile. Depending on the device profile selected, the components that are required to be ported are available in the HAL table below. 
-
--   **RDK HAL API Source code access**
-    :  
-    -   The RDK source code is distributed across multiple source code repositories which are available in
-        [RDK Central GitHub](https://github.com/rdkcentral)
-        .
+-   **RDK HAL API Source code access:**
+    -   The RDK source code is distributed across multiple source code repositories which are available in [RDK Central GitHub](https://github.com/rdkcentral)
 
 -   **Platform-specific Kernel:**
-
     -   It is highly recommended to use ACK for the target platform as RDK7 is recommended to run on top of ACK 5.15 64-bit version
 
-------------------------------------------------------------------------
+---
 
 # Porting
 
-The
-[Hardware Porting Kit](https://rdkcentral.github.io/rdk-hpk-documentation/1.4.4.0/)
-( HPK ) provide both Hardware Abstraction Layer (API) Header files, and software tests to ensure compatibility with the RDK Middleware Stack. HPK enables vendor to implement the required interfaces that will enable them to bring RDK on top of their platform. Once the HAL layer for each component is implemented, vendors can use the respective test component
-to certify their port
+The [Hardware Porting Kit](https://rdkcentral.github.io/rdk-hpk-documentation/1.4.4.0/) ( HPK ) provide both Hardware Abstraction Layer (API) Header files, and software tests to ensure compatibility with the RDK Middleware Stack. HPK enables vendor to implement the required interfaces that will enable them to bring RDK on top of their platform. Once the HAL layer for each component is implemented, vendors can use the respective test component to certify their port
 
-The elaborated documentation on HAL APIs, the test suites and how to build and execute them are all available at the
-[HPK Documentation portal](https://rdkcentral.github.io/rdk-hpk-documentation/1.4.4.0/)
+The elaborated documentation on HAL APIs, the test suites and how to build and execute them are all available at the [HPK Documentation portal](https://rdkcentral.github.io/rdk-hpk-documentation/1.4.4.0/)
 
 For an exhaustive list of component versions, as well as test suite version for each of the HAL component, please refer below table
 
@@ -76,7 +58,4 @@ For an exhaustive list of component versions, as well as test suite version for 
 
 While the test suite associated with the vendor porting kit helps to certify the port is working as expected, RDK certification program facilitates users to get their product certified as an RDK compliance device.
 
-RDKM provides the
-[RDK Certification Suites](https://wiki.rdkcentral.com/display/TDK/RDK+Certification+Suites)
-RDK Certification suite
- to verify the compliance of the RDK Video Accelerator device. The certification program includes testing that validates the RDK  stack on the user platform with a defined test suite called as RDK Certification Test Suite.  It is mandatory to go through this program in order to brand the user’s platform as an RDK-compliant product.
+RDKM provides the [RDK Certification Suites](https://wiki.rdkcentral.com/display/TDK/RDK+Certification+Suites) RDK Certification suite to verify the compliance of the RDK Video Accelerator device. The certification program includes testing that validates the RDK  stack on the user platform with a defined test suite called as RDK Certification Test Suite.  It is mandatory to go through this program in order to brand the user’s platform as an RDK-compliant product.
