@@ -16,7 +16,6 @@ theme:
   user_color_mode_toggle: true
   features:
     - navigation.footer
-    - navigation.indexes
     - navigation.tabs
     - toc.follow
     - navigation.top
@@ -58,6 +57,9 @@ markdown_extensions:
       emoji_generator: "!!python/name:materialx.emoji.to_svg"
 extra_css:
   - assets/stylesheets/extra.css
+  - assets/stylesheets/entertainment.css
+  - assets/stylesheets/getting-started.css
+  - assets/stylesheets/connectivity.css
 extra_javascript:
   - assets/javascripts/extra.js
 nav:
@@ -78,6 +80,6 @@ nav:
     - Try Out RDK: ./connectivity/docs/tryout_rdkb.md
     - Core Components: ./connectivity/docs/rdkb_components.md
     - Releases: https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases
-  - Getting Started: 
-    - Entertainment: ./preview-rdk/docs/preview-rdk-video.md
-    - Connectivity: ./preview-rdk/docs/preview-rdk-broadband.md
+  - Getting Started: ./preview-rdk/docs/getting-started.md
+    # - Entertainment: ./preview-rdk/docs/preview-rdk-video.md
+    # - Connectivity: ./preview-rdk/docs/preview-rdk-broadband.

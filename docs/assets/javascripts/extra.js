@@ -43,9 +43,6 @@ function toggleFeatures(event, containerId) {
   }
 }
 
-
-
-
 //tabs section
 //2x2 layout for more than 5 lines of p
 function checkContentHeight() {
@@ -103,5 +100,59 @@ function showTab(tabId) {
 }
 
 
+//Show table of contents when content is present inside othervise dont display
+window.addEventListener("DOMContentLoaded", () => {
+  const sidebar = document.querySelector(".md-sidebar--secondary");
+  const toc = sidebar?.querySelector("nav.md-nav--secondary");
+
+  if (sidebar && toc && toc.innerText.trim() !== "") {
+    sidebar.classList.add("show-if-not-empty");
+  }
+});
 
 
+//Show the polka bg only for main pages
+window.addEventListener("DOMContentLoaded", () => {
+  const path = window.location.pathname;
+
+  // Normalize path (remove trailing slash and .html)
+  const cleanPath = path.replace(/\/$/, "").replace(/\.html$/, "");
+
+  // Home
+  if (cleanPath === "" || cleanPath === "/") {
+    document.body.classList.add("is-homepage");
+  }
+
+  // Main sections
+  const mainPages = [
+    "/entertainment/docs",
+    "/connectivity/docs",
+    "/preview-rdk/getting-started"
+  ];
+
+  if (mainPages.includes(cleanPath)) {
+    document.body.classList.add("is-main-section");
+  }
+});
+
+//Tabs for entertainment and connectivity in getting started page
+function showTabs(tabName, event) {
+  const tabs = {
+    entertainment: document.getElementById("tab-entertainment"),
+    connectivity: document.getElementById("tab-connectivity")
+  };
+
+  // Hide all tabs
+  Object.values(tabs).forEach(tab => tab.style.display = "none");
+
+  // Show selected tab
+  tabs[tabName].style.display = "block";
+
+  // Update active button
+  document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  showTabs("entertainment", { target: document.querySelector(".tab-button.active") });
+});
