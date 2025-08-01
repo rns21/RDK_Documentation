@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 # XConf Security & Deployment
 
 ## Authentication & Authorization

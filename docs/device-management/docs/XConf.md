@@ -1,6 +1,14 @@
+---
+hide:
+  - navigation
+---
 # XConf
 ---
-### Overview
+!!! note
+    Details of XConf API are available at  [XConf APIs & User Interface](../xconf-apis-ui/)<br>
+    Documentation on XConf deployment is available at [XConf Security & Deployment](../xconf-security-deployment/)
+
+## Overview
 XConf is a comprehensive configuration management system designed for RDK (Reference Design Kit) devices, primarily set-top boxes (STBs). It serves as the central authority for managing firmware versions, device settings, feature controls, and telemetry configurations across large device populations.
 
 The system handles the complex requirements of managing thousands to millions of deployed devices across diverse network environments. XConf provides operators with centralized control over firmware deployments, device behaviors, feature toggles, and telemetry data collection through a sophisticated rule-based platform.

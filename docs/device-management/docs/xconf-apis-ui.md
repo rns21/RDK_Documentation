@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 # XConf APIs & User Interface
 
 ---
