@@ -55,6 +55,11 @@ markdown_extensions:
   - pymdownx.tabbed
   - pymdownx.emoji:
       emoji_generator: "!!python/name:materialx.emoji.to_svg"
+  - pymdownx.superfences: # Enable mermaid
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 extra_css:
   - assets/stylesheets/extra.css
   - assets/stylesheets/entertainment.css
