@@ -1,6 +1,4 @@
-# RDKShell Configuration
-
-## Overview
+# Configuration
 
 RDKShell provides extensive configuration capabilities through environment variables, configuration files, and compile-time options. The configuration system is designed to support both development scenarios with detailed debugging capabilities and production deployments with optimized performance characteristics. The system supports hierarchical configuration sources, allowing for system-wide defaults, platform-specific overrides, and application-specific customizations.
 

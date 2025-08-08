@@ -3,90 +3,107 @@ hide:
   - navigation
   - toc
 ---
-<div style="margin: auto; padding: 0px; text-align: center; font-family: Arial, sans-serif;">
-  <h1 style="color: #607D8B;margin-top: 5px; margin-bottom: 10px;">Getting Started with RDK for Entertainment</h1>
-</div>
 
----
-<div style="display: flex; justify-content: center; gap: 5%; padding: 0px; flex-wrap: wrap;">
+<div style="margin: auto; padding: 0px; text-align: center;">
+  <h1>Getting Started with RDK for Entertainment</h1>
+</div>
+<br>
+<div style="display: flex; justify-content: center; gap: 3%; padding: 0px; flex-wrap: wrap;">
 
   <!-- First Message Box -->
-  <div class="custom-container">
-    <div style="font-family: Arial, sans-serif;">
-      <h2 style="text-align: center;">Architecture</h2>
+  <div class="custom-container" onclick="window.location.href='./architecture/'">
+    <div>
+    <span class="material-icons custom-icon">architecture</span>
+      <h2>Architecture</h2>
       <p>
-        The latest release of RDK6 comes with major changes in its architecture, including Firebolt - RDK's resident app platform - and the vendor porting kit - among other major changes. To know more details of the RDK Architecture, follow the below link
+        The latest release of RDK7 comes with major changes in its architecture, including Firebolt and the vendor porting kit.
         <br><br>
-        <a href="./rdk7-architecture/">Click Here</a>
-      </p>
-    </div>
-  </div>
-
-
-  <!-- Second Message Box -->
-  <div class="custom-container">
-    <div style="font-family: Arial, sans-serif;">
-      <h2 style="text-align: center;">Features</h2>
-      <p>
-        A deciding factor of any software stack is the number of user centric features that are supported by that software.  To know what are the features supported by the RDK software stack for various target profiles, follow the below link
-        <br><br>
-        <a href="./rdk7-features/">Click Here</a>
-      </p>
-    </div>
-  </div>
-
-  
-   <!-- First Message Box -->
-  <div class="custom-container">
-    <div style="font-family: Arial, sans-serif;">
-      <h2 style="text-align: center;">Device Profiles</h2>
-      <p>
-        From the fundamental RDK IP STB to the more sophisticated RDK TV, RDK offers a variety of device profiles: IP STB, Hybrid STB, and RDK TV. To know the details of core components available across profiles, as well as on the differentiating components, please follow below link
-        <br><br>
-        <a href="./video_profiles/">Click Here</a>
+        <div class="link-row">
+        <a href="./architecture/" class="custom-link">Read More</a>
+        <span class="material-icons custom-icon-arrow">arrow_forward</span>
+        </div>
       </p>
     </div>
   </div>
 
   <!-- Second Message Box -->
-  <div class="custom-container">
-    <div style="font-family: Arial, sans-serif;">
-      <h2 style="text-align: center;">Try Out RDK</h2>
+  <div class="custom-container" onclick="window.location.href='./features/'">
+    <div>
+    <span class="material-icons custom-icon">list</span>
+      <h2>Features</h2>
       <p>
-        The best way to experience RDK is to try out RDK youself in a platform. Get yourself started in exploring RDK, by generating an RDK build of your own, and then getting it up on the popular generic reference platform Raspberry Pi 4
+        A deciding factor of any software stack is the number of user centric features that are supported by that software.
         <br><br>
-        <a href="./tryout_rdkv/">Click Here</a>
+        <div class="link-row">
+        <a href="./features/" class="custom-link">Read More</a>
+        <span class="material-icons custom-icon-arrow">arrow_forward</span>
+        </div>
       </p>
     </div>
   </div>
 
-  
-   <!-- First Message Box -->
-  <div class="custom-container">
-    <div style="font-family: Arial, sans-serif;">
-      <h2 style="text-align: center;">Vendor Porting Guide</h2>
+   <!-- Third Message Box -->
+  <div class="custom-container" onclick="window.location.href='./video_profiles/'">
+    <div>
+      <span class="material-icons custom-icon">devices</span>
+      <h2>Device Profiles</h2>
       <p>
-         If you are trying to bring up/ port RDK to your SOC platform, you can refer to the Hardware Porting Kit to understand the various HAL APIs that need to be implemented in order to complete the RDK Porting
+        From the fundamental RDK IP STB to RDK TV, RDK offers a variety of device profiles:
         <br><br>
-        <a href="./rdk7-vendor-porting-guide/">Click Here</a>
+        <div class="link-row">
+        <a href="./video_profiles/" class="custom-link">Read More</a>
+        <span class="material-icons custom-icon-arrow">arrow_forward</span>
+        </div>
       </p>
     </div>
   </div>
 
-  <!-- Second Message Box -->
-  <div class="custom-container">
-    <div style="font-family: Arial, sans-serif;">
-      <h2 style="text-align: center;">RDK Components</h2>
+  <!-- First Message Box -->
+  <div class="custom-container" onclick="window.location.href='./tryout_rdkv/'">
+    <div>
+      <span class="material-icons custom-icon">try</span>
+      <h2>Try Out RDK</h2>
       <p>
-        To understand the architecture of each RDK component, how the component interfaces with other components as well as other layers of RDK, please follow the below link
+        The best way to experience RDK is to try out RDK youself in a platform. Get yourself started in exploring RDK
         <br><br>
-        <a href="./rdkv_components/">Click Here</a>
+        <div class="link-row">
+        <a href="./tryout_rdkv/" class="custom-link">Read More</a>
+        <span class="material-icons custom-icon-arrow">arrow_forward</span>
+        </div>
       </p>
     </div>
   </div>
 
+   <!-- Second Message Box -->
+  <div class="custom-container" onclick="window.location.href='./hpk/'">
+    <div>
+      <span class="material-icons custom-icon">book</span>
+      <h2>Vendor Porting Guide</h2>
+      <p>
+         Understand the various HAL APIs that need to be implemented in order to complete the RDK Porting
+        <br><br>
+        <div class="link-row">
+        <a href="./hpk/" class="custom-link">Read More</a>
+        <span class="material-icons custom-icon-arrow">arrow_forward</span>
+        </div>
+      </p>
+    </div>
+  </div>
+
+  <!-- Third Message Box -->
+  <div class="custom-container" onclick="window.location.href='./rdkv_components/'">
+    <div>
+      <span class="material-icons custom-icon">layers</span>
+      <h2>RDK Components</h2>
+      <p>
+         Understand the architecture of each RDK component,the component interfaces as well as other layers of RDK.
+        <br><br>
+        <div class="link-row">
+        <a href="./rdkv_components/" class="custom-link">Read More</a>
+        <span class="material-icons custom-icon-arrow">arrow_forward</span>
+        </div>
+      </p>
+    </div>
+  </div>
 </div>
-
----
-
-
+<br>

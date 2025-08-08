@@ -1,11 +1,10 @@
-.md-typeset h1{
-    justify-content: center;
-    text-align: center;
+.md-typeset h1 {
+  justify-content: center;
+  text-align: center;
 }
 .tab-container {
   margin-top: 20px;
 }
-
 .tab-buttons {
   display: flex;
   justify-content: center;
@@ -26,22 +25,29 @@
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.15);
-  align-items: center;
-  justify-content: center;
-  text-align: left;
 }
-
-.tab-content video{
-    border-radius: 12px;
+.tab-entertainment video {
+  border-radius: 12px;
+  align-items: center;
+}
+#tab-entertainment img {
+  max-width: 700px;
+  width: 640px !important;
+  height: 480px !important;
+}
+#tab-entertainment img,
+#tab-entertainment video {
+  display: block;
+  margin: 0 auto;
 }
 
 #tab-connectivity img {
-  max-width: 700px;
-  height: auto;
+  width: 640px !important;
+  height: 480px !important;
   margin: 10px auto;
   display: block;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   padding: 0.5rem;
   background-color: var(--md-default-bg-color);
 }
@@ -50,7 +56,6 @@
   grid-template-columns: repeat(4, 0.3fr);
   margin-right: 1rem;
   padding-left: 0;
-
 }
 #tab-connectivity li {
   list-style: none;

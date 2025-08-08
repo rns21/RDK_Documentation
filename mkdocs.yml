@@ -25,7 +25,7 @@ theme:
     - content.tabs.link
     - content.tabs
     - content.width
-    - navigation.expand
+    # - navigation.expand
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -65,29 +65,25 @@ extra_css:
   - assets/stylesheets/entertainment.css
   - assets/stylesheets/getting-started.css
   - assets/stylesheets/connectivity.css
+  - https://fonts.googleapis.com/icon?family=Material+Icons
 extra_javascript:
   - assets/javascripts/extra.js
 nav:
   - Home: README.md
   - Entertainment:
-    - Overview: ./entertainment/docs/README.md
+    - Entertainment Home: ./entertainment/docs/README.md
     - Architecture: ./entertainment/docs/rdk7-architecture.md
     - Features: ./entertainment/docs/rdk7-features.md
     - Try Out RDK: ./entertainment/docs/tryout_rdkv.md
     - Porting Kit: ./entertainment/docs/rdk7-vendor-porting-guide.md
     - Core Components:
-      - Overview: ./entertainment/docs/rdkv_components.md
+      - Component List: ./entertainment/docs/rdkv_components.md
       - Westeros: ./entertainment/docs/components/westeros.md
-      - RDK Shell:
-        - Overview: ./entertainment/docs/components/rdkshell/overview.md
-        - Architecture: ./entertainment/docs/components/rdkshell/architecture.md
-        - Key Mapping: ./entertainment/docs/components/rdkshell/keymapping.md
-        - Configuration: ./entertainment/docs/components/rdkshell/configuration.md
-        - API Details: ./entertainment/docs/components/rdkshell/apis.md
+      - RDK Shell: ./entertainment/docs/components/rdkshell.md
     - Device Profiles: ./entertainment/docs/video_profiles.md
     - Releases: https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes
   - Connectivity:
-    - Overview: ./connectivity/docs/README.md
+    - Connectivity Home: ./connectivity/docs/README.md
     - Architecture: ./connectivity/docs/architecture.md
     - Features: ./connectivity/docs/features.md
     - Try Out RDK: ./connectivity/docs/tryout_rdkb.md
