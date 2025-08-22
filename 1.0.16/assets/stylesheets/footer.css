@@ -1,0 +1,135 @@
+.compact-footer {
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  display: grid;
+  grid-template-columns: 2fr 6fr;
+  gap: .01em;
+  padding: 1em 2em;
+  font-size: 0.85rem;
+  font-family: var(--md-text-font, Arial, sans-serif);
+  border-top: 1px solid var(--md-default-fg-color);
+  align-items: start;
+}
+
+/* Left Section */
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 1rem 0;
+}
+
+.rdk-logo {
+  width: 120px;
+  margin-bottom: 0.5em;
+}
+
+.footer-left .copyright {
+  font-size: 0.75em;
+  color: var(--md-default-fg-color);
+}
+
+/* Right Section */
+.footer-right {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 8rem;
+  gap: 0.3em 0em;
+}
+
+/* Banner Group */
+.banner-group {
+  margin-bottom: 0.5em;
+  width: 140px;
+}
+
+.banner-group h3 {
+  font-size: 0.9em;
+  margin-bottom: 0.3em;
+  color: var(--md-default-fg-color) !important;
+}
+
+.banner-group a {
+  color: var(--md-default-fg-color);
+  text-decoration: none;
+  font-size: 0.65em;
+}
+
+.banner-group a:hover {
+  color: var(--md-accent-fg-color);
+  text-decoration: underline;
+}
+
+/* Sub-columns */
+.sub-columns ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sub-columns li {
+  margin: 0.01em 0;
+  break-inside: avoid;
+}
+
+/* Management Group */
+.management-group .sub-columns {
+  columns: 2;
+  column-gap: 0 !important;
+  margin-right: 1.2em;
+}
+
+.management-group .sub-columns li {
+  margin: 0.1em 0;
+  padding: 0;
+}
+
+/* Help Group */
+.help-group {
+  margin-left: 1em;
+}
+
+.help-group p {
+  font-size: 0.9em;
+  margin: 0.2em 0;
+}
+
+.help-button {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: var(--md-accent-fg-color);
+  color: white !important;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9em !important;
+  margin-top: 0.3em;
+}
+
+.help-button:hover {
+  background-color: #0056b3;
+  text-decoration: none !important;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .compact-footer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .compact-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-right {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-left {
+    align-items: center;
+    text-align: center;
+  }
+}
