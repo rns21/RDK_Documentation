@@ -9,7 +9,6 @@ hide:
     <button class="tab-button active" onclick="showTabs('entertainment', event)">Entertainment</button>
     <button class="tab-button" onclick="showTabs('connectivity', event)">Connectivity</button>
   </div>
-#
   <div id="tab-entertainment">
     <div class="e-section-1">
       <div class="section-text">

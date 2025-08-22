@@ -1,7 +1,5 @@
 # Westeros Wayland Compositor
 
-## Overview
-
 Westeros is a lightweight Wayland compositor library designed for embedded systems and set-top boxes. It provides a flexible framework for creating normal, nested, and embedded Wayland compositors with support for hardware-accelerated video rendering and multiple backend platforms.
 
 The compositor implements the Wayland protocol and is designed to be compatible with applications built to use Wayland compositors. It enables applications to create one or more Wayland displays and supports three distinct compositor types: normal compositors that display output directly to the screen, nested compositors that send output to another compositor as a client surface, and embedded compositors that allow applications to incorporate composited output into their UI for seamless integration of third-party applications.
