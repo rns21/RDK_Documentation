@@ -20,7 +20,7 @@ hide:
     <div class="content-section">
       <p>The latest release of RDK7 comes with major changes in its architecture, including Firebolt and the vendor porting kit.</p>
       <div class="link-row">
-        <a href="./architecture/" class="custom-link">Read More</a>
+        <a href="./rdk7-architecture/" class="custom-link">Read More</a>
         <span class="material-icons custom-icon-arrow">arrow_forward</span>
       </div>
     </div>
@@ -35,7 +35,7 @@ hide:
     <div class="content-section">
       <p>A deciding factor of any software stack is the number of user centric features that are supported by that software.</p>
       <div class="link-row">
-        <a href="./features/" class="custom-link">Read More</a>
+        <a href="./rdk7-features/" class="custom-link">Read More</a>
         <span class="material-icons custom-icon-arrow">arrow_forward</span>
       </div>
     </div>
@@ -65,7 +65,7 @@ hide:
     <div class="content-section">
       <p>The best way to experience RDK is to try out RDK youself in a platform. Get yourself started in exploring RDK.</p>
       <div class="link-row">
-        <a href="./tryout_rdkv/" class="custom-link">Read More</a>
+        <a href="./tryout_rdkv_rdk7/" class="custom-link">Read More</a>
         <span class="material-icons custom-icon-arrow">arrow_forward</span>
       </div>
     </div>
@@ -80,7 +80,7 @@ hide:
     <div class="content-section">
       <p>Understand the various HAL APIs that need to be implemented in order to complete the RDK Porting.</p>
       <div class="link-row">
-        <a href="./hpk/" class="custom-link">Read More</a>
+        <a href="./rdk7-vendor-porting-guide/" class="custom-link">Read More</a>
         <span class="material-icons custom-icon-arrow">arrow_forward</span>
       </div>
     </div>
