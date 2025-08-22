@@ -71,10 +71,10 @@ extra_javascript:
 nav:
   - Home: README.md
   - Entertainment:
-    - Entertainment Home: ./entertainment/docs/README.md
+    - Home: ./entertainment/docs/README.md
     - Architecture: ./entertainment/docs/rdk7-architecture.md
     - Features: ./entertainment/docs/rdk7-features.md
-    - Try Out RDK: ./entertainment/docs/tryout_rdkv.md
+    - Try Out RDK: ./entertainment/docs/tryout_rdkv_rdk7.md
     - Porting Kit: ./entertainment/docs/rdk7-vendor-porting-guide.md
     - Core Components:
       - Component List: ./entertainment/docs/rdkv_components.md

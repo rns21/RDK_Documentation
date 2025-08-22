@@ -128,7 +128,7 @@ hide:
       <div class="box-text">
       <p>Start exploring RDK software, build RDK in your own setup, and try out RDK in a reference platform.</p>
       </div>
-      <a href=./entertainment/docs/tryout_rdkv/ ><button>Explore</button></a>
+      <a href=./entertainment/docs/tryout_rdkv_rdk7/ ><button>Explore</button></a>
       </div>
     </div>
     <div class="box yellow">
