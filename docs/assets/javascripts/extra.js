@@ -111,16 +111,19 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 
-//Show the polka bg only for main pages
 window.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
 
   // Normalize path (remove trailing slash and .html)
   const cleanPath = path.replace(/\/$/, "").replace(/\.html$/, "");
 
-  // Home
-  if (cleanPath === "" || cleanPath === "/") {
+  // Log for debugging
+  console.log("Clean path:", cleanPath);
+
+  // Home page detection
+  if (cleanPath === "" || cleanPath === "/" || cleanPath === "/index") {
     document.body.classList.add("is-homepage");
+    console.log("Homepage detected");
   }
 
   // Main sections
@@ -132,8 +135,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
   if (mainPages.includes(cleanPath)) {
     document.body.classList.add("is-main-section");
+    console.log("Main section detected");
   }
 });
+
 
 //Tabs for entertainment and connectivity in getting started page
 function showTabs(tabName, event) {

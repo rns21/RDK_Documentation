@@ -29,29 +29,29 @@ hide:
   <div id="entertainmentFeatures" class="features-container hidden">
     <div class="feature-box">
       <div class="icon">
-        <img src="assets/icons/product.png" alt="Features Icon">
+        <img src="assets/icons/icon1.png" alt="Features Icon">
       </div>
       <div class="info">
-        <h4><a href=./entertainment/docs/rdk7-features/>Features</a></h4>
+        <h4><a href=./entertainment/docs/features/>Features</a></h4>
         <p>Explore the various features and standards that are supported in RDK</p>
       </div>
     </div>
     <div class="feature-box">
-   <div class="icon"><img src="assets/icons/network.png" alt="Components Icon"></div>
+   <div class="icon"><img src="assets/icons/icon3.png" alt="Components Icon"></div>
     <div class="info">
       <h4><a href=./entertainment/docs/rdkv_components/>Core Components</a></h4>
       <p>Access detailed documentation on various Core RDK components</p>
     </div>
     </div>
     <div class="feature-box">
-     <div class="icon"><img src="assets/icons/architecture.png" alt="Components Icon"></div>
+     <div class="icon"><img src="assets/icons/icon5.png" alt="Components Icon"></div>
     <div class="info">
-      <h4><a href=./entertainment/docs/rdk7-architecture/>Architecture</a></h4>
+      <h4><a href=./entertainment/docs/architecture/>Architecture</a></h4>
       <p>Dive deep into the RDK7 Architecture and how different layers interface each other</p>
     </div>
     </div>
     <div class="feature-box">
-       <div class="icon"><img src="assets/icons/new-release.png" alt="Port RDK Icon"></div>
+       <div class="icon"><img src="assets/icons/icon2.png" alt="Port RDK Icon"></div>
     <div class="info">
       <h4><a href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">Latest Releases</a></h4>
       <p>Details on the latest release for video platforms - RDK7</p>
@@ -79,7 +79,7 @@ hide:
   <div id="connectivityFeatures" class="features-container hidden">
     <div class="feature-box">
       <div class="icon">
-        <img src="assets/icons/product.png" alt="Features Icon">
+        <img src="assets/icons/icon1.png" alt="Features Icon">
       </div>
       <div class="info">
         <h4><a href="./connectivity/docs/features/">Features</a></h4>
@@ -87,21 +87,21 @@ hide:
       </div>
     </div>
     <div class="feature-box">
-   <div class="icon"><img src="assets/icons/network.png" alt="Components Icon"></div>
+   <div class="icon"><img src="assets/icons/icon3.png" alt="Components Icon"></div>
     <div class="info">
       <h4><a href="./connectivity/docs/rdkb_components/">Core Components</a></h4>
       <p>Access detailed documentation on various Core RDK components</p>
     </div>
     </div>
     <div class="feature-box">
-     <div class="icon"><img src="assets/icons/architecture.png" alt="Architecture Icon"></div>
+     <div class="icon"><img src="assets/icons/icon5.png" alt="Components Icon"></div>
     <div class="info">
       <h4><a href="./connectivity/docs/architecture/">Architecture</a></h4>
       <p>Dive deep into the RDK middleware architecture and how different layers interface each other</p>
     </div>
     </div>
     <div class="feature-box">
-       <div class="icon"><img src="assets/icons/new-release.png" alt="Releases Icon"></div>
+       <div class="icon"><img src="assets/icons/icon2.png" alt="Port RDK Icon"></div>
     <div class="info">
       <h4><a href="https://wiki.rdkcentral.com/display/CMF/RDKB_2025q2_kirkstone">Latest Releases</a></h4>
       <p>Details on the latest release for broadband platforms - 2025 Q2</p>
@@ -148,7 +148,7 @@ hide:
       <div class="box-text">
       <p>Explore how the port RDK and get it up and running in your platform.</p>
       </div>
-         <a href=./entertainment/docs/rdk7-vendor-porting-guide/ ><button>Explore</button></a>
+         <a href=./entertainment/docs/hpk/ ><button>Explore</button></a>
       </div>
     </div>
     <div class="box orange">

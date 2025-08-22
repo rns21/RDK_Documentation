@@ -7,6 +7,7 @@ repo_url: https://github.com/rdkcentral
 plugins:
   - search
   - mermaid2
+use_directory_urls: true
 theme:
   name: material
   logo: assets/logo.png
@@ -34,14 +35,14 @@ theme:
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: white
-      accent: indigo
+      accent: '#00b2dc'
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: black
-      accent: indigo
+      accent: '#00b2dc'
       toggle:
         icon: material/weather-sunny
         name: Switch to system preference
@@ -65,9 +66,13 @@ extra_css:
   - assets/stylesheets/entertainment.css
   - assets/stylesheets/getting-started.css
   - assets/stylesheets/connectivity.css
+  - assets/stylesheets/devices.css
+  - assets/stylesheets/footer.css
   - https://fonts.googleapis.com/icon?family=Material+Icons
 extra_javascript:
+  - https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js
   - assets/javascripts/extra.js
+  - assets/javascripts/particles-init.js
 nav:
   - Home: README.md
   - Entertainment:

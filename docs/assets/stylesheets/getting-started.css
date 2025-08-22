@@ -5,6 +5,7 @@
 .tab-container {
   margin-top: 20px;
 }
+
 .tab-buttons {
   display: flex;
   justify-content: center;
@@ -18,8 +19,8 @@
   font-weight: bold;
 }
 .tab-button.active {
-  border-bottom: 3px solid #0078d4;
-  color: #0078d4;
+  border-bottom: 3px solid #00b2dc;
+  color: #00b2dc;
 }
 .tab-content {
   padding: 20px;

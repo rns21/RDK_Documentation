@@ -45,8 +45,6 @@ in features %} {% set class = class ~ " md-header--shadow" %} {% endif %}
     {% include "partials/search.html" %} {% endif %} {% endif %} {% if
     config.repo_url %}
     <div class="md-header__source">
-      <!-- <a href="https://github.com/rdkcentral" class="md-header__button md-button github_link"><span class="icon-github">{% include ".icons/material/github.svg" %}</span></a>  -->
-      {% include "partials/source.html" %}
       <a href="https://github.com/rdkcentral" class="md-header__button md-button"><span class="icon-github" >{% include ".icons/material/github.svg" %}</span>Source Code</a>
       <a href="https://github.com/rdkcentral" class="md-header__button md-button">Contribute<span class="icon-arrow">{% include ".icons/material/arrow-right.svg" %}</span></a>
     </div>
