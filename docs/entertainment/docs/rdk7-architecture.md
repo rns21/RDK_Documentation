@@ -2,7 +2,6 @@
 
 ------------------------------------------------------------------------
 
-# Overview
 
 RDK7 is the newest open source software release, representing the first release of RDK-E (Entertainment), evolving from the previous RDK-V (Video) platform. It supports both IP and TV video platforms, integrating over-the-top (OTT) video apps through the Firebolt™ framework, standardizing interfaces for video playback, digital rights management (DRM), graphics, and security. RDK7 builds upon previous RDK releases to further simplify app development, enhance security, and standardize functionality across diverse set-top box hardware.
 
@@ -12,11 +11,6 @@ The following key principles of RDK7 illustrate the areas of change and focus fr
 
 The Layered Design provides clear separation of functional responsibilities through distinct vendor, middleware, and application layers with independent development and update cycles. Hardware Abstraction reduces the cost of SoC/OEM deliver & platform through standardized hardware abstraction layer (HAL) and simplified platform adaptation. Application Community focuses on standardization of portable 3rd party apps, consistent APIs for application developers, and Firebolt framework for OTT integration. Quality & Robustness involves major transformation of delivery process to ensure quality, independent testing of each layer, and consistent development environment. Rapid Innovation is achieved through utilization of common tooling and patterns. Broadcast Functionality enables separation of broadcast technology from IP platform.
 
-------------------------------------------------------------------------
-
-# Architecture
-
-A quick architecture overview of RDK7 to help associate the capabilities with the software stack is given below.
 
 ![rdk7architecture](../images/rdk7architecture.png)
 
