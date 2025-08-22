@@ -14,8 +14,8 @@ hide:
     <div class="e-section-1">
       <div class="section-text">
         <h3>SOC Reference Platform</h3>
-        <p>Lorem ipsum is a dummy text without any sense. It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.
-        Lorem ipsum is a dummy text without any sense. It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.</p>
+        <p>Certified ports of RDK is available across a wide variety of popular SOC platforms. Being a certified port comes with the advantage of making sure that the RDK feature is proven to work in that platform and hence the final device from OEM is also confirmed to have this feature working on this. Community members who want to adapt RDK can start from any of these available certified SOCs. 
+        Please note that , while RDK Certification is not mandatory for a SOC, it is highly recommneded to try out the RDK ports that are certified by RDK Management</p>
       </div>
       <div class="icon-section">
        <img src="../../../assets/icons/AMLogic.webp" alt="AMlogic Icon" style="width: 135px !important; height: 100px; object-fit: contain;">
@@ -29,16 +29,14 @@ hide:
       </div>
       <div class="section-text">
         <h3>Generic Reference Platform</h3>
-        <p>Lorem ipsum is a dummy text without any sense. It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.
-        Lorem ipsum is a dummy text without any sense. It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.
+        <p>RDK offers a port on the popular generic reference platform - Raspberry Pi -  for the community members. This port will serve as a good starting point for new community members to try out RDK. For app developers, this will serve as a platform where they can try out the Firebolt/Lightning apps they develop
         </p>
       </div>
     </div>
     <div class="e-section-3">
       <div class="section-text">
         <h3>Remote Controls</h3>
-        <p>Lorem ipsum is a dummy text without any sense. It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.
-        Lorem ipsum is a dummy text without any sense. It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.</p>
+        <p>For the video devices, different OEMs provide remote control units that are certified to work with RDK devices out of the box</p>
       </div>
       <div class="icon-section">
        <img src="../../../assets/icons/Tech4Home.png" alt="Tech4Home Icon" style="width: 140px !important; height: 140px; object-fit: contain;">
@@ -51,8 +49,7 @@ hide:
     <div class="c-section">
       <div class="section-text">
         <h3>Generic Reference Platform</h3>
-        <p>Lorem ipsum is a dummy text without any sense. It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.<br><br>
-        Lorem ipsum is a dummy text without any sense. It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.</p>
+        <p>RDK offers a port on the popular generic reference platforms - Banana Pi and Raspberry Pi-  for the community members. This port will serve as a good starting point for new community members to try out and experience RDK</p>
       </div>
       <div class="icon-section">
        <img src="../../../assets/icons/Raspberry.png" alt="Raspberry pi Icon" style="width: 195px !important; height: 100px !important; object-fit: contain;">
