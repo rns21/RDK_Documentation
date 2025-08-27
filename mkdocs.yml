@@ -92,7 +92,9 @@ nav:
     - Architecture: ./connectivity/docs/architecture.md
     - Features: ./connectivity/docs/features.md
     - Try Out RDK: ./connectivity/docs/tryout_rdkb.md
-    - Core Components: ./connectivity/docs/rdkb_components.md
+    - Core Components:
+      - Component List: ./connectivity/docs/rdkb_components.md
+      - Cellular Manager: ./connectivity/docs/cellular-manager.md
     - Releases: https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases
   - Getting Started: ./preview-rdk/docs/getting-started.md
     # - Entertainment: ./preview-rdk/docs/preview-rdk-video.md
