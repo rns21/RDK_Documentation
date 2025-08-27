@@ -95,6 +95,7 @@ nav:
     - Core Components:
       - Component List: ./connectivity/docs/rdkb_components.md
       - Cellular Manager: ./connectivity/docs/cellular-manager.md
+      - WAN Manager: ./connectivity/docs/wanmanager.md
     - Releases: https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases
   - Getting Started: ./preview-rdk/docs/getting-started.md
     # - Entertainment: ./preview-rdk/docs/preview-rdk-video.md
