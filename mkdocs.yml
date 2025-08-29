@@ -70,9 +70,7 @@ extra_css:
   - assets/stylesheets/footer.css
   - https://fonts.googleapis.com/icon?family=Material+Icons
 extra_javascript:
-  - https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js
   - assets/javascripts/extra.js
-  - assets/javascripts/particles-init.js
 nav:
   - Home: README.md
   - Entertainment:
@@ -96,6 +94,7 @@ nav:
       - Component List: ./connectivity/docs/rdkb_components.md
       - Cellular Manager: ./connectivity/docs/cellular-manager.md
       - WAN Manager: ./connectivity/docs/wanmanager.md
+      - GPON Manager: ./connectivity/docs/gponmanager.md
     - Releases: https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases
   - Getting Started: ./preview-rdk/docs/getting-started.md
     # - Entertainment: ./preview-rdk/docs/preview-rdk-video.md
