@@ -27,7 +27,7 @@ hide:
 
   <div id="tab-connectivity" class="tab-content" >
     <h3>Preview RDK Broadband</h3>
-    <p><strong>RDK Broadband (RDK-B) </strong> software is capable of powering next-gen gateways across DOCSIS, PON, DSL, 5G, and Ethernet, enabling OEMs to standardize elements of their modems, gateways, and converged devices. It provides common functionalities such as routing, Wi-Fi, DNS, diagnostics, remote management, and IoT interfaces, such as Bluetooth, Thread, and Zigbee.</p>
+    <p><strong>RDK </strong> software is capable of powering next-gen gateways across DOCSIS, PON, DSL, 5G, and Ethernet, enabling OEMs to standardize elements of their modems, gateways, and converged devices. It provides common functionalities such as routing, Wi-Fi, DNS, diagnostics, remote management, and IoT interfaces, such as Bluetooth, Thread, and Zigbee.</p>
     <h4>RDK Architecture</h4>
     <p>RDK middleware is powered by generic open source software along with RDK specific open source components. The RDK Broadband middleware stack architecture is pictured below:</p>
     <img alt="rdk_ux_home.png" src="../../images/rdkbarchitecture.png">

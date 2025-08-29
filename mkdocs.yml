@@ -86,15 +86,16 @@ nav:
     - Device Profiles: ./entertainment/docs/video_profiles.md
     - Releases: https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes
   - Connectivity:
-    - Connectivity Home: ./connectivity/docs/README.md
+    - Home: ./connectivity/docs/README.md
     - Architecture: ./connectivity/docs/architecture.md
     - Features: ./connectivity/docs/features.md
     - Try Out RDK: ./connectivity/docs/tryout_rdkb.md
+    - Device Profiles: ./connectivity/docs/profiles.md
     - Core Components:
       - Component List: ./connectivity/docs/rdkb_components.md
-      - Cellular Manager: ./connectivity/docs/cellular-manager.md
-      - WAN Manager: ./connectivity/docs/wanmanager.md
-      - GPON Manager: ./connectivity/docs/gponmanager.md
+      - Cellular Manager: ./connectivity/docs/components/cellularmanager.md
+      - WAN Manager: ./connectivity/docs/components/wanmanager.md
+      - GPON Manager: ./connectivity/docs/components/gponmanager.md
     - Releases: https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases
   - Getting Started: ./preview-rdk/docs/getting-started.md
     # - Entertainment: ./preview-rdk/docs/preview-rdk-video.md

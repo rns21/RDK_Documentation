@@ -1,45 +1,39 @@
 ---
-title: "RDK Documentation?"
+title: "RDK Documentation"
 description: "An open platform powering both entertainment and connectivity"
 hide:
   - navigation
   - toc
 ---
 #
-<!-- Top two cards -->
+<div class="intro-banner-modern">
+  <div class="intro-content">
+    <h1>Powering Entertainment. Enabling Connectivity. One Unified Platform.</h1>
+    <p>RDK empowers developers and device makers with open-source tools to deliver high-performance video, broadband, and smart home experiences. Choose your domain to explore tailored docs, APIs, and workflows for rapid development.</p>
+  </div>
+</div>
 <div class="section-wrapper">
-  <div class="cards-wrapper" style="display: flex; justify-content: center; gap: 2.8%; padding: 0px; flex-wrap: wrap;">
-<!-- Entertainment Card -->
-<div class="card-wrapper">
-<div class="custom-box">
-  <div class="custom-box-horizontal full-image-layout">
-    <div class="image-section">
-      <img src="./assets/Entertainment.png" alt="Entertainment Image" />
+  <div class="cards-wrapper">
+    <!-- Entertainment Card -->
+    <div class="card entertainment-card">
+      <div class="overlay"></div>
+      <img src="./assets/Entertainment.png" alt="Entertainment Image" class="card-image">
+      <div class="card-content">
+        <h2>ENTERTAINMENT</h2>
+        <p>Build Apps, manage media and UI layers in a video platform.</p>
+        <a href="entertainment/docs/"><button class="explore-button"><span>EXPLORE</span></button></a>
+      </div>
     </div>
-    <div class="text-section">
-      <div class="text-inner">
-        <h2>Entertainment</h2>
-        <p>Build Apps, manage media and UI layers in a video platform</p>
-       <a href="entertainment/docs/" ><button class="explore-button">Explore</button></a>
+    <!-- Connectivity Card -->
+    <div class="card connectivity-card">
+      <div class="overlay"></div>
+      <img src="./assets/Connectivity.png" alt="Connectivity Image" class="card-image">
+      <div class="card-content">
+        <h2>CONNECTIVITY</h2>
+        <p>Framework that enables high-speed internet delivery for service providers.</p>
+        <a href="connectivity/docs/"><button class="explore-button"><span>EXPLORE</span></button></a>
       </div>
     </div>
   </div>
 </div>
-</div>
-<!-- </div> -->
-<div class="card-wrapper">
-<div class="custom-box">
-  <div class="custom-box-horizontal full-image-layout">
-    <div class="image-section">
-      <img src="./assets/Connectivity.png" alt="Entertainment Image" />
-    </div>
-    <div class="text-section">
-     <div class="text-inner">
-      <h2>Connectivity</h2>
-      <p>Framework that enables high-speed internet delivery for service providers. </p>
-      <a href="connectivity/docs/" ><button class="explore-button">Explore</button></a>
-    </div>
-    </div>
-  </div>
-</div>
-</div>
+
