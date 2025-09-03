@@ -15,9 +15,6 @@ hide:
 <div class="section-wrapper">
   <div class="cards-wrapper">
     <!-- Entertainment Card -->
-    <div class="card-icon entertainment-icon">
-        <img src="./assets/icons/video.png" alt="Entertainment Icon">
-    </div>
     <div class="card entertainment-card">
       <div class="overlay"></div>
       <img src="./assets/Entertainment.png" alt="Entertainment Image" class="card-image">
@@ -28,9 +25,6 @@ hide:
       </div>
     </div>
     <!-- Connectivity Card -->
-    <div class="card-icon connectivity-icon">
-        <img src="./assets/icons/internet.png" alt="Connectivity Icon">
-    </div>
     <div class="card connectivity-card">
       <div class="overlay"></div>
       <img src="./assets/Connectivity.png" alt="Connectivity Image" class="card-image">

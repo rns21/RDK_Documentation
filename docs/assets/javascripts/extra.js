@@ -100,7 +100,7 @@ function showTab(tabId) {
 }
 
 
-//Show table of contents when content is present inside othervise dont display
+//Show table of contents when content is present inside otherwise dont display
 window.addEventListener("DOMContentLoaded", () => {
   const sidebar = document.querySelector(".md-sidebar--secondary");
   const toc = sidebar?.querySelector("nav.md-nav--secondary");
@@ -110,32 +110,30 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+//detect pages to add class
+window.addEventListener('DOMContentLoaded', () => {
 
-window.addEventListener("DOMContentLoaded", () => {
-  const path = window.location.pathname;
+  const basePath = new URL(
+    document.querySelector('base')?.getAttribute('href') || '/',
+    location.origin
+  ).pathname.replace(/\/$/, ''); // no trailing slash
+ 
+  const current = location.pathname.replace(/\/$/, '');
+  let rel = current.startsWith(basePath) ? current.slice(basePath.length) : current;
+  if (!rel.startsWith('/')) rel = '/' + rel;
 
-  // Normalize path (remove trailing slash and .html)
-  const cleanPath = path.replace(/\/$/, "").replace(/\.html$/, "");
-
-  // Log for debugging
-  console.log("Clean path:", cleanPath);
-
-  // Home page detection
-  if (cleanPath === "" || cleanPath === "/" || cleanPath === "/index") {
-    document.body.classList.add("is-homepage");
-    console.log("Homepage detected");
+  if (rel === '/' || rel === '/index' || rel === '') {
+    document.body.classList.add('is-homepage');
   }
+ 
+  const mainPages = new Set([
+    '/connectivity/docs',
+    '/entertainment/docs',
+    '/preview-rdk/getting-started'
+  ]);
 
-  // Main sections
-  const mainPages = [
-    "/entertainment/docs",
-    "/connectivity/docs",
-    "/preview-rdk/getting-started"
-  ];
-
-  if (mainPages.includes(cleanPath)) {
-    document.body.classList.add("is-main-section");
-    console.log("Main section detected");
+  if (mainPages.has(rel) || mainPages.has(rel.replace(/\/index$/, ''))) {
+    document.body.classList.add('is-main-section');
   }
 });
 
