@@ -110,33 +110,48 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-//detect pages to add class
-window.addEventListener('DOMContentLoaded', () => {
-
-  const basePath = new URL(
-    document.querySelector('base')?.getAttribute('href') || '/',
-    location.origin
-  ).pathname.replace(/\/$/, ''); // no trailing slash
+//Add classes for page detection 
+(function () {
  
-  const current = location.pathname.replace(/\/$/, '');
-  let rel = current.startsWith(basePath) ? current.slice(basePath.length) : current;
-  if (!rel.startsWith('/')) rel = '/' + rel;
-
-  if (rel === '/' || rel === '/index' || rel === '') {
-    document.body.classList.add('is-homepage');
+  const norm = (p) => {
+    if (!p) return '/';                      // handle empty
+    if (!p.startsWith('/')) p = '/' + p;     // ensure leading slash
+    p = p.replace(/\/index(\.html)?$/, '');  // drop /index or /index.html
+    if (p.length > 1) p = p.replace(/\/$/, ''); // drop trailing slash 
+    return p || '/';
+  };
+ 
+  // section roots — keep leading / and no trailing /
+  const ROOTS = ['/connectivity/docs', '/entertainment/docs', '/preview-rdk/getting-started'].map(norm);
+ 
+  function applyFlags(where = 'initial') {
+    const rawPath = location.pathname;         
+    const path = norm(rawPath);               
+ 
+    const logoEl = document.querySelector('a.md-header__button.md-logo');
+    const logoHref = logoEl?.getAttribute('href') || '/';
+    const basePath = norm(new URL(logoHref, location.href).pathname); 
+ 
+    // remov prev cls(for SPA nav)
+    document.body.classList.remove('is-homepage', 'is-main-section');
+ 
+    // Homepage
+    const isHome = path === basePath;
+    if (isHome) document.body.classList.add('is-homepage');
+ 
+    // Main section
+    const matchedRoot = ROOTS.find((r) => path.includes(r));
+    if (matchedRoot) document.body.classList.add('is-main-section');
+ 
+    console.log('[flags]', { where, rawPath, path, logoHref, basePath, isHome, matchedRoot });
   }
  
-  const mainPages = new Set([
-    '/connectivity/docs',
-    '/entertainment/docs',
-    '/preview-rdk/getting-started'
-  ]);
-
-  if (mainPages.has(rel) || mainPages.has(rel.replace(/\/index$/, ''))) {
-    document.body.classList.add('is-main-section');
+  window.addEventListener('DOMContentLoaded', () => applyFlags('DOMContentLoaded'));
+  if (window.document$?.subscribe) {
+    window.document$.subscribe(() => applyFlags('document$'));
   }
-});
-
+ 
+})();
 
 //Tabs for entertainment and connectivity in getting started page
 function showTabs(tabName, event) {
