@@ -1,6 +1,6 @@
 # GPON Manager
 
-GPON Manager is responsible for managing the GPON  interface and its associated ONUs (Optical Network Units). Its primary function is to abstract the complexities of GPON hardware, provide a standardized data model for configuration and monitoring, and ensure seamless integration with the rest of the RDK-B stack. 
+GPON Manager component is responsible for managing the GPON interface and its associated ONUs. Its primary function is to abstract the complexities of GPON hardware, provide a standardized data model for configuration and monitoring, and ensure seamless integration with the rest of the RDK-B stack. 
 
 Core responsibilities include:
 
@@ -12,9 +12,9 @@ Core responsibilities include:
 
 ## Design
 
- GPON Manager is architected as a modular middleware component that sits between the hardware abstraction layer (HAL) and the RDK-B management stack. It leverages a state machine to track the operational status of the GPON interface and VEIP (Virtual Ethernet Interface Point), and uses a combination of IPC mechanisms and data models to interact with other system components.
+GPON Manager is architected as a modular middleware component that sits between the hardware abstraction layer (HAL) and the RDK-B management stack. It leverages a state machine to track the operational status of the GPON interface and VEIP (Virtual Ethernet Interface Point), and uses a combination of IPC mechanisms and data models to interact with other system components.
 
-![design](../images/gpon_manager_design.png)
+![design](../../images/gpon_manager_design.png)
 
 The design ensures that the GPON Manager can:
 - Abstract hardware-specific details via the HAL.
@@ -96,26 +96,26 @@ graph TD
 ```
 ### GPON Connected
 
-![gponconnected](../images/gpon_manager_dml_connected.png)
+![gponconnected](../../images/gpon_manager_dml_connected.png)
 
 In the connected state, the ONU manages GPON connection parameters autonomously. The GPON Manager monitors the ONU's registration status and VEIP interface state. Upon VEIP availability, the GPON Manager coordinates with the Ethernet Manager to provision the VEIP interface for WAN services, consistent with WANoE (WAN over Ethernet) behavior.
 
 
 ### GPON Disonnected
 
-![gpondisconnected](../images/gpon_manager_dml_disconnected.png)
+![gpondisconnected](../../images/gpon_manager_dml_disconnected.png)
 
 When the VEIP interface is lost, the GPON Manager disables the corresponding Ethernet interface data model object in the Ethernet Manager. This action triggers a teardown of the WAN connection, mirroring the behavior seen in physical Ethernet link disconnection.
 
 ### GPON Disabled for WAN
 
-![wan_disabled](../images/gpon_manager_dml_wan_disconnected.png)
+![wan_disabled](../../images/gpon_manager_dml_wan_disconnected.png)
 
 In this state, the ONU remains operational, but WAN services are disabled. The Ethernet Manager transitions to a “WAN Link Down” state. If re-enabled, the system proceeds to restore WAN connectivity using the existing VEIP interface.
 
 ### ONU Disabled
 
-![onu_disabled](../images/gpon_manager_dml_onu_disabled.png)
+![onu_disabled](../../images/gpon_manager_dml_onu_disabled.png)
 
 Disabling the ONU triggers the teardown of the VEIP interface. The GPON Manager instructs the Ethernet Manager to terminate the associated WAN connection and delete the corresponding Ethernet interface object. Both state machines exit their operational states to conserve system resources.
 
@@ -123,7 +123,7 @@ Disabling the ONU triggers the teardown of the VEIP interface. The GPON Manager 
 
 The data model structure across RDK components leverages the `LowerLayers` parameter to stack configuration layers for GPON-based WAN connectivity.
 
-![dml_structure](../images/gpon_manager_dml_table.png)
+![dml_structure](../../images/gpon_manager_dml_table.png)
 ---
 
 ## Implementation Details

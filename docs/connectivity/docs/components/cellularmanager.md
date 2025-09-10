@@ -1,10 +1,10 @@
 # Cellular Manager
 
-The Cellular Manager component is designed to manage cellular modems in devices such as gateways and extenders, providing seamless internet access and telemetry for enhanced connectivity. It facilitates internet access through cellular networks using default EPS bearers (NON-GBR, EPS-only registration) for IPv4 and IPv6, delivers telemetry on radio resources (RR), mobility management (MM), and session management (SM), and excludes VoLTE for voice in FA+FWA profiles. The component's in-scope functionalities include managing modem power configuration, exposing radio resource and mobility management information, handling network access, SIM and eSIM management, EPS bearer configuration, and providing kernel device interfaces for transport and modem control, as well as IP address configuration via NAS signaling. Out-of-scope features include traffic forwarding/routing, home network configuration, phone book and SMS capabilities, GPS, VoLTE, MBSFN, and carrier aggregation. The Cellular Manager supports use cases like LTE onboarding (Instant On), extender-only or LTE backup modes, SIM/eSIM switching, and signal quality telemetry for device placement, ensuring robust integration with the RDK-B stack via R-BUS (northbound) and modem control through AT commands, proprietary SDKs, or standard kernel drivers like QMI/MBIM (southbound).
+The Cellular Manager component is designed to manage cellular modems in devices such as gateways and extenders by facilitating internet access through cellular networks using default EPS bearers (NON-GBR, EPS-only registration) for IPv4 and IPv6. It delivers telemetry on radio resources (RR), mobility management (MM), and session management (SM), and excludes VoLTE for voice in FA+FWA profiles. The component's  functionalities include managing modem power configuration, exposing radio resource and mobility management information, handling network access, SIM and eSIM management, EPS bearer configuration, and providing kernel device interfaces for transport and modem control, as well as IP address configuration via NAS signaling. Though the WAN is Celluarl, the component is not responsible for  traffic forwarding/routing, home network configuration, phone book and SMS capabilities, GPS, VoLTE, MBSFN, and carrier aggregation. The Cellular Manager supports use cases like LTE onboarding (Instant On), extender-only or LTE backup modes, SIM/eSIM switching, and signal quality telemetry for device placement, ensuring robust integration with the RDK-B stack via R-BUS (northbound) and modem control through AT commands, proprietary SDKs, or standard kernel drivers like QMI/MBIM (southbound).
 
 ## Use Cases
 
-![Use Cases](../images/cellular_mgr_use_cases.png)
+![Use Cases](../../images/cellular_mgr_use_cases.png)
 
 - Onboarding over LTE (Instant On).
 - Operating as extender-only or LTE backup.
@@ -13,6 +13,11 @@ The Cellular Manager component is designed to manage cellular modems in devices 
 - Placement recommendations based on LTE/WiFi performance.
 
 ## Scope of Functionality
+
+!!! note
+    - The **In Scope** column lists functionalities that will be implemented as part of the Cellular Manager.  
+    - The **Out of Scope** column lists items that are explicitly excluded from the implementation.
+
 
 | **In Scope** | **Out of Scope** |
 |--------------|------------------|
@@ -27,13 +32,15 @@ The Cellular Manager component is designed to manage cellular modems in devices 
 | Expose IP address configuration obtained via NAS signaling | |
 | Provide telemetry information related to cellular connectivity | |
 
-!!! note
-    - The **In Scope** column lists functionalities that will be implemented as part of the Cellular Manager.  
-    - The **Out of Scope** column lists items that are explicitly excluded from the implementation.
 
-## Component Design
+## Design
 
-![Cellular Manager Architecture](../images/cellular_mgr_architecture.png)
+A high level design of Cellular Manager is given below
+![Cellular Manager Architecture](../../images/cellular_mgr_hal.png)
+
+A more detailed diagram is given below
+
+![Cellular Manager Detailed Architecture](../../images/cellular_mgr_architecture.png)
 
 ### State Machine
 
@@ -42,13 +49,12 @@ The Cellular Manager component is designed to manage cellular modems in devices 
 
 The state machine tracks modem states based on data model conditions.
 
-Key principles of State machine are:
 - The Cellular Manager state machine relies on data model objects and parameters that reflect cellular modem states.
 - States occupy time intervals and depend on current inputs and historical data.
 - Key status transitions (e.g., Device.Cellular.Interface.Status==DOWN) arise from causes like signal loss or attach rejection.
 - Manages modem for internet access via default bearers (IPv4/IPv6), analyzes radio signals for placement scoring, and exposes telemetry on mobility, session, and radio resources.
 
-![State Machine](../images/cellular_mgr_statemachine.png)
+![State Machine](../../images/cellular_mgr_statemachine.png)
 
 ### SoC Interaction Principles
 
@@ -60,11 +66,11 @@ Key principles of State machine are:
     Once these drivers are loaded, the kernel will expose a new /dev/cdc-wdm device that can talk QMI with the
     CPE, along with a WWAN interface associated with each QMI port, to transmit and receive traffic through a PDN connection.
 
-![SoC Interaction Diagram](../images/cellular_mgr_diagrams.png)
+![SoC Interaction Diagram](../../images/cellular_mgr_diagrams.png)
 
 Data model transitions by status:
 
-![Data Model Transition](../images/cellular_mgr_dm_transition.png)
+![Data Model Transition](../../images/cellular_mgr_dm_transition.png)
 
 ### Sequence Diagrams
 
@@ -77,20 +83,15 @@ Cellular Manager sequence diagrams describe the interaction between different en
     2. The cellular manager will analyze the cellular radio signal and expose a parameter with the score of the radio conditions to place the device in a convenient place.
     3. The cellular manager will extract and expose all valuable information related to mobility management, session management, and radio resources for telemetry purposes.
 
-The sequence diagram can be better understood in combination with the state machine.
+!!! note
+    The sequence diagram can be better understood in combination with the state machine.
+![Internet Service Call Flow](../../images/cellular_mgr_callflow.png)
 
-### Internet Service Access
+* **Internet Service Access**: To access the internet, cellular modem will need to register with the MNO network and establish an EPS connection to a packet gateway. Component registration will be for EPS only, and the EPS session will be based on a single default bearer (NON-GBR). Before starting the registration, it is required to configure a number of global parameters (or defaults) and one or more access point profiles to establish the EPS bearer. This information could be provisioned in advance via WEBCONFIG.
 
-??? info "Cellular Manager Internet Service Access Service"
-    To access the internet, our cellular modem will need to register with the MNO network and establish an EPS connection to a packet gateway.
 
-    Component registration will be for EPS only, and the EPS session will be based on a single default bearer (NON-GBR).
 
-    Before starting the registration, we will need to configure a number of global parameters (or defaults) and one or more access point profiles to establish the EPS bearer. This information could be provisioned in advance via WEBCONFIG.
-
-![Internet Service Call Flow](../images/cellular_mgr_callflow.png)
-
-### Data Models
+## Data Models
 
 Parameters expose modem control, status, and telemetry.
 
@@ -243,16 +244,11 @@ Parameters expose modem control, status, and telemetry.
 - **LIBQMI APIs:** Used for southbound modem control (e.g., IMEI/ICCID retrieval, registration, bearer management).
 - **RBUS APIs:** Northbound for data model updates and stack integration (e.g., parameter sets/gets, notifications).
 
-## HAL
-
-![HAL Diagram](../images/cellular_mgr_hal.png)
-
-
 ## Build Setup & Requirements
 
 ### Functional Requirements
 
-In this section, we map product requirements to specific component requirements, including the way to design the component to satisfy the requirement in clear text.
+In this section, the product requirements are mapped to specific component requirements, including the way to design the component to satisfy the requirement in clear text.
 
 | Name                          | Title                                                                                                                                                                                                                          | Group                   | Design analysis                                                                                                                                                                                                                          | Notes                                                                                                         |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -305,7 +301,7 @@ In this section, we map product requirements to specific component requirements,
 |                                  | Uplink      | 2.5 bps/Hz @1 × 2      | 15 bps/Hz @4 × 4         |
 | **Mobility (RDK-B)**             |             | NOT APPLICABLE         | NOT APPLICABLE           |
 
-## Cellular Manager - Reference Setup
+## Reference Setup
 
 ### Hardware Selection
 
@@ -320,7 +316,7 @@ In this section, we map product requirements to specific component requirements,
 - **Telit HAT miniPCIe HAT:** Telit LE 910Cx (MDM9207), Sixfab HAT, PCB antenna, Micro USB, NL Symio USIM (~$110 as of April 2024).
 - **Quectel M2 Adaptor:** Quectel EM06, USB to M2 adaptor, Vodafone NL USIM.
 
-![Reference Setup](../images/cellular_mgr_reference_setup.png)
+![Reference Setup](../../images/cellular_mgr_reference_setup.png)
 
 ### Manuals and Examples
 
@@ -328,24 +324,25 @@ In this section, we map product requirements to specific component requirements,
 - AT commands via serial for basic control.
 - Test registration, bearer setup, and telemetry extraction.
 
-### Document References
+## Document References
 
 - TR-181 specification: [Broadband Forum Data Models](https://cwmp-data-models.broadband-forum.org/#Latest%20Data%20Models)
 - Modem commands [ETSI TS127.007](https://www.etsi.org/deliver/etsi_ts/127000_127099/127007/10.03.00_60/ts_127007v100300p.pdf)
 - 3GPP specifications (e.g., TS 23.003 for numbering, TS 24.301 for NAS protocol, TS 27.007 for AT commands).
 
-=== "3GPP specifications"
-    1. 3GPP TS 23.003, Numbering, Addressing, and Identification
-    2. 3GPP TS 29.274, Evolved General Packet Radio Service (GPRS) Tunneling Control Protocol for Control Plane (GTPv2-C)
-    3. 3GPP TS 36.300, Evolved Universal Terrestrial Radio Access (E-UTRA) and Evolved Universal Terrestrial Radio Access Network (E-UTRAN); overall description
-    4. 3GPP TS 24.301, Non-Access-Stratum (NAS) Protocol for Evolved Packet System (EPS)
-    5. 3GPP TS 36.304, Evolved Universal Terrestrial Radio Access (E-UTRA); UE Procedures in Idle Mode
-    6. 3GPP TS 36.321, Evolved Universal Terrestrial Radio Access (E-UTRA); Medium Access Control (MAC) protocol specification
-    7. 3GPP TS 36.322, Evolved Universal Terrestrial Radio Access (E-UTRA); Radio Link Control (RLC) protocol specification
-    8. 3GPP TS 36.323, Evolved Universal Terrestrial Radio Access (E-UTRA); Packet Data Convergence Protocol (PDCP)
-    9. 3GPP TS 36.331, Evolved Universal Terrestrial Radio Access (E-UTRA); Radio Resource Control (RRC)
-    10. 3GPP TS 23.401, General Packet Radio Service (GPRS) enhancements for Evolved Universal Terrestrial Radio Access Network (E-UTRAN) access
-    11. 3GPP TS 36.413, Evolved Universal Terrestrial Radio Access Network (E-UTRAN); S1 Application Protocol (S1AP)
-    12. 3GPP TR 36.839, Evolved Universal Terrestrial Radio Access (E-UTRA); Mobility Enhancements in Heterogeneous Networks
-    13. 3GPP TS 27.007 V17.3.0
+**3GPP specifications**
+
+- 3GPP TS 23.003, Numbering, Addressing, and Identification
+- 3GPP TS 29.274, Evolved General Packet Radio Service (GPRS) Tunneling Control Protocol for Control Plane (GTPv2-C)
+- 3GPP TS 36.300, Evolved Universal Terrestrial Radio Access (E-UTRA) and Evolved Universal Terrestrial Radio Access Network (E-UTRAN); overall description
+- 3GPP TS 24.301, Non-Access-Stratum (NAS) Protocol for Evolved Packet System (EPS)
+- 3GPP TS 36.304, Evolved Universal Terrestrial Radio Access (E-UTRA); UE Procedures in Idle Mode
+- 3GPP TS 36.321, Evolved Universal Terrestrial Radio Access (E-UTRA); Medium Access Control (MAC) protocol specification
+- 3GPP TS 36.322, Evolved Universal Terrestrial Radio Access (E-UTRA); Radio Link Control (RLC) protocol specification
+- 3GPP TS 36.323, Evolved Universal Terrestrial Radio Access (E-UTRA); Packet Data Convergence Protocol (PDCP)
+- 3GPP TS 36.331, Evolved Universal Terrestrial Radio Access (E-UTRA); Radio Resource Control (RRC)
+- 3GPP TS 23.401, General Packet Radio Service (GPRS) enhancements for Evolved Universal Terrestrial Radio Access Network (E-UTRAN) access
+- 3GPP TS 36.413, Evolved Universal Terrestrial Radio Access Network (E-UTRAN); S1 Application Protocol (S1AP)
+- 3GPP TR 36.839, Evolved Universal Terrestrial Radio Access (E-UTRA); Mobility Enhancements in Heterogeneous Networks
+- 3GPP TS 27.007 V17.3.0
 ```
