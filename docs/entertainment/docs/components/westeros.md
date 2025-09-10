@@ -1,10 +1,8 @@
 # Westeros Wayland Compositor
 
-Westeros is a lightweight Wayland compositor library designed for embedded systems and set-top boxes. It provides a flexible framework for creating normal, nested, and embedded Wayland compositors with support for hardware-accelerated video rendering and multiple backend platforms.
+Westeros is a lightweight Wayland compositor library designed for embedded systems , including set-top boxes. It provides a flexible framework for creating normal, nested, and embedded Wayland compositors with support for hardware-accelerated video rendering and multiple backend platforms. The compositor implements the Wayland protocol and is designed to be compatible with applications built to use Wayland compositors. It enables applications to create one or more Wayland displays and supports three distinct compositor types: normal compositors that display output directly to the screen, nested compositors that send output to another compositor as a client surface, and embedded compositors that allow applications to incorporate composited output into their UI for seamless integration of third-party applications.
 
-The compositor implements the Wayland protocol and is designed to be compatible with applications built to use Wayland compositors. It enables applications to create one or more Wayland displays and supports three distinct compositor types: normal compositors that display output directly to the screen, nested compositors that send output to another compositor as a client surface, and embedded compositors that allow applications to incorporate composited output into their UI for seamless integration of third-party applications.
-
-## Architecture
+## Design
 
 ```mermaid
 graph TB
@@ -56,10 +54,34 @@ graph TB
     M --> O
     N --> O
 ```
+### Module Interface Specifications
 
-## Core Components
+| Interface | Purpose | Key Methods |
+|-----------|---------|-------------|
+| `WstModuleInit` | Primary initialization function | Resource allocation, hardware initialization, capability registration |
+| `WstModuleTerm` | Cleanup functionality | Resource deallocation, system state restoration |
+| `WstOutput` | Display output configuration | Resolution setting, refresh rate control, multi-display management |
+| `WstCompositor` | Main compositor context | Primary API for application integration |
 
-### 1. Westeros Compositor Core
+The Westeros module system provides standardized entry points for platform-specific implementations. The `WstOutput` interface abstracts display output configuration across different platforms, providing consistent methods for resolution setting, refresh rate control, and multi-display management.
+
+### Protocol Binding Generation
+Protocol bindings are automatically generated from XML specifications using the Wayland scanner tool. The generated headers in `protocol/` directories provide both client and server implementations for each supported protocol extension.
+
+```mermaid
+flowchart LR
+    A[XML Protocol Specs] --> B[Wayland Scanner]
+    B --> C[Generated Headers]
+    C --> D[Client Implementation]
+    C --> E[Server Implementation]
+    D --> F[Application Integration]
+    E --> F
+```
+
+The build system integrates Wayland scanner tool execution, automatically regenerating protocol bindings when XML specifications are updated. This ensures that protocol implementations remain synchronized with specification changes and maintain compatibility with standard Wayland applications.
+## Core modules
+
+### Compositor Core
 
 - **File**: `westeros-compositor.cpp`
 - **Purpose**: Main compositor implementation handling Wayland protocol, surface management, and client coordination
@@ -68,30 +90,30 @@ graph TB
   - `WstOutput`: Manages display output configurations like resolution and refresh rate, abstracting hardware differences for a consistent application interface.
   - `WstModule`: Enables runtime loading of platform-specific modules, allowing the compositor to support multiple hardware platforms with a single build.
 
-### 2. Westeros Sink Modules
+### Sink Modules
 The sink modules are hardware-specific GStreamer sink elements that handle video rendering on different platforms. Each sink module is tailored to leverage the specific capabilities and APIs of its target platform while providing a consistent GStreamer interface.
 
-#### DRM Sink (`westeros-sink/drm/`)
+#### DRM Sink
 
 - **Direct Rendering Manager support** – The DRM sink supports generic Linux graphics stacks via the DRM/KMS framework, making it compatible with a wide range of Linux platforms using standard graphics drivers.
 - **Generic Linux graphics stack** – It uses GBM for efficient buffer allocation and supports both video overlay and texture rendering, choosing the best method based on hardware and system conditions.
 - **KMS (Kernel Mode Setting) integration** – The sink manages display settings like resolution, refresh rate, and multi-monitor support through KMS. It supports both atomic and legacy APIs for broad kernel compatibility.
 
-#### V4L2 Sink (`westeros-sink/v4l2/`)
+#### V4L2 Sink
 
 - **Video4Linux2 API support** – The V4L2 sink offers broad compatibility using the standard Video4Linux2 API, making it ideal for systems without specialized video interfaces.
 - **Capture and display buffer management** – It handles both capture and display buffers, supports various pixel formats and DMA buffers for zero-copy operations, and negotiates formats for optimal hardware performance.
 - **Cross-platform video handling** – Supports hardware-accelerated decoding with graceful fallback to software, and maintains proper audio-video synchronization during playback.
 
-### 3. Protocol Extensions
+### Protocol Extensions
 
 #### XDG Shell Support
 Westeros provides full support for XDG Shell protocol versions v4, v5, and stable, allowing applications to manage surfaces as toplevel or popup windows. It supports window states like maximized, minimized, fullscreen, and resizable, with constraint handling. Surface roles, input focus, and event routing are properly implemented. Bindings are auto-generated from XML using the Wayland scanner, ensuring compatibility with standard Wayland clients.
 
-#### Simple Shell (`simpleshell/`)
+#### Simple Shell
 A custom Westeros extension designed for embedded systems, offering lightweight window management. It supports basic functions such as window creation, positioning, and state transitions, with reduced complexity compared to full-featured shell protocols like XDG Shell—ideal for low-resource environments.
 
-#### Simple Buffer (`simplebuffer/`)
+#### Simple Buffer
 A protocol extension focused on efficient cross-process buffer sharing. It minimizes memory overhead by supporting shared memory, DMA buffers, and platform-specific formats. Reference counting and lifecycle management are included to ensure proper cleanup and resource handling—critical for performance in embedded systems.
 
 ## Platform Support Matrix
@@ -125,33 +147,6 @@ ERM (External Resource Manager) integration enables robust resource handling acr
 Westeros supports seamless dynamic resolution switching without restarting apps or the compositor. It also handles multi-display setups with independent resolution, refresh, and color settings—enabling mirroring and extended desktop modes.
 
 Comprehensive input handling includes support for multi-touch displays, external keyboards, and embedded system input devices, ensuring flexible user interaction across platforms.
-## Build Configuration
-
-### Platform-Specific Builds
-The build system supports multiple platform configurations through autotools-based configuration options. Each platform can be enabled independently, allowing for custom builds tailored to specific deployment requirements.
-
-```bash
-# DRM platform with OpenGL rendering
-./configure --enable-drm=yes --enable-rendergl --enable-gbm
-
-# V4L2 support with cross-platform compatibility
-./configure --enable-v4l2=yes --enable-rendergl
-
-# Embedded compositor configuration
-./configure --enable-embedded=yes --enable-rendergl
-```
-
-### Protocol Generation
-Protocol bindings are generated using the Wayland scanner tool, which processes XML protocol specifications and creates the necessary C code for client and server implementations.
-
-```bash
-# Generate all Wayland protocol bindings
-make -C protocol westeros-protocols
-
-# Generate specific protocol versions
-export SCANNER_TOOL=/usr/bin/wayland-scanner
-make -C protocol xdg-shell-v4 xdg-shell-v5 simpleshell simplebuffer
-```
 
 ## Usage Examples
 
@@ -237,8 +232,8 @@ make -f Makefile.test clean && make -f Makefile.test
 
 ## Release Information
 
-### Current Release: 1.01.57 (November 25, 2024)
-The latest release introduces several significant improvements and new features:
+### Current Release: 
+The latest release is `1.01.57` (November 25, 2024) and introduces several significant improvements and new features:
 
 | Feature | Description | Impact |
 |---------|-------------|---------|
@@ -246,60 +241,6 @@ The latest release introduces several significant improvements and new features:
 | Shutdown Robustness | Race condition and cleanup improvements | Better system stability |
 | Timecode PTS Processing | Accurate timestamp handling fixes | Professional video application support |
 | ALLM Management | Auto Low Latency Mode updates | Improved gaming performance |
-
-### Notable Version History
-
-```mermaid
-timeline
-    title Westeros Version History
-    
-    section 2024
-        1.01.57 : AFD support
-                : Shutdown improvements
-                : Timecode PTS fixes
-                : ALLM management
-    
-    section Earlier Versions
-        1.01.48 : V4L2 frame step improvements
-                : ERM serialization enhancements
-        
-        1.01.46 : Tunnelled operation support
-                : Thread name optimization
-        
-        1.01.44 : Stop-keep-frame property
-                : Enhanced tunnelled operations
-        
-        1.01.30 : MJPEG support
-                : TSM mode restoration
-```
-
-## API Documentation
-
-### Module Interface Specifications
-
-| Interface | Purpose | Key Methods |
-|-----------|---------|-------------|
-| `WstModuleInit` | Primary initialization function | Resource allocation, hardware initialization, capability registration |
-| `WstModuleTerm` | Cleanup functionality | Resource deallocation, system state restoration |
-| `WstOutput` | Display output configuration | Resolution setting, refresh rate control, multi-display management |
-| `WstCompositor` | Main compositor context | Primary API for application integration |
-
-The Westeros module system provides standardized entry points for platform-specific implementations. The `WstOutput` interface abstracts display output configuration across different platforms, providing consistent methods for resolution setting, refresh rate control, and multi-display management.
-
-### Protocol Binding Generation
-Protocol bindings are automatically generated from XML specifications using the Wayland scanner tool. The generated headers in `protocol/` directories provide both client and server implementations for each supported protocol extension.
-
-```mermaid
-flowchart LR
-    A[XML Protocol Specs] --> B[Wayland Scanner]
-    B --> C[Generated Headers]
-    C --> D[Client Implementation]
-    C --> E[Server Implementation]
-    D --> F[Application Integration]
-    E --> F
-```
-
-The build system integrates Wayland scanner tool execution, automatically regenerating protocol bindings when XML specifications are updated. This ensures that protocol implementations remain synchronized with specification changes and maintain compatibility with standard Wayland applications.
 
 ## Development Guidelines
 
@@ -331,7 +272,7 @@ Creating new protocol extensions requires careful design to ensure compatibility
 
 ## Troubleshooting
 
-### Common Issues and Solutions
+### Common Issues
 
 | Issue Type | Observed Behavior | Diagnostic Steps | Solutions |
 |------------|----------|------------------|-----------|
@@ -340,7 +281,7 @@ Creating new protocol extensions requires careful design to ensure compatibility
 | Video Rendering | Playback issues | Test hardware acceleration | Verify codec support, drivers |
 | Protocol Errors | Application crashes | Check version compatibility | Update protocol versions |
 
-### Debug Options and Diagnostic Tools
+### Debug Options
 
 | Tool | Environment Variable | Purpose | Usage |
 |------|---------------------|---------|-------|
@@ -350,4 +291,3 @@ Creating new protocol extensions requires careful design to ensure compatibility
 | Platform Tools | Platform-specific | Resource monitoring | Hardware state analysis |
 
 Resource conflicts often arise in multi-application environments where multiple processes compete for limited hardware resources. Display initialization problems typically stem from incorrect driver configuration or hardware compatibility issues. Video rendering issues may indicate problems with hardware acceleration support or codec compatibility.
-
