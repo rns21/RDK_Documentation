@@ -1,0 +1,1684 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/entertainment/docs/rdk7-architecture/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../rdk7-features/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>Architecture - RDK Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/entertainment.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/getting-started.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/connectivity.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/devices.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/footer.css">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rdk7-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+       
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a
+      href="../../.."
+      title="RDK Documentation"
+      class="md-header__button md-logo"
+      aria-label="RDK Documentation"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis"> RDK Documentation </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+             Architecture 
+          </span>
+        </div>
+      </div>
+    </div>
+     
+    <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="#00b2dc"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="#00b2dc"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>    <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>     
+    <label class="md-header__button md-icon" for="__search">
+       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+    </label>
+    <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>   
+    <div class="md-header__source">
+      <a href="https://github.com/rdkcentral" class="md-header__button md-button"><span class="icon-github" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg></span>Source Code</a>
+      <a href="https://github.com/rdkcentral" class="md-header__button md-button">Contribute<span class="icon-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span></a>
+    </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Entertainment
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../connectivity/docs/" class="md-tabs__link">
+          
+  
+  
+  Connectivity
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../preview-rdk/docs/getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../tools/docs/TDK/" class="md-tabs__link">
+          
+  
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../device-management/docs/" class="md-tabs__link">
+          
+  
+  
+  Device Management
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="RDK Documentation" class="md-nav__button md-logo" aria-label="RDK Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    RDK Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rdkcentral" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entertainment
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Entertainment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vendor-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vendor Layer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#middleware-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Middleware Layer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application Layer
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rdk7-features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tryout_rdkv_rdk7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rdk7-vendor-porting-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Porting Kit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Core Components
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Core Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rdkv_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Component List
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/westeros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Westeros
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/rdkshell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RDK Shell
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../video_profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Releases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Connectivity
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Connectivity
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/tryout_rdkb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Core Components
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Core Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/rdkb_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Component List
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/components/cellularmanager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/components/wanmanager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../connectivity/docs/components/gponmanager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Releases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../preview-rdk/docs/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/docs/TDK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TDK
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/docs/Automatics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Automatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Device Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Device Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../device-management/docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../device-management/docs/XConf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    XConf
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../device-management/docs/Telemetry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Telemetry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../device-management/docs/Webpa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web PA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../device-management/docs/TR369/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TR 369
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../device-management/docs/LogUpload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Log Upload
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vendor-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vendor Layer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#middleware-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Middleware Layer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application Layer
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/rdkcentral/edit/master/docs/entertainment/docs/rdk7-architecture.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="rdk7-architecture">RDK7 Architecture</h1>
+<hr />
+<p>RDK7 is the newest open source software release, representing the first release of RDK-E (Entertainment), evolving from the previous RDK-V (Video) platform. It supports both IP and TV video platforms, integrating over-the-top (OTT) video apps through the Firebolt™ framework, standardizing interfaces for video playback, digital rights management (DRM), graphics, and security. RDK7 builds upon previous RDK releases to further simplify app development, enhance security, and standardize functionality across diverse set-top box hardware.</p>
+<p>The following key principles of RDK7 illustrate the areas of change and focus from RDK-V previous releases:</p>
+<p><img alt="Keyprinciples" src="../../images/Keyprinciples.png" /></p>
+<p>The Layered Design provides clear separation of functional responsibilities through distinct vendor, middleware, and application layers with independent development and update cycles. Hardware Abstraction reduces the cost of SoC/OEM deliver &amp; platform through standardized hardware abstraction layer (HAL) and simplified platform adaptation. Application Community focuses on standardization of portable 3rd party apps, consistent APIs for application developers, and Firebolt framework for OTT integration. Quality &amp; Robustness involves major transformation of delivery process to ensure quality, independent testing of each layer, and consistent development environment. Rapid Innovation is achieved through utilization of common tooling and patterns. Broadcast Functionality enables separation of broadcast technology from IP platform.</p>
+<p><img alt="rdk7architecture" src="../../images/rdk7architecture.png" /></p>
+<p>The architecture consists of three main layers. The Application Layer contains Firebolt Apps, Lightning UI, and Firebolt Framework. The Middleware Layer contains Thunder Framework, ENT Services, Media Framework, DRM Systems, and Device Management. The Vendor Layer contains HAL Implementation, Drivers, BSP, and Hardware Adaptation. The Application Layer connects to the Middleware Layer, which connects to the Vendor Layer.</p>
+<h2 id="vendor-layer">Vendor Layer</h2>
+<p>The objective of the vendor layer is to minimize the amount of code required per hardware platform, thereby reducing development time to support scalability. All vendor layer implementations must be fully compliant with the HAL specification to ensure compatibility with a common middleware build and provide standardized interfaces to the middleware layer, abstracting hardware differences.</p>
+<p>The vendor layer contains hardware-specific drivers, BSPs, and platform-specific adaptations. Responsibility for build systems, updates, and security identification related to deliverables lies with the vendor implementer. To support management and cross-layer compatibility, a minimal subset of component implementations is specified, such as the Linux Kernel version, core libraries, and patches.</p>
+<p>Reference open-source software is provided to enable reuse of common components; however, usage of these components is not mandatory for the vendor implementer. Manufacturing and serialization requirements and processes are defined in the Entertainment OS device specifications and must be followed accordingly. The vendor layer can be updated independently without affecting other layers.</p>
+<h2 id="middleware-layer">Middleware Layer</h2>
+<p>The middleware layer aims to provide a single, consistent implementation of core Entertainment device functionality. Middleware components are expected to utilize the Thunder framework to implement functionality in a standardized manner with unified orchestration, providing standardized APIs for the application layer to access device capabilities.</p>
+<p>The middleware layer includes core RDK components, media playback, DRM systems, and device management. Middleware components are developed separately and delivered as binary packages (IPK), though all components should be delivered in source code unless agreed as an exception. The middleware layer owner holds responsibility for the quality of all components within the layer, including open-source and community contributions.</p>
+<p>The middleware is designed to have the most simple, robust and co-operative implementation of the core functionality while enabling rapid innovation through common tooling and patterns. Reference open-source software is provided to allow re-use of common components, but the middleware is not obligated to use any of these components.</p>
+<h2 id="application-layer">Application Layer</h2>
+<p>The application layer is distinct from the lower layers in that it doesn't have a single layer owner. Instead, it's a set of tools and applications that harness the underlying layers to provide customer features directly or indirectly. The layer contains user-facing applications and experiences and includes the Firebolt framework for standardizing OTT app integration.</p>
+<p>Third-party applications should use the Firebolt APIs, providing consistent APIs for application developers, and it is assumed all 3rd party applications are 'untrusted'. The layer supports various application types including native, web-based, and hybrid applications, and can be updated independently of the middleware and vendor layers.</p>
+<p>Examples of Applications include:</p>
+<ul>
+<li><strong>Application Runtimes:</strong>
+     
+    Browsers or runtimes that support execution of application code</li>
+<li><strong>3rd Party applications:</strong>
+     
+    Standardized portable apps for consistent user experience<ul>
+<li>Immersive Device Experience: A trusted application that provides the UI and business logic to allow eOS managed devices to be configured by the user and host the operating system interactions (e.g., Voice overlays and application orchestration)</li>
+</ul>
+</li>
+</ul>
+<p>The application layer enables rapid development and deployment of new features and services while standardizing portable 3rd party apps for consistent user experience.</p>
+<h1 id="detailed-architecture">Detailed Architecture</h1>
+<p>The detailed architecture diagram illustrates the complete RDK7 software stack, showing the relationships between the different layers and components:</p>
+<p><img alt="DetailedArchitecture" src="../../images/Detailedarchitecture.png" /></p>
+<p>The RDK7 architecture includes key components across multiple layers. The Hardware Layer at the bottom is the physical hardware, which varies by device manufacturer. The Vendor Layer sits directly above the hardware, providing the necessary drivers and adaptations. The Middleware Layer serves as the core of the RDK7 platform, providing standardized services and APIs. The Application Layer forms the top layer, containing user-facing applications and experiences. The Thunder Framework provides a unified approach to component development and communication. The Firebolt Framework standardizes interfaces for OTT applications and services. The architecture emphasizes clear separation of concerns, standardized interfaces between layers, and modular component design to enable independent development and updates of different parts of the system.</p>
+<hr />
+<h1 id="build-system">Build System</h1>
+<p>RDK7 introduces a revolutionary layered build approach that significantly improves development efficiency. The build setup is divided into independent Stack layer projects, each comprising components that are developed separately and delivered as binary packages (IPK). These stack layers are then assembled into the final image using the Image Assembler tool.</p>
+<p><img alt="buildsystem" src="../../images/buildsystem.png" /></p>
+<p>The build system architecture includes the Reference OSS Layer that serves as a reference Yocto distribution layer with CVE patches, the Vendor Layer that contains vendor-specific code and hardware adaptations, the RDK Middleware Layer that contains core RDK middleware components, and the Application Layer that contains user-facing applications and services. The RDKE framework serves as the backbone of this layered architecture, designed to work seamlessly with Yocto without disrupting its normal functionalities while requiring minimal maintenance. It accommodates layering requirements without modifying Yocto's default tasks or variables.</p>
+<h2 id="build-system-directory-structure">Build System Directory Structure</h2>
+<div class="highlight"><pre><span></span><code>├── application
+│ └── meta-application-release
+├── common
+│ ├── meta-openembedded
+│ ├── meta-oss-reference-release
+│ ├── meta-rdk-auxiliary
+│ ├── meta-rdk-halif-headers
+│ ├── meta-rdk-oss-reference
+│ ├── meta-stack-layering-support
+│ └── poky
+├── configs
+│ └── common
+└── product-layer
+└── meta-rdke
+</code></pre></div>
+<h2 id="key-benefits-of-layered-builds">Key Benefits of layered builds</h2>
+<p>The layered build approach offers several key benefits across multiple areas. </p>
+<ul>
+<li><strong>Scalability</strong>
+    is achieved as each layer can be updated independently without affecting or relying on other layers, and updating only the vendor layer can be achieved by using the latest tag from that layer and applying it to the stack.</li>
+<li><strong>Quality</strong>
+    is ensured through each layer undergoing unit testing and layer-specific testing prior to release, with all requirements validated during this process and fully tested and tagged versions of the IPKs produced for quality assurance.</li>
+<li><strong>Easy debugging</strong>
+    is facilitated as developers are required to compile only their own projects, IPKs from other components can be consumed directly eliminating the need to build the entire set of components, tagged versions of application cases can be used to verify individual components, and overall build time is significantly reduced.</li>
+<li><strong>Less disk usage</strong>
+    is accomplished when working across multiple products as the middleware and application layers are designed to be as common as possible, the primary difference between products lies in the vendor layer, multiple vendor layers can be checked out and modified while using shared IPKs in the application layer, and this approach eliminates the need to check out the entire codebase for each product significantly saving disk space.</li>
+<li><strong>Consistent development environment</strong>
+    is maintained as each developer builds components against tagged versions of other components, ensuring that regressions or issues in unrelated components do not affect development, and only tested and tagged versions are used.</li>
+</ul>
+<p>The RDKE framework accommodates specific requirements for the layered build system by resolving both direct and indirect interlayer build dependencies, generating proper packaging metadata for runtime dependencies, creating IPKs without disrupting layer and interlayer runtime dependency chains, supporting installation of specific release versions of layer packages, creating target rootfs using both development packages and release layer IPKs, and supporting prebuilt kernels and device trees.</p>
+<hr />
+<h1 id="component-interaction-flow">Component Interaction Flow</h1>
+<p>The typical flow of a request through the RDK7 stack:</p>
+<p><img alt="componentinteraction" src="../../images/componentinteraction.png" /></p>
+<p>The system follows a standardized request-response flow where the Application sends request to Firebolt Framework, Firebolt Framework translates request for ENT Services, ENT Services processes request and sends to Thunder Framework, Thunder Framework processes request and sends to Hardware Abstraction Layer, HAL executes command on Hardware, Hardware returns result to HAL, HAL processes result and sends to Thunder Framework, Thunder Framework formats response and sends to ENT Services, ENT Services translates response for Firebolt Framework, and Firebolt Framework returns result to Application. This standardized flow ensures consistent behavior across different hardware platforms and enables rapid innovation through common patterns.</p>
+<hr />
+<h1 id="application-scenario">Application Scenario</h1>
+<p>Consider the use case of a user accessing a streaming application like YouTube on an RDK7 Entertainment-supported device. The user interacts with the YouTube application through the Application Layer, selecting content and initiating playback, where the application utilizes the Firebolt Framework for standardized OTT app integration as a 3rd party 'untrusted' application. The Firebolt Framework translates the user's request into standardized API calls and sends them to the Thunder Framework, which processes the request using unified orchestration and coordinates between different middleware components with standardized communication patterns. The ENT Services within the Middleware Layer handle core Entertainment device functionality, including the Media Framework for video decoding and rendering, DRM Systems for content protection and digital rights management, and device management for optimal performance. The Hardware Abstraction Layer in the Vendor Layer executes commands on the hardware using standardized HAL specifications that abstract hardware differences across different SoC platforms, while the physical hardware processes the video content leveraging GPU, video encoding/decoding hardware, and audio devices. The response flows back through the same standardized path in reverse - hardware returns results to HAL, which processes and sends to ENT Services, then to Thunder Framework for translation, and finally the Firebolt Framework returns the result to the Application. This standardized request-response flow ensures consistent behavior across different hardware platforms while enabling rapid innovation through common patterns and modular component design, providing a seamless and secure YouTube streaming experience for the user with clear separation of concerns across the three-layer architecture.</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <div class="bottom-banner compact-footer">
+  <!-- Left Section: Logo and Copyright -->
+  <div class="footer-left">
+    <img src="../../../assets/logo.png" alt="RDK Logo" class="rdk-logo" />
+    <p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+  </div>
+
+  <!-- Right Section: Links and Support -->
+  <div class="footer-right">
+    <!-- Explore RDK -->
+    <div class="banner-group">
+      <h3>Explore RDK</h3>
+      <div class="sub-columns">
+        <ul>
+          <li><a href="../../../preview-rdk/docs/getting-started/">Getting Started</a></li>
+          <li><a href="../../../devices/docs/">Devices</a></li>
+          <li><a href="../../../tools/docs/tdk/">Tools</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Device Management -->
+    <div class="banner-group management-group">
+      <h3>Device Management</h3>
+      <div class="sub-columns">
+        <ul>
+          <li><a href="/device-management/docs/XConf/">XConf</a></li>
+          <li><a href="/device-management/docs/Telemetry/">Telemetry</a></li>
+          <li><a href="/device-management/docs/Webpa/">Web PA</a></li>
+          <li><a href="/device-management/docs/TR369/">TR 369</a></li>
+        </ul>
+      </div>
+    </div>
+     <!-- Resources-->
+    <div class="banner-group">
+      <h3>Resources</h3>
+      <div class="sub-columns">
+        <ul>
+          <li><a href="/connectivity/wifi/">Knowledge Articles</a></li>
+          <li><a href="/connectivity/bluetooth/">Quick Links</a></li>
+          <li><a href="/connectivity/bluetooth/">Site Map</a></li>
+        </ul>
+      </div>
+    </div>
+</div>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../../assets/javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>
