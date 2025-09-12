@@ -98,5 +98,13 @@ nav:
       - GPON Manager: ./connectivity/docs/components/gponmanager.md
     - Releases: https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases
   - Getting Started: ./preview-rdk/docs/getting-started.md
-    # - Entertainment: ./preview-rdk/docs/preview-rdk-video.md
-    # - Connectivity: ./preview-rdk/docs/preview-rdk-broadband.
+  - Tools:
+      - TDK: ./tools/docs/TDK.md
+      - Automatics: ./tools/docs/Automatics.md
+  - Device Management:
+      - Overview: ./device-management/docs/README.md
+      - XConf: ./device-management/docs/XConf.md
+      - Telemetry: ./device-management/docs/Telemetry.md
+      - Web PA: ./device-management/docs/Webpa.md
+      - TR 369: ./device-management/docs/TR369.md
+      - Log Upload: ./device-management/docs/LogUpload.md
