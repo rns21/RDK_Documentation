@@ -11,18 +11,17 @@ hide:
   </div>
 
   <div id="tab-entertainment" class="tab-content">
-    <p>RDK is a fully modular, portable, and customizable open source software solution that standardizes core functions used in video, broadband, and IoT devices. Deployed on over a hundred million devices around the globe, RDK enables operators to manage devices and easily customize their UIs and apps, providing analytics to improve the customer experience. RDK is platform and operator agnostic, so it can easily be ported & adopted by multiple SoC/OEM/Operators, significantly reducing the time to market. With over 600 companies, RDK has an active open source community that regularly contributes cutting edge technologies to the stack.</p>
+
+
+    <p>The user interface is the first thing consumers interact with on any video device. With RDK, you can use the built-in open-source UI built on Lightning™, or develop a custom experience.</p>
     <img alt="rdk_ux_home.png" src="../../images/rdk_ux_home.png">
-    <p><strong>RDK for Entertainment </strong></p>
-    <p> RDK middleware enables operators to add video streaming capabilities to their IP or hybrid devices. The latest version of the RDK Video software stack is designed to simplify app development and integration on any set-top device, while allowing companies to maintain complete control of their apps, device data, and customer experience. This is achieved through Firebolt™, the RDK application platform, which ensures compatibility with the latest app releases, eliminating the need for future updates. The seamless integration of global streaming apps provides operators with an easy path to offer subscribers today's most popular content.</p>
-    <hr />
-    <p><strong>Video User Interface Preview</strong></p>
-    <p>The front end of any video device is the user interface that consumers will see. RDK comes with an open-source UI written in Lightning™, or you can create your own. To experience the RDK UI, watch the Video:  </p>
+    <p>To see RDK’s built-in UI in action, watch the recording below: </p>
     <video width="640" height="480" controls>
       <source src="../../images/rdk-ui.mp4" type="video/mp4">
     </video>
-    <p><strong>Try Out RDK</strong></p>
-    <p>If you want to play around RDK, a port of RDK is available on the popular open source platform Raspberry Pi. A guide on how to bring up RDK for Entertainment in Raspberry Pi is available <a href="../../entertainment/docs/tryout_rdkv.md">here</a></p>
+    <p>Ready to try RDK for yourself? You can get started using a Raspberry Pi, where a port of RDK is available. Follow our step-by-step guide <a href="../../../entertainment/docs/tryout_rdkv_rdk7/">here</a> to bring up RDK on your device and start exploring the platform firsthand.
+    </p>
+
   </div>
 
   <div id="tab-connectivity" class="tab-content" >

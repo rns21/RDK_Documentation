@@ -68,6 +68,7 @@ extra_css:
   - assets/stylesheets/connectivity.css
   - assets/stylesheets/devices.css
   - assets/stylesheets/footer.css
+  - assets/stylesheets/sidepanes.css
   - https://fonts.googleapis.com/icon?family=Material+Icons
 extra_javascript:
   - assets/javascripts/extra.js

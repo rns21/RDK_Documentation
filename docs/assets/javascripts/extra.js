@@ -1,72 +1,3 @@
-function toggleFeatures(event, containerId) {
-  const button = event.currentTarget;
-  const card = button.closest(".custom-box");
-  const features = document.getElementById(containerId);
-  const overlay = document.getElementById("overlay");
-  const headerTop = document.querySelector(".md-top");
-  const backToTopIcon = document.querySelector(".md-icon");
-  const mdHeader = document.querySelector(".md-header");
-
-  const isVisible = !features.classList.contains("hidden");
-
-  // Hide all feature containers and remove highlights
-  document.querySelectorAll(".features-container").forEach(fc => fc.classList.add("hidden"));
-  document.querySelectorAll(".explore-button").forEach(btn => btn.classList.remove("highlight"));
-
-  if (isVisible) {
-    features.classList.add("hidden");
-    overlay.classList.add("hidden");
-    headerTop?.classList.remove("hidden");
-    backToTopIcon?.classList.remove("hidden");
-    mdHeader.style.position = "";
-  } else {
-    features.classList.remove("hidden");
-    button.classList.add("highlight"); // highlight only the clicked button
-    overlay.classList.remove("hidden");
-    headerTop?.classList.add("hidden");
-    backToTopIcon?.classList.add("hidden");
-    mdHeader.style.position = "relative";
-
-    const outsideClickListener = function (e) {
-      if (!features.contains(e.target) && !button.contains(e.target)) {
-        features.classList.add("hidden");
-        button.classList.remove("highlight");
-        overlay.classList.add("hidden");
-        headerTop?.classList.remove("hidden");
-        backToTopIcon?.classList.remove("hidden");
-        mdHeader.style.position = "";
-        document.removeEventListener("pointerup", outsideClickListener);
-      }
-    };
-
-    document.addEventListener("pointerup", outsideClickListener);
-  }
-}
-
-//tabs section
-//2x2 layout for more than 5 lines of p
-function checkContentHeight() {
-  const activeContent = document.querySelector('.content.active');
-  const paragraphs = activeContent.querySelectorAll('.box p');
-  let shouldUseGrid = false;
-
-  paragraphs.forEach(p => {
-    const lineHeight = parseFloat(getComputedStyle(p).lineHeight);
-    const maxLines = 5;
-    const maxHeight = lineHeight * maxLines;
-
-    if (p.scrollHeight > maxHeight) {
-      shouldUseGrid = true;
-    }
-  });
-
-  if (shouldUseGrid) {
-    activeContent.classList.add('grid-layout');
-  } else {
-    activeContent.classList.remove('grid-layout');
-  }
-}
-
 // Run on initial load
 document.addEventListener('DOMContentLoaded', () => {
   checkContentHeight();
@@ -100,7 +31,7 @@ function showTab(tabId) {
 }
 
 
-//Show table of contents when content is present inside otherwise dont display
+//----------------Show table of contents when content is present inside otherwise dont display------------
 window.addEventListener("DOMContentLoaded", () => {
   const sidebar = document.querySelector(".md-sidebar--secondary");
   const toc = sidebar?.querySelector("nav.md-nav--secondary");
@@ -110,7 +41,8 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-//Add classes for page detection 
+
+//------------------------------------Add classes for page detection--------------------------------------
 (function () {
  
   const norm = (p) => {
@@ -153,7 +85,9 @@ window.addEventListener("DOMContentLoaded", () => {
  
 })();
 
-//Tabs for entertainment and connectivity in getting started page
+
+
+//--------------------Tabs for entertainment and connectivity in getting started page-----------------
 function showTabs(tabName, event) {
   const tabs = {
     entertainment: document.getElementById("tab-entertainment"),
@@ -174,3 +108,117 @@ function showTabs(tabName, event) {
 document.addEventListener("DOMContentLoaded", () => {
   showTabs("entertainment", { target: document.querySelector(".tab-button.active") });
 });
+
+
+
+//----------------------------------Typing effect(homepage title)------------------------------------
+(function () {
+  const typeOnce = (el, opts = {}) => {
+    const speed = opts.speed ?? 22;
+    const delay = opts.delay ?? 0;
+
+    const htmlContent = el.getAttribute('data-html')?.trim() || el.innerHTML.trim();
+    const text = htmlContent.replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]+>/g, ''); // strip tags for typing
+    const fullHeight = el.clientHeight;
+    el.style.minHeight = fullHeight + 'px';
+    el.innerHTML = "";
+
+    let i = 0;
+
+    const tick = () => {
+      const slice = text.slice(0, i).replace(/\n/g, '<br>');
+      el.innerHTML = slice;
+      i++;
+      if (i <= text.length) {
+        setTimeout(tick, speed);
+      } else {
+        el.classList.add('done');
+        el.parentElement.classList.add('done'); // add to h1 for styling
+        el.style.minHeight = "";
+        el.innerHTML = htmlContent; // inject full styled HTML after typing
+      }
+    };
+
+    setTimeout(tick, delay);
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const head = document.getElementById('type-head');
+    const para = document.getElementById('type-para');
+    if (head) typeOnce(head, { speed: 20, delay: 200 });
+    if (para) typeOnce(para, { speed: 10, delay: 250 });
+  });
+})();
+
+//-------------------------Sidebar collapse functionality(left and right panes)--------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.querySelector(".md-container");
+
+  function setupSidebarToggle({
+    sidebarSelector,
+    toggleId,
+    toggleClass,
+    collapsedClass,
+    containerCollapsedClass,
+    toggleLabelCollapsed,
+    toggleLabelExpanded,
+    localStorageKey
+  }) {
+    const sidebar = document.querySelector(sidebarSelector);
+    if (!container || !sidebar) return;
+
+    const firstNavItem = sidebar.querySelector(".md-nav__list > li, nav .md-nav__list > li");
+    const desktop = window.matchMedia("(min-width: 76.25em)").matches;
+    const hidden = sidebar.hasAttribute("hidden");
+
+    if (!firstNavItem || !desktop || hidden) return;
+    if (document.getElementById(toggleId)) return;
+
+    const toggleButton = document.createElement("button");
+    toggleButton.id = toggleId;
+    toggleButton.className = toggleClass;
+    toggleButton.type = "button";
+    toggleButton.setAttribute("aria-label", `Toggle ${sidebarSelector}`);
+    toggleButton.innerHTML = toggleLabelExpanded;
+    container.appendChild(toggleButton);
+
+    toggleButton.addEventListener("click", () => {
+      const isCollapsed = sidebar.classList.toggle(collapsedClass);
+      container.classList.toggle(containerCollapsedClass, isCollapsed);
+      toggleButton.innerHTML = isCollapsed ? toggleLabelCollapsed : toggleLabelExpanded;
+      localStorage.setItem(localStorageKey, isCollapsed ? "1" : "0");
+    });
+
+    const saved = localStorage.getItem(localStorageKey) === "1";
+    if (saved) {
+      sidebar.classList.add(collapsedClass);
+      container.classList.add(containerCollapsedClass);
+      toggleButton.innerHTML = toggleLabelCollapsed;
+    }
+  }
+
+  // for left sidebar
+  setupSidebarToggle({
+    sidebarSelector: ".md-sidebar--primary",
+    toggleId: "sidebarToggle",
+    toggleClass: "sidebar-toggle",
+    collapsedClass: "collapsed",
+    containerCollapsedClass: "sidebar-collapsed",
+    toggleLabelCollapsed: "&raquo;",
+    toggleLabelExpanded: "&laquo;",
+    localStorageKey: "leftnav-collapsed"
+  });
+
+  // for right sidebar
+  setupSidebarToggle({
+    sidebarSelector: ".md-sidebar--secondary",
+    toggleId: "sidebarToggleRight",
+    toggleClass: "sidebar-toggle-right",
+    collapsedClass: "collapsed",
+    containerCollapsedClass: "sidebar-secondary-collapsed",
+    toggleLabelCollapsed: "&laquo;",
+    toggleLabelExpanded: "&raquo;",
+    localStorageKey: "rightnav-collapsed"
+  });
+});
+

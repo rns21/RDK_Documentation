@@ -44,10 +44,26 @@ in features %} {% set class = class ~ " md-header--shadow" %} {% endif %}
     </label>
     {% include "partials/search.html" %} {% endif %} {% endif %} {% if
     config.repo_url %}
-    <div class="md-header__source">
-      <a href="https://github.com/rdkcentral" class="md-header__button md-button"><span class="icon-github" >{% include ".icons/material/github.svg" %}</span>Source Code</a>
-      <a href="https://github.com/rdkcentral" class="md-header__button md-button">Contribute<span class="icon-arrow">{% include ".icons/material/arrow-right.svg" %}</span></a>
+       <div class="header_buttons">
+  <a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+    <div class="sign">
+      {% include ".icons/material/github.svg" %}
     </div>
+    <div class="text">Source Code</div>
+  </button></a>
+   <a href="https://github.com/rdkcentral" ><button class="Btn" type="button">
+    <div class="sign">
+      {% include ".icons/material/hand-coin-outline.svg" %}
+    </div>
+    <div class="text">Contribute</div>
+  </button></a>
+  <a href="mailto:support@rdkcentral.com"><button class="Btn" type="button">
+    <div class="sign">
+      {% include ".icons/material/help.svg" %}
+    </div>
+    <div class="text">Get Help</div>
+  </button></a>
+</div>
     {% endif %}
   </nav>
   {% if "navigation.tabs.sticky" in features %} {% if "navigation.tabs" in
