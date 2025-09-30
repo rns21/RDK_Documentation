@@ -1,0 +1,4208 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.com/entertainment/docs/components/rdkshell/" rel="canonical"/>
+<link href="../westeros/" rel="prev"/>
+<link href="../../video_profiles/" rel="next"/>
+<link href="../../../../assets/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.20" name="generator"/>
+<title>RDK Shell - RDK Documentation</title>
+<link href="../../../../assets/stylesheets/main.e53b48f4.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"Fira Code"}</style>
+<link href="../../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/entertainment.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/getting-started.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/connectivity.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/devices.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/footer.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/sidepanes.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/sitemap.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#rdk-shell">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="RDK Documentation" class="md-header__button md-logo" data-md-component="logo" href="../../../.." title="RDK Documentation">
+<img alt="logo" src="../../../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis"> RDK Documentation </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+             RDK Shell 
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme)" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"></path></svg>
+</label>
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="white" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to system preference" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to system preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+</form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header_buttons">
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg>
+</div>
+<div class="text">Source Code</div>
+</button></a>
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg>
+</div>
+<div class="text">Contribute</div>
+</button></a>
+<a href="mailto:support@rdkcentral.com"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg>
+</div>
+<div class="text">Get Help</div>
+</button></a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+  Entertainment
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../connectivity/docs/">
+          
+  
+  
+  Connectivity
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../preview-rdk/docs/getting-started/">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../tools/docs/TDK/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../review/CellularManager/">
+          
+  
+  
+  Review
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../device-management/docs/">
+          
+  
+  
+  Device Management
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../docu/bhanu/pnm_claude/">
+          
+  
+  
+  Comparison
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="RDK Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../../../.." title="RDK Documentation">
+<img alt="logo" src="../../../../assets/logo.png"/>
+</a>
+    RDK Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/rdkcentral" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+<span class="md-ellipsis">
+    Entertainment
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Entertainment
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../rdk7-architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../rdk7-features/">
+<span class="md-ellipsis">
+    Features
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tryout_rdkv_rdk7/">
+<span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../rdk7-vendor-porting-guide/">
+<span class="md-ellipsis">
+    Porting Kit
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Core Components
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_6">
+<span class="md-nav__icon md-icon"></span>
+            Core Components
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../rdkv_components/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../westeros/">
+<span class="md-ellipsis">
+    Westeros
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    RDK Shell
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    RDK Shell
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      Design
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#graphics-and-windowing-integration">
+<span class="md-ellipsis">
+      Graphics and Windowing Integration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#threading-and-performance">
+<span class="md-ellipsis">
+      Threading and Performance
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#extension-and-plugin-system">
+<span class="md-ellipsis">
+      Extension and Plugin System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-and-deployment-flexibility">
+<span class="md-ellipsis">
+      Configuration and Deployment Flexibility
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#core-modules">
+<span class="md-ellipsis">
+      Core Modules
+    </span>
+</a>
+<nav aria-label="Core Modules" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#main-application-loop">
+<span class="md-ellipsis">
+      Main Application Loop
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#compositor-controller">
+<span class="md-ellipsis">
+      Compositor Controller
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#essos-instance-manager">
+<span class="md-ellipsis">
+      Essos Instance Manager
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rdk-compositor-system">
+<span class="md-ellipsis">
+      RDK Compositor System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-management-system">
+<span class="md-ellipsis">
+      Input Management System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#communication-subsystem">
+<span class="md-ellipsis">
+      Communication Subsystem
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#initialization-sequence">
+<span class="md-ellipsis">
+      Initialization Sequence
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-interaction-flow">
+<span class="md-ellipsis">
+      Component Interaction Flow
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#core-capabilities">
+<span class="md-ellipsis">
+      Core Capabilities
+    </span>
+</a>
+<nav aria-label="Core Capabilities" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-lifecycle-management">
+<span class="md-ellipsis">
+      Application Lifecycle Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#advanced-display-composition">
+<span class="md-ellipsis">
+      Advanced Display Composition
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sophisticated-input-event-management">
+<span class="md-ellipsis">
+      Sophisticated Input Event Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#memory-and-resource-monitoring">
+<span class="md-ellipsis">
+      Memory and Resource Monitoring
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#multi-protocol-communication">
+<span class="md-ellipsis">
+      Multi-Protocol Communication
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-flow">
+<span class="md-ellipsis">
+      Data Flow
+    </span>
+</a>
+<nav aria-label="Data Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-lifecycle">
+<span class="md-ellipsis">
+      Application Lifecycle
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-event-processing">
+<span class="md-ellipsis">
+      Input Event Processing
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rendering-and-composition">
+<span class="md-ellipsis">
+      Rendering and Composition
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-integration">
+<span class="md-ellipsis">
+      System Integration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#use-cases-and-applications">
+<span class="md-ellipsis">
+      Use Cases and Applications
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-considerations">
+<span class="md-ellipsis">
+      Performance Considerations
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration">
+<span class="md-ellipsis">
+      Configuration
+    </span>
+</a>
+<nav aria-label="Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#environment-variables">
+<span class="md-ellipsis">
+      Environment Variables
+    </span>
+</a>
+<nav aria-label="Environment Variables" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#core-system">
+<span class="md-ellipsis">
+      Core System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#memory-management">
+<span class="md-ellipsis">
+      Memory Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-system">
+<span class="md-ellipsis">
+      Input System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#display">
+<span class="md-ellipsis">
+      Display
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#plugin-and-extension">
+<span class="md-ellipsis">
+      Plugin and Extension
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-files">
+<span class="md-ellipsis">
+      Configuration Files
+    </span>
+</a>
+<nav aria-label="Configuration Files" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-device">
+<span class="md-ellipsis">
+      Input Device
+    </span>
+</a>
+<nav aria-label="Input Device" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-device-parameters">
+<span class="md-ellipsis">
+      Input Device Parameters
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ir-input-device-mapping">
+<span class="md-ellipsis">
+      IR Input Device Mapping
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#permissions">
+<span class="md-ellipsis">
+      Permissions
+    </span>
+</a>
+<nav aria-label="Permissions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#permission-parameters">
+<span class="md-ellipsis">
+      Permission Parameters
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#compile-time-configuration-options">
+<span class="md-ellipsis">
+      Compile-Time Configuration Options
+    </span>
+</a>
+<nav aria-label="Compile-Time Configuration Options" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-configuration-flags">
+<span class="md-ellipsis">
+      Build Configuration Flags
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#advanced-build-options">
+<span class="md-ellipsis">
+      Advanced Build Options
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#runtime-configuration">
+<span class="md-ellipsis">
+      Runtime Configuration
+    </span>
+</a>
+<nav aria-label="Runtime Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#memory-monitor">
+<span class="md-ellipsis">
+      Memory Monitor
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dynamic-display">
+<span class="md-ellipsis">
+      Dynamic Display
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-device-runtime">
+<span class="md-ellipsis">
+      Input Device Runtime
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-mappings-and-input-management">
+<span class="md-ellipsis">
+      Key Mappings and Input Management
+    </span>
+</a>
+<nav aria-label="Key Mappings and Input Management" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-code-translation-system">
+<span class="md-ellipsis">
+      Key Code Translation System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#standard-key-mappings">
+<span class="md-ellipsis">
+      Standard Key Mappings
+    </span>
+</a>
+<nav aria-label="Standard Key Mappings" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alphanumeric-keys">
+<span class="md-ellipsis">
+      Alphanumeric Keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#function-keys">
+<span class="md-ellipsis">
+      Function Keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#navigation-keys">
+<span class="md-ellipsis">
+      Navigation Keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#control-and-modifier-keys">
+<span class="md-ellipsis">
+      Control and Modifier Keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#special-media-and-remote-control-keys">
+<span class="md-ellipsis">
+      Special Media and Remote Control Keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#numeric-keypad">
+<span class="md-ellipsis">
+      Numeric Keypad
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#modifier-key-flags">
+<span class="md-ellipsis">
+      Modifier Key Flags
+    </span>
+</a>
+<nav aria-label="Modifier Key Flags" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#modifier-combination-examples">
+<span class="md-ellipsis">
+      Modifier Combination Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-event-processing_1">
+<span class="md-ellipsis">
+      Input Event Processing
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mouse-and-pointer-input">
+<span class="md-ellipsis">
+      Mouse and Pointer Input
+    </span>
+</a>
+<nav aria-label="Mouse and Pointer Input" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mouse-button-mappings">
+<span class="md-ellipsis">
+      Mouse Button Mappings
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pointer-event-processing">
+<span class="md-ellipsis">
+      Pointer Event Processing
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#virtual-key-support">
+<span class="md-ellipsis">
+      Virtual Key Support
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#apis">
+<span class="md-ellipsis">
+      APIs
+    </span>
+</a>
+<nav aria-label="APIs" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#json-rpc-api">
+<span class="md-ellipsis">
+      JSON-RPC API
+    </span>
+</a>
+<nav aria-label="JSON-RPC API" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-management">
+<span class="md-ellipsis">
+      Application Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#display-management">
+<span class="md-ellipsis">
+      Display Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#visibility-and-appearance">
+<span class="md-ellipsis">
+      Visibility and Appearance
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#z-order-management">
+<span class="md-ellipsis">
+      Z-Order Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#focus-management">
+<span class="md-ellipsis">
+      Focus Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-management">
+<span class="md-ellipsis">
+      Input Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-information">
+<span class="md-ellipsis">
+      System Information
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#websocket-api">
+<span class="md-ellipsis">
+      WebSocket API
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-handling">
+<span class="md-ellipsis">
+      Error Handling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#best-practices">
+<span class="md-ellipsis">
+      Best Practices
+    </span>
+</a>
+<nav aria-label="Best Practices" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#development">
+<span class="md-ellipsis">
+      Development
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#production">
+<span class="md-ellipsis">
+      Production
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security">
+<span class="md-ellipsis">
+      Security
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance">
+<span class="md-ellipsis">
+      Performance
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-mapping">
+<span class="md-ellipsis">
+      Key mapping
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../video_profiles/">
+<span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Connectivity
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Connectivity
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/features/">
+<span class="md-ellipsis">
+    Features
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/tryout_rdkb/">
+<span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/profiles/">
+<span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Core Components
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            Core Components
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/rdkb_components/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/components/cellularmanager/">
+<span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/components/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/components/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/components/PSM_Oldprompt/">
+<span class="md-ellipsis">
+    PSM OldPrompt
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/components/PSM_GPT5/">
+<span class="md-ellipsis">
+    PSM GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/components/PSM_Claude/">
+<span class="md-ellipsis">
+    PSM_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/components/WANMgr Rama.md">
+<span class="md-ellipsis">
+    WAN Mgr Rama
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../connectivity/docs/components/WANMgr%20GPT5/">
+<span class="md-ellipsis">
+    WAN Mgr GPT5
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../preview-rdk/docs/getting-started/">
+<span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Tools
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../tools/docs/TDK/">
+<span class="md-ellipsis">
+    TDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../tools/docs/Automatics/">
+<span class="md-ellipsis">
+    Automatics
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Review
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Review
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../review/CellularManager/">
+<span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../review/GPONManager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../review/PPPManager/">
+<span class="md-ellipsis">
+    PPP Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../review/TelcoVoiceManager/">
+<span class="md-ellipsis">
+    Telco Voice Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../review/CCSPPSM/">
+<span class="md-ellipsis">
+    CCSP PSM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../review/LMLite/">
+<span class="md-ellipsis">
+    CCSP LM Lite
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../review/OneWifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    Device Management
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            Device Management
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../device-management/docs/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../device-management/docs/XConf/">
+<span class="md-ellipsis">
+    XConf
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../device-management/docs/Telemetry/">
+<span class="md-ellipsis">
+    Telemetry
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../device-management/docs/Webpa/">
+<span class="md-ellipsis">
+    Web PA
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../device-management/docs/TR369/">
+<span class="md-ellipsis">
+    TR 369
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../device-management/docs/LogUpload/">
+<span class="md-ellipsis">
+    Log Upload
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    Comparison
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            Comparison
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/bhanu/pnm_claude/">
+<span class="md-ellipsis">
+    PNM_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/bhanu/pnm_gpt5/">
+<span class="md-ellipsis">
+    PNM_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    Utopia_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    Utopia_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/bhanu/wanmgr_claude/">
+<span class="md-ellipsis">
+    WANMGr_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/bhanu/wanmgr_gpt5/">
+<span class="md-ellipsis">
+    WANMGr_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    Utopia_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    Utopia_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/raheen/cl_claude/">
+<span class="md-ellipsis">
+    CL_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/raheen/cl_gpt5/">
+<span class="md-ellipsis">
+    CL_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/raheen/lmlite_claude/">
+<span class="md-ellipsis">
+    LMLite_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/raheen/lmlite_gpt5/">
+<span class="md-ellipsis">
+    LMLite_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/raheen/psm_claude/">
+<span class="md-ellipsis">
+    PSM_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/raheen/psm_gpt5/">
+<span class="md-ellipsis">
+    PSM_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/WANMgr_Claude_2609/">
+<span class="md-ellipsis">
+    WANMGr_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/WANMgr_GPT5_2609/">
+<span class="md-ellipsis">
+    WANMGr_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/LMLite_Claude_2609/">
+<span class="md-ellipsis">
+    LMLite_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/LMLite_GPT5_2609/">
+<span class="md-ellipsis">
+    LMLite_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/PSM_Claude_2609/">
+<span class="md-ellipsis">
+    PSM_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/PSM_GPT5_2609/">
+<span class="md-ellipsis">
+    PSM_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/RBUS_Claude_2609/">
+<span class="md-ellipsis">
+    RBUS_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/RBUS_GPT5_2609/">
+<span class="md-ellipsis">
+    RBUS_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/doc_template_orig_rama/">
+<span class="md-ellipsis">
+    Template_Rama
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../docu/doc_template_mod_2609/">
+<span class="md-ellipsis">
+    Template_2609
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      Design
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#graphics-and-windowing-integration">
+<span class="md-ellipsis">
+      Graphics and Windowing Integration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#threading-and-performance">
+<span class="md-ellipsis">
+      Threading and Performance
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#extension-and-plugin-system">
+<span class="md-ellipsis">
+      Extension and Plugin System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-and-deployment-flexibility">
+<span class="md-ellipsis">
+      Configuration and Deployment Flexibility
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#core-modules">
+<span class="md-ellipsis">
+      Core Modules
+    </span>
+</a>
+<nav aria-label="Core Modules" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#main-application-loop">
+<span class="md-ellipsis">
+      Main Application Loop
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#compositor-controller">
+<span class="md-ellipsis">
+      Compositor Controller
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#essos-instance-manager">
+<span class="md-ellipsis">
+      Essos Instance Manager
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rdk-compositor-system">
+<span class="md-ellipsis">
+      RDK Compositor System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-management-system">
+<span class="md-ellipsis">
+      Input Management System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#communication-subsystem">
+<span class="md-ellipsis">
+      Communication Subsystem
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#initialization-sequence">
+<span class="md-ellipsis">
+      Initialization Sequence
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-interaction-flow">
+<span class="md-ellipsis">
+      Component Interaction Flow
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#core-capabilities">
+<span class="md-ellipsis">
+      Core Capabilities
+    </span>
+</a>
+<nav aria-label="Core Capabilities" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-lifecycle-management">
+<span class="md-ellipsis">
+      Application Lifecycle Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#advanced-display-composition">
+<span class="md-ellipsis">
+      Advanced Display Composition
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sophisticated-input-event-management">
+<span class="md-ellipsis">
+      Sophisticated Input Event Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#memory-and-resource-monitoring">
+<span class="md-ellipsis">
+      Memory and Resource Monitoring
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#multi-protocol-communication">
+<span class="md-ellipsis">
+      Multi-Protocol Communication
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-flow">
+<span class="md-ellipsis">
+      Data Flow
+    </span>
+</a>
+<nav aria-label="Data Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-lifecycle">
+<span class="md-ellipsis">
+      Application Lifecycle
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-event-processing">
+<span class="md-ellipsis">
+      Input Event Processing
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rendering-and-composition">
+<span class="md-ellipsis">
+      Rendering and Composition
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-integration">
+<span class="md-ellipsis">
+      System Integration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#use-cases-and-applications">
+<span class="md-ellipsis">
+      Use Cases and Applications
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-considerations">
+<span class="md-ellipsis">
+      Performance Considerations
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration">
+<span class="md-ellipsis">
+      Configuration
+    </span>
+</a>
+<nav aria-label="Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#environment-variables">
+<span class="md-ellipsis">
+      Environment Variables
+    </span>
+</a>
+<nav aria-label="Environment Variables" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#core-system">
+<span class="md-ellipsis">
+      Core System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#memory-management">
+<span class="md-ellipsis">
+      Memory Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-system">
+<span class="md-ellipsis">
+      Input System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#display">
+<span class="md-ellipsis">
+      Display
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#plugin-and-extension">
+<span class="md-ellipsis">
+      Plugin and Extension
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-files">
+<span class="md-ellipsis">
+      Configuration Files
+    </span>
+</a>
+<nav aria-label="Configuration Files" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-device">
+<span class="md-ellipsis">
+      Input Device
+    </span>
+</a>
+<nav aria-label="Input Device" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-device-parameters">
+<span class="md-ellipsis">
+      Input Device Parameters
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ir-input-device-mapping">
+<span class="md-ellipsis">
+      IR Input Device Mapping
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#permissions">
+<span class="md-ellipsis">
+      Permissions
+    </span>
+</a>
+<nav aria-label="Permissions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#permission-parameters">
+<span class="md-ellipsis">
+      Permission Parameters
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#compile-time-configuration-options">
+<span class="md-ellipsis">
+      Compile-Time Configuration Options
+    </span>
+</a>
+<nav aria-label="Compile-Time Configuration Options" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-configuration-flags">
+<span class="md-ellipsis">
+      Build Configuration Flags
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#advanced-build-options">
+<span class="md-ellipsis">
+      Advanced Build Options
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#runtime-configuration">
+<span class="md-ellipsis">
+      Runtime Configuration
+    </span>
+</a>
+<nav aria-label="Runtime Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#memory-monitor">
+<span class="md-ellipsis">
+      Memory Monitor
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dynamic-display">
+<span class="md-ellipsis">
+      Dynamic Display
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-device-runtime">
+<span class="md-ellipsis">
+      Input Device Runtime
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-mappings-and-input-management">
+<span class="md-ellipsis">
+      Key Mappings and Input Management
+    </span>
+</a>
+<nav aria-label="Key Mappings and Input Management" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-code-translation-system">
+<span class="md-ellipsis">
+      Key Code Translation System
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#standard-key-mappings">
+<span class="md-ellipsis">
+      Standard Key Mappings
+    </span>
+</a>
+<nav aria-label="Standard Key Mappings" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alphanumeric-keys">
+<span class="md-ellipsis">
+      Alphanumeric Keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#function-keys">
+<span class="md-ellipsis">
+      Function Keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#navigation-keys">
+<span class="md-ellipsis">
+      Navigation Keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#control-and-modifier-keys">
+<span class="md-ellipsis">
+      Control and Modifier Keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#special-media-and-remote-control-keys">
+<span class="md-ellipsis">
+      Special Media and Remote Control Keys
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#numeric-keypad">
+<span class="md-ellipsis">
+      Numeric Keypad
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#modifier-key-flags">
+<span class="md-ellipsis">
+      Modifier Key Flags
+    </span>
+</a>
+<nav aria-label="Modifier Key Flags" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#modifier-combination-examples">
+<span class="md-ellipsis">
+      Modifier Combination Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-event-processing_1">
+<span class="md-ellipsis">
+      Input Event Processing
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mouse-and-pointer-input">
+<span class="md-ellipsis">
+      Mouse and Pointer Input
+    </span>
+</a>
+<nav aria-label="Mouse and Pointer Input" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mouse-button-mappings">
+<span class="md-ellipsis">
+      Mouse Button Mappings
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pointer-event-processing">
+<span class="md-ellipsis">
+      Pointer Event Processing
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#virtual-key-support">
+<span class="md-ellipsis">
+      Virtual Key Support
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#apis">
+<span class="md-ellipsis">
+      APIs
+    </span>
+</a>
+<nav aria-label="APIs" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#json-rpc-api">
+<span class="md-ellipsis">
+      JSON-RPC API
+    </span>
+</a>
+<nav aria-label="JSON-RPC API" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-management">
+<span class="md-ellipsis">
+      Application Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#display-management">
+<span class="md-ellipsis">
+      Display Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#visibility-and-appearance">
+<span class="md-ellipsis">
+      Visibility and Appearance
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#z-order-management">
+<span class="md-ellipsis">
+      Z-Order Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#focus-management">
+<span class="md-ellipsis">
+      Focus Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-management">
+<span class="md-ellipsis">
+      Input Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-information">
+<span class="md-ellipsis">
+      System Information
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#websocket-api">
+<span class="md-ellipsis">
+      WebSocket API
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-handling">
+<span class="md-ellipsis">
+      Error Handling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#best-practices">
+<span class="md-ellipsis">
+      Best Practices
+    </span>
+</a>
+<nav aria-label="Best Practices" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#development">
+<span class="md-ellipsis">
+      Development
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#production">
+<span class="md-ellipsis">
+      Production
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security">
+<span class="md-ellipsis">
+      Security
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance">
+<span class="md-ellipsis">
+      Performance
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-mapping">
+<span class="md-ellipsis">
+      Key mapping
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/rdkcentral/edit/master/docs/entertainment/docs/components/rdkshell.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<h1 id="rdk-shell">RDK Shell</h1>
+<p>RDKShell is a native component that serves as the foundational application management, composition, and input handling system within the RDK  ecosystem. It functions as a sophisticated window manager and compositor that provides comprehensive control over application lifecycle, display composition, and advanced input event processing for RDK powered set top boxes and TVs. integrates deeply with the Wayland display server protocol through Westeros and leverages Essos for flexible windowing system connectivity, enabling it to work seamlessly across different hardware platforms and display configurations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Wayland + Westeros + Essos</strong>: RDKShell uses these to ensure cross-platform compatibility and modern graphics integration.</p>
+</div>
+<h2 id="design">Design</h2>
+<p>RDKShell follows a modular, event‑driven design with clear separation of concerns:</p>
+<pre class="mermaid"><code>graph TB
+    A[Main Loop&lt;br/&gt;rdkshell.cpp] --&gt; B[Compositor Controller&lt;br/&gt;compositorcontroller.cpp]
+    A --&gt; C[Essos Instance&lt;br/&gt;essosinstance.cpp]
+    A --&gt; D[Input Management&lt;br/&gt;linuxinput.cpp]
+    A --&gt; E[Communication Layer]
+
+    B --&gt; F[RDK Compositor&lt;br/&gt;Surface Management]
+    B --&gt; G[Animation System&lt;br/&gt;animation.cpp]
+    B --&gt; H[Application Registry]
+
+    C --&gt; I[Wayland Integration&lt;br/&gt;Westeros]
+    C --&gt; J[OpenGL Context&lt;br/&gt;GLES2]
+
+    D --&gt; K[Linux Input Handler&lt;br/&gt;Device Management]
+    D --&gt; L[Key Mapping&lt;br/&gt;linuxkeys.cpp]
+    D --&gt; M[Event Router]
+
+    E --&gt; N[JSON-RPC Handler&lt;br/&gt;servermessagehandler.cpp]
+    E --&gt; O[WebSocket Handler&lt;br/&gt;messageHandler.cpp]
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec</code></pre>
+<details class="note">
+<summary>Key Architectural Principles</summary>
+<p>• <strong>Event‑Driven Design</strong> - Central main loop coordinates all subsystems through timed events and callbacks<br/>
+• <strong>Modular Components</strong> - Each subsystem (compositor, input, communication) operates independently with well‑defined interfaces<br/>
+• <strong>Performance‑Focused</strong> - 40 FPS rendering loop with frame rate limiting and efficient resource management<br/>
+• <strong>Cross‑Platform Compatibility</strong> - Abstraction layers (Essos/Westeros) enable deployment across different hardware platforms<br/>
+• <strong>Extensible Communication</strong> - Multiple IPC protocols (JSON‑RPC, WebSocket) support diverse integration scenarios<br/></p>
+</details>
+<h3 id="graphics-and-windowing-integration">Graphics and Windowing Integration</h3>
+<p>RDKShell builds upon industry-standard graphics technologies including OpenGL ES 2.0 for hardware-accelerated rendering and the Wayland display server protocol for modern windowing system integration. Through its use of Westeros, it can create Wayland surfaces and displays that applications can connect to, while Essos provides the flexibility to connect to either native windowing systems or existing Wayland compositors depending on the deployment scenario.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Rendering strategies are dynamically selected based on available GPU/CPU capabilities.</p>
+</div>
+<p>The graphics integration is designed to work efficiently across a wide range of hardware capabilities, from high-end devices with dedicated GPUs to resource-constrained embedded systems. The system automatically detects available graphics capabilities and adjusts its rendering strategies accordingly to provide optimal performance while maintaining visual quality.</p>
+<h3 id="threading-and-performance">Threading and Performance</h3>
+<p>The system is designed with performance as a primary consideration, implementing a carefully tuned main loop that maintains consistent frame rates while handling multiple concurrent operations. The default 40 FPS rendering loop can be adjusted based on system capabilities and requirements. Memory monitoring and other background operations are handled in separate threads to avoid impacting the critical rendering path.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Uses separate threads for background tasks to ensure smooth UI performance.</p>
+</div>
+<p>The threading architecture is designed to minimize contention and maximize parallelism where possible. Critical operations are prioritized to ensure responsive user interaction, while background tasks are scheduled to use available system resources without interfering with real-time requirements. The system includes sophisticated timing and synchronization mechanisms to coordinate between different subsystems.</p>
+<h3 id="extension-and-plugin-system">Extension and Plugin System</h3>
+<p>RDKShell includes a sophisticated extension system that allows for platform-specific customizations and additional functionality. The system supports Westeros plugins and includes built-in extensions for client control and extended input handling. This extensibility ensures that RDKShell can be adapted to specific hardware platforms and use cases while maintaining a consistent core architecture.</p>
+<p>The plugin system is designed with security and stability in mind, providing isolation between different extensions and the core system. Extensions can be loaded and unloaded dynamically, enabling flexible deployment scenarios and reducing memory usage when specific functionality is not required. The system includes comprehensive APIs for extensions to interact with the core functionality while maintaining appropriate access controls.</p>
+<h3 id="configuration-and-deployment-flexibility">Configuration and Deployment Flexibility</h3>
+<p>The component supports extensive configuration through environment variables, configuration files, and runtime parameters. This includes display resolution control, memory monitoring thresholds, input device mappings, and permission systems. The configuration system is designed to support both development scenarios with extensive debugging capabilities and production deployments with optimized performance characteristics.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Configuration changes can be applied at runtime where possible — no reboot required.</p>
+</div>
+<p>The configuration system supports hierarchical configuration sources, allowing for system-wide defaults, platform-specific overrides, and application-specific customizations. Configuration changes can be applied at runtime where appropriate, enabling dynamic adaptation to changing system conditions and requirements without requiring system restarts.</p>
+<h2 id="core-modules">Core Modules</h2>
+<h3 id="main-application-loop">Main Application Loop</h3>
+<p>The central component of RDKShell is the main application loop, which orchestrates all system operations through a carefully timed rendering loop that maintains consistent frame rates while processing input events, updating application states, and managing system resources. The loop operates at a configurable frame rate (default 40 FPS) and coordinates between all other subsystems.</p>
+<p>The main loop implements sophisticated timing logic that adapts to system load while maintaining smooth visual output. It includes frame rate limiting to prevent excessive CPU usage and provides mechanisms for other subsystems to register for periodic callbacks. The loop also handles system shutdown procedures and ensures proper cleanup of all resources when the system terminates.</p>
+<h3 id="compositor-controller">Compositor Controller</h3>
+<p>The CompositorController serves as the primary interface for all application management operations. It maintains the master list of active applications, manages their z-order relationships, handles focus management, and coordinates display composition operations. This component implements the core business logic for window management including bounds calculation, visibility control, opacity management, and animation coordination.</p>
+<p>The CompositorController provides a unified API that abstracts the complexity of the underlying graphics and windowing systems. It handles the translation between high-level application management operations and low-level graphics operations, ensuring that applications can be managed consistently regardless of the underlying hardware capabilities.</p>
+<h3 id="essos-instance-manager">Essos Instance Manager</h3>
+<p>The EssosInstance component provides the abstraction layer between RDKShell and the underlying windowing system. It handles the creation and management of Wayland surfaces, manages OpenGL ES contexts, and provides the rendering surface for the compositor. This component enables RDKShell to work with different windowing systems and graphics hardware through a consistent interface.</p>
+<p>The EssosInstance manager handles the complex initialization sequences required for graphics systems and provides fallback mechanisms when specific capabilities are not available. It manages the relationship between logical displays and physical output devices, enabling support for multiple display configurations and dynamic display management.</p>
+<h3 id="rdk-compositor-system">RDK Compositor System</h3>
+<p>The RdkCompositor hierarchy (RdkCompositor, RdkCompositorSurface, RdkCompositorNested) implements the actual display composition logic. These components handle the low-level details of surface management, texture handling, and rendering operations. They coordinate with the graphics hardware to ensure efficient composition of multiple application surfaces into the final display output.</p>
+<p>The compositor system includes sophisticated damage tracking to minimize unnecessary redraws and optimize performance. It supports both hardware-accelerated composition when available and software fallback modes for systems with limited graphics capabilities. The system can handle complex composition scenarios including transparency, scaling, and rotation effects.</p>
+<h3 id="input-management-system">Input Management System</h3>
+<p>The input management system consists of multiple components working together to provide comprehensive input handling. The LinuxInput component handles low-level input device management, while LinuxKeys provides key code mapping and translation. The system supports both physical input devices and virtual input generation, with sophisticated routing capabilities that allow applications to register for specific key combinations regardless of focus state.</p>
+<p>The input system includes support for multiple input device types and provides configurable key mapping capabilities. It handles device hotplug events and can adapt to changing input device configurations at runtime. The system also provides input event filtering and transformation capabilities to support different application requirements.</p>
+<h3 id="communication-subsystem">Communication Subsystem</h3>
+<p>RDKShell implements multiple communication protocols through a pluggable architecture. The ServerMessageHandler provides JSON-RPC over socket-based IPC, while the MessageHandler implements WebSocket-based communication. Both systems use the same underlying CompositorController APIs, ensuring consistent behavior across different communication methods.</p>
+<p>The communication subsystem is designed to be extensible, allowing for the addition of new protocols and communication methods. It includes built-in security mechanisms and access control to ensure that only authorized applications can access sensitive functionality. The system supports both synchronous and asynchronous communication patterns.</p>
+<h2 id="initialization-sequence">Initialization Sequence</h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Main as Main Process
+    participant RDK as RdkShell Core
+    participant Essos as Essos Instance
+    participant Comp as Compositor Controller
+    participant Input as Input System
+    participant Comm as Communication
+
+    Main-&gt;&gt;RDK: initialize()
+    RDK-&gt;&gt;RDK: Load configuration
+    RDK-&gt;&gt;RDK: Setup key mappings
+    RDK-&gt;&gt;RDK: Configure memory monitoring
+    RDK-&gt;&gt;Essos: Initialize windowing system
+    Essos-&gt;&gt;Essos: Create OpenGL context
+    Essos-&gt;&gt;Essos: Setup Wayland surfaces
+    RDK-&gt;&gt;Comp: Initialize compositor
+    Comp-&gt;&gt;Comp: Setup application registry
+    RDK-&gt;&gt;Input: Initialize input handling
+    Input-&gt;&gt;Input: Configure input devices
+    Input-&gt;&gt;Input: Setup key routing
+    RDK-&gt;&gt;Comm: Start communication handlers
+    Comm-&gt;&gt;Comm: Initialize IPC channels
+    RDK-&gt;&gt;Main: Initialization complete
+    Main-&gt;&gt;RDK: run()
+    RDK-&gt;&gt;RDK: Enter main loop</code></pre>
+<h2 id="component-interaction-flow">Component Interaction Flow</h2>
+<pre class="mermaid"><code>graph TB
+    A[Main Application Loop] --&gt; B[Compositor Controller]
+    A --&gt; C[Essos Instance]
+    A --&gt; D[Input Manager]
+    A --&gt; E[Communication Handlers]
+
+    B --&gt; F[RDK Compositor]
+    B --&gt; G[Animation System]
+    B --&gt; H[Application Registry]
+
+    C --&gt; I[Wayland Surface Manager]
+    C --&gt; J[OpenGL Context]
+
+    D --&gt; K[Linux Input Handler]
+    D --&gt; L[Key Mapping System]
+    D --&gt; M[Event Router]
+
+    E --&gt; N[JSON-RPC Handler]
+    E --&gt; O[WebSocket Handler]
+    E --&gt; P[Socket Communication]
+
+    F --&gt; Q[Surface Composition]
+    F --&gt; R[Texture Management]
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec</code></pre>
+<h2 id="core-capabilities">Core Capabilities</h2>
+<h3 id="application-lifecycle-management">Application Lifecycle Management</h3>
+<p>RDKShell provides comprehensive application lifecycle management capabilities that extend beyond simple process control. It manages the complete lifecycle from application launch through suspension, resumption, and termination. The system maintains detailed state information for each managed application, including their display properties, input event subscriptions, and resource allocations. This enables sophisticated power management scenarios where applications can be suspended to conserve resources while maintaining their visual state for quick resumption.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Applications can register for lifecycle events to preserve state and perform cleanup during transitions.</p>
+</div>
+<p>The lifecycle management system supports both traditional application models where applications run continuously and modern power-efficient models where applications can be dynamically suspended and resumed based on user interaction patterns and system resource availability. Applications can register for lifecycle events to perform appropriate cleanup and state preservation operations during transitions.</p>
+<h3 id="advanced-display-composition">Advanced Display Composition</h3>
+<p>The composition engine within RDKShell handles complex multi-application display scenarios with pixel-perfect precision. It supports arbitrary positioning, scaling, rotation, and opacity control for each application window. The system can handle both traditional rectangular windows and more complex shapes through its integration with OpenGL ES 2.0 rendering pipelines. Advanced features include support for virtual displays, where applications can render to off-screen buffers for scenarios like picture-in-picture or thumbnail generation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Supports both hardware-accelerated and software rendering, with fallback to software when hardware isn't available.</p>
+</div>
+<p>The compositor supports hardware-accelerated composition when available, automatically falling back to software rendering when necessary. It includes sophisticated damage tracking to minimize unnecessary redraws and optimize performance on resource-constrained devices. The system can handle multiple display outputs simultaneously, enabling scenarios where different applications are displayed on different screens or display zones.</p>
+<h3 id="sophisticated-input-event-management">Sophisticated Input Event Management</h3>
+<p>RDKShell implements a highly configurable input event management system that goes far beyond simple key forwarding. Applications can register for specific key combinations even when they are not in focus, enabling global hotkey functionality and complex input routing scenarios. The system supports both physical key events from various input devices and virtual key generation for programmatic input simulation. Input event metadata is preserved and can be used for advanced input processing scenarios.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Global hotkeys and key remapping are supported across devices including remote controls and touch interfaces.</p>
+</div>
+<p>The input management system includes support for multiple input device types including traditional keyboards, remote controls, game controllers, and touch interfaces. It provides sophisticated key mapping capabilities that can translate between different input device protocols and key code formats. The system supports configurable key repeat rates, modifier key combinations, and complex input event filtering based on application requirements and system policies.</p>
+<h3 id="memory-and-resource-monitoring">Memory and Resource Monitoring</h3>
+<p>The component includes comprehensive system resource monitoring capabilities with configurable thresholds and automatic notification systems. It continuously monitors RAM usage, swap utilization, and can trigger low-memory notifications to applications and system components. This enables proactive resource management and helps prevent system instability due to resource exhaustion.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Applications should respond to low-memory warnings by reducing cache or suspending non-critical features.</p>
+</div>
+<p>The monitoring system operates in a separate thread to avoid impacting the main rendering loop performance. It provides both immediate notifications for critical resource conditions and periodic reports for trend analysis. Applications can register for different types of resource notifications and adjust their behavior accordingly, such as reducing cache sizes or suspending non-essential operations during low-memory conditions.</p>
+<h3 id="multi-protocol-communication">Multi-Protocol Communication</h3>
+<p>RDKShell supports multiple communication protocols to accommodate different integration scenarios. It provides JSON-RPC APIs over both traditional socket-based IPC and modern WebSocket connections. Additionally, it offers direct C++ APIs for native code integration. This flexibility allows it to integrate with various system architectures and application frameworks commonly used in the RDK ecosystem.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>RDKShell supports both synchronous and asynchronous APIs for efficient system communication.</p>
+</div>
+<p>The communication system is designed to be extensible, allowing for the addition of new protocols and communication methods as requirements evolve. It includes built-in security mechanisms to ensure that only authorized applications can access sensitive functionality. The system supports both synchronous and asynchronous communication patterns, enabling efficient integration with different application architectures.</p>
+<h2 id="data-flow">Data Flow</h2>
+<h3 id="application-lifecycle">Application Lifecycle</h3>
+<p>When an application is launched, the request flows through the communication layer to the CompositorController, which coordinates with the EssosInstance to create the necessary Wayland surfaces. The RdkCompositor system then manages the ongoing rendering and composition of the application's visual output. State changes are propagated back through the system to update client applications and maintain consistency.</p>
+<h3 id="input-event-processing">Input Event Processing</h3>
+<p>Input events originate from the LinuxInput system, which captures raw input from various devices. These events are processed through the key mapping system to translate hardware-specific codes into standardized key codes. The CompositorController then applies the configured input routing rules to determine which applications should receive each event, supporting both focused application delivery and global key intercepts.</p>
+<h3 id="rendering-and-composition">Rendering and Composition</h3>
+<p>The rendering pipeline begins with the main application loop triggering a frame update. The CompositorController coordinates with all active RdkCompositor instances to update their visual state, including position, size, opacity, and any active animations. The EssosInstance provides the OpenGL context and manages the final composition to the display surface.</p>
+<h2 id="system-integration">System Integration</h2>
+<p>RDKShell integrates with multiple layers of the RDK stack, from low-level graphics drivers through high-level application frameworks. It communicates with the Thunder framework for system-level coordination, integrates with various input subsystems for comprehensive input handling, and provides the foundation for application frameworks to build upon. The component's design ensures that it can adapt to different hardware capabilities while providing consistent APIs and behavior across different RDK implementations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Integration interfaces are consistent across platforms, even with different display/input backends.</p>
+</div>
+<p>The integration architecture is designed to be modular and extensible, allowing for easy adaptation to new hardware platforms and software frameworks. The system provides well-defined interfaces for integration with external components while maintaining appropriate abstraction layers to ensure compatibility across different deployment scenarios.</p>
+<h2 id="use-cases-and-applications">Use Cases and Applications</h2>
+<p>RDKShell is designed to support a wide range of use cases common in modern entertainment and smart home devices. These include traditional set-top box scenarios with multiple video applications, smart TV interfaces with app stores and content discovery, and advanced scenarios like multi-room audio/video distribution and home automation integration.</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Set-top boxes</td>
+<td>Multi-app video playback, z-order management</td>
+</tr>
+<tr>
+<td>Smart TVs</td>
+<td>App store navigation, content discovery, responsive UI</td>
+</tr>
+<tr>
+<td>Multi-room AV</td>
+<td>Render to off-screen buffers, distributed playback</td>
+</tr>
+<tr>
+<td>Home automation integration</td>
+<td>Input event routing, control overlay apps, support for virtual assistants and voice</td>
+</tr>
+</tbody>
+</table>
+<p>The system's flexibility enables it to support both simple single-application scenarios and complex multi-application environments with sophisticated user interfaces. It can handle everything from basic remote control navigation to advanced touch-based interactions and voice control integration, making it suitable for a wide range of device types and user interaction models.</p>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<p><strong>Frame Rate Management</strong>: The architecture is designed around maintaining consistent frame rates through careful timing and resource management. The main loop includes sophisticated timing logic that adapts to system load while maintaining smooth visual output. The system can dynamically adjust frame rates based on system capabilities and current load conditions.</p>
+<p><strong>Efficient Event Processing</strong>: Input event processing is optimized to minimize latency while supporting complex routing scenarios. The system uses efficient data structures and algorithms to ensure that input responsiveness is maintained even with multiple applications and complex key intercept configurations.</p>
+<p><strong>Graphics Pipeline Optimization</strong>: The rendering pipeline is optimized for the specific requirements of set-top box and smart TV applications, with careful attention to memory bandwidth and GPU utilization patterns typical in these environments. The system includes sophisticated optimization techniques to maximize performance while maintaining visual quality.</p>
+<h2 id="configuration">Configuration</h2>
+<p>RDKShell provides extensive configuration capabilities through environment variables, configuration files, and compile-time options. The configuration system is designed to support both development scenarios with detailed debugging capabilities and production deployments with optimized performance characteristics. The system supports hierarchical configuration sources, allowing for system-wide defaults, platform-specific overrides, and application-specific customizations.</p>
+<h3 id="environment-variables">Environment Variables</h3>
+<h4 id="core-system">Core System</h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RDKSHELL_LOG_LEVEL</code></td>
+<td>string</td>
+<td>"Information"</td>
+<td>Sets the verbosity level for logging output. Valid values are "Debug", "Information", "Warn", "Error", and "Fatal". When set to "Debug", detailed runtime information is printed to help with development and troubleshooting.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_FRAMERATE</code></td>
+<td>integer</td>
+<td>40</td>
+<td>Controls the target frame rate for the main rendering loop. Higher values provide smoother animation but consume more CPU resources. The system will attempt to maintain this frame rate while processing input events and updating application states.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_ENABLE_IPC</code></td>
+<td>boolean</td>
+<td>"0"</td>
+<td>Enables the socket-based IPC communication system when set to "1". This allows external applications to communicate with RDKShell through JSON-RPC over Unix domain sockets.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_ENABLE_WS_IPC</code></td>
+<td>boolean</td>
+<td>"0"</td>
+<td>Enables the WebSocket-based IPC communication system when set to "1". This provides real-time bidirectional communication capabilities for web-based applications and modern client frameworks.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="memory-management">Memory Management</h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RDKSHELL_LOW_MEMORY_THRESHOLD</code></td>
+<td>double</td>
+<td>200.0</td>
+<td>Sets the threshold in megabytes for low memory notifications. When available system memory falls below this threshold, RDKShell will send low memory notifications to registered applications, allowing them to free up resources proactively.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_CRITICALLY_LOW_MEMORY_THRESHOLD</code></td>
+<td>double</td>
+<td>100.0</td>
+<td>Defines the critically low memory threshold in megabytes. When system memory falls below this level, RDKShell will send critical memory notifications and may take more aggressive resource management actions. This value must be less than or equal to the low memory threshold.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_SWAP_MEMORY_INCREASE_THRESHOLD</code></td>
+<td>double</td>
+<td>50.0</td>
+<td>Sets the threshold in megabytes for swap memory increase notifications. When swap usage increases by more than this amount, applications will be notified of potential memory pressure conditions.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="input-system">Input System</h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RDKSHELL_KEY_INITIAL_DELAY</code></td>
+<td>integer</td>
+<td>500</td>
+<td>Configures the initial delay in milliseconds before key repeat events begin. This affects how long a user must hold a key before it starts repeating, providing control over input responsiveness and preventing accidental repeated inputs.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_KEY_REPEAT_INTERVAL</code></td>
+<td>integer</td>
+<td>100</td>
+<td>Sets the interval in milliseconds between key repeat events once repeating has started. Lower values result in faster key repetition, while higher values provide more controlled input for navigation scenarios.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="display">Display</h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RDKSHELL_SET_GRAPHICS_720</code></td>
+<td>boolean</td>
+<td>"0"</td>
+<td>Forces the graphics system to initialize in 720p mode (1280x720) when set to "1". This is useful for devices with limited graphics capabilities or when 720p output is specifically required. The system will initialize with these dimensions regardless of the display's native resolution.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_SHOW_SPLASH_SCREEN</code></td>
+<td>string</td>
+<td>undefined</td>
+<td>When defined, enables the splash screen functionality. The splash screen provides visual feedback during system initialization and can be customized with specific images or animations.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_DISABLE_SPLASH_SCREEN_FILE</code></td>
+<td>string</td>
+<td>undefined</td>
+<td>Specifies a file path that, when present, will disable the splash screen even if <code>RDKSHELL_SHOW_SPLASH_SCREEN</code> is set. This provides a mechanism for runtime control of splash screen behavior.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="plugin-and-extension">Plugin and Extension</h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RDKSHELL_WESTEROS_PLUGIN_DIRECTORY</code></td>
+<td>string</td>
+<td>"/usr/lib/plugins/westeros/"</td>
+<td>Specifies the directory path where Westeros plugins are located. RDKShell will search this directory for compatible plugins that extend the core functionality with platform-specific features.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="configuration-files">Configuration Files</h3>
+<h4 id="input-device">Input Device</h4>
+<p><strong>File</strong> :<code>inputdevices.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"inputDevices"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"vendor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x119b"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x2101"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">"deviceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x00"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"deviceMode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x00"</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"vendor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x119b"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x212b"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"deviceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x01"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">"deviceMode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x0f"</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"vendor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x06e7"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x8038"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"deviceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x02"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"deviceMode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x03"</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"irInputDeviceTypeMapping"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"filterCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"deviceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xf2"</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"filterCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"deviceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xf1"</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"filterCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"deviceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xf3"</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="input-device-parameters">Input Device Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vendor</code></td>
+<td>string</td>
+<td>USB vendor ID in hexadecimal format. This identifies the manufacturer of the input device and is used for device-specific handling and configuration.</td>
+</tr>
+<tr>
+<td><code>product</code></td>
+<td>string</td>
+<td>USB product ID in hexadecimal format. Combined with the vendor ID, this uniquely identifies the specific device model and determines appropriate input handling behavior.</td>
+</tr>
+<tr>
+<td><code>deviceType</code></td>
+<td>string</td>
+<td>Device type classification in hexadecimal format. This determines how the device's input events are processed and which input handling routines are applied.</td>
+</tr>
+<tr>
+<td><code>deviceMode</code></td>
+<td>string</td>
+<td>Device mode configuration in hexadecimal format. This controls specific operational characteristics of the device, such as key repeat behavior and input event filtering.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="ir-input-device-mapping">IR Input Device Mapping</h5>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>filterCode</code></td>
+<td>integer</td>
+<td>IR filter code that identifies specific IR signal patterns. This allows the system to distinguish between different types of IR input devices and remote controls.</td>
+</tr>
+<tr>
+<td><code>deviceType</code></td>
+<td>string</td>
+<td>Device type mapping for IR devices in hexadecimal format. This determines how IR input events are translated into standard input events within the system.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="permissions">Permissions</h4>
+<p><strong>File</strong> : <code>rdkshellPermissions.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"clients"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trusted_application"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"extensions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"libwesteros_plugin_rdkshell_client_control.so"</span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"system_service"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"extensions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">"libwesteros_plugin_rdkshell_client_control.so"</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">"libwesteros_plugin_rdkshell_extended_input.so"</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"extensions"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="permission-parameters">Permission Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>client</code></td>
+<td>string</td>
+<td>Application identifier that matches the client name used in API calls.</td>
+</tr>
+<tr>
+<td><code>extensions</code></td>
+<td>array</td>
+<td>List of extension library names that the client is permitted to use.</td>
+</tr>
+<tr>
+<td><code>default.extensions</code></td>
+<td>array</td>
+<td>Default extension permissions applied to clients not explicitly listed in the configuration.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="compile-time-configuration-options">Compile-Time Configuration Options</h3>
+<h4 id="build-configuration-flags">Build Configuration Flags</h4>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RDKSHELL_BUILD_APP</code></td>
+<td>ON</td>
+<td>Controls whether the main RDKShell executable is built.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_BUILD_WEBSOCKET_IPC</code></td>
+<td>OFF</td>
+<td>Enables WebSocket-based IPC communication support.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_BUILD_KEY_METADATA</code></td>
+<td>OFF</td>
+<td>Enables extended key metadata support that provides additional information about input events.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_BUILD_IPC</code></td>
+<td>ON</td>
+<td>Enables traditional socket-based IPC communication.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_BUILD_CLIENT</code></td>
+<td>ON</td>
+<td>Controls whether the RDKShell client library is built.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_BUILD_FORCE_1080</code></td>
+<td>OFF</td>
+<td>Enables compile-time support for forcing 1080p resolution.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_BUILD_ENABLE_KEYREPEATS</code></td>
+<td>OFF</td>
+<td>Enables advanced key repeat functionality with configurable timing and behavior.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="advanced-build-options">Advanced Build Options</h4>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RDKSHELL_BUILD_HIDDEN_SUPPORT</code></td>
+<td>OFF</td>
+<td>Enables support for hidden application states.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_BUILD_EXTERNAL_APPLICATION_SURFACE_COMPOSITION</code></td>
+<td>ON</td>
+<td>Enables support for compositing surfaces from external applications.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_BUILD_KEYBUBBING_TOP_MODE</code></td>
+<td>ON</td>
+<td>Enables key bubbling to topmost applications.</td>
+</tr>
+<tr>
+<td><code>RDKSHELL_BUILD_KEY_METADATA_EXTENDED_SUPPORT_FOR_IR</code></td>
+<td>OFF</td>
+<td>Enables extended IR support that provides additional metadata for infrared input devices.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="runtime-configuration">Runtime Configuration</h3>
+<h4 id="memory-monitor">Memory Monitor</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Configure memory monitoring with specific parameters</span>
+<span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">RdkShellData</span><span class="o">&gt;</span><span class="w"> </span><span class="n">config</span><span class="p">;</span>
+<span class="n">config</span><span class="p">[</span><span class="s">"enable"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="n">config</span><span class="p">[</span><span class="s">"interval"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// Check every 2 seconds</span>
+<span class="n">config</span><span class="p">[</span><span class="s">"lowRam"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">150.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// 150MB threshold</span>
+<span class="n">config</span><span class="p">[</span><span class="s">"criticallyLowRam"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">75.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// 75MB critical threshold</span>
+<span class="n">config</span><span class="p">[</span><span class="s">"swapIncreaseLimit"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">25.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// 25MB swap increase limit</span>
+<span class="n">RdkShell</span><span class="o">::</span><span class="n">setMemoryMonitor</span><span class="p">(</span><span class="n">config</span><span class="p">);</span>
+</code></pre></div>
+<h4 id="dynamic-display">Dynamic Display</h4>
+<p>Display parameters can be adjusted at runtime through the API system, allowing applications to adapt to changing display conditions or user preferences. This includes resolution changes, display mode adjustments, and multi-display configuration management.</p>
+<h4 id="input-device-runtime">Input Device Runtime</h4>
+<p>Input device behavior can be modified at runtime through the input management APIs, enabling dynamic adaptation to different input scenarios and user preferences. This includes key mapping changes, device enable/disable operations, and input routing configuration.</p>
+<h2 id="key-mappings-and-input-management">Key Mappings and Input Management</h2>
+<p>RDKShell implements a comprehensive key mapping system that translates between different key code formats and provides sophisticated input event routing capabilities. The system supports both Wayland key codes for low-level input handling and RDKShell virtual key codes for application-level input processing. This dual-layer approach ensures compatibility with various input devices while providing a consistent interface for applications.</p>
+<p>The key mapping system is designed to handle the diverse input requirements of set-top box and smart TV environments, where applications must work with various remote controls, keyboards, and specialized input devices. The system provides flexible mapping capabilities that can be configured for different device types and user preferences.</p>
+<h3 id="key-code-translation-system">Key Code Translation System</h3>
+<ul>
+<li><strong>Wayland Key Codes</strong>: RDKShell uses Wayland key codes as the foundation for low-level input processing. These codes correspond directly to Linux input event codes and provide the interface between hardware input devices and the RDKShell input processing system. Wayland key codes are hardware-specific and may vary between different input devices and platforms.</li>
+<li><strong>RDKShell Virtual Key Codes</strong>: The virtual key code system provides a standardized interface for applications, abstracting away hardware-specific details and ensuring consistent behavior across different input devices and platforms. Virtual key codes are designed to be stable across different hardware configurations and provide a consistent programming interface for application developers.</li>
+</ul>
+<h3 id="standard-key-mappings">Standard Key Mappings</h3>
+<h4 id="alphanumeric-keys">Alphanumeric Keys</h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Wayland Code</th>
+<th>RDKShell Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>11</td>
+<td>48</td>
+<td>Number zero key</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>49</td>
+<td>Number one key</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3</td>
+<td>50</td>
+<td>Number two key</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4</td>
+<td>51</td>
+<td>Number three key</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+<td>52</td>
+<td>Number four key</td>
+</tr>
+<tr>
+<td>5</td>
+<td>6</td>
+<td>53</td>
+<td>Number five key</td>
+</tr>
+<tr>
+<td>6</td>
+<td>7</td>
+<td>54</td>
+<td>Number six key</td>
+</tr>
+<tr>
+<td>7</td>
+<td>8</td>
+<td>55</td>
+<td>Number seven key</td>
+</tr>
+<tr>
+<td>8</td>
+<td>9</td>
+<td>56</td>
+<td>Number eight key</td>
+</tr>
+<tr>
+<td>9</td>
+<td>10</td>
+<td>57</td>
+<td>Number nine key</td>
+</tr>
+<tr>
+<td>A</td>
+<td>30</td>
+<td>65</td>
+<td>Letter A key</td>
+</tr>
+<tr>
+<td>B</td>
+<td>48</td>
+<td>66</td>
+<td>Letter B key</td>
+</tr>
+<tr>
+<td>C</td>
+<td>46</td>
+<td>67</td>
+<td>Letter C key</td>
+</tr>
+<tr>
+<td>D</td>
+<td>32</td>
+<td>68</td>
+<td>Letter D key</td>
+</tr>
+<tr>
+<td>E</td>
+<td>18</td>
+<td>69</td>
+<td>Letter E key</td>
+</tr>
+<tr>
+<td>F</td>
+<td>33</td>
+<td>70</td>
+<td>Letter F key</td>
+</tr>
+<tr>
+<td>G</td>
+<td>34</td>
+<td>71</td>
+<td>Letter G key</td>
+</tr>
+<tr>
+<td>H</td>
+<td>35</td>
+<td>72</td>
+<td>Letter H key</td>
+</tr>
+<tr>
+<td>I</td>
+<td>23</td>
+<td>73</td>
+<td>Letter I key</td>
+</tr>
+<tr>
+<td>J</td>
+<td>36</td>
+<td>74</td>
+<td>Letter J key</td>
+</tr>
+<tr>
+<td>K</td>
+<td>37</td>
+<td>75</td>
+<td>Letter K key</td>
+</tr>
+<tr>
+<td>L</td>
+<td>38</td>
+<td>76</td>
+<td>Letter L key</td>
+</tr>
+<tr>
+<td>M</td>
+<td>50</td>
+<td>77</td>
+<td>Letter M key</td>
+</tr>
+<tr>
+<td>N</td>
+<td>49</td>
+<td>78</td>
+<td>Letter N key</td>
+</tr>
+<tr>
+<td>O</td>
+<td>24</td>
+<td>79</td>
+<td>Letter O key</td>
+</tr>
+<tr>
+<td>P</td>
+<td>25</td>
+<td>80</td>
+<td>Letter P key</td>
+</tr>
+<tr>
+<td>Q</td>
+<td>16</td>
+<td>81</td>
+<td>Letter Q key</td>
+</tr>
+<tr>
+<td>R</td>
+<td>19</td>
+<td>82</td>
+<td>Letter R key</td>
+</tr>
+<tr>
+<td>S</td>
+<td>31</td>
+<td>83</td>
+<td>Letter S key</td>
+</tr>
+<tr>
+<td>T</td>
+<td>20</td>
+<td>84</td>
+<td>Letter T key</td>
+</tr>
+<tr>
+<td>U</td>
+<td>22</td>
+<td>85</td>
+<td>Letter U key</td>
+</tr>
+<tr>
+<td>V</td>
+<td>47</td>
+<td>86</td>
+<td>Letter V key</td>
+</tr>
+<tr>
+<td>W</td>
+<td>17</td>
+<td>87</td>
+<td>Letter W key</td>
+</tr>
+<tr>
+<td>X</td>
+<td>45</td>
+<td>88</td>
+<td>Letter X key</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>21</td>
+<td>89</td>
+<td>Letter Y key</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>44</td>
+<td>90</td>
+<td>Letter Z key</td>
+</tr>
+</tbody>
+</table>
+<h4 id="function-keys">Function Keys</h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Wayland Code</th>
+<th>RDKShell Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F1</td>
+<td>59</td>
+<td>112</td>
+<td>Function key F1</td>
+</tr>
+<tr>
+<td>F2</td>
+<td>60</td>
+<td>113</td>
+<td>Function key F2</td>
+</tr>
+<tr>
+<td>F3</td>
+<td>61</td>
+<td>114</td>
+<td>Function key F3</td>
+</tr>
+<tr>
+<td>F4</td>
+<td>62</td>
+<td>115</td>
+<td>Function key F4</td>
+</tr>
+<tr>
+<td>F5</td>
+<td>63</td>
+<td>116</td>
+<td>Function key F5</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>64</td>
+<td>117</td>
+<td>Function key F6</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>65</td>
+<td>118</td>
+<td>Function key F7</td>
+</tr>
+<tr>
+<td>F8</td>
+<td>66</td>
+<td>119</td>
+<td>Function key F8</td>
+</tr>
+<tr>
+<td>F9</td>
+<td>67</td>
+<td>120</td>
+<td>Function key F9</td>
+</tr>
+<tr>
+<td>F10</td>
+<td>68</td>
+<td>121</td>
+<td>Function key F10</td>
+</tr>
+<tr>
+<td>F11</td>
+<td>87</td>
+<td>122</td>
+<td>Function key F11</td>
+</tr>
+<tr>
+<td>F12</td>
+<td>88</td>
+<td>123</td>
+<td>Function key F12</td>
+</tr>
+<tr>
+<td>F13</td>
+<td>183</td>
+<td>124</td>
+<td>Function key F13</td>
+</tr>
+<tr>
+<td>F14</td>
+<td>184</td>
+<td>125</td>
+<td>Function key F14</td>
+</tr>
+<tr>
+<td>F15</td>
+<td>185</td>
+<td>126</td>
+<td>Function key F15</td>
+</tr>
+<tr>
+<td>F16</td>
+<td>186</td>
+<td>127</td>
+<td>Function key F16</td>
+</tr>
+<tr>
+<td>F17</td>
+<td>187</td>
+<td>129</td>
+<td>Function key F17</td>
+</tr>
+<tr>
+<td>F18</td>
+<td>188</td>
+<td>130</td>
+<td>Function key F18</td>
+</tr>
+<tr>
+<td>F19</td>
+<td>189</td>
+<td>131</td>
+<td>Function key F19</td>
+</tr>
+<tr>
+<td>F20</td>
+<td>190</td>
+<td>132</td>
+<td>Function key F20</td>
+</tr>
+<tr>
+<td>F21</td>
+<td>191</td>
+<td>133</td>
+<td>Function key F21</td>
+</tr>
+<tr>
+<td>F22</td>
+<td>192</td>
+<td>134</td>
+<td>Function key F22</td>
+</tr>
+<tr>
+<td>F23</td>
+<td>193</td>
+<td>135</td>
+<td>Function key F23</td>
+</tr>
+<tr>
+<td>F24</td>
+<td>194</td>
+<td>136</td>
+<td>Function key F24</td>
+</tr>
+</tbody>
+</table>
+<h4 id="navigation-keys">Navigation Keys</h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Wayland Code</th>
+<th>RDKShell Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Up Arrow</td>
+<td>103</td>
+<td>38</td>
+<td>Directional up navigation key</td>
+</tr>
+<tr>
+<td>Down Arrow</td>
+<td>108</td>
+<td>40</td>
+<td>Directional down navigation key</td>
+</tr>
+<tr>
+<td>Left Arrow</td>
+<td>105</td>
+<td>37</td>
+<td>Directional left navigation key</td>
+</tr>
+<tr>
+<td>Right Arrow</td>
+<td>106</td>
+<td>39</td>
+<td>Directional right navigation key</td>
+</tr>
+<tr>
+<td>Home</td>
+<td>102</td>
+<td>36</td>
+<td>Home navigation key</td>
+</tr>
+<tr>
+<td>End</td>
+<td>107</td>
+<td>35</td>
+<td>End navigation key</td>
+</tr>
+<tr>
+<td>Page Up</td>
+<td>104</td>
+<td>33</td>
+<td>Page up navigation key</td>
+</tr>
+<tr>
+<td>Page Down</td>
+<td>109</td>
+<td>34</td>
+<td>Page down navigation key</td>
+</tr>
+<tr>
+<td>Insert</td>
+<td>110</td>
+<td>45</td>
+<td>Insert key</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>111</td>
+<td>46</td>
+<td>Delete key</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-and-modifier-keys">Control and Modifier Keys</h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Wayland Code</th>
+<th>RDKShell Code</th>
+<th>Flag Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Escape</td>
+<td>1</td>
+<td>27</td>
+<td>-</td>
+<td>Escape key for canceling operations</td>
+</tr>
+<tr>
+<td>Tab</td>
+<td>15</td>
+<td>9</td>
+<td>-</td>
+<td>Tab key for navigation and focus control</td>
+</tr>
+<tr>
+<td>Enter</td>
+<td>28</td>
+<td>13</td>
+<td>-</td>
+<td>Enter key for confirmation and line breaks</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>57</td>
+<td>32</td>
+<td>-</td>
+<td>Space bar for text input and selection</td>
+</tr>
+<tr>
+<td>Backspace</td>
+<td>14</td>
+<td>8</td>
+<td>-</td>
+<td>Backspace key for deleting characters</td>
+</tr>
+<tr>
+<td>Left Shift</td>
+<td>42</td>
+<td>16</td>
+<td>8</td>
+<td>Left shift modifier key</td>
+</tr>
+<tr>
+<td>Right Shift</td>
+<td>54</td>
+<td>16</td>
+<td>8</td>
+<td>Right shift modifier key</td>
+</tr>
+<tr>
+<td>Left Ctrl</td>
+<td>29</td>
+<td>17</td>
+<td>16</td>
+<td>Left control modifier key</td>
+</tr>
+<tr>
+<td>Right Ctrl</td>
+<td>97</td>
+<td>17</td>
+<td>16</td>
+<td>Right control modifier key</td>
+</tr>
+<tr>
+<td>Left Alt</td>
+<td>56</td>
+<td>18</td>
+<td>32</td>
+<td>Left alt modifier key</td>
+</tr>
+<tr>
+<td>Right Alt</td>
+<td>100</td>
+<td>18</td>
+<td>32</td>
+<td>Right alt modifier key</td>
+</tr>
+<tr>
+<td>Caps Lock</td>
+<td>58</td>
+<td>20</td>
+<td>-</td>
+<td>Caps lock toggle key</td>
+</tr>
+<tr>
+<td>Num Lock</td>
+<td>69</td>
+<td>144</td>
+<td>-</td>
+<td>Numeric keypad lock toggle</td>
+</tr>
+<tr>
+<td>Scroll Lock</td>
+<td>70</td>
+<td>145</td>
+<td>-</td>
+<td>Scroll lock toggle key</td>
+</tr>
+<tr>
+<td>Pause</td>
+<td>119</td>
+<td>19</td>
+<td>-</td>
+<td>Pause/break key</td>
+</tr>
+</tbody>
+</table>
+<h4 id="special-media-and-remote-control-keys">Special Media and Remote Control Keys</h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Wayland Code</th>
+<th>RDKShell Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Red</td>
+<td>0x190</td>
+<td>405</td>
+<td>Red colored key typically found on remote controls</td>
+</tr>
+<tr>
+<td>Green</td>
+<td>0x191</td>
+<td>406</td>
+<td>Green colored key typically found on remote controls</td>
+</tr>
+<tr>
+<td>Yellow</td>
+<td>0x18e</td>
+<td>403</td>
+<td>Yellow colored key typically found on remote controls</td>
+</tr>
+<tr>
+<td>Blue</td>
+<td>0x18f</td>
+<td>404</td>
+<td>Blue colored key typically found on remote controls</td>
+</tr>
+<tr>
+<td>Back</td>
+<td>158</td>
+<td>407</td>
+<td>Back navigation key for returning to previous screens</td>
+</tr>
+<tr>
+<td>Menu</td>
+<td>139</td>
+<td>408</td>
+<td>Menu key for accessing application menus</td>
+</tr>
+<tr>
+<td>Home Page</td>
+<td>172</td>
+<td>409</td>
+<td>Home page key for returning to main interface</td>
+</tr>
+<tr>
+<td>Volume Up</td>
+<td>115</td>
+<td>175</td>
+<td>Volume increase key</td>
+</tr>
+<tr>
+<td>Volume Down</td>
+<td>114</td>
+<td>174</td>
+<td>Volume decrease key</td>
+</tr>
+<tr>
+<td>Mute</td>
+<td>113</td>
+<td>173</td>
+<td>Audio mute toggle key</td>
+</tr>
+<tr>
+<td>Play/Pause</td>
+<td>164</td>
+<td>227</td>
+<td>Media play/pause toggle key</td>
+</tr>
+<tr>
+<td>Play</td>
+<td>207</td>
+<td>226</td>
+<td>Media play key</td>
+</tr>
+<tr>
+<td>Fast Forward</td>
+<td>208</td>
+<td>223</td>
+<td>Media fast forward key</td>
+</tr>
+<tr>
+<td>Rewind</td>
+<td>168</td>
+<td>224</td>
+<td>Media rewind key</td>
+</tr>
+</tbody>
+</table>
+<h4 id="numeric-keypad">Numeric Keypad</h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Wayland Code</th>
+<th>RDKShell Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keypad 0</td>
+<td>82</td>
+<td>96</td>
+<td>Numeric keypad zero</td>
+</tr>
+<tr>
+<td>Keypad 1</td>
+<td>79</td>
+<td>97</td>
+<td>Numeric keypad one</td>
+</tr>
+<tr>
+<td>Keypad 2</td>
+<td>80</td>
+<td>98</td>
+<td>Numeric keypad two</td>
+</tr>
+<tr>
+<td>Keypad 3</td>
+<td>81</td>
+<td>99</td>
+<td>Numeric keypad three</td>
+</tr>
+<tr>
+<td>Keypad 4</td>
+<td>75</td>
+<td>100</td>
+<td>Numeric keypad four</td>
+</tr>
+<tr>
+<td>Keypad 5</td>
+<td>76</td>
+<td>101</td>
+<td>Numeric keypad five</td>
+</tr>
+<tr>
+<td>Keypad 6</td>
+<td>77</td>
+<td>102</td>
+<td>Numeric keypad six</td>
+</tr>
+<tr>
+<td>Keypad 7</td>
+<td>71</td>
+<td>103</td>
+<td>Numeric keypad seven</td>
+</tr>
+<tr>
+<td>Keypad 8</td>
+<td>72</td>
+<td>104</td>
+<td>Numeric keypad eight</td>
+</tr>
+<tr>
+<td>Keypad 9</td>
+<td>73</td>
+<td>105</td>
+<td>Numeric keypad nine</td>
+</tr>
+<tr>
+<td>Keypad Plus</td>
+<td>78</td>
+<td>107</td>
+<td>Numeric keypad addition operator</td>
+</tr>
+<tr>
+<td>Keypad Minus</td>
+<td>74</td>
+<td>109</td>
+<td>Numeric keypad subtraction operator</td>
+</tr>
+<tr>
+<td>Keypad Multiply</td>
+<td>55</td>
+<td>106</td>
+<td>Numeric keypad multiplication operator</td>
+</tr>
+<tr>
+<td>Keypad Divide</td>
+<td>98</td>
+<td>111</td>
+<td>Numeric keypad division operator</td>
+</tr>
+<tr>
+<td>Keypad Decimal</td>
+<td>83</td>
+<td>110</td>
+<td>Numeric keypad decimal point</td>
+</tr>
+<tr>
+<td>Keypad Enter</td>
+<td>96</td>
+<td>13</td>
+<td>Numeric keypad enter key</td>
+</tr>
+</tbody>
+</table>
+<h3 id="modifier-key-flags">Modifier Key Flags</h3>
+<p>RDKShell uses flag values to represent modifier key states that can be combined with regular key codes to create complex key combinations. These flags can be combined using bitwise OR operations to represent multiple simultaneous modifier keys.</p>
+<table>
+<thead>
+<tr>
+<th>Modifier</th>
+<th>Flag Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shift</td>
+<td>8</td>
+<td>Shift key modifier for uppercase letters and symbol access</td>
+</tr>
+<tr>
+<td>Control</td>
+<td>16</td>
+<td>Control key modifier for keyboard shortcuts and commands</td>
+</tr>
+<tr>
+<td>Alt</td>
+<td>32</td>
+<td>Alt key modifier for alternative character input and shortcuts</td>
+</tr>
+<tr>
+<td>Command</td>
+<td>64</td>
+<td>Command/Windows key modifier for system-level shortcuts</td>
+</tr>
+</tbody>
+</table>
+<h4 id="modifier-combination-examples">Modifier Combination Examples</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Ctrl+C combination</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">keyCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">67</span><span class="p">;</span><span class="w">  </span><span class="c1">// C key</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span><span class="w">    </span><span class="c1">// Control modifier</span>
+
+<span class="c1">// Ctrl+Shift+F combination  </span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">keyCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">70</span><span class="p">;</span><span class="w">  </span><span class="c1">// F key</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">24</span><span class="p">;</span><span class="w">    </span><span class="c1">// Control (16) + Shift (8)</span>
+
+<span class="c1">// Alt+Tab combination</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">keyCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span><span class="w">   </span><span class="c1">// Tab key</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span><span class="w">    </span><span class="c1">// Alt modifier</span>
+
+<span class="c1">// Ctrl+Alt+Delete combination</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">keyCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">46</span><span class="p">;</span><span class="w">  </span><span class="c1">// Delete key</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">48</span><span class="p">;</span><span class="w">    </span><span class="c1">// Control (16) + Alt (32)</span>
+</code></pre></div>
+<h3 id="input-event-processing_1">Input Event Processing</h3>
+<ul>
+<li><strong>Key Event Types</strong>: RDKShell processes two primary types of key events: key press events and key release events. Each event includes the key code, modifier flags, and timing metadata. The system maintains state information about which keys are currently pressed to support complex input scenarios and modifier key combinations.</li>
+<li><strong>Key Repeat Handling</strong>: The system supports configurable key repeat functionality with separate settings for initial delay and repeat interval. Key repeat events are marked with a special flag to distinguish them from initial key press events. The repeat behavior can be configured globally or on a per-application basis.
+<div class="highlight"><pre><span></span><code><span class="cp">#define RDKSHELL_KEYDOWN_REPEAT 128</span>
+</code></pre></div>
+The key repeat system includes sophisticated logic to handle modifier keys correctly and ensure that repeat events are only generated for appropriate key types. Navigation keys and character keys typically support repeat, while modifier keys and special function keys do not.</li>
+<li><strong>Event Routing and Interception</strong>: Applications can register to intercept specific key combinations even when they are not in focus. This enables global hotkey functionality and allows background applications to respond to specific input events. The interception system supports complex routing scenarios where multiple applications may be interested in the same key events. The event routing system includes priority mechanisms to ensure that critical system functions can always access required key combinations. Applications can register for different types of key interception, including exclusive access, shared access, and monitoring-only access.</li>
+</ul>
+<h3 id="mouse-and-pointer-input">Mouse and Pointer Input</h3>
+<h4 id="mouse-button-mappings">Mouse Button Mappings</h4>
+<table>
+<thead>
+<tr>
+<th>Button</th>
+<th>Flag Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Left Button</td>
+<td>1</td>
+<td>Primary mouse button for selection and activation</td>
+</tr>
+<tr>
+<td>Middle Button</td>
+<td>2</td>
+<td>Middle mouse button typically used for scrolling</td>
+</tr>
+<tr>
+<td>Right Button</td>
+<td>4</td>
+<td>Secondary mouse button for context menus</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pointer-event-processing">Pointer Event Processing</h4>
+<p>RDKShell processes pointer motion events and button press/release events, providing applications with precise cursor position information and button state changes. The system supports both absolute and relative pointer positioning and can handle multiple pointer devices simultaneously.</p>
+<p>The pointer event system includes support for touch interfaces and gesture recognition when available. It provides coordinate transformation capabilities to support different display resolutions and scaling factors.</p>
+<h3 id="virtual-key-support">Virtual Key Support</h3>
+<ul>
+<li><strong>Virtual Key Generation</strong>: The system supports programmatic generation of virtual key events, enabling applications to simulate user input for automation and testing scenarios. Virtual key events are processed through the same routing and interception mechanisms as physical key events.</li>
+<li><strong>Virtual Key Mapping</strong>: Virtual keys can be mapped to physical key codes through string-based identifiers, providing a flexible interface for dynamic key mapping scenarios. This enables applications to define custom key mappings that can be configured at runtime.</li>
+</ul>
+<h2 id="apis">APIs</h2>
+<p>RDKShell provides multiple API interfaces to accommodate different integration scenarios and programming languages. The system supports JSON-RPC over both traditional socket-based IPC and modern WebSocket connections, as well as direct C++ APIs for native code integration. All APIs provide access to the same underlying functionality through the CompositorController interface.</p>
+<h3 id="json-rpc-api">JSON-RPC API</h3>
+<h4 id="application-management">Application Management</h4>
+<ul>
+<li><strong>createDisplay</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.createDisplay</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Unique identifier for the application
+- <code>displayName</code> (string, optional): Custom name for the display surface
+- <code>displayWidth</code> (uint32, optional): Width of the display surface
+- <code>displayHeight</code> (uint32, optional): Height of the display surface
+- <code>virtualDisplayEnabled</code> (boolean, optional): Enable virtual display mode
+- <code>virtualWidth</code> (uint32, optional): Virtual display width
+- <code>virtualHeight</code> (uint32, optional): Virtual display height
+- <code>topmost</code> (boolean, optional): Create display in topmost layer
+- <code>focus</code> (boolean, optional): Give focus to the new display
+- <code>autodestroy</code> (boolean, optional): Automatically destroy when client disconnects</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Example Request:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org.rdk.RDKShell.1.createDisplay"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"netflix"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"displayWidth"</span><span class="p">:</span><span class="w"> </span><span class="mi">1920</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"displayHeight"</span><span class="p">:</span><span class="w"> </span><span class="mi">1080</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"topmost"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"focus"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>launchApplication</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.launchApplication</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier
+- <code>uri</code> (string, required): Application URI or path
+- <code>mimeType</code> (string, required): MIME type of the application
+- <code>topmost</code> (boolean, optional): Launch in topmost layer
+- <code>focus</code> (boolean, optional): Give focus to launched application</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>kill</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.kill</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier to terminate</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h4 id="display-management">Display Management</h4>
+<ul>
+<li><strong>getScreenResolution</strong>
+<strong>Method:</strong> <code>org.rdk.RDKShell.1.getScreenResolution</code></li>
+</ul>
+<p><strong>Parameters:</strong> None</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"w"</span><span class="p">:</span><span class="w"> </span><span class="mi">1920</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"h"</span><span class="p">:</span><span class="w"> </span><span class="mi">1080</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>setScreenResolution</strong>
+<strong>Method:</strong> <code>org.rdk.RDKShell.1.setScreenResolution</code></li>
+</ul>
+<p><strong>Parameters:</strong>
+- <code>w</code> (uint32, required): Screen width in pixels
+- <code>h</code> (uint32, required): Screen height in pixels</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>getBounds</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.getBounds</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"bounds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"x"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"y"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"w"</span><span class="p">:</span><span class="w"> </span><span class="mi">800</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"h"</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>setBounds</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.setBounds</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier
+- <code>x</code> (int32, required): X coordinate
+- <code>y</code> (int32, required): Y coordinate
+- <code>w</code> (uint32, required): Width in pixels
+- <code>h</code> (uint32, required): Height in pixels</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h4 id="visibility-and-appearance">Visibility and Appearance</h4>
+<ul>
+<li><strong>getVisibility</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.getVisibility</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>setVisibility</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.setVisibility</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier
+- <code>visible</code> (boolean, required): Visibility state</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>getOpacity</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.getOpacity</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"opacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>setOpacity</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.setOpacity</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier
+- <code>opacity</code> (uint32, required): Opacity value (0-255)</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h4 id="z-order-management">Z-Order Management</h4>
+<ul>
+<li><strong>moveToFront</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.moveToFront</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>moveToBack</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.moveToBack</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>moveBehind</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.moveBehind</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application to move
+- <code>target</code> (string, required): Application to move behind</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>getZOrder</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.getZOrder</code></p>
+<p><strong>Parameters:</strong> None</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"17"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"clients"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"app1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app3"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h4 id="focus-management">Focus Management</h4>
+<ul>
+<li><strong>setFocus</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.setFocus</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>getFocused</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.getFocused</code></p>
+<p><strong>Parameters:</strong> None</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"netflix"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h4 id="input-management">Input Management</h4>
+<ul>
+<li><strong>addKeyIntercept</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.addKeyIntercept</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier
+- <code>keyCode</code> (uint32, required): Key code to intercept
+- <code>modifiers</code> (array, optional): Modifier keys (ctrl, shift, alt)</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Example Request:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org.rdk.RDKShell.1.addKeyIntercept"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"netflix"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"keyCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">48</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"modifiers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ctrl"</span><span class="p">,</span><span class="w"> </span><span class="s2">"shift"</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li><strong>removeKeyIntercept</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.removeKeyIntercept</code></p>
+<p><strong>Parameters:</strong>
+- <code>client</code> (string, required): Application identifier
+- <code>keyCode</code> (uint32, required): Key code to remove
+- <code>modifiers</code> (array, optional): Modifier keys</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"21"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h4 id="system-information">System Information</h4>
+<ul>
+<li><strong>getClients</strong></li>
+</ul>
+<p><strong>Method:</strong> <code>org.rdk.RDKShell.1.getClients</code></p>
+<p><strong>Parameters:</strong> None</p>
+<p><strong>Response:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"clients"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"netflix"</span><span class="p">,</span><span class="w"> </span><span class="s2">"youtube"</span><span class="p">,</span><span class="w"> </span><span class="s2">"settings"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h3 id="websocket-api">WebSocket API</h3>
+<p>RDKShell supports WebSocket-based communication for real-time interaction. The WebSocket API uses the same method names and parameters as the JSON-RPC API but operates over WebSocket connections for lower latency and bidirectional communication.</p>
+<p><strong>Connection Endpoint:</strong> <code>ws://localhost:3000</code></p>
+<p><strong>Message Format:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"methodName"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"parameter1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"parameter2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value2"</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="error-handling">Error Handling</h2>
+<p>All APIs return success/failure indicators and provide detailed error information when operations fail. Common error conditions include:</p>
+<ul>
+<li><strong>Invalid client identifier</strong>: Specified application does not exist</li>
+<li><strong>Resource constraints</strong>: Insufficient memory or graphics resources</li>
+<li><strong>Permission denied</strong>: Application lacks required permissions</li>
+<li><strong>Invalid parameters</strong>: Malformed or out-of-range parameter values</li>
+<li><strong>System state conflicts</strong>: Operation conflicts with current system state</li>
+</ul>
+<p>Error responses follow the JSON-RPC error format:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">-32602</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid params"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client 'invalid_app' not found"</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="development">Development</h3>
+<ul>
+<li>Enable debug logging and extended metadata collection to facilitate troubleshooting and performance analysis.</li>
+<li>Use higher frame rates for smoother development experience but be aware of increased resource consumption.</li>
+<li>Enable additional build options that provide debugging capabilities and detailed system information.</li>
+</ul>
+<h3 id="production">Production</h3>
+<ul>
+<li>Use optimized logging levels and carefully tuned memory thresholds based on the specific hardware platform and application requirements.</li>
+<li>Disable unnecessary features to minimize resource usage and potential security exposure.</li>
+<li>Use conservative memory thresholds to ensure system stability under varying load conditions.</li>
+</ul>
+<h3 id="security">Security</h3>
+<ul>
+<li>Carefully configure the permissions system to ensure that only trusted applications have access to sensitive extensions and capabilities.</li>
+<li>Regularly review and update permission configurations as applications are added or removed from the system.</li>
+<li>Use the principle of least privilege when granting extension access to applications.</li>
+</ul>
+<h3 id="performance">Performance</h3>
+<ul>
+<li>Configure frame rates and memory thresholds based on the specific hardware capabilities and performance requirements of the target deployment.</li>
+<li>Monitor system performance under typical usage scenarios and adjust configuration parameters to optimize for the specific use case and hardware platform</li>
+</ul>
+<h3 id="key-mapping">Key mapping</h3>
+<ul>
+<li><strong>Key Intercept Registration</strong>: Applications should register for key intercepts only for the specific key combinations they need to handle globally. Excessive key intercept registrations can impact system performance and interfere with other applications. Applications should also properly remove their key intercept registrations when they are suspended or terminated.</li>
+<li><strong>Modifier Key Handling</strong>: When processing key events with modifiers, applications should check for the specific modifier combinations they support and ignore unexpected modifier states to ensure robust input handling. Applications should also be prepared to handle cases where modifier keys are pressed or released independently of other keys.</li>
+<li><strong>Input Event Cleanup</strong>: Applications should properly remove their key intercept registrations when they are suspended or terminated to prevent resource leaks and ensure proper input routing for other applications. The system includes automatic cleanup mechanisms, but applications should not rely solely on these mechanisms.</li>
+<li><strong>Performance Considerations</strong>: Input event processing should be optimized to minimize latency and ensure responsive user interaction. Applications should avoid performing heavy processing in input event handlers and should use efficient data structures for key mapping and event routing operations.</li>
+</ul>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<div class="bottom-banner compact-footer">
+<!-- Left Section: Logo and Copyright -->
+<div class="footer-left">
+<img alt="RDK Logo" class="rdk-logo" src="../../../../assets/logo.png">
+<p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+</img></div>
+<!-- Right Section: Links and Support -->
+<div class="footer-right">
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Explore RDK</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../../preview-rdk/docs/getting-started">Getting Started</a></li>
+<li><a href="../../../../devices/docs/">Devices</a></li>
+<li><a href="../../../../preview-rdk/docs/getting-started">Tools</a></li>
+</ul>
+</div>
+</div>
+<!-- Device Management -->
+<div class="banner-group">
+<h3>Device Management</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="/device-management/docs/XConf/">XConf</a></li>
+<li><a href="/device-management/docs/Telemetry/">Telemetry</a></li>
+<li><a href="/device-management/docs/Webpa/">Web PA</a></li>
+<li><a href="/device-management/docs/TR369/">TR 369</a></li>
+</ul>
+</div>
+</div>
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Test &amp; Certification</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119">RDK Certification</a></li>
+<li><a href="../../../../tools/docs/TDK/">TDK</a></li>
+<li><a href="../../../../tools/docs/Automatics/">Automatics</a></li>
+</ul>
+</div>
+</div>
+<!-- Resources-->
+<div class="banner-group">
+<h3>Resources</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="/docu/WANMgr_Claude_2609/">Knowledge Articles</a></li>
+<li><a href="/sitemap/">Quick Links</a></li>
+<li><a href="/sitemap.xml">Site Map</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script src="../../../../assets/javascripts/extra.js"></script>
+</div></body>
+</html>
