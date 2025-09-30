@@ -24,12 +24,18 @@
 }
 
 .md-nav--secondary .md-nav__title {
-  background: none;
   box-shadow: none;
+  background: var(--md-code-bg-color);
+  padding: .5em 1em 1em 2.4em;
+  margin-left: -1.35em;
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  transition: opacity 0.3s ease;
 }
 
 /* === Sidebar Scrollwrap Inner === */
-.md-sidebar--primary .md-sidebar__scrollwrap {
+.md-sidebar--primary .md-sidebar__scrollwrap{
   background-color: #0000000c;
   border-right: 1px solid #00000006;
   margin: -5.5em -0.9em;

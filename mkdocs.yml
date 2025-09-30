@@ -69,6 +69,7 @@ extra_css:
   - assets/stylesheets/devices.css
   - assets/stylesheets/footer.css
   - assets/stylesheets/sidepanes.css
+  - assets/stylesheets/sitemap.css
   - https://fonts.googleapis.com/icon?family=Material+Icons
 extra_javascript:
   - assets/javascripts/extra.js
@@ -97,11 +98,24 @@ nav:
       - Cellular Manager: ./connectivity/docs/components/cellularmanager.md
       - WAN Manager: ./connectivity/docs/components/wanmanager.md
       - GPON Manager: ./connectivity/docs/components/gponmanager.md
+      - PSM OldPrompt: ./connectivity/docs/components/PSM_Oldprompt.md
+      - PSM GPT5: ./connectivity/docs/components/PSM_GPT5.md
+      - PSM_Claude: ./connectivity/docs/components/PSM_Claude.md
+      - WAN Mgr Rama: ./connectivity/docs/components/WANMgr Rama.md
+      - WAN Mgr GPT5: ./connectivity/docs/components/WANMgr GPT5.md
     - Releases: https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases
   - Getting Started: ./preview-rdk/docs/getting-started.md
   - Tools:
       - TDK: ./tools/docs/TDK.md
       - Automatics: ./tools/docs/Automatics.md
+  - Review:
+      - Cellular Manager: ./review/CellularManager.md
+      - GPON Manager: ./review/GPONManager.md
+      - PPP Manager: ./review/PPPManager.md
+      - Telco Voice Manager: ./review/TelcoVoiceManager.md
+      - CCSP PSM: ./review/CCSPPSM.md
+      - CCSP LM Lite: ./review/LMLite.md
+      - One WiFi: ./review/OneWifi.md
   - Device Management:
       - Overview: ./device-management/docs/README.md
       - XConf: ./device-management/docs/XConf.md
@@ -109,3 +123,28 @@ nav:
       - Web PA: ./device-management/docs/Webpa.md
       - TR 369: ./device-management/docs/TR369.md
       - Log Upload: ./device-management/docs/LogUpload.md
+  - Comparison:
+      - PNM_Claude: ./docu/bhanu/pnm_claude.md
+      - PNM_GPT5: ./docu/bhanu/pnm_gpt5.md
+      - Utopia_Claude: ./docu/bhanu/utopia_claude.md
+      - Utopia_GPT5: ./docu/bhanu/utopia_gpt5.md
+      - WANMGr_Claude: ./docu/bhanu/wanmgr_claude.md
+      - WANMGr_GPT5: ./docu/bhanu/wanmgr_gpt5.md
+      - Utopia_Claude: ./docu/bhanu/utopia_claude.md
+      - Utopia_GPT5: ./docu/bhanu/utopia_gpt5.md
+      - CL_Claude: ./docu/raheen/cl_claude.md
+      - CL_GPT5: ./docu/raheen/cl_gpt5.md
+      - LMLite_Claude: ./docu/raheen/lmlite_claude.md
+      - LMLite_GPT5: ./docu/raheen/lmlite_gpt5.md
+      - PSM_Claude: ./docu/raheen/psm_claude.md
+      - PSM_GPT5: ./docu/raheen/psm_gpt5.md
+      - WANMGr_Claude_2609: ./docu/WANMgr_Claude_2609.md
+      - WANMGr_GPT5_2609: ./docu/WANMgr_GPT5_2609.md
+      - LMLite_Claude_2609: ./docu/LMLite_Claude_2609.md
+      - LMLite_GPT5_2609: ./docu/LMLite_GPT5_2609.md
+      - PSM_Claude_2609: ./docu/PSM_Claude_2609.md
+      - PSM_GPT5_2609: ./docu/PSM_GPT5_2609.md
+      - RBUS_Claude_2609: ./docu/RBUS_Claude_2609.md
+      - RBUS_GPT5_2609: ./docu/RBUS_GPT5_2609.md
+      - Template_Rama: ./docu/doc_template_orig_rama.md
+      - Template_2609: ./docu/doc_template_mod_2609.md

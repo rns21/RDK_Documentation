@@ -1,51 +1,49 @@
 # WAN Manager Documentation
 
-The WAN Manager is a critical RDK-B middleware component responsible for managing all Wide Area Network (WAN) interfaces and their connectivity. It orchestrates WAN interface selection, configuration, failover policies, and ensures Internet connectivity across multiple WAN technologies including DOCSIS, Ethernet, GPON, xDSL, and Cellular. The component acts as the central intelligence for WAN connectivity decisions, interfacing with physical Interface Managers and higher-level RDK-B components to provide seamless Internet access.
+The WAN Manager is a central orchestration component within the RDK-B middleware stack responsible for managing Wide Area Network interfaces across multiple physical technologies. It coordinates interface selection, failover policies, and network stack configuration while providing intelligent business logic for ensuring continuous Internet connectivity. The component abstracts physical interface complexities from higher-level services and implements policy-driven interface management strategies including Auto WAN, Primary Priority, Fixed Mode, and Parallel Scan approaches. WAN Manager integrates with Interface Managers (DOCSIS, Ethernet, Cellular, GPON) to receive physical layer status and coordinates with other RDK-B components like VLAN Manager, DHCP Manager, and DNS services for complete network stack provisioning. It serves as the single point of control for WAN configuration and monitoring, implementing TR-181 data models for remote management via WebConfig and TR-069 protocols.
 
 ```mermaid
 graph LR
-    subgraph "External Systems"
-        ISP1((ISP/Internet))
-        ISP2((Backup ISP))
+    subgraph External ["External Systems & Users"]
+        ISP1[ISP Provider 1]
+        ISP2[ISP Provider 2] 
+        WEBUI[Web Management UI]
+        TR069[TR-069 ACS]
+        CloudMgmt[Cloud Management Platform]
     end
     
-    subgraph "Interface Managers"
+    subgraph "WAN Management"
+        WM[📡 WAN Manager]
+        VLAN[VLAN Manager]
+        DHCP[DHCP Manager] 
+        DNS[DNS Services]
+        FW[Firewall/Router]
+    end
+    
+    subgraph InterfaceManagers ["Interface Managers"]
         DOCSIS[DOCSIS Manager]
         ETH[Ethernet Manager]
         CELLULAR[Cellular Manager]
         GPON[GPON Manager]
     end
     
-    subgraph "RDK-B Platform"
-        WM[📡 WAN Manager]
-        VLAN[VLAN Manager]
-        DHCP[DHCP Manager]
-        DNS[DNS Manager]
-        FW[Firewall]
-    end
-    
-    subgraph "Applications"
-        WEBUI[Web UI]
-        TR069[TR-069 ACS]
-    end
-    
-    ISP1 -.->|Internet Connectivity| WM
-    ISP2 -.->|Backup Connectivity| WM
-    
-    DOCSIS -->|RBus/Status| WM
-    ETH -->|RBus/Status| WM  
-    CELLULAR -->|RBus/Status| WM
-    GPON -->|RBus/Status| WM
-    
-    WM -->|Configuration| VLAN
-    WM -->|DHCP Requests| DHCP
-    WM -->|DNS Config| DNS
-    WM -->|Routes/NAT| FW
-    
+    ISP1 -->|Internet Connectivity| WM
+    ISP2 -->|Backup Connectivity| WM
     WEBUI -->|TR-181 Parameters| WM
-    TR069 -->|TR-181 Parameters| WM
+    TR069 -->|CWMP/TR-069| WM
+    CloudMgmt -->|WebConfig API| WM
     
-    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    WM -->|RBus IPC| VLAN
+    WM -->|RBus IPC| DHCP
+    WM -->|RBus IPC| DNS
+    WM -->|Configuration| FW
+    
+    DOCSIS -->|Physical Status/RBus| WM
+    ETH -->|Physical Status/RBus| WM
+    CELLULAR -->|Physical Status/RBus| WM
+    GPON -->|Physical Status/RBus| WM
+
+    classDef external fill:#ffebee,stroke:#d32f2f,stroke-width:2px;
     classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
     classDef manager fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
     classDef app fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
@@ -53,15 +51,16 @@ graph LR
     class ISP1,ISP2 external;
     class WM,VLAN,DHCP,DNS,FW component;
     class DOCSIS,ETH,CELLULAR,GPON manager;
-    class WEBUI,TR069 app;
+    class WEBUI,TR069,CloudMgmt app;
 ```
 
-- **Multi-Interface Management**: **Coordinates multiple WAN technologies** including DOCSIS, Ethernet, Cellular, GPON, and xDSL, managing their lifecycle and selection priorities.
-- **Intelligent Failover Policies**: **Implements various failover strategies** such as Auto WAN, Primary Priority, Fixed Mode, and Parallel Scan to ensure continuous Internet connectivity.
-- **Virtual Interface State Machines**: **Manages N instances of virtual interface state machines** that handle the complete network stack configuration from link layer to IP layer protocols.
-- **TR-181 Data Model Implementation**: **Provides comprehensive TR-181 parameter support** for remote configuration and monitoring via RBus and WebConfig interfaces.
-- **Dynamic Policy Selection**: **Supports runtime switching between different selection policies** per interface group, enabling flexible WAN management strategies.
-- **Integration with RDK-B Ecosystem**: **Seamlessly interfaces with VLAN Manager, DHCP Manager, DNS services** and other middleware components for complete network stack management.
+- **Key Features & Responsibilities**: 
+  - **Multi-Interface Management**: **Coordinates multiple WAN technologies** including DOCSIS, Ethernet, Cellular, GPON, and xDSL, managing their lifecycle and selection priorities.
+  - **Intelligent Failover Policies**: **Implements various failover strategies** such as Auto WAN, Primary Priority, Fixed Mode, and Parallel Scan to ensure continuous Internet connectivity.
+  - **Virtual Interface State Machines**: **Manages N instances of virtual interface state machines** that handle the complete network stack configuration from link layer to IP layer protocols.
+  - **TR-181 Data Model Implementation**: **Provides comprehensive TR-181 parameter support** for remote configuration and monitoring via RBus and WebConfig interfaces.
+  - **Dynamic Policy Selection**: **Supports runtime switching between different selection policies** per interface group, enabling flexible WAN management strategies.
+  - **Integration with RDK-B Ecosystem**: **Seamlessly interfaces with VLAN Manager, DHCP Manager, DNS services** and other middleware components for complete network stack management.
 
 ## Design
 
@@ -115,6 +114,29 @@ graph TD
 
 - **Request Flow Sequence**: The most critical flow begins when an Interface Manager reports physical layer status via RBus IPC. The WAN Manager Core Engine receives this through the IPC Handler, which updates the internal data model and triggers the Policy Engine. The Policy Engine evaluates current failover rules and interface priorities, potentially selecting a new active interface. If interface switching is needed, the Policy Engine communicates with the Interface State Machine to configure the new virtual interface stack (VLAN, DHCP, routing). The State Machine coordinates with external components (VLAN Manager, DHCP Manager) to establish connectivity, and finally updates TR-181 parameters to reflect the new WAN status.
 
+```mermaid
+sequenceDiagram
+    participant IM as Interface Manager
+    participant IPC as IPC Handler
+    participant Core as Core Engine
+    participant Policy as Policy Engine
+    participant SM as State Machine
+    participant VM as VLAN Manager
+    participant DM as DHCP Manager
+
+    IM->>IPC: Physical Status Update (RBus)
+    IPC->>Core: Interface Status Change
+    Core->>Policy: Trigger Policy Evaluation
+    Policy->>Policy: Evaluate Failover Rules
+    Policy->>SM: Select New Interface
+    SM->>VM: Configure VLAN (RBus)
+    VM-->>SM: VLAN Configured
+    SM->>DM: Start DHCP Client (RBus)
+    DM-->>SM: DHCP Lease Obtained
+    SM->>Core: Interface Active
+    Core->>IPC: Update TR-181 Status
+```
+
 ### Threading Model
 
 The WAN Manager implements a hybrid threading model combining a main event loop with worker threads for specific tasks. The main thread runs the Policy Controller's state machine in a continuous loop with 500ms polling intervals, handling policy decisions and interface management. Worker threads are created on-demand for IPC communication handling, particularly for RBus message processing and responses to external component requests. The Interface State Machines run within the main thread context but maintain separate state for each virtual interface instance. Background processes are spawned for specific tasks like DHCP client operations and network monitoring. Thread synchronization is handled through data locking mechanisms around shared data structures, ensuring consistent access to interface configuration and status information.
@@ -128,13 +150,13 @@ The WAN Manager consists of several key modules that work together to provide co
 | Core Engine | Main initialization, control loop, and module coordination | `wanmgr_main.c`, `wanmgr_core.c` |
 | Policy Controller | Implements failover policies and interface selection algorithms | `wanmgr_controller.c`, `wanmgr_policy_*_impl.c` |
 | Interface State Machine | Manages virtual interface state and network stack configuration | `wanmgr_interface_sm.c`, `wanmgr_interface_sm.h` |
-| Data Management | Internal data structures and configuration management | `wanmgr_data.c`, `wanmgr_data.h` |
-| TR-181 Data Model | Implements TR-181 parameters for external configuration | `wanmgr_dml_apis.c`, `wanmgr_dml.h` |
-| IPC Handler | RBus communication and message processing | `wanmgr_ipc.c`, `wanmgr_ssp_messagebus_interface.c` |
-| Network Utilities | Network operations and system interface management | `wanmgr_net_utils.c`, `wanmgr_utils.c` |
-| DHCP Management | DHCPv4/v6 client operations and event handling | `wanmgr_dhcpv4_apis.c`, `wanmgr_dhcpv6_apis.c` |
-| System Events | System event handling and status reporting | `wanmgr_sysevents.c`, `wanmgr_platform_events.h` |
-| Failover Management | WAN failover logic and interface switching | `wanmgr_wan_failover.c` |
+| Data Management | Internal data structures and WAN interface configuration data | `wanmgr_data.c`, `wanmgr_data.h` |
+| TR-181 Data Model | TR-181 parameter implementation and DML APIs | `wanmgr_dml_*.c`, `wanmgr_apis.h` |
+| IPC Handler | RBus communication and external component messaging | `wanmgr_ipc.c`, `wanmgr_ssp_messagebus_interface.c` |
+| Network Utilities | Network configuration, routing, and utility functions | `wanmgr_net_utils.c`, `wanmgr_net_utils.h` |
+| DHCP Management | DHCPv4/v6 client coordination and IP address management | `wanmgr_dhcpv4_*.c`, `wanmgr_dhcpv6_*.c` |
+| System Events | System event handling and inter-process notifications | `wanmgr_sysevents.c`, `wanmgr_sysevents.h` |
+| Failover Management | WAN failover detection and coordination logic | `wanmgr_wan_failover.c`, `wanmgr_wan_failover.h` |
 | Telemetry | Performance monitoring and diagnostic reporting | `wanmgr_telemetry.c`, `wanmgr_t2_telemetry.c` |
 | WebConfig | WebConfig protocol support for remote configuration | `wanmgr_webconfig.c`, `wanmgr_webconfig_apis.c` |
 
@@ -181,61 +203,50 @@ flowchart TD
 
 ## Interaction with Other Middleware Components
 
-The WAN Manager interfaces extensively with other RDK-B middleware components to provide complete WAN connectivity management. Communication with Interface Managers occurs through RBus messaging for physical layer status reporting and configuration. The VLAN Manager receives VLAN configuration requests for interface tagging. DHCP Manager handles IP address acquisition and lease management. DNS Manager receives DNS server configurations. The Firewall component gets routing table updates and NAT configuration changes.
+The WAN Manager coordinates with multiple RDK-B middleware components to provide comprehensive network management. It communicates with VLAN Manager for virtual LAN configuration, DHCP Manager for IP address assignment, DNS services for name resolution, and Firewall/Router components for traffic routing. Each interaction uses RBus IPC mechanisms with specific message types and data structures. The component also interfaces with TR-181 data model components for parameter management and WebConfig services for remote configuration capabilities.
 
 ```mermaid
 flowchart TD
-    WAN_Manager[📡 WAN Manager] 
-    
-    WAN_Manager -->|RBus Method Calls| DOCSIS_Manager[DOCSIS Manager]
-    WAN_Manager -->|RBus Method Calls| ETH_Manager[Ethernet Manager] 
-    WAN_Manager -->|RBus Method Calls| CELLULAR_Manager[Cellular Manager]
-    WAN_Manager -->|RBus Events/Status| VLAN_Manager[VLAN Manager]
-    WAN_Manager -->|RBus DHCP Requests| DHCP_Manager[DHCP Manager]
-    WAN_Manager -->|RBus DNS Config| DNS_Manager[DNS Manager]
-    WAN_Manager -->|RBus Route Updates| FW_Manager[Firewall Manager]
-    WAN_Manager -->|RBus Telemetry Data| TELEMETRY[Telemetry Service]
-    
-    classDef wanmgr fill:#e1f5fe,stroke:#0277bd,stroke-width:3px;
-    classDef rdkb fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    
-    class WAN_Manager wanmgr;
-    class DOCSIS_Manager,ETH_Manager,CELLULAR_Manager,VLAN_Manager,DHCP_Manager,DNS_Manager,FW_Manager,TELEMETRY rdkb;
+    WAN_Manager -->|RBus/Configure VLAN| VLAN_Manager
+    WAN_Manager -->|RBus/DHCP Client Control| DHCP_Manager
+    WAN_Manager -->|RBus/DNS Configuration| DNS_Services
+    WAN_Manager -->|Configuration/Routing Rules| Firewall_Router
+    WAN_Manager -->|RBus/Parameter Updates| TR181_DataModel
+    WAN_Manager -->|WebConfig Protocol| WebConfig_Service
 ```
 
 | Component | Purpose of Interaction | Protocols/Mechanisms |
 |-----------|-----------------------|----------------------|
-| DOCSIS Manager | Physical layer status monitoring and cable modem configuration | RBus events, method calls |
-| Ethernet Manager | Ethernet interface status and configuration management | RBus events, status polling |
-| Cellular Manager | Cellular modem status, signal strength, and PDP context management | RBus method calls, async events |
-| VLAN Manager | VLAN tagging configuration for egress traffic | RBus configuration calls |
-| DHCP Manager | IP address lease management and DHCP client control | RBus service requests |
-| DNS Manager | DNS server configuration and resolver settings | RBus parameter updates |
-| Firewall Manager | Routing table updates, NAT configuration, traffic rules | RBus configuration events |
-| Telemetry Service | Performance metrics, connectivity statistics, error reporting | RBus telemetry data publishing |
+| VLAN Manager | Configure virtual LAN interfaces for WAN traffic segmentation | RBus IPC, VLAN configuration messages |
+| DHCP Manager | Control DHCP client operations for IP address assignment | RBus IPC, DHCP lease management |
+| DNS Services | Configure DNS servers and resolver settings for WAN interfaces | RBus IPC, DNS configuration parameters |
+| Firewall/Router | Update routing tables and firewall rules for WAN traffic | System calls, iptables configuration |
+| TR-181 Data Model | Synchronize WAN parameters with TR-181 data model | RBus IPC, parameter notification messages |
+| WebConfig Service | Receive remote configuration updates via WebConfig protocol | HTTP/HTTPS, JSON configuration data |
 
-The WAN Manager publishes several system-wide events and status updates that other components can subscribe to for coordination and monitoring purposes.
+The WAN Manager publishes several key events to notify other components of significant WAN state changes and operational events. These events enable loosely coupled integration and allow other services to react appropriately to WAN interface changes.
 
-| Event | Purpose of Event | Reason for Trigger |
+| Event | Purpose of Event | Reason for trigger |
 |-----------|-----------------------|----------------------|
-| WAN_INTERFACE_ACTIVE | Indicates active WAN interface change | Interface failover completed, new primary interface established |
-| WAN_STATUS_CHANGED | Reports overall WAN connectivity status | Internet connectivity gained/lost, interface state transitions |
-| INTERFACE_PHY_STATUS | Physical layer status updates | Cable connected/disconnected, cellular signal changes |
-| DHCP_LEASE_OBTAINED | DHCP IP address successfully acquired | DHCP client receives valid IP lease from ISP |
-| DNS_SERVERS_UPDATED | DNS server configuration changed | New DNS servers received via DHCP or manual configuration |
-| WAN_FAILOVER_EVENT | WAN failover operation initiated/completed | Primary interface failure detected, backup interface activated |
+| `wan-status` | WAN interface status change notification | Published when WAN interface transitions between UP/DOWN states |
+| `wan_service_ready` | WAN Manager service initialization complete | Published when WAN Manager completes startup and is ready to handle requests |
+| `ipv4_wan_addr_set` | IPv4 address assignment notification | Published when WAN interface successfully obtains IPv4 address via DHCP |
+| `ipv6_wan_addr_set` | IPv6 address assignment notification | Published when WAN interface successfully obtains IPv6 address via DHCPv6 or SLAAC |
+| `wan_interface_active` | Active WAN interface change notification | Published when failover policy selects a new active WAN interface |
+| `dhcp_wan_state_changed` | DHCP client state change notification | Published when DHCP client state machine changes (discover, offer, request, bound) |
 
 ## Interaction with Other Layers
 
-The WAN Manager operates within the RDK-B middleware layer and interacts with both lower Hardware Abstraction Layer (HAL) components and upper application layers. HAL interactions involve direct hardware interface management through standardized APIs. Platform-specific layers handle system-level network configuration through Linux networking commands and utilities. External services include ISP connectivity, remote management systems, and cloud-based configuration services.
+The WAN Manager integrates across multiple layers of the RDK-B software stack, from application layer management interfaces down to hardware abstraction layers. It receives configuration from web UIs, TR-069 ACS, and cloud management platforms through TR-181 parameters. The component interfaces with HAL layers for hardware-specific network operations and communicates directly with the Linux network stack for routing and interface configuration.
 
 | Layer/Service | Interaction Description | Mechanism |
 |---------------|-------------------------|----------|
-| HAL          | Direct hardware interface control and status monitoring | RBus API calls, HAL function calls |
-| Platform     | System network configuration, routing, firewall rules | Linux system calls, iptables, ip route commands |
-| External ISP | Internet connectivity, DHCP servers, DNS services | DHCP protocol, DNS queries, ICMP connectivity checks |
-| TR-069 ACS   | Remote management and configuration updates | TR-069 protocol over CWMP, parameter synchronization |
-| WebConfig    | Cloud-based configuration management | HTTPS REST API, JSON configuration payloads |
+| Web Management UI | Receives WAN configuration and policy settings via TR-181 parameters | HTTP/TR-181 parameter access |
+| TR-069 ACS | Remote management and configuration via CWMP protocol | TR-069/CWMP parameter management |
+| Cloud Management | WebConfig-based remote configuration and monitoring | HTTPS/WebConfig protocol |
+| HAL Layer | Hardware-specific network interface operations and status queries | HAL API calls, shared libraries |
+| Platform Services | System event handling, persistent storage, and logging services | SysEvents, PSM database, system calls |
+| Linux Network Stack | Direct network interface configuration, routing table updates | Netlink sockets, system calls (ip, ifconfig) |
 
 ```mermaid
 graph TD
@@ -297,77 +308,73 @@ graph TD
 
 ## IPC Mechanism
 
+The WAN Manager uses RBus as its primary IPC mechanism for communication with other RDK-B components and Interface Managers. RBus provides a D-Bus based messaging system optimized for RDK environments, supporting both synchronous request-response patterns and asynchronous event notifications.
+
 | Type of IPC | Message Format | Mechanism |
 |---------------|-------------------------|----------|
-| RBus Events and Method Calls | JSON-structured messages with method names, parameters, and return values | RBus message bus with publish/subscribe and request/response patterns |
-| System Events | Key-value pairs with event names and string values | SysEvents library for inter-process event notification |
-| WebConfig Messages | JSON configuration payloads with versioning and validation | HTTPS REST API with JSON message bodies |
-| TR-181 Parameter Access | Hierarchical parameter paths with typed values (string, integer, boolean) | Component Software Platform (CSP) framework via RBus |
+| RBus Method Calls | JSON-structured method parameters with typed arguments including strings, integers, booleans, and complex objects | RBus/D-Bus method invocation with response handling |
+| RBus Event Notifications | JSON event payloads containing event name, source component, and event-specific data fields | RBus publish-subscribe event broadcasting |
+| System Events | Key-value pairs with event names and string-based parameter values for inter-process notifications | SysEvents shared memory and file-based event system |
+| WebConfig Protocol | JSON configuration documents with versioning, validation, and rollback support for remote management | HTTP/HTTPS transport with JSON payload structure |
 
 ```mermaid
 sequenceDiagram
-    participant IM as Interface Manager
-    participant WM as WAN Manager
+    participant IF as Interface Manager
+    participant WM as WAN Manager  
     participant VM as VLAN Manager
     participant DM as DHCP Manager
-    participant PSM as PSM Database
-    
-    IM->>WM: RBus Event (Interface Status Change)
+    participant SYS as System Events
+
+    IF->>WM: RBus Method Call<br/>setInterfaceStatus(ifName, UP)
     WM->>WM: Process Status Update
-    WM->>PSM: Update TR-181 Parameters
-    
-    Note over WM: Policy Engine Evaluation
-    
-    WM->>VM: RBus Method Call (Configure VLAN)
-    VM-->>WM: RBus Response (Success/Failure)
-    
-    WM->>DM: RBus Method Call (Start DHCP Client) 
-    DM-->>WM: RBus Response (DHCP Status)
-    
-    DM->>WM: RBus Event (DHCP Lease Obtained)
-    WM->>PSM: Update WAN Status Parameters
-    
-    Note over WM: Publish System Events
-    WM->>WM: SysEvent (wan_status=up)
+    WM->>VM: RBus Method Call<br/>configureVLAN(ifName, vlanId, priority)
+    VM-->>WM: RBus Response<br/>(success/failure)
+    WM->>DM: RBus Method Call<br/>startDHCPClient(ifName, options)
+    DM-->>WM: RBus Response<br/>(clientStarted)
+    WM->>SYS: SysEvent Publish<br/>wan-status: UP
+    WM->>WM: RBus Event Publish<br/>wanInterfaceActive(ifName, ipAddr)
 ```
 
 ## TR‑181 Data Models
 
-- **Implemented Parameters**: The WAN Manager implements a comprehensive set of TR-181 parameters under the Device.X_RDK_WanManager object tree, including interface configuration, policy settings, connectivity status, and failover management. Parameters support both read and write operations with proper validation and persistence through PSM.
-- **Parameter Registration**: Parameters are registered through the RBus framework during component initialization, with automatic subscription to parameter change events and validation callbacks for configuration updates.
-- **Custom Extensions**: The component implements RDK-specific extensions including multi-WAN policy configuration, interface grouping, remote interface management, connectivity validation settings, and telemetry collection parameters.
+The WAN Manager implements comprehensive TR-181 data model support for remote management and monitoring. The component provides both standard TR-181 Device.X_RDK_WanManager parameters and custom extensions for RDK-B specific functionality. Parameters are registered through RBus for runtime access and support both read-only status reporting and read-write configuration management.
+
+- **Implemented Parameters**: The WAN Manager implements the Device.X_RDK_WanManager object tree with support for interface configuration, policy management, failover settings, and status monitoring. Parameters include interface enable/disable control, policy selection (Auto WAN, Fixed Mode, Primary Priority), failover timeouts, and interface group configuration.
+- **Parameter Registration**: Parameters are registered via RBus during startup using the data model XML files (RdkWanManager.xml, RdkWanManager_v2.xml). The registration process creates method handlers for get/set operations and establishes event notification capabilities.
+- **Custom Extensions**: 
+  - **X_RDK_WanManager.Policy**: **Custom policy selection parameter** supporting Auto WAN, Fixed Mode, Primary Priority, and Parallel Scan modes
+  - **X_RDK_WanManager.AllowRemoteInterfaces**: **Custom parameter** enabling support for remote interface management in multi-CPE scenarios
+  - **X_RDK_WanManager.WanFailoverData**: **Custom JSON data structure** for complex failover configuration and coordination between interface groups
 
 | Parameter | Description | Access (R/W) | Default | Notes |
 |-----------|-------------|-------------|---------|-------|
-| `Device.X_RDK_WanManager.Enable` | Master enable/disable for WAN Manager | R/W | `true` | Controls overall WAN management functionality |
-| `Device.X_RDK_WanManager.Policy` | Active WAN selection policy | R/W | `AUTOWAN_MODE` | Enum: FIXED_MODE, PRIMARY_PRIORITY, AUTOWAN_MODE, etc. |
-| `Device.X_RDK_WanManager.AllowRemoteInterfaces` | Enable remote WAN interfaces | R/W | `false` | Allows mesh/satellite WAN interfaces |
-| `Device.X_RDK_WanManager.RestorationDelay` | Failback delay in seconds | R/W | `300` | Time before failing back to primary interface |
-| `Device.X_RDK_WanManager.Interface.{i}.Enable` | Per-interface enable control | R/W | `true` | Individual interface activation |
-| `Device.X_RDK_WanManager.Interface.{i}.Name` | Interface name identifier | R | varies | System-assigned interface name |
-| `Device.X_RDK_WanManager.Interface.{i}.DisplayName` | Human-readable interface name | R/W | varies | User-friendly interface description |
-| `Device.X_RDK_WanManager.Interface.{i}.Group` | Interface group assignment | R/W | `1` | Grouping for policy application |
-| `Device.X_RDK_WanManager.Interface.{i}.Priority` | Interface selection priority | R/W | `1` | Lower numbers = higher priority |
-| `Device.X_RDK_WanManager.Interface.{i}.Status` | Current interface status | R | `Down` | Enum: Up, Down, Unknown, Error |
-| `Device.X_RDK_WanManager.Interface.{i}.Type` | Interface type classification | R/W | `PRIMARY` | Enum: PRIMARY, SECONDARY, UNCONFIGURED |
-| `Device.X_RDK_WanManager.Interface.{i}.IPMode` | IP stack configuration mode | R/W | `DUAL_STACK` | Enum: IPV4_ONLY, IPV6_ONLY, DUAL_STACK |
-| `Device.X_RDK_WanManager.DnsConnectivityCheck.Enable` | Enable DNS-based connectivity validation | R/W | `true` | Custom connectivity testing |
-| `Device.X_RDK_WanManager.DnsConnectivityCheck.ServerList` | DNS servers for connectivity tests | R/W | `8.8.8.8,8.8.4.4` | Comma-separated DNS server IPs |
+| `Device.X_RDK_WanManager.Enable` | Master enable/disable for WAN Manager service | R/W | `true` | Controls WAN Manager operation |
+| `Device.X_RDK_WanManager.Policy` | WAN interface selection policy | R/W | `AUTOWAN_MODE` | Enum: Fixed Mode, Auto WAN, Primary Priority, Parallel Scan |
+| `Device.X_RDK_WanManager.AllowRemoteInterfaces` | Enable remote interface management support | R/W | `false` | For multi-CPE scenarios |
+| `Device.X_RDK_WanManager.ResetActiveInterface` | Trigger active interface reset | W | `false` | Write-only trigger parameter |
+| `Device.X_RDK_WanManager.RestorationDelay` | Delay before interface restoration attempts | R/W | `60` | Seconds, range 10-3600 |
+| `Device.X_RDK_WanManager.Interface.{i}.Enable` | Individual interface enable/disable | R/W | `true` | Per-interface control |
+| `Device.X_RDK_WanManager.Interface.{i}.Group` | Interface group assignment | R/W | `1` | Group number 1-8 |
+| `Device.X_RDK_WanManager.Interface.{i}.Priority` | Interface selection priority within group | R/W | `1` | Lower numbers = higher priority |
+| `Device.X_RDK_WanManager.Interface.{i}.SelectionTimeOut` | Interface validation timeout | R/W | `120` | Seconds, minimum 20 |
+| `Device.X_RDK_WanManager.Interface.{i}.Status` | Current interface operational status | R | `Down` | Enum: Down, Initializing, Up, Error |
 
 ## Implementation Details
 
-- **Key Algorithms or Logic**: The core algorithm is the Policy Engine state machine located in `wanmgr_controller.c` which runs a continuous 500ms polling loop evaluating interface status and policy rules. Selection algorithms are implemented in policy-specific files like `wanmgr_policy_autowan_impl.c` for Auto WAN mode and `wanmgr_policy_pp_impl.c` for Primary Priority mode. The Interface State Machine in `wanmgr_interface_sm.c` implements a comprehensive state machine for virtual interface lifecycle management, handling transitions between INITIALIZING, OBTAINING_IP, CONFIGURING, UP, and DOWN states with proper error handling and recovery logic.
-
-- **Error Handling Strategy**: Errors are detected through multiple mechanisms including RBus call failures, DHCP timeout events, connectivity validation failures, and system event monitoring. Errors are logged using the CcspTrace logging framework with categorized severity levels. Error propagation follows a hierarchical approach where interface-level errors trigger policy reevaluation, policy errors are logged and reported via TR-181 parameters, and critical system errors cause graceful component shutdown with systemd notification.
-
-- **Logging & Debugging**: The component uses RDK-B's standard CcspTrace logging framework with categories including TRACE_LEVEL_ERROR, TRACE_LEVEL_WARNING, TRACE_LEVEL_INFO, and TRACE_LEVEL_DEBUG. Log verbosity is controlled via runtime configuration. Debug hooks include TR-181 parameter dumping, state machine transition logging, policy decision tracing, and network operation logging. Telemetry integration provides performance metrics and error statistics for remote monitoring and debugging.
+- **Key Algorithms or Logic**: 
+  - **Policy State Machines**: **Core selection algorithms implemented in `wanmgr_policy_*_impl.c` files** using state machine patterns for Auto WAN (sequential interface testing), Primary Priority (priority-based failover), Fixed Mode (single interface operation), and Parallel Scan (concurrent interface validation)
+  - **Interface State Machine**: **Virtual interface lifecycle management in `wanmgr_interface_sm.c`** coordinating link layer setup, IP address assignment, route configuration, and connectivity validation through sequential state transitions
+  - **Failover Detection**: **Network connectivity monitoring logic in `wanmgr_wan_failover.c`** using periodic connectivity tests, DNS resolution checks, and interface status monitoring to trigger failover decisions
+- **Error Handling Strategy**: Errors are detected at multiple levels including RBus communication failures, DHCP client failures, and network connectivity issues. All errors are logged via CcspTrace mechanisms with component-specific logging levels. Critical errors trigger appropriate recovery actions such as interface reset, policy re-evaluation, or service restart. Error states are reflected in TR-181 parameters for remote monitoring.
+- **Logging & Debugging**: The component uses RDK-B standard logging with configurable verbosity levels (Error, Warning, Info, Debug). Log categories include policy decisions, interface state changes, IPC communications, and DHCP operations. Debug logging provides detailed state machine transitions and timing information for troubleshooting connectivity issues.
 
 ## Key Configuration Files
 
+The WAN Manager configuration is primarily data-driven through TR-181 parameters with some build-time configuration through XML data model definitions. The component supports both compile-time feature selection and runtime parameter configuration for maximum flexibility across different deployment scenarios.
+
 | Configuration File | Purpose | Key Parameters | Default Values | Override Mechanisms |
 |--------------------|---------|---------------|----------------|--------------------|
-| `RdkWanManager.xml` | TR-181 data model definition | Object definitions, parameter types, access controls | N/A | Compile-time customization |
-| `RdkWanManager_v2.xml` | Extended TR-181 model for advanced features | Multi-WAN parameters, remote interface support | N/A | Build configuration flags |
-| `wanmanager.conf` | Runtime configuration parameters | Policy defaults, timeout values, interface mappings | Policy=AUTOWAN_MODE, Timeout=300s | Environment variables, syscfg overrides |
-| `/tmp/wanmanager_initialized` | Component initialization marker | Startup completion flag | Created on successful init | Systemd integration, health monitoring |
-| `debug.ini` | Logging configuration | Log levels, output destinations, category filters | TRACE_LEVEL_INFO | Runtime parameter updates |
+| `RdkWanManager.xml` | TR-181 data model definition for basic WAN Manager functionality | `Enable`, `Policy`, `Interface objects` | `Enable=true`, `Policy=AUTOWAN_MODE` | Runtime TR-181 parameter updates |
+| `RdkWanManager_v2.xml` | Extended TR-181 data model with enhanced interface management | `Version`, `Interface groups`, `Virtual interface support` | Enhanced interface table structure | Runtime configuration via WebConfig |
+| `/nvram/wanmanager.conf` | Persistent configuration storage (if present) | Interface priorities, policy settings, timeouts | System-dependent defaults | Direct file editing, factory reset |
+| `configure.ac` | Build-time feature configuration | `--enable-wanunificationsupport`, `--enable-gtestapp` | Feature flags disabled by default | Configure script parameters |
