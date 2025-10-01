@@ -1,8 +1,7 @@
-# CcspPandM (Protocol and Management) Documentation
+# CcspPandM Documentation
 
 CcspPandM is the RDK-B component that implements the Protocol and Management (P&M) subsystem, serving as the central TR-181 data model manager for residential gateway devices. It acts as the primary interface for device configuration, status monitoring, and protocol management across multiple network services including DHCP, DNS, firewall, routing, and device information management. The component bridges upper-layer management protocols (like TR-069/CWMP) with lower-level HAL implementations and platform services. It provides standardized TR-181 parameter access, WebConfig support for bulk configuration changes, and comprehensive device management capabilities. CcspPandM integrates with other RDK-B components through DBus messaging and serves as the authoritative source for network configuration data within the RDK-B ecosystem.
 
-## System Context Diagram
 
 ```mermaid
 graph TD
