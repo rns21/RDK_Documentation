@@ -2,6 +2,72 @@
 
 PPP Manager is the middleware component in the RDK-B stack responsible for managing Point-to-Point Protocol (PPP) connections, including PPPoE (PPP over Ethernet) and PPPoA (PPP over ATM) interfaces. It handles PPP session establishment, authentication, network configuration, and connection monitoring for broadband WAN connections. The component provides a TR-181 compliant interface for configuration and monitoring while integrating with the CCSP framework for inter-component communication. It manages PPP daemon processes, processes connection events through IPC mechanisms, and maintains interface statistics and state information.
 
+```mermaid
+graph TD
+    subgraph "External Systems"
+        ISP[Internet Service Provider<br/>PPP Authentication & Connectivity]
+        Management[Network Administrators<br/>Configuration & Monitoring]
+        WebUI[Web Management Interface<br/>Device Configuration]
+    end
+    
+    subgraph "RDK-B Platform"
+        PPPManager[PPP Manager<br/>PPP Interface Management<br/>& TR-181 Implementation]
+    end
+    
+    subgraph "RDK-B Components"
+        WANManager[WAN Manager<br/>WAN Policy & Coordination]
+        PSM[PSM<br/>Persistent Storage Manager]
+        PAM[P&M<br/>Platform & Access Manager]
+        SNMP[SNMP Agent<br/>Network Management]
+        EventHandler[System Event Handler<br/>Event Broadcasting]
+    end
+    
+    subgraph "Platform Layer"
+        CCSP[CCSP Framework<br/>Component Infrastructure]
+        HAL[Platform HAL<br/>Hardware Abstraction]
+        PPPDaemon[PPP Daemon<br/>Protocol Implementation]
+    end
+    
+    subgraph "Physical Layer"
+        DSLModem[DSL/Cable Modem<br/>Physical Connection]
+        NetworkHW[Network Hardware<br/>Ethernet/ATM Interfaces]
+    end
+
+    %% External interactions
+    Management -->|TR-181 Parameters| PPPManager
+    WebUI -->|Configuration Requests| PPPManager
+    PPPManager -->|PPP Authentication| ISP
+    
+    %% RDK-B component interactions
+    PPPManager <-->|Interface Coordination| WANManager
+    PPPManager <-->|Configuration Storage| PSM
+    PPPManager <-->|Device Parameters| PAM
+    PPPManager -->|Status Updates| SNMP
+    PPPManager -->|Event Notifications| EventHandler
+    
+    %% Platform interactions
+    PPPManager -->|Component Communication| CCSP
+    PPPManager -->|Hardware Control| HAL
+    PPPManager <-->|Protocol Control| PPPDaemon
+    
+    %% Hardware interactions
+    PPPDaemon -->|Physical Connection| DSLModem
+    HAL -->|Interface Control| NetworkHW
+    DSLModem <-->|PPP Connection| ISP
+
+    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef rdkb fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef platform fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef hardware fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+    
+    class ISP,Management,WebUI external;
+    class PPPManager component;
+    class WANManager,PSM,PAM,SNMP,EventHandler rdkb;
+    class CCSP,HAL,PPPDaemon platform;
+    class DSLModem,NetworkHW hardware;
+```
+
 **Key Features & Responsibilities**
 
   - **PPP Session Management**: Handles establishment, maintenance, and teardown of PPP connections including PPPoE and PPPoA link types

@@ -109,13 +109,19 @@ nav:
       - TDK: ./tools/docs/TDK.md
       - Automatics: ./tools/docs/Automatics.md
   - Review:
+      - Component List: ./review/README.md
+      - WAN Manager: ./review/WANManager.md
       - Cellular Manager: ./review/CellularManager.md
       - GPON Manager: ./review/GPONManager.md
       - PPP Manager: ./review/PPPManager.md
+      - VLAN Manager: ./review/VLANManager.md
       - Telco Voice Manager: ./review/TelcoVoiceManager.md
       - CCSP PSM: ./review/CCSPPSM.md
       - CCSP LM Lite: ./review/LMLite.md
+      - CCSP PandM: ./review/CCSPPandM.md
       - One WiFi: ./review/OneWifi.md
+      - RBus: ./review/RBus.md
+      - Utopia: ./review/Utopia.md
   - Device Management:
       - Overview: ./device-management/docs/README.md
       - XConf: ./device-management/docs/XConf.md

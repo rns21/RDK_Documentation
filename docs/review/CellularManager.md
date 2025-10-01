@@ -2,6 +2,57 @@
 
 Cellular Manager component provides cellular/LTE modem management and connectivity services for RDK-B CPEs. It manages cellular modem lifecycle, network registration, data connectivity, and providing standardized TR-181 interfaces for cellular configuration and monitoring. The component integrates with the rest of the RDK-B ecosystem through CCSP message bus communication, HAL abstraction for hardware independence, and supports both DBus and RBus messaging protocols.
 
+```mermaid
+graph TD
+    subgraph ExternalSystems ["External Systems"]
+        Network[" Cellular Network"]
+        Cloud["Cloud Services"]
+    end
+    
+    subgraph RDKBPlatform ["RDK-B Platform"]
+        subgraph ApplicationLayer ["Application Layer"]
+            WebUI["WebUI"]
+            SNMP["SNMP Agent"]
+        end
+        
+        subgraph MiddlewareLayer ["Middleware Layer"]
+            WanMgr["WAN Manager"]
+            CellMgr["Cellular Manager"]
+            PSM["PSM"]
+        end
+        
+        subgraph HALLayer ["HAL Layer"]
+            CellHAL["Cellular HAL"]
+        end
+        
+        subgraph HardwareLayer ["Hardware Layer"]
+            Modem["Cellular Modem"]
+        end
+    end
+    
+    WebUI -->|TR-181| CellMgr
+    SNMP -->|SNMP MIB| CellMgr
+    WanMgr <-->|DBus/RBus| CellMgr
+    CellMgr <-->|HAL APIs| CellHAL
+    CellHAL -->|QMI/AT Commands| Modem
+    CellMgr <-->|Parameter Storage| PSM
+    Modem <-->|Radio| Network
+    Network <-->|Internet| Cloud
+    
+    classDef external fill:#ffeb3b,stroke:#f57f17,stroke-width:2px
+    classDef app fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef middleware fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef hal fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef hardware fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    
+    class Network,Cloud external
+    class WebUI,SNMP app
+    class WanMgr,CellMgr,PSM middleware
+    class CellHAL hal
+    class Modem hardware
+```
+
+
 **Key Features & Responsibilities**
 
   - **Cellular Modem Management**: Handles cellular modem initialization, configuration, and lifecycle management including device detection, slot selection, and power management

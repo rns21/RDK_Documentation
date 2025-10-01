@@ -45,7 +45,7 @@ hide:
         <h2>CONNECTIVITY</h2>
         <p>Framework that enables high-speed internet delivery for service providers.</p>
       </div>
-      <a href="connectivity/docs/">
+      <a href="review/">
         <button class="explore-button"><span>EXPLORE</span></button>
       </a>
     </div>
