@@ -209,6 +209,8 @@ flowchart LR
 | CcspPandM (Provisioning and Management) | Report cellular device status, provide telemetry data, and handle factory reset scenarios | DBus events and status reporting |
 | RBus Components | Modern RBus-based components for cellular status monitoring and configuration management | RBus publish/subscribe events |
 
+The Cellular Manager publishes several key events that other components can subscribe to for coordination and monitoring purposes:
+
 | Event | Purpose of Event | Reason for trigger |
 |-----------|-----------------------|----------------------|
 | CellularStatusChange | Notify of cellular connection status transitions | Triggered when state machine transitions between DOWN/DEACTIVATED/REGISTERED/CONNECTED states |
@@ -307,11 +309,11 @@ sequenceDiagram
 - **Implemented Parameters**: The Cellular Manager implements the Device.Cellular TR-181 object with RDK-specific extensions (X_RDK_*) for enhanced cellular management and monitoring capabilities.
 - **Parameter Registration**: Parameters are registered through CCSP component registration using the RdkCellularManager.xml data model definition file, with support for both DBus and RBus access methods.
 - **Custom Extensions**: 
-  - **X_RDK_Enable**: Custom boolean parameter for enabling/disabling cellular functionality with persistent storage support
-  - **X_RDK_Status**: Custom enumerated status parameter providing detailed cellular connection state information beyond standard TR-181
-  - **X_RDK_Model/Vendor/HardwareRevision**: Custom device identification parameters for cellular modem hardware information
-  - **X_RDK_ControlInterface/DataInterface**: Custom interface identification parameters for managing cellular control and data interfaces
-  - **X_RDK_ProfileTable**: Custom cellular profile management for multiple APN configurations and network preferences
+    - **X_RDK_Enable**: Custom boolean parameter for enabling/disabling cellular functionality with persistent storage support
+    - **X_RDK_Status**: Custom enumerated status parameter providing detailed cellular connection state information beyond standard TR-181
+    - **X_RDK_Model/Vendor/HardwareRevision**: Custom device identification parameters for cellular modem hardware information
+    - **X_RDK_ControlInterface/DataInterface**: Custom interface identification parameters for managing cellular control and data interfaces
+    - **X_RDK_ProfileTable**: Custom cellular profile management for multiple APN configurations and network preferences
 
 | Parameter | Description | Access (R/W) | Default | Notes |
 |-----------|-------------|-------------|---------|-------|

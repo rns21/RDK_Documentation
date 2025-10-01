@@ -234,7 +234,7 @@ The component interacts with multiple layers in the RDK-B software stack, from H
 | WebConfig Service | Remote configuration updates, bulk parameter provisioning | WebPA/HTTP |
 
 ```mermaid
-graph TD
+graph LR
     subgraph ApplicationLayer ["Application Layer"]
         TelcoVoiceManager[Telco Voice Manager]
     end

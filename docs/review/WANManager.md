@@ -163,6 +163,7 @@ sequenceDiagram
 **Threading Model**
 
 WAN Manager operates primarily as a single-threaded daemon with event-driven architecture. The main thread runs the core policy loop via `WanMgr_Core_Start()` which continuously evaluates interface states and policy decisions. Additional concurrency comes from:
+
 - **Asynchronous Event Handlers**: CCSP/RBUS message bus callbacks execute in separate contexts for TR-181 parameter operations and event subscriptions
 - **System Event Callbacks**: syseventd notifications arrive asynchronously for interface state changes, DHCP events, and system status updates  
 - **Signal Handlers**: Registered for graceful shutdown (SIGTERM, SIGINT) and diagnostic functions (SIGUSR1/2) that execute in signal context
@@ -251,7 +252,7 @@ flowchart TD
 WAN Manager integrates extensively with the RDK-B middleware ecosystem through various protocols and mechanisms. It coordinates with Interface Managers for physical layer status, communicates with VLAN and DHCP managers for network stack configuration, and integrates with system services for event publication and telemetry reporting.
 
 ```mermaid
-flowchart TD
+flowchart LR
     WANManager -->|RBUS/CCSP Param Ops| CCSPComponents[(CCSP Components)]
     WANManager -->|Interface Status/Config| InterfaceManagers[(Interface Managers)]
     WANManager -->|VLAN Configuration| VLANManager[(VLAN Manager)]
@@ -319,7 +320,7 @@ graph TD
         RemoteMonitoring[(Remote Monitoring)]
     end
     
-    subgraph ApplicationLayer ["Application Layer"]  
+    subgraph ApplicationLayer ["Application Layer"]
         WebUI[(Web Management UI)]
         CLITools[(CLI Management Tools)]
     end
@@ -336,7 +337,7 @@ graph TD
         SecurityServices[(Security Services)]
     end
     
-    subgraph HALLayer ["Hardware Abstraction Layer"]  
+    subgraph HALLayer ["Hardware Abstraction Layer"]
         NetworkHAL[(Network HAL)]
         PlatformHAL[(Platform HAL)]
     end
@@ -456,10 +457,11 @@ WAN Manager implements a comprehensive TR-181 data model under the `X_RDK_WanMan
 ## Implementation Details
 
 - **Key Algorithms or Logic**: 
-  - **Policy Selection Algorithm**: The AutoWAN policy (`wanmgr_policy_autowan_impl.c`) implements a sequential interface testing algorithm that validates connectivity using DNS queries, ping tests, and HTTP connectivity checks before selecting an interface as active. The algorithm maintains state machines for each interface group and implements timeout-based selection with configurable validation criteria.
-  - **Interface State Machine**: Located in `wanmgr_interface_sm.c`, this implements a comprehensive state machine handling interface lifecycle from physical detection through IP configuration. States include STANDBY, INITIALIZING, VALIDATING, UP, and DOWN with proper transition handling and rollback capabilities.
-  - **Failover Decision Engine**: The failover logic in `wanmgr_wan_failover.c` and `wanmgr_controller.c` monitors interface health, implements restoration timers, and coordinates seamless failover between interface groups. It considers interface priority, group membership, connectivity validation results, and configured policies.
-  - **WebConfig Processing**: The blob processing logic in `wanmgr_webconfig_apis.c` implements atomic configuration updates with validation, rollback capabilities, and dependency checking for interface marking, QoS configuration, and failover parameters.
+
+    - **Policy Selection Algorithm**: The AutoWAN policy (`wanmgr_policy_autowan_impl.c`) implements a sequential interface testing algorithm that validates connectivity using DNS queries, ping tests, and HTTP connectivity checks before selecting an interface as active. The algorithm maintains state machines for each interface group and implements timeout-based selection with configurable validation criteria.
+    - **Interface State Machine**: Located in `wanmgr_interface_sm.c`, this implements a comprehensive state machine handling interface lifecycle from physical detection through IP configuration. States include STANDBY, INITIALIZING, VALIDATING, UP, and DOWN with proper transition handling and rollback capabilities.
+    - **Failover Decision Engine**: The failover logic in `wanmgr_wan_failover.c` and `wanmgr_controller.c` monitors interface health, implements restoration timers, and coordinates seamless failover between interface groups. It considers interface priority, group membership, connectivity validation results, and configured policies.
+    - **WebConfig Processing**: The blob processing logic in `wanmgr_webconfig_apis.c` implements atomic configuration updates with validation, rollback capabilities, and dependency checking for interface marking, QoS configuration, and failover parameters.
 
 - **Error Handling Strategy**: WAN Manager implements comprehensive error handling with multiple layers of validation and recovery. Function return codes use `ANSC_STATUS` enumeration for consistent error reporting. Critical errors trigger automatic rollback of configuration changes, while transient errors are handled with retry mechanisms and exponential backoff. All errors are logged through the CCSP trace system with appropriate severity levels, and telemetry events are generated for monitoring systems.
 
