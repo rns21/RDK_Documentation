@@ -1,0 +1,2006 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.com/docu/raheen/lmlite_gpt5/" rel="canonical"/>
+<link href="../lmlite_claude/" rel="prev"/>
+<link href="../psm_claude/" rel="next"/>
+<link href="../../../assets/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.21" name="generator"/>
+<title>LMLite_GPT5 - RDK Documentation</title>
+<link href="../../../assets/stylesheets/main.2a3383ac.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"Fira Code"}</style>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/entertainment.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/getting-started.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/connectivity.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/devices.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/footer.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sidepanes.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sitemap.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#ccsplmlite-documentation">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="RDK Documentation" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="RDK Documentation">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis"> RDK Documentation </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+             LMLite_GPT5 
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme)" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"></path></svg>
+</label>
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="white" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to system preference" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to system preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+</form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header_buttons">
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg>
+</div>
+<div class="text">Source Code</div>
+</button></a>
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg>
+</div>
+<div class="text">Contribute</div>
+</button></a>
+<a href="mailto:support@rdkcentral.com"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg>
+</div>
+<div class="text">Get Help</div>
+</button></a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../entertainment/docs/">
+          
+  
+  
+  Entertainment
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../connectivity/docs/">
+          
+  
+  
+  Connectivity
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../preview-rdk/docs/getting-started/">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tools/docs/TDK/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../review/">
+          
+  
+  
+  Review
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../device-management/docs/">
+          
+  
+  
+  Device Management
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../bhanu/pnm_claude/">
+          
+  
+  
+  Comparison
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="RDK Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="RDK Documentation">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+    RDK Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/rdkcentral" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Entertainment
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Entertainment
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-features/">
+<span class="md-ellipsis">
+    Features
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/tryout_rdkv_rdk7/">
+<span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-vendor-porting-guide/">
+<span class="md-ellipsis">
+    Porting Kit
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Core Components
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_6">
+<span class="md-nav__icon md-icon"></span>
+            Core Components
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdkv_components/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/westeros/">
+<span class="md-ellipsis">
+    Westeros
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rdkshell/">
+<span class="md-ellipsis">
+    RDK Shell
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/video_profiles/">
+<span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Connectivity
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Connectivity
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/features/">
+<span class="md-ellipsis">
+    Features
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/tryout_rdkb/">
+<span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/profiles/">
+<span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Core Components
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            Core Components
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/rdkb_components/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/cellularmanager/">
+<span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Oldprompt/">
+<span class="md-ellipsis">
+    PSM OldPrompt
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_GPT5/">
+<span class="md-ellipsis">
+    PSM GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Claude/">
+<span class="md-ellipsis">
+    PSM_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr Rama.md">
+<span class="md-ellipsis">
+    WAN Mgr Rama
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr%20GPT5/">
+<span class="md-ellipsis">
+    WAN Mgr GPT5
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../preview-rdk/docs/getting-started/">
+<span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Tools
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/TDK/">
+<span class="md-ellipsis">
+    TDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/Automatics/">
+<span class="md-ellipsis">
+    Automatics
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Review
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Review
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/WANManager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CellularManager/">
+<span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/GPONManager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/PPPManager/">
+<span class="md-ellipsis">
+    PPP Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/VLANManager/">
+<span class="md-ellipsis">
+    VLAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/TelcoVoiceManager/">
+<span class="md-ellipsis">
+    Telco Voice Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPSM/">
+<span class="md-ellipsis">
+    CCSP PSM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/LMLite/">
+<span class="md-ellipsis">
+    CCSP LM Lite
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPandM/">
+<span class="md-ellipsis">
+    CCSP PandM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/OneWifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/RBus/">
+<span class="md-ellipsis">
+    RBus
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/Utopia/">
+<span class="md-ellipsis">
+    Utopia
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    Device Management
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            Device Management
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/XConf/">
+<span class="md-ellipsis">
+    XConf
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Telemetry/">
+<span class="md-ellipsis">
+    Telemetry
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Webpa/">
+<span class="md-ellipsis">
+    Web PA
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/TR369/">
+<span class="md-ellipsis">
+    TR 369
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/LogUpload/">
+<span class="md-ellipsis">
+    Log Upload
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+<span class="md-ellipsis">
+    Comparison
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            Comparison
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_claude/">
+<span class="md-ellipsis">
+    PNM_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_gpt5/">
+<span class="md-ellipsis">
+    PNM_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    Utopia_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    Utopia_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_claude/">
+<span class="md-ellipsis">
+    WANMGr_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_gpt5/">
+<span class="md-ellipsis">
+    WANMGr_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    Utopia_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    Utopia_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cl_claude/">
+<span class="md-ellipsis">
+    CL_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cl_gpt5/">
+<span class="md-ellipsis">
+    CL_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../lmlite_claude/">
+<span class="md-ellipsis">
+    LMLite_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    LMLite_GPT5
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    LMLite_GPT5
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-overview">
+<span class="md-ellipsis">
+      1. Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-architecture-design">
+<span class="md-ellipsis">
+      2. Architecture / Design
+    </span>
+</a>
+<nav aria-label="2. Architecture / Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#21-highlevel-design-principles">
+<span class="md-ellipsis">
+      2.1 High‑Level Design Principles
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#22-component-boundaries-responsibilities">
+<span class="md-ellipsis">
+      2.2 Component Boundaries &amp; Responsibilities
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#23-threading-model">
+<span class="md-ellipsis">
+      2.3 Threading Model
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#24-c4-system-context-diagram">
+<span class="md-ellipsis">
+      2.4 C4 System Context Diagram
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#25-c4-container-diagram">
+<span class="md-ellipsis">
+      2.5 C4 Container Diagram
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#26-design-explanation-request-flow">
+<span class="md-ellipsis">
+      2.6 Design Explanation &amp; Request Flow
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-internal-modules">
+<span class="md-ellipsis">
+      3. Internal Modules
+    </span>
+</a>
+<nav aria-label="3. Internal Modules" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#31-module-breakdown-diagram">
+<span class="md-ellipsis">
+      3.1 Module Breakdown Diagram
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-interaction-with-other-middleware-components">
+<span class="md-ellipsis">
+      4. Interaction with Other Middleware Components
+    </span>
+</a>
+<nav aria-label="4. Interaction with Other Middleware Components" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#41-middleware-interaction-diagram">
+<span class="md-ellipsis">
+      4.1 Middleware Interaction Diagram
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-interaction-with-other-layers">
+<span class="md-ellipsis">
+      5. Interaction with Other Layers
+    </span>
+</a>
+<nav aria-label="5. Interaction with Other Layers" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#51-layered-architecture-view">
+<span class="md-ellipsis">
+      5.1 Layered Architecture View
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-ipc-mechanism">
+<span class="md-ellipsis">
+      6. IPC Mechanism
+    </span>
+</a>
+<nav aria-label="6. IPC Mechanism" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#61-ipc-event-flow-sequence">
+<span class="md-ellipsis">
+      6.1 IPC / Event Flow Sequence
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-tr181-data-models">
+<span class="md-ellipsis">
+      7. TR‑181 Data Models
+    </span>
+</a>
+<nav aria-label="7. TR‑181 Data Models" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#71-representative-parameter-table-excerpt">
+<span class="md-ellipsis">
+      7.1 Representative Parameter Table (Excerpt)
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-implementation-details">
+<span class="md-ellipsis">
+      8. Implementation Details
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#9-key-configuration-schema-files">
+<span class="md-ellipsis">
+      9. Key Configuration &amp; Schema Files
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10-api-endpoints-interface-groups">
+<span class="md-ellipsis">
+      10. API Endpoints / Interface Groups
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#11-deployment-runtime-environment">
+<span class="md-ellipsis">
+      11. Deployment &amp; Runtime Environment
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#12-monitoring-security">
+<span class="md-ellipsis">
+      12. Monitoring &amp; Security
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#13-validation-review-checklist">
+<span class="md-ellipsis">
+      13. Validation &amp; Review Checklist
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#14-conclusion-next-steps">
+<span class="md-ellipsis">
+      14. Conclusion &amp; Next Steps
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../psm_claude/">
+<span class="md-ellipsis">
+    PSM_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../psm_gpt5/">
+<span class="md-ellipsis">
+    PSM_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../WANMgr_Claude_2609/">
+<span class="md-ellipsis">
+    WANMGr_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../WANMgr_GPT5_2609/">
+<span class="md-ellipsis">
+    WANMGr_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../LMLite_Claude_2609/">
+<span class="md-ellipsis">
+    LMLite_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../LMLite_GPT5_2609/">
+<span class="md-ellipsis">
+    LMLite_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../PSM_Claude_2609/">
+<span class="md-ellipsis">
+    PSM_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../PSM_GPT5_2609/">
+<span class="md-ellipsis">
+    PSM_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../RBUS_Claude_2609/">
+<span class="md-ellipsis">
+    RBUS_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../RBUS_GPT5_2609/">
+<span class="md-ellipsis">
+    RBUS_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_orig_rama/">
+<span class="md-ellipsis">
+    Template_Rama
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_mod_2609/">
+<span class="md-ellipsis">
+    Template_2609
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-overview">
+<span class="md-ellipsis">
+      1. Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-architecture-design">
+<span class="md-ellipsis">
+      2. Architecture / Design
+    </span>
+</a>
+<nav aria-label="2. Architecture / Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#21-highlevel-design-principles">
+<span class="md-ellipsis">
+      2.1 High‑Level Design Principles
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#22-component-boundaries-responsibilities">
+<span class="md-ellipsis">
+      2.2 Component Boundaries &amp; Responsibilities
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#23-threading-model">
+<span class="md-ellipsis">
+      2.3 Threading Model
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#24-c4-system-context-diagram">
+<span class="md-ellipsis">
+      2.4 C4 System Context Diagram
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#25-c4-container-diagram">
+<span class="md-ellipsis">
+      2.5 C4 Container Diagram
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#26-design-explanation-request-flow">
+<span class="md-ellipsis">
+      2.6 Design Explanation &amp; Request Flow
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-internal-modules">
+<span class="md-ellipsis">
+      3. Internal Modules
+    </span>
+</a>
+<nav aria-label="3. Internal Modules" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#31-module-breakdown-diagram">
+<span class="md-ellipsis">
+      3.1 Module Breakdown Diagram
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-interaction-with-other-middleware-components">
+<span class="md-ellipsis">
+      4. Interaction with Other Middleware Components
+    </span>
+</a>
+<nav aria-label="4. Interaction with Other Middleware Components" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#41-middleware-interaction-diagram">
+<span class="md-ellipsis">
+      4.1 Middleware Interaction Diagram
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-interaction-with-other-layers">
+<span class="md-ellipsis">
+      5. Interaction with Other Layers
+    </span>
+</a>
+<nav aria-label="5. Interaction with Other Layers" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#51-layered-architecture-view">
+<span class="md-ellipsis">
+      5.1 Layered Architecture View
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-ipc-mechanism">
+<span class="md-ellipsis">
+      6. IPC Mechanism
+    </span>
+</a>
+<nav aria-label="6. IPC Mechanism" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#61-ipc-event-flow-sequence">
+<span class="md-ellipsis">
+      6.1 IPC / Event Flow Sequence
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-tr181-data-models">
+<span class="md-ellipsis">
+      7. TR‑181 Data Models
+    </span>
+</a>
+<nav aria-label="7. TR‑181 Data Models" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#71-representative-parameter-table-excerpt">
+<span class="md-ellipsis">
+      7.1 Representative Parameter Table (Excerpt)
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-implementation-details">
+<span class="md-ellipsis">
+      8. Implementation Details
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#9-key-configuration-schema-files">
+<span class="md-ellipsis">
+      9. Key Configuration &amp; Schema Files
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10-api-endpoints-interface-groups">
+<span class="md-ellipsis">
+      10. API Endpoints / Interface Groups
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#11-deployment-runtime-environment">
+<span class="md-ellipsis">
+      11. Deployment &amp; Runtime Environment
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#12-monitoring-security">
+<span class="md-ellipsis">
+      12. Monitoring &amp; Security
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#13-validation-review-checklist">
+<span class="md-ellipsis">
+      13. Validation &amp; Review Checklist
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#14-conclusion-next-steps">
+<span class="md-ellipsis">
+      14. Conclusion &amp; Next Steps
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/rdkcentral/edit/master/docs/docu/raheen/lmlite_gpt5.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<h1 id="ccsplmlite-documentation">CcspLMLite Documentation</h1>
+<h2 id="1-overview">1. Overview</h2>
+<ul>
+<li><strong>Purpose in RDK‑B Stack</strong>: <code>CcspLMLite</code> (Lightweight Local Manager) discovers, tracks, and reports connected LAN devices (Ethernet / MoCA / WiFi) and produces presence, status, and traffic telemetry while exposing TR‑181 parameter trees (Hosts, XHosts, NetworkDevicesStatus, NetworkDevicesTraffic, Presence detection controls) for management and analytics.</li>
+<li><strong>Key Features &amp; Responsibilities</strong>:</li>
+<li>Dynamic enumeration of connected devices with multi‑interface correlation.</li>
+<li>Presence detection (joins/leaves, dwell timing, IPv4/IPv6 probing, configurable retry intervals).</li>
+<li>Traffic &amp; status telemetry serialization using Avro schemas (<code>NetworkDevicesStatus.avsc</code>, <code>NetworkDevicesTraffic.avsc</code>).</li>
+<li>TR‑181 parameter exposure for device host tables and reporting control (enable, periods, schemas, override TTL, etc.).</li>
+<li>WebPA / RDK event publication for presence &amp; network device updates.</li>
+<li>RBus / DBus IPC integration through CCSP message bus wrappers.</li>
+<li>Modular DML source separation for Hosts, Extended Hosts, Network Device Status, Network Device Traffic, ManagementServer manageable devices.</li>
+<li><strong>Role in Broadband Router Architecture</strong>: Sits between low‑level discovery (ARP tables, WiFi/MoCA driver info, DHCP lease state) and higher‑level telemetry / remote management (Telemetry, Cloud analytics platforms, TR‑069 PA / WebPA). It normalizes device identity, state transitions, and usage counters, providing consistent, queryable state plus event and periodic reporting streams.</li>
+</ul>
+<h2 id="2-architecture-design">2. Architecture / Design</h2>
+<h3 id="21-highlevel-design-principles">2.1 High‑Level Design Principles</h3>
+<ul>
+<li><strong>Incremental Discovery</strong>: Periodic polling plus change detection drives minimal diff reporting.</li>
+<li><strong>Separation of Concerns</strong>: Presence logic, DML accessor functions, serialization (Avro pack), and IPC interfaces housed in distinct files.</li>
+<li><strong>Configurable Reporting Cadence</strong>: Exposed TR‑181 parameters permit runtime tuning (ReportingPeriod, PollingPeriod, Override TTL fields, enable flags).</li>
+<li><strong>Extensibility</strong>: Additional telemetry schemas or device augmentations can be added via new *avropack.c modules and matching DML objects.</li>
+<li><strong>Resource Efficiency</strong>: Optimized for constrained devices; only essential data serialized based on enabled flags.</li>
+<li><strong>Observability‑Friendly</strong>: Rich parameter exposure and consistent event naming enable external monitoring tools.</li>
+</ul>
+<h3 id="22-component-boundaries-responsibilities">2.2 Component Boundaries &amp; Responsibilities</h3>
+<table>
+<thead>
+<tr>
+<th>Boundary</th>
+<th>Responsibility</th>
+<th>Representative Files / Paths</th>
+<th>Consumers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core Lifecycle / Main</td>
+<td>Init, config load, bus attach, loop</td>
+<td><code>lm_main.c</code>, <code>lm_api.c</code>, <code>lm_wrapper.c</code></td>
+<td>All internal modules</td>
+</tr>
+<tr>
+<td>Device Discovery &amp; Status</td>
+<td>Enumerate hosts &amp; status tables</td>
+<td><code>network_devices_status*.c</code>, <code>cosa_hosts_dml.c</code></td>
+<td>DML / Telemetry</td>
+</tr>
+<tr>
+<td>Traffic Collection</td>
+<td>Per‑device traffic counters</td>
+<td><code>network_devices_traffic*.c</code>, <code>cosa_ndtraffic_dml.c</code></td>
+<td>Telemetry / Reports</td>
+</tr>
+<tr>
+<td>Presence Detection</td>
+<td>Join/leave heuristics, timers</td>
+<td><code>device_presence_detection.c</code></td>
+<td>Events / DML parameters</td>
+</tr>
+<tr>
+<td>Avro Serialization</td>
+<td>Pack structured telemetry</td>
+<td><code>*_avropack.c</code> (status/traffic/extender)</td>
+<td>Telemetry publisher</td>
+</tr>
+<tr>
+<td>Reporting Control</td>
+<td>Parameter gating &amp; cadence</td>
+<td><code>cosa_reports_internal.c</code>, <code>cosa_wantraffic_api.c</code></td>
+<td>WebPA / Remote mgmt</td>
+</tr>
+<tr>
+<td>WebPA Interface</td>
+<td>WebPA parameter bridging</td>
+<td><code>webpa_interface.c</code>, <code>webpa_pd_*</code></td>
+<td>Cloud controller</td>
+</tr>
+<tr>
+<td>RBUS / Message Bus</td>
+<td>IPC bridging &amp; handler APIs</td>
+<td><code>wtc_rbus_apis.c</code>, <code>wtc_rbus_handler_apis.c</code></td>
+<td>Other CCSP agents</td>
+</tr>
+<tr>
+<td>Management Server Table</td>
+<td>Manageable device enumeration</td>
+<td><code>cosa_managementserver_*</code></td>
+<td>TR‑069 / Cloud mgmt</td>
+</tr>
+<tr>
+<td>Tests</td>
+<td>Unit tests &amp; mocks</td>
+<td><code>test/*.cpp</code></td>
+<td>CI / QA</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-threading-model">2.3 Threading Model</h3>
+<p>CcspLMLite primarily operates with:
+- <strong>Main Thread</strong>: Initialization, configuration parsing, registration of TR‑181 trees, scheduling polling handlers.
+- <strong>Timer / Poll Threads</strong>: Timer callbacks (presence intervals, polling periods) may run in library‑provided scheduler; heavy work offloaded to avoid blocking.
+- <strong>IPC Dispatch Context</strong>: RBus/DBus callbacks trigger parameter get/set functions; these typically perform quick mapping then refer to cached host/traffic structures.
+- <strong>Optional Serialization Worker</strong>: Avro packing could be executed inline or via deferred worker depending on compile configuration (not always separate thread; left as implementation detail / potential enhancement).</p>
+<h3 id="24-c4-system-context-diagram">2.4 C4 System Context Diagram</h3>
+<pre class="mermaid"><code>graph TD
+    classDef user fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef infra fill:#ede7f6,stroke:#5e35b1,stroke-width:2px;
+
+    Operator["👤 Remote Ops / Analytics"]:::user --&gt;|WebPA Queries| LMLite[CcspLMLite]:::component
+    Telemetry["Telemetry Service"]:::external --&gt;|Event Ingest (Avro)| LMLite
+    TR069["TR-069 PA"]:::external --&gt;|Get/Set Hosts.*| LMLite
+    LMLite --&gt;|TR-181 Params (Hosts/Status/Traffic)| OtherAgents["Other CCSP Agents"]:::infra
+    LMLite --&gt;|Raw Stats| Telemetry
+    LMLite --&gt;|Presence Events| WebPACloud["WebPA / Cloud"]:::external</code></pre>
+<h3 id="25-c4-container-diagram">2.5 C4 Container Diagram</h3>
+<pre class="mermaid"><code>graph TD
+    classDef proc fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef module fill:#ede7f6,stroke:#5e35b1,stroke-width:1.5px;
+    classDef io fill:#e8f5e8,stroke:#2e7d32,stroke-width:1.5px;
+
+    subgraph Runtime["RDK-B Runtime (Linux)"]
+        subgraph LMLiteProc["CcspLMLite Process"]
+            MainCore["Main &amp; Wrapper\n(lm_main / lm_wrapper)"]:::module
+            Presence["Presence Detection\n(device_presence_detection)"]:::module
+            Status["Status Engine\n(network_devices_status*)"]:::module
+            Traffic["Traffic Engine\n(network_devices_traffic*)"]:::module
+            Avro["Serialization\n(*_avropack.c)"]:::module
+            Reports["Reporting Control\ncosa_reports_internal"]:::module
+            WebPA["WebPA Bridge\nwebpa_interface"]:::module
+            RBUS["RBUS / IPC APIs\nwtc_rbus_*"]:::module
+        end
+        HALs["Interface HAL Data\n(ARP/WiFi/MoCA/DHCP)"]:::io
+        Cloud["Telemetry / WebPA Cloud"]:::io
+    end
+
+    Presence --&gt; Status
+    Status --&gt; Avro
+    Traffic --&gt; Avro
+    Avro --&gt; Cloud
+    WebPA --&gt; Cloud
+    RBUS --&gt; OtherAgents["Other CCSP Agents"]
+    HALs --&gt; Status
+    HALs --&gt; Traffic</code></pre>
+<h3 id="26-design-explanation-request-flow">2.6 Design Explanation &amp; Request Flow</h3>
+<ol>
+<li>Initialization: <code>lm_main</code> loads configuration (implicit via bus &amp; data model setup) → registers TR‑181 objects.</li>
+<li>Poll Loop: Timers trigger status &amp; traffic polling; host tables refreshed; diffs flagged.</li>
+<li>Presence Logic: Device MAC/IP heuristics update active/inactive timestamps; join/leave events published when thresholds met.</li>
+<li>Reporting: On schedule or triggered change, engines marshal current structures → Avro pack modules → emit event to Telemetry service.</li>
+<li>External Queries: TR‑069 or WebPA requests call DML accessors mapping to in‑memory structures; writes adjust configuration (e.g., ReportingPeriod) which alters scheduler settings.</li>
+<li>Technologies: C (POSIX), RBus/DBus, Avro schema definitions, internal timers, optional logging macros from common infra.</li>
+</ol>
+<h2 id="3-internal-modules">3. Internal Modules</h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core Entry &amp; API</td>
+<td>Startup, lifecycle, exported public API wrappers</td>
+<td><code>lm_main.c</code>, <code>lm_api.c</code>, <code>lm_wrapper.c</code>, <code>lm_wrapper_priv.c</code></td>
+</tr>
+<tr>
+<td>Hosts DML</td>
+<td>Implements Hosts.* TR‑181 get/set logic</td>
+<td><code>cosa_hosts_dml.c</code>, <code>cosa_xhosts_dml.c</code></td>
+</tr>
+<tr>
+<td>Network Device Status</td>
+<td>Collects and caches status metrics; Avro status packing</td>
+<td><code>network_devices_status*.c</code>, <code>network_devices_status_avropack.c</code></td>
+</tr>
+<tr>
+<td>Network Device Traffic</td>
+<td>Collects traffic counters; Avro traffic packing</td>
+<td><code>network_devices_traffic*.c</code>, <code>network_devices_traffic_avropack.c</code></td>
+</tr>
+<tr>
+<td>Presence Detection</td>
+<td>Determines active/inactive, join/leave events</td>
+<td><code>device_presence_detection.c</code></td>
+</tr>
+<tr>
+<td>WAN Traffic Utils</td>
+<td>Additional traffic API + utilities</td>
+<td><code>cosa_wantraffic_api.c</code>, <code>cosa_wantraffic_utils.c</code></td>
+</tr>
+<tr>
+<td>Reports Internal</td>
+<td>Configurable reporting &amp; override TTL logic</td>
+<td><code>cosa_reports_internal.c</code></td>
+</tr>
+<tr>
+<td>Avro Extender Devices</td>
+<td>Extender device association reporting</td>
+<td><code>extender_associated_devices*.c</code></td>
+</tr>
+<tr>
+<td>Management Server DML</td>
+<td>Manageable devices table</td>
+<td><code>cosa_managementserver_*</code></td>
+</tr>
+<tr>
+<td>WebPA Interface</td>
+<td>WebPA parameter mapping &amp; presence publish</td>
+<td><code>webpa_interface.c</code>, <code>webpa_pd_*</code></td>
+</tr>
+<tr>
+<td>RBUS APIs &amp; Handlers</td>
+<td>RBUS call registration and handling</td>
+<td><code>wtc_rbus_apis.c</code>, <code>wtc_rbus_handler_apis.c</code></td>
+</tr>
+<tr>
+<td>Test Suite</td>
+<td>Unit and integration tests</td>
+<td><code>test/*.cpp</code>, <code>run_ut.sh</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="31-module-breakdown-diagram">3.1 Module Breakdown Diagram</h3>
+<pre class="mermaid"><code>flowchart TD
+    subgraph CcspLMLite
+        Core[Core Init / API]
+        Hosts[Hosts DML]
+        Status[Status Engine]
+        Traffic[Traffic Engine]
+        Presence[Presence Detection]
+        Avro[Avro Serialization]
+        Reports[Reporting Control]
+        WebPA[WebPA Bridge]
+        RBUS[RBUS Handlers]
+        Mgmt[ManagementServer DML]
+    end
+    Presence --&gt; Status
+    Status --&gt; Avro
+    Traffic --&gt; Avro
+    Reports --&gt; Avro
+    WebPA --&gt; Reports
+    RBUS --&gt; Hosts</code></pre>
+<h2 id="4-interaction-with-other-middleware-components">4. Interaction with Other Middleware Components</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Interaction Purpose</th>
+<th>Protocol / Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Telemetry Service</td>
+<td>Ingest Avro encoded status &amp; traffic events</td>
+<td>Event publish (RBus / message bus)</td>
+</tr>
+<tr>
+<td>TR‑069 PA</td>
+<td>Query host / traffic parameters via TR‑181</td>
+<td>DBus/RBus Get/SetParameterValues</td>
+</tr>
+<tr>
+<td>WebPA Cloud Stack</td>
+<td>Presence notifications &amp; dynamic control</td>
+<td>WebPA param get/set + events</td>
+</tr>
+<tr>
+<td>PSM</td>
+<td>Persist writable config parameters if needed</td>
+<td>Indirect via CCSP DM/PSM integration</td>
+</tr>
+<tr>
+<td>Other CCSP Agents</td>
+<td>Potential subscription to presence or host changes</td>
+<td>RBus events / method calls</td>
+</tr>
+</tbody>
+</table>
+<h3 id="41-middleware-interaction-diagram">4.1 Middleware Interaction Diagram</h3>
+<pre class="mermaid"><code>flowchart TD
+    LMLite[CcspLMLite] --&gt;|Avro Events| Telemetry[Telemetry]
+    LMLite --&gt;|TR-181 Get/Set| TR069[TR-069 PA]
+    WebPACloud[WebPA / Cloud] --&gt;|Set ReportingPeriod| LMLite
+    LMLite --&gt;|Presence Events| WebPACloud
+    LMLite --&gt;|Status/Traffic Params| OtherAgents[Other Agents]</code></pre>
+<h2 id="5-interaction-with-other-layers">5. Interaction with Other Layers</h2>
+<table>
+<thead>
+<tr>
+<th>Layer/Service</th>
+<th>Description</th>
+<th>Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HAL / Drivers</td>
+<td>Source of raw MAC / RSSI / interface &amp; traffic data</td>
+<td>Direct system calls / platform APIs</td>
+</tr>
+<tr>
+<td>Filesystem</td>
+<td>Access Avro schemas &amp; (if any) local config</td>
+<td>File I/O</td>
+</tr>
+<tr>
+<td>Systemd</td>
+<td>Launch / supervise process</td>
+<td>Unit service</td>
+</tr>
+<tr>
+<td>Cloud Telemetry</td>
+<td>Receives serialized events</td>
+<td>Message bus → Telemetry pipeline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="51-layered-architecture-view">5.1 Layered Architecture View</h3>
+<pre class="mermaid"><code>graph TD
+    HAL[(Interface HALs)] --&gt; LMLite[CcspLMLite]
+    LMLite --&gt; Telemetry[(Telemetry Pipeline)]
+    LMLite --&gt; WebPA[WebPA / Cloud]
+    WebPA --&gt; Operators[Remote Operators]</code></pre>
+<h2 id="6-ipc-mechanism">6. IPC Mechanism</h2>
+<ul>
+<li><strong>IPC Type</strong>: RBus (primary in modern builds) and/or DBus via CCSP bus abstraction.</li>
+<li><strong>Invocation Patterns</strong>: Synchronous parameter Get/Set; asynchronous event publish (presence, status period completion, traffic sample).</li>
+<li><strong>Message Structure</strong>: Parameter maps (name/value pairs) for TR‑181 access; Avro payload (binary or base64) for telemetry events with header metadata (timestamp, uuid, source).</li>
+<li><strong>Flow Control</strong>: Reporting periods regulate frequency; presence events de‑bounced by configurable join/leave intervals &amp; retry counts.</li>
+</ul>
+<h3 id="61-ipc-event-flow-sequence">6.1 IPC / Event Flow Sequence</h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Poll as PollTimer
+    participant LML as CcspLMLite
+    participant RB as RBus/DBus
+    participant Tele as Telemetry Service
+    Poll-&gt;&gt;LML: Timer Fire (Status Poll)
+    LML-&gt;&gt;LML: Refresh Host/Traffic Caches
+    LML-&gt;&gt;LML: Presence Evaluation (joins/leaves?)
+    alt Changes or Period Elapsed
+        LML-&gt;&gt;LML: Avro Pack (status/traffic)
+        LML-&gt;&gt;RB: Publish Event (Avro blob)
+        RB--&gt;&gt;Tele: Deliver Event
+    end</code></pre>
+<h2 id="7-tr181-data-models">7. TR‑181 Data Models</h2>
+<p>Implemented object roots (subset shown):
+- <code>Device.Hosts.*</code> (dynamic Host table with IPv4/IPv6 sub‑objects)
+- <code>Device.XHosts.*</code> (extended variant under resource optimization conditions)
+- <code>Device.X_RDKCENTRAL-COM_Report.NetworkDevicesStatus.*</code>
+- <code>Device.X_RDKCENTRAL-COM_Report.NetworkDevicesTraffic.*</code>
+- <code>Device.ManagementServer.ManageableDevice.*</code> (conditional)</p>
+<h3 id="71-representative-parameter-table-excerpt">7.1 Representative Parameter Table (Excerpt)</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Access</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Device.Hosts.X_CISCO_COM_ConnectedDeviceNumber</code></td>
+<td>Count of connected devices</td>
+<td>R</td>
+<td>Updated on discovery refresh</td>
+</tr>
+<tr>
+<td><code>Device.Hosts.X_RDKCENTRAL-COM_HostCountPeriod</code></td>
+<td>Host count reporting period</td>
+<td>R/W</td>
+<td>Affects poll cadence</td>
+</tr>
+<tr>
+<td><code>Device.Hosts.Host.{i}.Alias</code></td>
+<td>Friendly name alias</td>
+<td>R/W</td>
+<td>Writable field</td>
+</tr>
+<tr>
+<td><code>Device.Hosts.Host.{i}.Active</code></td>
+<td>Active presence indicator</td>
+<td>R</td>
+<td>Derived from presence state</td>
+</tr>
+<tr>
+<td><code>Device.Hosts.Host.{i}.X_CISCO_COM_RSSI</code></td>
+<td>WiFi signal strength</td>
+<td>R</td>
+<td>Present for WiFi devices</td>
+</tr>
+<tr>
+<td><code>Device.X_RDKCENTRAL-COM_Report.NetworkDevicesStatus.Enabled</code></td>
+<td>Enable status reporting</td>
+<td>R/W</td>
+<td>Governs status Avro emission</td>
+</tr>
+<tr>
+<td><code>Device.X_RDKCENTRAL-COM_Report.NetworkDevicesStatus.ReportingPeriod</code></td>
+<td>Status report period seconds</td>
+<td>R/W</td>
+<td>Scheduler input</td>
+</tr>
+<tr>
+<td><code>Device.X_RDKCENTRAL-COM_Report.NetworkDevicesTraffic.Enabled</code></td>
+<td>Enable traffic reporting</td>
+<td>R/W</td>
+<td>Governs traffic Avro emission</td>
+</tr>
+<tr>
+<td><code>Device.X_RDKCENTRAL-COM_Report.NetworkDevicesTraffic.Default.ReportingPeriod</code></td>
+<td>Default override period</td>
+<td>R/W</td>
+<td>Applies fallback cadence</td>
+</tr>
+<tr>
+<td><code>Device.ManagementServer.ManageableDevice.{i}.SerialNumber</code></td>
+<td>Managed device serial</td>
+<td>R</td>
+<td>Conditional object</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-implementation-details">8. Implementation Details</h2>
+<ul>
+<li><strong>Presence Algorithm</strong>: Maintains per‑device timers; join when first seen or after inactivity threshold exceeded; leave when no activity for configured IPv4/IPv6 retry * interval windows.</li>
+<li><strong>Diff Tracking</strong>: Host version ID increments on structural changes (add/remove/hostname change) enabling incremental Avro emission filtering.</li>
+<li><strong>Avro Serialization</strong>: Packs header (timestamp, uuid, source), device identifier record, and arrays of status/traffic records; supports optional null fields for compactness.</li>
+<li><strong>Error Handling</strong>: Parameter accessors validate indices; serialization fails fast with logged error; absent counters treated as null to avoid blocking pipeline.</li>
+<li><strong>Logging</strong>: Uses common trace macros; presence transitions and reporting skips logged at INFO/DEBUG to assist tuning.</li>
+</ul>
+<h2 id="9-key-configuration-schema-files">9. Key Configuration &amp; Schema Files</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+<th>Notable Fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config/LMLite.XML</code></td>
+<td>TR‑181 object &amp; function binding definitions</td>
+<td>Hosts, XHosts, NetworkDevicesStatus/Traffic, Presence params</td>
+</tr>
+<tr>
+<td><code>config/NetworkDevicesStatus.avsc</code></td>
+<td>Avro schema for status events</td>
+<td><code>header</code>, <code>cpe_id</code>, <code>data[].device_id.device_type</code>, timestamps</td>
+</tr>
+<tr>
+<td><code>config/NetworkDevicesTraffic.avsc</code></td>
+<td>Avro schema for traffic events</td>
+<td><code>last_traffic_counter_reset</code>, <code>data[].device_id</code>, counters (further fields)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="10-api-endpoints-interface-groups">10. API Endpoints / Interface Groups</h2>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Purpose</th>
+<th>Example (Representative)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DML Get/Set</td>
+<td>Parameter accessors</td>
+<td><code>Hosts_GetParamStringValue</code>, <code>NetworkDevicesTraffic_SetParamUlongValue</code></td>
+</tr>
+<tr>
+<td>Entry Enumeration</td>
+<td>Dynamic table enumeration</td>
+<td><code>Host_GetEntryCount</code>, <code>XHost_GetEntry</code></td>
+</tr>
+<tr>
+<td>Presence Control</td>
+<td>Adjust detection parameters</td>
+<td>Writes to presence interval/retry TR‑181 params</td>
+</tr>
+<tr>
+<td>Reporting Control</td>
+<td>Enable/disable, period tuning</td>
+<td>Set <code>Enabled</code>, <code>ReportingPeriod</code>, <code>PollingPeriod</code></td>
+</tr>
+<tr>
+<td>Avro Packing</td>
+<td>Transform in-memory to payload</td>
+<td><code>network_devices_status_avropack.c</code> functions</td>
+</tr>
+<tr>
+<td>RBUS Publishing</td>
+<td>Emit events</td>
+<td>RBUS publish helper in <code>wtc_rbus_apis.c</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="11-deployment-runtime-environment">11. Deployment &amp; Runtime Environment</h2>
+<ul>
+<li><strong>Process Type</strong>: Stand‑alone CCSP component launched via systemd (<code>CcspLMLite.service</code>).</li>
+<li><strong>Dependencies</strong>: CCSP common libs (message bus, logging), Avro library (linked externally), RBus/DBus.</li>
+<li><strong>Resource Footprint</strong>: Scales with host table size and reporting frequency; capped dynamic host instances (e.g., 64).</li>
+<li><strong>Startup Sequence</strong>: systemd → bus attach → TR‑181 registration → schedule polling timers.</li>
+<li><strong>Cross Compile</strong>: Uses Autotools; inherits environment variables consistent with other CCSP components.</li>
+</ul>
+<h2 id="12-monitoring-security">12. Monitoring &amp; Security</h2>
+<ul>
+<li><strong>Monitoring Hooks</strong>: Telemetry events constitute primary metric channel; count of devices, active sessions, reporting success/fail counts derivable from logs.</li>
+<li><strong>Security Considerations</strong>: Ensure Avro payloads exclude PII beyond authorized identifiers; restrict writable TR‑181 parameters to authenticated channels (WebPA / TR‑069). Harden bus policies to limit method invocation to expected namespaces.</li>
+<li><strong>Data Integrity</strong>: Version IDs in host table assist in validating sequence ordering.</li>
+</ul>
+<h2 id="13-validation-review-checklist">13. Validation &amp; Review Checklist</h2>
+<ul>
+<li>[x] Deployment boundaries represented (process vs HAL vs cloud).</li>
+<li>[x] Protocol specificity (RBus/DBus, Avro events) labeled.</li>
+<li>[x] Scaling (dynamic tables maxInstance) noted.</li>
+<li>[x] Technology stack (C, Avro, CCSP bus) described.</li>
+<li>[x] Implementation details (presence algorithm, diff tracking) documented.</li>
+<li>[x] Visual hierarchy via Mermaid classDefs &amp; node grouping.</li>
+<li>[x] TR‑181 coverage with representative parameters.</li>
+<li>[x] Schema references included.</li>
+<li>[x] Mermaid syntax validated conceptually (no HTML breaks, quoted multi‑line labels).</li>
+</ul>
+<h2 id="14-conclusion-next-steps">14. Conclusion &amp; Next Steps</h2>
+<p><code>CcspLMLite</code> delivers an extensible, telemetry‑ready substrate for connected device visibility and presence analytics within RDK‑B. Its modular organization (discovery, presence, serialization, reporting control) simplifies maintenance and feature extension.</p>
+<p><strong>Recommended Enhancements</strong>:
+1. Introduce unified metrics endpoint (e.g., JSON snapshot) for on‑device introspection.
+2. Add adaptive reporting (dynamic period adjustment based on churn rate).
+3. Implement per‑device anomaly tagging (RSSI volatility, traffic spikes) before Avro emission.
+4. Expand unit tests for presence edge cases (IPv6 only, rapid re-association).
+5. Provide structured logging correlation IDs aligned with Avro header UUID.</p>
+<p><strong>References</strong>: Source files under <code>source/lm/</code>, Avro schemas (<code>config/*.avsc</code>), TR‑181 model (<code>config/LMLite.XML</code>), service unit <code>CcspLMLite.service</code>.</p>
+<hr/>
+<p><em>Generated using the provided RDK‑B documentation template, workflow, and diagram guidelines (deployment accuracy, protocol specificity, modular clarity).</em> </p>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<div class="bottom-banner compact-footer">
+<!-- Left Section: Logo and Copyright -->
+<div class="footer-left">
+<img alt="RDK Logo" class="rdk-logo" src="../../../assets/logo.png">
+<p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+</img></div>
+<!-- Right Section: Links and Support -->
+<div class="footer-right">
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Explore RDK</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../preview-rdk/docs/getting-started">Getting Started</a></li>
+<li><a href="../../../devices/docs/">Devices</a></li>
+<li><a href="../../../preview-rdk/docs/getting-started">Tools</a></li>
+</ul>
+</div>
+</div>
+<!-- Device Management -->
+<div class="banner-group">
+<h3>Device Management</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="/device-management/docs/XConf/">XConf</a></li>
+<li><a href="/device-management/docs/Telemetry/">Telemetry</a></li>
+<li><a href="/device-management/docs/Webpa/">Web PA</a></li>
+<li><a href="/device-management/docs/TR369/">TR 369</a></li>
+</ul>
+</div>
+</div>
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Test &amp; Certification</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119">RDK Certification</a></li>
+<li><a href="../../../tools/docs/TDK/">TDK</a></li>
+<li><a href="../../../tools/docs/Automatics/">Automatics</a></li>
+</ul>
+</div>
+</div>
+<!-- Resources-->
+<div class="banner-group">
+<h3>Resources</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="/docu/WANMgr_Claude_2609/">Knowledge Articles</a></li>
+<li><a href="/sitemap/">Quick Links</a></li>
+<li><a href="/sitemap.xml">Site Map</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script src="../../../assets/javascripts/extra.js"></script>
+</div></body>
+</html>
