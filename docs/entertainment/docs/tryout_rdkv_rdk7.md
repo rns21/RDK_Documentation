@@ -4,11 +4,22 @@ description: This page is used to explain to some one new to RDK-V on how to bui
 
 # Try Out RDK7
 
+
 ------------------------------------------------------------------------
 
 This guide provides step-by-step instructions to create your own build and play around RDK using the popular open source platform Raspberry Pi 4 as the target device. The document covers the pre-requisites, build instructions , and detailed flashing instructions to get your Raspberry Pi up and running with RDK
 
 ------------------------------------------------------------------------
+
+## Before you begin
+
+If you prefer to use a pre-compiled image - so that you can proceed with flashing the image - please download a precompiled image for Raspberry Pi 4 from [here]( https://wiki.rdkcentral.com/download/attachments/80261869/lib32-rdk-fullstack-image-raspberrypi4-64-rdke-RDK7-1.0.0.wic.bz2?version=1&modificationDate=1757065983000&api=v2 ) and go to section [flashing-instruction](#flashing-instructions)
+
+
+!!! info "Access restrictions"
+    The download link requires you to have the free rdk licensee account. If you do not have, please signup [here](https://wiki.rdkcentral.com/signup.action). If you already have an account, sign in [here](https://wiki.rdkcentral.com/login.action) and then click on the above link of pre-compiled image
+
+If you prefer to compile an RDK image from scratch and then try it out, please proceed to next section
 
 ## Pre requisites
 

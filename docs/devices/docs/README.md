@@ -3,7 +3,7 @@ hide:
   - toc
   - navigation
 ---
-
+#
 <div class="tab-container">
   <div class="tab-buttons">
     <button class="tab-button active" onclick="showTabs('entertainment', event)">Entertainment</button>

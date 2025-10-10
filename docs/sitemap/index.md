@@ -16,6 +16,8 @@ hide:
     (window.location.origin + window.location.pathname).replace(/\/sitemap\/.*$/, '/sitemap.xml')
   );
 
+  const customOrder = ['entertainment', 'connectivity', 'device management', 'devices', 'preview rdk', 'source', 'support', 'tools'];
+
   fetch(sitemapURL)
     .then(r => r.text())
     .then(txt => {
@@ -26,9 +28,9 @@ hide:
       urls.forEach(href => {
         const u = new URL(href);
         const parts = u.pathname.replace(/^\/|\/$/g, '').split('/');
-        if (parts.length < 2) return; // Skip top-level like Home
+        if (parts.length < 2) return;
 
-        const category = parts[0];
+        const category = decodeURIComponent(parts[0].replace(/[-_]/g, ' '));
         const label = decodeURIComponent(parts[parts.length - 1].replace(/[-_]/g, ' '));
 
         if (!grouped[category]) grouped[category] = [];
@@ -36,12 +38,16 @@ hide:
       });
 
       const container = document.getElementById('sitemap-list');
-      Object.entries(grouped).forEach(([category, links]) => {
+
+      customOrder.forEach(category => {
+        const links = grouped[category];
+        if (!links) return;
+
         const column = document.createElement('div');
         column.className = 'sitemap-column';
 
         const heading = document.createElement('h2');
-        heading.textContent = category.charAt(0).toUpperCase() + category.slice(1).replace(/[-_]/g, ' ');
+        heading.textContent = category.charAt(0).toUpperCase() + category.slice(1).replace(/[-_]/g, ' ');;
         column.appendChild(heading);
 
         const ul = document.createElement('ul');
@@ -51,7 +57,7 @@ hide:
             const li = document.createElement('li');
             const a = document.createElement('a');
             a.href = item.href;
-            a.innerHTML = `${item.label.charAt(0).toUpperCase()+ item.label.slice(1).replace(/[-_]/g, ' ')}`;
+            a.innerHTML = `${item.label.charAt(0).toUpperCase() + item.label.slice(1)}`;
             li.appendChild(a);
             ul.appendChild(li);
           });

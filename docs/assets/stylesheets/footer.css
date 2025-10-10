@@ -54,13 +54,18 @@ body.is-homepage .compact-footer {
 /* Banner Group */
 .banner-group {
   margin-bottom: 0.5em;
-  width: 140px;
+  min-width: 140px;
+  max-width: 166px;
+  flex: 1 1 auto;
 }
 
 .banner-group h3 {
   font-size: 0.9em;
   margin-bottom: 0.3em;
   color: var(--md-default-fg-color) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .banner-group a {

@@ -14,13 +14,18 @@ body,
 .md-header__title {
   flex-grow: 1;
 }
-
+.md-header--shadow .md-ellipsis{
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
 /* Search Bar */
 [data-md-toggle="search"]:checked ~ .md-header .md-search__inner,
 .md-search__inner {
   width: 20rem;
 }
-
+.md-header__inner{
+ margin: 0 2rem !important;
+}
 /* Header Buttons */
 .header_buttons {
   display: flex;
@@ -158,12 +163,12 @@ h3 {
   color: var(--md-primary-fg-color) !important;
   letter-spacing: -0.5px;
 }
-
-/* Grid and Container */
 .md-grid {
-  max-width: 1440px;
+  max-width: 100% !important;
+  padding: 0 !important;
+  padding-right: 0 !important;
+  margin-top: 0;
 }
-
 .md-container::before {
   content: "";
   position: fixed;
@@ -208,12 +213,14 @@ h3 {
   display: flex;
   height: 100%;
 }
-
+.md-content__inner{
+  padding-top: 0 !important;
+}
 /*-------------------------------------------------- Homepage --------------------------------------------------- */
 
 /* Homepage layout styles & adjustments */
 body.is-homepage .md-content__inner {
-  margin: -62px -0.869rem 0;
+  margin: auto;
   padding-top: 0.6rem;
 }
 body.is-homepage .md-content {
@@ -243,7 +250,8 @@ body.is-homepage[data-md-color-scheme="slate"] .homepage-layout {
 
 /* Left Panel(heading content) */
 .intro-banner-modern {
-  flex: 0.9;
+  /* flex: 0.9; */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -254,9 +262,11 @@ body.is-homepage[data-md-color-scheme="slate"] .homepage-layout {
   animation-delay: 0.3s;
 }
 .intro-content h1 {
-  font-size: 2rem;
+  /* font-size: 2rem; */
+  font-size: clamp(1.5rem, 3.3vw, 3rem);
   font-weight: 700;
   margin-bottom: 1rem;
+  width: 95%;
   text-align: left !important;
   background: linear-gradient(90deg, #00b2dc, #0e9cbcf9);
   -webkit-background-clip: text;
@@ -264,7 +274,8 @@ body.is-homepage[data-md-color-scheme="slate"] .homepage-layout {
   color: transparent;
 }
 .intro-content p {
-  font-size: 0.85rem;
+  /* font-size: 0.85rem; */
+  font-size: clamp(0.85rem, 1.4vw, 1.2rem);
   line-height: 1.6;
   max-width: 600px;
   text-align: left;
@@ -279,7 +290,7 @@ body.is-homepage[data-md-color-scheme="slate"] .homepage-layout {
 
 /* Right Panel (entertainment and connectivity card)*/
 .cards-wrapper {
-  flex: 1.4;
+  flex: 1.2;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -288,14 +299,14 @@ body.is-homepage[data-md-color-scheme="slate"] .homepage-layout {
   margin-top: 2rem;
   gap: 1rem;
   padding-bottom: 2rem;
+  padding-right: 1.4rem;
   animation: fadeInUp 1s ease-out forwards;
   opacity: 0;
   animation-delay: 0.3s;
 }
 .card {
   position: relative;
-  width: 100%;
-  max-width: 320px;
+  width: clamp(320px, 25vw, 400px);
   height: 420px;
   background: var(--md-default-bg-color);
   border-radius: 12px;
@@ -376,16 +387,18 @@ body.is-homepage[data-md-color-scheme="slate"] .homepage-layout {
   justify-content: space-between;
 }
 .card .card-content h2 {
-  font-size: 1.3rem;
+  font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+  white-space: nowrap;
+  overflow: hidden;
   font-weight: bold !important;
   margin: 0.5rem 0;
   padding-top: 0 !important;
-  font-weight: 600;
   letter-spacing: 1px;
   color: #008eae !important;
 }
 .card-content p {
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
+  font-size: clamp(0.8rem, 1.2vw, 1.2rem);
   margin-bottom: 1.5rem;
   line-height: 1.5;
   color: #008eae !important;
@@ -549,8 +562,33 @@ body.is-homepage[data-md-color-scheme="slate"] .homepage-layout {
     margin-bottom: 1rem;
   }
 }
+@media screen and (min-width: 1440px) {
+  .intro-content h1 {
+    /* padding-left: 2rem; */
+  }
+  .intro-content p {
+    /* padding-left: 3.3rem; */
+  }
+  .card {
+    max-width: 65%;
+    height: 70%;
+    aspect-ratio: 3 / 4;
+  }
+  .explore-button {
+    padding: clamp(0.7rem, 1vw, 1rem) clamp(1.5rem, 2vw, 2.2rem);
+  }
+}
 
+@media screen and (min-width: 1920px) {
+  .intro-content h1 {
+    font-size: clamp(3rem, 2.5vw, 4rem);
+    padding-left: 1.5rem;
+  }
 
+  .intro-content p {
+    padding-left: 3rem;
+  }
+}
 /* ----------------------------- Markdown Heading and Paragraph Overrides----------------------------------- */
 .md-typeset h1,
 .md-typeset h2,

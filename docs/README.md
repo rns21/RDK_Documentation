@@ -11,7 +11,7 @@ hide:
   <!-- Left: Intro Banner -->
 <div class="intro-banner-modern">
   <div class="intro-content">
-    <h1><span class="typing" id="type-head">Powering Entertainment. Enabling Connectivity.<br> One Unified Platform.</span></h1>
+    <h1><span class="typing" id="type-head">Powering Entertainment. <br>Enabling Connectivity.<br> One Unified Platform.</span></h1>
     <p><span class="typing" id="type-para">RDK empowers developers and device makers with open-source tools to deliver high-performance video, broadband, and smart home experiences. Choose your domain to explore tailored docs, APIs, and workflows for rapid development.</span></p>
   </div>
 </div>

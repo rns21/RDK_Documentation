@@ -28,10 +28,6 @@ theme:
     - content.width
     # - navigation.expand
   palette:
-    - media: "(prefers-color-scheme)"
-      toggle:
-        icon: material/link
-        name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: white
@@ -78,7 +74,7 @@ nav:
   - Entertainment:
     - Home: ./entertainment/docs/README.md
     - Architecture: ./entertainment/docs/rdk7-architecture.md
-    - Features: ./entertainment/docs/rdk7-features.md
+    - Apps: ./entertainment/docs/apps.md
     - Try Out RDK: ./entertainment/docs/tryout_rdkv_rdk7.md
     - Porting Kit: ./entertainment/docs/rdk7-vendor-porting-guide.md
     - Core Components:
@@ -105,6 +101,7 @@ nav:
       - WAN Mgr GPT5: ./connectivity/docs/components/WANMgr GPT5.md
     - Releases: https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases
   - Getting Started: ./preview-rdk/docs/getting-started.md
+  - Devices: ./devices/docs/README.md
   - Tools:
       - TDK: ./tools/docs/TDK.md
       - Automatics: ./tools/docs/Automatics.md

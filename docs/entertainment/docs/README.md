@@ -27,15 +27,15 @@ hide:
   </div>
 
   <!-- Second Message Box -->
-  <div class="custom-container" onclick="window.location.href='./features/'">
+  <div class="custom-container" onclick="window.location.href='./Apps/'">
     <div class="title_section">
       <span class="material-icons custom-icon">list</span>
-      <h2>Features</h2>
+      <h2>Apps</h2>
     </div>
     <div class="content-section">
-      <p>A deciding factor of any software stack is the number of user centric features that are supported by that software.</p>
+      <p>A defining strength of any modern platform lies in the robust facilities it offers for seamless app development and integration</p>
       <div class="link-row">
-        <a href="./rdk7-features/" class="custom-link">Read More</a>
+        <a href="./Apps/" class="custom-link">Read More</a>
         <span class="material-icons custom-icon-arrow">arrow_forward</span>
       </div>
     </div>

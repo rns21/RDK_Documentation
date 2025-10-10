@@ -151,8 +151,15 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 //-------------------------Sidebar collapse functionality(left and right panes)--------------------------
+
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".md-container");
+
+  function hasTOC() {
+    const sidebar = document.querySelector(".md-sidebar--secondary");
+    const toc = sidebar?.querySelector("nav.md-nav--secondary");
+    return sidebar && toc && toc.innerText.trim() !== "";
+  }
 
   function setupSidebarToggle({
     sidebarSelector,
@@ -165,14 +172,10 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorageKey
   }) {
     const sidebar = document.querySelector(sidebarSelector);
-    if (!container || !sidebar) return;
+    if (!container || !sidebar || sidebar.hasAttribute("hidden")) return;
 
     const firstNavItem = sidebar.querySelector(".md-nav__list > li, nav .md-nav__list > li");
-    const desktop = window.matchMedia("(min-width: 76.25em)").matches;
-    const hidden = sidebar.hasAttribute("hidden");
-
-    if (!firstNavItem || !desktop || hidden) return;
-    if (document.getElementById(toggleId)) return;
+    if (!firstNavItem || document.getElementById(toggleId)) return;
 
     const toggleButton = document.createElement("button");
     toggleButton.id = toggleId;
@@ -197,28 +200,87 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // for left sidebar
-  setupSidebarToggle({
-    sidebarSelector: ".md-sidebar--primary",
-    toggleId: "sidebarToggle",
-    toggleClass: "sidebar-toggle",
-    collapsedClass: "collapsed",
-    containerCollapsedClass: "sidebar-collapsed",
-    toggleLabelCollapsed: "&raquo;",
-    toggleLabelExpanded: "&laquo;",
-    localStorageKey: "leftnav-collapsed"
-  });
+  function isDesktop() {
+    return window.matchMedia("(min-width: 76.25em)").matches;
+  }
 
-  // for right sidebar
-  setupSidebarToggle({
-    sidebarSelector: ".md-sidebar--secondary",
-    toggleId: "sidebarToggleRight",
-    toggleClass: "sidebar-toggle-right",
-    collapsedClass: "collapsed",
-    containerCollapsedClass: "sidebar-secondary-collapsed",
-    toggleLabelCollapsed: "&laquo;",
-    toggleLabelExpanded: "&raquo;",
-    localStorageKey: "rightnav-collapsed"
-  });
+  // Initial setup
+  if (isDesktop()) {
+    setupSidebarToggle({
+      sidebarSelector: ".md-sidebar--primary",
+      toggleId: "sidebarToggle",
+      toggleClass: "sidebar-toggle",
+      collapsedClass: "collapsed",
+      containerCollapsedClass: "sidebar-collapsed",
+      toggleLabelCollapsed: "»",
+      toggleLabelExpanded: "«",
+      localStorageKey: "leftnav-collapsed"
+    });
+  }
+
+  if (hasTOC()) {
+    const rightSidebar = document.querySelector(".md-sidebar--secondary");
+    rightSidebar?.classList.add("show-if-not-empty");
+
+    setupSidebarToggle({
+      sidebarSelector: ".md-sidebar--secondary",
+      toggleId: "sidebarToggleRight",
+      toggleClass: "sidebar-toggle-right",
+      collapsedClass: "collapsed",
+      containerCollapsedClass: "sidebar-secondary-collapsed",
+      toggleLabelCollapsed: "«",
+      toggleLabelExpanded: "»",
+      localStorageKey: "rightnav-collapsed"
+    });
+  }
+
+  // Responsive behavior
+  window.addEventListener("resize", () => {
+  const leftSidebar = document.querySelector(".md-sidebar--primary");
+  const rightSidebar = document.querySelector(".md-sidebar--secondary");
+  const leftToggle = document.getElementById("sidebarToggle");
+  const rightToggle = document.getElementById("sidebarToggleRight");
+
+  if (isDesktop()) {
+    if (!leftToggle && leftSidebar) {
+      setupSidebarToggle({
+        sidebarSelector: ".md-sidebar--primary",
+        toggleId: "sidebarToggle",
+        toggleClass: "sidebar-toggle",
+        collapsedClass: "collapsed",
+        containerCollapsedClass: "sidebar-collapsed",
+        toggleLabelCollapsed: "»",
+        toggleLabelExpanded: "«",
+        localStorageKey: "leftnav-collapsed"
+      });
+    }
+  } else {
+    leftToggle?.remove();
+    leftSidebar?.classList.remove("collapsed");
+    container.classList.remove("sidebar-collapsed");
+  }
+
+  if (hasTOC()) {
+    rightSidebar?.classList.add("show-if-not-empty");
+
+    if (!rightToggle) {
+      setupSidebarToggle({
+        sidebarSelector: ".md-sidebar--secondary",
+        toggleId: "sidebarToggleRight",
+        toggleClass: "sidebar-toggle-right",
+        collapsedClass: "collapsed",
+        containerCollapsedClass: "sidebar-secondary-collapsed",
+        toggleLabelCollapsed: "«",
+        toggleLabelExpanded: "»",
+        localStorageKey: "rightnav-collapsed"
+      });
+    }
+  } else {
+    rightToggle?.remove();
+    rightSidebar?.classList.remove("collapsed");
+    container.classList.remove("sidebar-secondary-collapsed");
+    rightSidebar?.classList.remove("show-if-not-empty");
+  }
+});
 });
 
