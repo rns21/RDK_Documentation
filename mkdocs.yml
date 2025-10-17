@@ -74,7 +74,7 @@ nav:
   - Entertainment:
     - Home: ./entertainment/docs/README.md
     - Architecture: ./entertainment/docs/rdk7-architecture.md
-    - Apps: ./entertainment/docs/apps.md
+    - Apps: ./entertainment/docs/Apps.md
     - Try Out RDK: ./entertainment/docs/tryout_rdkv_rdk7.md
     - Porting Kit: ./entertainment/docs/rdk7-vendor-porting-guide.md
     - Core Components:
@@ -151,3 +151,7 @@ nav:
       - RBUS_GPT5_2609: ./docu/RBUS_GPT5_2609.md
       - Template_Rama: ./docu/doc_template_orig_rama.md
       - Template_2609: ./docu/doc_template_mod_2609.md
+      - Template Oct10:
+        - WAN Manager: ./docu/templateOct10/wanmanager.md
+        - GPON Manager: ./docu/templateOct10/gponmanager.md
+        - One WiFi: ./docu/templateOct10/onewifi.md

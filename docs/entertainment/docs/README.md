@@ -12,7 +12,7 @@ hide:
 <div style="display: flex; justify-content: center; gap: 3%; padding: 0px; flex-wrap: wrap;">
 
   <!-- First Message Box -->
-  <div class="custom-container" onclick="window.location.href='./architecture'">
+  <div class="custom-container" onclick="window.location.href='./rdk7-architecture/'">
     <div class="title_section">
       <span class="material-icons custom-icon">architecture</span>
       <h2>Architecture</h2>
@@ -57,7 +57,7 @@ hide:
   </div>
 
   <!-- First Message Box -->
-  <div class="custom-container" onclick="window.location.href='./tryout_rdkv/'">
+  <div class="custom-container" onclick="window.location.href='./tryout_rdkv_rdk7/'">
     <div class="title_section">
       <span class="material-icons custom-icon">try</span>
       <h2>Try Out RDK</h2>
@@ -72,7 +72,7 @@ hide:
   </div>
 
    <!-- Second Message Box -->
-  <div class="custom-container" onclick="window.location.href='./hpk/'">
+  <div class="custom-container" onclick="window.location.href='./rdk7-vendor-porting-guide/'">
     <div class="title_section">
       <span class="material-icons custom-icon">book</span>
       <h2>Vendor Porting Guide</h2>
