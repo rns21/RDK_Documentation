@@ -127,31 +127,41 @@ nav:
       - TR 369: ./device-management/docs/TR369.md
       - Log Upload: ./device-management/docs/LogUpload.md
   - Comparison:
-      - PNM_Claude: ./docu/bhanu/pnm_claude.md
-      - PNM_GPT5: ./docu/bhanu/pnm_gpt5.md
-      - Utopia_Claude: ./docu/bhanu/utopia_claude.md
-      - Utopia_GPT5: ./docu/bhanu/utopia_gpt5.md
-      - WANMGr_Claude: ./docu/bhanu/wanmgr_claude.md
-      - WANMGr_GPT5: ./docu/bhanu/wanmgr_gpt5.md
-      - Utopia_Claude: ./docu/bhanu/utopia_claude.md
-      - Utopia_GPT5: ./docu/bhanu/utopia_gpt5.md
-      - CL_Claude: ./docu/raheen/cl_claude.md
-      - CL_GPT5: ./docu/raheen/cl_gpt5.md
-      - LMLite_Claude: ./docu/raheen/lmlite_claude.md
-      - LMLite_GPT5: ./docu/raheen/lmlite_gpt5.md
-      - PSM_Claude: ./docu/raheen/psm_claude.md
-      - PSM_GPT5: ./docu/raheen/psm_gpt5.md
-      - WANMGr_Claude_2609: ./docu/WANMgr_Claude_2609.md
-      - WANMGr_GPT5_2609: ./docu/WANMgr_GPT5_2609.md
-      - LMLite_Claude_2609: ./docu/LMLite_Claude_2609.md
-      - LMLite_GPT5_2609: ./docu/LMLite_GPT5_2609.md
-      - PSM_Claude_2609: ./docu/PSM_Claude_2609.md
-      - PSM_GPT5_2609: ./docu/PSM_GPT5_2609.md
-      - RBUS_Claude_2609: ./docu/RBUS_Claude_2609.md
-      - RBUS_GPT5_2609: ./docu/RBUS_GPT5_2609.md
       - Template_Rama: ./docu/doc_template_orig_rama.md
-      - Template_2609: ./docu/doc_template_mod_2609.md
-      - Template Oct10:
+      - 26Sep: 
+        - Claude:
+          - PNM_Claude: ./docu/bhanu/pnm_claude.md
+          - Utopia_Claude: ./docu/bhanu/utopia_claude.md
+          - WANMGr_Claude: ./docu/bhanu/wanmgr_claude.md
+          - Utopia_Claude: ./docu/bhanu/utopia_claude.md
+          - CL_Claude: ./docu/raheen/cl_claude.md
+          - LMLite_Claude: ./docu/raheen/lmlite_claude.md
+          - PSM_Claude: ./docu/raheen/psm_claude.md
+        - GPT5:
+          - PNM_GPT5: ./docu/bhanu/pnm_gpt5.md
+          - Utopia_GPT5: ./docu/bhanu/utopia_gpt5.md
+          - WANMGr_GPT5: ./docu/bhanu/wanmgr_gpt5.md
+          - Utopia_GPT5: ./docu/bhanu/utopia_gpt5.md
+          - CL_GPT5: ./docu/raheen/cl_gpt5.md
+          - LMLite_GPT5: ./docu/raheen/lmlite_gpt5.md
+          - PSM_GPT5: ./docu/raheen/psm_gpt5.md
+      - 30Sep:
+        - Template_2609: ./docu/doc_template_mod_2609.md
+        - Claude:
+          - WANMGr_Claude_2609: ./docu/WANMgr_Claude_2609.md
+          - LMLite_Claude_2609: ./docu/LMLite_Claude_2609.md
+          - PSM_Claude_2609: ./docu/PSM_Claude_2609.md
+          - RBUS_Claude_2609: ./docu/RBUS_Claude_2609.md
+        - GPT5:
+          - WANMGr_GPT5_2609: ./docu/WANMgr_GPT5_2609.md
+          - LMLite_GPT5_2609: ./docu/LMLite_GPT5_2609.md
+          - PSM_GPT5_2609: ./docu/PSM_GPT5_2609.md
+          - RBUS_GPT5_2609: ./docu/RBUS_GPT5_2609.md
+      - Oct10:
         - WAN Manager: ./docu/templateOct10/wanmanager.md
         - GPON Manager: ./docu/templateOct10/gponmanager.md
         - One WiFi: ./docu/templateOct10/onewifi.md
+      - Oct21:
+        - WAN Manager: ./docu/oct21/wanmanager.md
+        - GPON Manager: ./docu/oct21/gponmanager.md
+        - One WiFi: ./docu/oct21/onewifi.md
