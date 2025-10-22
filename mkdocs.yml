@@ -165,3 +165,8 @@ nav:
         - WAN Manager: ./docu/oct21/wanmanager.md
         - GPON Manager: ./docu/oct21/gponmanager.md
         - One WiFi: ./docu/oct21/onewifi.md
+      - Oct22:
+        - Template: ./docu/oct22/doc_template_22.md
+        - WAN Manager: ./docu/oct22/wanmanager.md
+        - GPON Manager: ./docu/oct22/gponmanager.md
+        - LMLite: ./docu/oct22/lmlite.md
