@@ -1,0 +1,2284 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.com/docu/templateOct10/rbus/" rel="canonical"/>
+<link href="../../../assets/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.22" name="generator"/>
+<title>RBus Documentation - RDK Documentation</title>
+<link href="../../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"Fira Code"}</style>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/entertainment.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/getting-started.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/connectivity.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/devices.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/footer.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sidepanes.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sitemap.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="#00b2dc" data-md-color-primary="white" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#rbus-documentation">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="RDK Documentation" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="RDK Documentation">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis"> RDK Documentation </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+             RBus Documentation 
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="white" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to system preference" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to system preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+</form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header_buttons">
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg>
+</div>
+<div class="text">Source Code</div>
+</button></a>
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg>
+</div>
+<div class="text">Contribute</div>
+</button></a>
+<a href="mailto:support@rdkcentral.com"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg>
+</div>
+<div class="text">Get Help</div>
+</button></a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../entertainment/docs/">
+          
+  
+  
+  Entertainment
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../connectivity/docs/">
+          
+  
+  
+  Connectivity
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../preview-rdk/docs/getting-started/">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../devices/docs/">
+        
+  
+  
+    
+  
+  Devices
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tools/docs/TDK/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../review/">
+          
+  
+  
+  Review
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../device-management/docs/">
+          
+  
+  
+  Device Management
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../doc_template_orig_rama/">
+          
+  
+  
+  Comparison
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="RDK Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="RDK Documentation">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+    RDK Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/rdkcentral" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Entertainment
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Entertainment
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/Apps/">
+<span class="md-ellipsis">
+    Apps
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/tryout_rdkv_rdk7/">
+<span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-vendor-porting-guide/">
+<span class="md-ellipsis">
+    Porting Kit
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Core Components
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_6">
+<span class="md-nav__icon md-icon"></span>
+            Core Components
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdkv_components/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/westeros/">
+<span class="md-ellipsis">
+    Westeros
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rdkshell/">
+<span class="md-ellipsis">
+    RDK Shell
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/video_profiles/">
+<span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Connectivity
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Connectivity
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/features/">
+<span class="md-ellipsis">
+    Features
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/tryout_rdkb/">
+<span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/profiles/">
+<span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Core Components
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            Core Components
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/rdkb_components/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/cellularmanager/">
+<span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Oldprompt/">
+<span class="md-ellipsis">
+    PSM OldPrompt
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_GPT5/">
+<span class="md-ellipsis">
+    PSM GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Claude/">
+<span class="md-ellipsis">
+    PSM_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr Rama.md">
+<span class="md-ellipsis">
+    WAN Mgr Rama
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr%20GPT5/">
+<span class="md-ellipsis">
+    WAN Mgr GPT5
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../preview-rdk/docs/getting-started/">
+<span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../devices/docs/">
+<span class="md-ellipsis">
+    Devices
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Tools
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/TDK/">
+<span class="md-ellipsis">
+    TDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/Automatics/">
+<span class="md-ellipsis">
+    Automatics
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    Review
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            Review
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/WANManager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CellularManager/">
+<span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/GPONManager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/PPPManager/">
+<span class="md-ellipsis">
+    PPP Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/VLANManager/">
+<span class="md-ellipsis">
+    VLAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/TelcoVoiceManager/">
+<span class="md-ellipsis">
+    Telco Voice Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPSM/">
+<span class="md-ellipsis">
+    CCSP PSM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/LMLite/">
+<span class="md-ellipsis">
+    CCSP LM Lite
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPandM/">
+<span class="md-ellipsis">
+    CCSP PandM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/OneWifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/RBus/">
+<span class="md-ellipsis">
+    RBus
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/Utopia/">
+<span class="md-ellipsis">
+    Utopia
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    Device Management
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            Device Management
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/XConf/">
+<span class="md-ellipsis">
+    XConf
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Telemetry/">
+<span class="md-ellipsis">
+    Telemetry
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Webpa/">
+<span class="md-ellipsis">
+    Web PA
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/TR369/">
+<span class="md-ellipsis">
+    TR 369
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/LogUpload/">
+<span class="md-ellipsis">
+    Log Upload
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+<span class="md-ellipsis">
+    Comparison
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+            Comparison
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_orig_rama/">
+<span class="md-ellipsis">
+    Template_Rama
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+<span class="md-ellipsis">
+    26Sep
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_2">
+<span class="md-nav__icon md-icon"></span>
+            26Sep
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1" id="__nav_9_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    Claude
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_1">
+<span class="md-nav__icon md-icon"></span>
+            Claude
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_claude/">
+<span class="md-ellipsis">
+    PNM_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    Utopia_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_claude/">
+<span class="md-ellipsis">
+    WANMGr_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    Utopia_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_claude/">
+<span class="md-ellipsis">
+    CL_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_claude/">
+<span class="md-ellipsis">
+    LMLite_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_claude/">
+<span class="md-ellipsis">
+    PSM_Claude
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2" id="__nav_9_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    GPT5
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_2">
+<span class="md-nav__icon md-icon"></span>
+            GPT5
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_gpt5/">
+<span class="md-ellipsis">
+    PNM_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    Utopia_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_gpt5/">
+<span class="md-ellipsis">
+    WANMGr_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    Utopia_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_gpt5/">
+<span class="md-ellipsis">
+    CL_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_gpt5/">
+<span class="md-ellipsis">
+    LMLite_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_gpt5/">
+<span class="md-ellipsis">
+    PSM_GPT5
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+<span class="md-ellipsis">
+    30Sep
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_3">
+<span class="md-nav__icon md-icon"></span>
+            30Sep
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_mod_2609/">
+<span class="md-ellipsis">
+    Template_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_3_2" id="__nav_9_3_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Claude
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_3_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_3_2">
+<span class="md-nav__icon md-icon"></span>
+            Claude
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../WANMgr_Claude_2609/">
+<span class="md-ellipsis">
+    WANMGr_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../LMLite_Claude_2609/">
+<span class="md-ellipsis">
+    LMLite_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../PSM_Claude_2609/">
+<span class="md-ellipsis">
+    PSM_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../RBUS_Claude_2609/">
+<span class="md-ellipsis">
+    RBUS_Claude_2609
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_3_3" id="__nav_9_3_3_label" tabindex="0">
+<span class="md-ellipsis">
+    GPT5
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_3_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_3_3">
+<span class="md-nav__icon md-icon"></span>
+            GPT5
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../WANMgr_GPT5_2609/">
+<span class="md-ellipsis">
+    WANMGr_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../LMLite_GPT5_2609/">
+<span class="md-ellipsis">
+    LMLite_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../PSM_GPT5_2609/">
+<span class="md-ellipsis">
+    PSM_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../RBUS_GPT5_2609/">
+<span class="md-ellipsis">
+    RBUS_GPT5_2609
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct10
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_4">
+<span class="md-nav__icon md-icon"></span>
+            Oct10
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../onewifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct21
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_5">
+<span class="md-nav__icon md-icon"></span>
+            Oct21
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/onewifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct22
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_6">
+<span class="md-nav__icon md-icon"></span>
+            Oct22
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    Template
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/lmlite/">
+<span class="md-ellipsis">
+    LMLite
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      Design
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites-and-dependencies">
+<span class="md-ellipsis">
+      Prerequisites and Dependencies
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-state-flow">
+<span class="md-ellipsis">
+      Component State Flow
+    </span>
+</a>
+<nav aria-label="Component State Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#initialization-to-active-state">
+<span class="md-ellipsis">
+      Initialization to Active State
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#runtime-state-changes-and-context-switching">
+<span class="md-ellipsis">
+      Runtime State Changes and Context Switching
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#call-flow">
+<span class="md-ellipsis">
+      Call Flow
+    </span>
+</a>
+<nav aria-label="Call Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#primary-call-flows">
+<span class="md-ellipsis">
+      Primary Call Flows
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tr181-data-models">
+<span class="md-ellipsis">
+      TR‑181 Data Models
+    </span>
+</a>
+<nav aria-label="TR‑181 Data Models" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#supported-tr-181-parameters">
+<span class="md-ellipsis">
+      Supported TR-181 Parameters
+    </span>
+</a>
+<nav aria-label="Supported TR-181 Parameters" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#object-hierarchy">
+<span class="md-ellipsis">
+      Object Hierarchy
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#parameter-definitions">
+<span class="md-ellipsis">
+      Parameter Definitions
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#parameter-registration-and-access">
+<span class="md-ellipsis">
+      Parameter Registration and Access
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal-modules">
+<span class="md-ellipsis">
+      Internal Modules
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-interactions">
+<span class="md-ellipsis">
+      Component Interactions
+    </span>
+</a>
+<nav aria-label="Component Interactions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#middleware-components-system-layers">
+<span class="md-ellipsis">
+      Middleware Components &amp; System Layers
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ipc-mechanism">
+<span class="md-ellipsis">
+      IPC Mechanism
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      Implementation Details
+    </span>
+</a>
+<nav aria-label="Implementation Details" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#major-hal-apis-integration">
+<span class="md-ellipsis">
+      Major HAL APIs Integration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-implementation-logic">
+<span class="md-ellipsis">
+      Key Implementation Logic
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-configuration-files">
+<span class="md-ellipsis">
+      Key Configuration Files
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/rdkcentral/edit/master/docs/docu/templateOct10/rbus.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<h1 id="rbus-documentation">RBus Documentation</h1>
+<p>RBus (RDK Bus) is a lightweight, fast and efficient bus messaging system that enables interprocess communication (IPC) and remote procedure calls (RPC) between multiple processes running on RDK-B devices. It provides a hierarchical data model framework supporting TR-181 parameter management, event-driven communication, and distributed object management across the RDK-B middleware stack.</p>
+<p>RBus serves as the foundational IPC layer for RDK-B components, replacing traditional DBus implementations with a more efficient, purpose-built messaging system. It enables components to register data models, publish events, expose methods, and manage hierarchical object trees in a distributed environment. The system supports both provider and consumer patterns, allowing components to simultaneously expose services and consume services from other components.</p>
+<pre class="mermaid"><code>graph TD
+    subgraph "External Management"
+        WebUI["Web UI&lt;br/&gt;(TR-069/181 Interface)"]
+        Cloud["Cloud Management&lt;br/&gt;(ACS/HeadEnd)"]
+        CLI["CLI Tools&lt;br/&gt;(dmcli, rbuscli)"]
+    end
+
+    subgraph "RDK-B Middleware"
+        RBus["RBus&lt;br/&gt;(IPC Framework)"]
+        WanMgr["WAN Manager"]
+        WiFiAgent["WiFi Agent"] 
+        CcspCM["CCSP CM Agent"]
+        LMLite["LM Lite"]
+        TR069["TR-069 PA"]
+    end
+
+    subgraph "Platform Layer"
+        HAL["Hardware Abstraction Layer"]
+        Kernel["Linux Kernel"]
+        Hardware["Network Hardware"]
+    end
+
+    WebUI --&gt;|HTTP/HTTPS| RBus
+    Cloud --&gt;|TR-069/CWMP| TR069
+    CLI --&gt;|Command Line| RBus
+
+    RBus &lt;--&gt;|RBus IPC| WanMgr
+    RBus &lt;--&gt;|RBus IPC| WiFiAgent
+    RBus &lt;--&gt;|RBus IPC| CcspCM
+    RBus &lt;--&gt;|RBus IPC| LMLite
+    RBus &lt;--&gt;|RBus IPC| TR069
+
+    WanMgr --&gt;|HAL Calls| HAL
+    WiFiAgent --&gt;|HAL Calls| HAL
+    HAL --&gt;|System Calls| Kernel
+    Kernel --&gt;|Drivers| Hardware
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef rbus fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
+    classDef middleware fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef platform fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+
+    class WebUI,Cloud,CLI external;
+    class RBus rbus;
+    class WanMgr,WiFiAgent,CcspCM,LMLite,TR069 middleware;
+    class HAL,Kernel,Hardware platform;</code></pre>
+<p><strong>Key Features &amp; Responsibilities</strong>: </p>
+<ul>
+<li><strong>Hierarchical Data Model Management</strong>: Provides TR-181 compliant data model registration, access, and manipulation with support for objects, properties, events, and methods in a hierarchical namespace structure</li>
+<li><strong>Event-Driven Communication</strong>: Enables publish-subscribe messaging patterns with value-change events, general events, and custom event types for real-time component coordination</li>
+<li><strong>Remote Method Invocation</strong>: Supports synchronous and asynchronous method calls between components with parameter marshalling and result handling</li>
+<li><strong>High-Performance IPC</strong>: Optimized message routing and serialization using custom binary protocols and memory-mapped communication for minimal latency</li>
+<li><strong>Session Management</strong>: Handles component lifecycle, connection management, and automatic cleanup when processes terminate or disconnect</li>
+<li><strong>Discovery and Routing</strong>: Automatic service discovery and intelligent message routing between distributed components using the rtrouted daemon</li>
+</ul>
+<h2 id="design">Design</h2>
+<p>RBus implements a broker-based messaging architecture centered around the rtrouted daemon that provides centralized message routing, service discovery, and session management. The design separates the messaging transport layer (rtmessage) from the higher-level data model abstraction (rbus API), enabling both low-level message passing and high-level object-oriented interactions. Components register with rtrouted to publish data models and subscribe to events, with the broker handling intelligent routing, caching, and delivery guarantees.</p>
+<p>The architecture supports both provider and consumer patterns within the same process, allowing components to simultaneously expose TR-181 parameters while consuming parameters from other components. The design emphasizes zero-copy message passing where possible, uses memory-mapped files for large data transfers, and implements connection pooling to minimize resource overhead. Event propagation follows a hierarchical subscription model where wildcards and filtering enable efficient targeted delivery.</p>
+<p>The IPC mechanism integrates through direct API calls to the rbus library, which internally manages connections to rtrouted via Unix domain sockets. Message serialization uses a custom binary format optimized for TR-181 data types, with automatic type conversion and validation. Data persistence is handled by individual components rather than RBus itself, though RBus provides mechanisms for components to coordinate data synchronization and backup operations.</p>
+<pre class="mermaid"><code>graph TD
+    subgraph "RBus Runtime Environment (Linux Processes)"
+        subgraph "rtrouted Daemon Process"
+            Router["Message Router&lt;br/&gt;(C)"]
+            Discovery["Service Discovery&lt;br/&gt;(C)"]
+            SessionMgr["Session Manager&lt;br/&gt;(C)"]
+            RouteCache["Routing Cache&lt;br/&gt;(C)"]
+        end
+
+        subgraph "Provider Process (e.g., WiFi Agent)"
+            ProviderAPI["RBus Provider API&lt;br/&gt;(C)"]
+            DataModel["TR-181 Data Model&lt;br/&gt;(C)"]
+            EventPub["Event Publisher&lt;br/&gt;(C)"]
+            MethodHandler["Method Handlers&lt;br/&gt;(C)"]
+        end
+
+        subgraph "Consumer Process (e.g., Web UI Backend)"
+            ConsumerAPI["RBus Consumer API&lt;br/&gt;(C)"]
+            EventSub["Event Subscriber&lt;br/&gt;(C)"]
+            MethodClient["Method Client&lt;br/&gt;(C)"]
+            ParamCache["Parameter Cache&lt;br/&gt;(C)"]
+        end
+
+        subgraph "Utilities"
+            CLI["rbuscli&lt;br/&gt;(C)"]
+            SessionMgrProc["rbus_session_mgr&lt;br/&gt;(C)"]
+        end
+    end
+
+    subgraph "Shared Resources"
+        UnixSockets[("Unix Domain Sockets&lt;br/&gt;/tmp/rtroute*")]
+        SharedMem[("Shared Memory&lt;br/&gt;mmap regions")]
+        ConfigFiles[("Configuration&lt;br/&gt;rbus*.conf")]
+    end
+
+    ProviderAPI --&gt;|Unix Socket| Router
+    ConsumerAPI --&gt;|Unix Socket| Router
+    CLI --&gt;|Unix Socket| Router
+
+    Router --&gt;|Route Discovery| Discovery
+    Router --&gt;|Session Tracking| SessionMgr
+    Router --&gt;|Cache Lookup| RouteCache
+
+    ProviderAPI -.-&gt;|Memory Mapping| SharedMem
+    ConsumerAPI -.-&gt;|Memory Mapping| SharedMem
+
+    SessionMgrProc --&gt;|Monitor| UnixSockets
+    Router -.-&gt;|Load Config| ConfigFiles
+
+    note1["Note: rtrouted must be started first&lt;br/&gt;All components connect via Unix sockets&lt;br/&gt;Large payloads use shared memory"]
+
+    classDef daemon fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef provider fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef consumer fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef utility fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef resource fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class Router,Discovery,SessionMgr,RouteCache daemon;
+    class ProviderAPI,DataModel,EventPub,MethodHandler provider;
+    class ConsumerAPI,EventSub,MethodClient,ParamCache consumer;
+    class CLI,SessionMgrProc utility;
+    class UnixSockets,SharedMem,ConfigFiles resource;</code></pre>
+<h3 id="prerequisites-and-dependencies">Prerequisites and Dependencies</h3>
+<p><strong>MUST Requirements:</strong></p>
+<ul>
+<li>Linux operating system with systemd support for service management</li>
+<li>C99 compiler toolchain (gcc 4.8+ or clang 3.5+) for building native components</li>
+<li>CMake 2.8.12+ for build system configuration and dependency management</li>
+<li>Unix domain socket support in kernel for local IPC communication</li>
+<li>Memory mapping (mmap) support for large message handling and shared memory regions</li>
+<li>pthreads library for multi-threaded component support</li>
+</ul>
+<p><strong>SHOULD Requirements:</strong></p>
+<ul>
+<li>msgpack-c library for enhanced message serialization performance</li>
+<li>cJSON library for JSON message format support in utility applications</li>
+<li>rdklogger integration for centralized logging across RDK-B components</li>
+<li>linenoise library for enhanced CLI experience in rbuscli utility</li>
+<li>Breakpad library for crash reporting and debugging support</li>
+</ul>
+<p><strong>Dependent Components:</strong></p>
+<ul>
+<li><strong>WAN Manager</strong>: Depends on RBus for TR-181 Device.X_RDK_WanManager parameter exposure and event notifications</li>
+<li><strong>WiFi Agent</strong>: Uses RBus for Device.WiFi.* parameter management and client connection events</li>
+<li><strong>CCSP Components</strong>: Legacy CCSP components transitioning to RBus from DBus for improved performance</li>
+<li><strong>TR-069 PA</strong>: Leverages RBus for parameter value retrieval and modification during ACS interactions</li>
+<li><strong>LM Lite</strong>: Utilizes RBus for device presence detection and network topology events</li>
+<li><strong>Web UI Backend</strong>: Consumes RBus APIs for real-time device status and configuration management</li>
+</ul>
+<p><strong>Threading Model</strong></p>
+<p>RBus implements a hybrid threading architecture combining event-driven I/O with worker thread pools for optimal performance and responsiveness. The core rtrouted daemon operates on a single-threaded event loop using epoll for efficient socket multiplexing, while client libraries can operate in both single-threaded and multi-threaded modes depending on application requirements.</p>
+<ul>
+<li><strong>Threading Architecture</strong>: Hybrid Event-Driven with Optional Multi-Threading</li>
+<li><strong>Main Thread</strong>: Handles RBus API calls, connection management, and coordinates with rtrouted daemon</li>
+<li><strong>Worker Threads</strong> (if applicable):</li>
+<li><strong>Event Thread</strong>: Processes incoming events and dispatches callbacks to registered handlers</li>
+<li><strong>Method Thread</strong>: Handles synchronous method invocations to prevent blocking main application logic</li>
+<li><strong>Timer Thread</strong>: Manages subscription intervals and timeout handling for periodic events</li>
+<li><strong>Synchronization</strong>: Uses mutexes for critical sections, condition variables for thread coordination, and lock-free queues for high-frequency message passing</li>
+</ul>
+<p>The rtrouted daemon maintains a single-threaded design for simplicity and performance, using an event loop to handle multiple client connections concurrently. Client applications can choose their threading model based on their specific requirements, with RBus providing thread-safe APIs when multi-threading is enabled.</p>
+<h2 id="component-state-flow">Component State Flow</h2>
+<h3 id="initialization-to-active-state">Initialization to Active State</h3>
+<p>RBus follows a multi-phase initialization sequence starting with rtrouted daemon startup, followed by component registration and data model publication. The system transitions through distinct states including service discovery, connection establishment, and full operational readiness with automatic recovery mechanisms for failed connections.</p>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; StartingRtrouted
+    StartingRtrouted --&gt; RtroutedReady: Daemon Launch Complete
+    RtroutedReady --&gt; ComponentInit: Component Startup
+    ComponentInit --&gt; ConnectingToBus: rbus_open() Call
+    ConnectingToBus --&gt; RegisteringElements: Connection Established
+    RegisteringElements --&gt; PublishingDataModel: Element Registration
+    PublishingDataModel --&gt; SubscribingEvents: Data Model Active
+    SubscribingEvents --&gt; OperationalReady: Event Subscriptions Active
+    OperationalReady --&gt; ProcessingRequests: Normal Operation
+    ProcessingRequests --&gt; ProcessingRequests: Handle Get/Set/Method/Event
+    ProcessingRequests --&gt; ComponentShutdown: rbus_close() or Process Exit
+    ComponentShutdown --&gt; CleanupResources: Unregister Elements
+    CleanupResources --&gt; [*]
+
+    ConnectingToBus --&gt; ConnectionFailed: Socket Error
+    ConnectionFailed --&gt; RetryConnection: Backoff Timer
+    RetryConnection --&gt; ConnectingToBus: Retry Attempt
+
+    OperationalReady --&gt; ConnectionLost: Network/Daemon Failure
+    ConnectionLost --&gt; ReconnectingToBus: Auto Recovery
+    ReconnectingToBus --&gt; RegisteringElements: Connection Restored
+
+    note right of StartingRtrouted
+        - Start rtrouted daemon
+        - Initialize Unix sockets
+        - Load configuration
+        - Setup routing tables
+    end note
+
+    note right of OperationalReady
+        - Process TR-181 requests
+        - Handle events/methods
+        - Monitor connections
+        - Route messages
+    end note</code></pre>
+<h3 id="runtime-state-changes-and-context-switching">Runtime State Changes and Context Switching</h3>
+<p>RBus maintains operational state through dynamic service discovery and automatic reconnection handling. Components can dynamically register and unregister data model elements during runtime, with the system automatically updating routing tables and notifying dependent components of availability changes.</p>
+<p><strong>State Change Triggers:</strong></p>
+<ul>
+<li><strong>Component Registration/Deregistration</strong>: Triggers routing table updates and service availability notifications to dependent components</li>
+<li><strong>Connection Loss/Recovery</strong>: Activates automatic reconnection logic with exponential backoff and state restoration</li>
+<li><strong>Data Model Changes</strong>: Dynamic addition or removal of TR-181 parameters triggers discovery updates and subscription re-evaluation</li>
+<li><strong>Event Subscription Changes</strong>: Modifies event routing and filtering rules for optimal message delivery performance</li>
+</ul>
+<p><strong>Context Switching Scenarios:</strong>
+- <strong>Provider Mode to Consumer Mode</strong>: Components can dynamically switch roles within the same process for bidirectional communication
+- <strong>Online to Offline Mode</strong>: Handles graceful degradation when rtrouted daemon becomes unavailable with local caching
+- <strong>Debug Mode Switching</strong>: Runtime log level changes and diagnostic mode activation without service interruption</p>
+<h2 id="call-flow">Call Flow</h2>
+<h3 id="primary-call-flows">Primary Call Flows</h3>
+<p><strong>Initialization Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant App as Application Process
+    participant RBus as RBus Library
+    participant Rtrouted as rtrouted Daemon
+    participant Registry as Service Registry
+
+    App-&gt;&gt;RBus: rbus_open("component_name")
+    RBus-&gt;&gt;RBus: Initialize local structures
+    RBus-&gt;&gt;Rtrouted: Connect via Unix socket
+    Rtrouted--&gt;&gt;RBus: Connection established
+    RBus-&gt;&gt;Rtrouted: Register component name
+    Rtrouted-&gt;&gt;Registry: Add component to registry
+    Registry--&gt;&gt;Rtrouted: Registration complete
+    Rtrouted--&gt;&gt;RBus: Component registered
+    RBus--&gt;&gt;App: RBUS_ERROR_SUCCESS
+
+    App-&gt;&gt;RBus: rbusElement_register(elements[])
+    RBus-&gt;&gt;Rtrouted: Register data model elements
+    Rtrouted-&gt;&gt;Registry: Update routing table
+    Registry--&gt;&gt;Rtrouted: Routes updated
+    Rtrouted--&gt;&gt;RBus: Elements registered
+    RBus--&gt;&gt;App: RBUS_ERROR_SUCCESS</code></pre>
+<p><strong>Parameter Get/Set Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Consumer as Consumer Process
+    participant RBusC as RBus Consumer API
+    participant Rtrouted as rtrouted Daemon
+    participant RBusP as RBus Provider API
+    participant Provider as Provider Process
+
+    Consumer-&gt;&gt;RBusC: rbus_get("Device.WiFi.Radio.1.Enable")
+    RBusC-&gt;&gt;Rtrouted: Route lookup request
+    Rtrouted-&gt;&gt;Rtrouted: Find provider in routing table
+    Rtrouted-&gt;&gt;RBusP: Forward get request
+    RBusP-&gt;&gt;Provider: Invoke get handler callback
+    Provider-&gt;&gt;Provider: Read current value
+    Provider--&gt;&gt;RBusP: Return rbusValue_t
+    RBusP--&gt;&gt;Rtrouted: Response with value
+    Rtrouted--&gt;&gt;RBusC: Forward response
+    RBusC--&gt;&gt;Consumer: rbusProperty_t with value
+
+    Note over Consumer,Provider: Set operation follows similar pattern&lt;br/&gt;with validation and change events</code></pre>
+<p><strong>Event Subscription and Publishing Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Subscriber as Event Subscriber
+    participant RBusS as RBus Subscriber API
+    participant Rtrouted as rtrouted Daemon
+    participant RBusP as RBus Publisher API
+    participant Publisher as Event Publisher
+
+    Subscriber-&gt;&gt;RBusS: rbusEvent_Subscribe("Device.WiFi.Radio.*.Enable")
+    RBusS-&gt;&gt;Rtrouted: Subscribe to event pattern
+    Rtrouted-&gt;&gt;Rtrouted: Add to subscription table
+    Rtrouted--&gt;&gt;RBusS: Subscription confirmed
+    RBusS--&gt;&gt;Subscriber: RBUS_ERROR_SUCCESS
+
+    Note over Subscriber,Publisher: Later, when value changes...
+
+    Publisher-&gt;&gt;RBusP: rbusEvent_Publish(event_data)
+    RBusP-&gt;&gt;Rtrouted: Publish event message
+    Rtrouted-&gt;&gt;Rtrouted: Match subscribers using pattern
+    Rtrouted-&gt;&gt;RBusS: Deliver event to matching subscribers
+    RBusS-&gt;&gt;Subscriber: Invoke event callback with data
+    Subscriber-&gt;&gt;Subscriber: Process event in application</code></pre>
+<h2 id="tr181-data-models">TR‑181 Data Models</h2>
+<h3 id="supported-tr-181-parameters">Supported TR-181 Parameters</h3>
+<p>RBus provides comprehensive support for TR-181 data model implementation following BBF-262 specification guidelines. The framework enables any component to register TR-181 compliant parameters with full support for the hierarchical object model, parameter validation, and standard access controls.</p>
+<h4 id="object-hierarchy">Object Hierarchy</h4>
+<div class="highlight"><pre><span></span><code>Device.
+└── RBus.
+    ├── Enable (boolean, R/W)
+    ├── Status (string, R)
+    ├── ComponentList.{i}.
+    │   ├── Name (string, R)
+    │   ├── ConnectionStatus (string, R)
+    │   ├── LastActivity (dateTime, R)
+    │   └── MessageCount (unsignedInt, R)
+    └── Statistics.
+        ├── TotalMessages (unsignedInt, R)
+        ├── ActiveConnections (unsignedInt, R)
+        ├── ErrorCount (unsignedInt, R)
+        └── UptimeSeconds (unsignedInt, R)
+</code></pre></div>
+<h4 id="parameter-definitions">Parameter Definitions</h4>
+<p><strong>Core Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter Path</th>
+<th>Data Type</th>
+<th>Access</th>
+<th>Default Value</th>
+<th>Description</th>
+<th>BBF Compliance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Device.RBus.Enable</code></td>
+<td>boolean</td>
+<td>R/W</td>
+<td><code>true</code></td>
+<td>Enables or disables the RBus messaging system. When disabled, all IPC communication is suspended and components must use alternative mechanisms.</td>
+<td>Custom Extension</td>
+</tr>
+<tr>
+<td><code>Device.RBus.Status</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>"Up"</code></td>
+<td>Current operational status of RBus system. Enumerated values: "Up", "Down", "Error", "Starting", "Stopping". Reflects the rtrouted daemon state.</td>
+<td>Custom Extension</td>
+</tr>
+<tr>
+<td><code>Device.RBus.ComponentList.{i}.Name</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>""</code></td>
+<td>Unique name identifier of the registered component as specified during rbus_open() call. Maximum length 256 characters following TR-181 naming conventions.</td>
+<td>Custom Extension</td>
+</tr>
+<tr>
+<td><code>Device.RBus.ComponentList.{i}.ConnectionStatus</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>"Connected"</code></td>
+<td>Connection state of the component. Values: "Connected", "Disconnected", "Reconnecting", "Failed". Updated automatically by session manager.</td>
+<td>Custom Extension</td>
+</tr>
+<tr>
+<td><code>Device.RBus.Statistics.TotalMessages</code></td>
+<td>unsignedInt</td>
+<td>R</td>
+<td><code>0</code></td>
+<td>Cumulative count of all messages processed by rtrouted daemon since startup, including get/set operations, events, and method calls.</td>
+<td>Custom Extension</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Custom Extensions:</strong></p>
+<ul>
+<li><strong>Device.RBus.</strong>*: Complete custom namespace for RBus-specific monitoring and control parameters not defined in standard BBF specifications</li>
+<li><strong>Event Subscription Patterns</strong>: Support for wildcard subscriptions using TR-181 hierarchical notation with "*" and "." pattern matching</li>
+<li><strong>Method Invocation Framework</strong>: Custom extension enabling remote procedure calls within TR-181 namespace structure</li>
+</ul>
+<h3 id="parameter-registration-and-access">Parameter Registration and Access</h3>
+<ul>
+<li><strong>Implemented Parameters</strong>: Components register TR-181 parameters using rbusElement_register() with callbacks for get/set operations. RBus core itself exposes monitoring parameters under Device.RBus.* namespace.</li>
+<li><strong>Parameter Registration</strong>: Registration occurs through rbus library API calls with automatic routing table updates in rtrouted daemon. Each parameter includes type information, access permissions, and callback handlers.</li>
+<li><strong>Access Mechanism</strong>: Other components access parameters via rbus_get()/rbus_set() API calls which route through rtrouted daemon to the appropriate provider component via Unix domain sockets.</li>
+<li><strong>Validation Rules</strong>: Type validation enforced at API level with custom validation callbacks supported for complex business rules. String length limits, numeric ranges, and enumerated value checking performed automatically.</li>
+</ul>
+<h2 id="internal-modules">Internal Modules</h2>
+<p>RBus consists of several layered modules providing abstraction from low-level messaging to high-level data model management. The core modules handle message routing and connection management, while higher-level modules provide TR-181 compliant APIs and event processing capabilities.</p>
+<table>
+<thead>
+<tr>
+<th>Module/Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>rtmessage</strong></td>
+<td>Low-level message transport layer providing socket management, routing, and serialization</td>
+<td><code>rtMessage.c</code>, <code>rtrouted.c</code>, <code>rtConnection.c</code></td>
+</tr>
+<tr>
+<td><strong>rbuscore</strong></td>
+<td>Core RBus API implementation handling component registration and message routing</td>
+<td><code>rbuscore.c</code>, <code>rbuscore_message.c</code></td>
+</tr>
+<tr>
+<td><strong>rbus</strong></td>
+<td>High-level TR-181 compatible API providing object/property abstraction</td>
+<td><code>rbus.c</code>, <code>rbus_element.c</code>, <code>rbus_object.c</code></td>
+</tr>
+<tr>
+<td><strong>session_manager</strong></td>
+<td>Component lifecycle management and connection monitoring</td>
+<td><code>session_manager.c</code>, <code>rbus_session_mgr.h</code></td>
+</tr>
+<tr>
+<td><strong>utilities</strong></td>
+<td>Command-line tools and diagnostic utilities for system interaction</td>
+<td><code>rbuscli/</code>, <code>dataProvider/</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "RBus Architecture"
+        subgraph "Application Layer"
+            App1["Provider Apps&lt;br/&gt;(WiFi, WAN, etc.)"]
+            App2["Consumer Apps&lt;br/&gt;(Web UI, CLI)"]
+        end
+
+        subgraph "RBus High-Level API"
+            RBusAPI["rbus.c&lt;br/&gt;TR-181 API"]
+            Elements["rbus_element.c&lt;br/&gt;Data Model Mgmt"]
+            Objects["rbus_object.c&lt;br/&gt;Object Operations"]
+            Properties["rbus_property.c&lt;br/&gt;Property Handling"]
+            Events["rbus_valuechange.c&lt;br/&gt;Event Processing"]
+        end
+
+        subgraph "RBus Core Layer"
+            Core["rbuscore.c&lt;br/&gt;Core Messaging"]
+            Message["rbuscore_message.c&lt;br/&gt;Message Processing"]
+            Handle["rbus_handle.c&lt;br/&gt;Connection Mgmt"]
+        end
+
+        subgraph "Transport Layer"
+            RTMessage["rtMessage.c&lt;br/&gt;Message Transport"]
+            Router["rtrouted.c&lt;br/&gt;Message Router"]
+            Connection["rtConnection.c&lt;br/&gt;Socket Management"]
+        end
+
+        subgraph "Session Management"
+            SessionMgr["session_manager.c&lt;br/&gt;Lifecycle Mgmt"]
+        end
+    end
+
+    App1 --&gt; RBusAPI
+    App2 --&gt; RBusAPI
+
+    RBusAPI --&gt; Elements
+    RBusAPI --&gt; Objects
+    RBusAPI --&gt; Properties
+    RBusAPI --&gt; Events
+
+    Elements --&gt; Core
+    Objects --&gt; Core
+    Properties --&gt; Core
+    Events --&gt; Core
+
+    Core --&gt; Message
+    Core --&gt; Handle
+
+    Message --&gt; RTMessage
+    Handle --&gt; RTMessage
+
+    RTMessage --&gt; Router
+    RTMessage --&gt; Connection
+
+    SessionMgr -.-&gt; Router
+
+    classDef app fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef api fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef core fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef transport fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef session fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class App1,App2 app;
+    class RBusAPI,Elements,Objects,Properties,Events api;
+    class Core,Message,Handle core;
+    class RTMessage,Router,Connection transport;
+    class SessionMgr session;</code></pre>
+<h2 id="component-interactions">Component Interactions</h2>
+<h3 id="middleware-components-system-layers">Middleware Components &amp; System Layers</h3>
+<p>RBus serves as the central IPC backbone connecting all RDK-B middleware components through standardized messaging patterns. Components interact through TR-181 parameter get/set operations, event subscriptions, and method invocations. The system abstracts the underlying transport mechanism while providing high-performance message routing and automatic service discovery.</p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Management Interfaces"
+        WebUI["Web UI&lt;br/&gt;Management Portal"]
+        ACS["ACS/HeadEnd&lt;br/&gt;TR-069 Server"]
+        CLI["dmcli/rbuscli&lt;br/&gt;Command Line"]
+    end
+
+    subgraph "RDK-B Middleware Components"
+        RBus["RBus&lt;br/&gt;IPC Framework"]
+        WanMgr["WAN Manager&lt;br/&gt;Connection Mgmt"]
+        WiFiAgent["WiFi Agent&lt;br/&gt;Wireless Mgmt"]
+        CcspCM["CCSP CM Agent&lt;br/&gt;Cable Modem"]
+        LMLite["LM Lite&lt;br/&gt;Device Discovery"]
+        TR069PA["TR-069 PA&lt;br/&gt;Parameter Agent"]
+        PSM["Persistent Storage&lt;br/&gt;Manager"]
+    end
+
+    subgraph "Platform &amp; HAL Layer"
+        HAL["Hardware Abstraction&lt;br/&gt;Layer (HAL)"]
+        NetworkStack["Linux Network&lt;br/&gt;Stack"]
+        FileSystem["Configuration&lt;br/&gt;Storage"]
+    end
+
+    WebUI --&gt;|HTTP REST API| TR069PA
+    ACS --&gt;|TR-069 CWMP| TR069PA
+    CLI --&gt;|RBus Direct| RBus
+
+    TR069PA &lt;--&gt;|RBus Get/Set| RBus
+    WanMgr &lt;--&gt;|RBus Events/Params| RBus
+    WiFiAgent &lt;--&gt;|RBus Events/Params| RBus
+    CcspCM &lt;--&gt;|RBus Events/Params| RBus
+    LMLite &lt;--&gt;|RBus Events/Params| RBus
+    PSM &lt;--&gt;|RBus Persistence| RBus
+
+    WanMgr --&gt;|HAL API Calls| HAL
+    WiFiAgent --&gt;|HAL API Calls| HAL
+    PSM --&gt;|File I/O| FileSystem
+    HAL --&gt;|System Calls| NetworkStack
+
+    classDef management fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef rbus fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
+    classDef middleware fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef platform fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+
+    class WebUI,ACS,CLI management;
+    class RBus rbus;
+    class WanMgr,WiFiAgent,CcspCM,LMLite,TR069PA,PSM middleware;
+    class HAL,NetworkStack,FileSystem platform;</code></pre>
+<p><strong>Component Interactions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Component/Layer</th>
+<th>Purpose of Interaction</th>
+<th>Protocols/Mechanisms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Middleware Components</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>WAN Manager</td>
+<td>TR-181 Device.X_RDK_WanManager.* parameter exposure and WAN interface events</td>
+<td>RBus IPC, Event subscriptions</td>
+</tr>
+<tr>
+<td>WiFi Agent</td>
+<td>Device.WiFi.* parameter management, client association/disassociation events</td>
+<td>RBus IPC, Value-change events</td>
+</tr>
+<tr>
+<td>CCSP CM Agent</td>
+<td>Cable modem status reporting, upstream/downstream parameter management</td>
+<td>RBus IPC, Legacy DBus bridge</td>
+</tr>
+<tr>
+<td>LM Lite</td>
+<td>Device presence detection, network topology change notifications</td>
+<td>RBus IPC, General events</td>
+</tr>
+<tr>
+<td>TR-069 PA</td>
+<td>Parameter value retrieval for ACS interactions, bulk configuration updates</td>
+<td>RBus IPC, Synchronous get/set</td>
+</tr>
+<tr>
+<td>PSM</td>
+<td>Persistent parameter storage, configuration backup and restore operations</td>
+<td>RBus IPC, Method calls</td>
+</tr>
+<tr>
+<td><strong>System Layers</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>HAL Layer</td>
+<td>Hardware-specific parameter retrieval and configuration via standardized APIs</td>
+<td>Direct API calls, No RBus involvement</td>
+</tr>
+<tr>
+<td>Platform Services</td>
+<td>System configuration, network stack interaction, file system operations</td>
+<td>System calls, Configuration files</td>
+</tr>
+<tr>
+<td><strong>Management Interfaces</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Web UI/ACS</td>
+<td>Remote device management, configuration updates, status monitoring</td>
+<td>HTTP/HTTPS, TR-069 CWMP, RBus proxy</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published Events:</strong></p>
+<p>RBus facilitates cross-component coordination through a comprehensive event system enabling real-time notifications and state synchronization across the RDK-B middleware stack:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Purpose of Event</th>
+<th>Reason for trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Device.*.ValueChange</code></td>
+<td>Parameter value modification notification</td>
+<td>Any TR-181 parameter change triggers event to notify subscribers of state updates</td>
+</tr>
+<tr>
+<td><code>Device.RBus.ComponentList.*.ConnectionChange</code></td>
+<td>Component connectivity status updates</td>
+<td>Component registration/deregistration or connection loss detection for dependency management</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.Radio.*.ClientConnect</code></td>
+<td>WiFi client association events</td>
+<td>New device connection to wireless network for network topology tracking</td>
+</tr>
+<tr>
+<td><code>Device.X_RDK_WanManager.InterfaceStatusChange</code></td>
+<td>WAN interface state transitions</td>
+<td>Interface up/down events for connection failover and load balancing decisions</td>
+</tr>
+<tr>
+<td><code>Device.DeviceInfo.SystemRestart</code></td>
+<td>System reboot notification</td>
+<td>Device restart event for component coordination during shutdown/startup sequences</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ipc-mechanism">IPC Mechanism</h2>
+<p>RBus implements a high-performance IPC mechanism using Unix domain sockets for control messaging combined with shared memory regions for large data transfers. The system uses a custom binary serialization format optimized for TR-181 data types with automatic endianness handling and type validation.</p>
+<table>
+<thead>
+<tr>
+<th>Type of IPC</th>
+<th>Message Format</th>
+<th>Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Parameter Get/Set</strong></td>
+<td>Binary-encoded rbusMessage with type-tagged rbusValue payload containing parameter path, data type, and value</td>
+<td>Unix domain sockets to rtrouted with automatic routing to provider component</td>
+</tr>
+<tr>
+<td><strong>Event Publishing</strong></td>
+<td>Custom event message format with event name, source component, timestamp, and typed payload data</td>
+<td>Unix domain sockets with subscription-based routing and pattern matching</td>
+</tr>
+<tr>
+<td><strong>Method Invocation</strong></td>
+<td>RPC-style message with method name, input parameters as rbusObject, and response handling</td>
+<td>Synchronous Unix socket communication with timeout handling and error propagation</td>
+</tr>
+<tr>
+<td><strong>Large Data Transfer</strong></td>
+<td>Memory-mapped regions with header containing size, type, and access permissions</td>
+<td>Shared memory (mmap) for messages exceeding 64KB threshold with socket-based coordination</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>sequenceDiagram
+    participant ConsumerApp as Consumer App
+    participant RBusLib as RBus Library
+    participant UnixSocket as Unix Socket
+    participant Rtrouted as rtrouted Daemon
+    participant ProviderSocket as Provider Socket  
+    participant ProviderLib as Provider RBus Lib
+    participant ProviderApp as Provider App
+
+    ConsumerApp-&gt;&gt;RBusLib: rbus_get("Device.WiFi.Radio.1.Enable")
+    RBusLib-&gt;&gt;RBusLib: Serialize request to binary message
+    RBusLib-&gt;&gt;UnixSocket: Send message to rtrouted
+    UnixSocket-&gt;&gt;Rtrouted: Forward binary message
+    Rtrouted-&gt;&gt;Rtrouted: Route lookup in table
+    Rtrouted-&gt;&gt;ProviderSocket: Forward to provider socket
+    ProviderSocket-&gt;&gt;ProviderLib: Deliver message
+    ProviderLib-&gt;&gt;ProviderLib: Deserialize message
+    ProviderLib-&gt;&gt;ProviderApp: Invoke get callback handler
+    ProviderApp-&gt;&gt;ProviderApp: Read parameter value
+    ProviderApp--&gt;&gt;ProviderLib: Return rbusValue_t
+    ProviderLib-&gt;&gt;ProviderLib: Serialize response
+    ProviderLib--&gt;&gt;ProviderSocket: Send response message
+    ProviderSocket--&gt;&gt;Rtrouted: Return via socket
+    Rtrouted--&gt;&gt;UnixSocket: Route response back
+    UnixSocket--&gt;&gt;RBusLib: Deliver response
+    RBusLib-&gt;&gt;RBusLib: Deserialize response
+    RBusLib--&gt;&gt;ConsumerApp: Return rbusProperty_t
+
+    Note over ConsumerApp,ProviderApp: Large payloads (&gt;64KB) automatically&lt;br/&gt;use shared memory with socket coordination</code></pre>
+<h2 id="implementation-details">Implementation Details</h2>
+<h3 id="major-hal-apis-integration">Major HAL APIs Integration</h3>
+<p>RBus operates as a middleware-layer IPC framework and does not directly integrate with HAL APIs. Instead, it provides the communication mechanism for RDK-B components that do interact with HAL layers. The framework enables components to expose HAL-derived data through TR-181 parameters and coordinate HAL operations through event notifications.</p>
+<p><strong>HAL Integration Pattern:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Integration Pattern</th>
+<th>Purpose</th>
+<th>Implementation Approach</th>
+<th>RBus Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Parameter Bridging</strong></td>
+<td>Expose HAL data as TR-181 parameters</td>
+<td>Component registers HAL-backed parameters with RBus</td>
+<td>Provides get/set callback routing to HAL-aware component</td>
+</tr>
+<tr>
+<td><strong>Event Forwarding</strong></td>
+<td>Convert HAL callbacks to RBus events</td>
+<td>HAL callbacks trigger RBus event publication</td>
+<td>Enables cross-component notification of hardware state changes</td>
+</tr>
+<tr>
+<td><strong>Method Delegation</strong></td>
+<td>Remote HAL operation invocation</td>
+<td>RBus methods invoke HAL APIs in designated components</td>
+<td>Provides RPC mechanism for coordinated HAL access</td>
+</tr>
+<tr>
+<td><strong>Status Aggregation</strong></td>
+<td>Combine multiple HAL sources</td>
+<td>Components use RBus to share HAL status information</td>
+<td>Facilitates status correlation across hardware subsystems</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-implementation-logic">Key Implementation Logic</h3>
+<ul>
+<li><strong>Message Routing Engine</strong>: Core routing logic implemented in <code>rtrouted.c</code> using hash tables for O(1) component lookup and radix trees for efficient wildcard pattern matching in event subscriptions</li>
+<li>Main implementation in <code>src/rtmessage/rtrouted.c</code> with routing table management and connection tracking</li>
+<li>
+<p>Route optimization logic in <code>src/rtmessage/rtRoutingTree.c</code> for hierarchical namespace pattern matching</p>
+</li>
+<li>
+<p><strong>Event Processing</strong>: Asynchronous event handling with priority queues and configurable delivery guarantees ensuring reliable cross-component communication</p>
+</li>
+<li>Event queue management and subscription filtering</li>
+<li>Callback thread pool for non-blocking event delivery</li>
+<li>
+<p>Automatic retry logic for failed event deliveries</p>
+</li>
+<li>
+<p><strong>Error Handling Strategy</strong>: Comprehensive error detection with automatic recovery mechanisms and detailed error propagation through standardized error codes</p>
+</li>
+<li>Connection failure detection with exponential backoff retry logic</li>
+<li>Message validation and type checking with detailed error reporting</li>
+<li>
+<p>Graceful degradation when rtrouted daemon becomes unavailable</p>
+</li>
+<li>
+<p><strong>Logging &amp; Debugging</strong>: Multi-level logging with component-specific categories and real-time log level adjustment for production debugging</p>
+</li>
+<li>Structured logging with component identification and message tracing</li>
+<li>Performance metrics collection for message latency and throughput analysis</li>
+<li>Debug hooks enabling runtime inspection of routing tables and subscription lists</li>
+</ul>
+<h2 id="key-configuration-files">Key Configuration Files</h2>
+<p>RBus configuration management centers around systemd service files and runtime configuration that controls daemon behavior, logging, and component registration policies.</p>
+<table>
+<thead>
+<tr>
+<th>Configuration File</th>
+<th>Purpose</th>
+<th>Key Parameters</th>
+<th>Default Values</th>
+<th>Override Mechanisms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rbus.service</code></td>
+<td>Systemd service definition for rtrouted daemon</td>
+<td><code>ExecStart</code>, <code>TimeoutSec</code>, <code>Restart</code></td>
+<td><code>/usr/bin/rtrouted</code>, <code>300s</code>, <code>no</code></td>
+<td>Environment variables, systemd overrides</td>
+</tr>
+<tr>
+<td><code>rbus_session_mgr.service</code></td>
+<td>Session manager service configuration</td>
+<td><code>ExecStart</code>, <code>User</code>, <code>Group</code></td>
+<td><code>/usr/bin/rbus_session_mgr</code></td>
+<td>Systemd drop-in files</td>
+</tr>
+<tr>
+<td><code>rbus_rdkv.conf</code></td>
+<td>RDK-V specific runtime configuration</td>
+<td>Log levels, socket paths, timeouts</td>
+<td><code>INFO</code>, <code>/tmp/rtroute*</code>, <code>30s</code></td>
+<td>Runtime environment variables</td>
+</tr>
+<tr>
+<td><code>rbus_client_rdkc.conf</code></td>
+<td>RDK-C client configuration parameters</td>
+<td>Connection limits, retry counts</td>
+<td><code>max_connections=100</code>, <code>retry=3</code></td>
+<td>Client-specific config files</td>
+</tr>
+</tbody>
+</table>
+<p>The configuration system supports dynamic parameter updates through environment variables and systemd service overrides, enabling deployment-specific customization without modifying core configuration files. Runtime parameters can be adjusted via RBus's own TR-181 interface for live system tuning.</p>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<div class="bottom-banner compact-footer">
+<!-- Left Section: Logo and Copyright -->
+<div class="footer-left">
+<img alt="RDK Logo" class="rdk-logo" src="../../../assets/logo.png">
+<p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+</img></div>
+<!-- Right Section: Links and Support -->
+<div class="footer-right">
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Explore RDK</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../preview-rdk/docs/getting-started">Getting Started</a></li>
+<li><a href="../../../devices/docs/">Devices</a></li>
+<li><a href="../../../preview-rdk/docs/getting-started">Tools</a></li>
+</ul>
+</div>
+</div>
+<!-- Device Management -->
+<div class="banner-group">
+<h3>Device Management</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="/device-management/docs/XConf/">XConf</a></li>
+<li><a href="/device-management/docs/Telemetry/">Telemetry</a></li>
+<li><a href="/device-management/docs/Webpa/">Web PA</a></li>
+<li><a href="/device-management/docs/TR369/">TR 369</a></li>
+</ul>
+</div>
+</div>
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Test &amp; Certification</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119">RDK Certification</a></li>
+<li><a href="../../../tools/docs/TDK/">TDK</a></li>
+<li><a href="../../../tools/docs/Automatics/">Automatics</a></li>
+</ul>
+</div>
+</div>
+<!-- Resources-->
+<div class="banner-group">
+<h3>Resources</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="/docu/doc_template_orig_rama/">Knowledge Articles</a></li>
+<li><a href="/sitemap/">Quick Links</a></li>
+<li><a href="/sitemap.xml">Site Map</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script src="../../../assets/javascripts/extra.js"></script>
+</div></body>
+</html>
