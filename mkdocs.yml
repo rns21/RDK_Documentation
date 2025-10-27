@@ -170,3 +170,10 @@ nav:
         - WAN Manager: ./docu/oct22/wanmanager.md
         - GPON Manager: ./docu/oct22/gponmanager.md
         - LMLite: ./docu/oct22/lmlite.md
+      - Oct27:
+        - Template: ./docu/oct22/doc_template_22.md
+        - WAN Manager: ./docu/oct27/wanmanager.md
+        - GPON Manager: ./docu/oct27/gponmanager.md
+        - CCSP PSM: ./docu/oct27/ccsppsm.md
+        - RBUS: ./docu/oct27/rbus.md
+        - Utopia: ./docu/oct27/utopia.md
