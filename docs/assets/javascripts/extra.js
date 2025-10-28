@@ -172,6 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorageKey
   }) {
     const sidebar = document.querySelector(sidebarSelector);
+    const scrollwrap = sidebar?.querySelector(".md-sidebar__scrollwrap");
     if (!container || !sidebar || sidebar.hasAttribute("hidden")) return;
 
     const firstNavItem = sidebar.querySelector(".md-nav__list > li, nav .md-nav__list > li");
@@ -183,8 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleButton.type = "button";
     toggleButton.setAttribute("aria-label", `Toggle ${sidebarSelector}`);
     toggleButton.innerHTML = toggleLabelExpanded;
-    container.appendChild(toggleButton);
-
+    sidebar.appendChild(toggleButton);
     toggleButton.addEventListener("click", () => {
       const isCollapsed = sidebar.classList.toggle(collapsedClass);
       container.classList.toggle(containerCollapsedClass, isCollapsed);
@@ -284,3 +284,23 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 });
 
+//collapsible button functionality
+document.querySelectorAll('.see-all-btn').forEach(button => {
+  button.addEventListener('click', function () {
+    const section = this.closest('.topic-section');
+    const doccards = section.querySelectorAll('.doccards .doccard');
+    const isExpanded = this.getAttribute('data-expanded') === 'true';
+
+    if (!isExpanded) {
+      doccards.forEach(card => card.style.display = 'block');
+      this.textContent = 'Show less ←';
+      this.setAttribute('data-expanded', 'true');
+    } else {
+      doccards.forEach((card, index) => {
+        card.style.display = index < 4 ? 'block' : 'none';
+      });
+      this.textContent = 'See all →';
+      this.setAttribute('data-expanded', 'false');
+    }
+  });
+});

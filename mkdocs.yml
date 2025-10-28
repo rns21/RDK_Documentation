@@ -66,6 +66,8 @@ extra_css:
   - assets/stylesheets/footer.css
   - assets/stylesheets/sidepanes.css
   - assets/stylesheets/sitemap.css
+  - assets/stylesheets/sample_home1.css
+  - assets/stylesheets/sample_home2.css
   - https://fonts.googleapis.com/icon?family=Material+Icons
 extra_javascript:
   - assets/javascripts/extra.js
@@ -73,6 +75,8 @@ nav:
   - Home: README.md
   - Entertainment:
     - Home: ./entertainment/docs/README.md
+    - sampleHome1: ./entertainment/docs/sample_home1.md
+    - sampleHome2: ./entertainment/docs/sample_home2.md
     - Architecture: ./entertainment/docs/rdk7-architecture.md
     - Apps: ./entertainment/docs/Apps.md
     - Try Out RDK: ./entertainment/docs/tryout_rdkv_rdk7.md
@@ -177,3 +181,8 @@ nav:
         - CCSP PSM: ./docu/oct27/ccsppsm.md
         - RBUS: ./docu/oct27/rbus.md
         - Utopia: ./docu/oct27/utopia.md
+      - Oct28:
+        - WAN Manager: ./docu/oct28/wanmanager.md
+        - GPON Manager: ./docu/oct28/gponmanager.md
+        - One WiFi: ./docu/oct28/onewifi.md
+        - CCSP LMLite: ./docu/oct28/ccsplmlite.md

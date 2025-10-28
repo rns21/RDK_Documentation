@@ -33,5 +33,34 @@ https://rdkcentral.github.io/firebolt/
 ### Lightning™
 
 Lightning™ - the JavaScript based app development language - provides a lightweight, highly-efficient UI framework for app developers.
-https://www.lightningjs.io/
+
+<div class="apps-boxes" style="display:flex;gap:5%;">
+    <div class="custom-container" onclick="window.open('https://rdkcentral.github.io/firebolt/apis/latest/', '_blank')"style="min-width:45%">
+        <div class="title_section">
+           <span><img src="/assets/icons/firebolt-logo-small.png" style="width:20px;height:20px;margin-top:5px"></span>
+           <h2>Firebolt</h2>
+        </div>
+        <div class="content-section">
+           <p>Learn more about firebolt applications.</p>
+           <div class="link-row">
+               <a target="_blank" href="https://rdkcentral.github.io/firebolt/apis/latest/" class="custom-link">Know More</a>
+               <span class="material-icons custom-icon-arrow">arrow_forward</span>
+            </div>
+        </div>
+    </div>
+    <div class="custom-container" onclick="window.open('https://lightningjs.io/', '_blank')" style="min-width:45%">
+        <div class="title_section">
+           <span><img src="/assets/icons/lightningjs-logo.png" style="width:20px;height:20px;margin-top:5px"></span>
+           <h2>Lightning™</h2>
+        </div>
+        <div class="content-section">
+           <p>Learn more about lightning applications.</p>
+           <div class="link-row">
+               <a target="_blank" href="https://lightningjs.io/" class="custom-link">Know More</a>
+               <span class="material-icons custom-icon-arrow">arrow_forward</span>
+            </div>
+        </div>
+    </div>
+</div>
+
 ---
