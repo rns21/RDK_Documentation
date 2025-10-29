@@ -186,3 +186,14 @@ nav:
         - GPON Manager: ./docu/oct28/gponmanager.md
         - One WiFi: ./docu/oct28/onewifi.md
         - CCSP LMLite: ./docu/oct28/ccsplmlite.md
+      - Oct29:
+        - WAN Manager: ./docu/oct29/wanmanager.md
+        - GPON Manager: ./docu/oct29/gponmanager.md
+        - VLAN Manager: ./docu/oct29/vlanmanager.md
+        - One WiFi: ./docu/oct29/onewifi.md
+        - CCSP LMLite: ./docu/oct29/ccsplmlite.md
+        - CCSP PSM: ./docu/oct29/ccsppsm.md
+        - CCSP PNM: ./docu/oct29/ccsppnm.md
+        - CCSP CM Agent: ./docu/oct29/ccspcmagent.md
+        - RBUS: ./docu/oct29/rbus.md
+        - Utopia: ./docu/oct29/utopia.md

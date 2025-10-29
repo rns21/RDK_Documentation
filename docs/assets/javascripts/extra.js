@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 });
 
-//collapsible button functionality
+//--------------------------------collapsible button functionality(entertainment home)------------------------------
 document.querySelectorAll('.see-all-btn').forEach(button => {
   button.addEventListener('click', function () {
     const section = this.closest('.topic-section');
@@ -303,4 +303,69 @@ document.querySelectorAll('.see-all-btn').forEach(button => {
       this.setAttribute('data-expanded', 'false');
     }
   });
+});
+
+//--------------------------------------- Mermaid diagram expand to fullscreen and close-------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("[Mermaid Fullscreen] DOMContentLoaded fired");
+
+  const observer = new MutationObserver(() => {
+    const diagrams = document.querySelectorAll(".mermaid");
+    console.log(`[Mermaid Fullscreen] Checking... Found ${diagrams.length} diagrams`);
+
+    if (diagrams.length > 0) {
+      diagrams.forEach((diagram, index) => {
+        if (diagram.dataset.fullscreenAdded) return;
+        diagram.dataset.fullscreenAdded = "true";
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "mermaid-wrapper";
+
+        // Fullscreen button with icon
+        const fullscreenBtn = document.createElement("button");
+        fullscreenBtn.innerHTML = "⛶";
+        fullscreenBtn.className = "fullscreen-btn";
+
+        // Close button
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "✕";
+        closeBtn.className = "close-btn";
+        closeBtn.style.display = "none";
+
+        diagram.parentNode.insertBefore(wrapper, diagram);
+        wrapper.appendChild(diagram);
+        wrapper.appendChild(fullscreenBtn);
+        wrapper.appendChild(closeBtn);
+
+        console.log(`[Mermaid Fullscreen] Buttons added for diagram #${index + 1}`);
+
+        fullscreenBtn.addEventListener("click", () => {
+          console.log(`[Mermaid Fullscreen] Fullscreen requested for diagram #${index + 1}`);
+          wrapper.classList.add("fullscreen-active");
+          fullscreenBtn.style.display = "none"; // Hide fullscreen button
+          closeBtn.style.display = "block"; // Show close button
+          if (wrapper.requestFullscreen) {
+            wrapper.requestFullscreen();
+          }
+        });
+
+        closeBtn.addEventListener("click", () => {
+          console.log("[Mermaid Fullscreen] Closing fullscreen");
+          document.exitFullscreen();
+        });
+
+        document.addEventListener("fullscreenchange", () => {
+          if (!document.fullscreenElement) {
+            wrapper.classList.remove("fullscreen-active");
+            fullscreenBtn.style.display = "block"; // Show fullscreen button again
+            closeBtn.style.display = "none"; // Hide close button
+          }
+        });
+      });
+
+      observer.disconnect();
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
 });
