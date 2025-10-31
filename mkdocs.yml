@@ -132,60 +132,61 @@ nav:
       - Log Upload: ./device-management/docs/LogUpload.md
   - Comparison:
       - Template_Rama: ./docu/doc_template_orig_rama.md
-      - 26Sep: 
-        - Claude:
-          - PNM_Claude: ./docu/bhanu/pnm_claude.md
-          - Utopia_Claude: ./docu/bhanu/utopia_claude.md
-          - WANMGr_Claude: ./docu/bhanu/wanmgr_claude.md
-          - Utopia_Claude: ./docu/bhanu/utopia_claude.md
-          - CL_Claude: ./docu/raheen/cl_claude.md
-          - LMLite_Claude: ./docu/raheen/lmlite_claude.md
-          - PSM_Claude: ./docu/raheen/psm_claude.md
-        - GPT5:
-          - PNM_GPT5: ./docu/bhanu/pnm_gpt5.md
-          - Utopia_GPT5: ./docu/bhanu/utopia_gpt5.md
-          - WANMGr_GPT5: ./docu/bhanu/wanmgr_gpt5.md
-          - Utopia_GPT5: ./docu/bhanu/utopia_gpt5.md
-          - CL_GPT5: ./docu/raheen/cl_gpt5.md
-          - LMLite_GPT5: ./docu/raheen/lmlite_gpt5.md
-          - PSM_GPT5: ./docu/raheen/psm_gpt5.md
-      - 30Sep:
-        - Template_2609: ./docu/doc_template_mod_2609.md
-        - Claude:
-          - WANMGr_Claude_2609: ./docu/WANMgr_Claude_2609.md
-          - LMLite_Claude_2609: ./docu/LMLite_Claude_2609.md
-          - PSM_Claude_2609: ./docu/PSM_Claude_2609.md
-          - RBUS_Claude_2609: ./docu/RBUS_Claude_2609.md
-        - GPT5:
-          - WANMGr_GPT5_2609: ./docu/WANMgr_GPT5_2609.md
-          - LMLite_GPT5_2609: ./docu/LMLite_GPT5_2609.md
-          - PSM_GPT5_2609: ./docu/PSM_GPT5_2609.md
-          - RBUS_GPT5_2609: ./docu/RBUS_GPT5_2609.md
-      - Oct10:
-        - WAN Manager: ./docu/templateOct10/wanmanager.md
-        - GPON Manager: ./docu/templateOct10/gponmanager.md
-        - One WiFi: ./docu/templateOct10/onewifi.md
-      - Oct21:
-        - WAN Manager: ./docu/oct21/wanmanager.md
-        - GPON Manager: ./docu/oct21/gponmanager.md
-        - One WiFi: ./docu/oct21/onewifi.md
-      - Oct22:
-        - Template: ./docu/oct22/doc_template_22.md
-        - WAN Manager: ./docu/oct22/wanmanager.md
-        - GPON Manager: ./docu/oct22/gponmanager.md
-        - LMLite: ./docu/oct22/lmlite.md
-      - Oct27:
-        - Template: ./docu/oct22/doc_template_22.md
-        - WAN Manager: ./docu/oct27/wanmanager.md
-        - GPON Manager: ./docu/oct27/gponmanager.md
-        - CCSP PSM: ./docu/oct27/ccsppsm.md
-        - RBUS: ./docu/oct27/rbus.md
-        - Utopia: ./docu/oct27/utopia.md
-      - Oct28:
-        - WAN Manager: ./docu/oct28/wanmanager.md
-        - GPON Manager: ./docu/oct28/gponmanager.md
-        - One WiFi: ./docu/oct28/onewifi.md
-        - CCSP LMLite: ./docu/oct28/ccsplmlite.md
+      - Backup:
+        - 26Sep: 
+          - Claude:
+            - PNM_Claude: ./docu/bhanu/pnm_claude.md
+            - Utopia_Claude: ./docu/bhanu/utopia_claude.md
+            - WANMGr_Claude: ./docu/bhanu/wanmgr_claude.md
+            - Utopia_Claude: ./docu/bhanu/utopia_claude.md
+            - CL_Claude: ./docu/raheen/cl_claude.md
+            - LMLite_Claude: ./docu/raheen/lmlite_claude.md
+            - PSM_Claude: ./docu/raheen/psm_claude.md
+          - GPT5:
+            - PNM_GPT5: ./docu/bhanu/pnm_gpt5.md
+            - Utopia_GPT5: ./docu/bhanu/utopia_gpt5.md
+            - WANMGr_GPT5: ./docu/bhanu/wanmgr_gpt5.md
+            - Utopia_GPT5: ./docu/bhanu/utopia_gpt5.md
+            - CL_GPT5: ./docu/raheen/cl_gpt5.md
+            - LMLite_GPT5: ./docu/raheen/lmlite_gpt5.md
+            - PSM_GPT5: ./docu/raheen/psm_gpt5.md
+        - 30Sep:
+          - Template_2609: ./docu/doc_template_mod_2609.md
+          - Claude:
+            - WANMGr_Claude_2609: ./docu/sep26/WANMgr_Claude_2609.md
+            - LMLite_Claude_2609: ./docu/sep26/LMLite_Claude_2609.md
+            - PSM_Claude_2609: ./docu/sep26/PSM_Claude_2609.md
+            - RBUS_Claude_2609: ./docu/sep26/RBUS_Claude_2609.md
+          - GPT5:
+            - WANMGr_GPT5_2609: ./docu/sep26/WANMgr_GPT5_2609.md
+            - LMLite_GPT5_2609: ./docu/sep26/LMLite_GPT5_2609.md
+            - PSM_GPT5_2609: ./docu/sep26/PSM_GPT5_2609.md
+            - RBUS_GPT5_2609: ./docu/sep26/RBUS_GPT5_2609.md
+        - Oct10:
+          - WAN Manager: ./docu/templateOct10/wanmanager.md
+          - GPON Manager: ./docu/templateOct10/gponmanager.md
+          - One WiFi: ./docu/templateOct10/onewifi.md
+        - Oct21:
+          - WAN Manager: ./docu/oct21/wanmanager.md
+          - GPON Manager: ./docu/oct21/gponmanager.md
+          - One WiFi: ./docu/oct21/onewifi.md
+        - Oct22:
+          - Template: ./docu/oct22/doc_template_22.md
+          - WAN Manager: ./docu/oct22/wanmanager.md
+          - GPON Manager: ./docu/oct22/gponmanager.md
+          - LMLite: ./docu/oct22/lmlite.md
+        - Oct27:
+          - Template: ./docu/oct22/doc_template_22.md
+          - WAN Manager: ./docu/oct27/wanmanager.md
+          - GPON Manager: ./docu/oct27/gponmanager.md
+          - CCSP PSM: ./docu/oct27/ccsppsm.md
+          - RBUS: ./docu/oct27/rbus.md
+          - Utopia: ./docu/oct27/utopia.md
+        - Oct28:
+          - WAN Manager: ./docu/oct28/wanmanager.md
+          - GPON Manager: ./docu/oct28/gponmanager.md
+          - One WiFi: ./docu/oct28/onewifi.md
+          - CCSP LMLite: ./docu/oct28/ccsplmlite.md
       - Oct29:
         - WAN Manager: ./docu/oct29/wanmanager.md
         - GPON Manager: ./docu/oct29/gponmanager.md
@@ -197,3 +198,8 @@ nav:
         - CCSP CM Agent: ./docu/oct29/ccspcmagent.md
         - RBUS: ./docu/oct29/rbus.md
         - Utopia: ./docu/oct29/utopia.md
+      - Oct31:
+        - WAN Manager: ./docu/oct31/wanmanager.md
+        - CCSP LMLite: ./docu/oct31/ccsplmlite.md
+        - Utopia: ./docu/oct31/utopia.md
+        - GPON Manager: ./docu/oct31/gponmanager.md
