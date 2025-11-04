@@ -1,0 +1,3625 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.com/docu/oct21/onewifi/" rel="canonical"/>
+<link href="../gponmanager/" rel="prev"/>
+<link href="../../oct22/doc_template_22/" rel="next"/>
+<link href="../../../assets/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
+<title>One WiFi - RDK Documentation</title>
+<link href="../../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"Fira Code"}</style>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/entertainment.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/getting-started.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/connectivity.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/devices.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/footer.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sidepanes.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sitemap.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home1.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home2.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="#00b2dc" data-md-color-primary="white" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#onewifi-documentation">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="RDK Documentation" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="RDK Documentation">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis"> RDK Documentation </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+             One WiFi 
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="white" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to system preference" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to system preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+</form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header_buttons">
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg>
+</div>
+<div class="text">Source Code</div>
+</button></a>
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg>
+</div>
+<div class="text">Contribute</div>
+</button></a>
+<a href="mailto:support@rdkcentral.com"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg>
+</div>
+<div class="text">Get Help</div>
+</button></a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../entertainment/docs/">
+          
+  
+  
+  Entertainment
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../connectivity/docs/">
+          
+  
+  
+  Connectivity
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../preview-rdk/docs/getting-started/">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../devices/docs/">
+        
+  
+  
+    
+  
+  Devices
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tools/docs/TDK/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../review/">
+          
+  
+  
+  Review
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../device-management/docs/">
+          
+  
+  
+  Device Management
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../doc_template_orig_rama.md">
+          
+  
+  
+  Comparison
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="RDK Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="RDK Documentation">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+    RDK Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/rdkcentral" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Entertainment
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Entertainment
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home1/">
+<span class="md-ellipsis">
+    sampleHome1
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home2/">
+<span class="md-ellipsis">
+    sampleHome2
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/Apps/">
+<span class="md-ellipsis">
+    Apps
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/tryout_rdkv_rdk7/">
+<span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-vendor-porting-guide/">
+<span class="md-ellipsis">
+    Porting Kit
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    Core Components
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_8">
+<span class="md-nav__icon md-icon"></span>
+            Core Components
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdkv_components/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/westeros/">
+<span class="md-ellipsis">
+    Westeros
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rdkshell/">
+<span class="md-ellipsis">
+    RDK Shell
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/video_profiles/">
+<span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Connectivity
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Connectivity
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/features/">
+<span class="md-ellipsis">
+    Features
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/tryout_rdkb/">
+<span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/profiles/">
+<span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Core Components
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            Core Components
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/rdkb_components/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/cellularmanager/">
+<span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Oldprompt/">
+<span class="md-ellipsis">
+    PSM OldPrompt
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_GPT5/">
+<span class="md-ellipsis">
+    PSM GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Claude/">
+<span class="md-ellipsis">
+    PSM_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr Rama.md">
+<span class="md-ellipsis">
+    WAN Mgr Rama
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr%20GPT5/">
+<span class="md-ellipsis">
+    WAN Mgr GPT5
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../preview-rdk/docs/getting-started/">
+<span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../devices/docs/">
+<span class="md-ellipsis">
+    Devices
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Tools
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/TDK/">
+<span class="md-ellipsis">
+    TDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/Automatics/">
+<span class="md-ellipsis">
+    Automatics
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    Review
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            Review
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/WANManager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CellularManager/">
+<span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/GPONManager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/PPPManager/">
+<span class="md-ellipsis">
+    PPP Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/VLANManager/">
+<span class="md-ellipsis">
+    VLAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/TelcoVoiceManager/">
+<span class="md-ellipsis">
+    Telco Voice Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPSM/">
+<span class="md-ellipsis">
+    CCSP PSM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/LMLite/">
+<span class="md-ellipsis">
+    CCSP LM Lite
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPandM/">
+<span class="md-ellipsis">
+    CCSP PandM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/OneWifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/RBus/">
+<span class="md-ellipsis">
+    RBus
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/Utopia/">
+<span class="md-ellipsis">
+    Utopia
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    Device Management
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            Device Management
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/XConf/">
+<span class="md-ellipsis">
+    XConf
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Telemetry/">
+<span class="md-ellipsis">
+    Telemetry
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Webpa/">
+<span class="md-ellipsis">
+    Web PA
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/TR369/">
+<span class="md-ellipsis">
+    TR 369
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/LogUpload/">
+<span class="md-ellipsis">
+    Log Upload
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+<span class="md-ellipsis">
+    Comparison
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+            Comparison
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_orig_rama.md">
+<span class="md-ellipsis">
+    Template_Rama
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_9_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Backup
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_9_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_2">
+<span class="md-nav__icon md-icon"></span>
+            Backup
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1" id="__nav_9_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    26Sep
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_1">
+<span class="md-nav__icon md-icon"></span>
+            26Sep
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_1" id="__nav_9_2_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    Claude
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_1">
+<span class="md-nav__icon md-icon"></span>
+            Claude
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_claude/">
+<span class="md-ellipsis">
+    PNM_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    Utopia_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_claude/">
+<span class="md-ellipsis">
+    WANMGr_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    Utopia_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_claude/">
+<span class="md-ellipsis">
+    CL_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_claude/">
+<span class="md-ellipsis">
+    LMLite_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_claude/">
+<span class="md-ellipsis">
+    PSM_Claude
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_2" id="__nav_9_2_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    GPT5
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_2">
+<span class="md-nav__icon md-icon"></span>
+            GPT5
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_gpt5/">
+<span class="md-ellipsis">
+    PNM_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    Utopia_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_gpt5/">
+<span class="md-ellipsis">
+    WANMGr_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    Utopia_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_gpt5/">
+<span class="md-ellipsis">
+    CL_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_gpt5/">
+<span class="md-ellipsis">
+    LMLite_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_gpt5/">
+<span class="md-ellipsis">
+    PSM_GPT5
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2" id="__nav_9_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    30Sep
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_2">
+<span class="md-nav__icon md-icon"></span>
+            30Sep
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_mod_2609.md">
+<span class="md-ellipsis">
+    Template_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_2" id="__nav_9_2_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Claude
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_2">
+<span class="md-nav__icon md-icon"></span>
+            Claude
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_Claude_2609.md">
+<span class="md-ellipsis">
+    WANMGr_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_Claude_2609.md">
+<span class="md-ellipsis">
+    LMLite_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_Claude_2609.md">
+<span class="md-ellipsis">
+    PSM_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_Claude_2609.md">
+<span class="md-ellipsis">
+    RBUS_Claude_2609
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_3" id="__nav_9_2_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    GPT5
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_3">
+<span class="md-nav__icon md-icon"></span>
+            GPT5
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_GPT5_2609.md">
+<span class="md-ellipsis">
+    WANMGr_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_GPT5_2609.md">
+<span class="md-ellipsis">
+    LMLite_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_GPT5_2609.md">
+<span class="md-ellipsis">
+    PSM_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_GPT5_2609.md">
+<span class="md-ellipsis">
+    RBUS_GPT5_2609
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_3" id="__nav_9_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct10
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_3">
+<span class="md-nav__icon md-icon"></span>
+            Oct10
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/onewifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_9_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_4" id="__nav_9_2_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct21
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_9_2_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_4">
+<span class="md-nav__icon md-icon"></span>
+            Oct21
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      Design
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites-and-dependencies">
+<span class="md-ellipsis">
+      Prerequisites and Dependencies
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-state-flow">
+<span class="md-ellipsis">
+      Component State Flow
+    </span>
+</a>
+<nav aria-label="Component State Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#initialization-to-active-state">
+<span class="md-ellipsis">
+      Initialization to Active State
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#runtime-state-changes-and-context-switching">
+<span class="md-ellipsis">
+      Runtime State Changes and Context Switching
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#call-flow">
+<span class="md-ellipsis">
+      Call Flow
+    </span>
+</a>
+<nav aria-label="Call Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#primary-call-flows">
+<span class="md-ellipsis">
+      Primary Call Flows
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tr181-data-models">
+<span class="md-ellipsis">
+      TR‑181 Data Models
+    </span>
+</a>
+<nav aria-label="TR‑181 Data Models" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#supported-tr-181-parameters">
+<span class="md-ellipsis">
+      Supported TR-181 Parameters
+    </span>
+</a>
+<nav aria-label="Supported TR-181 Parameters" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#object-hierarchy">
+<span class="md-ellipsis">
+      Object Hierarchy
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#parameter-definitions">
+<span class="md-ellipsis">
+      Parameter Definitions
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#parameter-registration-and-access">
+<span class="md-ellipsis">
+      Parameter Registration and Access
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal-modules">
+<span class="md-ellipsis">
+      Internal Modules
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-interactions-ipc-mechanisms">
+<span class="md-ellipsis">
+      Component Interactions &amp; IPC Mechanisms
+    </span>
+</a>
+<nav aria-label="Component Interactions &amp; IPC Mechanisms" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-architecture-overview">
+<span class="md-ellipsis">
+      System Architecture Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#detailed-interaction-matrix">
+<span class="md-ellipsis">
+      Detailed Interaction Matrix
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-publishing-subscription">
+<span class="md-ellipsis">
+      Event Publishing &amp; Subscription
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ipc-flow-patterns">
+<span class="md-ellipsis">
+      IPC Flow Patterns
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      Implementation Details
+    </span>
+</a>
+<nav aria-label="Implementation Details" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#major-hal-apis-integration">
+<span class="md-ellipsis">
+      Major HAL APIs Integration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hostapd-integration-and-control">
+<span class="md-ellipsis">
+      hostapd Integration and Control
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#easymesh-architecture-and-ieee-1905-integration">
+<span class="md-ellipsis">
+      EasyMesh Architecture and IEEE 1905 Integration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#wifi-database-implementation">
+<span class="md-ellipsis">
+      WiFi Database Implementation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-implementation-logic">
+<span class="md-ellipsis">
+      Key Implementation Logic
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-configuration-files">
+<span class="md-ellipsis">
+      Key Configuration Files
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_5" id="__nav_9_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct22
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_5">
+<span class="md-nav__icon md-icon"></span>
+            Oct22
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    Template
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/lmlite/">
+<span class="md-ellipsis">
+    LMLite
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_6" id="__nav_9_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct27
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_6_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_6">
+<span class="md-nav__icon md-icon"></span>
+            Oct27
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    Template
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/ccsppsm/">
+<span class="md-ellipsis">
+    CCSP PSM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/rbus/">
+<span class="md-ellipsis">
+    RBUS
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/utopia/">
+<span class="md-ellipsis">
+    Utopia
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_7" id="__nav_9_2_7_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct28
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_7">
+<span class="md-nav__icon md-icon"></span>
+            Oct28
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    CCSP LMLite
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct29
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_3">
+<span class="md-nav__icon md-icon"></span>
+            Oct29
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/vlanmanager/">
+<span class="md-ellipsis">
+    VLAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/onewifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsplmlite/">
+<span class="md-ellipsis">
+    CCSP LMLite
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppsm/">
+<span class="md-ellipsis">
+    CCSP PSM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppnm/">
+<span class="md-ellipsis">
+    CCSP PNM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccspcmagent/">
+<span class="md-ellipsis">
+    CCSP CM Agent
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/rbus/">
+<span class="md-ellipsis">
+    RBUS
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/utopia/">
+<span class="md-ellipsis">
+    Utopia
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct31
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_4">
+<span class="md-nav__icon md-icon"></span>
+            Oct31
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/ccsplmlite/">
+<span class="md-ellipsis">
+    CCSP LMLite
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/utopia/">
+<span class="md-ellipsis">
+    Utopia
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Nov05
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_5">
+<span class="md-nav__icon md-icon"></span>
+            Nov05
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsplmlite/">
+<span class="md-ellipsis">
+    CCSP LMLite
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/utopia/">
+<span class="md-ellipsis">
+    Utopia
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcmagent/">
+<span class="md-ellipsis">
+    CCSP CM Agent
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    CCSP Common Lib
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspdmcli/">
+<span class="md-ellipsis">
+    CCSP DMCLI
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppsm/">
+<span class="md-ellipsis">
+    CCSP PSM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppnm/">
+<span class="md-ellipsis">
+    CCSP PNM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsptr69pa/">
+<span class="md-ellipsis">
+    CCSP TR69PA
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspwifiagent/">
+<span class="md-ellipsis">
+    CCSP WiFiAgent
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/cellularmanager/">
+<span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp/">
+<span class="md-ellipsis">
+    GW ProvApp
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp_epon/">
+<span class="md-ellipsis">
+    GW ProvApp EPON
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/onewifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/pppmanager/">
+<span class="md-ellipsis">
+    PPP Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/rbus/">
+<span class="md-ellipsis">
+    RBUS
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/telcovoicemanager/">
+<span class="md-ellipsis">
+    Telco Voice Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/vlanmanager/">
+<span class="md-ellipsis">
+    VLAN Manager
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      Design
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites-and-dependencies">
+<span class="md-ellipsis">
+      Prerequisites and Dependencies
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-state-flow">
+<span class="md-ellipsis">
+      Component State Flow
+    </span>
+</a>
+<nav aria-label="Component State Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#initialization-to-active-state">
+<span class="md-ellipsis">
+      Initialization to Active State
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#runtime-state-changes-and-context-switching">
+<span class="md-ellipsis">
+      Runtime State Changes and Context Switching
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#call-flow">
+<span class="md-ellipsis">
+      Call Flow
+    </span>
+</a>
+<nav aria-label="Call Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#primary-call-flows">
+<span class="md-ellipsis">
+      Primary Call Flows
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tr181-data-models">
+<span class="md-ellipsis">
+      TR‑181 Data Models
+    </span>
+</a>
+<nav aria-label="TR‑181 Data Models" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#supported-tr-181-parameters">
+<span class="md-ellipsis">
+      Supported TR-181 Parameters
+    </span>
+</a>
+<nav aria-label="Supported TR-181 Parameters" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#object-hierarchy">
+<span class="md-ellipsis">
+      Object Hierarchy
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#parameter-definitions">
+<span class="md-ellipsis">
+      Parameter Definitions
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#parameter-registration-and-access">
+<span class="md-ellipsis">
+      Parameter Registration and Access
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal-modules">
+<span class="md-ellipsis">
+      Internal Modules
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-interactions-ipc-mechanisms">
+<span class="md-ellipsis">
+      Component Interactions &amp; IPC Mechanisms
+    </span>
+</a>
+<nav aria-label="Component Interactions &amp; IPC Mechanisms" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-architecture-overview">
+<span class="md-ellipsis">
+      System Architecture Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#detailed-interaction-matrix">
+<span class="md-ellipsis">
+      Detailed Interaction Matrix
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-publishing-subscription">
+<span class="md-ellipsis">
+      Event Publishing &amp; Subscription
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ipc-flow-patterns">
+<span class="md-ellipsis">
+      IPC Flow Patterns
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      Implementation Details
+    </span>
+</a>
+<nav aria-label="Implementation Details" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#major-hal-apis-integration">
+<span class="md-ellipsis">
+      Major HAL APIs Integration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hostapd-integration-and-control">
+<span class="md-ellipsis">
+      hostapd Integration and Control
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#easymesh-architecture-and-ieee-1905-integration">
+<span class="md-ellipsis">
+      EasyMesh Architecture and IEEE 1905 Integration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#wifi-database-implementation">
+<span class="md-ellipsis">
+      WiFi Database Implementation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-implementation-logic">
+<span class="md-ellipsis">
+      Key Implementation Logic
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-configuration-files">
+<span class="md-ellipsis">
+      Key Configuration Files
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/rdkcentral/edit/master/docs/docu/oct21/onewifi.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<h1 id="onewifi-documentation">OneWifi Documentation</h1>
+<p>OneWifi is RDK-B's unified Wi-Fi management component that provides a modern, service-oriented architecture for wireless connectivity management. It serves as the central orchestrator for all Wi-Fi operations including access point management, station operations, mesh networking, EasyMesh protocol support, and advanced wireless features. OneWifi consolidates previously fragmented Wi-Fi functionality into a cohesive system that abstracts hardware complexity while providing robust 802.11 protocol implementation and integration with RDK-B middleware components.</p>
+<p>OneWifi implements IEEE 802.11 protocols (802.11a/b/g/n/ac/ax/be) through direct WiFi HAL integration, manages hostapd for access point operations, provides EasyMesh controller/agent functionality with IEEE 1905 protocol support, and maintains a comprehensive WiFi database for persistent configuration and state management.</p>
+<pre class="mermaid"><code>graph TD
+    subgraph "External Users &amp; Systems"
+        HomeUsers[Home Users&lt;br/&gt;🏠 WiFi Clients]
+        AdminUsers[Admin Users&lt;br/&gt;👨‍💼 Network Management]
+        CloudServices[Cloud Services&lt;br/&gt;☁️ Remote Management]
+        MeshNodes[EasyMesh Nodes&lt;br/&gt;🔗 Remote Agents]
+    end
+
+    subgraph "RDK-B Device Boundary"
+        subgraph "Management Layer"
+            WebUI[Web UI&lt;br/&gt;🌐 Local Management]
+            TR069[TR-069 Agent&lt;br/&gt;📡 ACS Communication]
+            SNMP[SNMP Agent&lt;br/&gt;📊 Network Monitoring]
+        end
+
+        OneWifi[OneWifi Component&lt;br/&gt;📶 WiFi Management System&lt;br/&gt;C++ Application]
+
+        subgraph "RDK-B Middleware"
+            PSM[PSM Database&lt;br/&gt;💾 Parameter Storage]
+            Telemetry[Telemetry 2.0&lt;br/&gt;📈 Data Collection]
+            WebConfig[WebConfig Framework&lt;br/&gt;⚙️ Bulk Configuration]
+        end
+
+        subgraph "Hardware &amp; Protocol Layer"
+            WiFiHAL[WiFi HAL&lt;br/&gt;📡 Hardware Abstraction]
+            NetworkHAL[Network HAL&lt;br/&gt;🔌 Interface Management]
+            Hostapd[hostapd&lt;br/&gt;🏢 Access Point Daemon]
+        end
+
+        subgraph "External Mesh System"
+            UnifiedMesh[Unified-Mesh Controller&lt;br/&gt;🕸️ IEEE 1905 Protocol]
+        end
+    end
+
+    %% User Interactions
+    HomeUsers --&gt;|WiFi Connection&lt;br/&gt;802.11 Protocols| OneWifi
+    AdminUsers --&gt;|Configuration&lt;br/&gt;Web Interface| WebUI
+    AdminUsers --&gt;|Remote Management&lt;br/&gt;TR-181/SNMP| TR069
+    AdminUsers --&gt;|Network Monitoring&lt;br/&gt;SNMP v2c/v3| SNMP
+
+    %% External System Interactions  
+    CloudServices --&gt;|Remote Configuration&lt;br/&gt;TR-069/WebPA| TR069
+    CloudServices --&gt;|Bulk Updates&lt;br/&gt;JSON/MessagePack| WebConfig
+    MeshNodes &lt;--&gt;|EasyMesh Protocol&lt;br/&gt;IEEE 1905.1| UnifiedMesh
+
+    %% Internal RDK-B Interactions
+    WebUI --&gt;|Parameter Access&lt;br/&gt;RBus/DBus| OneWifi
+    TR069 --&gt;|TR-181 Parameters&lt;br/&gt;RBus Messages| OneWifi
+    SNMP --&gt;|MIB Access&lt;br/&gt;SNMP Protocol| OneWifi
+
+    OneWifi &lt;--&gt;|Configuration Persistence&lt;br/&gt;Key-Value Store| PSM
+    OneWifi --&gt;|Statistics &amp; Events&lt;br/&gt;Telemetry API| Telemetry
+    OneWifi &lt;--&gt;|Bulk Configuration&lt;br/&gt;JSON Validation| WebConfig
+    OneWifi &lt;--&gt;|EasyMesh Coordination&lt;br/&gt;Unix Sockets| UnifiedMesh
+
+    %% Hardware Interactions
+    OneWifi --&gt;|Hardware Control&lt;br/&gt;C API Calls| WiFiHAL
+    OneWifi --&gt;|Interface Management&lt;br/&gt;Network APIs| NetworkHAL
+    OneWifi &lt;--&gt;|AP Configuration&lt;br/&gt;Control Interface| Hostapd
+
+    WiFiHAL --&gt;|Driver Interface&lt;br/&gt;nl80211| OneWifi
+    NetworkHAL --&gt;|Interface Control&lt;br/&gt;netlink/ioctl| OneWifi
+    Hostapd --&gt;|802.11 Management&lt;br/&gt;Event Callbacks| OneWifi
+
+    classDef user fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:3px;
+    classDef middleware fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef hardware fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef external fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class HomeUsers,AdminUsers user;
+    class OneWifi component;
+    class WebUI,TR069,SNMP,PSM,Telemetry,WebConfig middleware;
+    class WiFiHAL,NetworkHAL,Hostapd hardware;
+    class CloudServices,MeshNodes,UnifiedMesh external;</code></pre>
+<p><strong>Key Features &amp; Responsibilities</strong>: </p>
+<ul>
+<li><strong>Unified Wi-Fi Management</strong>: Central orchestration of all wireless operations including radio management, VAP (Virtual Access Point) lifecycle, and client association handling across multiple frequency bands (2.4GHz, 5GHz, 6GHz)</li>
+<li><strong>Service-Oriented Architecture</strong>: Modular design with independent service components for different Wi-Fi functionalities including private networks, public hotspots, mesh operations, and analytics</li>
+<li><strong>802.11 Protocol Implementation</strong>: Direct implementation of IEEE 802.11 standards (a/b/g/n/ac/ax/be) through WiFi HAL abstraction with support for advanced features like MU-MIMO, OFDMA, and beamforming</li>
+<li><strong>Hostapd Integration</strong>: Native hostapd daemon management for access point configuration, client authentication, and 802.11 frame processing with dynamic configuration updates</li>
+<li><strong>EasyMesh Support</strong>: Complete IEEE 1905 Multi-AP protocol implementation with controller and agent capabilities, unified-mesh system integration, and automatic mesh topology management</li>
+<li><strong>WiFi Database Management</strong>: Persistent storage system for configuration data, client information, statistics, and operational state with atomic transaction support</li>
+<li><strong>Advanced Analytics</strong>: Real-time monitoring and analytics including client behavior analysis, performance metrics, security event detection, and network optimization</li>
+<li><strong>WebConfig Integration</strong>: Dynamic configuration management through WebPA/WebConfig protocol with support for bulk configuration updates and rollback capabilities</li>
+</ul>
+<h2 id="design">Design</h2>
+<p>OneWifi employs a layered service-oriented architecture that separates concerns while maintaining tight integration for optimal performance. The design prioritizes modularity through independent service components, each responsible for specific Wi-Fi functionality domains, while a central manager coordinates cross-service interactions and maintains global state consistency. The architecture directly interfaces with WiFi HAL for hardware abstraction and hostapd for 802.11 protocol compliance.</p>
+<p>The northbound interfaces support RBus/DBus messaging for TR-181 parameter access, WebConfig for bulk configuration management, and EasyMesh APIs for mesh networking coordination. Southbound integration includes WiFi HAL for hardware control, hostapd for access point operations, and platform-specific networking services. The WiFi database provides persistent storage with ACID properties, enabling reliable state management across system reboots and configuration changes.</p>
+<p>IPC mechanisms center around RBus for high-performance message passing between RDK-B components, with fallback DBus support for legacy compatibility. Event-driven architecture ensures responsive handling of hardware events, client state changes, and configuration updates. Data persistence utilizes a custom WiFi database implementation that maintains configuration integrity and supports atomic operations for complex multi-parameter updates.</p>
+<pre class="mermaid"><code>graph TD
+    subgraph "RDK-B Middleware"
+        TR181[TR-181 Data Model]
+        WebConfig[WebConfig Framework]
+        Telemetry[Telemetry Service]
+        CCSP[CCSP Components]
+    end
+
+    subgraph "OneWifi Container (C/C++)"
+        subgraph "Core Manager"
+            WifiMgr[WiFi Manager]
+            WifiCtrl[WiFi Controller]
+            EventMgr[Event Manager]
+            QueueMgr[Queue Manager]
+        end
+
+        subgraph "Service Layer"
+            PrivateSvc[Private VAP Service&lt;br/&gt;Home Networks]
+            PublicSvc[Public VAP Service&lt;br/&gt;Hotspots/XHS]
+            MeshSvc[Mesh Service&lt;br/&gt;Backhaul/STA]
+        end
+
+        subgraph "Application Layer"
+            Analytics[Analytics App]
+            Harvester[Harvester App]
+            Blaster[Blaster App]
+            CAC[CAC App]
+            CSI[CSI App]
+            EasyMesh[EasyMesh App]
+            StaMgr[STA Manager App]
+        end
+
+        subgraph "Data &amp; Protocol Layer"
+            WiFiDB[(WiFi Database)]
+            WebConfigMgr[WebConfig Manager]
+            PlatformBus[Platform Bus Layer&lt;br/&gt;RBus/DBus]
+        end
+    end
+
+    subgraph "802.11 Protocol &amp; Hardware"
+        Hostapd[hostapd Daemon&lt;br/&gt;AP Management]
+        WpaSupplicant[wpa_supplicant&lt;br/&gt;STA Operations]
+        WiFiHAL[WiFi HAL&lt;br/&gt;802.11 Implementation]
+        NetworkHAL[Network HAL&lt;br/&gt;Interface Management]
+    end
+
+    subgraph "EasyMesh Ecosystem"
+        UnifiedMesh[Unified-Mesh System&lt;br/&gt;IEEE 1905 Controller]
+        MeshAgent[EasyMesh Agent&lt;br/&gt;IEEE 1905 Protocol]
+    end
+
+    subgraph "External Systems"
+        CloudServices[Cloud/HeadEnd Services]
+        WebUI[Web Management Interface]
+        SNMP[SNMP Management]
+    end
+
+    %% Data Flow Connections
+    TR181 --&gt;|RBus/TR-181 Parameters| PlatformBus
+    WebConfig --&gt;|JSON Configuration| WebConfigMgr
+    Telemetry --&gt;|Statistics/Events| PlatformBus
+    CCSP --&gt;|Component Communication| PlatformBus
+
+    PlatformBus --&gt;|IPC Messages| WifiCtrl
+    WebConfigMgr --&gt;|Config Updates| WifiCtrl
+    WifiCtrl --&gt;|Service Commands| PrivateSvc
+    WifiCtrl --&gt;|Service Commands| PublicSvc
+    WifiCtrl --&gt;|Service Commands| MeshSvc
+
+    Analytics --&gt;|HAL Events| EventMgr
+    Harvester --&gt;|Data Collection| WiFiDB
+    EasyMesh --&gt;|Mesh Protocol| MeshAgent
+    StaMgr --&gt;|Station Control| WpaSupplicant
+
+    WifiMgr --&gt;|Hardware Control| WiFiHAL
+    WifiMgr --&gt;|AP Configuration| Hostapd
+    WiFiDB --&gt;|Persistent Storage| WifiMgr
+
+    EasyMesh --&gt;|IEEE 1905 Protocol| UnifiedMesh
+    UnifiedMesh --&gt;|Mesh Coordination| MeshAgent
+
+    CloudServices --&gt;|WebPA/TR-069| WebConfig
+    WebUI --&gt;|Management APIs| TR181
+    SNMP --&gt;|SNMP v2c/v3| TR181
+
+    classDef core fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef service fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef app fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef protocol fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef external fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+    classDef data fill:#f1f8e9,stroke:#689f38,stroke-width:2px;
+
+    class WifiMgr,WifiCtrl,EventMgr,QueueMgr core;
+    class PrivateSvc,PublicSvc,MeshSvc service;
+    class Analytics,Harvester,Blaster,CAC,CSI,EasyMesh,StaMgr app;
+    class Hostapd,WpaSupplicant,WiFiHAL,NetworkHAL,UnifiedMesh,MeshAgent protocol;
+    class CloudServices,WebUI,SNMP external;
+    class WiFiDB,WebConfigMgr,PlatformBus data;</code></pre>
+<h3 id="prerequisites-and-dependencies">Prerequisites and Dependencies</h3>
+<p><strong>RDK-B Platform Requirements (MUST):</strong></p>
+<ul>
+<li><strong>DISTRO Features</strong>: <code>DISTRO_FEATURES += "wifi", "rdk-onewifi"</code> for core OneWifi support; <code>DISTRO_FEATURES += "rdk-easymesh"</code> for mesh functionality </li>
+<li><strong>Build Dependencies</strong>: <code>meta-rdk-broadband</code>, <code>meta-openembedded</code>, WiFi HAL interface libraries, hostapd/wpa_supplicant packages </li>
+<li><strong>RDK-B Components</strong>: CcspCommonLibrary (bus framework), hal-wifi interface, rbus/dbus message infrastructure, webconfig-framework </li>
+<li><strong>HAL Dependencies</strong>: WiFi HAL v3.0+ with 802.11ax support, Network HAL for interface management, minimum driver support for nl80211 </li>
+<li><strong>Systemd Services</strong>: <code>rbus.service</code>, <code>CcspWifiSsp.service</code> (if legacy integration), networking services must be active before OneWifi initialization </li>
+<li><strong>Hardware Requirements</strong>: Multi-radio WiFi chipsets with 802.11ac minimum, 802.11ax preferred for optimal performance </li>
+</ul>
+<p><strong>RDK-B Integration Requirements (MUST):</strong></p>
+<ul>
+<li><strong>Message Bus</strong>: RBus namespace reservation for <code>Device.WiFi.*</code> parameters, DBus fallback support for legacy components </li>
+<li><strong>TR-181 Data Model</strong>: Complete WiFi data model implementation per TR-181 Issue 2 Amendment 15, custom RDK extensions for mesh and analytics </li>
+<li><strong>Configuration Files</strong>: <code>/nvram/wifi_defaults.json</code>, <code>/opt/onewifi/config/</code>, EasyMesh configuration in <code>/nvram/EasymeshCfg.json</code> </li>
+<li><strong>Startup Order</strong>: Network interfaces → HAL initialization → RBus/DBus → OneWifi → dependent applications </li>
+<li><strong>Resource Constraints</strong>: 64MB RAM minimum, 256MB for full analytics suite, 16MB persistent storage for WiFi database </li>
+</ul>
+<p><strong>Performance &amp; Optimization (SHOULD):</strong></p>
+<ul>
+<li><strong>Enhanced Features</strong>: <code>DISTRO_FEATURES += "rdk-analytics"</code> for advanced monitoring, <code>rdk-mesh-optimization</code> for performance tuning </li>
+<li><strong>Recommended Hardware</strong>: WiFi 6E/7 support for 6GHz operation, hardware-accelerated cryptography for WPA3, dedicated mesh backhaul radios </li>
+<li><strong>Configuration Tuning</strong>: Channel optimization algorithms, load balancing parameters, mesh topology configuration for optimal performance </li>
+<li><strong>Monitoring Integration</strong>: Telemetry 2.0 framework integration, SNMP v3 support, cloud analytics integration for network optimization </li>
+</ul>
+<p><strong>RDK-B Design Limitations &amp; Considerations:</strong></p>
+<ul>
+<li><strong>Known Limitations</strong>: Maximum 16 VAPs per radio, mesh network supports up to 32 nodes, hostapd restart required for some security changes </li>
+<li><strong>Scalability Boundaries</strong>: 128 concurrent clients per VAP, 512 clients total per device, EasyMesh supports maximum 4-hop topology </li>
+<li><strong>Platform Compatibility</strong>: Supports RDK-B 2023Q1+, requires Linux 4.19+ for WiFi 6E features, ARM/x86_64 architectures </li>
+<li><strong>Resource Usage</strong>: Base memory footprint 32MB, up to 128MB with all applications enabled, 2-4MB persistent storage typical usage </li>
+</ul>
+<p><strong>Dependent Components:</strong></p>
+<ul>
+<li><strong>CcspTr069Pa</strong>: Depends on OneWifi TR-181 parameters for remote management capabilities, requires parameter synchronization </li>
+<li><strong>Utopia</strong>: Network configuration service dependency for bridge management and VLAN configuration in mesh scenarios </li>
+<li><strong>RdkWanManager</strong>: Coordination required for mesh backhaul interface management and WAN failover scenarios </li>
+<li><strong>Telemetry Services</strong>: Relies on OneWifi statistics and event data for network health monitoring and reporting </li>
+</ul>
+<p><strong>Threading Model</strong></p>
+<p>OneWifi implements a hybrid threading architecture combining event-driven processing with dedicated worker threads for performance-critical operations:</p>
+<ul>
+<li><strong>Threading Architecture</strong>: Multi-threaded with event-driven core and specialized worker pools </li>
+<li><strong>Main Thread</strong>: Event loop management, component lifecycle, IPC message handling, configuration processing </li>
+<li><strong>Worker Threads</strong>:</li>
+<li><strong>HAL Event Thread</strong>: Processes hardware interrupts, 802.11 frame events, radio state changes </li>
+<li><strong>Service Threads</strong>: Individual threads per service (Private, Public, Mesh) for isolated VAP management </li>
+<li><strong>Application Threads</strong>: Background processing for Analytics, Harvester, and other applications with configurable priorities </li>
+<li><strong>Database Thread</strong>: Asynchronous database operations, transaction processing, periodic persistence </li>
+<li><strong>WebConfig Thread</strong>: Configuration validation, bulk updates, rollback operations </li>
+<li><strong>Synchronization</strong>: pthread mutexes for shared data structures, RWlocks for read-heavy database access, condition variables for event signaling </li>
+</ul>
+<h2 id="component-state-flow">Component State Flow</h2>
+<h3 id="initialization-to-active-state">Initialization to Active State</h3>
+<p>OneWifi follows a carefully orchestrated startup sequence ensuring proper dependency resolution and service activation. The initialization process validates hardware capabilities, establishes IPC connections, and progressively activates service components based on configuration requirements.</p>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Initializing
+    Initializing --&gt; LoadingHAL: Load WiFi HAL Interface
+    LoadingHAL --&gt; InitializingDB: Initialize WiFi Database
+    InitializingDB --&gt; LoadingConfig: Load Configuration Files
+    LoadingConfig --&gt; RegisteringTR181: Register TR-181 Data Model
+    RegisteringTR181 --&gt; ConnectingBus: Connect RBus/DBus IPC
+    ConnectingBus --&gt; InitializingServices: Initialize Service Layer
+    InitializingServices --&gt; StartingHostapd: Configure hostapd
+    StartingHostapd --&gt; LoadingApplications: Load Application Modules
+    LoadingApplications --&gt; ConfiguringMesh: Configure EasyMesh (if enabled)
+    ConfiguringMesh --&gt; Active: All Systems Ready
+    Active --&gt; RuntimeUpdate: Configuration Change
+    RuntimeUpdate --&gt; Active: Update Applied
+    Active --&gt; ServiceRestart: Service Failure
+    ServiceRestart --&gt; Active: Service Recovered
+    Active --&gt; Shutdown: Stop Request
+    Shutdown --&gt; [*]
+
+    note right of Initializing
+        - Initialize logging subsystem
+        - Validate hardware capabilities
+        - Setup memory pools
+        - Initialize threading infrastructure
+    end note
+
+    note right of LoadingHAL
+        - Load WiFi HAL library
+        - Enumerate radio capabilities
+        - Initialize 802.11 protocol stack
+        - Configure hardware abstraction
+    end note
+
+    note right of InitializingDB
+        - Open WiFi database
+        - Validate schema version
+        - Run migration scripts
+        - Initialize transaction manager
+    end note
+
+    note right of Active
+        - Process client requests
+        - Handle hardware events
+        - Monitor service health
+        - Execute scheduled tasks
+    end note</code></pre>
+<h3 id="runtime-state-changes-and-context-switching">Runtime State Changes and Context Switching</h3>
+<p>OneWifi manages multiple operational contexts that can trigger state transitions during normal operation. These context switches are designed to maintain service availability while adapting to network conditions and configuration changes.</p>
+<p><strong>State Change Triggers:</strong>
+- <strong>Hardware Events</strong>: Radio failure detection, channel radar detection (DFS), thermal throttling events requiring adaptive responses
+- <strong>Network Topology Changes</strong>: Mesh node addition/removal, backhaul link quality degradation, client roaming events between VAPs
+- <strong>Configuration Updates</strong>: WebConfig bulk updates, TR-181 parameter changes, security policy modifications requiring service restarts
+- <strong>Service Health Events</strong>: Application crashes with automatic recovery, database corruption with repair procedures, memory pressure adaptation</p>
+<p><strong>Context Switching Scenarios:</strong></p>
+<p><strong>Mesh Network Context Switch:</strong>
+<pre class="mermaid"><code>stateDiagram-v2
+    state "Mesh Controller Mode" as ControllerMode
+    state "Mesh Agent Mode" as AgentMode
+    state "Standalone Mode" as StandaloneMode
+
+    [*] --&gt; StandaloneMode
+    StandaloneMode --&gt; ControllerMode: Mesh Enable + Controller Config
+    StandaloneMode --&gt; AgentMode: Mesh Enable + Agent Discovery
+    ControllerMode --&gt; AgentMode: Controller Failure/Handover
+    AgentMode --&gt; ControllerMode: Promotion Event
+    ControllerMode --&gt; StandaloneMode: Mesh Disable
+    AgentMode --&gt; StandaloneMode: Mesh Disable</code></pre></p>
+<p><strong>Radio Operating Mode Context Switch:</strong>
+<pre class="mermaid"><code>stateDiagram-v2
+    state "Normal Operation" as NormalOp
+    state "DFS Channel Scan" as DFSScan  
+    state "Emergency Channel" as EmergencyChannel
+    state "Thermal Throttle" as ThermalMode
+
+    [*] --&gt; NormalOp
+    NormalOp --&gt; DFSScan: Radar Detection
+    NormalOp --&gt; ThermalMode: Temperature Threshold
+    NormalOp --&gt; EmergencyChannel: All DFS Channels Blocked
+    DFSScan --&gt; NormalOp: Clear Channel Found
+    DFSScan --&gt; EmergencyChannel: No Clear Channels
+    ThermalMode --&gt; NormalOp: Temperature Normal
+    EmergencyChannel --&gt; NormalOp: DFS Timer Expired</code></pre></p>
+<h2 id="call-flow">Call Flow</h2>
+<h3 id="primary-call-flows">Primary Call Flows</h3>
+<p><strong>Initialization Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant System as System Init
+    participant OneWifi as OneWifi Core
+    participant HAL as WiFi HAL
+    participant DB as WiFi Database
+    participant Hostapd as hostapd Daemon
+    participant RBus as RBus/DBus
+
+    System-&gt;&gt;OneWifi: Start OneWifi Service
+    OneWifi-&gt;&gt;HAL: wifi_hal_init()
+    HAL--&gt;&gt;OneWifi: Capabilities &amp; Radio Info
+    OneWifi-&gt;&gt;DB: Initialize Database Schema
+    DB--&gt;&gt;OneWifi: Database Ready
+    OneWifi-&gt;&gt;OneWifi: Load Configuration Files
+    OneWifi-&gt;&gt;RBus: Register TR-181 Parameters
+    RBus--&gt;&gt;OneWifi: Registration Complete
+    OneWifi-&gt;&gt;Hostapd: Configure AP Settings
+    Hostapd--&gt;&gt;OneWifi: hostapd Ready
+    OneWifi-&gt;&gt;OneWifi: Start Service Layer
+    OneWifi-&gt;&gt;System: Initialization Complete (Active State)</code></pre>
+<p><strong>VAP Creation and Management Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant WebConfig as WebConfig/TR-181
+    participant OneWifi as OneWifi Controller
+    participant Service as VAP Service
+    participant HAL as WiFi HAL
+    participant Hostapd as hostapd
+    participant DB as WiFi Database
+
+    WebConfig-&gt;&gt;OneWifi: Create VAP Request (JSON/TR-181)
+    OneWifi-&gt;&gt;OneWifi: Validate Configuration
+    OneWifi-&gt;&gt;Service: Initialize VAP Service
+    Service-&gt;&gt;HAL: wifi_createVAP()
+    HAL--&gt;&gt;Service: VAP Created (Interface Name)
+    Service-&gt;&gt;Hostapd: Configure AP Parameters
+    Hostapd--&gt;&gt;Service: Configuration Applied
+    Service-&gt;&gt;DB: Store VAP Configuration
+    DB--&gt;&gt;Service: Persistence Complete
+    Service--&gt;&gt;OneWifi: VAP Ready
+    OneWifi--&gt;&gt;WebConfig: Success Response</code></pre>
+<p><strong>EasyMesh Controller/Agent Interaction Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Controller as EasyMesh Controller
+    participant OneWifi as OneWifi Agent
+    participant IEEE1905 as IEEE 1905 Protocol
+    participant UnifiedMesh as Unified-Mesh System
+    participant MeshHAL as WiFi HAL (Mesh)
+
+    Controller-&gt;&gt;IEEE1905: Multi-AP Configuration
+    IEEE1905-&gt;&gt;UnifiedMesh: IEEE 1905 Message
+    UnifiedMesh-&gt;&gt;OneWifi: EasyMesh Config Update
+    OneWifi-&gt;&gt;OneWifi: Validate Mesh Configuration
+    OneWifi-&gt;&gt;MeshHAL: Configure Mesh VAPs
+    MeshHAL--&gt;&gt;OneWifi: Mesh Interface Ready
+    OneWifi-&gt;&gt;UnifiedMesh: Configuration Applied
+    UnifiedMesh-&gt;&gt;IEEE1905: ACK Response
+    IEEE1905--&gt;&gt;Controller: Configuration Success
+
+    Note over Controller,MeshHAL: Ongoing mesh topology monitoring and optimization
+
+    OneWifi-&gt;&gt;UnifiedMesh: Mesh Metrics/Statistics
+    UnifiedMesh-&gt;&gt;IEEE1905: Periodic Reports
+    IEEE1905-&gt;&gt;Controller: Network Status Updates</code></pre>
+<h2 id="tr181-data-models">TR‑181 Data Models</h2>
+<h3 id="supported-tr-181-parameters">Supported TR-181 Parameters</h3>
+<p>OneWifi provides comprehensive TR-181 data model support with full compliance to TR-181 Issue 2 Amendment 15 specifications, extended with RDK-specific enhancements for advanced wireless features, mesh networking, and analytics capabilities.</p>
+<h4 id="object-hierarchy">Object Hierarchy</h4>
+<div class="highlight"><pre><span></span><code>Device.
+└── WiFi.
+    ├── RadioNumberOfEntries (unsignedInt, R)
+    ├── SSIDNumberOfEntries (unsignedInt, R)
+    ├── AccessPointNumberOfEntries (unsignedInt, R)
+    ├── X_RDK_MeshAgent.
+    │   ├── Enable (boolean, R/W)
+    │   ├── Status (string, R)
+    │   └── URL (string, R/W)
+    ├── Radio.{i}.
+    │   ├── Enable (boolean, R/W)
+    │   ├── Status (string, R)
+    │   ├── Channel (unsignedInt, R/W)
+    │   ├── OperatingFrequencyBand (string, R/W)
+    │   ├── OperatingStandards (string, R/W)
+    │   ├── TransmitPower (int, R/W)
+    │   └── X_RDK_AutoChannelEnable (boolean, R/W)
+    ├── SSID.{i}.
+    │   ├── Enable (boolean, R/W)
+    │   ├── Status (string, R)
+    │   ├── Name (string, R/W)
+    │   └── SSID (string, R/W)
+    ├── AccessPoint.{i}.
+    │   ├── Enable (boolean, R/W)
+    │   ├── Status (string, R)
+    │   ├── SSIDReference (string, R/W)
+    │   ├── Security.
+    │   │   ├── ModeEnabled (string, R/W)
+    │   │   ├── KeyPassphrase (string, R/W)
+    │   │   └── X_RDK_SAE_Enable (boolean, R/W)
+    │   └── AssociatedDevice.{i}.
+    │       ├── MACAddress (string, R)
+    │       ├── SignalStrength (int, R)
+    │       └── X_RDK_RSSI (int, R)
+    └── X_RDK_EasyMesh.
+        ├── Enable (boolean, R/W)
+        ├── ControllerEnable (boolean, R/W)
+        ├── AgentEnable (boolean, R/W)
+        └── NetworkConfiguration (string, R/W)
+</code></pre></div>
+<h4 id="parameter-definitions">Parameter Definitions</h4>
+<p><strong>Core Radio Management Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter Path</th>
+<th>Data Type</th>
+<th>Access</th>
+<th>Default Value</th>
+<th>Description</th>
+<th>BBF Compliance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Device.WiFi.Radio.{i}.Enable</code></td>
+<td>boolean</td>
+<td>R/W</td>
+<td><code>true</code></td>
+<td>Enables or disables the radio. When false, all associated SSIDs are disabled and no wireless activity occurs on this radio interface.</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.Radio.{i}.Status</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>"Up"</code></td>
+<td>Current operational status of the radio. Enumeration: Up, Down, Unknown, Dormant, NotPresent, LowerLayerDown, Error</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.Radio.{i}.Channel</code></td>
+<td>unsignedInt</td>
+<td>R/W</td>
+<td><code>6</code> (2.4GHz), <code>36</code> (5GHz)</td>
+<td>Current operating channel number. Automatic channel selection when AutoChannelEnable is true. Range 1-14 for 2.4GHz, 36-165 for 5GHz, 1-233 for 6GHz</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.Radio.{i}.OperatingFrequencyBand</code></td>
+<td>string</td>
+<td>R/W</td>
+<td><code>"2.4GHz"</code></td>
+<td>Operating frequency band for the radio. Enumeration: 2.4GHz, 5GHz, 6GHz. Changes require radio restart for proper hardware configuration</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.Radio.{i}.OperatingStandards</code></td>
+<td>string</td>
+<td>R/W</td>
+<td><code>"n,ac,ax"</code></td>
+<td>Comma-separated list of 802.11 standards supported. Valid: a,b,g,n,ac,ax,be. Determines modulation schemes and feature availability</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.Radio.{i}.TransmitPower</code></td>
+<td>int</td>
+<td>R/W</td>
+<td><code>100</code></td>
+<td>Current transmit power as percentage of maximum capability. Range 1-100. Actual power limited by regulatory domain and thermal constraints</td>
+<td>TR-181 Issue 2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>VAP and Security Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter Path</th>
+<th>Data Type</th>
+<th>Access</th>
+<th>Default Value</th>
+<th>Description</th>
+<th>BBF Compliance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Device.WiFi.SSID.{i}.Enable</code></td>
+<td>boolean</td>
+<td>R/W</td>
+<td><code>false</code></td>
+<td>Enables or disables the SSID. When enabled, the virtual access point becomes operational and begins broadcasting</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.SSID.{i}.Status</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>"Disabled"</code></td>
+<td>Current SSID operational status. Enumeration: Enabled, Disabled, Error, ErrorAuthenticationFailure, ErrorAssociationFailure</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.SSID.{i}.Name</code></td>
+<td>string</td>
+<td>R/W</td>
+<td><code>""</code></td>
+<td>Human-readable SSID identifier for management purposes. Does not affect over-the-air SSID broadcast name</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.SSID.{i}.SSID</code></td>
+<td>string</td>
+<td>R/W</td>
+<td><code>""</code></td>
+<td>Service Set Identifier broadcast over the air. Maximum 32 octets. UTF-8 encoding with proper validation for wireless compatibility</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.AccessPoint.{i}.Security.ModeEnabled</code></td>
+<td>string</td>
+<td>R/W</td>
+<td><code>"None"</code></td>
+<td>Security mode for the access point. Enumeration: None, WEP-64, WEP-128, WPA-Personal, WPA2-Personal, WPA-WPA2-Personal, WPA2-Enterprise, WPA3-Personal, WPA3-Enterprise, WPA2-WPA3-Personal</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.AccessPoint.{i}.Security.KeyPassphrase</code></td>
+<td>string</td>
+<td>R/W</td>
+<td><code>""</code></td>
+<td>WPA/WPA2/WPA3 pre-shared key passphrase. Length 8-63 ASCII characters or 64-character hexadecimal key. Stored encrypted in persistent database</td>
+<td>TR-181 Issue 2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Custom RDK Extensions:</strong></p>
+<p><strong>EasyMesh Multi-AP Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter Path</th>
+<th>Data Type</th>
+<th>Access</th>
+<th>Default Value</th>
+<th>Description</th>
+<th>BBF Compliance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Device.WiFi.X_RDK_EasyMesh.Enable</code></td>
+<td>boolean</td>
+<td>R/W</td>
+<td><code>false</code></td>
+<td>Master enable for EasyMesh Multi-AP functionality. Controls IEEE 1905 protocol stack and mesh networking capabilities</td>
+<td>RDK Custom</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.X_RDK_EasyMesh.ControllerEnable</code></td>
+<td>boolean</td>
+<td>R/W</td>
+<td><code>false</code></td>
+<td>Enable EasyMesh controller functionality for mesh network management, topology optimization, and multi-AP coordination</td>
+<td>RDK Custom</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.X_RDK_EasyMesh.AgentEnable</code></td>
+<td>boolean</td>
+<td>R/W</td>
+<td><code>false</code></td>
+<td>Enable EasyMesh agent functionality to participate in mesh network under controller management with automatic configuration</td>
+<td>RDK Custom</td>
+</tr>
+<tr>
+<td><code>Device.WiFi.X_RDK_EasyMesh.NetworkConfiguration</code></td>
+<td>string</td>
+<td>R/W</td>
+<td><code>""</code></td>
+<td>JSON-encoded EasyMesh network configuration including AL-MAC address, backhaul credentials, and mesh topology parameters</td>
+<td>RDK Custom</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Mesh and Analytics Extensions:</strong></p>
+<ul>
+<li><strong>Device.WiFi.X_RDK_MeshAgent.Enable</strong>: Controls mesh agent daemon for unified-mesh system integration</li>
+<li><strong>Device.WiFi.Radio.{i}.X_RDK_AutoChannelEnable</strong>: Enhanced automatic channel selection with DFS and interference avoidance  </li>
+<li><strong>Device.WiFi.AccessPoint.{i}.AssociatedDevice.{i}.X_RDK_RSSI</strong>: Extended RSSI reporting with historical statistics</li>
+<li><strong>Device.WiFi.AccessPoint.{i}.Security.X_RDK_SAE_Enable</strong>: WPA3 Simultaneous Authentication of Equals support</li>
+</ul>
+<h3 id="parameter-registration-and-access">Parameter Registration and Access</h3>
+<p>OneWifi registers TR-181 parameters through RBus message infrastructure with efficient parameter access patterns optimized for high-frequency operations. The registration process establishes parameter namespaces, access controls, and validation rules during component initialization.</p>
+<h2 id="internal-modules">Internal Modules</h2>
+<p>OneWifi's modular architecture provides clear separation of concerns while enabling efficient inter-module communication and shared resource management.</p>
+<table>
+<thead>
+<tr>
+<th>Module/Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WiFi Manager</strong></td>
+<td>Core orchestration engine managing component lifecycle, hardware abstraction, and global state coordination</td>
+<td><code>wifi_mgr.c</code>, <code>wifi_mgr.h</code></td>
+</tr>
+<tr>
+<td><strong>WiFi Controller</strong></td>
+<td>Central event processing hub handling IPC messages, configuration updates, and service coordination</td>
+<td><code>wifi_ctrl.c</code>, <code>wifi_ctrl_rbus_handlers.c</code>, <code>wifi_ctrl_webconfig.c</code></td>
+</tr>
+<tr>
+<td><strong>Service Layer</strong></td>
+<td>Modular service architecture with specialized handlers for different VAP types and network functions</td>
+<td><code>vap_svc_private.c</code>, <code>vap_svc_public.c</code>, <code>vap_svc_mesh_gw.c</code></td>
+</tr>
+<tr>
+<td><strong>WiFi Database</strong></td>
+<td>ACID-compliant persistent storage system for configuration data, client information, and operational statistics</td>
+<td><code>wifi_db.c</code>, <code>wifi_db_apis.c</code></td>
+</tr>
+<tr>
+<td><strong>Application Framework</strong></td>
+<td>Plugin-based application system for analytics, harvesting, monitoring, and advanced wireless features</td>
+<td><code>wifi_apps_mgr.c</code>, <code>analytics/</code>, <code>harvester/</code>, <code>blaster/</code></td>
+</tr>
+<tr>
+<td><strong>EasyMesh Integration</strong></td>
+<td>IEEE 1905 Multi-AP protocol implementation with controller/agent capabilities and unified-mesh system coordination</td>
+<td><code>wifi_em.c</code>, <code>wifi_easymesh_translator.c</code></td>
+</tr>
+<tr>
+<td><strong>WebConfig Manager</strong></td>
+<td>Bulk configuration management supporting JSON-based updates, validation, and atomic rollback operations</td>
+<td><code>wifi_webconfig.c</code>, <code>wifi_decoder.c</code>, <code>wifi_encoder.c</code></td>
+</tr>
+<tr>
+<td><strong>Protocol Handlers</strong></td>
+<td>802.11 frame processing, security protocol implementation, and advanced wireless feature support</td>
+<td><code>wifi_8021x.c</code>, <code>wifi_hal.h</code> integration</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>flowchart TD
+    subgraph OneWifi_Core ["OneWifi Core Architecture"]
+        subgraph Management_Layer ["Management Layer"]
+            WifiMgr([WiFi Manager&lt;br/&gt;Core Orchestration])
+            WifiCtrl([WiFi Controller&lt;br/&gt;Event Processing])
+            EventMgr([Event Manager&lt;br/&gt;IPC Handling])
+        end
+
+        subgraph Service_Layer ["Service Layer"]
+            PrivateSvc([Private VAP Service&lt;br/&gt;Home Networks])
+            PublicSvc([Public VAP Service&lt;br/&gt;Hotspots])
+            MeshSvc([Mesh Service&lt;br/&gt;Backhaul/STA])
+        end
+
+        subgraph Application_Layer ["Application Layer"]
+            Analytics([Analytics Engine&lt;br/&gt;Client Behavior])
+            Harvester([Data Harvester&lt;br/&gt;Metrics Collection])
+            EasyMesh([EasyMesh App&lt;br/&gt;IEEE 1905 Protocol])
+            Blaster([Traffic Blaster&lt;br/&gt;Performance Testing])
+        end
+
+        subgraph Data_Layer ["Data &amp; Persistence Layer"]
+            WiFiDB[(WiFi Database&lt;br/&gt;ACID Storage)]
+            ConfigMgr([WebConfig Manager&lt;br/&gt;Bulk Updates])
+            BusLayer([RBus/DBus Layer&lt;br/&gt;IPC Infrastructure])
+        end
+    end
+
+    %% Inter-module connections
+    WifiMgr --&gt; WifiCtrl
+    WifiCtrl --&gt; PrivateSvc
+    WifiCtrl --&gt; PublicSvc
+    WifiCtrl --&gt; MeshSvc
+
+    Analytics --&gt; EventMgr
+    Harvester --&gt; WiFiDB
+    EasyMesh --&gt; MeshSvc
+    Blaster --&gt; PrivateSvc
+
+    ConfigMgr --&gt; WifiCtrl
+    BusLayer --&gt; EventMgr
+    WiFiDB --&gt; WifiMgr
+
+    classDef mgmt fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef service fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef app fill:#fff8e1,stroke:#f57c00,stroke-width:2px;
+    classDef data fill:#e8f5e8,stroke:#388e3c,stroke-width:2px;
+
+    class WifiMgr,WifiCtrl,EventMgr mgmt;
+    class PrivateSvc,PublicSvc,MeshSvc service;
+    class Analytics,Harvester,EasyMesh,Blaster app;
+    class WiFiDB,ConfigMgr,BusLayer data;</code></pre>
+<h2 id="component-interactions-ipc-mechanisms">Component Interactions &amp; IPC Mechanisms</h2>
+<h3 id="system-architecture-overview">System Architecture Overview</h3>
+<p>OneWifi integrates with RDK-B middleware through standardized IPC mechanisms while maintaining direct hardware control through WiFi HAL and hostapd integration. The component serves as the authoritative source for all wireless configuration and operational data within the RDK-B ecosystem.</p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "RDK-B Middleware Ecosystem"
+        subgraph "Management Layer"
+            TR069[TR-069 Agent&lt;br/&gt;Remote Management]
+            WebPA[WebPA Agent&lt;br/&gt;Cloud Interface] 
+            SNMP[SNMP Agent&lt;br/&gt;Network Management]
+        end
+
+        subgraph "Configuration Layer"
+            WebConfig[WebConfig Framework&lt;br/&gt;Bulk Updates]
+            PSM[PSM Database&lt;br/&gt;Parameter Storage]
+            Telemetry[Telemetry 2.0&lt;br/&gt;Data Collection]
+        end
+    end
+
+    subgraph "OneWifi Component"
+        subgraph "Core Services"
+            Core[OneWifi Core&lt;br/&gt;C++ Application]
+            DB[(WiFi Database&lt;br/&gt;SQLite-based)]
+            Apps[Application Suite&lt;br/&gt;Analytics/Mesh/etc.]
+        end
+    end
+
+    subgraph "Protocol &amp; Hardware Layer"
+        subgraph "802.11 Implementation"
+            Hostapd[hostapd v2.10+&lt;br/&gt;AP Management]
+            WpaSupplicant[wpa_supplicant&lt;br/&gt;STA Operations]
+        end
+
+        subgraph "Hardware Abstraction"
+            WiFiHAL[WiFi HAL v3.0&lt;br/&gt;802.11ax/be Support]
+            NetworkHAL[Network HAL&lt;br/&gt;Interface Control]
+        end
+
+        subgraph "Kernel &amp; Drivers"
+            nl80211[nl80211 Interface&lt;br/&gt;cfg80211 Framework]
+            WifiDriver[WiFi Driver&lt;br/&gt;Vendor-specific]
+        end
+    end
+
+    subgraph "EasyMesh Ecosystem"
+        UnifiedMesh[Unified-Mesh Controller&lt;br/&gt;IEEE 1905.1 Protocol]
+        MeshAgents[EasyMesh Agents&lt;br/&gt;Remote Nodes]
+    end
+
+    %% Communication Flows
+    TR069 -.-&gt;|TR-181 Parameters&lt;br/&gt;RBus Protocol| Core
+    WebPA -.-&gt;|JSON Configuration&lt;br/&gt;WebConfig API| Core
+    SNMP -.-&gt;|SNMP v2c/v3&lt;br/&gt;MIB Access| Core
+
+    WebConfig --&gt;|Bulk Configuration&lt;br/&gt;JSON/MessagePack| Core
+    PSM &lt;--&gt;|Parameter Persistence&lt;br/&gt;DBus Messages| Core
+    Telemetry &lt;--&gt;|Statistics &amp; Events&lt;br/&gt;RBus Telemetry API| Core
+
+    Core &lt;--&gt;|Hardware Control&lt;br/&gt;Direct API Calls| WiFiHAL
+    Core &lt;--&gt;|Network Interface&lt;br/&gt;Management APIs| NetworkHAL
+    Core &lt;--&gt;|AP Configuration&lt;br/&gt;hostapd_cli/DBus| Hostapd
+    Core &lt;--&gt;|STA Control&lt;br/&gt;wpa_cli/DBus| WpaSupplicant
+    Core &lt;--&gt;|ACID Transactions&lt;br/&gt;SQL Operations| DB
+
+    WiFiHAL &lt;--&gt;|nl80211 Commands&lt;br/&gt;Netlink Sockets| nl80211
+    NetworkHAL &lt;--&gt;|Interface Control&lt;br/&gt;ioctl/netlink| nl80211
+    Hostapd &lt;--&gt;|Driver Interface&lt;br/&gt;nl80211 Commands| nl80211
+    WpaSupplicant &lt;--&gt;|Driver Interface&lt;br/&gt;nl80211 Commands| nl80211
+
+    nl80211 &lt;--&gt;|Hardware Commands&lt;br/&gt;Vendor Extensions| WifiDriver
+
+    Apps &lt;--&gt;|IEEE 1905 Messages&lt;br/&gt;Unix Domain Sockets| UnifiedMesh
+    UnifiedMesh &lt;--&gt;|Multi-AP Protocol&lt;br/&gt;IEEE 1905.1/TCP| MeshAgents
+
+    classDef middleware fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef onewifi fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px;
+    classDef protocol fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef hardware fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef mesh fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class TR069,WebPA,SNMP,WebConfig,PSM,Telemetry middleware;
+    class Core,DB,Apps onewifi;
+    class Hostapd,WpaSupplicant,WiFiHAL,NetworkHAL protocol;
+    class nl80211,WifiDriver hardware;
+    class UnifiedMesh,MeshAgents mesh;</code></pre>
+<h3 id="detailed-interaction-matrix">Detailed Interaction Matrix</h3>
+<table>
+<thead>
+<tr>
+<th>Target Component/Layer</th>
+<th>Interaction Purpose</th>
+<th>IPC Mechanism</th>
+<th>Message Format</th>
+<th>Communication Pattern</th>
+<th>Key APIs/Endpoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RDK-B Middleware Components</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>TR-069 Agent</td>
+<td>Remote parameter management, firmware upgrades, diagnostics</td>
+<td>RBus Events/Methods</td>
+<td>JSON Parameter Sets</td>
+<td>Request-Response/Event Notifications</td>
+<td><code>Device.WiFi.*</code> namespace, <code>rbus_method_table</code></td>
+</tr>
+<tr>
+<td>WebPA Agent</td>
+<td>Cloud-based configuration, bulk parameter updates</td>
+<td>WebConfig Framework</td>
+<td>JSON/MessagePack</td>
+<td>RESTful HTTP/WebSocket</td>
+<td><code>POST /api/v1/device/config</code>, WebSocket events</td>
+</tr>
+<tr>
+<td>PSM Database</td>
+<td>Parameter persistence, cross-component data sharing</td>
+<td>DBus/RBus Messages</td>
+<td>Key-Value Pairs</td>
+<td>Synchronous Get/Set Operations</td>
+<td><code>PSM_Set()</code>, <code>PSM_Get()</code>, namespace <code>eRT.com.cisco.spvtg.ccsp.wifi</code></td>
+</tr>
+<tr>
+<td>Telemetry 2.0</td>
+<td>Statistics reporting, event data collection, performance metrics</td>
+<td>RBus Telemetry API</td>
+<td>Structured Event Data</td>
+<td>Asynchronous Publishing</td>
+<td><code>t2_event_s()</code>, <code>t2_event_d()</code>, marker-based reporting</td>
+</tr>
+<tr>
+<td><strong>System &amp; HAL Layers</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>WiFi HAL</td>
+<td>Hardware control, 802.11 protocol implementation, radio management</td>
+<td>Direct Function Calls</td>
+<td>C Structure Pointers</td>
+<td>Synchronous API Calls</td>
+<td><code>wifi_createVAP()</code>, <code>wifi_setRadioOperatingParameters()</code>, <code>wifi_hal_connect()</code></td>
+</tr>
+<tr>
+<td>Network HAL</td>
+<td>Interface management, VLAN configuration, bridge operations</td>
+<td>Direct Function Calls</td>
+<td>C Structures</td>
+<td>Synchronous Function Calls</td>
+<td><code>nethal_addInterface()</code>, <code>nethal_setBridgeConfig()</code></td>
+</tr>
+<tr>
+<td>hostapd Daemon</td>
+<td>Access point configuration, client authentication, 802.11 frame processing</td>
+<td>Unix Domain Sockets/DBus</td>
+<td>hostapd Control Protocol</td>
+<td>Request-Response/Event Callbacks</td>
+<td><code>/var/run/hostapd/wlan0</code>, <code>hostapd_ctrl_iface</code></td>
+</tr>
+<tr>
+<td>wpa_supplicant</td>
+<td>Station mode operations, network scanning, connection management</td>
+<td>Unix Domain Sockets/DBus</td>
+<td>wpa_supplicant Control Protocol</td>
+<td>Request-Response/Event Callbacks</td>
+<td><code>/var/run/wpa_supplicant/wlan0</code>, <code>wpa_ctrl_request()</code></td>
+</tr>
+<tr>
+<td><strong>External Systems</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Unified-Mesh System</td>
+<td>EasyMesh controller coordination, IEEE 1905 protocol handling</td>
+<td>Unix Domain Sockets</td>
+<td>IEEE 1905 TLV Messages</td>
+<td>Event-Driven Protocol Exchange</td>
+<td><code>/tmp/mesh_controller.sock</code>, Multi-AP protocol messages</td>
+</tr>
+<tr>
+<td>Cloud Services</td>
+<td>Configuration backup, analytics upload, remote diagnostics</td>
+<td>HTTPS/WebSocket</td>
+<td>JSON API Payloads</td>
+<td>RESTful/Event Streaming</td>
+<td>Cloud-specific endpoints, OAuth 2.0 authentication</td>
+</tr>
+</tbody>
+</table>
+<h3 id="event-publishing-subscription">Event Publishing &amp; Subscription</h3>
+<p><strong>Events Published by OneWifi:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Event Name</th>
+<th>Event Topic/Path</th>
+<th>Trigger Condition</th>
+<th>Payload Format</th>
+<th>Subscriber Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wifi_radio_status_change</code></td>
+<td><code>Device.WiFi.Radio.{i}.Status</code></td>
+<td>Radio state transitions (Up/Down/Error)</td>
+<td>JSON: <code>{radio_index, old_status, new_status, timestamp, reason}</code></td>
+<td>TR-069, WebPA, Telemetry, Network Manager</td>
+</tr>
+<tr>
+<td><code>wifi_client_connect</code></td>
+<td><code>Device.WiFi.AccessPoint.{i}.AssociatedDevice</code></td>
+<td>Client association completion</td>
+<td>JSON: <code>{vap_index, mac_address, signal_strength, capabilities, timestamp}</code></td>
+<td>Analytics, Harvester, Parental Controls, QoS Manager</td>
+</tr>
+<tr>
+<td><code>wifi_mesh_topology_change</code></td>
+<td><code>Device.WiFi.X_RDK_EasyMesh.Topology</code></td>
+<td>Mesh network topology updates</td>
+<td>JSON: <code>{event_type, node_mac, link_quality, hop_count, timestamp}</code></td>
+<td>Unified-Mesh, Network Optimizer, Telemetry</td>
+</tr>
+<tr>
+<td><code>wifi_security_event</code></td>
+<td><code>Device.WiFi.Security.Event</code></td>
+<td>Authentication failures, intrusion detection</td>
+<td>JSON: <code>{event_type, severity, mac_address, details, timestamp}</code></td>
+<td>Security Manager, Logging Service, SNMP Agent</td>
+</tr>
+<tr>
+<td><code>wifi_performance_alert</code></td>
+<td><code>Device.WiFi.Performance.Alert</code></td>
+<td>Threshold violations, degraded performance</td>
+<td>JSON: <code>{metric_type, threshold, current_value, vap_index, timestamp}</code></td>
+<td>Performance Monitor, Auto-Optimization, Telemetry</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Events Consumed by OneWifi:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Event Source</th>
+<th>Event Topic/Path</th>
+<th>Purpose</th>
+<th>Expected Payload</th>
+<th>Handler Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WebConfig Framework</td>
+<td><code>webconfig.wifi.update</code></td>
+<td>Bulk configuration updates, factory reset preparation</td>
+<td>JSON: <code>{subdoc_type, config_data, transaction_id}</code></td>
+<td><code>webconfig_event_handler()</code></td>
+</tr>
+<tr>
+<td>Network Manager</td>
+<td><code>network.interface.status</code></td>
+<td>Interface state changes, VLAN updates, bridge modifications</td>
+<td>JSON: <code>{interface_name, status, ip_config, bridge_info}</code></td>
+<td><code>network_interface_event_handler()</code></td>
+</tr>
+<tr>
+<td>System Health Monitor</td>
+<td><code>system.thermal.alert</code></td>
+<td>Thermal throttling requirements, emergency shutdown triggers</td>
+<td>JSON: <code>{temperature, threshold, action_required, severity}</code></td>
+<td><code>thermal_management_handler()</code></td>
+</tr>
+<tr>
+<td>Time Service</td>
+<td><code>system.time.sync</code></td>
+<td>Time synchronization events for certificate validation</td>
+<td>JSON: <code>{sync_status, ntp_server, accuracy, timestamp}</code></td>
+<td><code>time_sync_event_handler()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="ipc-flow-patterns">IPC Flow Patterns</h3>
+<p><strong>Primary Configuration Flow - WebConfig Bulk Update:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Cloud as Cloud Service
+    participant WebPA as WebPA Agent
+    participant WebConfig as WebConfig Framework
+    participant OneWifi as OneWifi Core
+    participant HAL as WiFi HAL
+    participant Hostapd as hostapd
+
+    Cloud-&gt;&gt;WebPA: Configuration Update (HTTPS)
+    WebPA-&gt;&gt;WebConfig: Process Config Document
+    WebConfig-&gt;&gt;WebConfig: Validate JSON Schema
+    WebConfig-&gt;&gt;OneWifi: Apply WiFi Configuration
+    OneWifi-&gt;&gt;OneWifi: Validate Parameters
+    OneWifi-&gt;&gt;HAL: Update Radio Settings
+    HAL--&gt;&gt;OneWifi: Configuration Applied
+    OneWifi-&gt;&gt;Hostapd: Update AP Configuration
+    Hostapd--&gt;&gt;OneWifi: hostapd Reloaded
+    OneWifi--&gt;&gt;WebConfig: Success Response
+    WebConfig--&gt;&gt;WebPA: Configuration Complete
+    WebPA--&gt;&gt;Cloud: HTTP 200 OK + Status</code></pre>
+<p><strong>EasyMesh Coordination Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Controller as EasyMesh Controller
+    participant UnifiedMesh as Unified-Mesh System
+    participant OneWifi as OneWifi Agent
+    participant MeshHAL as WiFi HAL (Mesh)
+    participant MeshVAP as Mesh VAP Interface
+
+    Controller-&gt;&gt;UnifiedMesh: Multi-AP Policy Config
+    UnifiedMesh-&gt;&gt;OneWifi: IEEE 1905 Configuration TLV
+    OneWifi-&gt;&gt;OneWifi: Validate Mesh Parameters
+    OneWifi-&gt;&gt;MeshHAL: Configure Mesh Backhaul
+    MeshHAL--&gt;&gt;OneWifi: Backhaul Interface Ready
+    OneWifi-&gt;&gt;MeshVAP: Activate Mesh VAP
+    MeshVAP--&gt;&gt;OneWifi: VAP Operational
+    OneWifi-&gt;&gt;UnifiedMesh: Configuration ACK + Status
+    UnifiedMesh-&gt;&gt;Controller: Policy Applied Successfully
+
+    Note over Controller,MeshVAP: Continuous mesh monitoring and optimization
+
+    OneWifi-&gt;&gt;UnifiedMesh: Periodic Metrics (RSSI, Throughput, Topology)
+    UnifiedMesh-&gt;&gt;Controller: Network Optimization Reports
+    Controller-&gt;&gt;UnifiedMesh: Dynamic Policy Updates
+    UnifiedMesh-&gt;&gt;OneWifi: Runtime Configuration Changes</code></pre>
+<h2 id="implementation-details">Implementation Details</h2>
+<h3 id="major-hal-apis-integration">Major HAL APIs Integration</h3>
+<p>OneWifi integrates comprehensively with WiFi HAL v3.0+ to provide complete 802.11 protocol implementation and hardware abstraction. The HAL integration supports advanced features including 802.11ax/be, MU-MIMO, OFDMA, and vendor-specific optimizations.</p>
+<p><strong>Core WiFi HAL APIs:</strong></p>
+<table>
+<thead>
+<tr>
+<th>HAL API</th>
+<th>Purpose</th>
+<th>Parameters</th>
+<th>Return Values</th>
+<th>Implementation File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wifi_createVAP()</code></td>
+<td>Create virtual access point with specified configuration</td>
+<td><code>radio_index</code>, <code>vap_config_map</code>, <code>vap_info_map</code></td>
+<td><code>WIFI_HAL_SUCCESS</code>/<code>WIFI_HAL_ERROR</code></td>
+<td><code>wifi_ctrl_wifiapi_handlers.c</code></td>
+</tr>
+<tr>
+<td><code>wifi_setRadioOperatingParameters()</code></td>
+<td>Configure radio operational parameters including channel, power, standards</td>
+<td><code>radio_index</code>, <code>operationParam</code>, <code>channelParam</code></td>
+<td><code>WIFI_HAL_SUCCESS</code>/<code>WIFI_HAL_ERROR</code></td>
+<td><code>wifi_mgr.c</code></td>
+</tr>
+<tr>
+<td><code>wifi_hal_connect()</code></td>
+<td>Initiate station connection to external network with credentials</td>
+<td><code>ap_index</code>, <code>ssid</code>, <code>passphrase</code>, <code>key_mgmt</code>, <code>eap_config</code></td>
+<td><code>WIFI_HAL_SUCCESS</code>/Connection Status</td>
+<td><code>wifi_ctrl_wifiapi_handlers.c</code></td>
+</tr>
+<tr>
+<td><code>wifi_getRadioVapInfoMap()</code></td>
+<td>Retrieve current VAP configuration and operational status</td>
+<td><code>radio_index</code>, <code>vap_info_map</code></td>
+<td>Populated VAP structure/Error</td>
+<td><code>wifi_mgr.c</code></td>
+</tr>
+<tr>
+<td><code>wifi_startNeighborScan()</code></td>
+<td>Initiate neighbor network scanning for mesh and roaming optimization</td>
+<td><code>vap_index</code>, <code>scan_mode</code>, <code>dwell_time</code>, <code>channel_list</code></td>
+<td><code>WIFI_HAL_SUCCESS</code>/Scan ID</td>
+<td><code>wifi_apps/analytics/wifi_analytics.c</code></td>
+</tr>
+<tr>
+<td><code>wifi_setApSecurity()</code></td>
+<td>Configure access point security parameters including WPA3 and enterprise settings</td>
+<td><code>ap_index</code>, <code>security_config</code></td>
+<td><code>WIFI_HAL_SUCCESS</code>/<code>WIFI_HAL_ERROR</code></td>
+<td><code>wifi_mgr.c</code></td>
+</tr>
+<tr>
+<td><code>wifi_getApAssociatedDeviceDiagnosticResult3()</code></td>
+<td>Retrieve detailed client statistics and diagnostic information</td>
+<td><code>ap_index</code>, <code>associated_device_array</code>, <code>output_array_size</code></td>
+<td>Client count/Device statistics array</td>
+<td><code>wifi_stats.c</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="hostapd-integration-and-control">hostapd Integration and Control</h3>
+<p>OneWifi manages hostapd through multiple control mechanisms ensuring robust access point operations with dynamic configuration updates and event handling:</p>
+<p><strong>hostapd Control Architecture:</strong></p>
+<ul>
+<li><strong>Configuration Management</strong>: Dynamic generation of hostapd.conf files with template-based parameter injection and atomic configuration updates </li>
+<li><strong>Runtime Control</strong>: hostapd_cli interface for real-time parameter changes, client management, and security policy updates without full daemon restart </li>
+<li><strong>Event Monitoring</strong>: Hostapd event callback registration for client association/disassociation, authentication events, and 802.11 management frame processing </li>
+<li><strong>Security Integration</strong>: WPA3 SAE configuration, Enterprise authentication with RADIUS integration, and advanced security features like Management Frame Protection (MFP) </li>
+</ul>
+<p><strong>Key hostapd Integration Points:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Control Method</th>
+<th>Configuration Files</th>
+<th>Event Callbacks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AP Initialization</td>
+<td><code>hostapd_ctrl_iface_init()</code></td>
+<td><code>/tmp/hostapd-wlan0.conf</code></td>
+<td><code>hostapd_event_new_sta()</code></td>
+</tr>
+<tr>
+<td>Security Updates</td>
+<td><code>hostapd_ctrl_command("SET")</code></td>
+<td>Dynamic parameter injection</td>
+<td><code>hostapd_event_eapol_rx()</code></td>
+</tr>
+<tr>
+<td>Client Management</td>
+<td><code>hostapd_ctrl_command("DISASSOCIATE")</code></td>
+<td>Runtime MAC filter updates</td>
+<td><code>hostapd_event_auth()</code></td>
+</tr>
+<tr>
+<td>802.11k/v Features</td>
+<td>Neighbor report configuration</td>
+<td>BSS transition configuration</td>
+<td><code>hostapd_event_rrm_beacon_rep_received()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="easymesh-architecture-and-ieee-1905-integration">EasyMesh Architecture and IEEE 1905 Integration</h3>
+<p>OneWifi provides comprehensive EasyMesh Multi-AP protocol support through integrated IEEE 1905 implementation and unified-mesh system coordination:</p>
+<p><strong>EasyMesh Component Architecture:</strong></p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "OneWifi EasyMesh Integration"
+        subgraph "EasyMesh Application Layer"
+            EMApp[EasyMesh App&lt;br/&gt;Multi-AP Logic]
+            Translator[EasyMesh Translator&lt;br/&gt;Protocol Conversion]
+            PolicyEngine[Policy Engine&lt;br/&gt;Network Optimization]
+        end
+
+        subgraph "IEEE 1905 Protocol Stack" 
+            ProtocolHandler[1905 Message Handler&lt;br/&gt;TLV Processing]
+            TopologyDB[Topology Database&lt;br/&gt;Network Map]
+            MessageRouter[Message Router&lt;br/&gt;Multi-hop Forwarding]
+        end
+
+        subgraph "Mesh Services"
+            BackhaulSvc[Backhaul Service&lt;br/&gt;Inter-AP Links]
+            FronthaulSvc[Fronthaul Service&lt;br/&gt;Client Access]
+            SteeringSvc[Steering Service&lt;br/&gt;Client Optimization]
+        end
+    end
+
+    subgraph "External Mesh Ecosystem"
+        Controller[EasyMesh Controller&lt;br/&gt;Network Management]
+        UnifiedMesh[Unified-Mesh System&lt;br/&gt;IEEE 1905 Transport]
+        RemoteAgents[Remote EasyMesh Agents&lt;br/&gt;Mesh Nodes]
+    end
+
+    EMApp &lt;--&gt; Translator
+    Translator &lt;--&gt; ProtocolHandler
+    PolicyEngine &lt;--&gt; TopologyDB
+    ProtocolHandler &lt;--&gt; MessageRouter
+
+    BackhaulSvc &lt;--&gt; EMApp
+    FronthaulSvc &lt;--&gt; EMApp
+    SteeringSvc &lt;--&gt; PolicyEngine
+
+    MessageRouter &lt;--&gt;|Unix Domain Sockets&lt;br/&gt;IEEE 1905 TLVs| UnifiedMesh
+    UnifiedMesh &lt;--&gt;|Multi-AP Protocol&lt;br/&gt;TCP/IP| Controller
+    UnifiedMesh &lt;--&gt;|Mesh Coordination&lt;br/&gt;IEEE 1905.1| RemoteAgents
+
+    classDef easymesh fill:#e8eaf6,stroke:#3f51b5,stroke-width:2px;
+    classDef protocol fill:#e0f2f1,stroke:#00796b,stroke-width:2px;
+    classDef service fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+    classDef external fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class EMApp,Translator,PolicyEngine easymesh;
+    class ProtocolHandler,TopologyDB,MessageRouter protocol;
+    class BackhaulSvc,FronthaulSvc,SteeringSvc service;
+    class Controller,UnifiedMesh,RemoteAgents external;</code></pre>
+<p><strong>EasyMesh API Endpoints and Communication:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Communication Type</th>
+<th>Endpoint/API</th>
+<th>Message Format</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Controller ↔ OneWifi</strong></td>
+<td><code>/tmp/mesh_controller.sock</code></td>
+<td>IEEE 1905 TLV Messages</td>
+<td>Multi-AP policy distribution, topology discovery, performance optimization</td>
+</tr>
+<tr>
+<td><strong>Agent ↔ Unified-Mesh</strong></td>
+<td><code>webconfig_easymesh_decode()</code> / <code>webconfig_easymesh_encode()</code></td>
+<td>JSON Configuration Objects</td>
+<td>Mesh configuration translation, status reporting</td>
+</tr>
+<tr>
+<td><strong>IEEE 1905 Transport</strong></td>
+<td>TCP Socket (Port 1905)</td>
+<td>IEEE 1905.1 Protocol Frames</td>
+<td>Inter-agent communication, topology maintenance, multi-hop message forwarding</td>
+</tr>
+<tr>
+<td><strong>Policy Engine API</strong></td>
+<td><code>em_policy_req_type_t</code> structures</td>
+<td>Binary Policy Objects</td>
+<td>Network optimization policies, client steering decisions, load balancing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>EasyMesh Configuration Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Controller as EasyMesh Controller
+    participant UnifiedMesh as Unified-Mesh System
+    participant OneWifi as OneWifi Agent
+    participant MeshApp as EasyMesh App
+    participant WiFiHAL as WiFi HAL
+
+    Controller-&gt;&gt;UnifiedMesh: Multi-AP Configuration Policy
+    UnifiedMesh-&gt;&gt;OneWifi: webconfig_easymesh_decode()
+    OneWifi-&gt;&gt;MeshApp: EasyMesh Configuration Event
+    MeshApp-&gt;&gt;MeshApp: Validate Mesh Parameters
+    MeshApp-&gt;&gt;WiFiHAL: Configure Mesh VAPs
+    WiFiHAL--&gt;&gt;MeshApp: Mesh Interfaces Created
+    MeshApp-&gt;&gt;OneWifi: Configuration Applied Successfully
+    OneWifi-&gt;&gt;UnifiedMesh: webconfig_easymesh_encode() + Status
+    UnifiedMesh-&gt;&gt;Controller: IEEE 1905 ACK Response</code></pre>
+<h3 id="wifi-database-implementation">WiFi Database Implementation</h3>
+<p>OneWifi implements a comprehensive database system providing ACID-compliant storage for configuration data, operational statistics, and network state information:</p>
+<p><strong>Database Architecture:</strong>
+- <strong>Storage Backend</strong>: SQLite-based implementation with WAL (Write-Ahead Logging) for concurrent access and crash recovery
+- <strong>Schema Management</strong>: Versioned schema with automatic migration support for backward compatibility across firmware upgrades<br/>
+- <strong>Transaction Support</strong>: Full ACID transactions with rollback capability for configuration updates and batch operations
+- <strong>Performance Optimization</strong>: Prepared statements, connection pooling, and optimized indexing for high-frequency operations</p>
+<p><strong>Key Database Tables and Data Models:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Table Name</th>
+<th>Purpose</th>
+<th>Key Fields</th>
+<th>Access Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>radio_config</code></td>
+<td>Radio operational parameters and capabilities</td>
+<td><code>radio_index</code>, <code>band</code>, <code>channel</code>, <code>power</code>, <code>standards</code></td>
+<td>Read-heavy with periodic updates</td>
+</tr>
+<tr>
+<td><code>vap_config</code></td>
+<td>VAP configuration and security settings</td>
+<td><code>vap_index</code>, <code>ssid</code>, <code>security_mode</code>, <code>enabled</code>, <code>bridge_name</code></td>
+<td>Mixed read/write with atomic updates</td>
+</tr>
+<tr>
+<td><code>client_info</code></td>
+<td>Associated client information and statistics</td>
+<td><code>mac_address</code>, <code>vap_index</code>, <code>rssi</code>, <code>connect_time</code>, <code>data_rates</code></td>
+<td>High-frequency inserts/updates</td>
+</tr>
+<tr>
+<td><code>mesh_topology</code></td>
+<td>EasyMesh network topology and link metrics</td>
+<td><code>node_mac</code>, <code>parent_mac</code>, <code>link_quality</code>, <code>hop_count</code>, <code>last_seen</code></td>
+<td>Event-driven updates</td>
+</tr>
+<tr>
+<td><code>analytics_data</code></td>
+<td>Performance metrics and behavioral analytics</td>
+<td><code>timestamp</code>, <code>metric_type</code>, <code>vap_index</code>, <code>value</code>, <code>client_mac</code></td>
+<td>Time-series data with retention policies</td>
+</tr>
+<tr>
+<td><code>security_events</code></td>
+<td>Security-related events and intrusion detection</td>
+<td><code>timestamp</code>, <code>event_type</code>, <code>severity</code>, <code>source_mac</code>, <code>details</code></td>
+<td>Append-only with log rotation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-implementation-logic">Key Implementation Logic</h3>
+<ul>
+<li>
+<p><strong>Service Coordination Engine</strong>: Central orchestration system in <code>wifi_mgr.c</code> that manages service lifecycle, coordinates resource allocation, and ensures proper sequencing of operations across multiple VAP services</p>
+</li>
+<li>
+<p><strong>Event Processing Pipeline</strong>: Multi-threaded event handling system in <code>wifi_events.c</code> that processes hardware interrupts, protocol events, and configuration changes with priority-based queuing and deadlock prevention</p>
+</li>
+<li>
+<p><strong>Configuration Management</strong>: Atomic configuration update system in <code>wifi_webconfig.c</code> supporting bulk updates, parameter validation, dependency resolution, and automatic rollback on failure with persistent transaction logging</p>
+</li>
+<li>
+<p><strong>Hardware Abstraction Layer</strong>: Comprehensive WiFi HAL integration in <code>wifi_ctrl_wifiapi_handlers.c</code> providing unified interface to vendor-specific hardware capabilities while abstracting 802.11 protocol complexities</p>
+</li>
+<li>
+<p><strong>Database Transaction Manager</strong>: ACID-compliant transaction processing in <code>wifi_db.c</code> with connection pooling, prepared statement optimization, and automatic schema migration for reliable data persistence</p>
+</li>
+<li>
+<p><strong>Security Framework</strong>: Integrated security management combining WPA3/Enterprise authentication, certificate validation, intrusion detection, and policy enforcement with audit logging</p>
+</li>
+</ul>
+<h2 id="key-configuration-files">Key Configuration Files</h2>
+<p>OneWifi utilizes multiple configuration files and data sources to maintain operational parameters, default values, and runtime customization capabilities.</p>
+<table>
+<thead>
+<tr>
+<th>Configuration File</th>
+<th>Purpose</th>
+<th>Key Parameters</th>
+<th>Default Values</th>
+<th>Override Mechanisms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/nvram/wifi_defaults.json</code></td>
+<td>System-wide WiFi defaults and hardware-specific parameters</td>
+<td><code>radio_capabilities</code>, <code>default_channels</code>, <code>power_limits</code>, <code>country_code</code></td>
+<td>Hardware-dependent</td>
+<td>Environment variables, build-time flags</td>
+</tr>
+<tr>
+<td><code>/opt/onewifi/config/webconfig_schemas.json</code></td>
+<td>WebConfig schema validation and parameter constraints</td>
+<td><code>parameter_types</code>, <code>validation_rules</code>, <code>dependency_maps</code></td>
+<td>Per TR-181 specification</td>
+<td>Runtime schema updates</td>
+</tr>
+<tr>
+<td><code>/nvram/EasymeshCfg.json</code></td>
+<td>EasyMesh network configuration and credentials</td>
+<td><code>AL_MAC_ADDR</code>, <code>Colocated_mode</code>, <code>Backhaul_SSID</code>, <code>Backhaul_KeyPassphrase</code></td>
+<td>Generated during mesh setup</td>
+<td>Controller provisioning, DPP onboarding</td>
+</tr>
+<tr>
+<td><code>/tmp/hostapd-wlanX.conf</code></td>
+<td>Runtime hostapd configuration per VAP</td>
+<td><code>interface</code>, <code>ssid</code>, <code>wpa_passphrase</code>, <code>channel</code>, <code>ieee80211n</code></td>
+<td>Template-generated</td>
+<td>OneWifi dynamic updates</td>
+</tr>
+<tr>
+<td><code>/opt/onewifi/tr181_defaults.xml</code></td>
+<td>TR-181 parameter default values and metadata</td>
+<td><code>parameter_paths</code>, <code>default_values</code>, <code>access_permissions</code>, <code>notifications</code></td>
+<td>TR-181 standard + RDK extensions</td>
+<td>PSM database overrides</td>
+</tr>
+<tr>
+<td><code>/var/lib/onewifi/wifi.db</code></td>
+<td>Persistent WiFi database (SQLite)</td>
+<td>Configuration state, client data, statistics, mesh topology</td>
+<td>Schema-defined defaults</td>
+<td>Database transactions, backup/restore</td>
+</tr>
+<tr>
+<td><code>/etc/onewifi/analytics.conf</code></td>
+<td>Analytics engine configuration and thresholds</td>
+<td><code>collection_intervals</code>, <code>alert_thresholds</code>, <code>data_retention</code>, <code>privacy_settings</code></td>
+<td>Conservative defaults</td>
+<td>Runtime parameter updates</td>
+</tr>
+</tbody>
+</table>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<div class="bottom-banner compact-footer">
+<!-- Left Section: Logo and Copyright -->
+<div class="footer-left">
+<img alt="RDK Logo" class="rdk-logo" src="../../../assets/logo.png">
+<p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+</img></div>
+<!-- Right Section: Links and Support -->
+<div class="footer-right">
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Explore RDK</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../preview-rdk/docs/getting-started">Getting Started</a></li>
+<li><a href="../../../devices/docs/">Devices</a></li>
+<li><a href="../../../preview-rdk/docs/getting-started">Tools</a></li>
+</ul>
+</div>
+</div>
+<!-- Device Management -->
+<div class="banner-group">
+<h3>Device Management</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="/device-management/docs/XConf/">XConf</a></li>
+<li><a href="/device-management/docs/Telemetry/">Telemetry</a></li>
+<li><a href="./entertainment/docs/sample_home1/">Ent Home 1</a></li>
+<li><a href="./entertainment/docs/sample_home2/">Ent Home 2</a></li>
+</ul>
+</div>
+</div>
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Test &amp; Certification</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119">RDK Certification</a></li>
+<li><a href="../../../tools/docs/TDK/">TDK</a></li>
+<li><a href="../../../tools/docs/Automatics/">Automatics</a></li>
+</ul>
+</div>
+</div>
+<!-- Resources-->
+<div class="banner-group">
+<h3>Resources</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="/docu/doc_template_orig_rama/">Knowledge Articles</a></li>
+<li><a href="./docu/oct29/wanmanager/">Quick Links</a></li>
+<li><a href="/sitemap.xml">Site Map</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script src="../../../assets/javascripts/extra.js"></script>
+</div></body>
+</html>

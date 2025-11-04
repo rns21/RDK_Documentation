@@ -1,0 +1,2481 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.com/docu/sep/WANMgr_Claude_2609/" rel="canonical"/>
+<link href="../../../assets/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.23" name="generator"/>
+<title>WAN Manager Documentation - RDK Documentation</title>
+<link href="../../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"Fira Code"}</style>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/entertainment.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/getting-started.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/connectivity.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/devices.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/footer.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sidepanes.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sitemap.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home1.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home2.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="#00b2dc" data-md-color-primary="white" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#wan-manager-documentation">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="RDK Documentation" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="RDK Documentation">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis"> RDK Documentation </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+             WAN Manager Documentation 
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="white" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to system preference" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to system preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+</form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header_buttons">
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg>
+</div>
+<div class="text">Source Code</div>
+</button></a>
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg>
+</div>
+<div class="text">Contribute</div>
+</button></a>
+<a href="mailto:support@rdkcentral.com"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg>
+</div>
+<div class="text">Get Help</div>
+</button></a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../entertainment/docs/">
+          
+  
+  
+  Entertainment
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../connectivity/docs/">
+          
+  
+  
+  Connectivity
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../preview-rdk/docs/getting-started/">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../devices/docs/">
+        
+  
+  
+    
+  
+  Devices
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tools/docs/TDK/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../review/">
+          
+  
+  
+  Review
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../device-management/docs/">
+          
+  
+  
+  Device Management
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../doc_template_orig_rama.md">
+          
+  
+  
+  Comparison
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="RDK Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="RDK Documentation">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+    RDK Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/rdkcentral" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Entertainment
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Entertainment
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home1/">
+<span class="md-ellipsis">
+    sampleHome1
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home2/">
+<span class="md-ellipsis">
+    sampleHome2
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/Apps/">
+<span class="md-ellipsis">
+    Apps
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/tryout_rdkv_rdk7/">
+<span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-vendor-porting-guide/">
+<span class="md-ellipsis">
+    Porting Kit
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    Core Components
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_8">
+<span class="md-nav__icon md-icon"></span>
+            Core Components
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdkv_components/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/westeros/">
+<span class="md-ellipsis">
+    Westeros
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rdkshell/">
+<span class="md-ellipsis">
+    RDK Shell
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/video_profiles/">
+<span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Connectivity
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Connectivity
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/architecture/">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/features/">
+<span class="md-ellipsis">
+    Features
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/tryout_rdkb/">
+<span class="md-ellipsis">
+    Try Out RDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/profiles/">
+<span class="md-ellipsis">
+    Device Profiles
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Core Components
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            Core Components
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/rdkb_components/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/cellularmanager/">
+<span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Oldprompt/">
+<span class="md-ellipsis">
+    PSM OldPrompt
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_GPT5/">
+<span class="md-ellipsis">
+    PSM GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Claude/">
+<span class="md-ellipsis">
+    PSM_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr Rama.md">
+<span class="md-ellipsis">
+    WAN Mgr Rama
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr%20GPT5/">
+<span class="md-ellipsis">
+    WAN Mgr GPT5
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases">
+<span class="md-ellipsis">
+    Releases
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../preview-rdk/docs/getting-started/">
+<span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../devices/docs/">
+<span class="md-ellipsis">
+    Devices
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Tools
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/TDK/">
+<span class="md-ellipsis">
+    TDK
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/Automatics/">
+<span class="md-ellipsis">
+    Automatics
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    Review
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            Review
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/">
+<span class="md-ellipsis">
+    Component List
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/WANManager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CellularManager/">
+<span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/GPONManager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/PPPManager/">
+<span class="md-ellipsis">
+    PPP Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/VLANManager/">
+<span class="md-ellipsis">
+    VLAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/TelcoVoiceManager/">
+<span class="md-ellipsis">
+    Telco Voice Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPSM/">
+<span class="md-ellipsis">
+    CCSP PSM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/LMLite/">
+<span class="md-ellipsis">
+    CCSP LM Lite
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPandM/">
+<span class="md-ellipsis">
+    CCSP PandM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/OneWifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/RBus/">
+<span class="md-ellipsis">
+    RBus
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/Utopia/">
+<span class="md-ellipsis">
+    Utopia
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    Device Management
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            Device Management
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/">
+<span class="md-ellipsis">
+    Overview
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/XConf/">
+<span class="md-ellipsis">
+    XConf
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Telemetry/">
+<span class="md-ellipsis">
+    Telemetry
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Webpa/">
+<span class="md-ellipsis">
+    Web PA
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/TR369/">
+<span class="md-ellipsis">
+    TR 369
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/LogUpload/">
+<span class="md-ellipsis">
+    Log Upload
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+<span class="md-ellipsis">
+    Comparison
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+            Comparison
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_orig_rama.md">
+<span class="md-ellipsis">
+    Template_Rama
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Backup
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_2">
+<span class="md-nav__icon md-icon"></span>
+            Backup
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1" id="__nav_9_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    26Sep
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_1">
+<span class="md-nav__icon md-icon"></span>
+            26Sep
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_1" id="__nav_9_2_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    Claude
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_1">
+<span class="md-nav__icon md-icon"></span>
+            Claude
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_claude/">
+<span class="md-ellipsis">
+    PNM_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    Utopia_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_claude/">
+<span class="md-ellipsis">
+    WANMGr_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    Utopia_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_claude/">
+<span class="md-ellipsis">
+    CL_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_claude/">
+<span class="md-ellipsis">
+    LMLite_Claude
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_claude/">
+<span class="md-ellipsis">
+    PSM_Claude
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_2" id="__nav_9_2_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    GPT5
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_2">
+<span class="md-nav__icon md-icon"></span>
+            GPT5
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_gpt5/">
+<span class="md-ellipsis">
+    PNM_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    Utopia_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_gpt5/">
+<span class="md-ellipsis">
+    WANMGr_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    Utopia_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_gpt5/">
+<span class="md-ellipsis">
+    CL_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_gpt5/">
+<span class="md-ellipsis">
+    LMLite_GPT5
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_gpt5/">
+<span class="md-ellipsis">
+    PSM_GPT5
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2" id="__nav_9_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    30Sep
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_2">
+<span class="md-nav__icon md-icon"></span>
+            30Sep
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_mod_2609.md">
+<span class="md-ellipsis">
+    Template_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_2" id="__nav_9_2_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Claude
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_2">
+<span class="md-nav__icon md-icon"></span>
+            Claude
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_Claude_2609.md">
+<span class="md-ellipsis">
+    WANMGr_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_Claude_2609.md">
+<span class="md-ellipsis">
+    LMLite_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_Claude_2609.md">
+<span class="md-ellipsis">
+    PSM_Claude_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_Claude_2609.md">
+<span class="md-ellipsis">
+    RBUS_Claude_2609
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_3" id="__nav_9_2_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    GPT5
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_3">
+<span class="md-nav__icon md-icon"></span>
+            GPT5
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_GPT5_2609.md">
+<span class="md-ellipsis">
+    WANMGr_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_GPT5_2609.md">
+<span class="md-ellipsis">
+    LMLite_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_GPT5_2609.md">
+<span class="md-ellipsis">
+    PSM_GPT5_2609
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_GPT5_2609.md">
+<span class="md-ellipsis">
+    RBUS_GPT5_2609
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_3" id="__nav_9_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct10
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_3">
+<span class="md-nav__icon md-icon"></span>
+            Oct10
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/onewifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_4" id="__nav_9_2_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct21
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_4">
+<span class="md-nav__icon md-icon"></span>
+            Oct21
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/onewifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_5" id="__nav_9_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct22
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_5">
+<span class="md-nav__icon md-icon"></span>
+            Oct22
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    Template
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/lmlite/">
+<span class="md-ellipsis">
+    LMLite
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_6" id="__nav_9_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct27
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_6_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_6">
+<span class="md-nav__icon md-icon"></span>
+            Oct27
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    Template
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/ccsppsm/">
+<span class="md-ellipsis">
+    CCSP PSM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/rbus/">
+<span class="md-ellipsis">
+    RBUS
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/utopia/">
+<span class="md-ellipsis">
+    Utopia
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_7" id="__nav_9_2_7_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct28
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_7">
+<span class="md-nav__icon md-icon"></span>
+            Oct28
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    CCSP LMLite
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct29
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_3">
+<span class="md-nav__icon md-icon"></span>
+            Oct29
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/vlanmanager/">
+<span class="md-ellipsis">
+    VLAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/onewifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsplmlite/">
+<span class="md-ellipsis">
+    CCSP LMLite
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppsm/">
+<span class="md-ellipsis">
+    CCSP PSM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppnm/">
+<span class="md-ellipsis">
+    CCSP PNM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccspcmagent/">
+<span class="md-ellipsis">
+    CCSP CM Agent
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/rbus/">
+<span class="md-ellipsis">
+    RBUS
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/utopia/">
+<span class="md-ellipsis">
+    Utopia
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Oct31
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_4">
+<span class="md-nav__icon md-icon"></span>
+            Oct31
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/ccsplmlite/">
+<span class="md-ellipsis">
+    CCSP LMLite
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/utopia/">
+<span class="md-ellipsis">
+    Utopia
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Nov05
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_5">
+<span class="md-nav__icon md-icon"></span>
+            Nov05
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/wanmanager/">
+<span class="md-ellipsis">
+    WAN Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsplmlite/">
+<span class="md-ellipsis">
+    CCSP LMLite
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/utopia/">
+<span class="md-ellipsis">
+    Utopia
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gponmanager/">
+<span class="md-ellipsis">
+    GPON Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcmagent/">
+<span class="md-ellipsis">
+    CCSP CM Agent
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    CCSP Common Lib
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspdmcli/">
+<span class="md-ellipsis">
+    CCSP DMCLI
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppsm/">
+<span class="md-ellipsis">
+    CCSP PSM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppnm/">
+<span class="md-ellipsis">
+    CCSP PNM
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsptr69pa/">
+<span class="md-ellipsis">
+    CCSP TR69PA
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspwifiagent/">
+<span class="md-ellipsis">
+    CCSP WiFiAgent
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/cellularmanager/">
+<span class="md-ellipsis">
+    Cellular Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp/">
+<span class="md-ellipsis">
+    GW ProvApp
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp_epon/">
+<span class="md-ellipsis">
+    GW ProvApp EPON
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/onewifi/">
+<span class="md-ellipsis">
+    One WiFi
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/pppmanager/">
+<span class="md-ellipsis">
+    PPP Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/rbus/">
+<span class="md-ellipsis">
+    RBUS
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/telcovoicemanager/">
+<span class="md-ellipsis">
+    Telco Voice Manager
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/vlanmanager/">
+<span class="md-ellipsis">
+    VLAN Manager
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      Design
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#highlevel-design-principles">
+<span class="md-ellipsis">
+      High‑Level Design Principles
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#c4-container-diagram">
+<span class="md-ellipsis">
+      C4 Container Diagram
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design-explanation-request-flow">
+<span class="md-ellipsis">
+      Design Explanation &amp; Request Flow
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#threading-model">
+<span class="md-ellipsis">
+      Threading Model
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal-modules">
+<span class="md-ellipsis">
+      Internal Modules
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#interaction-with-other-middleware-components">
+<span class="md-ellipsis">
+      Interaction with Other Middleware Components
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#interaction-with-other-layers">
+<span class="md-ellipsis">
+      Interaction with Other Layers
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ipc-mechanism">
+<span class="md-ellipsis">
+      IPC Mechanism
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tr181-data-models">
+<span class="md-ellipsis">
+      TR‑181 Data Models
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      Implementation Details
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-configuration-files">
+<span class="md-ellipsis">
+      Key Configuration Files
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/rdkcentral/edit/master/docs/docu/sep/WANMgr_Claude_2609.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<h1 id="wan-manager-documentation">WAN Manager Documentation</h1>
+<p>The WAN Manager is a central orchestration component within the RDK-B middleware stack responsible for managing Wide Area Network interfaces across multiple physical technologies. It coordinates interface selection, failover policies, and network stack configuration while providing intelligent business logic for ensuring continuous Internet connectivity. The component abstracts physical interface complexities from higher-level services and implements policy-driven interface management strategies including Auto WAN, Primary Priority, Fixed Mode, and Parallel Scan approaches. WAN Manager integrates with Interface Managers (DOCSIS, Ethernet, Cellular, GPON) to receive physical layer status and coordinates with other RDK-B components like VLAN Manager, DHCP Manager, and DNS services for complete network stack provisioning. It serves as the single point of control for WAN configuration and monitoring, implementing TR-181 data models for remote management via WebConfig and TR-069 protocols.</p>
+<pre class="mermaid"><code>graph LR
+    subgraph External ["External Systems &amp; Users"]
+        ISP1[ISP Provider 1]
+        ISP2[ISP Provider 2] 
+        WEBUI[Web Management UI]
+        TR069[TR-069 ACS]
+        CloudMgmt[Cloud Management Platform]
+    end
+
+    subgraph "WAN Management"
+        WM[📡 WAN Manager]
+        VLAN[VLAN Manager]
+        DHCP[DHCP Manager] 
+        DNS[DNS Services]
+        FW[Firewall/Router]
+    end
+
+    subgraph InterfaceManagers ["Interface Managers"]
+        DOCSIS[DOCSIS Manager]
+        ETH[Ethernet Manager]
+        CELLULAR[Cellular Manager]
+        GPON[GPON Manager]
+    end
+
+    ISP1 --&gt;|Internet Connectivity| WM
+    ISP2 --&gt;|Backup Connectivity| WM
+    WEBUI --&gt;|TR-181 Parameters| WM
+    TR069 --&gt;|CWMP/TR-069| WM
+    CloudMgmt --&gt;|WebConfig API| WM
+
+    WM --&gt;|RBus IPC| VLAN
+    WM --&gt;|RBus IPC| DHCP
+    WM --&gt;|RBus IPC| DNS
+    WM --&gt;|Configuration| FW
+
+    DOCSIS --&gt;|Physical Status/RBus| WM
+    ETH --&gt;|Physical Status/RBus| WM
+    CELLULAR --&gt;|Physical Status/RBus| WM
+    GPON --&gt;|Physical Status/RBus| WM
+
+    classDef external fill:#ffebee,stroke:#d32f2f,stroke-width:2px;
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef manager fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef app fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+
+    class ISP1,ISP2 external;
+    class WM,VLAN,DHCP,DNS,FW component;
+    class DOCSIS,ETH,CELLULAR,GPON manager;
+    class WEBUI,TR069,CloudMgmt app;</code></pre>
+<ul>
+<li><strong>Key Features &amp; Responsibilities</strong>: </li>
+<li><strong>Multi-Interface Management</strong>: <strong>Coordinates multiple WAN technologies</strong> including DOCSIS, Ethernet, Cellular, GPON, and xDSL, managing their lifecycle and selection priorities.</li>
+<li><strong>Intelligent Failover Policies</strong>: <strong>Implements various failover strategies</strong> such as Auto WAN, Primary Priority, Fixed Mode, and Parallel Scan to ensure continuous Internet connectivity.</li>
+<li><strong>Virtual Interface State Machines</strong>: <strong>Manages N instances of virtual interface state machines</strong> that handle the complete network stack configuration from link layer to IP layer protocols.</li>
+<li><strong>TR-181 Data Model Implementation</strong>: <strong>Provides comprehensive TR-181 parameter support</strong> for remote configuration and monitoring via RBus and WebConfig interfaces.</li>
+<li><strong>Dynamic Policy Selection</strong>: <strong>Supports runtime switching between different selection policies</strong> per interface group, enabling flexible WAN management strategies.</li>
+<li><strong>Integration with RDK-B Ecosystem</strong>: <strong>Seamlessly interfaces with VLAN Manager, DHCP Manager, DNS services</strong> and other middleware components for complete network stack management.</li>
+</ul>
+<h2 id="design">Design</h2>
+<h3 id="highlevel-design-principles">High‑Level Design Principles</h3>
+<p>The WAN Manager follows a modular, event-driven architecture built around state machines and policy engines. The design emphasizes separation of concerns where physical Interface Managers handle hardware-specific operations while WAN Manager focuses on higher-level orchestration and business logic. The component supports scalability through configurable interface groups and multiple concurrent state machines, enabling complex multi-WAN scenarios. Security is maintained through controlled TR-181 parameter access and validated configuration changes. Reliability is ensured through robust failover mechanisms, health monitoring, and graceful error handling. The maintainability aspect is addressed through clear module boundaries, comprehensive logging, and standardized IPC mechanisms using RBus for inter-component communication.</p>
+<p>The architecture supports loose coupling between physical interface management and WAN logic, allowing new interface types to be added without core changes. Policy-based design enables flexible business rules for interface selection and failover behavior. The state machine approach provides predictable behavior and easier debugging of complex network scenarios.</p>
+<p>Interface boundaries are clearly defined with Interface Managers responsible for physical layer status reporting and basic configuration, while WAN Manager handles all link and IP layer configuration. The data model boundary separates TR-181 parameter management from internal data structures, and IPC boundaries isolate WAN Manager from other RDK-B components through standardized message passing.</p>
+<h3 id="c4-container-diagram">C4 Container Diagram</h3>
+<pre class="mermaid"><code>graph TD
+    subgraph Runtime ["Linux/RDK-B Runtime"]
+        subgraph WanManagerContainer ["WAN Manager Process"]
+            Core[Core Engine&lt;br/&gt;Main Loop &amp; Initialization]
+            PolicyEngine[Policy Engine&lt;br/&gt;Selection &amp; Failover Logic]  
+            StateMachine[Interface State Machine&lt;br/&gt;Virtual Interface Management]
+            DataModel[TR-181 Data Model&lt;br/&gt;Configuration &amp; Monitoring]
+            IPC[IPC Handler&lt;br/&gt;RBus Communication]
+        end
+        subgraph ConfigDB ["Configuration Storage"]
+            PSM[(PSM Database&lt;br/&gt;Persistent Parameters)]
+            SysEvents[(SysEvents&lt;br/&gt;Runtime Events)]
+        end
+    end
+
+    Core --&gt;|Initialize/Control| PolicyEngine
+    Core --&gt;|Start/Monitor| StateMachine  
+    PolicyEngine --&gt;|Interface Selection| StateMachine
+    StateMachine --&gt;|Status Updates| DataModel
+    DataModel --&gt;|Read/Write| PSM
+    Core --&gt;|System Events| SysEvents
+    IPC --&gt;|External Communication| DataModel
+    IPC --&gt;|Status Reporting| Core
+
+    classDef coreModule fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef policyModule fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef dataModule fill:#e8f5e8,stroke:#388e3c,stroke-width:2px;
+    classDef storage fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+
+    class Core,StateMachine coreModule;
+    class PolicyEngine policyModule;
+    class DataModel,IPC dataModule;
+    class PSM,SysEvents storage;</code></pre>
+<h3 id="design-explanation-request-flow">Design Explanation &amp; Request Flow</h3>
+<ul>
+<li><strong>Request Flow Sequence</strong>: The most critical flow begins when an Interface Manager reports physical layer status via RBus IPC. The WAN Manager Core Engine receives this through the IPC Handler, which updates the internal data model and triggers the Policy Engine. The Policy Engine evaluates current failover rules and interface priorities, potentially selecting a new active interface. If interface switching is needed, the Policy Engine communicates with the Interface State Machine to configure the new virtual interface stack (VLAN, DHCP, routing). The State Machine coordinates with external components (VLAN Manager, DHCP Manager) to establish connectivity, and finally updates TR-181 parameters to reflect the new WAN status.</li>
+</ul>
+<pre class="mermaid"><code>sequenceDiagram
+    participant IM as Interface Manager
+    participant IPC as IPC Handler
+    participant Core as Core Engine
+    participant Policy as Policy Engine
+    participant SM as State Machine
+    participant VM as VLAN Manager
+    participant DM as DHCP Manager
+
+    IM-&gt;&gt;IPC: Physical Status Update (RBus)
+    IPC-&gt;&gt;Core: Interface Status Change
+    Core-&gt;&gt;Policy: Trigger Policy Evaluation
+    Policy-&gt;&gt;Policy: Evaluate Failover Rules
+    Policy-&gt;&gt;SM: Select New Interface
+    SM-&gt;&gt;VM: Configure VLAN (RBus)
+    VM--&gt;&gt;SM: VLAN Configured
+    SM-&gt;&gt;DM: Start DHCP Client (RBus)
+    DM--&gt;&gt;SM: DHCP Lease Obtained
+    SM-&gt;&gt;Core: Interface Active
+    Core-&gt;&gt;IPC: Update TR-181 Status</code></pre>
+<h3 id="threading-model">Threading Model</h3>
+<p>The WAN Manager implements a hybrid threading model combining a main event loop with worker threads for specific tasks. The main thread runs the Policy Controller's state machine in a continuous loop with 500ms polling intervals, handling policy decisions and interface management. Worker threads are created on-demand for IPC communication handling, particularly for RBus message processing and responses to external component requests. The Interface State Machines run within the main thread context but maintain separate state for each virtual interface instance. Background processes are spawned for specific tasks like DHCP client operations and network monitoring. Thread synchronization is handled through data locking mechanisms around shared data structures, ensuring consistent access to interface configuration and status information.</p>
+<h2 id="internal-modules">Internal Modules</h2>
+<p>The WAN Manager consists of several key modules that work together to provide comprehensive WAN interface management. The Core Engine handles initialization, main control loops, and coordinates other modules. The Policy Engine implements various selection strategies and failover logic. The Interface State Machine manages virtual interface lifecycle and network stack configuration. The Data Model module provides TR-181 parameter management and external configuration interface. IPC components handle communication with other RDK-B components and Interface Managers. Utility modules provide network operations, system events handling, telemetry, and DHCP client management.</p>
+<table>
+<thead>
+<tr>
+<th>Module/Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core Engine</td>
+<td>Main initialization, control loop, and module coordination</td>
+<td><code>wanmgr_main.c</code>, <code>wanmgr_core.c</code></td>
+</tr>
+<tr>
+<td>Policy Controller</td>
+<td>Implements failover policies and interface selection algorithms</td>
+<td><code>wanmgr_controller.c</code>, <code>wanmgr_policy_*_impl.c</code></td>
+</tr>
+<tr>
+<td>Interface State Machine</td>
+<td>Manages virtual interface state and network stack configuration</td>
+<td><code>wanmgr_interface_sm.c</code>, <code>wanmgr_interface_sm.h</code></td>
+</tr>
+<tr>
+<td>Data Management</td>
+<td>Internal data structures and WAN interface configuration data</td>
+<td><code>wanmgr_data.c</code>, <code>wanmgr_data.h</code></td>
+</tr>
+<tr>
+<td>TR-181 Data Model</td>
+<td>TR-181 parameter implementation and DML APIs</td>
+<td><code>wanmgr_dml_*.c</code>, <code>wanmgr_apis.h</code></td>
+</tr>
+<tr>
+<td>IPC Handler</td>
+<td>RBus communication and external component messaging</td>
+<td><code>wanmgr_ipc.c</code>, <code>wanmgr_ssp_messagebus_interface.c</code></td>
+</tr>
+<tr>
+<td>Network Utilities</td>
+<td>Network configuration, routing, and utility functions</td>
+<td><code>wanmgr_net_utils.c</code>, <code>wanmgr_net_utils.h</code></td>
+</tr>
+<tr>
+<td>DHCP Management</td>
+<td>DHCPv4/v6 client coordination and IP address management</td>
+<td><code>wanmgr_dhcpv4_*.c</code>, <code>wanmgr_dhcpv6_*.c</code></td>
+</tr>
+<tr>
+<td>System Events</td>
+<td>System event handling and inter-process notifications</td>
+<td><code>wanmgr_sysevents.c</code>, <code>wanmgr_sysevents.h</code></td>
+</tr>
+<tr>
+<td>Failover Management</td>
+<td>WAN failover detection and coordination logic</td>
+<td><code>wanmgr_wan_failover.c</code>, <code>wanmgr_wan_failover.h</code></td>
+</tr>
+<tr>
+<td>Telemetry</td>
+<td>Performance monitoring and diagnostic reporting</td>
+<td><code>wanmgr_telemetry.c</code>, <code>wanmgr_t2_telemetry.c</code></td>
+</tr>
+<tr>
+<td>WebConfig</td>
+<td>WebConfig protocol support for remote configuration</td>
+<td><code>wanmgr_webconfig.c</code>, <code>wanmgr_webconfig_apis.c</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>flowchart TD
+    subgraph WAN_Manager ["WAN Manager Process"]
+        Core([Core Engine])
+        Policy([Policy Controller])
+        StateMachine([Interface State Machine])
+        DataMgmt([Data Management])
+        TR181([TR-181 Data Model])
+        IPC([IPC Handler])
+        NetUtils([Network Utilities])
+        DHCP([DHCP Management])
+        SysEvents([System Events])
+        Failover([Failover Management])
+        Telemetry([Telemetry])
+        WebConfig([WebConfig])
+    end
+
+    Core --&gt; Policy
+    Core --&gt; StateMachine
+    Core --&gt; DataMgmt
+    Policy --&gt; StateMachine
+    Policy --&gt; Failover
+    StateMachine --&gt; NetUtils
+    StateMachine --&gt; DHCP
+    TR181 --&gt; DataMgmt
+    IPC --&gt; TR181
+    SysEvents --&gt; Core
+    Telemetry --&gt; DataMgmt
+    WebConfig --&gt; TR181
+
+    classDef coreModule fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef policyModule fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef dataModule fill:#e8f5e8,stroke:#388e3c,stroke-width:2px;
+    classDef networkModule fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+
+    class Core,StateMachine coreModule;
+    class Policy,Failover policyModule;
+    class DataMgmt,TR181,WebConfig dataModule;
+    class NetUtils,DHCP,IPC,SysEvents,Telemetry networkModule;</code></pre>
+<h2 id="interaction-with-other-middleware-components">Interaction with Other Middleware Components</h2>
+<p>The WAN Manager coordinates with multiple RDK-B middleware components to provide comprehensive network management. It communicates with VLAN Manager for virtual LAN configuration, DHCP Manager for IP address assignment, DNS services for name resolution, and Firewall/Router components for traffic routing. Each interaction uses RBus IPC mechanisms with specific message types and data structures. The component also interfaces with TR-181 data model components for parameter management and WebConfig services for remote configuration capabilities.</p>
+<pre class="mermaid"><code>flowchart TD
+    WAN_Manager --&gt;|RBus/Configure VLAN| VLAN_Manager
+    WAN_Manager --&gt;|RBus/DHCP Client Control| DHCP_Manager
+    WAN_Manager --&gt;|RBus/DNS Configuration| DNS_Services
+    WAN_Manager --&gt;|Configuration/Routing Rules| Firewall_Router
+    WAN_Manager --&gt;|RBus/Parameter Updates| TR181_DataModel
+    WAN_Manager --&gt;|WebConfig Protocol| WebConfig_Service</code></pre>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Purpose of Interaction</th>
+<th>Protocols/Mechanisms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VLAN Manager</td>
+<td>Configure virtual LAN interfaces for WAN traffic segmentation</td>
+<td>RBus IPC, VLAN configuration messages</td>
+</tr>
+<tr>
+<td>DHCP Manager</td>
+<td>Control DHCP client operations for IP address assignment</td>
+<td>RBus IPC, DHCP lease management</td>
+</tr>
+<tr>
+<td>DNS Services</td>
+<td>Configure DNS servers and resolver settings for WAN interfaces</td>
+<td>RBus IPC, DNS configuration parameters</td>
+</tr>
+<tr>
+<td>Firewall/Router</td>
+<td>Update routing tables and firewall rules for WAN traffic</td>
+<td>System calls, iptables configuration</td>
+</tr>
+<tr>
+<td>TR-181 Data Model</td>
+<td>Synchronize WAN parameters with TR-181 data model</td>
+<td>RBus IPC, parameter notification messages</td>
+</tr>
+<tr>
+<td>WebConfig Service</td>
+<td>Receive remote configuration updates via WebConfig protocol</td>
+<td>HTTP/HTTPS, JSON configuration data</td>
+</tr>
+</tbody>
+</table>
+<p>The WAN Manager publishes several key events to notify other components of significant WAN state changes and operational events. These events enable loosely coupled integration and allow other services to react appropriately to WAN interface changes.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Purpose of Event</th>
+<th>Reason for trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wan-status</code></td>
+<td>WAN interface status change notification</td>
+<td>Published when WAN interface transitions between UP/DOWN states</td>
+</tr>
+<tr>
+<td><code>wan_service_ready</code></td>
+<td>WAN Manager service initialization complete</td>
+<td>Published when WAN Manager completes startup and is ready to handle requests</td>
+</tr>
+<tr>
+<td><code>ipv4_wan_addr_set</code></td>
+<td>IPv4 address assignment notification</td>
+<td>Published when WAN interface successfully obtains IPv4 address via DHCP</td>
+</tr>
+<tr>
+<td><code>ipv6_wan_addr_set</code></td>
+<td>IPv6 address assignment notification</td>
+<td>Published when WAN interface successfully obtains IPv6 address via DHCPv6 or SLAAC</td>
+</tr>
+<tr>
+<td><code>wan_interface_active</code></td>
+<td>Active WAN interface change notification</td>
+<td>Published when failover policy selects a new active WAN interface</td>
+</tr>
+<tr>
+<td><code>dhcp_wan_state_changed</code></td>
+<td>DHCP client state change notification</td>
+<td>Published when DHCP client state machine changes (discover, offer, request, bound)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="interaction-with-other-layers">Interaction with Other Layers</h2>
+<p>The WAN Manager integrates across multiple layers of the RDK-B software stack, from application layer management interfaces down to hardware abstraction layers. It receives configuration from web UIs, TR-069 ACS, and cloud management platforms through TR-181 parameters. The component interfaces with HAL layers for hardware-specific network operations and communicates directly with the Linux network stack for routing and interface configuration.</p>
+<table>
+<thead>
+<tr>
+<th>Layer/Service</th>
+<th>Interaction Description</th>
+<th>Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Web Management UI</td>
+<td>Receives WAN configuration and policy settings via TR-181 parameters</td>
+<td>HTTP/TR-181 parameter access</td>
+</tr>
+<tr>
+<td>TR-069 ACS</td>
+<td>Remote management and configuration via CWMP protocol</td>
+<td>TR-069/CWMP parameter management</td>
+</tr>
+<tr>
+<td>Cloud Management</td>
+<td>WebConfig-based remote configuration and monitoring</td>
+<td>HTTPS/WebConfig protocol</td>
+</tr>
+<tr>
+<td>HAL Layer</td>
+<td>Hardware-specific network interface operations and status queries</td>
+<td>HAL API calls, shared libraries</td>
+</tr>
+<tr>
+<td>Platform Services</td>
+<td>System event handling, persistent storage, and logging services</td>
+<td>SysEvents, PSM database, system calls</td>
+</tr>
+<tr>
+<td>Linux Network Stack</td>
+<td>Direct network interface configuration, routing table updates</td>
+<td>Netlink sockets, system calls (ip, ifconfig)</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>graph TD
+    subgraph "Application Layer"
+        WebUI[Web Management UI]
+        TR069_ACS[TR-069 ACS]
+        CloudMgmt[Cloud Management]
+    end
+
+    subgraph "RDK-B Middleware Layer"
+        WAN_Manager[📡 WAN Manager]
+        Other_Components[Other RDK-B Components]
+    end
+
+    subgraph "HAL Layer"
+        Network_HAL[Network HAL]
+        Platform_HAL[Platform HAL]
+    end
+
+    subgraph "Linux Kernel/Platform"
+        NetworkStack[Linux Network Stack]
+        Drivers[Hardware Drivers]
+    end
+
+    subgraph "Hardware Layer"
+        DOCSIS_HW[DOCSIS Hardware]
+        ETH_HW[Ethernet Hardware]
+        CELL_HW[Cellular Hardware]
+    end
+
+    WebUI --&gt;|TR-181 Parameters| WAN_Manager
+    TR069_ACS --&gt;|CWMP/TR-069| WAN_Manager
+    CloudMgmt --&gt;|WebConfig API| WAN_Manager
+
+    WAN_Manager --&gt;|RBus/IPC| Other_Components
+    WAN_Manager --&gt;|HAL API Calls| Network_HAL
+    WAN_Manager --&gt;|System Calls| NetworkStack
+
+    Network_HAL --&gt; NetworkStack
+    Platform_HAL --&gt; NetworkStack
+    NetworkStack --&gt; Drivers
+
+    Drivers --&gt; DOCSIS_HW
+    Drivers --&gt; ETH_HW  
+    Drivers --&gt; CELL_HW
+
+    classDef app fill:#e8f5e8,stroke:#388e3c,stroke-width:2px;
+    classDef middleware fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef hal fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+    classDef system fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef hardware fill:#ffebee,stroke:#d32f2f,stroke-width:2px;
+
+    class WebUI,TR069_ACS,CloudMgmt app;
+    class WAN_Manager,Other_Components middleware;
+    class Network_HAL,Platform_HAL hal;
+    class NetworkStack,Drivers system;
+    class DOCSIS_HW,ETH_HW,CELL_HW hardware;</code></pre>
+<h2 id="ipc-mechanism">IPC Mechanism</h2>
+<p>The WAN Manager uses RBus as its primary IPC mechanism for communication with other RDK-B components and Interface Managers. RBus provides a D-Bus based messaging system optimized for RDK environments, supporting both synchronous request-response patterns and asynchronous event notifications.</p>
+<table>
+<thead>
+<tr>
+<th>Type of IPC</th>
+<th>Message Format</th>
+<th>Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RBus Method Calls</td>
+<td>JSON-structured method parameters with typed arguments including strings, integers, booleans, and complex objects</td>
+<td>RBus/D-Bus method invocation with response handling</td>
+</tr>
+<tr>
+<td>RBus Event Notifications</td>
+<td>JSON event payloads containing event name, source component, and event-specific data fields</td>
+<td>RBus publish-subscribe event broadcasting</td>
+</tr>
+<tr>
+<td>System Events</td>
+<td>Key-value pairs with event names and string-based parameter values for inter-process notifications</td>
+<td>SysEvents shared memory and file-based event system</td>
+</tr>
+<tr>
+<td>WebConfig Protocol</td>
+<td>JSON configuration documents with versioning, validation, and rollback support for remote management</td>
+<td>HTTP/HTTPS transport with JSON payload structure</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>sequenceDiagram
+    participant IF as Interface Manager
+    participant WM as WAN Manager  
+    participant VM as VLAN Manager
+    participant DM as DHCP Manager
+    participant SYS as System Events
+
+    IF-&gt;&gt;WM: RBus Method Call&lt;br/&gt;setInterfaceStatus(ifName, UP)
+    WM-&gt;&gt;WM: Process Status Update
+    WM-&gt;&gt;VM: RBus Method Call&lt;br/&gt;configureVLAN(ifName, vlanId, priority)
+    VM--&gt;&gt;WM: RBus Response&lt;br/&gt;(success/failure)
+    WM-&gt;&gt;DM: RBus Method Call&lt;br/&gt;startDHCPClient(ifName, options)
+    DM--&gt;&gt;WM: RBus Response&lt;br/&gt;(clientStarted)
+    WM-&gt;&gt;SYS: SysEvent Publish&lt;br/&gt;wan-status: UP
+    WM-&gt;&gt;WM: RBus Event Publish&lt;br/&gt;wanInterfaceActive(ifName, ipAddr)</code></pre>
+<h2 id="tr181-data-models">TR‑181 Data Models</h2>
+<p>The WAN Manager implements comprehensive TR-181 data model support for remote management and monitoring. The component provides both standard TR-181 Device.X_RDK_WanManager parameters and custom extensions for RDK-B specific functionality. Parameters are registered through RBus for runtime access and support both read-only status reporting and read-write configuration management.</p>
+<ul>
+<li><strong>Implemented Parameters</strong>: The WAN Manager implements the Device.X_RDK_WanManager object tree with support for interface configuration, policy management, failover settings, and status monitoring. Parameters include interface enable/disable control, policy selection (Auto WAN, Fixed Mode, Primary Priority), failover timeouts, and interface group configuration.</li>
+<li><strong>Parameter Registration</strong>: Parameters are registered via RBus during startup using the data model XML files (RdkWanManager.xml, RdkWanManager_v2.xml). The registration process creates method handlers for get/set operations and establishes event notification capabilities.</li>
+<li><strong>Custom Extensions</strong>: </li>
+<li><strong>X_RDK_WanManager.Policy</strong>: <strong>Custom policy selection parameter</strong> supporting Auto WAN, Fixed Mode, Primary Priority, and Parallel Scan modes</li>
+<li><strong>X_RDK_WanManager.AllowRemoteInterfaces</strong>: <strong>Custom parameter</strong> enabling support for remote interface management in multi-CPE scenarios</li>
+<li><strong>X_RDK_WanManager.WanFailoverData</strong>: <strong>Custom JSON data structure</strong> for complex failover configuration and coordination between interface groups</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Access (R/W)</th>
+<th>Default</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Device.X_RDK_WanManager.Enable</code></td>
+<td>Master enable/disable for WAN Manager service</td>
+<td>R/W</td>
+<td><code>true</code></td>
+<td>Controls WAN Manager operation</td>
+</tr>
+<tr>
+<td><code>Device.X_RDK_WanManager.Policy</code></td>
+<td>WAN interface selection policy</td>
+<td>R/W</td>
+<td><code>AUTOWAN_MODE</code></td>
+<td>Enum: Fixed Mode, Auto WAN, Primary Priority, Parallel Scan</td>
+</tr>
+<tr>
+<td><code>Device.X_RDK_WanManager.AllowRemoteInterfaces</code></td>
+<td>Enable remote interface management support</td>
+<td>R/W</td>
+<td><code>false</code></td>
+<td>For multi-CPE scenarios</td>
+</tr>
+<tr>
+<td><code>Device.X_RDK_WanManager.ResetActiveInterface</code></td>
+<td>Trigger active interface reset</td>
+<td>W</td>
+<td><code>false</code></td>
+<td>Write-only trigger parameter</td>
+</tr>
+<tr>
+<td><code>Device.X_RDK_WanManager.RestorationDelay</code></td>
+<td>Delay before interface restoration attempts</td>
+<td>R/W</td>
+<td><code>60</code></td>
+<td>Seconds, range 10-3600</td>
+</tr>
+<tr>
+<td><code>Device.X_RDK_WanManager.Interface.{i}.Enable</code></td>
+<td>Individual interface enable/disable</td>
+<td>R/W</td>
+<td><code>true</code></td>
+<td>Per-interface control</td>
+</tr>
+<tr>
+<td><code>Device.X_RDK_WanManager.Interface.{i}.Group</code></td>
+<td>Interface group assignment</td>
+<td>R/W</td>
+<td><code>1</code></td>
+<td>Group number 1-8</td>
+</tr>
+<tr>
+<td><code>Device.X_RDK_WanManager.Interface.{i}.Priority</code></td>
+<td>Interface selection priority within group</td>
+<td>R/W</td>
+<td><code>1</code></td>
+<td>Lower numbers = higher priority</td>
+</tr>
+<tr>
+<td><code>Device.X_RDK_WanManager.Interface.{i}.SelectionTimeOut</code></td>
+<td>Interface validation timeout</td>
+<td>R/W</td>
+<td><code>120</code></td>
+<td>Seconds, minimum 20</td>
+</tr>
+<tr>
+<td><code>Device.X_RDK_WanManager.Interface.{i}.Status</code></td>
+<td>Current interface operational status</td>
+<td>R</td>
+<td><code>Down</code></td>
+<td>Enum: Down, Initializing, Up, Error</td>
+</tr>
+</tbody>
+</table>
+<h2 id="implementation-details">Implementation Details</h2>
+<ul>
+<li><strong>Key Algorithms or Logic</strong>: </li>
+<li><strong>Policy State Machines</strong>: <strong>Core selection algorithms implemented in <code>wanmgr_policy_*_impl.c</code> files</strong> using state machine patterns for Auto WAN (sequential interface testing), Primary Priority (priority-based failover), Fixed Mode (single interface operation), and Parallel Scan (concurrent interface validation)</li>
+<li><strong>Interface State Machine</strong>: <strong>Virtual interface lifecycle management in <code>wanmgr_interface_sm.c</code></strong> coordinating link layer setup, IP address assignment, route configuration, and connectivity validation through sequential state transitions</li>
+<li><strong>Failover Detection</strong>: <strong>Network connectivity monitoring logic in <code>wanmgr_wan_failover.c</code></strong> using periodic connectivity tests, DNS resolution checks, and interface status monitoring to trigger failover decisions</li>
+<li><strong>Error Handling Strategy</strong>: Errors are detected at multiple levels including RBus communication failures, DHCP client failures, and network connectivity issues. All errors are logged via CcspTrace mechanisms with component-specific logging levels. Critical errors trigger appropriate recovery actions such as interface reset, policy re-evaluation, or service restart. Error states are reflected in TR-181 parameters for remote monitoring.</li>
+<li><strong>Logging &amp; Debugging</strong>: The component uses RDK-B standard logging with configurable verbosity levels (Error, Warning, Info, Debug). Log categories include policy decisions, interface state changes, IPC communications, and DHCP operations. Debug logging provides detailed state machine transitions and timing information for troubleshooting connectivity issues.</li>
+</ul>
+<h2 id="key-configuration-files">Key Configuration Files</h2>
+<p>The WAN Manager configuration is primarily data-driven through TR-181 parameters with some build-time configuration through XML data model definitions. The component supports both compile-time feature selection and runtime parameter configuration for maximum flexibility across different deployment scenarios.</p>
+<table>
+<thead>
+<tr>
+<th>Configuration File</th>
+<th>Purpose</th>
+<th>Key Parameters</th>
+<th>Default Values</th>
+<th>Override Mechanisms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RdkWanManager.xml</code></td>
+<td>TR-181 data model definition for basic WAN Manager functionality</td>
+<td><code>Enable</code>, <code>Policy</code>, <code>Interface objects</code></td>
+<td><code>Enable=true</code>, <code>Policy=AUTOWAN_MODE</code></td>
+<td>Runtime TR-181 parameter updates</td>
+</tr>
+<tr>
+<td><code>RdkWanManager_v2.xml</code></td>
+<td>Extended TR-181 data model with enhanced interface management</td>
+<td><code>Version</code>, <code>Interface groups</code>, <code>Virtual interface support</code></td>
+<td>Enhanced interface table structure</td>
+<td>Runtime configuration via WebConfig</td>
+</tr>
+<tr>
+<td><code>/nvram/wanmanager.conf</code></td>
+<td>Persistent configuration storage (if present)</td>
+<td>Interface priorities, policy settings, timeouts</td>
+<td>System-dependent defaults</td>
+<td>Direct file editing, factory reset</td>
+</tr>
+<tr>
+<td><code>configure.ac</code></td>
+<td>Build-time feature configuration</td>
+<td><code>--enable-wanunificationsupport</code>, <code>--enable-gtestapp</code></td>
+<td>Feature flags disabled by default</td>
+<td>Configure script parameters</td>
+</tr>
+</tbody>
+</table>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<div class="bottom-banner compact-footer">
+<!-- Left Section: Logo and Copyright -->
+<div class="footer-left">
+<img alt="RDK Logo" class="rdk-logo" src="../../../assets/logo.png">
+<p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+</img></div>
+<!-- Right Section: Links and Support -->
+<div class="footer-right">
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Explore RDK</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../preview-rdk/docs/getting-started">Getting Started</a></li>
+<li><a href="../../../devices/docs/">Devices</a></li>
+<li><a href="../../../preview-rdk/docs/getting-started">Tools</a></li>
+</ul>
+</div>
+</div>
+<!-- Device Management -->
+<div class="banner-group">
+<h3>Device Management</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="/device-management/docs/XConf/">XConf</a></li>
+<li><a href="/device-management/docs/Telemetry/">Telemetry</a></li>
+<li><a href="./entertainment/docs/sample_home1/">Ent Home 1</a></li>
+<li><a href="./entertainment/docs/sample_home2/">Ent Home 2</a></li>
+</ul>
+</div>
+</div>
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Test &amp; Certification</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119">RDK Certification</a></li>
+<li><a href="../../../tools/docs/TDK/">TDK</a></li>
+<li><a href="../../../tools/docs/Automatics/">Automatics</a></li>
+</ul>
+</div>
+</div>
+<!-- Resources-->
+<div class="banner-group">
+<h3>Resources</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="/docu/doc_template_orig_rama/">Knowledge Articles</a></li>
+<li><a href="./docu/oct29/wanmanager/">Quick Links</a></li>
+<li><a href="/sitemap.xml">Site Map</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script src="../../../assets/javascripts/extra.js"></script>
+</div></body>
+</html>
