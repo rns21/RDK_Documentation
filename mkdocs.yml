@@ -203,3 +203,24 @@ nav:
         - CCSP LMLite: ./docu/oct31/ccsplmlite.md
         - Utopia: ./docu/oct31/utopia.md
         - GPON Manager: ./docu/oct31/gponmanager.md
+      - Nov05:
+        - WAN Manager: ./docu/nov05/wanmanager.md
+        - CCSP LMLite: ./docu/nov05/ccsplmlite.md
+        - Utopia: ./docu/nov05/utopia.md
+        - GPON Manager: ./docu/nov05/gponmanager.md
+        - CCSP CM Agent: ./docu/nov05/ccspcmagent.md
+        - CCSP Common Lib: ./docu/nov05/ccspcommonlibrary.md
+        - CCSP DMCLI: ./docu/nov05/ccspdmcli.md
+        - CCSP PSM: ./docu/nov05/ccsppsm.md
+        - CCSP PNM: ./docu/nov05/ccsppnm.md
+        - CCSP TR69PA: ./docu/nov05/ccsptr69pa.md
+        - CCSP WiFiAgent: ./docu/nov05/ccspwifiagent.md
+        - Cellular Manager: ./docu/nov05/cellularmanager.md
+        - GW ProvApp: ./docu/nov05/gwprovapp.md
+        - GW ProvApp EPON: ./docu/nov05/gwprovapp_epon.md
+        - One WiFi: ./docu/nov05/onewifi.md
+        - PPP Manager: ./docu/nov05/pppmanager.md
+        - RBUS: ./docu/nov05/rbus.md
+        - Telco Voice Manager: ./docu/nov05/telcovoicemanager.md
+        - VLAN Manager: ./docu/nov05/vlanmanager.md
+        
