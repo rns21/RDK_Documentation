@@ -21,6 +21,7 @@ graph LR
         end
 
         OneWifi["One WiFi"]
+        WifiManager["WiFi Manager"]
 
         subgraph "Platform Layer"
             HAL["Platform HAL"]
@@ -37,6 +38,9 @@ graph LR
     %% Upper layer to OneWifi
     ProtocolAgents -->|IPC| OneWifi
 
+    %% OneWifi to WifiManager
+    OneWifi -->|IPC| WifiManager
+
     %% OneWifi to HAL
     OneWifi -->|HAL APIs| HAL
 
@@ -52,7 +56,7 @@ graph LR
 
     class RemoteMgmt,LocalUI,EasyMeshController external;
     class OneWifi onewifi;
-    class ProtocolAgents rdkbComponent;
+    class ProtocolAgents,WifiManager rdkbComponent;
     class HAL,Linux,hostapd system;
 ```
 
@@ -64,6 +68,7 @@ graph LR
 - **hostapd Integration**: Seamlessly integrates with hostapd authenticator for advanced WPA/WPA2/WPA3 security, enterprise authentication, and 802.1X support
 - **WiFi Database (WiFi DB)**: Maintains persistent storage for Wi-Fi configurations, client associations, statistics, and operational state with OVSDB backend for real-time data management
 - **TR-181 Data Model**: Implements comprehensive TR-181 WiFi data model with custom extensions for RDK-B specific features, providing standardized parameter access via RBus
+- **Telemetry and Analytics**: Collects and reports comprehensive Wi-Fi metrics, client statistics, performance data, and operational telemetry for monitoring and optimization
 
 ## Design
 
@@ -131,6 +136,20 @@ graph TD
     HostapdGlue -->|Authentication Control| HostapdDaemon
     EasyMeshInterface -->|Mesh Coordination| EasyMeshCtrl
     WebConfigClient -->|Config Sync| CloudServices
+
+    classDef coreService fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef serviceModule fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef dataLayer fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef integration fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef protocol fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef external fill:#f5f5f5,stroke:#757575,stroke-width:2px
+
+    class ServicesManager,EventManager,ConfigManager coreService
+    class PrivateService,PublicService,MeshService,ManagedService,DynamicService serviceModule
+    class WifiDB,TR181Model,ConfigStore dataLayer
+    class RBusInterface,WebConfigClient,EasyMeshInterface integration
+    class IEEE80211,HostapdGlue,SecurityEngine protocol
+    class HALLayer,HostapdDaemon,EasyMeshCtrl,CloudServices external
 ```
 
 ### Prerequisites and Dependencies
@@ -146,8 +165,8 @@ graph TD
 
 **RDK-B Platform and Integration Requirements:**
 
-- **RDK-B Components**: CcspCommonLibrary , RBus, WiFi HAL , PSM
-- **HAL Dependencies**: WiFi HAL, Network HAL, platform-specific radio drivers with nl80211 support
+- **RDK-B Components**: CcspCommonLibrary (for base RDK framework), RBus (for IPC), WiFi HAL (for hardware abstraction), ccsp-psm (for parameter storage)
+- **HAL Dependencies**: WiFi HAL v3.0+, Network HAL v1.0+, platform-specific radio drivers with nl80211 support
 - **Systemd Services**: `rbus.service`, `psm.service`, `wifi-hal.service` must be active before OneWifi starts
 - **Message Bus**: RBus registration for "Device.WiFi" namespace, event subscriptions for configuration changes
 - **TR-181 Data Model**: Complete WiFi object hierarchy support, custom parameter extensions for mesh and telemetry features
@@ -162,8 +181,9 @@ OneWifi implements a multi-threaded architecture designed for high performance a
 
 - **Threading Architecture**: Multi-threaded with dedicated threads for different service domains and a main event processing thread
 - **Main Thread**: Handles RBus message processing, configuration updates, service coordination, and high-priority system events
-- **Main worker Threads**: 
-    - **WiFi DB Thread**: Manages OVSDB operations, database transactions, and persistent storage operations  
+- **Worker Threads**: 
+    - **WiFi DB Thread**: Manages OVSDB operations, database transactions, and persistent storage operations
+    - **HAL Interface Thread**: Processes HAL callbacks, hardware events, and low-latency radio control operations  
     - **Mesh Service Thread**: Handles IEEE 1905.1 message processing, mesh topology management, and EasyMesh operations
 - **Synchronization**: Uses pthread mutexes for shared data structures, condition variables for thread coordination, and RBus async callbacks for inter-component communication
 
@@ -422,9 +442,120 @@ OneWifi's modular architecture consists of several specialized modules, each han
 | **EasyMesh Interface** | Handles IEEE 1905.1 protocol implementation for Multi-AP mesh networks, managing controller/agent communication, configuration distribution, and mesh network orchestration. | `webconfig_external_proto_easymesh.h`, `wifi_easymesh_translator.c` |
 | **hostapd Integration** | Provides seamless integration with hostapd daemon for advanced authentication, enterprise security, WPA3 support, and 802.1X authentication services. | `wifi_hostapd_glue.c`, hostapd configuration management |
 
+```mermaid
+flowchart LR
+    subgraph OneWifiCore ["OneWifi Core Architecture"]
+        ServicesManager["WiFi Services Manager<br>Central Orchestration"]
+        
+        subgraph ServiceLayer ["Service Layer"]
+            PrivateService["Private WiFi Service<br>Home Networks"]
+            PublicService["Public WiFi Service<br>Hotspot Management"]  
+            MeshService["Mesh Service<br>IEEE 1905.1 Multi-AP"]
+            ManagedService["Managed Service<br>Enterprise WiFi"]
+            DynamicService["Dynamic Service<br>Cloud Provisioning"]
+        end
+        
+        subgraph DataManagement ["Data Management Layer"]
+            WifiDB["WiFi Database<br>OVSDB Backend"]
+            TR181["TR-181 Data Model<br>Parameter Management"]
+            ConfigEngine["Configuration Engine<br>Validation & Storage"]
+        end
+        
+        subgraph IntegrationModules ["Integration Modules"]
+            EasyMeshIntf["EasyMesh Interface<br>IEEE 1905.1 Protocol"]
+            HostapdGlue["hostapd Integration<br>Authentication Services"]
+            WebConfigClient["WebConfig Client<br>Cloud Configuration"]
+            RBusInterface["RBus Interface<br>IPC Management"]
+        end
+    end
+
+    ServicesManager --> ServiceLayer
+    ServiceLayer --> DataManagement
+    ServiceLayer --> IntegrationModules
+    DataManagement <--> IntegrationModules
+
+    classDef manager fill:#e1f5fe,stroke:#0277bd,stroke-width:3px
+    classDef service fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef data fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef integration fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+
+    class ServicesManager manager
+    class PrivateService,PublicService,MeshService,ManagedService,DynamicService service
+    class WifiDB,TR181,ConfigEngine data
+    class EasyMeshIntf,HostapdGlue,WebConfigClient,RBusInterface integration
+```
+
 ## Component Interactions
 
 OneWifi integrates with multiple layers of the RDK-B stack and external systems through well-defined interfaces and protocols. The component serves as the central hub for all Wi-Fi operations while maintaining clear separation of concerns and standardized communication patterns.
+
+```mermaid
+flowchart TD
+    subgraph ExternalSystems ["External Systems & Controllers"]
+        CloudMgmt["Cloud Management<br>WebConfig Protocol"]
+        EasyMeshCtrl["EasyMesh Controller<br>IEEE 1905.1 Messages"]
+        UnifiedMeshSys["Unified-Mesh System<br>REST API Endpoints"]
+        WebUI["Web Management UI<br>HTTP/HTTPS Interface"]
+    end
+
+    subgraph OneWifiAgent ["OneWifi Agent Core"]
+        ServicesManager["Services Manager"]
+        MeshService["Mesh Service"]
+        ConfigManager["Config Manager"]
+        EventProcessor["Event Processor"]
+    end
+
+    subgraph RDKBComponents ["RDK-B Middleware Components"]
+        TR069Agent["TR-069 Agent<br>Remote Management"]
+        SNMPAgent["SNMP Agent<br>Network Monitoring"]
+        TelemetryAgent["Telemetry Agent<br>Data Collection"]
+        PSMComponent["PSM<br>Parameter Storage"]
+        WiFiManager["WiFi Manager<br>Legacy Interface"]
+    end
+
+    subgraph HALSystemLayer ["HAL & System Layer"]
+        WiFiHAL["WiFi HAL<br>Hardware Abstraction"]
+        NetworkHAL["Network HAL<br>Interface Management"]
+        HostapdDaemon["hostapd Daemon<br>Authentication Services"]
+        LinuxKernel["Linux Kernel<br>nl80211/cfg80211"]
+    end
+
+    subgraph WifiDatabase ["WiFi Database Layer"]
+        OVSDB["OVSDB Server<br>Persistent Storage"]
+        ConfigStore["Configuration Store<br>Parameter Cache"]
+        StatsDB["Statistics Database<br>Metrics Storage"]
+    end
+
+    CloudMgmt -->|HTTPS POST/WebConfig JSON| ConfigManager
+    EasyMeshCtrl -->|IEEE 1905.1 CMDU Messages| MeshService
+    UnifiedMeshSys -->|REST API/RBus Method Calls| ServicesManager
+    WebUI -->|HTTP GET/POST Configuration| OneWifiAgent
+
+    OneWifiAgent -->|RBus Events/Parameters| RDKBComponents
+    OneWifiAgent -->|HAL API Function Calls| HALSystemLayer
+    OneWifiAgent -->|OVSDB Transactions| WifiDatabase
+
+    TR069Agent -->|RBus Parameter Get/Set| OneWifiAgent
+    SNMPAgent -->|RBus Statistics Queries| OneWifiAgent
+    TelemetryAgent -->|RBus Event Subscriptions| OneWifiAgent
+    PSMComponent -->|RBus Parameter Storage| OneWifiAgent
+
+    WiFiHAL -->|Event Callbacks| OneWifiAgent
+    HostapdDaemon -->|Control Socket Interface| OneWifiAgent
+    LinuxKernel -->|netlink Events| OneWifiAgent
+
+    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef onewifi fill:#e1f5fe,stroke:#0277bd,stroke-width:3px
+    classDef rdkb fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef hal fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef database fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+
+    class CloudMgmt,EasyMeshCtrl,UnifiedMeshSys,WebUI external
+    class ServicesManager,MeshService,ConfigManager,EventProcessor onewifi
+    class TR069Agent,SNMPAgent,TelemetryAgent,PSMComponent,WiFiManager rdkb
+    class WiFiHAL,NetworkHAL,HostapdDaemon,LinuxKernel hal
+    class OVSDB,ConfigStore,StatsDB database
+```
 
 ### Interaction Matrix
 
@@ -442,7 +573,7 @@ OneWifi integrates with multiple layers of the RDK-B stack and external systems 
 | EasyMesh Controller | Multi-AP mesh network coordination and management | IEEE 1905.1/LLDP | CMDU Messages | Message-Based Protocol | IEEE 1905.1 CMDU types, mesh topology messages |
 | Unified-Mesh System | Mesh network orchestration and optimization | REST API/RBus | JSON/HTTP | RESTful API/Event-Driven | `POST /mesh/config`, `GET /mesh/topology`, RBus method calls |
 
-**Main events Published by OneWifi:**
+**Events Published by OneWifi:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Payload Format | Subscriber Components |
 |------------|-----------------|-------------------|----------------|---------------------|
@@ -450,6 +581,14 @@ OneWifi integrates with multiple layers of the RDK-B stack and external systems 
 | WiFi.RadioStateChange | `Device.WiFi.Radio.{i}.Status` | Radio enable/disable or channel changes | JSON: `{radio_index, status, channel, frequency_band}` | WiFi Manager, Network Manager, Telemetry Agent |
 | WiFi.MeshTopologyChange | `Device.WiFi.X_RDKCENTRAL-COM_EasyMesh` | Mesh node join/leave or link quality changes | JSON: `{topology_change_type, affected_nodes, link_metrics}` | EasyMesh Controller, Unified-Mesh System |
 | WiFi.SecurityEvent | `Device.WiFi.AccessPoint.{i}.Security` | Authentication failures or security policy violations | JSON: `{event_type, client_mac, failure_reason, action_taken}` | Security Manager, SNMP Agent, Log Aggregator |
+
+**Events Consumed by OneWifi:**
+
+| Event Source | Event Topic/Path | Purpose | Expected Payload | Handler Function |
+|-------------|-----------------|---------|------------------|------------------|
+| PSM Component | `Device.WiFi.*` parameter changes | React to persistent configuration changes | JSON: `{parameter_path, old_value, new_value, change_source}` | `wifi_config_change_handler()` |
+| EasyMesh Controller | IEEE 1905.1 mesh configuration | Process mesh network configuration updates | CMDU: Multi-AP configuration messages | `easymesh_config_handler()` |
+| Cloud Services | WebConfig document updates | Apply cloud-managed configuration changes | JSON: WebConfig subdocument structure | `webconfig_apply_handler()` |
 
 ### IPC Flow Patterns
 
@@ -551,6 +690,7 @@ OneWifi integrates with multiple HAL interfaces to provide comprehensive hardwar
 | `/etc/onewifi/TR181-WiFi-USGv2.XML` | TR-181 parameter definitions | Custom XML overlays |
 | `/nvram/EasymeshCfg.json` | EasyMesh configuration | WebConfig updates, manual configuration |
 | `/etc/onewifi/rdkb-wifi.ovsschema` | OVSDB schema definition | Schema migration scripts |
+| `/tmp/wifi_db.db` | Runtime database file | Automatic population from HAL |
 
 ## Service-Oriented Architecture Examples
 

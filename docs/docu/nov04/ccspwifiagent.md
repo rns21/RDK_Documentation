@@ -4,6 +4,66 @@ CcspWifiAgent is a WiFi management component in the RDK-B middleware stack that 
 
 At the system level, CcspWifiAgent provides essential WiFi services to the RDK-B ecosystem by managing wireless infrastructure, enforcing security policies, optimizing network performance through band steering and load balancing, and collecting analytics data for network optimization. The component handles both operational management (real-time control and monitoring) and configuration management (persistent settings and policy enforcement) to deliver enterprise-grade WiFi capabilities in consumer and commercial devices.
 
+**old-to delete**
+
+```mermaid
+graph TD
+    subgraph ExternalSystems ["External Systems"]
+        WebUI[Web UI/Management Interface]
+        TR069ACS[TR-069 ACS Server]
+        CloudServices[RDK Central/Cloud Services]
+    end
+    
+    subgraph RDKBMiddleware ["RDK-B Middleware Stack"]
+        CcspWifiAgent[CcspWifiAgent - WiFi Management]
+        PandM[CcspPandM - Platform & Management]
+        PSM[CcspPsm - Parameter Storage Manager]
+        TR069PA[CcspTr069Pa - TR-069 Protocol Adapter]
+        CommonLib[CcspCommonLibrary - Framework]
+    end
+    
+    subgraph SystemLayer ["System Layer"]
+        WiFiHAL[WiFi HAL - Hardware Abstraction]
+        Hostapd[hostapd/wpa_supplicant]
+        SysCfg[System Configuration]
+        WebConfig[WebConfig Framework]
+    end
+    
+    %% External to Middleware connections
+    WebUI -->|HTTP/WebUI Configuration| CcspWifiAgent
+    TR069ACS -->|TR-069/CWMP Management| TR069PA
+    CloudServices -->|Analytics/Telemetry| CcspWifiAgent
+    
+    %% Middleware internal connections
+    TR069PA -->|Set/Get Parameters| CcspWifiAgent
+    CcspWifiAgent -->|Store/Retrieve Config| PSM
+    CcspWifiAgent -->|Framework Services| CommonLib
+    CcspWifiAgent <-->|Device Management| PandM
+    
+    %% Inter-component communication
+    PandM <-->|System Coordination| PSM
+    TR069PA <-->|Parameter Sync| PandM
+    
+    %% Middleware to System Layer connections
+    CcspWifiAgent -->|Hardware Control| WiFiHAL
+    CcspWifiAgent -->|WiFi Services Control| Hostapd
+    CcspWifiAgent -->|Configuration Management| SysCfg
+    CcspWifiAgent -->|Web Configuration| WebConfig
+    
+    %% Positioning: External Systems at top, Middleware in middle, System Layer at bottom
+    ExternalSystems ~~~ RDKBMiddleware
+    RDKBMiddleware ~~~ SystemLayer
+    
+    classDef user fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    
+    class WebUI,TR069ACS,CloudServices user;
+    class CcspWifiAgent component;
+    class WiFiHAL,Hostapd,SysCfg,WebConfig external;
+```
+
+
 ```mermaid
 graph LR
 
@@ -19,7 +79,6 @@ graph LR
 
         rdkbComponent["Other RDK-B Components<br>(PNM,WAN Manager etc.)"]
         CcspWifiAgent[CcspWifiAgent - WiFi Management]
-        PSM[("PSM DB")]
 
         subgraph "Platform Layer"
             HAL[Platform HAL]
@@ -34,8 +93,6 @@ graph LR
     ProtocolAgents -->|IPC| CcspWifiAgent
     
     CcspWifiAgent -->|IPC| rdkbComponent
-    
-    CcspWifiAgent <-->|IPC| PSM
 
     %% RDK-B Components to HAL
     CcspWifiAgent -->|HAL APIs| HAL
@@ -50,7 +107,7 @@ graph LR
 
     class RemoteMgmt,LocalUI external;
     class CcspWifiAgent CcspWifiAgent;
-    class ProtocolAgents,rdkbComponent,PSM rdkbComponent;
+    class ProtocolAgents,rdkbComponent rdkbComponent;
     class HAL,Linux system;
 ```
 
@@ -77,33 +134,109 @@ IPC mechanisms are designed around the RBus/CCSP message bus architecture, provi
 
 Data persistence strategy leverages the CCSP PSM (Persistent Storage Manager) for secure configuration storage with support for configuration versioning and rollback operations. The component implements a write-through cache strategy where configuration changes are immediately persisted to prevent data loss during power failures or system crashes. Critical operational data is maintained in memory for performance while being periodically synchronized to persistent storage.
 
+**old - to delete**
+
 ```mermaid
 graph TD
- 
-    subgraph CcspWifiAgentContainer ["CcspWifiAgent"]
+    subgraph ExternalClients ["External Clients"]
+        TR069PA[TR-069 PA<br/>Parameter Management]
+        WebUIClient[Web UI<br/>Configuration Interface]
+        SystemServices[System Services<br/>PSM & Configuration]
+    end
+    
+    subgraph CcspWifiAgentContainer ["CcspWifiAgent Container"]
         subgraph CoreLayer ["Core WiFi Layer"]
-            WiFiDML[WiFi DML Engine<br>TR-181 Implementation]
-            WiFiInternal[WiFi Internal Logic<br>State Machine & Control]
+            WiFiDML[WiFi DML Engine<br/>TR-181 Implementation]
+            WiFiInternal[WiFi Internal Logic<br/>State Machine & Control]
         end
         
         subgraph FrameworkLayer ["Framework Layer"]
-            SSPMain[SSP Main<br>Service Startup & Lifecycle]
-            MessageBus[Message Bus Interface<br>CCSP Communication]
-            PluginFW[Plugin Framework<br>COSA Architecture]
+            SSPMain[SSP Main<br/>Service Startup & Lifecycle]
+            MessageBus[Message Bus Interface<br/>CCSP Communication]
+            PluginFW[Plugin Framework<br/>COSA Architecture]
         end
         
         subgraph ServiceLayer ["Service Layer"]
-            HarvesterDML[Harvester DML<br>Data Collection & Analytics]
-            LoggingDML[Logging DML<br>Telemetry & Events]
-            BusUtil[Bus Utilities<br>CCSP Helpers]
+            HarvesterDML[Harvester DML<br/>Data Collection & Analytics]
+            LoggingDML[Logging DML<br/>Telemetry & Events]
+            BusUtil[Bus Utilities<br/>CCSP Helpers]
         end
     end
     
     subgraph ExternalServices ["External Services"]
-        WiFiHAL[WiFi HAL]
-        Hostapd[hostapd/wpa_supplicant]
-        PSMStorage[(PSM Storage)]
-        SysCfg[(System Config)]
+        WiFiHAL[WiFi HAL<br/>Hardware Control]
+        Hostapd[hostapd/wpa_supplicant<br/>WiFi Services]
+        PSMStorage[(PSM Storage<br/>Configuration Persistence)]
+        SysCfg[(System Config<br/>Device Settings)]
+        Telemetry[(Telemetry Service<br/>Analytics & Monitoring)]
+    end
+    
+    %% External clients to CcspWifiAgent
+    TR069PA -->|Parameter Operations| MessageBus
+    WebUIClient -->|Configuration Requests| MessageBus
+    SystemServices -->|System Integration| MessageBus
+    
+    %% Internal framework connections
+    MessageBus --> WiFiDML
+    SSPMain --> PluginFW
+    PluginFW --> WiFiDML
+    PluginFW --> HarvesterDML
+    PluginFW --> LoggingDML
+    MessageBus --> BusUtil
+    
+    %% Core WiFi operations
+    WiFiDML --> WiFiInternal
+    WiFiDML --> BusUtil
+    
+    %% External service connections
+    WiFiInternal -->|Hardware Control| WiFiHAL
+    WiFiInternal -->|WiFi Services| Hostapd
+    WiFiDML -->|Config Storage| PSMStorage
+    WiFiInternal -->|System Config| SysCfg
+    HarvesterDML -->|Data Collection| Telemetry
+    LoggingDML -->|Log Events| Telemetry
+    
+    classDef clients fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef coreLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef frameworkLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef serviceLayer fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef external fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+    
+    class TR069PA,WebUIClient,SystemServices clients;
+    class WiFiDML,WiFiInternal coreLayer;
+    class SSPMain,MessageBus,PluginFW frameworkLayer;
+    class HarvesterDML,LoggingDML,BusUtil serviceLayer;
+    class WiFiHAL,Hostapd,PSMStorage,SysCfg,Telemetry external;
+```
+
+
+```mermaid
+graph TD
+ 
+    subgraph CcspWifiAgentContainer ["CcspWifiAgent Container"]
+        subgraph CoreLayer ["Core WiFi Layer"]
+            WiFiDML[WiFi DML Engine<br/>TR-181 Implementation]
+            WiFiInternal[WiFi Internal Logic<br/>State Machine & Control]
+        end
+        
+        subgraph FrameworkLayer ["Framework Layer"]
+            SSPMain[SSP Main<br/>Service Startup & Lifecycle]
+            MessageBus[Message Bus Interface<br/>CCSP Communication]
+            PluginFW[Plugin Framework<br/>COSA Architecture]
+        end
+        
+        subgraph ServiceLayer ["Service Layer"]
+            HarvesterDML[Harvester DML<br/>Data Collection & Analytics]
+            LoggingDML[Logging DML<br/>Telemetry & Events]
+            BusUtil[Bus Utilities<br/>CCSP Helpers]
+        end
+    end
+    
+    subgraph ExternalServices ["External Services"]
+        WiFiHAL[WiFi HAL<br>Hardware Control]
+        Hostapd[hostapd/wpa_supplicant<br>WiFi Services]
+        PSMStorage[(PSM Storage<br>Configuration Persistence)]
+        SysCfg[(System Config<br>Device Settings)]
         Telemetry[Telemetry Service<br>Analytics & Monitoring]
     end
     
@@ -126,7 +259,18 @@ graph TD
     WiFiInternal -->|System Config| SysCfg
     HarvesterDML -->|Data Collection| Telemetry
     LoggingDML -->|Log Events| Telemetry
-
+    
+    classDef clients fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef coreLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef frameworkLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef serviceLayer fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef external fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+    
+    class TR069PA,WebUIClient,SystemServices clients;
+    class WiFiDML,WiFiInternal coreLayer;
+    class SSPMain,MessageBus,PluginFW frameworkLayer;
+    class HarvesterDML,LoggingDML,BusUtil serviceLayer;
+    class WiFiHAL,Hostapd,PSMStorage,SysCfg,Telemetry external;
 ```
 
 
@@ -134,8 +278,9 @@ graph TD
 
 **RDK-B Platform and Integration Requirements:**
 
+- **Build Dependencies**: meta-rdk-broadband layer, ccsp-common-library recipe, wifi-hal-headers, libxml2, libpthread, and systemd development packages
 - **RDK-B Components**: CcspCommonLibrary (framework), CcspPsm (configuration storage), CcspCr (component registry), and message bus infrastructure must be operational
-- **HAL Dependencies**: WiFi HAL implementation supporting multi-band operations, WPA3, and advanced monitoring capabilities
+- **HAL Dependencies**: WiFi HAL implementation (wifi_hal.h) with minimum version 3.0 supporting multi-band operations, WPA3, and advanced monitoring capabilities
 - **Systemd Services**: rdk-logger.service, and ccsp-msg-bus.service must be active before CcspWifiAgent initialization
 - **Message Bus**: RBus/CCSP message bus registration with reserved namespace "eRT.com.cisco.spvtg.ccsp.wifi" and parameter access permissions
 - **TR-181 Data Model**: Device.WiFi object hierarchy support from CCSP framework with DML registration and parameter validation infrastructure
@@ -149,7 +294,7 @@ CcspWifiAgent implements a hybrid threading architecture combining event-driven 
 
 - **Threading Architecture**: Multi-threaded with dedicated threads for specific subsystems and background operations
 - **Main Thread**: Handles CCSP message bus operations, TR-181 parameter processing, and component lifecycle management with event-driven processing model
-- **Main worker Threads**:
+- **Worker Threads**:
   - **Band Steering Thread**: Monitors client associations and implements intelligent band steering algorithms with configurable evaluation intervals
   - **WiFi Monitoring Thread**: Periodic collection of radio statistics, client metrics, and hardware status monitoring with telemetry data aggregation
   - **Configuration Sync Thread**: Handles background synchronization of configuration changes to persistent storage and hardware state validation
@@ -161,6 +306,36 @@ CcspWifiAgent implements a hybrid threading architecture combining event-driven 
 **Initialization to Active State**
 
 CcspWifiAgent follows a structured initialization sequence that ensures all dependencies are satisfied and the component reaches operational state before accepting configuration requests. The initialization process includes hardware discovery, configuration loading, service registration, and health validation.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Initializing
+    Initializing --> LoadingConfig: Load Configuration Files
+    LoadingConfig --> HardwareDiscovery: Parse TR-181 Data Model
+    HardwareDiscovery --> RegisteringServices: Discover WiFi Hardware
+    RegisteringServices --> ValidatingState: Register with Message Bus
+    ValidatingState --> Active: Validate Hardware State
+    Active --> RuntimeStateChange: Configuration Change
+    RuntimeStateChange --> Active: State Updated
+    Active --> MaintenanceMode: Hardware Error
+    MaintenanceMode --> Active: Error Resolved
+    Active --> Shutdown: Stop Request
+    Shutdown --> [*]
+
+    note right of Initializing
+        - Initialize logging subsystem
+        - Load component configuration
+        - Setup signal handlers
+        - Initialize CCSP framework
+    end note
+
+    note right of Active
+        - Process TR-181 parameter requests
+        - Handle WiFi hardware events
+        - Monitor client associations
+        - Collect telemetry data
+    end note
+```
 
 **Runtime State Changes and Context Switching**
 
@@ -315,6 +490,37 @@ CcspWifiAgent is structured as a modular component with distinct functional modu
 | **Logging DML** | Comprehensive logging and telemetry management providing structured logging, event tracking, and diagnostic information collection | `cosa_logging_dml.c`, `cosa_logging_internal.c` |
 | **Bus Utilities** | CCSP framework utility functions providing common bus operations, parameter handling helpers, and error management functions | `cosa_apis_busutil.c`, `cosa_apis_util.c` |
 
+```mermaid
+flowchart TD
+    subgraph CcspWifiAgent ["CcspWifiAgent Component"]
+        SSPMain([SSP Main Module])
+        PluginFW([Plugin Framework])
+        MsgBus([Message Bus Interface])
+        WiFiDML([WiFi DML Engine])
+        WiFiInternal([WiFi Internal Logic])
+        HarvesterDML([Harvester DML])
+        LoggingDML([Logging DML])
+        BusUtil([Bus Utilities])
+    end
+    
+    SSPMain --> PluginFW
+    PluginFW --> WiFiDML
+    PluginFW --> HarvesterDML
+    PluginFW --> LoggingDML
+    MsgBus --> WiFiDML
+    WiFiDML --> WiFiInternal
+    WiFiDML --> BusUtil
+    MsgBus --> BusUtil
+    
+    classDef coreModule fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef frameworkModule fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef utilityModule fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    
+    class WiFiDML,WiFiInternal coreModule;
+    class SSPMain,PluginFW,MsgBus frameworkModule;
+    class HarvesterDML,LoggingDML,BusUtil utilityModule;
+```
+
 ## Component Interactions
 
 CcspWifiAgent serves as a central hub in the RDK-B ecosystem, interacting with multiple components, services, and system layers to provide comprehensive WiFi management capabilities. The component's interaction pattern follows the CCSP framework principles with standardized interfaces and event-driven communication.
@@ -334,7 +540,7 @@ CcspWifiAgent serves as a central hub in the RDK-B ecosystem, interacting with m
 | hostapd/wpa_supplicant | WiFi authentication services and access point management | `/tmp/hostapd.conf`, `/var/run/hostapd/` |
 
 
-**Main events Published by CcspWifiAgent:**
+**Events Published by CcspWifiAgent:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |------------|-----------------|------------------|---------------------|
@@ -342,6 +548,16 @@ CcspWifiAgent serves as a central hub in the RDK-B ecosystem, interacting with m
 | WiFi_Client_Associated | `Device.WiFi.AccessPoint.{i}.AssociatedDevice` | New client device association | Network monitoring, Analytics, Client management |
 | WiFi_Config_Changed | `Device.WiFi.*` parameter changes | Configuration parameter modifications | PSM storage, Management interfaces, Audit logging |
 | WiFi_Security_Event | `X_RDKCENTRAL-COM_WiFi_Security` | Security-related events (authentication failures, intrusion attempts) | Security monitoring, Telemetry, Log aggregation |
+
+
+**Events Consumed by CcspWifiAgent:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|-------------|-----------------|---------|-----------------|
+| System Configuration | `Device.X_CISCO_COM_DeviceControl.FactoryReset` | Respond to factory reset operations | `WiFi_HandleFactoryReset()` |
+| Network Manager | `Device.IP.Interface.{i}.Status` | React to network interface status changes | `WiFi_HandleNetworkChange()` |
+| Time Service | `Device.Time.Status` | Synchronize WiFi operations with system time | `WiFi_HandleTimeSync()` |
+
 
 ### IPC Flow Patterns
 

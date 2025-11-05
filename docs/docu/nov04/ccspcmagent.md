@@ -1,8 +1,8 @@
 # CcspCMAgent Documentation
 
-CcspCMAgent (CCSP Cable Modem Agent) is the RDK-B middleware component that provides cable modem management and TR-181 data model implementation for DOCSIS-based gateway devices. This component serves as the primary interface between the RDK-B middleware stack and the underlying cable modem hardware, enabling remote management, monitoring, and configuration of cable modem functionality through standardized TR-181 parameters.
+CcspCMAgent (CCSP Cable Modem Agent) is the RDK-B middleware component that provides comprehensive cable modem management and TR-181 data model implementation for DOCSIS-based gateway devices. This component serves as the primary interface between the RDK-B middleware stack and the underlying cable modem hardware, enabling remote management, monitoring, and configuration of cable modem functionality through standardized TR-181 parameters.
 
-CcspCMAgent provides real-time status monitoring, configuration management, and event notification capabilities. It integrates with the WAN Manager for connectivity coordination and supports both traditional message bus communication and modern RBus event-driven architecture for optimal performance and scalability.
+The component operates as a bridge between higher-level RDK-B management services and the cable modem Hardware Abstraction Layer (HAL), providing real-time status monitoring, configuration management, and event notification capabilities. It integrates seamlessly with the WAN Manager for connectivity coordination and supports both traditional message bus communication and modern RBus event-driven architecture for optimal performance and scalability.
 
 ```mermaid
 graph LR
@@ -70,7 +70,9 @@ graph LR
 
 ## Design
 
-The CcspCMAgent follows a layered architecture design that separates responsibilities between TR-181 data model management, cable modem hardware abstraction, and inter-component communication. The component is built around a service-oriented architecture where the main SSP (Service Support Platform) layer handles component lifecycle and message bus registration, while specialized middle-layer modules manage TR-181 parameter operations and hardware interaction.
+The CcspCMAgent follows a layered architecture design that separates concerns between TR-181 data model management, cable modem hardware abstraction, and inter-component communication. The component is built around a service-oriented architecture where the main SSP (Service Support Platform) layer handles component lifecycle and message bus registration, while specialized middle-layer modules manage TR-181 parameter operations and hardware interaction.
+
+The design emphasizes real-time responsiveness through event-driven programming patterns, utilizing both traditional CCSP message bus communication for backward compatibility and modern RBus event publishing for high-performance status monitoring. This dual-communication approach ensures seamless integration with legacy RDK-B components while providing enhanced capabilities for newer services requiring real-time cable modem status updates.
 
 The component's modular design supports extensive customization through compile-time configuration options and runtime parameter tuning, enabling adaptation to various cable modem hardware platforms and service provider requirements. Integration with the WAN Manager is achieved through well-defined IPC mechanisms that coordinate cable modem interface provisioning during boot sequences and handle dynamic configuration changes during runtime operations.
 
@@ -127,19 +129,21 @@ flowchart LR
 
 | Configure Option | DISTRO Feature | Build Flag | Purpose | Default |
 |------------------|----------------|------------|---------|---------|
+| `--enable-wanmgr` | N/A | `ENABLE_RDK_WANMANAGER` | Enable WAN Manager integration and coordination features | Disabled |
+| `--enable-wanfailover` | N/A | `FEATURE_WAN_FAIL_OVER` | Enable WAN failover detection and handling capabilities | Disabled |
 | `--enable-core_net_lib_feature_support` | N/A | `CORE_NET_LIB_FEATURE_SUPPORT` | Enable advanced networking library support | Disabled |
 
-<br>
+**RDK-B Platform and Integration Requirements (MUST):**
 
-**RDK-B Platform and Integration Requirements:**
 
-- **RDK-B Components**: PSM, CR, WAN Manager for interface coordination, CCSP Message Bus for inter-component communication
+- **RDK-B Components**: PSM (Persistent Storage Manager), CR (Component Registrar), WAN Manager for interface coordination, CCSP Message Bus for inter-component communication
 - **HAL Dependencies**: Cable Modem HAL, DHCP Client HAL, Ethernet Switch HAL, Platform HAL
 - **Systemd Services**: ccsp-cm-agent.service must start after network-online.target and before wanmanager.service
 - **Message Bus**: CCSP Message Bus registration with component name "eRT.com.cisco.spvtg.ccsp.cm"
 - **TR-181 Data Model**: Device.DeviceInfo.* parameter support from Platform Agent, X_CISCO_COM_CableModem.* namespace reservation
 - **Configuration Files**: CcspCM.cfg, CcspCMDM.cfg, TR181-CM.XML for parameter definitions, /nvram/syscfg.db for persistent configuration
 - **Startup Order**: Must initialize after PSM and Message Bus but before WAN Manager and dependent networking components
+- **Resource Constraints**: Minimum 8MB RAM allocation, persistent storage access for configuration and logs
 
 <br>
 
@@ -149,7 +153,8 @@ CcspCMAgent implements a hybrid threading model that combines single-threaded CC
 
 - **Threading Architecture**: Multi-threaded with dedicated worker threads for specific operations
 - **Main Thread**: Handles CCSP message bus operations, TR-181 parameter get/set operations, component lifecycle management, and synchronous HAL interactions
-- **Main worker Threads**:
+- **Worker Threads**:
+    - **RBus Event Thread**: Manages RBus connection, publishes cable modem status events, handles subscriber notifications with 1-second polling interval
     - **HAL Monitor Thread**: Continuously monitors cable modem RF signal status and DOCSIS link state with configurable polling intervals
 - **Synchronization**: Uses pthread mutexes for shared data structures, RBus internal synchronization for event publishing, and CCSP-provided synchronization primitives for message bus operations
 
@@ -194,8 +199,6 @@ During runtime operations, CcspCMAgent manages multiple operational contexts inc
 - RF signal level variations beyond threshold values initiate diagnostic data collection and telemetry reporting  
 - Remote configuration updates trigger parameter validation and atomic configuration commits
 - Cable modem registration state changes coordinate with WAN Manager for interface provisioning
-
-<br>
 
 **Context Switching Scenarios:**
 
@@ -321,8 +324,6 @@ Device.
 | `Device.DeviceInfo.ManufacturerOUI` | string | R | `""` | Organizationally Unique Identifier (OUI) of the device manufacturer as assigned by IEEE registration authority | TR-181 Issue 2 |
 | `Device.DeviceInfo.HardwareVersion` | string | R | `""` | Hardware version string assigned by manufacturer, typically indicating PCB revision and component specifications | TR-181 Issue 2 |
 
-<br>
-
 **Cable Modem Core Parameters:**
 
 | Parameter Path | Data Type | Access | Default Value | Description | BBF Compliance |
@@ -334,8 +335,6 @@ Device.
 | `Device.X_CISCO_COM_CableModem.BPIState` | boolean | R | `false` | Baseline Privacy Interface (BPI) encryption state indicating whether data encryption is active on cable modem interface | Custom Extension |
 | `Device.X_CISCO_COM_CableModem.NetworkAccess` | boolean | R | `false` | Network access permission status controlled by CMTS authorization policies and service flow configurations | Custom Extension |
 | `Device.X_CISCO_COM_CableModem.MACAddress` | string | R | `""` | Hardware MAC address of cable modem interface used for DOCSIS registration and network identification | Custom Extension |
-
-<br>
 
 **RDK Central Extensions:**
 
@@ -371,7 +370,7 @@ CcspCMAgent is organized into specialized modules that handle distinct aspects o
 
 ## Component Interactions
 
-CcspCMAgent maintains interactions with RDK-B middleware components, HAL layers, and external systems to provide comprehensive cable modem management functionality. The component serves as a critical integration point between higher-level management services and underlying hardware capabilities.
+CcspCMAgent maintains extensive interactions with RDK-B middleware components, HAL layers, and external systems to provide comprehensive cable modem management functionality. The component serves as a critical integration point between higher-level management services and underlying hardware capabilities.
 
 ### Interaction Matrix
 
@@ -390,13 +389,22 @@ CcspCMAgent maintains interactions with RDK-B middleware components, HAL layers,
 | **External Systems** |
 | DOCSIS Network (CMTS) | Cable modem registration, service flow provisioning, network access authorization | DOCSIS Protocol | DOCSIS MAC Messages | Bi-directional Protocol | DOCSIS MAC Management Messages |
 
-**Main events Published by CcspCMAgent:**
+**Events Published by CcspCMAgent:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |-------------|------------------|-------------------|------------------------|
 | DocsisLinkStatus | `Device.X_CISCO_COM_CableModem.DocsisLinkStatus` | DOCSIS link up/down state change | WAN Manager, Log Agent |
 | CableModemRfSignalStatus | `Device.X_CISCO_COM_CableModem.X_RDKCENTRAL-COM_CableRfSignalStatus` | RF signal detection change | WAN Manager, Diagnostic Agents |
 | FirmwareDownloadStatus | `Device.X_CISCO_COM_CableModem.X_RDKCENTRAL-COM_FirmwareDownloadStatus` | Firmware download progress/completion | System Manager, Log Agent |
+
+
+**Events Consumed by CcspCMAgent:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|---------------|------------------|----------|------------------|
+| WAN Manager | `Device.X_RDK_WanManager.CPEInterface.{i}.Wan.Status` | React to WAN interface status changes | `HandleWanStatusChange()` |
+| System Manager | `Device.DeviceInfo.X_RDKCENTRAL-COM_xOpsDeviceMgmt.RPC.RebootDevice` | Handle system reboot requests | `HandleSystemReboot()` |
+
 
 ### IPC Flow Patterns
 
@@ -419,8 +427,6 @@ sequenceDiagram
     CMAgent-->>CCSP: Parameter Value Response
     CCSP-->>Client: GetParameterValues Response (success/error)
 ```
-
-<br>
 
 **Event Notification Flow:**
 
@@ -455,8 +461,6 @@ sequenceDiagram
 
 CcspCMAgent integrates with multiple HAL interfaces to provide comprehensive cable modem hardware abstraction and control. The component implements robust error handling and retry mechanisms for all HAL interactions to ensure reliable operation under various hardware conditions.
 
-<br>
-
 **Core HAL APIs:**
 
 | HAL API | Purpose | Implementation File |
@@ -488,3 +492,4 @@ CcspCMAgent integrates with multiple HAL interfaces to provide comprehensive cab
 |--------------------|---------|---------------------|
 | `/etc/ccsp/cm.cfg` | Main component configuration | Environment variables, compile-time defines |
 | `/etc/ccsp/TR181-CM.XML` | TR‑181 parameter definitions | Not user-configurable |
+| `/tmp/ccsp_msg.cfg` | CCSP message bus configuration | Component restart required |

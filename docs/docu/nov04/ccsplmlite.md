@@ -2,7 +2,7 @@
 
 CcspLMLite (LAN Manager Lite) is the RDK-B component responsible for managing and monitoring LAN-side network devices and hosts connected to the gateway. This component serves as the primary interface for discovering, tracking, and reporting network connectivity status, device information, and traffic analytics for connected devices across WiFi, Ethernet, and MoCA interfaces. LMLite provides comprehensive host management capabilities including device discovery, presence detection, network traffic monitoring, and telemetry reporting. It implements TR-181 data model parameters for hosts management and integrates with WebPA for cloud-based management and monitoring. CcspLMLite acts as a centralized hub for collecting network device information from various sources and presenting a unified view through standardized TR-181 interfaces.
 
-CcspLMLite enables features like parental controls, device management, network analytics, and presence-based automation by maintaining real-time awareness of all connected devices and their network activity patterns.
+As a core RDK-B service, CcspLMLite enables advanced features like parental controls, device management, network analytics, and presence-based automation by maintaining real-time awareness of all connected devices and their network activity patterns.
 
 ```mermaid
 graph LR
@@ -85,6 +85,7 @@ graph TD
         end
         
         subgraph DataModel ["Data Models"]
+            HostsDML[DML Hosts]
             MgmtDML[DML Management]
         end
 
@@ -102,7 +103,8 @@ graph TD
         PSM[(CCSP PSM)]
     end
 
-    LMMain --> DataModel
+    LMMain --> HostsDML
+    LMMain --> MgmtDML
     DataModel <--> rdkbComponents
     
     PSM --> LMMain  
@@ -120,6 +122,7 @@ graph TD
 
 | Configure Option | DISTRO Feature | Build Flag | Purpose | Default |
 |------------------|----------------|------------|---------|---------|
+| `--enable-wan-traffic-count-support` | N/A | `WAN_TRAFFIC_COUNT_SUPPORT` | Enable WAN traffic counting and monitoring capabilities | Disabled |
 | `--enable-core-net-lib-feature-support` | N/A | `CORE_NET_LIB_FEATURE_SUPPORT` | Enable advanced networking library support | Disabled |
 
 <br>
@@ -127,12 +130,13 @@ graph TD
 **RDK-B Platform and Integration Requirements:**
 
 * **RDK-B Components**: `CcspPandM` , `CcspPsm` , `CcspCommonLibrary`
-* **HAL Dependencies**: WiFi HAL APIs, Ethernet HAL interfaces
+* **HAL Dependencies**: WiFi HAL APIs, MoCA HAL APIs(optional), Ethernet HAL interfaces
 * **Systemd Services**: `CcspCrSsp.service`, `CcspPsmSsp.service` must be active before `CcspLMLite.service` starts
 * **Message Bus**: RBus registration under `com.cisco.spvtg.ccsp.lmlite` namespace for performance optimization and inter-component communication
 * **TR-181 Data Model**: `Device.Hosts` object hierarchy and `Device.ManagementServer.ManageableDevice` support for device management and reporting
 * **Configuration Files**: `LMLite.xml` for TR-181 parameter definitions; component configuration files located in `/usr/ccsp/lmlite/`
 * **Startup Order**: Initialize after network interfaces are active and PSM services are running
+
 
 <br>
 
@@ -142,7 +146,7 @@ CcspLMLite implements a multi-threaded architecture designed to handle concurren
 
 - **Threading Architecture**: Multi-threaded with main event loop and specialized worker threads for different operational domains
 - **Main Thread**: Handles TR-181 parameter requests, RBus message processing, and component lifecycle management
-- **Main worker Threads**: 
+- **Worker Threads**: 
   - **Network Scanner Thread**: Performs periodic network interface scanning and device discovery operations
   - **Presence Detection Thread**: Monitors device connectivity status and triggers presence change notifications
 - **Synchronization**: Uses mutex locks for shared data structures, condition variables for thread communication, and atomic operations for counters
@@ -330,7 +334,7 @@ CcspLMLite maintains extensive interactions with RDK-B middleware components, sy
 | Linux Network Stack | ARP table monitoring, network interface status, routing table access | `/proc/net/arp`, `ioctl(SIOCGARP)`, netlink sockets |
 
 
-**Major events Published by CcspLMLite:**
+**Events Published by CcspLMLite:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |------------|-----------------|-------------------|---------------------|
@@ -338,6 +342,16 @@ CcspLMLite maintains extensive interactions with RDK-B middleware components, sy
 | Device_Presence | `Device.Hosts.Host.{i}.ActiveChange` | Device online/offline status change | Parental Control, OneWifi, WebPA |
 | Network_Analytics | `LMLite.NetworkDeviceTraffic` | Periodic traffic statistics collection | Telemetry Collection, Analytics Services |
 | Configuration_Change | `LMLite.ConfigurationUpdate` | Runtime configuration parameter modification | Configuration Management, Logging Services |
+
+
+**Events Consumed by CcspLMLite:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|-------------|-----------------|---------|------------------|
+| OneWifi | `Device.WiFi.AccessPoint.AssociatedDeviceNumberChange` | WiFi client association/disassociation detection | `wifi_device_event_handler()` |
+| CcspMoCAAgent | `Device.MoCA.Interface.AssociatedDeviceNumberChange` | MoCA network topology change detection | `moca_device_event_handler()` |
+| SystemD Network | `NetworkManager.DeviceAdded/Removed` | Network interface up/down events | `network_interface_event_handler()` |
+
 
 ### IPC Flow Patterns
 
@@ -411,4 +425,7 @@ CcspLMLite integrates with multiple HAL interfaces to collect comprehensive netw
 |--------------------|---------|---------------------|
 | `LMLite.XML`       | TR-181 parameter definitions and DML function mappings | Component compilation flags, runtime XML updates |
 | `lmlite.conf`      | Runtime configuration parameters and operational settings | Environment variables, systemd overrides |
+| `telemetry_profile.json` | Network analytics and telemetry reporting configuration | Cloud management, local web interface |
 | `presence_detection.ini` | Advanced presence detection algorithm parameters | TR-181 parameter interface, configuration API |
+| `/etc/utopia/system_defaults` | System-wide default configuration | Environment variables, syscfg overrides |
+| `/nvram/syscfg.db` | Persistent device configuration | TR-181 parameter updates, factory reset |

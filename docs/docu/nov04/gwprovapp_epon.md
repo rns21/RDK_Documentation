@@ -6,7 +6,60 @@ The component operates as a daemon service that monitors and responds to system 
 
 As a device-level service, GwProvApp-ePON enables seamless network connectivity by managing DHCP services, firewall configurations, bridge mode operations, and time synchronization across the EPON infrastructure. At the module level, it provides event-driven state management, configuration persistence through syscfg, and robust error handling for network provisioning scenarios.
 
+**old diagram**
+```mermaid
+graph TD
+    subgraph "External Management"
+        HeadEnd[Head-End Management]
+        XConf[XConf Configuration Server]
+    end
+    
+    subgraph "RDK-B Middleware Layer"
+        GwProvEPON[GwProvApp-ePON]
+        DHCP[DHCP Services]
+        Firewall[Firewall Manager]
+        Bridge[Bridge Manager]
+        TimeSync[Time Sync Service]
+    end
+    
+    subgraph "System Layer"
+        SysEvent[SysEvent Bus]
+        SysCfg[SysCfg Storage]
+        SystemD[SystemD Services]
+    end
+    
+    subgraph "HAL/Hardware Layer"
+        MSOHAL[MSO Management HAL]
+        NetworkHW[Network Hardware]
+    end
+
+    HeadEnd -->|Configuration Updates| GwProvEPON
+    XConf -->|Provisioning Parameters| GwProvEPON
+    
+    GwProvEPON <-->|Event Monitoring/Publishing| SysEvent
+    GwProvEPON <-->|Configuration Storage| SysCfg
+    GwProvEPON -->|Service Control| DHCP
+    GwProvEPON -->|Policy Updates| Firewall
+    GwProvEPON -->|Mode Changes| Bridge
+    GwProvEPON -->|Time Offset Updates| TimeSync
+    GwProvEPON -->|HAL API Calls| MSOHAL
+    
+    SystemD -->|Service Management| GwProvEPON
+    MSOHAL <-->|Hardware Control| NetworkHW
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef middleware fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef system fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef hal fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    
+    class HeadEnd,XConf external;
+    class GwProvEPON,DHCP,Firewall,Bridge,TimeSync middleware;
+    class SysEvent,SysCfg,SystemD system;
+    class MSOHAL,NetworkHW hal;
+```
 <br>
+
+**new diagram**
 
 ```mermaid
 graph LR
@@ -96,6 +149,12 @@ flowchart TD
     ConfigMgr --> IPProvMgr
     ServiceCtrl --> IPProvMgr
     TimeMgr --> ServiceCtrl
+    
+    classDef controller fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef manager fill:#e8f5e8,stroke:#388e3c,stroke-width:2px;
+    
+    class MainCtrl,ServiceCtrl controller;
+    class EventHandler,IPProvMgr,ConfigMgr,TimeMgr manager;
 ```
 
 ### Prerequisites and Dependencies
@@ -116,7 +175,7 @@ GwProvApp-ePON implements a dual-threaded model optimized for responsive event h
 
 - **Threading Architecture**: Multi-threaded with main thread and dedicated event handler thread
 - **Main Thread**: Handles initialization, syscfg setup, daemon management, and process lifecycle control
-- **Main worker Threads**:
+- **Worker Threads**:
   - **SysEvent Handler Thread (GWPEponsysevent)**: Processes asynchronous system events, manages event subscriptions, and coordinates state transitions
 - **Synchronization**: Thread-safe event handling using sysevent library synchronization primitives and atomic configuration operations
 
@@ -246,7 +305,7 @@ GwProvApp-ePON serves as a central coordinator in the RDK-B middleware ecosystem
 | SystemD Services | Process lifecycle and dependency management | Service dependencies, ExecStart/Stop directives |
 
 
-**Main events Published by GwProvApp-ePON:**
+**Events Published by GwProvApp-ePON:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |------------|-----------------|-------------------|---------------------|
@@ -254,6 +313,16 @@ GwProvApp-ePON serves as a central coordinator in the RDK-B middleware ecosystem
 | Gateway Provisioning Status String | `gw_prov_status_str` | Human-readable status updates | UI components, diagnostic tools |
 | DHCP Server Restart | `dhcp_server-restart` | IP provisioning changes requiring DHCP reconfiguration | DHCP server services, network configuration |
 | Service Coordination Events | Various service-specific topics | Service lifecycle and configuration changes | Dependent RDK-B services |
+
+**Events Consumed by GwProvApp-ePON:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|-------------|-----------------|---------|------------------|
+| Network Services | `wan-status`, `ipv4-status`, `ipv6-status` | Monitor network interface state changes | `GWPEpon_sysevent_handler()` |
+| XConf Services | `xconf_gw_prov_mode`, `xconf_router_ip_mode` | Process remote configuration updates | `GWPEpon_ProcessXconfGwProvMode()` |
+| System Services | `bridge_mode`, `firewall-restart`, `gre-restart` | Coordinate system service changes | Service-specific handler functions |
+| Time Services | `ipv4-timeoffset`, `ipv6-timeoffset`, `ipv4_timezone` | Synchronize time configuration across networks | `GWPEpon_ProcessIpv*Timeoffset()` |
+| Interface Management | `eth_enabled`, `moca_enabled`, `wl_enabled` | Handle physical interface state changes | Interface-specific enable/disable handlers |
 
 ### IPC Flow Patterns
 

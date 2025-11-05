@@ -6,6 +6,70 @@ Cellular Modem Manager operates across different service layers. At the device l
 
 At the module architecture level, the component provides a clean separation of concerns through distinct functional layers including TR-181 parameter management, state machine coordination, HAL abstraction, and modem driver integration. This layered approach enables support for multiple modem types (QMI, RNDIS, ModemManager) while maintaining consistent upper-layer interfaces and behavior patterns.
 
+**old to delete**
+```mermaid
+graph TD
+    subgraph "External Systems"
+        CarrierNet[("Carrier Network<br/>(Cellular Tower)")]
+        CloudMgmt[("Cloud Management<br/>(HeadEnd/ACS)")]
+        WebUI[("Web UI<br/>(Local Management)")]
+    end
+
+    subgraph "RDK-B Middleware"
+        CellularMgr["Cellular Modem Manager<br/>(C/C++, systemd)"]
+        WANMgr["WAN Manager"]
+        CCSPCr["CCSP CR<br/>(Component Registry)"]
+        PSM["PSM<br/>(Parameter Storage)"]
+        Utopia["Utopia<br/>(System Services)"]
+    end
+
+    subgraph "HAL & Platform Layer"
+        CellularHAL["Cellular HAL"]
+        ModemDrivers["Modem Drivers<br/>(QMI/RNDIS/ModemManager)"]
+        NetworkStack["Linux Network Stack"]
+        SysEvent["SysEvent"]
+    end
+
+    subgraph "Hardware"
+        CellularModem["Cellular Modem<br/>(USB/PCIe)"]
+        NetworkIF["Network Interface<br/>(wwan0)"]
+    end
+
+    %% External connections
+    CarrierNet <-->|"4G/5G Radio"| CellularModem
+    CloudMgmt -->|"TR-069/HTTP"| CellularMgr
+    WebUI -->|"TR-181 Parameters"| CellularMgr
+
+    %% RDK-B middleware connections
+    CellularMgr <-->|"RBus/CCSP Messages"| WANMgr
+    CellularMgr <-->|"Component Registration"| CCSPCr
+    CellularMgr <-->|"Parameter Storage"| PSM
+    CellularMgr <-->|"System Events"| Utopia
+
+    %% HAL connections
+    CellularMgr -->|"HAL API Calls"| CellularHAL
+    CellularHAL -->|"QMI/AT Commands"| ModemDrivers
+    CellularHAL -->|"Network Configuration"| NetworkStack
+    CellularMgr -->|"Event Notifications"| SysEvent
+
+    %% Hardware connections
+    ModemDrivers <-->|"USB/PCIe Interface"| CellularModem
+    NetworkStack <-->|"Network Interface"| NetworkIF
+    NetworkIF <-->|"Data Traffic"| CellularModem
+
+    %% Styling
+    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef rdkb fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef hal fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef hardware fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+
+    class CarrierNet,CloudMgmt,WebUI external
+    class CellularMgr,WANMgr,CCSPCr,PSM,Utopia rdkb
+    class CellularHAL,ModemDrivers,NetworkStack,SysEvent hal
+    class CellularModem,NetworkIF hardware
+```
+
+
 ```mermaid
 graph LR
 
@@ -81,6 +145,87 @@ Southbound interfaces utilize a sophisticated HAL abstraction layer that provide
 The IPC design supports both synchronous parameter operations and asynchronous event notifications, enabling efficient communication with WAN Manager for coordinated interface management and with other RDK-B components for system-wide state synchronization. Event-driven architecture ensures responsive system behavior while minimizing resource consumption through intelligent polling strategies and interrupt-driven status updates.
 
 Data persistence and storage management leverage PSM for configuration parameters and utilize system-level storage for operational state information. The design implements atomic parameter updates, configuration validation, and rollback mechanisms to ensure system stability during configuration changes. WebConfig integration enables cloud-based configuration management with proper security boundaries and validation pipelines.
+**old diagram**
+```mermaid
+graph TD
+    subgraph CellularContainer ["Cellular Modem Manager Container (systemd service)"]
+        subgraph MainProcess ["cellularmanager Process (C/C++)"]
+            MainThread["Main Thread<br/>(cellularmgr_main.c)"]
+            SMEngine["State Machine Engine<br/>(cellularmgr_sm.c)"]
+            
+            subgraph TR181Layer ["TR-181 Layer"]
+                DMLHandler["DML Handler<br/>(cellularmgr_cellular_dml.c)"]
+                ParamMgr["Parameter Manager<br/>(cellularmgr_cellular_param.c)"]
+                RBusInt["RBus Interface<br/>(cellularmgr_rbus_*.c)"]
+            end
+            
+            subgraph HALAbstraction ["HAL Abstraction Layer"]
+                HALDevice["Device Manager<br/>(cellular_hal_device_*.c)"]
+                HALModem["Modem APIs<br/>(cellular_hal_modem_apis.c)"]
+                HALQMI["QMI APIs<br/>(cellular_hal_qmi_apis.c)"]
+                HALRNDIS["RNDIS APIs<br/>(cellular_hal_rndis_apis.c)"]
+                HALUtils["HAL Utils<br/>(cellular_hal_utils.c)"]
+            end
+            
+            subgraph CoreServices ["Core Services"]
+                BusUtils["Bus Utils<br/>(cellularmgr_bus_utils.c)"]
+                CellularAPIs["Cellular APIs<br/>(cellularmgr_cellular_apis.c)"]
+                Internal["Internal Logic<br/>(cellularmgr_cellular_internal.c)"]
+                WebConfig["WebConfig API<br/>(cellularmgr_cellular_webconfig_api.c)"]
+            end
+        end
+    end
+
+    subgraph ExternalDeps ["External Dependencies"]
+        MessageBus[("Message Bus<br/>(RBus/CCSP)")]
+        PSMStorage[("PSM Storage<br/>(Parameter Persistence)")]
+        SysServices[("System Services<br/>(sysevent, syscfg)")]
+        HALLayer[("Cellular HAL<br/>(Hardware Abstraction)")]
+        WebConfigFW[("WebConfig Framework<br/>(Configuration Management)")]
+    end
+
+    %% Internal connections
+    MainThread --> SMEngine
+    MainThread --> TR181Layer
+    SMEngine --> CoreServices
+    SMEngine --> HALAbstraction
+    
+    DMLHandler --> ParamMgr
+    DMLHandler --> RBusInt
+    RBusInt --> BusUtils
+    
+    HALDevice --> HALModem
+    HALDevice --> HALQMI
+    HALDevice --> HALRNDIS
+    HALDevice --> HALUtils
+    
+    CellularAPIs --> Internal
+    Internal --> WebConfig
+    
+    %% External connections
+    RBusInt <-->|"RBus Messages"| MessageBus
+    ParamMgr <-->|"Parameter Get/Set"| PSMStorage
+    Internal <-->|"System Events"| SysServices
+    HALAbstraction <-->|"HAL API Calls"| HALLayer
+    WebConfig <-->|"Configuration Updates"| WebConfigFW
+
+    %% Styling
+    classDef internal fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef tr181 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef hal fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef core fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef external fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+
+    class MainThread,SMEngine internal
+    class DMLHandler,ParamMgr,RBusInt tr181
+    class HALDevice,HALModem,HALQMI,HALRNDIS,HALUtils hal
+    class BusUtils,CellularAPIs,Internal,WebConfig core
+    class MessageBus,PSMStorage,SysServices,HALLayer,WebConfigFW external
+```
+
+
+**new diagram**
+
 
 ```mermaid
 graph TD
@@ -132,6 +277,19 @@ graph TD
     %% External connections
     ParamMgr <-->|"Parameter Get/Set"| PSMStorage
     Internal <-->|"System Events"| SysServices
+
+    %% Styling
+    classDef internal fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef tr181 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef hal fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef core fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef external fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+
+    class MainThread,SMEngine internal
+    class DMLHandler,ParamMgr,RBusInt tr181
+    class HALDevice,HALModem,HALQMI,HALRNDIS,HALUtils hal
+    class BusUtils,CellularAPIs,Internal core
+    class MessageBus,PSMStorage,SysServices,WebConfigFW external
 ```
 
 ### Prerequisites and Dependencies
@@ -141,11 +299,13 @@ graph TD
 | Configure Option | DISTRO Feature | Build Flag | Purpose | Default |
 |------------------|----------------|------------|---------|---------|
 | N/A | `cellular_hybrid_support` | `IS_HYBRID_SUPPORT=true` | Enable hybrid cellular modem support with additional drivers | Disabled |
+| N/A | `WanFailOverSupportEnable` | `RBUS_BUILD_FLAG_ENABLE=True` | Enable RBus communication and WAN failover support | Disabled |
 
-**RDK-B Platform and Integration Requirements**:
+**RDK-B Platform and Integration Requirements (MUST):**
 
-- **RDK-B Components**: CCSP Component Registry, PSM, WAN Manager for interface coordination 
-- **HAL Dependencies**: Cellular HAL , supporting device detection, modem control, and status reporting APIs 
+- **Build Dependencies**: meta-rdk-broadband layer, ccsp-common-library, hal-cellular, libsysevent, syscfg, webconfig-framework, modemmanager
+- **RDK-B Components**: CCSP Component Registry (CcspCr), PSM (Parameter Storage Manager), WAN Manager for interface coordination 
+- **HAL Dependencies**: Cellular HAL interface version 1.0+, supporting device detection, modem control, and status reporting APIs 
 - **Systemd Services**: utopia.service, CcspCrSsp.service, PsmSsp.service, RdkWanManager.service must be active before startup 
 - **Message Bus**: RBus registration for Device.Cellular namespace or CCSP component registration with eRT.com.cisco.spvtg.ccsp.cellularmanager 
 - **TR-181 Data Model**: Device.Cellular object implementation with X_RDK custom extensions for RDK-specific functionality 
@@ -181,19 +341,19 @@ sequenceDiagram
     participant StateMachine
 
     System->>System: Start [*] → Initializing
-    Note right of System: Initialize logging<br>Parse command arguments<br>Setup IPC
+    Note right of System: Initialize logging<br/>Parse command arguments<br/>Setup IPC
 
     System->>ConfigLoader: Component Start → LoadingConfig
-    Note right of ConfigLoader: Load device.properties<br>Parse debug configuration<br>Initialize default values<br>Validate settings
+    Note right of ConfigLoader: Load device.properties<br/>Parse debug configuration<br/>Initialize default values<br/>Validate settings
 
     ConfigLoader->>TR181: Configuration Loaded → RegisteringTR181
-    Note right of TR181: Register Device.Cellular objects<br>Create TR-181 data model<br>Setup parameter bindings<br>Initialize DML handlers
+    Note right of TR181: Register Device.Cellular objects<br/>Create TR-181 data model<br/>Setup parameter bindings<br/>Initialize DML handlers
 
     TR181->>DependencyManager: Data Models Registered → ConnectingDeps
-    Note right of DependencyManager: Connect to PSM<br>Establish RBus/CCSP connection<br>Connect to Cellular HAL<br>Initialize system services
+    Note right of DependencyManager: Connect to PSM<br/>Establish RBus/CCSP connection<br/>Connect to Cellular HAL<br/>Initialize system services
 
     DependencyManager->>System: All Systems Ready → Active
-    Note right of System: Process requests<br>Execute state machine<br>Monitor health<br>Handle cellular operations
+    Note right of System: Process requests<br/>Execute state machine<br/>Monitor health<br/>Handle cellular operations
 
     System->>EventHandler: Network/Config Event → RuntimeStateChange
     EventHandler->>StateMachine: Process Cellular Event
@@ -420,6 +580,94 @@ The Cellular Modem Manager architecture comprises distinct functional modules or
 | Message Bus Interface | Inter-process communication layer supporting both CCSP and RBus protocols with component registration and event publishing | `cellularmgr_messagebus_interface.c`, `cellularmgr_bus_utils.c` |
 | RBus Integration | Modern RBus protocol implementation for enhanced IPC performance with event publishing and subscription management | `cellularmgr_rbus_dml.c`, `cellularmgr_rbus_events.c` |
 
+```mermaid
+flowchart TD
+    subgraph CellularManager ["Cellular Manager"]
+        Main([Main Thread<br/>cellularmgr_main.c])
+        SM([State Machine<br/>cellularmgr_sm.c])
+        CellAPIs([Cellular APIs<br/>cellularmgr_cellular_apis.c])
+        Internal([Internal Logic<br/>cellularmgr_cellular_internal.c])
+        BusUtils([Bus Utils<br/>cellularmgr_bus_utils.c])
+        MsgBusIF([Message Bus Interface<br/>cellularmgr_messagebus_interface.c])
+    end
+
+    subgraph TR181Layer ["TR-181 Data Model Layer"]
+        DML([DML Handler<br/>cellularmgr_cellular_dml.c])
+        ParamMgr([Parameter Manager<br/>cellularmgr_cellular_param.c])
+        Helpers([Helpers<br/>cellularmgr_cellular_helpers.c])
+        PluginMain([Plugin Main<br/>cellularmgr_plugin_main.c])
+        Utils([Utils<br/>cellularmgr_utils.c])
+        WebConfigAPI([WebConfig API<br/>cellularmgr_cellular_webconfig_api.c])
+    end
+
+    subgraph RBusLayer ["RBus Integration (Conditional)"]
+        RBusDML([RBus DML<br/>cellularmgr_rbus_dml.c])
+        RBusEvents([RBus Events<br/>cellularmgr_rbus_events.c])
+        RBusHelpers([RBus Helpers<br/>cellularmgr_rbus_helpers.c])
+    end
+
+    subgraph HALAbstraction ["HAL Abstraction Layer"]
+        HALCore([HAL Core<br/>cellular_hal.c])
+        HALDevice([Device Abstraction<br/>cellular_hal_device_abstraction.c])
+        HALDevMgr([Device Manager<br/>cellular_hal_device_manager.c])
+        HALModem([Modem APIs<br/>cellular_hal_modem_apis.c])
+        HALUtils([HAL Utils<br/>cellular_hal_utils.c])
+    end
+
+    subgraph ModemDrivers ["Modem Driver Interfaces"]
+        QMIAPIs([QMI APIs<br/>cellular_hal_qmi_apis.c])
+        RNDISAPIs([RNDIS APIs<br/>cellular_hal_rndis_apis.c])
+        MMAPIs([ModemManager APIs<br/>cellular_hal_mm_apis.c])
+    end
+
+    %% Main flow connections
+    Main --> SM
+    Main --> MsgBusIF
+    SM --> CellAPIs
+    SM --> Internal
+    CellAPIs --> Internal
+    MsgBusIF --> BusUtils
+
+    %% TR-181 connections
+    Main --> TR181Layer
+    DML --> ParamMgr
+    DML --> Helpers
+    PluginMain --> DML
+    ParamMgr --> Utils
+    Internal --> WebConfigAPI
+
+    %% RBus connections (conditional)
+    TR181Layer --> RBusLayer
+    RBusDML --> RBusEvents
+    RBusDML --> RBusHelpers
+
+    %% HAL connections
+    CellAPIs --> HALAbstraction
+    Internal --> HALAbstraction
+    HALCore --> HALDevice
+    HALCore --> HALDevMgr
+    HALDevMgr --> HALModem
+    HALDevice --> HALUtils
+
+    %% Driver connections
+    HALModem --> ModemDrivers
+    HALDevice --> ModemDrivers
+    QMIAPIs --> RNDISAPIs
+    MMAPIs --> QMIAPIs
+
+    %% Styling
+    classDef main fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef tr181 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef rbus fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef hal fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef drivers fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+
+    class Main,SM,CellAPIs,Internal,BusUtils,MsgBusIF main
+    class DML,ParamMgr,Helpers,PluginMain,Utils,WebConfigAPI tr181
+    class RBusDML,RBusEvents,RBusHelpers rbus
+    class HALCore,HALDevice,HALDevMgr,HALModem,HALUtils hal
+    class QMIAPIs,RNDISAPIs,MMAPIs drivers
+```
 
 ## Component Interactions
 
@@ -443,7 +691,7 @@ The Cellular Modem Manager integrates extensively with RDK-B middleware componen
 | Carrier Networks | Network registration, data connectivity, roaming services | Hardware-dependent via HAL abstraction |
 
 
-**Main events Published by Cellular Modem Manager:**
+**Events Published by Cellular Modem Manager:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |------------|-----------------|-------------------|---------------------|
@@ -452,6 +700,17 @@ The Cellular Modem Manager integrates extensively with RDK-B middleware componen
 | Registration Status | `Device.Cellular.Interface.RegistrationStatus` | Network registration changes | Network Monitor, Telemetry Agent |
 | Connection Metrics | `cellular_connection_metrics` | Periodic performance data collection | Telemetry Agent, Performance Monitor |
 | Configuration Change | `cellular_config_applied` | WebConfig or parameter updates | Configuration Manager, Audit Logger |
+
+
+**Events Consumed by Cellular Modem Manager:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|-------------|-----------------|---------|------------------|
+| WAN Manager | `wan_interface_priority_change` | React to WAN interface priority updates | `cellularmgr_wan_priority_handler()` |
+| System Services | `system_ready` | Begin cellular service initialization | `cellularmgr_system_ready_handler()` |
+| HAL Layer | `cellular_device_event` | Handle hardware events (insertion/removal) | `cellularmgr_device_event_handler()` |
+| WebConfig Framework | `cellular_config_update` | Apply cloud-provided configuration | `cellularmgr_webconfig_handler()` |
+
 
 ### IPC Flow Patterns
 
@@ -527,3 +786,10 @@ The Cellular Modem Manager integrates with the Cellular HAL through a comprehens
 - **Error Handling Strategy**: Multi-layer error handling approach with HAL-level error detection, state machine error recovery mechanisms, and upper-layer error reporting through TR-181 parameter updates and event notifications. Timeout handling implements exponential backoff for network operations with configurable retry limits and fallback procedures.
 
 - **Logging & Debugging**: Comprehensive logging framework with configurable verbosity levels (ERROR, WARN, INFO, DEBUG) and component-specific log categories enabling targeted debugging of state machine transitions, HAL interactions, and network operations. Debug configuration loaded from `/etc/debug.ini` with runtime log level adjustment capabilities.
+
+### Key Configuration Files
+
+| Configuration File | Purpose | Override Mechanisms |
+|--------------------|---------|---------------------|
+| `/tmp/cellularmanager_initialized_bootup` | Initialization status tracking | Automatic creation/removal |
+| `RdkCellularManager.xml` | TR-181 data model definitions | Build-time customization |

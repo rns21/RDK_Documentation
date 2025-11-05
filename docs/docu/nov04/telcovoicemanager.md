@@ -4,6 +4,58 @@ Telco Voice Manager is the RDK-B middleware component that provides voice servic
 
 Telco Voice Manager acts as a bridge between the high-level RDK-B management infrastructure and low-level voice hardware abstraction layers , providing seamless integration of voice services into the broader RDK-B ecosystem. It supports both legacy telephony interfaces and modern IP-based voice communications, enabling operators to deploy unified voice solutions across diverse hardware platforms while maintaining consistent management and configuration interfaces.
 
+**old diagram**
+
+```mermaid
+graph TD
+    subgraph "External Systems"
+        User[End Users]
+        HeadEnd[Service Provider HeadEnd]
+        SIPServer[SIP Server/Registrar]
+        WebUI[Web Management Interface]
+    end
+
+    subgraph "RDK-B Middleware Stack"
+        TelcoVoiceMgr[Telco Voice Manager]
+        PandM[PandM]
+        TR069[TR-069 PA]
+        PSM[PSM]
+        RBus[RBus]
+    end
+
+    subgraph "Platform Services"
+        HAL[Voice HAL]
+        VendorStack[Vendor Voice Stack]
+        Hardware[Voice Hardware]
+    end
+
+    User -->|Voice Calls| TelcoVoiceMgr
+    HeadEnd -->|TR-069/ACS| TR069
+    SIPServer -->|SIP Signaling| TelcoVoiceMgr
+    WebUI -->|Configuration| PandM
+    
+    TR069 -->|Parameter Management| TelcoVoiceMgr
+    PandM -->|TR-181 Parameters| TelcoVoiceMgr
+    TelcoVoiceMgr -->|Data Persistence| PSM
+    TelcoVoiceMgr -->|Event Publishing| RBus
+    
+    TelcoVoiceMgr -->|JSON HAL API| HAL
+    HAL -->|Vendor API| VendorStack
+    VendorStack -->|Hardware Control| Hardware
+
+    classDef user fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef platform fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class User,HeadEnd,SIPServer,WebUI user;
+    class TelcoVoiceMgr,PandM,TR069,PSM,RBus component;
+    class HAL,VendorStack,Hardware platform;
+```
+
+**new diagram**
+
+
 ```mermaid
 graph LR
     subgraph "External Systems"
@@ -63,6 +115,7 @@ graph LR
 - **Multi-Line Voice Services**: Support for multiple concurrent voice lines with independent configuration, call handling, and service provisioning capabilities per line instance
 - **Voice Quality Management**: Comprehensive voice processing controls including gain adjustment, echo cancellation, noise reduction, and codec management for optimal call quality
 - **Event-Driven Architecture**: Real-time event publishing and subscription system for voice service state changes, call events, and system notifications using RBus messaging infrastructure
+- **HAL Abstraction Layer**: Vendor-agnostic Hardware Abstraction Layer implementation supporting JSON-based communication protocol for seamless integration with diverse voice hardware platforms
 
 ## Design
 
@@ -71,6 +124,97 @@ The Telco Voice Manager follows a layered architectural approach designed to pro
 The component's design emphasizes event-driven communication patterns, utilizing RBus for inter-component messaging and JSON-based HAL interfaces for hardware abstraction. The modular architecture allows for independent scaling of different voice service functions, while maintaining tight integration with the broader RDK-B middleware ecosystem. The design incorporates comprehensive error handling, state management, and recovery mechanisms to ensure continuous voice service availability even during system transitions or hardware failures.
 
 The northbound interfaces integrate seamlessly with RDK-B management components including PandM for TR-181 parameter management, TR-069 PA for remote configuration, and PSM for persistent data storage. The southbound interfaces abstract vendor-specific voice implementations through a standardized JSON HAL API, enabling consistent voice service management across different hardware platforms and vendor solutions. The design also incorporates WebConfig integration for dynamic configuration management and telemetry collection for proactive service monitoring.
+
+<br>
+
+**old diagram**
+```mermaid
+graph TD
+    subgraph ContainerBoundary ["Telco Voice Manager Process (C/systemd)"]
+        subgraph TR181Layer ["TR-181 Data Model Layer"]
+            DMLCore[DML Core Engine]
+            ParamHandler[Parameter Handler]
+            ObjectMgr[Object Manager]
+        end
+        
+        subgraph ServiceLayer ["Voice Service Management Layer"]
+            VoiceController[Voice Controller]
+            SIPMgr[SIP Manager]
+            POTSMgr[POTS Manager]
+            CallControl[Call Control]
+        end
+        
+        subgraph IntegrationLayer ["Integration Services Layer"]
+            HALInterface[HAL Interface]
+            ConfigMgr[Config Manager]
+            EventPublisher[Event Publisher]
+            NetworkMonitor[Network Monitor]
+        end
+    end
+
+    subgraph RDKBMiddleware ["RDK-B Middleware Components"]
+        PandM[PandM]
+        TR069[TR-069 PA]
+        PSM[PSM]
+        RBus[RBus/Message Bus]
+        WebConfig[WebConfig Framework]
+    end
+
+    subgraph VoiceHAL ["Voice Hardware Abstraction"]
+        JSONHALClient[JSON HAL Client]
+        VendorHAL[Vendor Voice HAL]
+        VoiceHardware[(Voice Hardware)]
+    end
+
+    subgraph ExternalSystems ["External Voice Systems"]
+        SIPServers[SIP Servers]
+        PSTNGateway[PSTN Gateway]
+        ManagementSys[Management Systems]
+    end
+
+    DMLCore -->|Parameter Operations| ParamHandler
+    ParamHandler -->|Object Management| ObjectMgr
+    
+    VoiceController -->|SIP Operations| SIPMgr
+    VoiceController -->|POTS Operations| POTSMgr
+    VoiceController -->|Call Management| CallControl
+    
+    HALInterface -->|Hardware Control| JSONHALClient
+    ConfigMgr -->|Dynamic Config| VoiceController
+    EventPublisher -->|Voice Events| NetworkMonitor
+    
+    ObjectMgr <-->|TR-181 Parameters| PandM
+    ObjectMgr <-->|ACS Management| TR069
+    ConfigMgr <-->|Persistence| PSM
+    EventPublisher <-->|Event Publishing| RBus
+    ConfigMgr <-->|Remote Config| WebConfig
+    
+    JSONHALClient <-->|JSON API| VendorHAL
+    VendorHAL <-->|Hardware API| VoiceHardware
+    
+    SIPMgr <-->|SIP Protocol| SIPServers
+    POTSMgr <-->|PSTN Access| PSTNGateway
+    NetworkMonitor <-->|Management Data| ManagementSys
+
+    classDef tr181 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef service fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef integration fill:#e8f5e8,stroke:#388e3c,stroke-width:2px;
+    classDef middleware fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+    classDef hal fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+    classDef external fill:#f1f8e9,stroke:#689f38,stroke-width:2px;
+
+    class DMLCore,ParamHandler,ObjectMgr tr181;
+    class VoiceController,SIPMgr,POTSMgr,CallControl service;
+    class HALInterface,ConfigMgr,EventPublisher,NetworkMonitor integration;
+    class PandM,TR069,PSM,RBus,WebConfig middleware;
+    class JSONHALClient,VendorHAL,VoiceHardware hal;
+    class SIPServers,PSTNGateway,ManagementSys external;
+```
+
+<br>
+
+**new diagram**
+
 
 ```mermaid
 graph TD
@@ -123,6 +267,16 @@ graph TD
     SIPMgr <-->|SIP Protocol| SIPServers
     POTSMgr <-->|PSTN Access| PSTNGateway
     NetworkMonitor <-->|Management Data| ManagementSys
+
+    classDef tr181 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef service fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef integration fill:#e8f5e8,stroke:#388e3c,stroke-width:2px;
+    classDef external fill:#f1f8e9,stroke:#689f38,stroke-width:2px;
+
+    class DMLCore,ParamHandler,ObjectMgr tr181;
+    class VoiceController,SIPMgr,POTSMgr,CallControl service;
+    class HALInterface,ConfigMgr,EventPublisher,NetworkMonitor integration;
+    class SIPServers,PSTNGateway,ManagementSys,JSONHALClient,rdkbComponent,PSM external;
 ```
 
 
@@ -146,8 +300,9 @@ graph TD
 
 **RDK-B Platform and Integration Requirements:** 
 
-- **RDK-B Components**: PandM , PSM , TR-069 PA, RBus Message Bus, and WebConfig Framework must be active and operational
-- **HAL Dependencies**: Voice HAL
+- **Build Dependencies**: meta-rdk-broadband layer, ccsp-common-library, hal-generic-voice, rbus, webconfig-framework, and systemd development packages
+- **RDK-B Components**: PandM (Parameter and Management), PSM (Persistent Storage Manager), TR-069 PA, RBus Message Bus, and WebConfig Framework must be active and operational
+- **HAL Dependencies**: Voice HAL interface version 2.0+ implementing JSON-based communication protocol with vendor-specific voice stack integration
 - **Systemd Services**: ccsp-psm.service, ccsp-pandm.service, rbus.service must be running before telcovoice-manager.service initialization
 - **Message Bus**: RBus registration for voice service events and TR-181 parameter notifications with reserved namespace "Device.Services.VoiceService"
 - **TR-181 Data Model**: TR-104 Voice service object model support from PandM with read/write access to Device.Services.VoiceService.* parameters
@@ -162,7 +317,7 @@ The Telco Voice Manager implements a multi-threaded architecture optimized for r
 
 - **Threading Architecture**: Multi-threaded with dedicated thread pools for voice processing, event handling, and HAL communication
 - **Main Thread**: Handles component initialization, RBus registration, TR-181 parameter operations, and coordinates overall voice service management lifecycle
-- **Main worker Threads**:
+- **Worker Threads**:
   - **Voice Controller Thread**: Manages voice service state transitions, call control operations, and coordinates SIP/POTS service management
   - **HAL Communication Thread**: Dedicated thread for JSON HAL API communication ensuring non-blocking hardware operations and event processing
   - **Network Monitor Thread**: Monitors network connectivity, SIP registration status, and handles network-related voice service events
@@ -395,6 +550,44 @@ The Telco Voice Manager is architected as a collection of specialized modules, e
 | **WebConfig Integration** | WebPA/WebConfig framework integration module supporting dynamic configuration updates, bulk parameter operations, and remote provisioning capabilities from service provider systems. | `telcovoicemgr_webconfig.c`, `telcovoicemgr_webconfig.h` |
 | **Voice Analytics** | Telemetry and analytics module collecting voice service metrics, call quality data, and usage statistics for reporting to backend systems and proactive service management. | `voice_report.c`, `voice_report.h` |
 
+<br>
+
+**old diagram to delete**
+
+```mermaid
+flowchart LR
+    subgraph TelcoVoiceManager ["Telco Voice Manager"]
+        direction LR
+        VoiceController([Voice Controller])
+        SSPMain([SSP Main Engine])
+        MessageBus([Message Bus Interface])
+        NetworkMonitor([Network Monitor])
+        DMLBackend([DML Backend Manager])
+        HALInterface([HAL Interface])
+        WebConfig([WebConfig Integration])
+        VoiceAnalytics([Voice Analytics])
+    end
+    
+    SSPMain --> VoiceController
+    SSPMain --> MessageBus
+    VoiceController --> NetworkMonitor
+    VoiceController --> HALInterface
+    MessageBus --> DMLBackend
+    DMLBackend --> VoiceController
+    NetworkMonitor --> VoiceController
+    HALInterface --> VoiceAnalytics
+    WebConfig --> DMLBackend
+    VoiceAnalytics --> MessageBus
+
+    classDef core fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef integration fill:#e8f5e8,stroke:#388e3c,stroke-width:2px;
+    classDef data fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+
+    class VoiceController,SSPMain core;
+    class MessageBus,HALInterface,WebConfig integration;
+    class DMLBackend,NetworkMonitor,VoiceAnalytics data;
+```
+
 ## Component Interactions
 
 The Telco Voice Manager maintains extensive interactions with both RDK-B middleware components and external voice service systems, utilizing multiple communication protocols and message formats to ensure comprehensive voice service management and seamless integration within the broader RDK-B ecosystem.
@@ -416,7 +609,7 @@ The Telco Voice Manager maintains extensive interactions with both RDK-B middlew
 | SIP Servers/Registrars | SIP registration, call signaling, session management, presence services | `REGISTER`, `INVITE`, `BYE`, `OPTIONS`, authentication challenges |
 
 
-**Main events Published by Telco Voice Manager:**
+**Events Published by Telco Voice Manager:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |-------------|------------------|-------------------|------------------------|
@@ -424,6 +617,16 @@ The Telco Voice Manager maintains extensive interactions with both RDK-B middlew
 | SIPRegistrationEvent | `Device.Services.VoiceService.SIP.RegistrationEvent` | SIP client registration success/failure, periodic re-registration | Network management, service monitoring, analytics components |
 | VoiceCallEvent | `Device.Services.VoiceService.CallEvent` | Call initiation, termination, state changes, call quality events | Billing systems, analytics, call detail record processors |
 | HALConnectionEvent | `Device.Services.VoiceService.HALStatus` | HAL interface connection/disconnection, hardware errors | System health monitoring, maintenance systems |
+
+
+**Events Consumed by Telco Voice Manager:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|---------------|------------------|----------|------------------|
+| Network Monitor | `Device.Network.Interface.StatusChange` | React to network connectivity changes affecting voice services | `NetworkStatusEventHandler()` |
+| WebConfig Framework | `Device.WebConfig.voice.ConfigUpdate` | Process dynamic voice service configuration updates | `WebConfigUpdateHandler()` |
+| PSM | `Device.PSM.ParameterChange` | Handle persistent storage updates for voice configuration | `PSMParameterChangeHandler()` |
+
 
 ### IPC Flow Patterns
 

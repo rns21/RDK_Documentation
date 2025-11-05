@@ -9,8 +9,8 @@ The component integrates deeply with the RDK-B ecosystem by interfacing with oth
 graph LR
 
     subgraph "External Systems"
-        ACS[Auto Configuration Server<br>TR-069 Headend]
-        STUN[STUN Server<br>NAT Traversal]
+        ACS[Auto Configuration Server<br/>TR-069 Headend]
+        STUN[STUN Server<br/>NAT Traversal]
     end
 
     subgraph "RDK-B Platform"
@@ -46,6 +46,43 @@ graph LR
     class HAL,Linux,SyscfgHAL,SyscfgDB system;
 ```
 
+**old to delete**
+```mermaid
+graph TD
+    subgraph "External Systems"
+        ACS[Auto Configuration Server<br/>TR-069 Headend]
+        STUN[STUN Server<br/>NAT Traversal]
+    end
+    
+    subgraph "RDK-B Middleware Layer"
+        TR069PA[CcspTr069Pa<br/>Protocol Agent]
+        PSM[CcspPsm<br/>Persistent Storage]
+        CR[Component Registrar<br/>Discovery Service]
+        DM[Data Model<br/>Components]
+    end
+    
+    subgraph "Platform Layer"
+        HAL[(HAL APIs<br/>Hardware Abstraction)]
+        OS[(Linux/OS<br/>System Services)]
+    end
+
+    ACS -->|HTTPS/SOAP<br/>TR-069 Protocol| TR069PA
+    STUN -->|UDP<br/>Connection Request| TR069PA
+    TR069PA -->|IPC Methods<br/>Parameter Access| PSM
+    TR069PA -->|IPC Methods<br/>Component Discovery| CR
+    TR069PA -->|IPC Methods<br/>Get/Set Parameters| DM
+    TR069PA -->|System Calls<br/>Network Config| OS
+    TR069PA -->|Direct APIs<br/>Device Control| HAL
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef platform fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    
+    class ACS,STUN external;
+    class TR069PA,PSM,CR,DM component;
+    class HAL,OS platform;
+```
+
 **Key Features & Responsibilities**: 
 
 - **TR-069 Protocol Implementation**: Complete CWMP protocol stack supporting all mandatory and optional TR-069 methods including GetParameterValues, SetParameterValues, AddObject, DeleteObject, Download, Upload, Reboot, and FactoryReset
@@ -65,9 +102,80 @@ The architecture is built around a central event processing engine that coordina
 
 The northbound interface integrates with ACS systems through standard TR-069 SOAP over HTTPS, implementing the complete CWMP specification including all required RPC methods and event notifications. The southbound interface communicates with other RDK-B components using IPC methods, providing parameter access, component discovery, and event propagation throughout the middleware stack.
 
-Data persistence and state management are handled through integration with CcspPsm for configuration data and session state, ensuring that device management operations can survive system restarts and maintain consistency across reboots. The design also incorporates comprehensive error handling and recovery mechanisms to ensure robust operation in challenging network conditions.
+Data persistence and state management are handled through integration with CcspPsm (Persistent Storage Manager) for configuration data and session state, ensuring that device management operations can survive system restarts and maintain consistency across reboots. The design also incorporates comprehensive error handling and recovery mechanisms to ensure robust operation in challenging network conditions.
 
 A Component diagram showing the component's internal structure and dependencies is given below:
+
+**old to delete**
+```mermaid
+graph TD
+    subgraph TR069Container ["CcspTr069Pa Process (C/C++)"]
+        direction TB
+        
+        subgraph ControlLayer ["Control & Orchestration Layer"]
+            CPE["CcspCwmpCpeController<br/>Central Orchestrator"]
+            MS["DslhManagementServer<br/>Data Model Interface"]
+        end
+        
+        subgraph ProtocolLayer ["Protocol Processing Layer"]
+            PROC["CcspCwmpProcessor<br/>CWMP Protocol Engine"]
+            SOAP["CcspCwmpSoapParser<br/>XML/SOAP Parser"]
+            BROKER["CcspCwmpAcsBroker<br/>Message Router"]
+        end
+        
+        subgraph CommunicationLayer ["Communication Layer"]
+            SESS["CcspCwmpSession<br/>Session Manager"]
+            CONN["CcspCwmpAcsConnection<br/>HTTP/HTTPS Transport"]
+            STUN["CcspCwmpStunManager<br/>NAT Traversal"]
+        end
+    end
+
+    subgraph ExternalSystems ["External Systems"]
+        ACS["Auto Configuration Server<br/>TR-069 Management"]
+        STUN_SRV["STUN Server<br/>NAT Discovery"]
+    end
+
+    subgraph RDKBComponents ["RDK-B Middleware"]
+        PSM["CcspPsm<br/>Persistent Storage"]
+        CR["Component Registrar<br/>Service Discovery"]
+    end
+
+    %% Control Flow
+    CPE -->|orchestrates| PROC
+    CPE -->|manages| SESS
+    CPE -->|coordinates| MS
+    
+    %% Protocol Processing
+    PROC -->|parses/builds| SOAP
+    PROC -->|routes via| BROKER
+    BROKER -->|queues to| CONN
+    
+    %% Communication Flow
+    SESS -->|establishes| CONN
+    SESS -->|handles| STUN
+    
+    %% External Connections
+    CONN -->|HTTPS/SOAP| ACS
+    STUN -->|UDP/STUN| STUN_SRV
+    
+    %% RDK-B Integration
+    MS -->|IPC Methods| PSM
+    MS -->|IPC Methods| CR
+
+    %% Styling
+    classDef controlModule fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000;
+    classDef protocolModule fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000;
+    classDef commModule fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000;
+    classDef external fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000;
+    classDef rdkb fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:#000;
+    
+    class CPE,MS controlModule;
+    class PROC,SOAP,BROKER protocolModule;
+    class SESS,CONN,STUN commModule;
+    class ACS,STUN_SRV external;
+    class PSM,CR rdkb;
+```
+
 
 ```mermaid
 graph LR
@@ -80,21 +188,21 @@ graph LR
         end
         
         subgraph ProtocolLayer ["Protocol Processing Layer"]
-            PROC["CcspCwmpProcessor<br>CWMP Protocol Engine"]
-            SOAP["CcspCwmpSoapParser<br>XML/SOAP Parser"]
-            BROKER["CcspCwmpAcsBroker<br>Message Router"]
+            PROC["CcspCwmpProcessor<br/>CWMP Protocol Engine"]
+            SOAP["CcspCwmpSoapParser<br/>XML/SOAP Parser"]
+            BROKER["CcspCwmpAcsBroker<br/>Message Router"]
         end
         
         subgraph CommunicationLayer ["Communication Layer"]
-            SESS["CcspCwmpSession<br>Session Manager"]
-            CONN["CcspCwmpAcsConnection<br>HTTP/HTTPS Transport"]
-            STUN["CcspCwmpStunManager<br>NAT Traversal"]
+            SESS["CcspCwmpSession<br/>Session Manager"]
+            CONN["CcspCwmpAcsConnection<br/>HTTP/HTTPS Transport"]
+            STUN["CcspCwmpStunManager<br/>NAT Traversal"]
         end
     end
 
     subgraph ExternalSystems ["External Systems"]
-        ACS["Auto Configuration Server<br>TR-069 Management"]
-        STUN_SRV["STUN Server<br>NAT Discovery"]
+        ACS["Auto Configuration Server<br/>TR-069 Management"]
+        STUN_SRV["STUN Server<br/>NAT Discovery"]
         rdkbComponents["Other RDK-B Components"]
     end
 
@@ -118,19 +226,42 @@ graph LR
     
     %% RDK-B Integration
     MS -->|IPC Methods| rdkbComponents
+
+    %% Styling
+    classDef controlModule fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000;
+    classDef protocolModule fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000;
+    classDef commModule fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000;
+    classDef external fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000;
+    classDef rdkb fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:#000;
+    
+    class CPE,MS controlModule;
+    class PROC,SOAP,BROKER protocolModule;
+    class SESS,CONN,STUN commModule;
+    class ACS,STUN_SRV,rdkbComponents external;
+    class PSM,CR rdkb;
 ```
 
 
 ### Prerequisites and Dependencies
 
-**RDK-B Platform and Integration Requirements**:
+**Build-Time Flags and Configuration:**
 
-- **RDK-B Components**: CcspPsm , Component Registrar, CcspCommonLibrary for base utilities and IPC framework
-- **HAL Dependencies**: Multiple HAL interfaces for comprehensive device management - WiFi HAL, Ethernet HAL, Platform HAL, VLAN HAL
-- **Systemd Services**: CcspCr.service and CcspPsm.service must be active before TR-069 PA initialization
+| Configure Option | DISTRO Feature | Build Flag | Purpose | Default |
+|------------------|----------------|------------|---------|---------|
+| OpenSSL Support | `openssl` | `_ANSC_USE_OPENSSL_` | Enable OpenSSL-based SSL/TLS support for ACS communications | Enabled |
+| IPv6 Support | N/A | `_ANSC_IPV6_COMPATIBLE_` | Enable IPv6 protocol support for TR-069 communications | Platform dependent |
+
+
+**RDK-B Platform and Integration Requirements (MUST):**
+
+- **Core DISTRO Features**: DISTRO_FEATURES += "rdk-b", "ccsp", "tr069", "openssl"
+- **RDK-B Components**: CcspPsm (Persistent Storage Manager), Component Registrar (CR), CcspCommonLibrary for base utilities and IPC framework
+- **HAL Dependencies**: Multiple HAL interfaces for comprehensive device management - WiFi HAL, MoCA HAL, Ethernet HAL, Platform HAL, VLAN HAL
+- **Systemd Services**: CcspCr.service (Component Registrar) and CcspPsm.service must be active before TR-069 PA initialization
 - **Message Bus**: IPC methods registration for TR-069 parameter namespace, component discovery and parameter access interfaces
 - **Configuration Files**: ccsp_tr069_pa_cfg_arm.xml (main configuration), ccsp_tr069_pa_certificate_cfg_arm.xml (SSL certificates), ccsp_tr069_pa_mapper_arm.xml (parameter mapping), sdm_arm.xml (supported data model), custom_mapper.xml (vendor extensions)
 - **Startup Order**: Component Registrar → CcspPsm → CcspTr069Pa - TR-069 PA requires parameter storage and component discovery services
+- **Resource Constraints**: Minimum 8MB memory for TR-069 sessions, 4MB persistent storage for configuration, network bandwidth for ACS communications
 
 **Threading Model**
 
@@ -138,7 +269,7 @@ CcspTr069Pa implements a multi-threaded architecture optimized for handling conc
 
 - **Threading Architecture**: Multi-threaded with dedicated worker threads for different operational aspects
 - **Main Thread**: Event loop processing, component initialization, IPC method registration, and coordination between worker threads
-- **Main worker Threads**:
+- **Worker Threads**:
   - **ACS Communication Thread**: Handles HTTP/HTTPS communication with ACS, SSL/TLS handshake, and connection management
   - **SOAP Processing Thread**: XML parsing, SOAP message construction/deconstruction, and TR-069 RPC method processing
   - **Parameter Operation Thread**: Bulk parameter get/set operations, data model traversal, and component parameter synchronization
@@ -163,22 +294,22 @@ sequenceDiagram
     participant EventHandler
 
     System->>System: Start [*] → Initializing
-    Note right of System: Initialize logging system<br>Allocate memory pools<br>Setup thread framework<br>Load SSL certificates
+    Note right of System: Initialize logging system<br/>Allocate memory pools<br/>Setup thread framework<br/>Load SSL certificates
 
     System->>ConfigLoader: Component Start → LoadingConfig
-    Note right of ConfigLoader: Parse ccsp_tr069_pa_cfg_arm.xml<br>Load ACS connection parameters<br>Initialize STUN configuration<br>Setup parameter mappings
+    Note right of ConfigLoader: Parse ccsp_tr069_pa_cfg_arm.xml<br/>Load ACS connection parameters<br/>Initialize STUN configuration<br/>Setup parameter mappings
 
     ConfigLoader->>DataModel: Configuration Loaded → RegisteringData
-    Note right of DataModel: Register Data Models<br>Setup IPC Methods<br>Initialize TR-069 namespace<br>Configure parameter handlers
+    Note right of DataModel: Register Data Models<br/>Setup IPC Methods<br/>Initialize TR-069 namespace<br/>Configure parameter handlers
 
     DataModel->>RDKBComponents: Data Models Registered → ConnectingDeps
-    Note right of RDKBComponents: Connect to CcspPsm<br>Connect to Component Registrar<br>Establish IPC connections<br>Initialize dependencies
+    Note right of RDKBComponents: Connect to CcspPsm<br/>Connect to Component Registrar<br/>Establish IPC connections<br/>Initialize dependencies
 
     RDKBComponents->>ACSConnection: Dependencies Connected → EstablishingACS
-    Note right of ACSConnection: Initialize ACS Connection<br>Setup SSL/TLS context<br>Configure STUN settings<br>Prepare session handlers
+    Note right of ACSConnection: Initialize ACS Connection<br/>Setup SSL/TLS context<br/>Configure STUN settings<br/>Prepare session handlers
 
     ACSConnection->>System: All Systems Ready → Active
-    Note right of System: Process TR-069 RPC methods<br>Handle connection requests<br>Monitor parameter changes<br>Generate event notifications
+    Note right of System: Process TR-069 RPC methods<br/>Handle connection requests<br/>Monitor parameter changes<br/>Generate event notifications
 
     System->>EventHandler: ACS Session Request → ProcessingSession
     EventHandler->>EventHandler: Handle TR-069 Session
@@ -276,6 +407,43 @@ The CcspTr069Pa component is architected with eight specialized modules, each ha
 | **CcspCwmpStunManager** | STUN protocol implementation for NAT traversal and connection request handling, enabling ACS-initiated connections through firewalls and Network Address Translation devices. | `ccsp_cwmp_stunmo_base.c` |
 | **DslhManagementServer** | TR-069 data model abstraction layer providing parameter mapping between TR-069 namespace and RDK-B component parameters, handling data model traversal and parameter access coordination. | `ccsp_management_server.c`, `ccsp_management_server_api.c`, `ccsp_supported_data_model.c` |
 
+**to delete**
+
+```mermaid
+flowchart TD
+    subgraph CcspTr069Pa["CcspTr069Pa Component"]
+        CPE([CcspCwmpCpeController<br/>Central Orchestrator])
+        PROC([CcspCwmpProcessor<br/>Protocol Engine])
+        SESS([CcspCwmpSession<br/>Session Manager])
+        CONN([CcspCwmpAcsConnection<br/>Transport Layer])
+        BROKER([CcspCwmpAcsBroker<br/>Message Router])
+        SOAP([CcspCwmpSoapParser<br/>Message Parser])
+        STUN([CcspCwmpStunManager<br/>NAT Traversal])
+        MS([DslhManagementServer<br/>Data Model Interface])
+    end
+    
+    CPE --> PROC
+    CPE --> SESS
+    CPE --> MS
+    PROC --> SOAP
+    PROC --> BROKER
+    SESS --> CONN
+    SESS --> STUN
+    BROKER --> CONN
+    BROKER --> SOAP
+    MS --> BROKER
+
+    %% Styling
+    classDef controlModule fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000;
+    classDef protocolModule fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000;
+    classDef commModule fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000;
+    classDef dataModule fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000;
+    
+    class CPE controlModule;
+    class PROC,SOAP,BROKER protocolModule;
+    class SESS,CONN,STUN commModule;
+    class MS dataModule;
+```
 
 ## Component Interactions
 
@@ -300,7 +468,7 @@ The CcspTr069Pa component serves as a critical bridge between external managemen
 | STUN Server | NAT traversal for connection requests, network discovery | STUN Binding Requests |
 | PKI/Certificate Authority | SSL certificate validation, client authentication | Certificate Validation APIs |
 
-**Main events Published by CcspTr069Pa:**
+**Events Published by CcspTr069Pa:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |------------|-----------------|-------------------|----------------------|
@@ -308,6 +476,16 @@ The CcspTr069Pa component serves as a critical bridge between external managemen
 | FirmwareDownloadComplete | `Device.TR069.FirmwareDownload` | Firmware download operation completed | Firmware Update Manager, CcspPandM |
 | ConnectionRequestReceived | `Device.TR069.ConnectionRequest` | ACS initiated connection request | Management components, logging services |
 | SessionEstablished | `Device.TR069.SessionStart` | TR-069 session successfully established with ACS | CcspWebUI, monitoring components |
+
+
+**Events Consumed by CcspTr069Pa:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|-------------|-----------------|---------|------------------|
+| CcspPsm | `Device.Parameter.ValueChange` | Detect local parameter changes for ACS notification | `parameterChangeNotificationHandler()` |
+| OneWiFi | `Device.WiFi.StatusChange` | Monitor WiFi status for TR-069 reporting | `wifiStatusChangeHandler()` |
+| System Events | `Device.Reboot.Initiated` | Handle system reboot for graceful ACS session termination | `systemRebootHandler()` |
+
 
 ### IPC Flow Patterns
 
@@ -375,3 +553,13 @@ CcspTr069Pa operates primarily at the middleware layer and does not directly int
 - **Error Handling Strategy**: Comprehensive error detection, logging, and recovery mechanisms ensure robust operation across network failures and system anomalies. SSL/TLS error handling with fallback mechanisms and certificate validation. Network timeout and retry logic with exponential backoff for ACS communication. Session recovery and state preservation across temporary network disconnections. Parameter operation error mapping between RDK-B components and TR-069 fault codes.
 
 - **Logging & Debugging**: Multi-level logging system provides detailed visibility into TR-069 operations for troubleshooting and monitoring. TR-069 session logging with full SOAP message tracing (configurable for production). SSL/TLS handshake and certificate validation detailed logging. Parameter operation tracing with component interaction visibility. Debug hooks for real-time TR-069 state inspection and diagnostic operations.
+
+### Key Configuration Files
+
+| Configuration File | Purpose | Override Mechanisms |
+|--------------------|---------|---------------------|
+| `ccsp_tr069_pa_cfg_arm.xml` | Main TR-069 configuration including ACS URL, connection parameters, SSL certificates, and protocol settings | Environment variables, factory reset restoration, ACS-pushed configuration updates |
+| `ccsp_tr069_pa_certificate_cfg_arm.xml` | SSL/TLS certificate configuration for ACS authentication and secure communications | Certificate provisioning systems, manual certificate installation |
+| `ccsp_tr069_pa_mapper_arm.xml` | Parameter namespace mapping between TR-069 data model and RDK-B component parameters | Custom parameter mapping files, vendor-specific parameter extensions |
+| `sdm_arm.xml` | Supported Data Model definition specifying which TR-069 parameters are supported by this device | Device capability profiles, feature-specific data model subsets |
+| `custom_mapper.xml` | Vendor-specific parameter mappings and custom TR-069 extensions | Vendor customization packages, device-specific parameter mappings |

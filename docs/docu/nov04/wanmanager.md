@@ -116,7 +116,7 @@ flowchart TD
         
         subgraph IntegrationLayer ["Integration Services"]
             TR181["TR-181 Interface"]
-            rdkbComponents["Other RDK-B Components"]
+            IPCComm["IPC Communication"]
             WebConfig["WebConfig Handler"]
             Telemetry["Telemetry"]
         end
@@ -143,7 +143,7 @@ flowchart TD
 
     %% External integration
     DataManager --> TR181
-    Controller --> rdkbComponents
+    Controller --> IPCComm
     DataManager --> WebConfig
     DataManager --> Telemetry
     
@@ -169,6 +169,7 @@ flowchart TD
 
 | Configuration File | Selection Logic | Purpose |
 |--------------------|-----------------|---------|
+| `RdkWanManager.xml` | Used when WAN unification is disabled | Standard WAN Manager TR-181 data model |
 | `RdkWanManager_v2.xml` | Used when `WanManagerUnificationEnable` DISTRO feature is enabled | Unified WAN Manager TR-181 data model |
 
 **RDK-B Platform and Integration Requirements:**
@@ -189,7 +190,7 @@ WAN Manager employs a multi-threaded architecture designed to handle concurrent 
 
 - **Threading Architecture**: Multi-threaded with specialized worker threads for different functional areas
 - **Main Thread**: Handles component initialization, TR-181 parameter registration, RBus message processing, and coordinates overall component lifecycle
-- **Main Worker Threads**: 
+- **Worker Threads**: 
     - **Policy Controller Thread**: Executes WAN selection policies, manages interface priority, and coordinates failover decisions with 500ms iteration cycles
     - **Interface State Machine Threads**: One thread per WAN interface handling VLAN configuration, PPP setup, DHCP client management, and validation processes with 50ms state machine intervals
     - **Validation Thread**: Performs DNS connectivity checks, internet validation, and network health monitoring without blocking interface operations
@@ -465,7 +466,7 @@ WAN Manager serves as a central coordination point within the RDK-B architecture
 
 <br>
 
-**Major Events Published by WAN Manager:**
+**Events Published by WAN Manager:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |-------------|------------------|-------------------|-----------------------|
@@ -473,6 +474,17 @@ WAN Manager serves as a central coordination point within the RDK-B architecture
 | `wan_interface_down` | `wanmgr.interface.down` | WAN interface failure or administrative shutdown | DHCP Manager, DNS Resolver |
 | `wan_policy_change` | `wanmgr.policy.change` | WAN selection policy modification or update | Management Agents, Telemetry Service |
 | `wan_failover_event` | `wanmgr.failover.event` | Automatic failover between WAN interfaces | Network Monitor, Telemetry Service, Management Systems |
+
+
+**Events Consumed by WAN Manager:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|---------------|------------------|----------|------------------|
+| Interface Managers | `interface.status.change` | React to physical interface state changes | `WanMgr_Interface_EventHandler()` |
+| DHCP Clients | `dhcp.lease.acquired` | Process IP address lease information | `WanMgr_DHCP_LeaseHandler()` |
+| System Events | `network.topology.change` | Respond to network topology modifications | `WanMgr_SysEvent_Handler()` |
+| WebConfig Service | `webconfig.wan.update` | Apply bulk configuration changes | `WanMgr_WebConfig_Handler()` |
+
 
 ### IPC Flow Patterns
 
@@ -544,3 +556,10 @@ WAN Manager integrates with Platform HAL primarily through Interface Manager com
 - **Error Handling Strategy**: Comprehensive error detection through interface validation, network connectivity testing, and HAL operation result checking. Errors trigger appropriate recovery actions including interface reset, policy re-evaluation, or component restart. Error classification system differentiates between recoverable failures and permanent conditions requiring administrative intervention. Multi-level retry logic with exponential backoff for transient failures are present. Timeout handling & retry logic implemented for DHCP operations, DNS validation, and interface configuration with configurable parameters
 
 - **Logging & Debugging**: Structured logging using CCSP trace framework with categorized log levels (INFO, WARN, ERROR, DEBUG) and component-specific prefixes. Logging includes interface state transitions, policy decisions, validation results, and system integration events to support troubleshooting and performance analysis.  Debug logging for policy execution decisions, interface state machine transitions, and network validation processes and debug hooks for troubleshooting connectivity issues including packet capture integration and detailed validation logging are available
+
+### Key Configuration Files
+
+| Configuration File | Purpose |Override Mechanisms |
+|--------------------|---------|--------------------|
+| `/etc/utopia/system_defaults` | System-wide default configuration | Environment variables, syscfg overrides |
+| `/nvram/syscfg.db` | Persistent device configuration | TR-181 parameter updates, factory reset |

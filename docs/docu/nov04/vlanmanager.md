@@ -4,6 +4,81 @@ VLAN Manager component provides comprehensive VLAN (Virtual LAN) management capa
 
 VLAN Manager enables service providers to implement sophisticated network architectures including triple-play services (voice, video, data), IoT device segmentation, and guest network isolation. The component ensures that VLAN operations are performed atomically and consistently, maintaining network integrity while providing real-time status monitoring and telemetry capabilities.
 
+<br>
+
+**old diagram to delete**
+
+```mermaid
+graph TD
+    subgraph "External Systems"
+        ACS["ACS/TR-069<br>Auto Config Server"]
+        WebUI["Web UI<br>Management Interface"]
+        Cloud["Cloud Services<br>Remote Management"]
+    end
+
+    subgraph "RDK-B Middleware Stack"
+        subgraph "Management Layer"
+            TR069["TR-069 PA<br>Parameter Agent"]
+            PSM["PSM<br>Persistent Storage"]
+        end
+        
+        subgraph "Core Components"
+            VLAN["VLAN Manager<br>Network Segmentation"]
+            CcspCR["CCSP CR<br>Component Registry"]
+            WAN["WAN Manager<br>Connection Management"]
+        end
+        
+        subgraph "Networking Stack"
+            Bridge["Bridge Utils<br>L2 Switching"]
+            NetDev["Network Devices<br>Interface Management"]
+        end
+    end
+
+    subgraph "Platform & HAL Layer"
+        HAL["Ethernet/VLAN HAL<br>Hardware Abstraction"]
+        Kernel["Linux Kernel<br>Network Stack"]
+        Hardware["Ethernet Hardware<br>Physical Interfaces"]
+    end
+
+    %% External to Management
+    ACS -->|TR-069 CWMP| TR069
+    WebUI -->|HTTP/HTTPS| VLAN
+    Cloud -->|JSON-RPC/REST| VLAN
+
+    %% Management Layer Interactions
+    TR069 -->|Parameter Get/Set| VLAN
+    VLAN -->|Data Persistence| PSM
+    
+    %% Core Component Interactions
+    VLAN -->|Component Registration| CcspCR
+    VLAN -->|Interface Coordination| WAN
+    WAN -->|Link Status Updates| VLAN
+    
+    %% Networking Stack
+    VLAN -->|Bridge Configuration| Bridge
+    VLAN -->|Interface Control| NetDev
+    Bridge -->|L2 Forwarding| NetDev
+    
+    %% HAL and Platform
+    VLAN -->|HAL API Calls| HAL
+    HAL -->|System Calls| Kernel
+    Kernel -->|Driver Interface| Hardware
+
+    classDef external fill:#ffecb3,stroke:#f57c00,stroke-width:2px
+    classDef rdkb fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef platform fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef vlan fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+
+    class ACS,WebUI,Cloud external
+    class TR069,PSM,CcspCR,WAN,Bridge,NetDev rdkb
+    class HAL,Kernel,Hardware platform
+    class VLAN vlan
+```
+<br>
+
+**new diagram**
+
+
 ```mermaid
 graph LR
     subgraph "External Systems"
@@ -73,6 +148,82 @@ The north-bound interface design provides standardized TR-181 data model access 
 
 Data persistence is managed through integration with the PSM (Persistent Storage Manager) component, ensuring that VLAN configurations survive device reboots and power cycles. The component implements a write-through caching strategy where configuration changes are immediately persisted to non-volatile storage while maintaining in-memory copies for fast access during normal operations.
 
+<br>
+
+**old diagram to delete**
+
+```mermaid
+graph TD
+    subgraph ContainerBoundary ["RDK-B VLAN Manager Process (C/Linux)"]
+        direction LR
+        subgraph Component1 ["TR-181 Data Model Layer"]
+            DMLEth["Ethernet DML<br>ethernet_dml.c"]
+            DMLVlan["VLAN DML<br>vlan_dml.c"]
+            PluginMain["Plugin Main<br>plugin_main.c"]
+        end
+        
+        subgraph Component2 ["Business Logic Layer"]
+            VlanAPIs["VLAN APIs<br>vlan_apis.c"]
+            EthAPIs["Ethernet APIs<br>ethernet_apis.c"]
+            Internal["Internal Logic<br>vlan_internal.c"]
+        end
+        
+        subgraph Component3 ["Platform Integration Layer"]
+            HALClient["HAL Client<br>vlan_eth_hal.c"]
+            BusInterface["Message Bus<br>ssp_messagebus_interface.c"]
+            SSPMain["Service Main<br>ssp_main.c"]
+        end
+        
+        subgraph Component4 ["Data Management"]
+            PSMCache["PSM Integration<br>Parameter Persistence"]
+            ConfigMgr["Config Manager<br>JSON Configuration"]
+        end
+    end
+
+    subgraph ExternalSystem ["External Dependencies"]
+        PSMComp["PSM Component<br>Persistent Storage"]
+        HALLayer["Ethernet/VLAN HAL<br>Hardware Layer"]
+        CCSpBus["CCSP Message Bus<br>IPC Infrastructure"]
+    end
+
+    %% Internal Component Interactions
+    DMLEth -->|Parameter Calls| EthAPIs
+    DMLVlan -->|Parameter Calls| VlanAPIs
+    PluginMain -->|Component Registration| BusInterface
+    
+    VlanAPIs -->|Business Logic| Internal
+    EthAPIs -->|Ethernet Operations| Internal
+    Internal -->|HAL Operations| HALClient
+    
+    VlanAPIs -->|Data Persistence| PSMCache
+    Internal -->|Configuration Read| ConfigMgr
+    
+    BusInterface -->|Service Control| SSPMain
+    SSPMain -->|Initialization| PluginMain
+
+    %% External System Interactions
+    PSMCache -->|Get/Set Parameters| PSMComp
+    HALClient -->|JSON-RPC Calls| HALLayer
+    BusInterface -->|Component Registration| CCSpBus
+    ConfigMgr -->|File I/O| HALLayer
+
+    classDef datamodel fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef business fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef platform fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef data fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef external fill:#ffebee,stroke:#c62828,stroke-width:2px
+
+    class DMLEth,DMLVlan,PluginMain datamodel
+    class VlanAPIs,EthAPIs,Internal business
+    class HALClient,BusInterface,SSPMain platform
+    class PSMCache,ConfigMgr data
+    class PSMComp,HALLayer,CCSpBus external
+```
+
+<br>
+
+**new diagram**
+
 ```mermaid
 graph LR
     subgraph VLANManager ["VLAN Manager"]
@@ -127,13 +278,26 @@ graph LR
     HALClient -->|JSON-RPC Calls| HALLayer
     BusInterface -->|Component Registration| rdkbComponent
     ConfigMgr -->|File I/O| HALLayer
+
+    classDef datamodel fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef business fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef platform fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef data fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef external fill:#ffebee,stroke:#c62828,stroke-width:2px
+
+    class DMLEth,DMLVlan,PluginMain datamodel
+    class VlanAPIs,EthAPIs,Internal business
+    class HALClient,BusInterface,SSPMain platform
+    class PSMCache,ConfigMgr data
+    class PSMComp,HALLayer,rdkbComponent external
 ```
 
 ### Prerequisites and Dependencies
 
 **RDK-B Platform and Integration Requirements:**
 
-- **HAL Dependencies**: Ethernet HAL, JSON-RPC HAL client library
+- **RDK-B Components**: CCSP Common Library, PSM (Persistent Storage Manager), CCSP Message Bus, Component Registry
+- **HAL Dependencies**: Ethernet HAL interface (ethlinkvlanterm_hal_schema.json v0.0.1+), JSON-RPC HAL client library
 - **Systemd Services**: ccsp-msg-bus.service, ccsp-psm.service must be active before vlan-manager.service starts
 - **Message Bus**: CCSP message bus registration with namespace "eRT.com.cisco.spvtg.ccsp.vlanmanager"
 - **TR-181 Data Model**: Device.X_RDK_Ethernet.Link.{i} and Device.X_RDK_Ethernet.VLANTermination.{i} object support
@@ -369,9 +533,134 @@ The VLAN Manager is architected as a modular component with clearly defined sepa
 | **System Service Provider** | Manages component lifecycle, CCSP message bus integration, and inter-component communication. Handles service registration and discovery. | `ssp_main.c`, `ssp_messagebus_interface.c` |
 | **Persistence Management** | Handles configuration persistence through PSM integration, ensuring VLAN configurations survive device reboots and providing configuration rollback capabilities. | Integrated within APIs modules |
 
+```mermaid
+flowchart LR
+    subgraph VLANManager["VLAN Manager Component"]
+        subgraph DataModel["TR-181 Data Model Layer"]
+            VlanDML[("VLAN DML<br>Parameter Operations")]
+            EthDML[("Ethernet DML<br>Link Management")]
+            PluginMain[("Plugin Main<br>Registration")]
+        end
+        
+        subgraph BusinessLogic["Business Logic Layer"]
+            VlanAPIs[("VLAN APIs<br>Core Logic")]
+            EthAPIs[("Ethernet APIs<br>Interface Control")]
+            Internal[("Internal Logic<br>State Management")]
+        end
+        
+        subgraph HAL["Hardware Abstraction"]
+            HALClient[("HAL Client<br>JSON-RPC Communication")]
+            SchemaValidator[("Schema Validator<br>Message Validation")]
+        end
+        
+        subgraph ServiceProvider["System Service Provider"]
+            SSPMain[("Service Main<br>Lifecycle Management")]
+            BusInterface[("Bus Interface<br>IPC Communication")]
+        end
+    end
+
+    %% Module Interactions
+    VlanDML --> VlanAPIs
+    EthDML --> EthAPIs
+    PluginMain --> BusInterface
+    
+    VlanAPIs --> Internal
+    EthAPIs --> Internal
+    Internal --> HALClient
+    
+    HALClient --> SchemaValidator
+    BusInterface --> SSPMain
+    
+    %% External Dependencies
+    SSPMain -.->|Registers| VlanDML
+    SSPMain -.->|Registers| EthDML
+    Internal -.->|Persists| PSMStorage[("PSM Storage")]
+    HALClient -.->|Communicates| HALLayer[("HAL Layer")]
+
+    classDef datamodel fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef business fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef hal fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef service fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef external fill:#ffebee,stroke:#c62828,stroke-width:2px
+
+    class VlanDML,EthDML,PluginMain datamodel
+    class VlanAPIs,EthAPIs,Internal business
+    class HALClient,SchemaValidator hal
+    class SSPMain,BusInterface service
+    class PSMStorage,HALLayer external
+```
+
 ## Component Interactions
 
 The VLAN Manager operates as a central hub in the RDK-B networking ecosystem, coordinating with multiple middleware components, system services, and hardware abstraction layers to provide comprehensive VLAN management capabilities.
+
+```mermaid
+flowchart TD
+    subgraph "Management & Control Plane"
+        ACS[("ACS/TR-069<br>Remote Management")]
+        WebUI[("Web UI<br>Local Management")]
+        CLI[("DMCLI<br>Debug Interface")]
+    end
+
+    subgraph "RDK-B Middleware Components"  
+        TR069PA[("TR-069 PA<br>Parameter Agent")]
+        PSM[("PSM<br>Persistent Storage")]
+        WAN[("WAN Manager<br>Connection Management")]
+        Bridge[("Bridge Manager<br>L2 Switching")]
+        QoS[("QoS Manager<br>Traffic Control")]
+    end
+
+    subgraph "VLAN Manager Core"
+        VLAN[("VLAN Manager<br>Network Segmentation")]
+    end
+
+    subgraph "Platform & HAL"
+        HAL[("Ethernet/VLAN HAL<br>Hardware Abstraction")]
+        NetStack[("Linux Network Stack<br>Kernel Interfaces")]
+        Hardware[("Ethernet Hardware<br>Physical Ports")]
+    end
+
+    subgraph "System Services"
+        SystemD[("SystemD<br>Service Management")]
+        Logger[("RDK Logger<br>Telemetry")]
+    end
+
+    %% Management Plane Interactions
+    ACS -->|CWMP Get/Set Parameters| TR069PA
+    WebUI -->|HTTP/HTTPS Requests| VLAN
+    CLI -->|Direct Parameter Access| VLAN
+    
+    %% Middleware Interactions
+    TR069PA -->|Parameter<br>Operations| VLAN
+    VLAN -->|Configuration<br>Persistence| PSM
+    VLAN -->|Interface<br>Status Updates| WAN
+    WAN -->|WAN Interface<br>Events| VLAN
+    VLAN -->|Bridge Port<br>Configuration| Bridge
+    Bridge -->|VLAN Membership<br>Updates| VLAN
+    VLAN -->|Traffic<br>Classification| QoS
+    QoS -->|Priority<br>Settings| VLAN
+
+    %% Platform Interactions
+    VLAN -->|JSON-RPC HAL Calls| HAL
+    HAL -->|Driver Operations| NetStack
+    NetStack -->|Hardware Control| Hardware
+    
+    %% System Service Interactions
+    SystemD -->|Service Lifecycle| VLAN
+    VLAN -->|Event Logging| Logger
+    
+    classDef management fill:#ffecb3,stroke:#f57c00,stroke-width:2px
+    classDef middleware fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef vlan fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+    classDef platform fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef system fill:#fce4ec,stroke:#ad1457,stroke-width:2px
+
+    class ACS,WebUI,CLI management
+    class TR069PA,PSM,WAN,Bridge,QoS middleware
+    class VLAN vlan
+    class HAL,NetStack,Hardware platform
+    class SystemD,Logger system
+```
 
 ### Interaction Matrix
 
@@ -386,7 +675,7 @@ The VLAN Manager operates as a central hub in the RDK-B networking ecosystem, co
 | Ethernet/VLAN HAL | Hardware VLAN operations, interface control | `getParameters`, `setParameters`, `deleteObject` |
 | Linux Network Stack | Direct interface operations, status monitoring | `ioctl()`, `netlink_socket()`, `/proc/net/*` |
 
-**Main events Published by VLAN Manager:**
+**Events Published by VLAN Manager:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |------------|-----------------|-----------------|---------------------|
@@ -394,6 +683,16 @@ The VLAN Manager operates as a central hub in the RDK-B networking ecosystem, co
 | VLANInterface.StatusChange | `Device.X_RDK_Ethernet.VLANTermination.{i}.Status` | Interface operational status change | Network monitoring components |
 | EthernetLink.StatusChange | `Device.X_RDK_Ethernet.Link.{i}.Status` | Physical link status change | WAN Manager, Bridge Manager |
 | Configuration.Committed | `Device.X_RDK_Ethernet` | Configuration transaction commit | Management interfaces, Telemetry |
+
+
+**Events Consumed by VLAN Manager:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|-------------|-----------------|---------|------------------|
+| WAN Manager | `Device.X_RDK_WanManager.CPEInterface.{i}.Status` | React to WAN interface status changes | `WanInterface_StatusHandler()` |
+| HAL Layer | `ethvlanhal.interfaceStatusNotification` | Hardware-level interface events | `HAL_EventHandler()` |
+| System | `systemd.service.status` | Service lifecycle management | `SystemD_StatusHandler()` |
+
 
 ### IPC Flow Patterns
 

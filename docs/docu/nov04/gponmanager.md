@@ -103,7 +103,6 @@ graph TD
     Controller --> HALLayer
     StateMachine --> DMLHAL
     StateMachine --> VEIP
-    StateMachine --> WanMgr
     
     DMLBackend --> DMLData
     DMLData --> DMLHAL
@@ -115,6 +114,14 @@ graph TD
 ```
 
 ### Prerequisites and Dependencies
+
+**Build-Time DISTRO Features and Flags:** 
+
+| DISTRO Feature | Purpose | Impact | Recipe Usage |
+|----------------|---------|---------|--------------|
+| `WanManagerUnificationEnable` | WAN Manager unification mode | Changes configuration files and HAL schema selection | `ISRDKB_WAN_UNIFICATION_ENABLED = true/false` |
+| `rdkb_wan_manager` | Enhanced WAN Manager features | Adds `FEATURE_RDKB_WAN_MANAGER` compile flag | Optional WAN Manager integration |
+
 
 **Configuration Files (Runtime Selection):**
 
@@ -132,7 +139,7 @@ graph TD
 
 **RDK-B Platform and Integration Requirements:** 
 
-* **RDK-B Components**: WAN Manager (interface coordination), CCSP P&M (TR-181 data model support), RBus, GPON HAL implementation
+* **RDK-B Components**: WAN Manager (interface coordination), CCSP P&M (TR-181 data model support), RBus Daemon (message bus framework), GPON HAL implementation
 * **HAL Dependencies**: GPON HAL, Ethernet HAL for backhaul detection, Optical Module HAL for transceiver status monitoring
 * **Systemd Services**: `rbus.service`, `ccsp-p-and-m.service` must be active before `gpon-manager.service` initialization
 * **Hardware Requirements**: GPON-capable ONT chipset, SFP/BoB optical module cage, optical transceiver module compatible with the target hardware platform
@@ -140,6 +147,12 @@ graph TD
 * **TR-181 Data Model**: `Device.X_RDK_ONT.*` parameter tree support, including parameter validation and synchronization mechanisms
 * **Configuration Files**: Persistent configuration maintained through `syscfg.db` and related GPON Manager configuration files
 * **Startup Order**: HAL Initialization → GPON Manager → WAN Manager → Network Interface Activation sequence
+
+**Dependent Components:** 
+
+- WAN Manager depends on GPON Manager for interface status events and link state notifications
+- CCSP P&M relies on GPON Manager for TR-181 Device.X_RDK_ONT.* parameter values and validation
+- Network configuration scripts depend on VEIP state changes published via RBus messaging
 
 <br>
 
@@ -359,7 +372,7 @@ The GPON Manager maintains extensive interactions with both RDK-B middleware com
 | Configuration Storage | Persistent configuration and state management | `/etc/rdk/gpon_manager_conf.json`, `/etc/rdk/schemas/` |
 
 
-**Main events Published by GPON Manager:**
+**Events Published by GPON Manager:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |-------------|------------------|-------------------|-----------------------|
@@ -367,6 +380,15 @@ The GPON Manager maintains extensive interactions with both RDK-B middleware com
 | OpticalPowerAlarm | `gpon.opticalalarm` | RX/TX power threshold violations | Network Management, Telemetry |
 | VEIPStateChange | `gpon.veip.state` | VEIP administrative or operational state changes | WAN Manager, Interface Manager |
 | PloamRegistrationState | `gpon.ploam.registration` | ONT registration state with OLT changes | Network Management, Telemetry |
+
+
+**Events Consumed by GPON Manager:**
+
+| Event Source | Event Topic/Path | Purpose | Expected Payload | Handler Function |
+|---------------|------------------|----------|------------------|------------------|
+| GPON HAL | `gpon.hal.physicalmedia.status` | React to hardware-level physical media state changes |  | `eventcb_PhysicalMediaStatus()` |
+| GPON HAL | `gpon.hal.veip.adminstate` | Handle VEIP administrative state changes from hardware |  | `eventcb_VeipAdministrativeState()` |
+| System Configuration | `system.config.reload` | Reload component configuration from persistent storage |  | `config_reload_handler()` |
 
 ### IPC Flow Patterns
 

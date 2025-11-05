@@ -1,10 +1,77 @@
 # CcspDmCli Documentation
 
-CcspDmCli (CCSP Data Model Command Line Interface) is a diagnostic and testing tool within the RDK-B middleware stack that provides direct command-line access to the CCSP message bus system. This component serves as a bridge between administrators/engineers, and the TR-181 data model implementation - enabling real-time inspection, modification, and testing of device parameters without requiring full management interface interactions.
+CcspDmCli (CCSP Data Model Command Line Interface) is a diagnostic and testing tool within the RDK-B middleware stack that provides direct command-line access to the CCSP (Common Component Software Platform) message bus system. This component serves as a bridge between administrators/engineers, and the TR-181 data model implementation - enabling real-time inspection, modification, and testing of device parameters without requiring full management interface interactions.
 
 CcspDmCli operates as a lightweight client application that connects to the CCSP message bus infrastructure, allowing users to perform data model operations including parameter retrieval, modification, table management, and attribute manipulation. It serves both as a diagnostic tool for system administrators troubleshooting device configurations and as a development utility for engineers implementing and testing TR-181 parameter support across RDK-B components.
 
 The component provides essential services to the RDK-B ecosystem by offering direct access to the data model layer, enabling rapid prototyping of management interfaces, supporting automated testing frameworks, and providing runtime debugging capabilities for TR-181 parameter implementations. It acts as a versatile interface that bridges the gap between low-level component implementations and high-level management operations.
+
+```mermaid
+graph TD
+    subgraph "External Users & Systems"
+        Dev[Developers & Engineers]
+        Admin[System Administrators]
+        TestFramework[Test Automation]
+        Scripts[Management Scripts]
+    end
+
+    subgraph "RDK-B Middleware Layer"
+        CcspDmCli[CcspDmCli<br/>Command Line Interface]
+        
+        subgraph "CCSP Message Bus Infrastructure"
+            MessageBus[CCSP Message Bus<br/>RBus Transport]
+        end
+        
+        subgraph "RDK-B Components"
+            PSM[PSM<br/>Parameter Storage Manager]
+            CR[Component Registrar]
+            TR069PA[TR-069 PA]
+            WiFiAgent[OneWiFi]
+            PandM[P&M Component]
+            OtherComponents[Other RDK-B Components]
+        end
+    end
+
+    subgraph "Platform Services & HAL"
+        SystemConfig[System Configuration]
+        HALLayer[HAL Interfaces]
+        PersistentStorage[File System Storage]
+    end
+
+    %% User interactions with CcspDmCli
+    Dev -->|CLI Commands| CcspDmCli
+    Admin -->|Diagnostic Commands| CcspDmCli
+    TestFramework -->|Automated Testing| CcspDmCli
+    Scripts -->|Bulk Operations| CcspDmCli
+
+    %% CcspDmCli interactions with message bus
+    CcspDmCli <-->|TR-181 Operations<br/>CCSP Protocol| MessageBus
+
+    %% Message bus routing to components
+    MessageBus <-->|Parameter Requests<br/>Component Discovery| CR
+    MessageBus <-->|Data Model Operations<br/>Get/Set Parameters| PSM
+    MessageBus <-->|TR-181 Operations<br/>Remote Management| TR069PA
+    MessageBus <-->|WiFi Parameters<br/>Configuration| WiFiAgent
+    MessageBus <-->|Device Management<br/>System Parameters| PandM
+    MessageBus <-->|Component-Specific<br/>Parameters| OtherComponents
+
+    %% Platform interactions
+    PSM -->|Persistent Storage<br/>Configuration Data| PersistentStorage
+    PandM -->|System Configuration<br/>Platform Integration| SystemConfig
+    WiFiAgent -->|Hardware Control<br/>WiFi HAL APIs| HALLayer
+
+    classDef user fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef platform fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+
+    class Dev,Admin,TestFramework,Scripts user;
+    class CcspDmCli,MessageBus,PSM,CR,TR069PA,WiFiAgent,PandM,OtherComponents component;
+    class SystemConfig,HALLayer,PersistentStorage platform;
+```
+
+**new**
+
 
 ```mermaid
 graph LR
@@ -75,36 +142,42 @@ Data persistence and storage management are handled through dedicated PSM integr
 
 ```mermaid
 graph TD
-    subgraph "CcspDmCli"
+    subgraph "CcspDmCli Process (C Application)"
         subgraph "User Interface Layer"
-            CLI[Command Line Interface<br>Interactive & Batch Mode]
-            Parser[Command Parser<br>Syntax Validation]
-            OutputFormatter[Output Formatter<br>Color-coded Results]
+            CLI[Command Line Interface<br/>Interactive & Batch Mode]
+            Parser[Command Parser<br/>Syntax Validation]
+            OutputFormatter[Output Formatter<br/>Color-coded Results]
         end
         
         subgraph "Command Processing Engine"
-            CmdDispatcher[Command Dispatcher<br>Operation Routing]
-            ParameterOps[Parameter Operations]
-            TableOps[Table Operations]
-            AttributeOps[Attribute Operations<br>Notification & Access Control]
-            PSMOps[PSM Operations]
+            CmdDispatcher[Command Dispatcher<br/>Operation Routing]
+            ParameterOps[Parameter Operations<br/>Get/Set/Add/Delete]
+            TableOps[Table Operations<br/>Add/Delete Table Instances]
+            AttributeOps[Attribute Operations<br/>Notification & Access Control]
+            PSMOps[PSM Operations<br/>Direct PSM Access]
         end
         
         subgraph "CCSP Integration Layer"
-            BusClient[Message Bus Client]
-            ComponentDiscovery[Component Discovery]
-            MessageHandler[Message Handler]
+            BusClient[Message Bus Client<br/>CCSP Protocol Handler]
+            ComponentDiscovery[Component Discovery<br/>Namespace Resolution]
+            MessageHandler[Message Handler<br/>Request/Response Processing]
         end
         
         subgraph "Support Modules"
-            ErrorHandler[Error Handler]
-            TimeoutManager[Timeout Manager]
-            MemoryManager[Memory Manager]
+            ErrorHandler[Error Handler<br/>Exception Management]
+            TimeoutManager[Timeout Manager<br/>Response Time Tracking]
+            MemoryManager[Memory Manager<br/>Resource Management]
         end
     end
 
-    subgraph "External Components"
-        MessageBus[CCSP Message Bus]
+    subgraph "CCSP Message Bus Infrastructure"
+        MessageBus[CCSP Message Bus<br/>RBus Transport]
+    end
+    
+    subgraph "Target RDK-B Components"
+        PSMComponent[PSM Component<br/>Persistent Storage]
+        DataModelComponents[Data Model Components<br/>TR-181 Implementation]
+        ComponentRegistrar[Component Registrar<br/>Service Discovery]
     end
 
     %% User interface flow
@@ -132,21 +205,72 @@ graph TD
     BusClient --> MemoryManager
     
     %% Message bus communication
-    MessageHandler <-->|CCSP Protocol<br>Parameter Operations| MessageBus
-    ComponentDiscovery <-->|Component Discovery<br>Namespace Queries| MessageBus
-      
+    MessageHandler <-->|CCSP Protocol<br/>Parameter Operations| MessageBus
+    ComponentDiscovery <-->|Component Discovery<br/>Namespace Queries| MessageBus
+    
+    %% Target component interactions
+    MessageBus <-->|TR-181 Operations<br/>Data Model Access| DataModelComponents
+    MessageBus <-->|Persistent Storage<br/>Configuration Data| PSMComponent
+    MessageBus <-->|Service Discovery<br/>Component Registration| ComponentRegistrar
+    
     %% Output formatting
     ErrorHandler --> OutputFormatter
     TimeoutManager --> OutputFormatter
     MessageHandler --> OutputFormatter
     OutputFormatter --> CLI
+
+    classDef ui fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef processing fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef integration fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef support fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef external fill:#ffebee,stroke:#c62828,stroke-width:2px;
+
+    class CLI,Parser,OutputFormatter ui;
+    class CmdDispatcher,ParameterOps,TableOps,AttributeOps,PSMOps processing;
+    class BusClient,ComponentDiscovery,MessageHandler integration;
+    class ErrorHandler,TimeoutManager,MemoryManager support;
+    class MessageBus,PSMComponent,DataModelComponents,ComponentRegistrar external;
 ```
+**new**
+
+
+```mermaid
+flowchart LR
+    subgraph CcspDmCli
+        direction LR
+        CommandParser(["Command Parser<br/>(Input Processing & Validation)"])
+        CCSPLayer(["CCSP Integration Layer<br/>(Message Bus Communication)"])
+        ParameterOps(["Parameter Operations Engine<br/>(TR-181 Implementation)"])
+        PSMOps(["PSM Operations Module<br/>(Direct PSM Access)"])
+        OutputFormatter(["Output Formatter<br/>(Result Display)"])
+        ErrorHandler(["Error Handler<br/>(Exception Management)"])
+    end
+
+    CommandParser --> ParameterOps
+    CommandParser --> PSMOps
+    ParameterOps --> CCSPLayer
+    PSMOps --> CCSPLayer
+    CCSPLayer --> OutputFormatter
+    ErrorHandler --> OutputFormatter
+    ParameterOps --> ErrorHandler
+    PSMOps --> ErrorHandler
+    CCSPLayer --> ErrorHandler
+
+    classDef core fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef support fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+
+    class CommandParser,CCSPLayer,ParameterOps,PSMOps core;
+    class OutputFormatter,ErrorHandler support;
+```
+
 
 ### Prerequisites and Dependencies
 
 **RDK-B Platform and Integration Requirements (MUST):**
 
-- **RDK-B Components**: RBus, Component Registrar (CR), PSM  component
+- **Core DISTRO Features**: DISTRO_FEATURES += "rdk-b", "ccsp" (CCSP message bus infrastructure)
+- **Build Dependencies**: ccsp-common-library, telemetry, autotools-native, pythonnative (for data model generation)
+- **RDK-B Components**: CCSP Message Bus infrastructure (RBus), Component Registrar (CR), PSM (Parameter Storage Manager) component
 - **HAL Dependencies**: Not directly dependent on HAL interfaces (operates at middleware layer)
 - **Systemd Services**: rbus.service (depending on message bus implementation) must be active before component initialization
 - **Message Bus**: CCSP message bus client registration with namespace "ccsp.busclient", requires message bus configuration file access
@@ -323,6 +447,13 @@ CcspDmCli does not define TR-181 parameters but provides command-line access to 
 | `getattributes` | Get parameter attributes | `getattributes <pathname> [pathname...]` | TR-181 Get Parameter Attributes |
 | `setattributes` | Set parameter attributes | `setattributes <pathname> <notify> <accesslist> [pathname notify accesslist...]` | TR-181 Set Parameter Attributes |
 
+**Custom Extensions:**
+
+- **PSM Direct Access**: CcspDmCli provides custom commands (psmget, psmset, psmdel) for direct PSM interaction bypassing standard TR-181 component routing
+- **Performance Measurement**: Built-in response time measurement (sgetvalues) provides performance testing capabilities not available in standard TR-181 operations
+- **Batch Processing**: File-based batch command execution enables automated TR-181 testing and bulk operations
+- **Subsystem Support**: Multi-subsystem awareness (eRT, eMG, eEP) provides deployment-specific component discovery and parameter access
+
 ### Parameter Registration and Access
 
 - **Implemented Parameters**: CcspDmCli accesses parameters implemented by target RDK-B components; it does not implement TR-181 parameters directly
@@ -363,6 +494,18 @@ CcspDmCli operates as a CCSP message bus client that interfaces with the complet
 | **External Systems** |
 | Test Automation Frameworks | Automated testing support and validation operations | CLI command execution with text output parsing |
 | Management Scripts | Bulk operations and administrative task automation | CLI command execution with exit codes and text output |
+
+
+**Events Published by CcspDmCli:**
+
+CcspDmCli operates as a client-only component and does not publish events to the CCSP message bus system. All interactions follow request-response patterns initiated by user commands.
+
+**Events Consumed by CcspDmCli:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|---------------|------------------|----------|------------------|
+| System Signals | SIGINT, SIGSEGV, SIGILL | Graceful shutdown and error handling | `signal_interrupt()`, `ccsp_exception_handler()` |
+| CCSP Message Bus | Component Registration Events | Monitor target component availability | Internal message bus event handling |
 
 
 ### IPC Flow Patterns

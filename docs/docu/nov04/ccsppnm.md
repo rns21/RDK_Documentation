@@ -6,6 +6,8 @@ P&M functions as the backbone of device management operations, handling configur
 
 The component operates as a system service that must be initialized early in the boot sequence to provide essential TR-181 parameters to other middleware components, and external management systems. It serves as the source for device identity, capabilities, network configuration, and operational status information required for proper device operation and remote management.
 
+**Simplified Architecture Overview:**
+
 ```mermaid
 graph LR
     subgraph "External Systems"
@@ -15,7 +17,7 @@ graph LR
 
     subgraph "RDK-B Platform"
         subgraph "Management Agents"
-            ProtocolAgents["Protocol Agents<br/>(TR-069, USP, WebPA, webconfig)"]
+            ProtocolAgents["Protocol Agents<br/>(TR-069, USP, WebPA)"]
         end
 
         PandM["CcspPandM"]
@@ -111,6 +113,13 @@ flowchart LR
     
     StatusMon --> EventPub
     ConfigMgr --> EventPub
+    
+    classDef main fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef tr181 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef support fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    class SSPMain,RBusIf main;
+    class DeviceInfoMod,TimeMod,NetworkMod,SecurityMod,DNSMod tr181;
+    class ConfigMgr,StatusMon,EventPub support;
 ```
 
 ### Prerequisites and Dependencies
@@ -120,13 +129,16 @@ flowchart LR
 | Configure Option | DISTRO Feature | Build Flag | Purpose | Default |
 |------------------|----------------|------------|---------|---------|
 | `--enable-maptsupport` | N/A | `FEATURE_SUPPORT_MAPT_NAT46` | Enable MAP-T (Mapping of Address and Port with Translation) IPv6 transition | Disabled |
+| `--enable-maptunificationsupport` | N/A | `MAPT_UNIFICATION_ENABLED` | Enable unified MAP-T configuration management across components | Disabled |
+| `--enable-wifimanagesupport` | N/A | `FEATURE_SUPPORT_MANAGE_WIFI` | Enable managed WiFi configuration and TR-181 parameter support | Disabled |
+| `--enable-mountutils` | N/A | `LIBRDKCONFIG_BUILD` | Enable librdkconfig-based mount utilities replacement | Disabled |
 | `--enable-core_net_lib_feature_support` | N/A | `CORE_NET_LIB_FEATURE_SUPPORT` | Enable advanced core networking library support | Disabled |
 | `--enable-hotspotsupport` | N/A | `FEATURE_HOTSPOT_SUPPORT` | Enable WiFi hotspot and GRE tunnel configuration support | Disabled |
 
-**RDK-B Platform and Integration Requirements:**
+**RDK-B Platform and Integration Requirements (MUST):**
 
-- **RDK-B Components**: CcspCommonLibrary, CcspPsm, CcspLMLite, systemd services for proper ordering
-- **HAL Dependencies**: Platform HAL APIs, WiFi HAL, Ethernet HAL, MoCA HAL interfaces
+- **RDK-B Components**: CcspCommonLibrary (mandatory), CcspPsm (persistent storage), CcspLMLite (host management), systemd services for proper ordering
+- **HAL Dependencies**: Platform HAL APIs (minimum version 2.0), WiFi HAL, Ethernet HAL, MoCA HAL, DHCP HAL interfaces
 - **Systemd Services**: CcspCrSsp.service, CcspPsmSsp.service, and platform HAL services must be active before CcspPandM
 - **Message Bus**: RBus daemon with component registration under "com.cisco.spvtg.ccsp.pam" namespace
 - **TR-181 Data Model**: Core TR-181 Issue 2 compliance with Device.DeviceInfo, Device.Time, Device.Bridging, Device.Ethernet object hierarchies
@@ -139,7 +151,7 @@ CcspPandM implements a hybrid threading model combining event-driven message pro
 
 - **Threading Architecture**: Multi-threaded with event-driven message processing and dedicated worker threads for subsystem management
 - **Main Thread**: Handles RBus registration, message bus event processing, TR-181 parameter get/set operations, and component lifecycle management 
-- **Main worker Threads**:
+- **Worker Threads** (if applicable): 
   - **Time Sync Thread**: Manages NTP synchronization, system clock updates, and timezone configuration changes   
   - **Config Persistence Thread**: Handles PSM/SysCfg write operations, configuration backup, and atomic parameter updates
   - **Status Monitor Thread**: Performs periodic status collection, health monitoring, and telemetry data gathering
@@ -406,7 +418,7 @@ CcspPandM serves as a central hub for TR-181 parameter management, interacting w
 | PSM Storage | Synchronous/Atomic | `/nvram/bbhm_cur_cfg.xml`, PSM database operations |
 | SysCfg Service | File I/O/Event | `/etc/utopia/service.d/`, syscfg commit operations |
 
-**Main events Published by CcspPandM:**
+**Events Published by CcspPandM:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |------------|-----------------|-------------------|---------------------|
@@ -415,6 +427,15 @@ CcspPandM serves as a central hub for TR-181 parameter management, interacting w
 | Device.Ethernet.Interface.Status | `Device.Ethernet.Interface.{i}.Status` | Ethernet interface state changes | Bridge Manager, DHCP Manager, Network Monitor |
 | Device.DeviceInfo.MemoryStatus | `Device.DeviceInfo.MemoryStatus.*` | Memory usage threshold exceeded | Self-Heal, Performance Monitor, Telemetry |
 | Device.Bridging.Bridge.Status | `Device.Bridging.Bridge.{i}.Status` | Bridge interface operational status changes | Network Services, QoS Manager, VLAN Manager |
+
+**Events Consumed by CcspPandM:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|-------------|-----------------|---------|------------------|
+| System Startup | `system.boot.complete` | Initialize device parameters after boot | `handle_system_boot()` |
+| HAL Layer | `hal.ethernet.link_status` | Update Device.Ethernet interface status | `handle_ethernet_status_change()` |
+| NTP Daemon | `ntpd.sync.status` | Update Device.Time synchronization status | `handle_ntp_status_update()` |
+| PSM Service | `psm.parameter.changed` | Reload changed configuration parameters | `handle_psm_parameter_change()` |
 
 ### IPC Flow Patterns
 
@@ -498,4 +519,7 @@ CcspPandM integrates with multiple HAL interfaces to provide hardware abstractio
 | Configuration File | Purpose | Override Mechanisms |
 |--------------------|---------|-------------------|
 | `CcspPam.cfg` | Component registration and RBus configuration | Environment variables, command line args |
+| `TR181-USGv2.XML` | TR-181 data model definitions and parameter mappings | Platform-specific XML overlays |
+| `ccsp_msg.cfg` | Message bus configuration and component discovery | Runtime configuration updates |
+| `/etc/ccsp/ccsp_tr181.cfg` | TR-181 parameter default values and constraints | PSM parameter overrides |
 | `/etc/utopia/service.d/pam.conf` | System service configuration and dependencies | Systemd service overrides |

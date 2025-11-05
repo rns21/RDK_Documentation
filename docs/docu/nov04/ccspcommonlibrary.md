@@ -1,10 +1,74 @@
 # CcspCommonLibrary Documentation
 
-CcspCommonLibrary serves as the foundational middleware library for the CCSP architecture in RDK-B. This comprehensive library provides essential infrastructure services that enable all RDK-B components to communicate, share data, and integrate within the broader RDK-B ecosystem. The library acts as the cornerstone that standardizes component interactions through message bus abstractions, data model APIs, and utility functions.
+CcspCommonLibrary serves as the foundational middleware library for the Common Component Software Platform (CCSP) architecture in RDK-B. This comprehensive library provides essential infrastructure services that enable all RDK-B components to communicate, share data, and integrate within the broader RDK-B ecosystem. The library acts as the cornerstone that standardizes component interactions through message bus abstractions, data model APIs, and utility functions.
 
-At its core, CcspCommonLibrary serves three service layers. First, it establishes the communication backbone through CCSP message bus APIs that enable inter-component communication via RBus protocol. Second, it offers a collection of COSA (Component Object Software Architecture) utilities that provide standardized interfaces for system interactions, data structures, and protocol handling. Third, it delivers utility APIs for XML parsing, HTTP processing, cryptographic operations, and network protocol implementations that form the building blocks for higher-level RDK-B services.
+At its core, CcspCommonLibrary provides three critical service layers. First, it establishes the communication backbone through CCSP message bus APIs that enable seamless inter-component communication via RBus protocol. Second, it offers a rich collection of COSA (Component Object Software Architecture) utilities that provide standardized interfaces for system interactions, data structures, and protocol handling. Third, it delivers comprehensive utility APIs for XML parsing, HTTP processing, cryptographic operations, and network protocol implementations that form the building blocks for higher-level RDK-B services.
 
 The component's architecture ensures that all RDK-B middleware components have access to consistent, reliable foundational services while maintaining platform independence and supporting modern RBus communication patterns.
+
+```mermaid
+flowchart TB
+    subgraph ExternalSystems ["External Systems"]
+        direction LR
+        WebUI["Web UI<br/>Management Interface"]
+        Cloud["Cloud/HeadEnd<br/>Services"]
+        TR069Server["TR-069 ACS<br/>Server"]
+    end
+    
+    subgraph RDKBMiddleware ["RDK-B Middleware Stack"]
+        direction TB
+        subgraph CoreFoundation ["Foundation Layer"]
+            CcspCommonLib["CcspCommonLibrary<br/>Foundation Library"]
+        end
+        subgraph Components ["Component Layer"]
+            direction LR
+            PandM["CcspPandM<br/>Provisioning & Management"]
+            Wifi["OneWiFi<br/>WiFi Management"]
+            Psm["CcspPsm<br/>Parameter Storage"]
+            TR069["CcspTr069Pa<br/>TR-069 Protocol"]
+            OtherComps["Other RDK-B<br/>Components"]
+        end
+    end
+    
+    subgraph SystemLayer ["System Layer"]
+        direction LR
+        HAL["Hardware<br/>Abstraction Layer"]
+        OS["Linux<br/>Operating System"]
+        NetworkStack["Network<br/>Services"]
+    end
+    
+    %% External to Middleware connections
+    Cloud -.->|WebPA/TR-069| TR069
+    TR069Server -.->|CWMP Protocol| TR069
+    
+    %% All components depend on CcspCommonLibrary - Foundation Services
+    PandM -->|Message Bus APIs| CcspCommonLib
+    Wifi -->|COSA Utilities| CcspCommonLib
+    Psm -->|Data Model APIs| CcspCommonLib
+    TR069 -->|XML/HTTP Libraries| CcspCommonLib
+    OtherComps -->|Foundation Services| CcspCommonLib
+    
+    %% Inter-component communication through CcspCommonLibrary
+    PandM <-.->|IPC Methods| Wifi
+    PandM <-.->|Configuration| Psm
+    TR069 <-.->|Parameter Sync| PandM
+    
+    %% Middleware to System Layer connections
+    CcspCommonLib -->|System Abstraction| HAL
+    CcspCommonLib -->|OS Services| OS
+    CcspCommonLib -->|Network Operations| NetworkStack
+    
+    classDef userLayer fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef foundationLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
+    classDef componentLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef systemLayer fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    
+    class WebUI,Cloud,TR069Server userLayer;
+    class CcspCommonLib foundationLayer;
+    class PandM,Wifi,Psm,TR069,OtherComps componentLayer;
+    class HAL,OS,NetworkStack systemLayer;
+```
+**New**
 
 ```mermaid
 graph LR
@@ -32,10 +96,11 @@ graph LR
     LocalUI -->|HTTP/HTTPS| ProtocolAgents
 
     %% Upper layer to RDK-B Components
-    ProtocolAgents -->|IPC| ComLib
+    ProtocolAgents -->|IPC| rdkbComponent
 
     %% Common Library to RDK-B Components
-    rdkbComponent <-->|IPC/API| ComLib
+    rdkbComponent -->|IPC| ComLib
+    ComLib -->|APIs| rdkbComponent
 
     %% RDK-B Components to HAL
     rdkbComponent -->|HAL APIs| HAL
@@ -68,7 +133,7 @@ graph LR
 
 CcspCommonLibrary's design philosophy centers on providing a stable, well-defined foundational layer that enables all RDK-B components to operate cohesively within the CCSP architecture. The design follows a layered approach where lower-level system abstractions are built upon to create higher-level services, ensuring both modularity and reusability. The library's architecture supports modern RBus communication patterns.
 
-The design addresses the requirements of a distributed middleware system by providing unified interfaces that abstract the underlying communication mechanisms. The CCSP message bus APIs serve as the primary communication backbone, offering both synchronous request-response patterns and asynchronous event notification mechanisms. This dual-mode communication support ensures that components can efficiently handle both immediate operations and long-term monitoring scenarios.
+The design addresses the complex requirements of a distributed middleware system by providing unified interfaces that abstract the underlying communication mechanisms. The CCSP message bus APIs serve as the primary communication backbone, offering both synchronous request-response patterns and asynchronous event notification mechanisms. This dual-mode communication support ensures that components can efficiently handle both immediate operations and long-term monitoring scenarios.
 
 The COSA framework within the library provides object-oriented abstractions that enable consistent data handling and system interactions across all RDK-B components. These abstractions include standardized data structures, memory management patterns, and interface definitions that promote code reuse and maintainability. The framework's design supports both stateful and stateless component interactions, allowing for flexible deployment scenarios.
 
@@ -79,37 +144,102 @@ South-bound integration with HAL layers and system services is handled through p
 The IPC mechanism design supports modern RBus protocols with built-in error handling, timeout management, and connection recovery mechanisms that ensure reliable communication in production environments.
 
 ```mermaid
-flowchart TD
-    subgraph CcspCommonLibrary ["CcspCommonLibrary"]
-    direction TB
-        subgraph MessageLayer ["Message Bus Layer"]
-            MsgBusAPI[CCSP Message Bus API]
-            RBusAPI[RBus Interface]
-        end
-        
-        subgraph CosaLayer ["COSA Framework Layer"]
-            ObjectMgmt[Object Management]
-            DataStructures[Data Structures]
-            SystemAbstraction[System Abstraction]
+flowchart TB
+    subgraph ExternalClients ["External Clients"]
+        direction TB
+        RdkbComponents["RDK-B Components<br/>All CCSP Middleware"]
+        WebManagement["Web Management<br/>UI & Cloud Services"]
+        SystemServices["System Services<br/>OS & HAL Layer"]
+    end
+    
+    subgraph CcspCommonLibraryContainer ["CcspCommonLibrary Container"]
+        direction TB
+        subgraph CoreServices ["Core Services Layer"]
+            direction LR
+            MessageBusAPI["Message Bus API<br/>RBus IPC Abstraction"]
+            CosaFramework["COSA Framework<br/>Object Architecture & Data Structures"]
+            PlatformAbstraction["Platform Abstraction<br/>OS & Hardware Independence"]
         end
         
         subgraph ServiceLayer ["Service Layer"]
-            DataModelAPI[Data Model API]
-            ComponentMgmt[Component Management]
-            ConfigServices[Configuration Services]
+            direction LR
+            DataModelAPI["Data Model API<br/> PSM Integration"]
+            UtilityAPI["Utility APIs<br/>Memory, String, File I/O, Timers"]
+            ProtocolLibs["Protocol Libraries<br/>HTTP, XML, TLS, STUN"]
+        end
+    end
+    
+    subgraph ExternalStorage ["External Storage & Services"]
+        direction TB
+        ConfigStorage[("Configuration Storage<br/>File System & PSM")]
+        LoggingSystem[("Logging System<br/>Syslog & Journal")]
+        NetworkServices[("Network Services<br/>TCP/IP Stack")]
+    end
+    
+    %% External clients to CcspCommonLibrary
+    RdkbComponents -->|IPC Calls| MessageBusAPI
+    RdkbComponents -->|Object Operations| CosaFramework
+    RdkbComponents -->|Parameter Access| DataModelAPI
+    WebManagement -->|HTTP/XML Processing| ProtocolLibs
+    RdkbComponents -->|Utility Functions| UtilityAPI
+    
+    %% Internal dependencies within CcspCommonLibrary
+    MessageBusAPI --> PlatformAbstraction
+    CosaFramework --> UtilityAPI
+    DataModelAPI --> MessageBusAPI
+    ProtocolLibs --> PlatformAbstraction
+    UtilityAPI --> PlatformAbstraction
+    
+    %% CcspCommonLibrary to external services
+    DataModelAPI -->|Read/Write Config| ConfigStorage
+    UtilityAPI -->|Logging Calls| LoggingSystem
+    PlatformAbstraction -->|System Calls| SystemServices
+    ProtocolLibs -->|Network Operations| NetworkServices
+    
+    classDef clients fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef coreServices fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef serviceLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef storage fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    
+    class RdkbComponents,WebManagement,SystemServices clients;
+    class MessageBusAPI,CosaFramework,PlatformAbstraction coreServices;
+    class DataModelAPI,UtilityAPI,ProtocolLibs serviceLayer;
+    class ConfigStorage,LoggingSystem,NetworkServices storage;
+```
+**New**
+
+
+```mermaid
+flowchart TD
+    subgraph CcspCommonLibrary ["CcspCommonLibrary"]
+        subgraph MessageLayer ["Message Bus Layer"]
+            MsgBusAPI([CCSP Message Bus API])
+            RBusAPI([RBus Interface])
+        end
+        
+        subgraph CosaLayer ["COSA Framework Layer"]
+            ObjectMgmt([Object Management])
+            DataStructures([Data Structures])
+            SystemAbstraction([System Abstraction])
+        end
+        
+        subgraph ServiceLayer ["Service Layer"]
+            DataModelAPI([Data Model API])
+            ComponentMgmt([Component Management])
+            ConfigServices([Configuration Services])
         end
         
         subgraph UtilityLayer ["Utility Layer"]
-            XMLParser[XML Parser]
-            HTTPLib[HTTP Library]
-            CryptoAPI[Crypto API]
-            StringUtils[String Utilities]
+            XMLParser([XML Parser])
+            HTTPLib([HTTP Library])
+            CryptoAPI([Crypto API])
+            StringUtils([String Utilities])
         end
         
         subgraph ProtocolLayer ["Protocol Layer"]
-            TLSLib[TLS/SSL]
-            STUNLib[STUN Protocol]
-            WebServices[Web Services]
+            TLSLib([TLS/SSL])
+            STUNLib([STUN Protocol])
+            WebServices([Web Services])
         end
     end
     
@@ -124,18 +254,33 @@ flowchart TD
     CryptoAPI --> SystemAbstraction
     WebServices --> HTTPLib
     STUNLib --> CryptoAPI
+    
+    classDef messageBusLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef cosaLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef serviceLayer fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef utilityLayer fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef protocolLayer fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+    
+    class MsgBusAPI,RBusAPI messageBusLayer;
+    class ObjectMgmt,DataStructures,SystemAbstraction cosaLayer;
+    class DataModelAPI,ComponentMgmt,ConfigServices serviceLayer;
+    class XMLParser,HTTPLib,CryptoAPI,StringUtils utilityLayer;
+    class TLSLib,STUNLib,WebServices protocolLayer;
 ```
 
 ### Prerequisites and Dependencies
 
 **RDK-B Platform and Integration Requirements (MUST):** 
 
+- **Core DISTRO Features**: DISTRO_FEATURES += "rdk-b", "ccsp-common", "systemd" for proper service integration
+- **Build Dependencies**: ccsp-common-library (self-contained), openssl, rbus, trower-base64, safec (optional)
 - **RDK-B Components**: Foundation library for all CCSP components - no other RDK-B components can function without this library
-- **HAL Dependencies**: Platform-specific HAL interfaces for system abstraction
+- **HAL Dependencies**: Platform-specific HAL interfaces for system abstraction, minimum HAL API version 2.0
 - **Systemd Services**: RBus broker service when using RBus protocol
 - **Message Bus**: RBus broker for RBus-enabled components
 - **Configuration Files**: `/tmp/ccsp_msg.cfg` for message bus, `/usr/ccsp/` directory structure for components
 - **Startup Order**: Must initialize before any CCSP component, depends on system services and network interfaces
+- **Resource Constraints**: 8-16MB memory footprint, low CPU overhead for message bus operations
 
 **Threading Model**
 
@@ -143,7 +288,7 @@ CcspCommonLibrary implements a hybrid threading model that supports both single-
 
 - **Threading Architecture**: Multi-threaded with thread-safe APIs and optional single-threaded optimization paths
 - **Main Thread**: Message bus event loop processing, component registration, and configuration management
-- **Main worker Threads**: 
+- **Worker Threads**: 
   - **Message Bus Handler Thread**: Processes incoming RBus messages and dispatches to appropriate handlers
   - **Timer Service Thread**: Manages timer callbacks and scheduled operations for utility APIs
   - **Network I/O Thread**: Handles asynchronous network operations for HTTP and protocol libraries
@@ -285,13 +430,20 @@ CcspCommonLibrary serves as the central communication hub for all RDK-B middlewa
 | Logging System | System logging, debugging, audit trails | `syslog()`, `journal` APIs |
 
 
-**Main events Published by CcspCommonLibrary:**
+**Events Published by CcspCommonLibrary:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |-------------|------------------|-------------------|------------------------|
 | Component Registration | `Component.Registration` | New CCSP component registers with system | All registered CCSP components |
 | Message Bus Status | `MessageBus.Status` | RBus connection state changes | System monitoring components |
 | Configuration Change | `Config.ParameterChanged` | System configuration parameter updated | Dependent components |
+
+**Events Consumed by CcspCommonLibrary:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|---------------|------------------|----------|------------------|
+| System Services | `System.ServiceStart` | React to system service lifecycle changes | `HandleSystemServiceEvent()` |
+| Configuration Manager | `Config.Reload` | Reload configuration when files change | `HandleConfigReload()` |
 
 
 ### IPC Flow Patterns
@@ -364,3 +516,11 @@ CcspCommonLibrary integrates with platform-specific HAL interfaces to provide ha
 - **Threading and Synchronization**: Thread-safe operation with optimized single-threaded paths. Main event loop in message bus API implementation. Worker thread management for asynchronous operations. Mutex-based synchronization for shared data structures.
 
 - **Logging & Debugging**: Multi-level logging system with runtime configuration support. Syslog integration for system-wide logging consistency. Component-specific log categories and verbosity levels. Debug hooks for message bus transaction tracing. Memory usage monitoring and leak detection tools.
+
+### Key Configuration Files
+
+| Configuration File | Purpose | Override Mechanisms |
+|--------------------|---------|---------------------|
+| `config/ccsp_msg.cfg` | Message bus connection configuration | Environment variable `CCSP_MSG_BUS_CFG` |
+| `config/basic.conf` | Basic CCSP component configuration | Command line arguments |
+| `source/ccsp/include/ccsp_custom.h` | Compile-time configuration constants | Build-time preprocessor definitions |

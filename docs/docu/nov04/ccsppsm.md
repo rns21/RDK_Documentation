@@ -1,6 +1,6 @@
 # CcspPsm Documentation
 
-CcspPsm component serves as the Storage Manager in the RDK-B middleware stack. It provides centralized persistent configuration storage and retrieval services for all RDK-B components, ensuring data persistence across device reboots and factory resets. The component acts as a configuration repository that maintains system settings, user preferences, and runtime parameters in a hierarchical namespace structure. CcspPsm offers persistent storage APIs that abstract underlying storage mechanisms from other middleware components. It provides configuration validation, backup/restore capabilities, and transactional operations to ensure data integrity. The component supports both XML-based configuration files and runtime parameter management through well-defined interfaces.
+The CcspPsm component serves as the Storage Manager in the RDK-B middleware stack. It provides centralized persistent configuration storage and retrieval services for all RDK-B components, ensuring data persistence across device reboots and factory resets. The component acts as a configuration repository that maintains system settings, user preferences, and runtime parameters in a hierarchical namespace structure. CcspPsm offers persistent storage APIs that abstract underlying storage mechanisms from other middleware components. It provides configuration validation, backup/restore capabilities, and transactional operations to ensure data integrity. The component supports both XML-based configuration files and runtime parameter management through well-defined interfaces.
 
 At the module level, CcspPsm provides parameter get/set operations, configuration file loading/parsing, system registry management, and HAL integration for platform-specific storage requirements. It integrates with RBus messaging systems and other IPC methods to serve configuration requests from other RDK-B components and external management systems.
 
@@ -20,7 +20,12 @@ graph LR
         rdkbComponent["Other RDK-B Components<br>(PNM,WAN Manager etc.)"]
         CcspPsm["CCSP PSM"]
 
-        SyscfgDB[(Syscfg DB)]
+        subgraph "Platform Layer"
+            HAL[Platform HAL]
+            Linux[Linux]
+            SyscfgHAL[Syscfg/Storage HAL]
+            SyscfgDB[(Syscfg DB)]
+        end
     end
 
     %% External connections
@@ -31,7 +36,14 @@ graph LR
     
     rdkbComponent -->|APIs| CcspPsm
     CcspPsm -->|APIs| rdkbComponent
+    CcspPsm -->|APIs| SyscfgHAL
     CcspPsm -->|APIs| SyscfgDB
+
+    %% RDK-B Components to HAL
+    rdkbComponent -->|HAL APIs| HAL
+
+    %% System integration
+    HAL -->|Drivers| Linux
 
     classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
     classDef CcspPsm fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
@@ -41,7 +53,7 @@ graph LR
     class RemoteMgmt,LocalUI external;
     class CcspPsm CcspPsm;
     class ProtocolAgents,rdkbComponent rdkbComponent;
-    class SyscfgDB system;
+    class HAL,Linux,SyscfgHAL,SyscfgDB system;
 ```
 
 **Key Features & Responsibilities**: 
@@ -64,6 +76,67 @@ The architecture implements a dual-storage strategy where runtime parameters are
 North-bound interactions with other RDK-B components are managed through standardized RBus interfaces and other IPC methods that provide parameter get/set operations, event notifications, and bulk configuration operations. The design abstracts the underlying storage complexity from clients, presenting a unified hierarchical namespace for all configuration parameters. South-bound interactions with the HAL layer are handled through well-defined APIs that abstract platform-specific storage mechanisms, enabling portability across different hardware platforms while maintaining consistent behavior.
 
 The IPC mechanisms are integrated with RBus providing modern, high-performance messaging for components. The design includes message queuing, event notification, and subscription mechanisms to support real-time configuration updates and system monitoring. Data persistence is achieved through a combination of immediate writes for critical parameters and batched writes for performance optimization, with configurable flush intervals and emergency write triggers.
+
+**to delete**
+```mermaid
+graph LR
+    subgraph "CcspPsm"
+        subgraph "SSP Layer"
+            MainController[Main Controller]
+            RBusInterface[RBus Interface Handler]
+            HALInterface[HAL Interface Layer]
+        end
+        
+        subgraph "Core Engine"
+            PsmSysRegistry[PSM System Registry]
+            PsmFileLoader[PSM File Loader]
+            ConfigValidator[Configuration Validator]
+        end
+        
+        subgraph "Storage Layer"
+            MemoryCache[In-Memory Parameter Cache]
+            FileManager[XML Configuration Manager]
+            BackupManager[Backup/Restore Manager]
+        end
+    end
+    
+    subgraph "External Interfaces"
+        RBusClients[RBus Clients]
+        ConfigFiles[(XML Config Files)]
+    end
+    
+    subgraph "Platform Services"
+        SyscfgAPI[Syscfg HAL API]
+        FileSystemAPI[File System API]
+    end
+
+    RBusClients -->|Parameter Requests| RBusInterface
+    
+    RBusInterface --> MainController
+    
+    MainController --> PsmSysRegistry
+    MainController --> PsmFileLoader
+    MainController --> ConfigValidator
+    
+    PsmSysRegistry --> MemoryCache
+    PsmFileLoader --> FileManager
+    PsmFileLoader --> BackupManager
+    
+    HALInterface --> SyscfgAPI
+    FileManager --> ConfigFiles
+    FileManager --> FileSystemAPI
+    
+    classDef ssp fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef core fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef storage fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    
+    class MainController,RBusInterface,HALInterface ssp;
+    class PsmSysRegistry,PsmFileLoader,ConfigValidator core;
+    class MemoryCache,FileManager,BackupManager storage;
+    class RBusClients,ConfigFiles,SyscfgAPI,FileSystemAPI external;
+```
+
 
 ```mermaid
 flowchart TD
@@ -109,6 +182,14 @@ flowchart TD
     RegStorage --> FileInterface
     FileOperations --> RegStorage
     RegStates --> FileOperations
+
+    classDef ssp fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef registry fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef fileloader fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    
+    class MainController,CFMInterface ssp;
+    class RegInterface,RegControl,RegStorage,RegBase,RegStates registry;
+    class FileInterface,FileControl,XMLParser,FileOperations,LoaderStates fileloader;
 ```
 
 
@@ -116,8 +197,8 @@ flowchart TD
 
 **RDK-B Platform and Integration Requirements:** 
 
-- **RDK-B Components**: CcspCommonLibrary, RBus framework, systemd for service management, syscfg utility for platform configuration
-- **HAL Dependencies**: Platform Storage HAL, Syscfg HAL for platform-specific configuration access
+- **RDK-B Components**: CcspCommonLibrary (libccsp_common), RBus framework, systemd for service management, syscfg utility for platform configuration
+- **HAL Dependencies**: Platform Storage HAL, Syscfg HAL for platform-specific configuration access, minimum HAL version supporting persistent storage APIs
 - **Systemd Services**: filesystem mount points for /nvram and /tmp must be available
 - **Message Bus**: RBus namespace registration for "Device.X_CISCO_COM_PSM." prefix
 - **Configuration Files**: /etc/ccsp/psm_cfg.xml for default configurations, /nvram/psm/ directory structure for persistent storage
@@ -131,7 +212,7 @@ CcspPsm implements a hybrid threading model combining single-threaded main proce
 
 - **Threading Architecture**: Single-threaded main event loop with dedicated worker threads for file I/O and backup operations
 - **Main Thread**: Handles RBus message processing, parameter validation, configuration updates, and maintains the in-memory parameter cache
-- **Main worker Threads**: 
+- **Worker Threads**: 
   - **File I/O Thread**: Manages XML configuration file reading, writing, and compression operations
   - **Backup Thread**: Handles periodic configuration backups and cleanup of temporary files
   - **Flush Thread**: Performs periodic cache flushes to persistent storage at configurable intervals
@@ -275,13 +356,21 @@ CcspPsm serves as the central configuration repository for the RDK-B middleware 
 | Platform Services | System integration, service lifecycle management, resource monitoring | Systemd unit file control, process monitoring |
 
 
-**Main events Published by CcspPsm:**
+**Events Published by CcspPsm:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |------------|-----------------|-------------------|----------------------|
 | ParameterValueChanged | `Device.X_CISCO_COM_PSM.ParameterChanged` | Parameter value modification via Set operation | CcspPandM, CcspTr069Pa, Telemetry components |
 | ConfigurationBackupComplete | `Device.X_CISCO_COM_PSM.BackupStatus` | Successful completion of configuration backup operation | System monitoring, CcspPandM |
 | FactoryResetInitiated | `Device.X_CISCO_COM_PSM.FactoryReset` | Factory reset operation triggered | All RDK-B components for cleanup operations |
+
+
+**Events Consumed by CcspPsm:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|--------------|-----------------|---------|------------------|
+| CcspPandM | `Device.X_CISCO_COM_PandM.SystemReadyForCommit` | Trigger configuration commit/flush operation | `handleSystemCommitRequest()` |
+| System Manager | `Device.X_CISCO_COM_SystemManager.FactoryReset` | Initiate factory reset with default configuration restoration | `handleFactoryResetEvent()` |
 
 
 ### IPC Flow Patterns
@@ -371,5 +460,5 @@ CcspPsm integrates with several HAL APIs to provide platform-specific storage an
 | Configuration File | Purpose | Key Parameters | Default Values | Override Mechanisms |
 |--------------------|---------|---------------|----------------|--------------------|
 | `/etc/ccsp/psm_cfg.xml` | PSM runtime configuration | Cache size, flush intervals, backup settings | `CacheSize=1MB`, `FlushInterval=10s` | Environment variables, command-line args |
-| `/nvram/bbhm_cur_cfg.xml` | Current active configuration | All runtime parameters | Loaded from default config | Parameter Set operations, configuration import |
-| `/nvram/bbhm_bak_cfg.xml` | Backup configuration | Previous stable configuration | Previous current config | Automatic backup on major changes |
+| `/nvram/psm_cur_cfg.xml` | Current active configuration | All runtime parameters | Loaded from default config | Parameter Set operations, configuration import |
+| `/nvram/psm_bak_cfg.xml` | Backup configuration | Previous stable configuration | Previous current config | Automatic backup on major changes |

@@ -9,82 +9,57 @@ Utopia provides three critical service layers to the RDK-B stack:
 
 The component integrates deeply with the Linux system layer through direct HAL interactions, manages persistent data through filesystem-based storage mechanisms, and coordinates with other RDK-B components via RBus messaging protocol. Utopia's modular architecture supports platform-specific customizations while maintaining consistent service interfaces across different RDK-B device implementations.
 
-
 ```mermaid
 graph LR
-
     subgraph "External Systems"
         RemoteMgmt["Remote Management"]
         LocalUI["Local Web UI"]
     end
 
-    
     subgraph "RDK-B Platform"
         subgraph "Remote Management Agents"
             ProtocolAgents["Protocol Agents<br>( TR-069, WebPA, USP etc.)"]
         end
-        rdkbComponent["Other RDK-B Components"]
-        subgraph "Utopia"
-            subgraph "Utopia Core Services"
-                SysEvent[SysEvent Bus]
-                SysCfg[SysCfg Storage] 
-                ServiceMgr[Service Manager]
-                UtAPI[UTAPI Library]
-            end
-    
-            subgraph "Utopia Network Services"
-                DHCP[DHCP Service]
-                Firewall[Firewall Service]
-                Routing[Routing Service]
-                MultiNet[Multi-Network Service]
-                WAN[WAN Service]
-                IPv6[IPv6 Service]
-                IGD[UPnP IGD]
-            end
-        end
+
+        Utopia["Utopia"]
+        WanMgr["WAN Manager"]
+        OneWifi["One Wi-Fi"]
+        PSM["CCSP PSM"]
+        PNM["CCSP PNM"]
+
         subgraph "Platform Layer"
             HAL["Platform HAL"]
             Linux["Linux"]
-            NetFilter[NetFilter/IPTables]
         end
     end
 
-    RemoteMgmt --> ProtocolAgents
-    LocalUI --> UtAPI
-    ProtocolAgents --> SysEvent
-    rdkbComponent --> SysCfg
+    %% External connections
+    RemoteMgmt -->|TR-069/WebPA/TR-369| ProtocolAgents
+    LocalUI -->|HTTP/HTTPS| ProtocolAgents
+
     
-    UtAPI --> SysCfg
-    UtAPI --> SysEvent
-    ServiceMgr --> SysEvent
-    
-    SysEvent --> DHCP
-    SysEvent --> Firewall
-    SysEvent --> Routing
-    SysEvent --> MultiNet
-    SysEvent --> WAN
-    SysEvent --> IPv6
-    SysEvent --> IDG
-    
-    SysCfg --> DHCP
-    SysCfg --> Firewall
-    SysCfg --> WAN
-    
-    Routing --> Linux
-    Firewall --> NetFilter
-    DHCP --> HAL
-    WAN --> HAL
-    HAL --> Linux
+    ProtocolAgents -->|IPC| Utopia
+
+    %% Upper layer to Utopia
+    Utopia -->|IPC| WanMgr
+    Utopia -->|IPC| PSM
+    Utopia -->|IPC| PNM
+    Utopia -->|IPC| OneWifi
+    Utopia -->|IPC| HAL
+
+    %% System integration
+    HAL <-->|Driver Interfaces| Linux
+    Utopia <-->|System Events| Linux
 
     classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
-    classDef utopia fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
+    classDef Utopia fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
     classDef rdkbComponent fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
     classDef system fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
 
     class RemoteMgmt,LocalUI external;
-    class SysEvent,SysCfg,ServiceMgr,UtAPI,DHCP,Firewall,Routing,MultiNet,WAN,IPv6,IGD utopia;
-    class ProtocolAgents,rdkbComponent, rdkbComponent;
-    class HAL,Linux,NetFilter system;
+    class Utopia Utopia;
+    class ProtocolAgents,WanMgr,OneWifi,PSM,PNM rdkbComponent;
+    class HAL,Linux system;
 ```
 
 
@@ -108,73 +83,47 @@ Integration with external systems occurs through well-defined interface boundari
 
 Data persistence operates through a hybrid approach combining in-memory performance with filesystem reliability, where syscfg maintains active configuration in shared memory while asynchronously committing changes to persistent storage. The sysevent system supports both persistent and transient event states, enabling appropriate handling of both configuration changes and runtime status updates. Service startup orchestration follows dependency chains defined through sysevent triggers, ensuring proper initialization ordering without hard-coded dependencies.
 
-
-
 ```mermaid
-%%{init: {"flowchart": {"curve": "basis", "rankSpacing": 50, "nodeSpacing": 40}}}%%
-flowchart LR
+graph TD
 
-    subgraph UtopiaCore["Utopia Core"]
-        %% --- UTAPI Layer ---
-        subgraph UTAPI_Layer["UTAPI Layer"]
-            direction TB
-            UTAPI[UTAPI Library]
-            UTCtx[UT Context Manager]
+    subgraph Utopia ["Utopia"]
+        subgraph CoreInfrastructure ["Core Infrastructure Services"]
+            Syseventd["Sysevent Daemon"]
+            Syscfg["Syscfg Service"]
+            UTAPI["UTAPI Library"]
         end
 
-        %% --- Core Infrastructure ---
-        subgraph Core_Infra["Core Infrastructure"]
-            direction TB
-            SysCfg[SysCfg Service]
-            SysEvent[SysEvent Daemon]
-            SrvMgr[Service Manager]
+        subgraph NetworkServices ["Network Service Handlers"]
+            DHCPService["DHCP Service"]
+            FirewallService["Firewall Service"]
+            WANService["WAN Service"]
+            IPv6Service["IPv6 Service"]
+            MultinetService["Multinet Service"]
         end
 
-        %% --- Network Services ---
-        subgraph Net_Services["Network Services"]
-            direction TB
-            DHCP[service_dhcp]
-            FW[Firewall Service]
-            WAN[service_wan]
-            MNet[service_multinet]
-            Route[service_routed]
-            IPv6[service_ipv6]
-            IGD[UPnP IGD]
-        end
-
-        %% --- Utility Services ---
-        subgraph Util_Services["Utility Services"]
-            direction TB
-            DevMode[service_deviceMode]
-            DDNS[service_ddns]
-            DSLite[service_dslite]
-            UDHCPc[service_udhcpc]
+        subgraph UtilityServices ["System Utilities"]
+            TriggerMgr["Trigger Manager"]
+            ProcessMon["Process Monitor"]
+            LogMgr["Log Manager"]
         end
     end
-    %% --- Storage & IPC ---
-    subgraph Storage_IPC["Storage & IPC"]
-        direction LR
-        SharedMem[(Shared Memory)]
-        EventBus[(Event Bus)]
-        ConfigFiles[(Config Files)]
+
+    subgraph ExternalSystems ["System Layer"]
+        HALLayer[(HAL)]
+        LinuxKernel[(Linux )]
+        FileSystem[(Configuration Files)]
     end
 
-    %% --- Main Flows ---
-    UTAPI --> UTCtx
-    UTCtx --> SysCfg
-    UTCtx --> SysEvent
-    SrvMgr --> SysEvent
-
-    SysCfg --> SharedMem
-    SysCfg --> ConfigFiles
-    SysEvent --> EventBus
-
-    %% --- Network Services Connections ---
-    Net_Services --> SysCfg
-    Net_Services --> SysEvent
-
-    %% --- Utility Services Connections ---
-    Util_Services --> SysEvent
+    CoreInfrastructure --> NetworkServices
+    UTAPI --> CoreInfrastructure
+    
+    NetworkServices -->|HAL Calls| HALLayer
+    CoreInfrastructure -->|File I/O| FileSystem
+    NetworkServices -->|System Calls| LinuxKernel
+    
+    TriggerMgr --> NetworkServices
+    ProcessMon --> NetworkServices
+    LogMgr <--> CoreInfrastructure
 ```
 
 ### Prerequisites and Dependencies
@@ -186,6 +135,8 @@ flowchart LR
 | `--enable-dslite_feature_support` | `dslite` | `DSLITE_FEATURE_SUPPORT` | Enable DS-Lite dual-stack lite tunneling support | Enabled |
 | `--enable-core_net_lib_feature_support` | `core-net-lib` | `CORE_NET_LIB_FEATURE_SUPPORT` | Enable advanced core networking library support | Disabled |
 | `--enable-extender` | `extender` | `FEATURE_RDKB_EXTENDER` | Enable WiFi extender/mesh device support | Disabled |
+| `--enable-ddns_binary_client_support` | N/A | `DDNS_BINARY_CLIENT_SUPPORT` | Enable Dynamic DNS binary client support | Disabled |
+| `--enable-potd` | N/A | `ENABLE_POTD_SERVICE` | Enable Password of the Day (PotD) service | Enabled |
 | `--enable-hotspot` | N/A | `ENABLE_HOTSPOT_SERVICE` | Enable HotSpot captive portal functionality | Enabled |
 
 **RDK-B Platform and Integration Requirements:** 
@@ -204,7 +155,7 @@ Utopia employs a hybrid threading architecture that combines single-threaded eve
 
 - **Threading Architecture**: Hybrid - Single-threaded for event processing, Multi-threaded for I/O operations 
 - **Main Thread**: Sysevent daemon main thread handles Unix domain socket connections, event routing, and client management using select()-based I/O multiplexing 
-- **Main worker Threads**: 
+- **Worker Threads** (if applicable): 
     - **I/O Worker Threads**: Handle file system operations for syscfg persistence, preventing blocking on main event processing thread   
     - **Network Service Threads**: Separate processes for DHCP, firewall, and routing services, each with dedicated single-threaded event handlers 
 - **Synchronization**: Shared memory access uses POSIX semaphores and memory barriers, sysevent uses Unix domain socket message queuing for thread-safe communication 
@@ -366,7 +317,7 @@ Utopia maintains extensive integration points across the RDK-B middleware stack,
 | SystemD Services | Process lifecycle management and service coordination | `systemctl start/stop/restart`, service dependency management |
 
 
-**Main events Published by Utopia:**
+**Events Published by Utopia:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |------------|-----------------|-------------------|---------------------|
@@ -374,6 +325,14 @@ Utopia maintains extensive integration points across the RDK-B middleware stack,
 | `config-changed` | `/config/changed/{parameter}` | Configuration parameter modified via syscfg | Affected service handlers |
 | `network-restart` | `/network/restart/{service}` | Network service restart required | Network management components |
 | `wan-status` | `/wan/status` | WAN connection state change detected | WAN Manager, Routing services, CCSP components |
+
+**Events Consumed by Utopia:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|-------------|-----------------|---------|------------------|
+| HAL Layer | `/hal/interface/status` | React to hardware interface state changes | `interface_status_handler()` |
+| CCSP Components | `/ccsp/parameter/set` | Process external configuration changes | `ccsp_parameter_handler()` |
+| Network Agents | `/network/event/{type}` | Coordinate network service state | `network_event_handler()` |
 
 ### IPC Flow Patterns
 
@@ -462,4 +421,5 @@ Utopia integrates with multiple HAL interface categories to provide comprehensiv
 | Configuration File | Purpose | Override Mechanisms |
 |--------------------|---------|-------------------|
 | `/etc/utopia/system_defaults` | System-wide default configuration template loaded during initialization | Product-specific files, factory reset procedures |
+| `/tmp/sysevent_current` | Current sysevent state snapshot for debugging and monitoring | Not user-configurable, debugging interface only |
 | `/etc/utopia/service.d/service_*/` | Service-specific configuration and script directories | Yocto recipe customization, platform overlays |

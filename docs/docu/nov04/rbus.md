@@ -11,16 +11,20 @@ graph LR
         LocalUI["Local Web UI"]
     end
 
-    subgraph rdkb ["RDK-B Platform"]
-    direction LR
-
-        wanMgr["WAN Manager"]
-        onewifi["OneWifi"]
+    subgraph "RDK-B Platform"
         ProtocolAgents["Protocol Agents<br>( TR-069, WebPA, USP etc.)"]
 
         rbus["RBUS"]
+
+        wanMgr["WAN Manager"]
+        onewifi["OneWifi"]
         lmlite["CCSP LMLite"]
         rdkbComponent["Other RDK-B Components<br>( Utopia, CCSP PSM, CCSP P&M, GPON Manager etc.)"]
+
+    end
+
+    subgraph "Platform Layer"
+        Linux["Linux"]
     end
 
     %% External connections
@@ -28,12 +32,18 @@ graph LR
     LocalUI -->|HTTP/HTTPS| ProtocolAgents
 
     %% Upper layer to RDK-B
-    ProtocolAgents --> rbus
+    ProtocolAgents --> wanMgr
+    ProtocolAgents --> onewifi
+    ProtocolAgents --> lmlite
+    ProtocolAgents --> rdkbComponent
 
     wanMgr <--> rbus
     onewifi <--> rbus
     lmlite <--> rbus
     rdkbComponent <--> rbus
+
+    %% System integration
+    rbus <-->|IPC| Linux
 
     classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
     classDef rbus fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
@@ -43,6 +53,7 @@ graph LR
     class RemoteMgmt,LocalUI external;
     class rbus rbus;
     class ProtocolAgents,rdkbComponent,wanMgr,onewifi,lmlite rdkbComponent;
+    class Linux system;
 ```
 
 **Key Features & Responsibilities**: 
@@ -115,10 +126,18 @@ flowchart TD
 
 ### Prerequisites and Dependencies
 
+**Build-Time Flags and Configuration:**
+
+| Configure Option | DISTRO Feature | Build Flag | Purpose | Default |
+|------------------|----------------|------------|---------|---------|
+| `MSG_ROUNDTRIP_TIME=ON` | N/A | `MSG_ROUNDTRIP_TIME=1` | Enable message round-trip time measurement and performance monitoring | Enabled |
+| `WITH_SPAKE2=ON` | N/A | `WITH_SPAKE2=1` | Enable SPAKE2 secure authentication protocol | Disabled |
+| `ENABLE_ADDRESS_SANITIZER=ON` | N/A | `ENABLE_ADDRESS_SANITIZER` | Enable AddressSanitizer memory error detection | Disabled |
+
 **RDK-B Platform and Integration Requirements:** 
 
-- **RDK-B Components**: rtrouted daemon, rbus_session_mgr service, systemd integration
-- **HAL Dependencies**: Platform-agnostic HAL
+- **RDK-B Components**: rtrouted daemon (mandatory), rbus_session_mgr service, systemd integration
+- **HAL Dependencies**: Platform-agnostic HAL abstraction interface, no specific HAL version requirements
 - **Systemd Services**: rbus.service, rbus_session_mgr.service must be active with proper service ordering
 - **Message Bus**: RBus native IPC transport with rtrouted broker, automatic service discovery and registration
 - **Configuration Files**: Component-specific .conf files for service definitions, /etc/rbus/rbus.conf for routing
@@ -132,7 +151,7 @@ RBus implements a hybrid threading architecture optimized for both high-throughp
 
 - **Threading Architecture**: Multi-threaded with dedicated threads for different operational aspects
 - **Main Thread**: Handles component initialization, client registration/deregistration, and API entry points for synchronous operations
-- **Main worker Threads**: 
+- **Worker Threads**: 
   - **Message Router Thread**: Processes incoming messages, performs routing decisions, and manages message queues
   - **Event Publisher Thread**: Handles asynchronous event publishing and subscriber notification management
   - **Socket Handler Threads**: One per active client connection for dedicated I/O processing and connection state management
@@ -274,7 +293,7 @@ RBus serves as the central communication hub that enables seamless interaction b
 | Platform Services | System resource management, process control, file system operations | System Calls/D-Bus | Binary/Text Config | File I/O/Process Control | `/proc`, `/sys`, systemd D-Bus interface |
 | Systemd Services | Service lifecycle management, dependency resolution, system state control | D-Bus System Bus | D-Bus Messages | Method Calls/Signals | `org.freedesktop.systemd1.Manager` |
 
-**Main events Published by RBus:**
+**Events Published by RBus:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Payload Format | Subscriber Components |
 |------------|-----------------|-------------------|----------------|---------------------|
@@ -282,6 +301,14 @@ RBus serves as the central communication hub that enables seamless interaction b
 | ParameterValueChange | `{object_path}.{parameter}!` | Parameter value modification | MessagePack: `{oldValue, newValue, source, timestamp}` | TR-069 PA, monitoring systems |
 | SystemStatusUpdate | `rbus.system.status` | System health/performance changes | JSON: `{cpu_usage, memory, connections, errors}` | Management interfaces, telemetry |
 | ClientConnectionEvent | `rbus.client.{action}` | Client connect/disconnect/timeout | MessagePack: `{client_id, action, timestamp, details}` | Session manager, monitoring systems |
+
+**Events Consumed by RBus:**
+
+| Event Source | Event Topic/Path | Purpose | Expected Payload | Handler Function |
+|-------------|-----------------|---------|------------------|------------------|
+| Systemd | `org.freedesktop.systemd1.JobRemoved` | Service lifecycle state changes | D-Bus struct: `{job_id, job, unit, result}` | `systemd_job_handler()` |
+| System Monitor | `system.resource.threshold` | Resource usage threshold violations | JSON: `{resource, current, threshold, action}` | `resource_threshold_handler()` |
+| HAL Events | `hal.{subsystem}.event` | Hardware state changes and notifications | Binary: hardware-specific structures | `hal_event_processor()` |
 
 ### IPC Flow Patterns
 
@@ -357,3 +384,5 @@ RBus provides a flexible abstraction layer that allows RDK-B components to inter
 |--------------------|---------|---------------|----------------|--------------------|
 | `/etc/rbus/rbus.conf` | Main RBus configuration | `MaxConnections`, `MessageTimeout`, `LogLevel` | `200`, `30000ms`, `INFO` | Environment variables, command line |
 | `/usr/lib/systemd/system/rbus.service` | Systemd service definition | `ExecStart`, `Restart`, `Dependencies` | rtrouted daemon | Systemd overrides |
+| `/tmp/rtrouted.conf` | Runtime router configuration | `SocketPath`, `MaxMessageSize`, `ClientTimeout` | `/tmp/rtroute`, `10MB`, `60s` | Runtime generation |
+| Component-specific `.conf` files | Individual component settings | Service names, object registrations, capabilities | Component-dependent | Component initialization |

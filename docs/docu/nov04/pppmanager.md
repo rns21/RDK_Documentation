@@ -4,6 +4,76 @@ PPP Manager is the middleware component in the RDK-B stack responsible for manag
 
 At the module level, this component implements the Device.PPP data model as defined in the TR-181 specification, exposing comprehensive configuration parameters for PPP interfaces, their associated protocols (IPCP, IPv6CP, PPPoE), and statistical information. The component handles authentication protocols (PAP, CHAP, MS-CHAP), connection management, error recovery, and provides detailed connection status and diagnostic capabilities.
 
+**old diagram**
+```mermaid
+graph TD
+    subgraph "External Systems"
+        Cloud["Cloud Management<br/>Platform"]
+        WebUI["Web UI<br/>Management"]
+        CWMP["TR-069/CWMP<br/>Server"]
+    end
+
+    subgraph "RDK-B Middleware"
+        PPPMgr["PPP Manager<br/>TR-181 PPP"]
+        WanMgr["WAN Manager"]
+        PandM["P&M<br/>Component"]
+        PSM["PSM<br/>Storage"]
+        TR069["TR-069 PA"]
+    end
+
+    subgraph "HAL & System Layer"
+        PlatformHAL["Platform HAL"]
+        CM_HAL["CM HAL"]
+        NetworkStack["Linux Network<br/>Stack"]
+        PPPDaemon["PPP Daemon<br/>Process"]
+    end
+
+    subgraph "Physical Layer"
+        ATMDev["ATM Device"]
+        EthDev["Ethernet Device"]
+    end
+
+    %% External to PPP Manager
+    Cloud -->|HTTPS/TR-069| TR069
+    WebUI -->|HTTP/HTTPS| PandM
+    CWMP -->|TR-069| TR069
+
+    %% PPP Manager interactions
+    TR069 -->|CCSP Message Bus| PPPMgr
+    PandM -->|CCSP Message Bus| PPPMgr
+    WanMgr <-->|CCSP Message Bus<br/>PPP Status Updates| PPPMgr
+    PPPMgr <-->|PSM Get/Set<br/>Configuration| PSM
+
+    %% HAL interactions
+    PPPMgr -->|HAL API Calls<br/>Interface Control| PlatformHAL
+    PPPMgr -->|HAL API Calls<br/>Status Queries| CM_HAL
+    PPPMgr -->|System Calls<br/>Interface Config| NetworkStack
+    PPPMgr -->|Control Socket<br/>PPP Commands| PPPDaemon
+
+    %% Physical connections
+    PlatformHAL --> ATMDev
+    PlatformHAL --> EthDev
+    NetworkStack --> ATMDev
+    NetworkStack --> EthDev
+    PPPDaemon --> ATMDev
+    PPPDaemon --> EthDev
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef hal fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef physical fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class Cloud,WebUI,CWMP external;
+    class PPPMgr,WanMgr,PandM,PSM,TR069 component;
+    class PlatformHAL,CM_HAL,NetworkStack,PPPDaemon hal;
+    class ATMDev,EthDev physical;
+```
+
+<br>
+
+**new diagram**
+
+
 ```mermaid
 graph LR
     subgraph "External Systems"
@@ -16,7 +86,6 @@ graph LR
         end
 
         PPPMgr["PPP Manager"]
-        PSM[("PSM DB")]
         rdkbComponent["Other RDK-B Components(WAN Manager, LMLite etc.)"]
         subgraph "Platform Layer"
             HAL[Platform HAL]
@@ -32,7 +101,6 @@ graph LR
     %% Upper layer to WAN Manager
     ProtocolAgents -->|IPC| PPPMgr
     rdkbComponent <-->|IPC| PPPMgr
-    PPPMgr <-->|IPC| PSM
 
     %% Interface Managers to HAL
     PPPMgr -->|HAL APIs| HAL    
@@ -50,7 +118,7 @@ graph LR
 
     class RemoteMgmt,NetworkMgmt external;
     class PPPMgr PPPMgr;
-    class ProtocolAgents,rdkbComponent,PSM rdkbComponent;
+    class ProtocolAgents,rdkbComponent rdkbComponent;
     class HAL,Linux,HW,PPPDaemon system;
 ```
 
@@ -77,6 +145,68 @@ Southbound interactions leverage multiple integration points including HAL APIs 
 The IPC architecture primarily uses the CCSP message bus for inter-component communication, supporting both synchronous request-response patterns for parameter operations and asynchronous publish-subscribe patterns for event notifications. This design choice ensures compatibility with the broader RDK-B ecosystem while providing efficient communication patterns for different use cases.
 
 Data persistence and storage management follows the RDK-B standard approach using PSM for configuration data and runtime state information. The component maintains a hierarchical storage structure mirroring the TR-181 object model, enabling efficient parameter access and bulk operations while ensuring data consistency and atomic updates.
+
+**old diagram**
+```mermaid
+graph TD
+    subgraph ContainerBoundary ["PPP Manager Process (C/Linux)"]
+        subgraph Component1 ["TR-181 Data Model Layer"]
+            DML_Main["DML Plugin Main<br/>pppmgr_dml_plugin_main.c"]
+            DML_PPP["PPP APIs<br/>pppmgr_dml_ppp_apis.c"]
+            DML_Data["Data Management<br/>pppmgr_data.c"]
+        end
+        
+        subgraph Component2 ["Core Management Layer"]
+            SSP_Main["Main Process<br/>pppmgr_ssp_main.c"]
+            SSP_Action["Action Handler<br/>pppmgr_ssp_action.c"]
+            MsgBus["Message Bus Interface<br/>pppmgr_ssp_messagebus_interface.c"]
+            IPC_Handler["IPC Handler<br/>pppmgr_ipc.c"]
+        end
+        
+        subgraph Component3 ["Utilities & Configuration"]
+            Utils["Utilities<br/>pppmgr_utils.c"]
+            Global["Global Definitions<br/>pppmgr_global.h"]
+            Config["Configuration<br/>RdkPppManager.xml"]
+        end
+    end
+
+    subgraph ExternalSystem ["External RDK-B Components"]
+        WAN_MGR["WAN Manager"]
+        PSM_COMP["PSM Component"]
+        PANDM["P&M Component"]
+        PPP_DAEMON["PPP Daemon"]
+    end
+
+    %% Internal relationships
+    SSP_Main -->|Initializes| DML_Main
+    SSP_Main -->|Manages| MsgBus
+    MsgBus -->|CCSP Bus Registration| SSP_Action
+    DML_PPP -->|Data Access| DML_Data
+    DML_PPP -->|Configuration| Utils
+    IPC_Handler -->|System Integration| PPP_DAEMON
+    Config -->|Parameter Definitions| DML_PPP
+
+    %% External interactions
+    MsgBus <-->|CCSP Message Bus<br/>Parameter Access| WAN_MGR
+    MsgBus <-->|CCSP Message Bus<br/>TR-181 Interface| PANDM
+    DML_Data <-->|PSM API<br/>Config Storage| PSM_COMP
+    IPC_Handler <-->|Control Socket<br/>PPP Commands| PPP_DAEMON
+
+    classDef core fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef dml fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef util fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+
+    class SSP_Main,SSP_Action,MsgBus,IPC_Handler core;
+    class DML_Main,DML_PPP,DML_Data dml;
+    class Utils,Global,Config util;
+    class WAN_MGR,PSM_COMP,PANDM,PPP_DAEMON external;
+```
+
+<br>
+
+**new diagram**
+
 
 ```mermaid
 graph TD
@@ -119,6 +249,16 @@ graph TD
     MsgBus <-->|IPC| rdkbComponents
     DML_Data <-->|PSM API<br>Config Storage| PSM_COMP
     IPC_Handler <-->|Control Socket<br>PPP Commands| PPP_DAEMON
+
+    classDef core fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef dml fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef util fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+
+    class SSP_Main,SSP_Action,MsgBus,IPC_Handler core;
+    class DML_Main,DML_PPP,DML_Data dml;
+    class Utils,Global,Config util;
+    class PSM_COMP,PPP_DAEMON,rdkbComponents external;
 ```
 
 
@@ -126,13 +266,15 @@ graph TD
 
 **RDK-B Platform and Integration Requirements:** 
 
+- **Build Dependencies**: ccsp-common-library, dbus, rdk-logger, utopia, halinterface, libunpriv as specified in BitBake recipe
 - **RDK-B Components**: CcspCommonLibrary for CCSP framework, PSM (Persistent Storage Manager) for configuration persistence, WAN Manager for coordinated network management
-- **HAL Dependencies**: Platform HAL, CM HAL
+- **HAL Dependencies**: Platform HAL interface (halinterface) for hardware abstraction, CM HAL interface for cable modem operations 
 - **Systemd Services**: ccsp-msg-bus.service, ccsp-psm.service must be active before PPP Manager starts for message bus and storage access
 - **Message Bus**: CCSP message bus registration namespace "com.cisco.spvtg.ccsp.pppmanager" with parameter namespace "Device.PPP"
 - **TR-181 Data Model**: Device.PPP object hierarchy implementation with Interface table support, statistics collection, and protocol-specific parameters
 - **Configuration Files**: RdkPppManager.xml for TR-181 parameter definitions, /nvram/PSM storage for persistent configuration data
 - **Startup Order**: Message bus service → PSM service → PPP Manager → WAN Manager (for coordinated startup sequence)
+- **Resource Constraints**: Minimum 4MB RAM, 50MB storage for logging and configuration, CPU capability for PPP protocol processing
 
 <br>
 
@@ -365,6 +507,37 @@ The PPP Manager component is structured into distinct functional modules that ha
 | **Data Management & Storage** | Provides abstraction layer for configuration data persistence through PSM integration, runtime state management, and data validation ensuring consistency across system reboots. | `pppmgr_data.c`, `pppmgr_data.h` |
 | **Utility Functions** | Contains common utility functions for string processing, data conversion, error handling, logging operations, and platform-specific adaptations used across all modules. | `pppmgr_utils.c`, `pppmgr_global.h` |
 
+```mermaid
+flowchart TD
+    subgraph PPPManager["PPP Manager Component"]
+        TR181["TR-181 Data Model<br/>DML Layer"]
+        CoreMgmt["Core Management<br/>Engine"]
+        MsgBus["Message Bus<br/>Integration"]
+        IPC["IPC Communication<br/>Handler"]
+        DataMgmt["Data Management<br/>& Storage"]
+        Utils["Utility Functions<br/>& Helpers"]
+    end
+
+    %% Internal module relationships
+    CoreMgmt --> TR181
+    CoreMgmt --> MsgBus
+    TR181 --> DataMgmt
+    TR181 --> Utils
+    MsgBus --> IPC
+    IPC --> Utils
+    DataMgmt --> Utils
+
+    classDef core fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef data fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef comm fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef util fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+
+    class CoreMgmt core;
+    class TR181,DataMgmt data;
+    class MsgBus,IPC comm;
+    class Utils util;
+```
+
 ## Component Interactions
 
 The PPP Manager maintains extensive integration relationships with multiple RDK-B components, system services, and external entities to provide comprehensive PPP connection management. These interactions encompass TR-181 parameter operations, event notifications, status synchronization, and configuration coordination across the entire network management stack.
@@ -386,13 +559,23 @@ The PPP Manager maintains extensive integration relationships with multiple RDK-
 | Network Stack | Interface configuration, routing table updates, network namespace management | `ioctl()`, `netlink sockets`, `/proc/net/dev` |
 
 
-**Main events Published by PPP Manager:**
+**Events Published by PPP Manager:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |-------------|------------------|-------------------|-----------------------|
 | `ppp_connection_status_change` | `Device.PPP.Interface.{i}.ConnectionStatus` | PPP connection state transitions (Connected/Disconnected/Error) | WAN Manager, Telemetry, TR-069 PA |
 | `ppp_interface_stats_update` | `Device.PPP.Interface.{i}.Stats.*` | Statistics collection interval (every 30 seconds) | Telemetry Component, Monitoring Services |
 | `ppp_authentication_event` | `Device.PPP.Interface.{i}.Authentication` | Authentication success/failure during PPP negotiation | Security Monitoring, Audit Log |
+
+
+**Events Consumed by PPP Manager:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|---------------|------------------|----------|------------------|
+| WAN Manager | `Device.X_RDK_WanManager.Interface.{i}.VirtualInterface.{i}.PPP.Enable` | React to WAN manager PPP interface enable/disable commands | `handle_wan_interface_enable()` |
+| System Events | `network_interface_state_change` | Respond to lower layer interface status changes | `handle_lower_layer_state_change()` |
+| PSM Component | `psm_parameter_change_notification` | Process configuration parameter updates from persistent storage | `handle_psm_config_change()` |
+
 
 ### IPC Flow Patterns
 
@@ -482,3 +665,5 @@ The PPP Manager integrates with multiple HAL interfaces to provide comprehensive
 |--------------------|---------|-------------------|
 | `config/RdkPppManager.xml` | TR-181 data model definition and parameter mappings | Component rebuild required for changes |
 | `/nvram/PSM/config/pppmgr_*.cfg` | Persistent PPP interface configuration storage | PSM parameter override, factory reset, TR-181 parameter updates |
+| `/tmp/ppp/options.ppp0` | PPP daemon runtime configuration files | Dynamic generation based on TR-181 parameters |
+| `/etc/ppp/peers/provider` | PPP peer configuration templates | Runtime template processing with parameter substitution |

@@ -4,13 +4,68 @@ The Gateway Provisioning Application (GwProvApp) is the RDK-B middleware compone
 
 At the module level, GwProvApp implements a sophisticated state machine that handles provisioning events, manages eRouter operational modes, coordinates with HAL layers for hardware abstraction, and integrates with sysevent framework for inter-process communication across the RDK-B middleware stack. 
 
+**old diagram**
+```mermaid
+graph TD
+    subgraph "External Systems"
+        HeadEnd[Cable Headend/CMTS]
+        WebUI[Web Management Interface]
+        FactoryReset[Factory Reset System]
+    end
+    
+    subgraph "RDK-B Middleware"
+        GwProvApp[GwProvApp - Gateway Provisioning Manager]
+        CcspPandM[CcspPandM - P&M]
+        CcspTr069Pa[CcspTr069Pa - TR-069 Agent]
+        OneWifi[OneWifi]
+        WanManager[WAN Manager]
+    end
+    
+    subgraph "HAL/Platform Layer"
+        DOCSISHAL[DOCSIS HAL]
+        EthSwitchHAL[Ethernet Switch HAL]
+        PlatformHAL[Platform HAL]
+        SystemServices[System Services/Sysevent]
+    end
+
+    HeadEnd -->|DOCSIS Config File/TLV| GwProvApp
+    WebUI -->|Mode Change Requests| GwProvApp
+    FactoryReset -->|Factory Reset Events| GwProvApp
+    
+    GwProvApp -->|IPC Methods Configuration| CcspPandM
+    GwProvApp -->|TR-069 Parameter Updates| CcspTr069Pa
+    GwProvApp -->|Network Configuration Events| OneWifi
+    GwProvApp -->|WAN Mode Control| WanManager
+    
+    GwProvApp -->|DOCSIS Control APIs| DOCSISHAL
+    GwProvApp -->|Ethernet Port Control| EthSwitchHAL
+    GwProvApp -->|Hardware Status/Control| PlatformHAL
+    GwProvApp -->|System Events/Configuration| SystemServices
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef hal fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    
+    class HeadEnd,WebUI,FactoryReset external;
+    class GwProvApp,CcspPandM,CcspTr069Pa,OneWifi,WanManager component;
+    class DOCSISHAL,EthSwitchHAL,PlatformHAL,SystemServices hal;
+```
+<br> 
+
+**new diagram**
+
 ```mermaid
 graph LR
     subgraph "External Systems"
+        RemoteMgmt["Remote Management"]
 		HeadEnd[Cable Headend/CMTS]
     end
 
     subgraph "RDK-B Platform"
+        subgraph "Remote Management Agents"
+            ProtocolAgents["Protocol Agents<br>( TR-069, WebPA, USP etc.)"]
+        end
+
         WanMgr["WAN Manager"]
         GwProvApp[GwProvApp]
         rdkbComponent["Other RDK-B Components"]
@@ -21,6 +76,7 @@ graph LR
     end
 
     %% External connections
+    RemoteMgmt -->|TR-069/WebPA/TR-369| ProtocolAgents
     HeadEnd -->|DOCSIS Config File/TLV| GwProvApp
 
     %% WAN Manager to Interface Managers
@@ -38,9 +94,9 @@ graph LR
     classDef rdkbComponent fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
     classDef system fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
 
-    class HeadEnd external;
+    class RemoteMgmt,HeadEnd external;
     class GwProvApp GwProvApp;
-    class WanMgr,rdkbComponent rdkbComponent;
+    class ProtocolAgents,WanMgr,rdkbComponent rdkbComponent;
     class HAL,Linux,HW system;
 ```
 
@@ -61,6 +117,73 @@ The core design philosophy centers around maintaining system stability during mo
 
 The north-bound interfaces integrate seamlessly with RDK-B middleware components through IPC methods (RBus), providing configuration updates, operational status, and event notifications. South-bound integration leverages HAL APIs for hardware control, syscfg for persistent configuration management, and sysevent for real-time system coordination. The design incorporates robust error handling, recovery mechanisms, and comprehensive logging to support field deployment requirements and troubleshooting scenarios.
 
+**old diagram**
+```mermaid
+graph TD
+    subgraph "GwProvApp Container (C/Linux Process)"
+        subgraph "Main Application"
+            MainSM[Gateway Provisioning State Machine]
+            EventHandler[System Event Handler]
+            ConfigMgr[Configuration Manager]
+        end
+
+        subgraph "AutoWAN Module"
+            AutoWANSM[AutoWAN State Machine]
+            LinkMonitor[Link Status Monitor]
+            ModeSelector[WAN Mode Selector]
+        end
+
+        subgraph "DOCSIS Integration"
+            TLVParser[TLV Configuration Parser]
+            DOCSISEvents[DOCSIS Event Handler]
+            ProvisioningMgr[Provisioning Manager]
+        end
+
+        subgraph "Network Management"
+            RouterMgr[Router Mode Manager]
+            BridgeMgr[Bridge Mode Manager]
+            InterfaceMgr[Interface Manager]
+        end
+    end
+
+    subgraph "System Integration"
+        SysEvent[Sysevent Framework]
+        SysCfg[System Configuration]
+        HALLayer[HAL Interfaces]
+        IPC[IPC Methods Framework]
+    end
+
+    MainSM --> EventHandler
+    MainSM --> AutoWANSM
+    MainSM --> TLVParser
+    MainSM --> RouterMgr
+    MainSM --> BridgeMgr
+
+    EventHandler --> SysEvent
+    ConfigMgr --> SysCfg
+    DOCSISEvents --> HALLayer
+    InterfaceMgr --> HALLayer
+    
+    AutoWANSM --> LinkMonitor
+    AutoWANSM --> ModeSelector
+    LinkMonitor --> HALLayer
+    
+    TLVParser --> ProvisioningMgr
+    ProvisioningMgr --> IPC
+
+    classDef management fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef autowan fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef docsis fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef network fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+    classDef system fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class MainSM,EventHandler,ConfigMgr management;
+    class AutoWANSM,LinkMonitor,ModeSelector autowan;
+    class TLVParser,DOCSISEvents,ProvisioningMgr docsis;
+    class RouterMgr,BridgeMgr,InterfaceMgr network;
+    class SysEvent,SysCfg,HALLayer,IPC system;
+```
+**new diagram**
 ```mermaid
 graph TD
     subgraph "GwProvApp"
@@ -109,6 +232,18 @@ graph TD
     MainSM --> BridgeMgr
 
     TLVParser --> ProvisioningMgr
+
+    classDef management fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef autowan fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef docsis fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef network fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+    classDef system fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class MainSM,EventHandler,ConfigMgr management;
+    class AutoWANSM,LinkMonitor,ModeSelector autowan;
+    class TLVParser,DOCSISEvents,ProvisioningMgr docsis;
+    class RouterMgr,BridgeMgr,InterfaceMgr network;
+    class SysEvent,SysCfg,HALLayer,IPC system;
 ```
 
 
@@ -124,8 +259,9 @@ graph TD
 
 **RDK-B Platform and Integration Requirements:**
 
+- **Build Dependencies**: ccsp-common-library, hal-cm, hal-dhcpv4c, hal-ethsw, hal-moca, hal-platform, hal-wifi, utopia, telemetry, safec (optional)
 - **RDK-B Components**: CcspCommonLibrary for base CCSP functionality, Utopia for system service coordination, sysevent daemon for inter-process communication
-- **HAL Dependencies**: Cable Modem HAL, Ethernet Switch HAL, Platform HAL, DHCP v4 Client HAL, required for hardware abstraction
+- **HAL Dependencies**: Cable Modem HAL (hal-cm), Ethernet Switch HAL (hal-ethsw), Platform HAL (hal-platform), DHCP v4 Client HAL, required for hardware abstraction
 - **Systemd Services**: sysevent service must be active, syscfg service for configuration persistence, platform-specific initialization services
 - **IPC Methods**: Sysevent framework registration, RBus framework integration for middleware communication
 - **Configuration Files**: /nvram/syscfg.db for persistent configuration, /etc/utopia/ scripts for system integration, TLV configuration file support
@@ -139,7 +275,7 @@ GwProvApp implements a multi-threaded architecture optimized for event-driven op
 
 - **Threading Architecture**: Multi-threaded with event-driven main loop and specialized worker threads for different functional domains
 - **Main Thread**: Handles primary state machine operations, configuration processing, and coordinated initialization sequence management
-- **Main worker Threads**:
+- **Worker Threads**:
   - **Sysevent Thread**: Dedicated thread for sysevent notification handling and system event coordination
   - **AutoWAN Thread**: Monitors WAN interface status and handles automatic WAN mode selection logic
   - **Link State Thread**: Platform-specific thread for physical link status monitoring (Raspberry Pi/embedded platforms)
@@ -163,32 +299,32 @@ sequenceDiagram
     participant NetworkSvcs
 
     System->>System: Start [*] → SystemInit
-    Note right of System: Initialize logging framework<br>Open sysevent connections<br>Load persistent configuration<br>Register signal handlers
+    Note right of System: Initialize logging framework<br/>Open sysevent connections<br/>Load persistent configuration<br/>Register signal handlers
 
     System->>GwProvApp: Component Start → SystemInit
     GwProvApp->>Utopia: Load System Configuration → UtopiaInit
-    Note right of Utopia: Load syscfg parameters<br>Initialize system services<br>Setup IPC connections
+    Note right of Utopia: Load syscfg parameters<br/>Initialize system services<br/>Setup IPC connections
 
     Utopia->>DOCSIS: Initialize System Services → DOCSISWait
-    Note right of DOCSIS: Wait for DOCSIS registration<br>Hardware interface discovery<br>Cable modem initialization
+    Note right of DOCSIS: Wait for DOCSIS registration<br/>Hardware interface discovery<br/>Cable modem initialization
 
     DOCSIS->>HAL: DOCSIS Initialization Complete → DOCSISReady
-    Note right of HAL: Cable modem registration<br>Hardware interface discovery<br>HAL initialization complete<br>Network device creation
+    Note right of HAL: Cable modem registration<br/>Hardware interface discovery<br/>HAL initialization complete<br/>Network device creation
 
     HAL->>ConfigMgr: Hardware Interfaces Available → ConfigParsing
-    Note right of ConfigMgr: Parse TLV configuration<br>Process DOCSIS parameters<br>Validate settings
+    Note right of ConfigMgr: Parse TLV configuration<br/>Process DOCSIS parameters<br/>Validate settings
 
     ConfigMgr->>GwProvApp: TLV Configuration Processed → ModeSelection
-    Note right of GwProvApp: Determine operational mode<br>Evaluate AutoWAN options<br>Select router/bridge mode
+    Note right of GwProvApp: Determine operational mode<br/>Evaluate AutoWAN options<br/>Select router/bridge mode
 
     GwProvApp->>NetworkSvcs: Operational Mode Determined → NetworkSetup
-    Note right of NetworkSvcs: Configure network interfaces<br>Apply mode settings<br>Setup routing/bridging
+    Note right of NetworkSvcs: Configure network interfaces<br/>Apply mode settings<br/>Setup routing/bridging
 
     NetworkSvcs->>GwProvApp: Network Interfaces Configured → ServiceReady
-    Note right of GwProvApp: Start dependent services<br>Initialize monitoring<br>Enable management interfaces
+    Note right of GwProvApp: Start dependent services<br/>Initialize monitoring<br/>Enable management interfaces
 
     GwProvApp->>System: All Services Active → OperationalReady
-    Note right of System: LAN/WAN services active<br>Web interface available<br>TR-069 connectivity established<br>Monitoring services running
+    Note right of System: LAN/WAN services active<br/>Web interface available<br/>TR-069 connectivity established<br/>Monitoring services running
 
     System->>System: System Fully Operational → RuntimeOperation
 ```
@@ -271,6 +407,32 @@ GwProvApp is organized into functionally distinct modules that handle specific a
 | **System Event Integration** | Handles sysevent framework integration for inter-process communication and system coordination | Event handling functions in `gw_prov_sm.c` |
 | **HAL Interface Management** | Abstracts hardware interface control for DOCSIS, Ethernet switching, and platform-specific operations | HAL API calls throughout source files |
 
+```mermaid
+flowchart LR
+    subgraph GwProvApp
+        MainSM[Gateway Provisioning State Machine]
+        AutoWAN[AutoWAN Management Module]
+        TLVParser[TLV Configuration Parser]
+        EventMgr[System Event Manager]
+        HALMgr[HAL Interface Manager]
+    end
+    
+    MainSM --> AutoWAN
+    MainSM --> TLVParser
+    MainSM --> EventMgr
+    MainSM --> HALMgr
+    
+    AutoWAN --> HALMgr
+    TLVParser --> EventMgr
+    EventMgr --> HALMgr
+    
+    classDef core fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef specialized fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    
+    class MainSM,EventMgr core;
+    class AutoWAN,TLVParser,HALMgr specialized;
+```
+
 ## Component Interactions
 
 GwProvApp serves as a central coordination point within the RDK-B middleware stack, interfacing with multiple components across different architectural layers. The component handles both north-bound integration with middleware services and south-bound integration with hardware abstraction and system services.
@@ -294,7 +456,7 @@ GwProvApp serves as a central coordination point within the RDK-B middleware sta
 | Cable Headend/CMTS | DOCSIS configuration file delivery and provisioning | Configuration file parsing via DOCSIS subsystem |
 
 
-**Main events Published by GwProvApp:**
+**Events Published by GwProvApp:**
 
 | Event Name | Event Topic/Path | Trigger Condition | Subscriber Components |
 |-------------|------------------|-------------------|-----------------------|
@@ -303,6 +465,18 @@ GwProvApp serves as a central coordination point within the RDK-B middleware sta
 | `bridge_mode` | `bridge_mode` | Operational mode change | Network stack, firewall, routing services |
 | `erouter_mode-updated` | `erouter_mode-updated` | eRouter mode change completed | TR-069 agent, network services |
 | `phylink_wan_state` | `phylink_wan_state` | WAN physical link status change | WAN services, monitoring systems |
+
+
+**Events Consumed by GwProvApp:**
+
+| Event Source | Event Topic/Path | Purpose | Handler Function |
+|---------------|------------------|----------|------------------|
+| System | `erouter_mode` | eRouter operational mode change | `GWP_UpdateERouterMode()` |
+| Network Stack | `ipv4-status`, `ipv6-status` | IP connectivity status updates | `GWP_ProcessIpv4Up/Down()`, `GWP_ProcessIpv6Up/Down()` |
+| System Management | `system-restart` | Configuration change requiring restart | `GWP_ProcessUtopiaRestart()` |
+| Network Services | `lan-status`, `wan-status`, `bridge-status` | Network service status updates | Event processing in sysevent thread |
+| IPv6 Stack | `ipv6_prefix`, `tr_erouter0_dhcpv6_client_v6addr` | IPv6 configuration updates | IPv6 configuration handlers |
+
 
 ### IPC Flow Patterns
 
