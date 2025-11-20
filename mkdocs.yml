@@ -224,6 +224,7 @@ nav:
         - Telco Voice Manager: ./docu/nov04/telcovoicemanager.md
         - VLAN Manager: ./docu/nov04/vlanmanager.md
       - Nov05:
+        - Component List: ./docu/nov05/rdkb_components.md
         - WAN Manager: ./docu/nov05/wanmanager.md
         - CCSP LMLite: ./docu/nov05/ccsplmlite.md
         - Utopia: ./docu/nov05/utopia.md
