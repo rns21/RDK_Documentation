@@ -21,29 +21,3 @@
 | RBUS                  | [RBUS](../rbus/) |
 | Telco Voice Manager   | [Telco Voice Manager](../telcovoicemanager/) |
 | VLAN Manager          | [VLAN Manager](../vlanmanager/) |
-
-
-
-# Components List
-
-| Component Name        | Documentation                              |
-|:----------------------|:-------------------------------------------|
-| WAN Manager           | ../wanmanager/             |
-| CCSP LMLite           | ../ccsplmlite/             |
-| GPON Manager          | ../gponmanager/           |
-| Cellular Manager      | ../cellularmanager/   |
-| Utopia                | ../utopia/                      |
-| CCSP CM Agent         | ../ccspcmagent/          |
-| CCSP Common Lib       | ../ccspcommonlibrary/  |
-| CCSP DMCLI            | ../ccspdmcli/               |
-| CCSP PSM              | ../ccsppsm/                   |
-| CCSP PNM              | ../ccsppnm/                   |
-| CCSP TR69PA           | ../ccsptr69pa/             |
-| CCSP WiFiAgent        | ../ccspwifiagent/       |
-| GW ProvApp            | ../gwprovapp/               |
-| GW ProvApp EPON       | ../gwprovapp_epon/     |
-| One WiFi              | ../onewifi/                   |
-| PPP Manager           | ../pppmanager/             |
-| RBUS                  | ../rbus/                          |
-| Telco Voice Manager   | ../telcovoicemanager/ |
-

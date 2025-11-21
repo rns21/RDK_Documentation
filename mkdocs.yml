@@ -69,6 +69,8 @@ extra_css:
   - assets/stylesheets/sample_home1.css
   - assets/stylesheets/sample_home2.css
   - assets/stylesheets/sample_home3.css
+  - assets/stylesheets/sample_home4.css
+  - assets/stylesheets/sample_home5.css
   - https://fonts.googleapis.com/icon?family=Material+Icons
 extra_javascript:
   - assets/javascripts/extra.js
