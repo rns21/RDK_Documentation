@@ -88,6 +88,7 @@ nav:
       - Component List: ./entertainment/docs/rdkv_components.md
       - Westeros: ./entertainment/docs/components/westeros.md
       - RDK Shell: ./entertainment/docs/components/rdkshell.md
+      - Rialto: ./entertainment/docs/components/rialto.md
     - Device Profiles: ./entertainment/docs/video_profiles.md
     - Releases: https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes
   - Connectivity:
