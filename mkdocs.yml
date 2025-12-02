@@ -191,6 +191,28 @@ nav:
           - GPON Manager: ./docu/oct28/gponmanager.md
           - One WiFi: ./docu/oct28/onewifi.md
           - CCSP LMLite: ./docu/oct28/ccsplmlite.md
+          - GPON Manager: ./docu/oct28/gponmanager.md
+          - One WiFi: ./docu/oct28/onewifi.md
+          - CCSP LMLite: ./docu/oct28/ccsplmlite.md
+          - GPON Manager: ./docu/oct28/gponmanager.md
+          - One WiFi: ./docu/oct28/onewifi.md
+          - CCSP LMLite: ./docu/oct28/ccsplmlite.md
+          - GPON Manager: ./docu/oct28/gponmanager.md
+          - One WiFi: ./docu/oct28/onewifi.md
+          - CCSP LMLite: ./docu/oct28/ccsplmlite.md
+        - Chunked:
+          - CCSP PNM:
+            - Overview: ./docu/chunked/pnm/Overview.md
+            - Design: ./docu/chunked/pnm/Design.md
+            - Interactions: ./docu/chunked/pnm/Interactions.md
+          - WAN Manager:
+            - Overview: ./docu/chunked/wanmanager/Overview.md
+            - Design: ./docu/chunked/wanmanager/Design.md
+            - Interactions: ./docu/chunked/wanmanager/Interactions.md
+        - Dec02:
+          - TestnDiagnostics: ./docu/dec02/tnd.md
+          - CcspCR: ./docu/dec02/ccspcr.md
+          - FAQ: ./docu/dec02/faq.md
       - Oct29:
         - WAN Manager: ./docu/oct29/wanmanager.md
         - GPON Manager: ./docu/oct29/gponmanager.md
