@@ -2,19 +2,17 @@
 
 ## Design
 
-The Provisioning and Management (P&M) component is architected as a central data model manager and orchestrator within the RDK-B middleware stack, implementing a highly modular, event-driven design that seamlessly integrates with CCSP (Common Component Software Platform) framework principles. The component follows a plugin-based architecture where TR-181 data model objects are implemented as dynamically loadable modules, each handling specific aspects of device configuration such as DeviceInfo, IP interfaces, routing, NAT, DHCP services, firewall rules, and bridging. This design ensures clean separation of concerns, enabling independent development and testing of individual TR-181 object handlers while maintaining a unified management interface. The architecture prioritizes flexibility through conditional compilation flags that allow platform-specific features (MAPT support, WiFi management, Speed Boost, resource optimization) to be enabled or disabled based on deployment requirements, ensuring optimal resource utilization across diverse RDK-B device profiles.
+The Provisioning and Management (P&M) component is architected as a central data model manager and orchestrator within the RDK-B middleware stack, implementing a modular, event-driven design that integrates with CCSP (Common Component Software Platform) framework principles. The component follows a plugin-based architecture where TR-181 data model objects are implemented as dynamically loadable modules, each handling specific aspects of device configuration such as DeviceInfo, IP interfaces, routing, NAT, DHCP services, firewall rules, and bridging. This design ensures clean separation of concerns, enabling independent development and testing of individual TR-181 object handlers while maintaining a unified management interface.
 
-The design incorporates sophisticated inter-process communication mechanisms that leverage both legacy D-Bus infrastructure for backward compatibility with existing CCSP components and modern RBus protocol for high-performance, low-latency event-driven communication. This dual-IPC approach ensures seamless integration with the broader RDK-B ecosystem while providing migration path toward more efficient messaging paradigms. The component's state management design employs a three-tier persistence strategy: in-memory caches for high-frequency access patterns, PSM (Persistent Storage Manager) integration for TR-181 parameter persistence across reboots, and syscfg database for system-level configuration parameters. This layered approach optimizes read/write performance while guaranteeing configuration durability. The threading model is primarily single-threaded with selective use of worker threads for specific background operations (bandwidth guard parameter removal, CBR parameter cleanup), minimizing synchronization complexity while maintaining responsiveness for time-critical operations.
+The design incorporates inter-process communication mechanisms that leverage both legacy D-Bus infrastructure for backward compatibility with existing CCSP components and modern RBus protocol for high-performance, low-latency event-driven communication. This dual-IPC approach ensures integration with the broader RDK-B ecosystem while providing migration path toward more efficient messaging paradigms. The component's state management design employs a three-tier persistence strategy: in-memory caches for high-frequency access patterns, PSM (Persistent Storage Manager) integration for TR-181 parameter persistence across reboots, and syscfg database for system-level configuration parameters. This layered approach optimizes read/write performance while guaranteeing configuration durability. The threading model is primarily single-threaded with selective use of worker threads for specific background operations (bandwidth guard parameter removal, CBR parameter cleanup), minimizing synchronization complexity while maintaining responsiveness for time-critical operations.
 
-The design addresses northbound and southbound integration requirements through well-defined abstraction layers. Northbound interfaces support multiple management protocols (TR-069 CWMP, WebPA cloud management, local Web UI, RFC feature control) through a unified TR-181 parameter access layer that abstracts the underlying data model implementation. This allows external management systems to interact with the device using standardized parameter paths without knowledge of internal implementation details. Southbound integration with HAL (Hardware Abstraction Layer) is achieved through platform-specific function pointers and conditional compilation, enabling the same P&M codebase to run across diverse hardware platforms (Intel, ARM, Broadcom, Qualcomm) by simply linking against appropriate HAL implementations. The design explicitly separates platform-agnostic TR-181 logic (middle_layer_src) from platform-specific adaptations (board_ml, board_sbapi, custom vendor implementations), ensuring maintainability and portability.
+The design addresses northbound and southbound integration requirements through well-defined abstraction layers. Northbound interfaces support multiple management protocols (TR-069 CWMP, WebPA cloud management, local Web UI, RFC feature control) through a unified TR-181 parameter access layer that abstracts the underlying data model implementation. This allows external management systems to interact with the device using standardized parameter paths without knowledge of internal implementation details. Southbound integration with HAL (Hardware Abstraction Layer) is achieved through platform-specific function pointers, enabling the same P&M codebase to run across diverse hardware platforms (Intel, ARM, Broadcom, Qualcomm) by linking against appropriate HAL implementations. The design separates platform-agnostic TR-181 logic (middle_layer_src) from platform-specific adaptations (board_ml, board_sbapi, custom vendor implementations), ensuring maintainability and portability.
 
-IPC mechanism integration is designed with platform capability awareness and performance optimization in mind. The component registers with the CCSP Component Registrar using D-Bus paths defined in configuration files (CcspPam.cfg), exposing standardized GetParameterValues/SetParameterValues interfaces for legacy component interaction. For modern RBus-capable platforms, the design implements selective RBus registration for high-frequency events (WAN status changes, WiFi configuration updates, Speed Boost activation) where low latency is critical. The RBus handler architecture uses a data element array (devCtrlRbusDataElements[]) that maps event names to handler functions, enabling dynamic subscription management and efficient event routing. This hybrid approach ensures backward compatibility while exploiting modern platform capabilities where available. The design includes auto-discovery mechanisms (CcspBaseIf_discComponentSupportingNamespace) that automatically locate dependent components at runtime, eliminating hard-coded component assumptions and supporting flexible deployment topologies.
+IPC mechanism integration is designed with platform capability awareness and performance optimization in mind. The component registers with the CCSP Component Registrar using D-Bus paths defined in configuration files (CcspPam.cfg), exposing standardized GetParameterValues/SetParameterValues interfaces for legacy component interaction. For modern RBus-capable platforms, the design implements selective RBus registration for high-frequency events (WAN status changes, WiFi configuration updates, Speed Boost activation) where low latency is critical. The RBus handler architecture uses a data element array (devCtrlRbusDataElements[]) that maps event names to handler functions, enabling dynamic subscription management and efficient event routing. This hybrid approach ensures backward compatibility while exploiting modern platform capabilities where available. The design includes auto-discovery mechanisms (CcspBaseIf_discComponentSupportingNamespace) that locate dependent components at runtime, eliminating hard-coded component assumptions and supporting flexible deployment topologies.
 
-Data persistence is achieved through a comprehensive storage management design that balances performance, reliability, and consistency requirements. The component utilizes PSM for TR-181 parameter storage with automatic version tracking and rollback capabilities, particularly important for webconfig blob updates where configuration validation failures must not corrupt the persistent store. Critical device configuration (last reboot reason, network mode, feature flags) is stored in syscfg database with immediate commit semantics to ensure data durability across unexpected power cycles. The design implements a backup/restore mechanism for high-value configurations (port forwarding rules, DMZ settings) where in-memory caches maintain both active and backup copies, enabling instant rollback on validation failures. For dynamic cloud-driven configurations delivered via Webconfig framework, the design includes version management (getBlobVersion/setBlobVersion) that prevents replay attacks and out-of-order configuration application. Boot-time initialization creates marker files (/tmp/pam_initialized, /tmp/pam_initialized_bootup) that enable crash detection and differentiate first-boot scenarios from restart-after-crash conditions, allowing intelligent configuration synchronization strategies with cloud services.
+Data persistence is achieved through a comprehensive storage management design that balances performance, reliability, and consistency requirements. The component utilizes PSM for TR-181 parameter storage with automatic version tracking and rollback capabilities, particularly important for webconfig blob updates where configuration validation failures must not corrupt the persistent store. Critical device configuration (last reboot reason, network mode, feature flags) is stored in syscfg database with immediate commit semantics to ensure data durability across unexpected power cycles. The design implements a backup/restore mechanism for high-value configurations (port forwarding rules, DMZ settings) where in-memory caches maintain both active and backup copies, enabling instant rollback on validation failures. For dynamic cloud-driven configurations delivered via Webconfig framework, the design includes version management (getBlobVersion/setBlobVersion) that prevents replay attacks and out-of-order configuration application. Boot-time initialization creates marker files (/tmp/pam_initialized, /tmp/pam_initialized_bootup) that enable crash detection and differentiate first-boot scenarios from restart-after-crash conditions, allowing configuration synchronization strategies with cloud services.
 
 ### Component Architecture Diagram
-
-The following component diagram illustrates P&M's internal structure, showing how different sub-modules interact with the message bus, HAL layer, persistent storage, and telemetry systems:
 
 ```mermaid
 graph TD
@@ -127,11 +125,10 @@ graph TD
 
 ### Prerequisites and Dependencies
 
-**RDK-B Platform and Integration Requirements (MUST):**
+**RDK-B Platform and Integration Requirements :**
 
 - **DISTRO Features**: 
   - `DISTRO_FEATURES += "ccsp"` - Core CCSP framework support required
-  - Optional: `wifi-manage`, `speed-boost`, `mapt`, `resource-optimization` based on feature flags
   
 - **Build Dependencies**: 
   - **Yocto Layers**: `meta-rdk-broadband`, `meta-cmf`, `meta-rdk`
@@ -169,14 +166,14 @@ graph TD
   - `systemd-dbus.service` - D-Bus message bus must be active
   - `CcspCrSsp.service` - Component Registrar dependency
   - `PsmSsp.service` - Persistent Storage Manager dependency
-  - Optional: `rbus.service` - RBus daemon (if RBus IPC enabled)
+  - Optional: `rbus.service` - RBus daemon
   
 - **Message Bus**: 
   - **D-Bus Registration**: 
     - Component ID: `com.cisco.spvtg.ccsp.pam`
     - D-Bus Path: `/com/cisco/spvtg/ccsp/pam`
     - Namespace: `Device.DeviceInfo.*`, `Device.IP.*`, `Device.NAT.*`, `Device.DHCPv4.*`, `Device.DHCPv6.*`, `Device.Routing.*`, `Device.Hosts.*`, `Device.Bridging.*`, `Device.Firewall.*`, `Device.DNS.*`, `Device.Time.*`, `Device.Users.*`, vendor extensions
-  - **RBus Registration** (if enabled):
+  - **RBus Registration**:
     - Event topics: `Device.WiFi.X_RDK_ManagedWiFi.*`, `Device.DeviceInfo.X_RDK_SpeedBoost.*`, `Device.DeviceControl.X_RDK_DeviceNetworkingMode`, `Device.DeviceInfo.X_COMCAST-COM_WAN_IP*`
   
 - **Configuration Files**: 
@@ -210,7 +207,7 @@ graph TD
 
 **Threading Model**
 
-The P&M component employs a **hybrid single-threaded with selective worker threads** architecture optimized for event-driven parameter access while minimizing synchronization overhead. The main application thread handles all TR-181 parameter operations, D-Bus/RBus message processing, and HAL interactions sequentially, eliminating the need for complex locking mechanisms in the hot path. This design choice significantly reduces latency for common operations (GetParameterValues, SetParameterValues) which dominate the component's workload. Worker threads are spawned on-demand for specific long-running or background operations that should not block the main event loop, with careful synchronization using POSIX mutexes (pthread_mutex_t) to protect shared data structures.
+The P&M component employs a **hybrid single-threaded with selective worker threads** architecture optimized for event-driven parameter access while minimizing synchronization overhead. The main application thread handles all TR-181 parameter operations, D-Bus/RBus message processing, and HAL interactions sequentially, eliminating the need for complex locking mechanisms in the hot path. This design reduces latency for common operations (GetParameterValues, SetParameterValues) which dominate the component's workload. Worker threads are spawned on-demand for specific long-running or background operations that should not block the main event loop, with careful synchronization using POSIX mutexes (pthread_mutex_t) to protect shared data structures.
 
 - **Threading Architecture**: Hybrid single-threaded main loop with on-demand worker threads
 - **Main Thread Responsibilities**: 
@@ -354,7 +351,7 @@ sequenceDiagram
    
 8. **DiscoveringDependencies State**:
    - Use CcspBaseIf_discComponentSupportingNamespace() to locate WiFi Manager, WAN Manager, CM Agent
-   - Establish RBus subscriptions if enabled (WAN status, managed WiFi events)
+   - Establish RBus subscriptions (WAN status, managed WiFi events)
    
 9. **RunningAsyncInit State**:
    - Execute COSA_Async_Init() for time-consuming initialization
@@ -483,8 +480,6 @@ sequenceDiagram
 
 **Request Processing Call Flow - TR-181 Parameter Get:**
 
-This diagram illustrates the most common operation in P&M: processing a GetParameterValues request from an external management system (TR-069 ACS, WebPA, or another CCSP component).
-
 ```mermaid
 sequenceDiagram
     participant Client as External Client<br/>(TR-069/WebPA/WebUI)
@@ -517,8 +512,6 @@ sequenceDiagram
 ```
 
 **Request Processing Call Flow - Webconfig Blob Update:**
-
-This diagram shows the complex processing flow when P&M receives a configuration blob from the cloud via Webconfig Framework.
 
 ```mermaid
 sequenceDiagram
@@ -588,7 +581,7 @@ sequenceDiagram
 
 ## Internal Modules
 
-The P&M component is architected as a collection of specialized modules, each responsible for specific aspects of TR-181 data model implementation and system integration. This modular design enables parallel development, isolated testing, and flexible feature enablement through conditional compilation. The following modules work in concert to provide comprehensive device provisioning and management capabilities.
+The P&M component is architected as a collection of specialized modules, each responsible for specific aspects of TR-181 data model implementation and system integration. This modular design enables parallel development and isolated testing. The following modules work in concert to provide comprehensive device provisioning and management capabilities.
 
 | Module/Class | Description | Key Files |
 |-------------|------------|-----------|

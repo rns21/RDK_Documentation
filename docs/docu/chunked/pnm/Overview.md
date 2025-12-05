@@ -4,9 +4,9 @@
 
 The Provisioning and Management (P&M) component is a critical middleware module in the RDK-B architecture that serves as the central orchestrator for device configuration, network management, and TR-181 data model implementation. Operating as a CCSP (Common Component Software Platform) component, P&M acts as the primary interface between the device's physical layer (HAL), other RDK-B middleware components, and external management systems.
 
-P&M implements a comprehensive set of TR-181 data model objects that expose device capabilities and configuration parameters through standardized interfaces. It manages essential networking services including IP configuration, routing, NAT, DHCP (v4 and v6), firewall rules, bridging, and device information. The component supports dynamic configuration updates through WebConfig framework integration and provides real-time parameter access via RBus messaging infrastructure.
+P&M implements TR-181 data model objects that expose device capabilities and configuration parameters through standardized interfaces. It manages essential networking services including IP configuration, routing, NAT, DHCP (v4 and v6), firewall rules, bridging, and device information. The component supports dynamic configuration updates through WebConfig framework integration and provides real-time parameter access via RBus messaging infrastructure.
 
-As a service provider in the RDK-B stack, P&M enables remote device management through TR-069/TR-181 protocols, facilitates local configuration through web UI and CLI interfaces, and coordinates with other middleware components (CcspWiFi, WAN Manager, etc.) to maintain consistent network state. The component ensures proper initialization sequencing during boot, manages persistent configuration storage through PSM (Persistent Storage Manager), and provides telemetry data for monitoring and diagnostics.
+As a service provider in the RDK-B stack, P&M enables remote device management through TR-069/TR-181 protocols, facilitates local configuration through web UI and CLI interfaces, and coordinates with other middleware components (CcspWiFi, WAN Manager, etc.) to maintain consistent network state. The component manages initialization sequencing during boot, persistent configuration storage through PSM (Persistent Storage Manager), and provides telemetry data for monitoring and diagnostics.
 
 ## System Context
 
@@ -21,7 +21,7 @@ graph TD
         RFC["RFC Server<br/>(Feature Control)<br/>HTTP"]
     end
 
-    subgraph PAMComponent ["P&M Component (C/C++17)<br/>Process: CcspPandMSsp"]
+    subgraph PAMComponent ["P&M Component<br/>Process: CcspPandMSsp"]
         PAM["Provisioning & Management<br/>TR-181 Data Model Manager<br/>CCSP Framework"]
     end
 
@@ -103,13 +103,13 @@ graph TD
 
 ## Key Features & Responsibilities
 
-- **TR-181 Data Model Implementation**: Implements comprehensive TR-181 objects including Device.DeviceInfo, Device.IP, Device.NAT, Device.DHCPv4, Device.DHCPv6, Device.Routing, Device.Hosts, Device.Bridging, Device.Firewall, Device.DNS, Device.Time, Device.Users, and vendor-specific extensions. Provides standardized CRUD operations on all managed objects with proper validation and access control.
+- **TR-181 Data Model Implementation**: Implements TR-181 objects including Device.DeviceInfo, Device.IP, Device.NAT, Device.DHCPv4, Device.DHCPv6, Device.Routing, Device.Hosts, Device.Bridging, Device.Firewall, Device.DNS, Device.Time, Device.Users, and vendor-specific extensions. Provides standardized CRUD operations on all managed objects with validation and access control.
 
 - **Network Configuration Management**: Orchestrates IP interface configuration (IPv4/IPv6), routing tables, NAT rules, port forwarding, DMZ settings, and firewall policies. Manages LAN and WAN side networking with support for multiple interfaces, VLANs, and bridging configurations. Coordinates with WAN Manager for upstream connectivity and maintains network state consistency.
 
 - **DHCP Server and Client Management**: Controls DHCPv4 and DHCPv6 server instances for LAN-side address assignment with support for static leases, option configuration, and address pools. Manages DHCPv6 prefix delegation and stateless configuration. Provides DHCP reservation management through static client bindings and MAC-based address assignment.
 
-- **Device Information and Monitoring**: Exposes comprehensive device information including hardware version, firmware version, serial numbers, uptime, temperature, and memory statistics. Tracks network interface statistics, connection status, and performance metrics. Provides process monitoring and system diagnostics capabilities.
+- **Device Information and Monitoring**: Exposes device information including hardware version, firmware version, serial numbers, uptime, temperature, and memory statistics. Tracks network interface statistics, connection status, and performance metrics. Provides process monitoring and system diagnostics capabilities.
 
 - **Webconfig Integration**: Integrates with RDK Webconfig framework to support dynamic configuration updates from cloud services. Handles configuration blobs for LAN settings, Port Forwarding, DMZ, Static Clients (MAC binding), Managed WiFi, and Speed Boost features. Implements blob validation, decoding, and rollback mechanisms for reliable configuration management.
 
@@ -117,7 +117,7 @@ graph TD
 
 - **Firewall and Security Management**: Manages iptables/nftables rules for IPv4 and IPv6 traffic filtering, port blocking, and DMZ configuration. Implements security policies including parental controls, URL filtering, and connection tracking. Coordinates with Platform HAL for hardware-accelerated firewall operations where available.
 
-- **Hosts and Device Discovery**: Maintains active host table tracking connected devices across LAN interfaces. Provides MAC-to-IP mapping, hostname resolution, and device activity monitoring. Supports DHCPv4 and IPv6 neighbor discovery for comprehensive network visibility.
+- **Hosts and Device Discovery**: Maintains active host table tracking connected devices across LAN interfaces. Provides MAC-to-IP mapping, hostname resolution, and device activity monitoring. Supports DHCPv4 and IPv6 neighbor discovery for network visibility.
 
 - **Bridging and Interface Management**: Manages Linux bridge interfaces for LAN connectivity with support for multiple bridge instances. Controls bridge port membership, VLAN tagging, and STP configuration. Coordinates with InterfaceStack data model for proper layer-2/layer-3 relationship management.
 
@@ -129,7 +129,7 @@ graph TD
 
 - **UPnP and Port Mapping**: Implements UPnP IGD (Internet Gateway Device) protocol for automatic port forwarding discovery and configuration. Manages dynamic port mapping lifecycle and security policies for UPnP-enabled applications.
 
-- **Persistent Configuration Storage**: Integrates with PSM (Persistent Storage Manager) for non-volatile storage of configuration parameters. Manages configuration versioning, backup, and factory reset scenarios. Ensures configuration consistency across reboots and firmware upgrades.
+- **Persistent Configuration Storage**: Integrates with PSM (Persistent Storage Manager) for non-volatile storage of configuration parameters. Manages configuration versioning, backup, and factory reset scenarios. Maintains configuration consistency across reboots and firmware upgrades.
 
 - **Diagnostics and Testing**: Provides network diagnostic capabilities including ping, traceroute, and bandwidth testing interfaces. Supports TR-143 download/upload diagnostics for throughput measurement. Implements connectivity verification and automated health checks.
 

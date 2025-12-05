@@ -160,8 +160,8 @@ graph TD
 
 ---
 
-**Technology Stack**: C (C99), Autotools build system, RBUS/DBUS IPC, Netlink sockets, Linux networking utilities (ip, iptables), TR-181 data model, WebConfig framework, Sysevent messaging
+**Technology Stack**: C (C99), RBUS/DBUS IPC, Netlink sockets, Linux networking utilities (ip, iptables), TR-181 data model, WebConfig framework, Sysevent messaging
 
 **Runtime Environment**: RDK-B middleware process running on Linux-based broadband gateway devices (cable modems, routers, residential gateways)
 
-**Version**: 1.5+ (actively maintained, see CHANGELOG for release history)
+**Version**: 1.5+

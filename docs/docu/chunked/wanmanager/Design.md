@@ -4,19 +4,19 @@
 
 The WAN Manager component is architected as a multi-threaded middleware orchestrator that manages WAN connectivity across diverse physical interfaces in RDK-B powered devices. The design follows a layered architecture with clear separation of concerns: a controller layer managing failover policies, a selection policy layer implementing interface selection algorithms, and a state machine layer handling individual interface lifecycle management.
 
-At its core, WAN Manager implements a sophisticated event-driven architecture that coordinates between multiple subsystems. The design embraces a policy-based approach where different selection strategies (AutoWAN, Parallel Scan, Fixed Mode, Primary Priority) can be applied to interface groups, enabling flexible deployment scenarios. The component maintains a centralized data model synchronized across all threads using mutex-protected access patterns, ensuring thread-safe operations while providing real-time responsiveness to physical layer events and configuration changes.
+WAN Manager implements an event-driven architecture that coordinates between multiple subsystems. The design uses a policy-based approach where different selection strategies (AutoWAN, Parallel Scan, Fixed Mode, Primary Priority) can be applied to interface groups, enabling flexible deployment scenarios. The component maintains a centralized data model synchronized across all threads using mutex-protected access patterns, ensuring thread-safe operations while providing real-time responsiveness to physical layer events and configuration changes.
 
-The architecture optimally meets requirements through hierarchical state management: a top-level Failover Controller manages group-level transitions, per-group Selection Policies coordinate interface selection within groups, and per-interface State Machines (VISM - Virtual Interface State Machine) handle the complete lifecycle from PHY initialization through IP configuration to connectivity validation. This multi-level approach allows simultaneous management of multiple WAN technologies while maintaining isolation between interface groups for independent failover behavior. The design supports both hot-swap and cold-swap failover modes, automatic restoration to higher-priority interfaces, and runtime configuration updates without service interruption.
+The architecture uses hierarchical state management: a top-level Failover Controller manages group-level transitions, per-group Selection Policies coordinate interface selection within groups, and per-interface State Machines (VISM - Virtual Interface State Machine) handle the lifecycle from PHY initialization through IP configuration to connectivity validation. This multi-level approach allows simultaneous management of multiple WAN technologies while maintaining isolation between interface groups for independent failover behavior. The design supports both hot-swap and cold-swap failover modes, automatic restoration to higher-priority interfaces, and runtime configuration updates without service interruption.
 
 For northbound interactions, WAN Manager exposes a TR-181 compliant data model through RBUS (RDK Message Bus), enabling remote configuration via WebConfig and local management through dmcli/SNMP. The component registers as "eRT.com.cisco.spvtg.ccsp.wanmanager" on the message bus and publishes events for state changes, providing real-time visibility to management systems. Southbound, WAN Manager communicates with Interface Managers (DOCSIS, Ethernet, Cellular, DSL) through RBUS subscriptions to receive physical layer status updates and configuration parameters. It orchestrates VLAN configuration, DHCP client operations, and PPP session management by issuing commands to respective managers (VLAN Manager, DHCP Manager, PPP Manager) and interfacing directly with platform HAL for low-level network configuration.
 
-IPC mechanisms are carefully selected based on platform capabilities and communication patterns. RBUS serves as the primary IPC for all middleware-to-middleware communication, providing publish-subscribe semantics for event-driven updates and synchronous get/set operations for configuration management. An internal Unix domain socket-based IPC server handles time-critical notifications from DHCP clients and connectivity check processes. Sysevent is utilized for legacy integration and coordination with platform services. The component also uses netlink sockets for direct Linux kernel networking stack interaction, enabling real-time monitoring of interface state changes and route updates.
+RBUS serves as the primary IPC for all middleware-to-middleware communication, providing publish-subscribe semantics for event-driven updates and synchronous get/set operations for configuration management. An internal Unix domain socket-based IPC server handles time-critical notifications from DHCP clients and connectivity check processes. Sysevent is utilized for legacy integration and coordination with platform services. The component also uses netlink sockets for direct Linux kernel networking stack interaction, enabling real-time monitoring of interface state changes and route updates.
 
 Data persistence and storage management follows RDK-B conventions using the Persistent Storage Manager (PSM). WAN Manager stores interface configurations, selection policies, group definitions, VLAN settings, and failover preferences in PSM, ensuring configuration survives reboots. The component uses a write-through caching strategy where runtime data model changes are immediately persisted to PSM. Configuration restoration occurs during initialization, with PSM providing the authoritative configuration source. Additionally, syscfg is used for platform-specific settings. The component implements atomic update patterns to ensure configuration consistency, and supports WebConfig-based bulk configuration updates with transactional semantics.
 
 ### Component Diagram
 
-A Component diagram showing WAN Manager's internal structure and dependencies is given below:
+WAN Manager's internal structure and dependencies:
 
 ```mermaid
 graph TD
@@ -213,63 +213,29 @@ ip/route/netlink]
 
 ### Prerequisites and Dependencies
 
-**RDK-B Platform and Integration Requirements (MUST):**
-
-- **DISTRO Features**: 
-  - `DISTRO_FEATURES += "rdk-b"` - Core RDK-B middleware support
-  - `DISTRO_FEATURES += "systemd"` - Systemd init system required for service management
-  - Optional: `DISTRO_FEATURES += "cellular"` for LTE/5G WAN support
-  - Optional: `DISTRO_FEATURES += "wan_unification"` for unified WAN interface model
-
-- **Build Dependencies**: 
-  - `meta-rdk-broadband` layer - Core RDK-B recipes
-  - `ccsp-common-library` - CCSP framework and base libraries
-  - `hal-cm` - DOCSIS cable modem HAL
-  - `hal-platform` - Platform-specific HAL implementation
-  - `rbus` - RDK Message Bus library
-  - `libsyswrapper` - System wrapper library for secure operations
-  - `utopia` - System event infrastructure
-  - `libsyscfg` - System configuration library
-  - `ccsp-psm` - Persistent Storage Manager
-  - `breakpad` (optional) - Crash reporting
-  - `telemetry` (optional) - T2 telemetry support
+**RDK-B Platform and Integration Requirements:**
 
 - **RDK-B Components**: 
-  - **CCSP Component Registry (CR)** - MUST be running for component registration and discovery
-  - **Persistent Storage Manager (PSM)** - MUST be active for configuration persistence
+  - **CCSP Component Registry (CR)** - Required for component registration and discovery
+  - **Persistent Storage Manager (PSM)** - Required for configuration persistence
   - **Platform & Application Manager (PAM)** - Required for IP interface management
-  - **Interface Managers** - At least one interface manager (DOCSIS/Ethernet/Cellular/DSL) must be present
+  - **Interface Managers** - At least one interface manager (DOCSIS/Ethernet/Cellular/DSL) required
   - **VLAN Manager** - Required if VLAN tagging is used
   - **DHCP Manager** - Required for DHCP-based WAN interfaces
   - **PPP Manager** - Required for PPPoE/PPP-based WAN interfaces
   - **WebPA** - Required for remote management via WebConfig
 
 - **HAL Dependencies**: 
-  - **Platform HAL** (`libhal_platform`) - Minimum version supporting WAN interface control APIs
-  - **Network HAL** (if separate) - Network configuration and status APIs
+  - **Platform HAL** - WAN interface control APIs
+  - **Network HAL** - Network configuration and status APIs
   - **CM HAL** (for DOCSIS) - Cable modem status and control
-  - **Cellular HAL** (if LTE/5G support) - Cellular modem management
-
-- **Systemd Services**: 
-  - System services that must be active before WAN Manager starts:
-    - `sysevent.service` - System event infrastructure
-    - `psm.service` - Persistent Storage Manager
-    - `CcspCrSsp.service` - Component Registry
-    - `PsmSsp.service` - PSM component
-    - Interface manager services (e.g., `CcspEthAgent.service`, `CcspCMAgent.service`)
+  - **Cellular HAL** (for LTE/5G support) - Cellular modem management
 
 - **Message Bus**: 
   - **RBUS Registration**: Component name `eRT.com.cisco.spvtg.ccsp.wanmanager`
   - **Namespace**: `Device.X_RDK_WanManager.*` for RDK extensions, `Device.X_RDKCENTRAL-COM_WanManager.*` for legacy paths
   - **Subscriptions**: Subscribes to Interface Manager events, system ready events, DHCP events
   - **Publications**: Publishes WAN status changes, interface selection events, connectivity events
-
-- **Configuration Files**: 
-  - `/etc/rdk/conf/RdkWanManager.xml` or `/etc/rdk/conf/RdkWanManager_v2.xml` - Component XML descriptor
-  - `/nvram/psm-db` - Persistent configuration database (managed by PSM)
-  - `/etc/utopia/system_defaults` - Default system configuration values
-  - `/etc/debug.ini` - Debug level configuration
-  - `/tmp/wanmanager_initialized` - Initialization marker file
 
 - **Startup Order**: 
   1. Sysevent daemon
@@ -558,8 +524,6 @@ sequenceDiagram
 
 **Interface Selection and Activation Call Flow (AutoWAN Policy):**
 
-This sequence shows how WAN Manager selects and activates an interface using the AutoWAN policy, which tries interfaces sequentially until one successfully validates Internet connectivity.
-
 ```mermaid
 sequenceDiagram
     participant Failover as Failover Controller
@@ -631,8 +595,6 @@ sequenceDiagram
 ```
 
 **Failover Trigger and Execution Call Flow:**
-
-This sequence illustrates how WAN Manager detects connectivity loss on an active interface and fails over to a backup interface in a different group.
 
 ```mermaid
 sequenceDiagram
@@ -729,8 +691,6 @@ WAN Manager is composed of several internal modules, each responsible for specif
 | **Telemetry Module** | Reports operational metrics and events to RDK telemetry systems (T2). Tracks failover/restoration success/failure counts, connectivity check results, interface selection events, DHCP lease acquisition times. Logs timed events for performance analysis (e.g., failover duration). Publishes to both legacy telemetry and T2 infrastructure. | `wanmgr_telemetry.c`, `wanmgr_telemetry.h`, `wanmgr_t2_telemetry.c`, `wanmgr_t2_telemetry.h` |
 
 ### Module Interaction Diagram
-
-The following diagram illustrates the relationships and data flow between WAN Manager's internal modules:
 
 ```mermaid
 flowchart TD

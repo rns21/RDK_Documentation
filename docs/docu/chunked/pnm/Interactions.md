@@ -65,8 +65,6 @@ flowchart TD
 
 ### Interaction Matrix
 
-This consolidated table provides component interactions with their purposes and key APIs/endpoints:
-
 | Target Component/Layer | Interaction Purpose | Key APIs/Endpoints |
 |------------------------|-------------------|------------------|
 | **RDK-B Middleware Components** |
@@ -235,7 +233,7 @@ The P&M component integrates with multiple HAL layers to abstract hardware-speci
 
 #### Data Model Management Engine
 
-The P&M component implements a sophisticated data model management system that maps TR-181 objects to internal data structures and HAL interactions.
+The P&M component implements a data model management system that maps TR-181 objects to internal data structures and HAL interactions.
 
 - **Main Implementation**: `plugin_main.c` (COSA_Init, COSA_Async_Init functions)
   - Initializes backend manager object (`g_pCosaBEManager`)
@@ -297,7 +295,7 @@ Dynamic configuration updates from cloud are processed through a multi-stage pip
 
 #### Error Handling Strategy
 
-Comprehensive error handling ensures system stability and provides diagnostic information.
+Error handling ensures system stability and provides diagnostic information.
 
 - **HAL Error Code Mapping**:
   - HAL functions return `RETURN_OK` (0) or `RETURN_ERR` (-1)
@@ -327,7 +325,7 @@ Multi-level logging provides runtime visibility and troubleshooting capabilities
   - `CcspTraceError()` - Critical failures, HAL errors, IPC communication failures
   - `CcspTraceWarning()` - Configuration issues, validation warnings, deprecated API usage
   - `CcspTraceInfo()` - Operational events, state transitions, normal IPC traffic
-  - `OnboardLog()` - Persistent logging for field diagnostics (when `FEATURE_SUPPORT_ONBOARD_LOGGING` enabled)
+  - `OnboardLog()` - Persistent logging for field diagnostics
   
 - **State Transition Logging**:
   - RBus event handlers log subscription changes: `"Event subscribed/unsubscribed"`
@@ -340,8 +338,8 @@ Multi-level logging provides runtime visibility and troubleshooting capabilities
   - Error paths include full context (function, line, parameters)
   
 - **Debug Hooks**:
-  - `USE_REMOTE_DEBUGGER` feature: RBus-based remote debugging interface
-  - Allows runtime issue injection for testing: `RRD_SET_ISSUE_EVENT`, `RRD_WEBCFG_ISSUE_EVENT`
+  - RBus-based remote debugging interface
+  - Runtime issue injection for testing: `RRD_SET_ISSUE_EVENT`, `RRD_WEBCFG_ISSUE_EVENT`
   - Download trigger: `RDM_DOWNLOAD_EVENT` for firmware update scenarios
 
 ### Key Configuration Files

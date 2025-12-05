@@ -58,8 +58,6 @@ flowchart TD
 
 ### Interaction Matrix
 
-This consolidated table provides component interactions with their purposes and key APIs/endpoints.
-
 | Target Component/Layer | Interaction Purpose | Key APIs/Endpoints |
 |------------------------|-------------------|------------------|
 | **RDK-B Middleware Components** |
@@ -285,7 +283,6 @@ WAN Manager does not directly integrate with HAL APIs as it operates at the midd
   - State transition logging for all state machines
   - DHCP client event logging with interface name, IP addresses, DNS servers
   - T2 telemetry markers for performance metrics (WAN uptime, failover counts)
-  - Debug build flags: `FEATURE_MAPT_DEBUG` for MAP-T detailed logs
 
 ### Key Configuration Files
 
@@ -295,7 +292,7 @@ WAN Manager configuration is distributed across multiple storage mechanisms for 
 |--------------------|---------|--------------------|
 | **PSM Database** (`dmsb.wanmanager.*`) | Persistent storage of TR-181 data model parameters (interface configs, marking tables, priorities) | CCSP Set API calls, WebConfig provisioning |
 | **Syscfg** (`last_wan_mode`, `tr_dhcpv6c_*`) | Legacy configuration for upgrade compatibility, DHCPv6 client settings | `syscfg set` commands, factory reset |
-| **XML Data Model** (`RdkWanManager.xml`, `RdkWanManager_v2.xml`) | TR-181 object/parameter schema definitions for CCSP framework | Compile-time configuration (no runtime override) |
+| **XML Data Model** (`RdkWanManager.xml`, `RdkWanManager_v2.xml`) | TR-181 object/parameter schema definitions for CCSP framework | N/A |
 | **WebConfig Subdoc** | Remote cloud-based provisioning of WAN settings via msgpack format | Cloud-initiated WebConfig HTTP POST |
 | **Sysevent Variables** | Runtime state variables shared with other components (current WAN state, DNS servers, IP addresses) | `sysevent set` commands from WAN Manager and other components |
 
@@ -362,5 +359,3 @@ WAN Manager configuration is distributed across multiple storage mechanisms for 
 - Interface State Machines: M threads (one per virtual interface) managing interface lifecycle
 - DHCP Event Processing: Asynchronous via IPC message queue
 - Thread synchronization: Mutex-protected data access via `WanMgr_GetIfaceData_locked()` / `WanMgrDml_GetIfaceData_release()` pattern
-
-This architecture enables WAN Manager to orchestrate complex multi-interface WAN connectivity scenarios while maintaining clean separation of concerns across policy logic, state management, and external integrations.
