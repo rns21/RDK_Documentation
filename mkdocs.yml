@@ -209,6 +209,14 @@ nav:
             - Overview: ./docu/chunked/wanmanager/Overview.md
             - Design: ./docu/chunked/wanmanager/Design.md
             - Interactions: ./docu/chunked/wanmanager/Interactions.md
+          - LMLite:
+            - Overview: ./docu/chunked/wanmanager/Overview.md
+            - Design: ./docu/chunked/wanmanager/Design.md
+            - Interactions: ./docu/chunked/wanmanager/Interactions.md            
+          - Utopia:
+            - Overview: ./docu/chunked/wanmanager/Overview.md
+            - Design: ./docu/chunked/wanmanager/Design.md
+            - Interactions: ./docu/chunked/wanmanager/Interactions.md          
         - Dec02:
           - TestnDiagnostics: ./docu/dec02/tnd.md
           - CcspCR: ./docu/dec02/ccspcr.md
