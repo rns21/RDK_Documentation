@@ -295,7 +295,7 @@ Dynamic configuration updates from cloud are processed through a multi-stage pip
 
 #### Error Handling Strategy
 
-Error handling ensures system stability and provides diagnostic information.
+Error handling provides system stability and diagnostic information.
 
 - **HAL Error Code Mapping**:
   - HAL functions return `RETURN_OK` (0) or `RETURN_ERR` (-1)
@@ -319,7 +319,7 @@ Error handling ensures system stability and provides diagnostic information.
 
 #### Logging & Debugging
 
-Multi-level logging provides runtime visibility and troubleshooting capabilities.
+Multi-level logging supports runtime visibility and troubleshooting.
 
 - **Logging Categories**:
   - `CcspTraceError()` - Critical failures, HAL errors, IPC communication failures
@@ -344,22 +344,22 @@ Multi-level logging provides runtime visibility and troubleshooting capabilities
 
 ### Key Configuration Files
 
-P&M relies on multiple configuration sources for both build-time and runtime settings.
+P&M relies on multiple configuration sources.
 
 | Configuration File | Purpose | Override Mechanisms |
 |--------------------|---------|---------------------|
 | **CcspPam.cfg** | CCSP component registration and D-Bus path definition | - |
 | Location: `config-arm/CcspPam.cfg` | Defines: Component ID (`com.cisco.spvtg.ccsp.pam`), D-Bus path (`/com/cisco/spvtg/ccsp/pam`), Version | Environment variables can override at runtime |
 | **CcspDmLib.cfg** | Data model library configuration, XML data model file mapping | - |
-| Location: `config-arm/CcspDmLib.cfg` | Points to TR-181 XML definitions | Build-time configuration |
-| **TR181-USGv2.XML** | Complete TR-181 data model definition with function mappings | Platform-specific variants (nowifi, bci) |
+| Location: `config-arm/CcspDmLib.cfg` | Points to TR-181 XML definitions | - |
+| **TR181-USGv2.XML** | Complete TR-181 data model definition with function mappings | - |
 | Location: `config-arm/TR181-USGv2.XML` (18,276 lines) | Maps TR-181 objects to backend functions: `func_GetParamBoolValue`, handlers, parameter syntax | XML schema defines all exposed parameters |
 | **syscfg database** | Persistent system configuration storage (flash-backed) | Command-line `syscfg set/get`, TR-181 parameter sets |
 | Common keys: | `Device_Mode`, `X_RDKCENTRAL-COM_LastRebootReason`, `TelemetryEndpointURL`, `restore_reboot`, `IHC_Mode`, `<subdoc>_version` (webconfig versions) | TR-181 parameter updates trigger syscfg commits |
 | **PSM database** | Persistent parameter storage for TR-181 configuration | TR-181 SetParameterValues, RFC, Webconfig |
 | Namespace: | `dmsb.*` (data model storage backend), `Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Feature.*` | PSM values override defaults on boot |
-| **device.properties** | Hardware/platform capability definitions | Read-only, set at build/manufacturing |
-| Location: `/etc/device.properties` | Device model, features, hardware revision | Platform-specific builds |
+| **device.properties** | Hardware/platform capability definitions | Read-only |
+| Location: `/etc/device.properties` | Device model, features, hardware revision | - |
 | **debug.ini** | Debug logging configuration | Runtime editable |
 | Location: `/etc/debug.ini` | Log levels per module, trace destinations | Modified without reboot for debugging |
 
@@ -369,7 +369,7 @@ P&M relies on multiple configuration sources for both build-time and runtime set
 3. **RFC feature flags in PSM** (feature rollout control)
 4. **syscfg persistent values** (survives reboots)
 5. **PSM database defaults** (component-specific persistence)
-6. **Compiled-in defaults** (lowest priority - in source code)
+6. **Compiled-in defaults** (in source code)
 
 **State Management**:
 - **Component State Machine**: Initialization → Registration → Ready → Running

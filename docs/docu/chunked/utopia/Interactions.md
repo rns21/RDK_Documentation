@@ -160,8 +160,8 @@ sequenceDiagram
     Utopia->>SysEvent: sysevent_set("wan-status", "up")
     SysEvent->>Sub1: Event Notification (async)
     SysEvent->>Sub2: Event Notification (async)
-    Sub1-->>SysEvent: Ack (if required)
-    Sub2-->>SysEvent: Ack (if required)
+    Sub1-->>SysEvent: Ack
+    Sub2-->>SysEvent: Ack
 ```
 
 **CCSP Message Bus Communication Flow:**

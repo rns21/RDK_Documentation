@@ -4,7 +4,7 @@
 
 LAN Manager Lite (LMLite) is a lightweight RDK-B middleware component that tracks, monitors, and reports connected network devices across various interfaces (Ethernet, WiFi, MoCA) on RDK-B gateways. The component implements a streamlined architecture that minimizes resource consumption while providing network device visibility and reporting capabilities.
 
-The design employs an event-driven architecture combined with periodic polling mechanisms to maintain real-time awareness of device connectivity states. LMLite integrates tightly with the TR-181 data model, implementing Device.Hosts.Host.* objects and providing northbound data access through CCSP message bus (D-Bus) and RBus interfaces. The component aggregates information from multiple southbound sources including ARP tables, DHCP leases (dnsmasq), WiFi HAL, MoCA HAL, and Ethernet HAL, providing a unified view of network-attached devices.
+The design employs an event-driven architecture combined with periodic polling mechanisms to maintain real-time awareness of device connectivity states. LMLite integrates with the TR-181 data model, implementing Device.Hosts.Host.* objects and providing northbound data access through CCSP message bus (D-Bus) and RBus interfaces. The component aggregates information from multiple southbound sources including ARP tables, DHCP leases (dnsmasq), WiFi HAL, MoCA HAL, and Ethernet HAL, providing a unified view of network-attached devices.
 
 Key design principles include:
 
@@ -16,7 +16,7 @@ Key design principles include:
 
 4. **Data Persistence and Synchronization**: Utilizes syscfg for persistent storage of configuration parameters and host-related metadata (comments, presence detection settings). Maintains versioned host activity tracking through `X_RDKCENTRAL-COM_HostVersionId` for WebPA synchronization.
 
-5. **Telemetry and Analytics**: Integrates comprehensive telemetry reporting through Avro serialization for network device status and traffic metrics, with configurable harvesting and reporting periods supporting accelerated scans via TTL overrides.
+5. **Telemetry and Analytics**: Integrates telemetry reporting through Avro serialization for network device status and traffic metrics, with configurable harvesting and reporting periods supporting accelerated scans via TTL overrides.
 
 ### North-South Interface Integration
 
@@ -48,7 +48,7 @@ LMLite employs multiple IPC mechanisms optimized for different communication pat
    - Synchronous request-response for TR-181 data model access.
 
 3. **RBus**:
-   - Used for WAN traffic counting feature when enabled (`WAN_TRAFFIC_COUNT_SUPPORT`)
+   - Used for WAN traffic counting feature
    - Subscribe to WAN Manager events: `Device.X_RDK-Central_COM_EthWan.CurrentOperationalMode` and `Device.X_RDK-Central_COM_EthWan.Intf.1.OperationalStatus`
    - Publishes WAN traffic statistics events for consumption by telemetry and analytics components
 
@@ -222,10 +222,8 @@ sequenceDiagram
     LM->>LM: initparodusTask()
     Note over LM: Start WebPA client thread
     
-    alt WAN_TRAFFIC_COUNT_SUPPORT
-        LM->>LM: WTC_Init()
-        Note over LM: Initialize WAN traffic counting
-    end
+    LM->>LM: WTC_Init()
+    Note over LM: Initialize WAN traffic counting
     
     LM->>MQ: mq_open("/Validate_host_queue")
     LM->>LM: pthread_create(ValidateHost_Thread)
@@ -314,11 +312,9 @@ sequenceDiagram
         LM->>LM: LM_SET_ACTIVE_STATE_TIME(pHost, TRUE)
         Note over LM: Log: "RDKB_CONNECTED_CLIENTS:<br/>WiFi client [MAC] [HostName] appeared online"<br/>Update activityChangeTime
         
-        alt USE_NOTIFY_COMPONENT Enabled
-            LM->>NotifyComp: Send_Notification()
-            Note over NotifyComp: Connected-Client,WiFi,[MAC],Connected,[HostName]
-            NotifyComp->>NotifyComp: CcspBaseIf_setParameterValues()
-        end
+        LM->>NotifyComp: Send_Notification()
+        Note over NotifyComp: Connected-Client,WiFi,[MAC],Connected,[HostName]
+        NotifyComp->>NotifyComp: CcspBaseIf_setParameterValues()
         
         LM->>LM: pthread_mutex_unlock(&LmHostObjectMutex)
         
@@ -568,7 +564,7 @@ flowchart TD
 - Base RDK-B image with CCSP middleware stack
 - WebPA service discovery via seshat
 - WAN traffic statistics
-- Core_net_lib neighbor table access
+- Neighbor table access
 - Connected-Client notification support
 - RBus-based WAN failover integration
 
@@ -586,22 +582,22 @@ flowchart TD
   - `libwrp-c` - Web Router Protocol client library
   - `libparodus` - Parodus WebPA client library
   - `libtelemetry_msgsender` - Telemetry/T2 integration
-  - `librbus` (if RBus features enabled) - RBus communication library
-  - `libseshat` (if ENABLE_SESHAT) - Service discovery client
+  - `librbus` - RBus communication library
+  - `libseshat` - Service discovery client
   - `libsecure_wrapper` - Secure system() wrapper for command execution
-  - `libnet` (if CORE_NET_LIB) - Core network library for neighbor queries
+  - `libnet` - Core network library for neighbor queries
 
-**RDK-B Components (Runtime Dependencies):**
+**RDK-B Components (Runtime Dependencies):****
 - **CcspCr (Component Registrar)**: Must be running for CCSP message bus registration
 - **CcspPandM (PAM)**: Consumes LMLite host data, manages TR-181 root device model
 - **CcspWifiAgent**: Provides WiFi HAL events and association data to LMLite
 - **CcspEthAgent**: Sends Ethernet link events via `Device.Ethernet.X_RDKCENTRAL-COM_EthHost_Sync`
 - **CcspMoCAAgent** (if MoCA supported): Sends MoCA client events via `Device.MoCA.X_RDKCENTRAL-COM_MoCAHost_Sync`
-- **WanManager** (if WAN_FAILOVER_SUPPORTED): Publishes RBus events for WAN interface status
+- **WanManager**: Publishes RBus events for WAN interface status
 - **dnsmasq**: DHCP server providing lease files at `/nvram/dnsmasq.leases`
 - **dibbler-server** (if IPv6 DHCP): Provides IPv6 lease cache at `/etc/dibbler/server-cache.xml`
 - **parodus**: WebPA client for cloud communication
-- **NotifyComponent** (if USE_NOTIFY_COMPONENT): Receives Connected-Client notifications
+- **NotifyComponent**: Receives Connected-Client notifications
 
 **HAL Dependencies:**
 - **platform_hal**: `platform_hal.h` - Platform identification and MAC address retrieval (used in provisioning-and-management, not directly by LMLite)
