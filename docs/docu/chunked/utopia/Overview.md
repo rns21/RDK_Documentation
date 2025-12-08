@@ -2,9 +2,9 @@
 
 ## Overview
 
-Utopia is a foundational middleware component in the RDK-B architecture that provides system configuration management, event handling, and network service orchestration capabilities. As a core infrastructure layer, Utopia provides dynamic runtime configuration, inter-process communication, and manages critical network services including WAN connectivity, LAN configuration, DHCP, IPv6, firewall, and routing services. The component serves as a bridge between high-level RDK-B components (like CcspPandM) and low-level platform services, abstracting platform-specific details while providing a unified API for system state management.
+Utopia is a foundational middleware component in the RDK-B architecture that provides system configuration management, event handling, and network service orchestration capabilities. Utopia provides dynamic runtime configuration, inter-process communication, and manages critical network services including WAN connectivity, LAN configuration, DHCP, IPv6, firewall, and routing services. The component serves as a bridge between high-level RDK-B components (like CcspPandM) and low-level platform services, abstracting platform-specific details while providing a unified API for system state management.
 
-Utopia implements a service-oriented architecture where individual network services operate as independent processes that communicate through a centralized event system (sysevent) and shared configuration store (syscfg). This design allows for modular, event-driven network service management that can respond dynamically to system state changes, configuration updates, and runtime events without requiring service restarts or system reboots.
+Utopia implements a service-oriented architecture where individual network services operate as independent processes that communicate through a centralized event system (sysevent) and shared configuration store (syscfg). Network service management is modular and event-driven, responding dynamically to system state changes, configuration updates, and runtime events without requiring service restarts or system reboots.
 
 The component is written primarily in C and designed for embedded Linux environments typical of residential gateway devices, cable modems, and broadband routers in the RDK-B ecosystem.
 
@@ -64,11 +64,11 @@ C4Context
 
 At the device level, Utopia provides the foundational infrastructure that enables RDK-B residential gateways and cable modems to function as network routers and access points. It orchestrates the complete lifecycle of network connectivity including:
 
-- **Boot-time Initialization**: Utopia services initialize network interfaces, load persistent configuration from flash storage, and establish the initial network topology during device boot-up. This ensures the device has a consistent known state on startup.
+- **Boot-time Initialization**: Utopia services initialize network interfaces, load persistent configuration from flash storage, and establish the initial network topology during device boot-up. The device has a consistent known state on startup.
 
 - **WAN Connectivity Management**: Through the `service_wan` component, Utopia manages the Wide Area Network connection including DHCP client operations, static IP configuration, IPv6 address acquisition, and WAN link monitoring. It handles WAN state transitions (link up/down, IP acquisition/loss) and propagates these events to dependent services.
 
-- **LAN Network Services**: Utopia provides LAN-side services including DHCP server functionality (`service_dhcp`), IPv6 prefix delegation and router advertisement (`service_ipv6`), multi-LAN network segmentation (`service_multinet`), and DNS proxy/forwarding capabilities. These services allow connected devices to obtain network configuration and access internet services.
+- **LAN Network Services**: Utopia provides LAN-side services including DHCP server functionality (`service_dhcp`), IPv6 prefix delegation and router advertisement (`service_ipv6`), multi-LAN network segmentation (`service_multinet`), and DNS proxy/forwarding capabilities. Connected devices obtain network configuration and access internet services.
 
 - **Security and Traffic Management**: The firewall component implements iptables-based packet filtering, Network Address Translation (NAT), port forwarding, Quality of Service (QoS) marking, and parental control policies. It maintains separation between trusted LAN and untrusted WAN networks while enabling controlled traffic flow.
 
@@ -80,11 +80,11 @@ At the module level, Utopia provides three core infrastructure services that oth
 
 - **System Configuration Management (syscfg)**: A persistent key-value configuration database stored in flash memory that provides atomic read/write access to system settings. Components use syscfg APIs to store and retrieve configuration parameters that must survive reboots. The syscfg library implements shared memory access with semaphore-based locking to ensure thread-safe concurrent access from multiple processes.
 
-- **System Event Framework (sysevent)**: A publish-subscribe event notification system that enables asynchronous inter-process communication. Components register interest in named events and receive notifications when those events occur. The sysevent daemon acts as a central message broker, maintaining event state and delivering notifications to subscribers via TCP/IP or Unix domain sockets. This decouples service implementations and enables event-driven architectures.
+- **System Event Framework (sysevent)**: A publish-subscribe event notification system that enables asynchronous inter-process communication. Components register interest in named events and receive notifications when those events occur. The sysevent daemon acts as a central message broker, maintaining event state and delivering notifications to subscribers via TCP/IP or Unix domain sockets. Service implementations are decoupled, enabling event-driven architectures.
 
 - **Unified API Library (utapi)**: A high-level abstraction layer providing consistent APIs for common operations like interface configuration, routing table management, WLAN settings, and system status queries. The utapi library wraps syscfg, sysevent, and direct system calls into cohesive functional APIs that hide implementation complexity from calling components.
 
-- **Platform Abstraction Layer (PAL)**: Provides abstraction for platform-specific operations including logging (ulog), XML parsing, UPnP support, and kernel module interactions. This allows Utopia to run across different hardware platforms (ARM, x86, MIPS) with minimal code changes.
+- **Platform Abstraction Layer (PAL)**: Provides abstraction for platform-specific operations including logging (ulog), XML parsing, UPnP support, and kernel module interactions. Utopia runs across different hardware platforms (ARM, x86, MIPS) with minimal code changes.
 
 **Key Features & Responsibilities**:
 

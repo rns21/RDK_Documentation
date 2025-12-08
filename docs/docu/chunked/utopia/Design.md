@@ -49,7 +49,7 @@ Static configuration templates in `/etc/utopia/` provide baseline settings and s
 
 ### Component Architecture Diagram
 
-The following diagram illustrates Utopia's internal structure showing the core libraries, service daemons, and their deployment relationships:
+Utopia's internal structure showing the core libraries, service daemons, and their deployment relationships:
 
 ```mermaid
 graph TD
@@ -167,27 +167,12 @@ graph TD
 
 ### RDK-B Platform and Integration Requirements
 
-**Build Dependencies:**
-- **Autotools**: `autoconf >= 2.65`, `automake`, `libtool`
-- **D-Bus**: `dbus-1 >= 1.6.18` (pkg-config)
-- **Compiler**: GCC/G++ with C99 support
-- **Libraries**: 
-  - `libsafec-3.5` - Safe C library for bounds checking
-  - `ulog` - Unified logging library
-  - `telemetry` - Telemetry reporting framework
-  - Platform HAL libraries (platform-specific)
-
 **RDK-B Components:**
 - **CcspCommon**: Base CCSP infrastructure and message bus
 - **HAL**: Platform HAL (hal-cm, hal-platform, hal-moca as applicable)
 - **RdkLogger**: Logging framework
 - **telemetry**: Telemetry and analytics support
 - **PSM (Persistent Storage Manager)**: Optional for multi-LAN configurations
-
-**HAL Dependencies:**
-- No direct HAL dependencies for core Utopia libraries
-- Platform-specific implementations may require hardware abstraction
-- Supported platforms: `intel_usg`, `intel_puma7`, `bcm`, `pc`
 
 **Systemd Services:**
 Services that must be active before Utopia services start:
@@ -263,7 +248,7 @@ Most service modules (`service_wan`, `service_dhcp`, `service_ipv6`, `service_ro
 
 #### Initialization to Active State
 
-The Utopia component initializes through a sequence that establishes the foundational IPC and configuration infrastructure before activating network services. The initialization progresses from low-level daemon startup, through configuration loading, to service registration and event-driven activation.
+The Utopia component initializes through a sequence that establishes the IPC and configuration infrastructure before activating network services. The initialization progresses from daemon startup, through configuration loading, to service registration and event-driven activation.
 
 ```mermaid
 sequenceDiagram
@@ -414,7 +399,7 @@ sequenceDiagram
 
 #### Service WAN Request Processing Call Flow
 
-This diagram illustrates the WAN connection establishment flow, showing interaction between service_wan, syscfg, sysevent, and platform utilities:
+The WAN connection establishment flow shows interaction between service_wan, syscfg, sysevent, and platform utilities:
 
 ```mermaid
 sequenceDiagram
@@ -577,7 +562,7 @@ Utopia includes platform-specific implementations for various hardware platforms
 
 ### Module Interaction Diagram
 
-The following diagram illustrates the relationships and data flow between major Utopia modules:
+Relationships and data flow between major Utopia modules:
 
 ```mermaid
 flowchart TD

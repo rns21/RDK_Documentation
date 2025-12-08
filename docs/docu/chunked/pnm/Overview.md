@@ -2,15 +2,15 @@
 
 ## Overview
 
-The Provisioning and Management (P&M) component is a critical middleware module in the RDK-B architecture that serves as the central orchestrator for device configuration, network management, and TR-181 data model implementation. Operating as a CCSP (Common Component Software Platform) component, P&M acts as the primary interface between the device's physical layer (HAL), other RDK-B middleware components, and external management systems.
+The Provisioning and Management (P&M) component is a middleware module in the RDK-B architecture that serves as the central orchestrator for device configuration, network management, and TR-181 data model implementation. Operating as a CCSP (Common Component Software Platform) component, P&M acts as the primary interface between the device's physical layer (HAL), other RDK-B middleware components, and external management systems.
 
-P&M implements TR-181 data model objects that expose device capabilities and configuration parameters through standardized interfaces. It manages essential networking services including IP configuration, routing, NAT, DHCP (v4 and v6), firewall rules, bridging, and device information. The component supports dynamic configuration updates through WebConfig framework integration and provides real-time parameter access via RBus messaging infrastructure.
+P&M implements TR-181 data model objects that expose device capabilities and configuration parameters through standardized interfaces. It manages networking services including IP configuration, routing, NAT, DHCP (v4 and v6), firewall rules, bridging, and device information. The component supports dynamic configuration updates through WebConfig framework integration and provides real-time parameter access via RBus messaging infrastructure.
 
 As a service provider in the RDK-B stack, P&M enables remote device management through TR-069/TR-181 protocols, facilitates local configuration through web UI and CLI interfaces, and coordinates with other middleware components (CcspWiFi, WAN Manager, etc.) to maintain consistent network state. The component manages initialization sequencing during boot, persistent configuration storage through PSM (Persistent Storage Manager), and provides telemetry data for monitoring and diagnostics.
 
 ## System Context
 
-The following diagram illustrates how the Provisioning and Management component interacts with users, external systems, and other components within the RDK-B ecosystem:
+```mermaid
 
 ```mermaid
 graph TD
