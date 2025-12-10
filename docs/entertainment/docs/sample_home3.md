@@ -9,21 +9,10 @@ hide:
 <div class="ent-home">
   <!-- Image Banner -->
   <section class="img-banner">
-    <img src="/assets/remote.jpg" alt="Banner Image" class="banner-image" />
+    <img src="../../../assets/remote.jpg" alt="Banner Image" class="banner-image" />
     <div class="banner-text">
       <h2>Entertainment</h2>
       <p>Build Apps, manage media and UI layers in a video platform</p>
-    </div>
-  </section>
-  <!-- link banner -->
-  <section class="link-banner">
-    <div class="outer banner">
-      <div class="inner-banner">
-        <a href="" class="link-banner-link">Integration/Productization Workflow</a>
-      </div>
-      <div class="inner-banner">
-        <a href="" class="link-banner-link">Releases</a>
-      </div>
     </div>
   </section>
   <!-- Boxes section -->
@@ -34,7 +23,7 @@ hide:
         <div class="box-header">
           <h3>Getting Started</h3>
         </div>
-        <p class="box-description">If you’re new to RDK, begin by reviewing an overview of the platform or explore available options to experience RDK firsthand</p>
+        <p class="box-description">If you’re new to RDK, start by getting an overview of the platform, explore ways to try out RDK and learn how to build apps in RDK</p>
         <span class="expand-icon material-icons">add</span>
       </div>
       <!-- Box 1 sub boxes -->
@@ -43,8 +32,8 @@ hide:
           <div class="sub-header">
             <h4>Overview</h4>
           </div>
-          <p>For an overview of RDK middleware, please click here.</p>
-          <a href="./rdk7-architecture/" class="view-docs-btn">View Docs</a>
+          <p>For an overview of RDK middleware, please follow below link.</p>
+          <a href="" class="view-docs-btn">View Docs</a>
           <span class="sub-icon material-icons">description</span>
         </div>
         <div class="sub-box">
@@ -52,24 +41,24 @@ hide:
             <span class="sub-icon material-icons">preview</span>
             <h4>Preview RDK</h4>
           </div>
-          <p>To get an experience of RDK, please click here.</p>
-          <a href="/.rd" class="view-docs-btn">View Docs</a>
+          <p>To get an experience of RDK, please follow the below link.</p>
+          <a href="../../../preview-rdk/docs/getting-started/" class="view-docs-btn">View Docs</a>
         </div>
         <div class="sub-box">
           <div class="sub-header">
             <span class="sub-icon material-icons">try</span>
             <h4>Try Out RDK</h4>
           </div>
-          <p>For a hands-on experience in real hardware, please click here.</p>
-          <a href="/docs/app-development" class="view-docs-btn">View Docs</a>
+          <p>For a hands-on experience in real hardware, please follow the below link.</p>
+          <a href="../tryout_rdkv_rdk7/" class="view-docs-btn">View Docs</a>
         </div>
         <div class="sub-box">
           <div class="sub-header">
             <span class="sub-icon material-icons">apps</span>
-            <h4>Productization Workflow</h4>
+            <h4>Releases</h4>
           </div>
-          <p>Get a glance of the sequential stages involved in transforming the RDK middleware into a fully deployed product</p>
-          <a href="/" class="view-docs-btn">View Docs</a>
+          <p>Know more about the RDK-E releases available to the community</p>
+          <a href="https://wiki.rdkcentral.com/spaces/CMF/pages/414065624/RDK-E+Video+Code+Releases" class="view-docs-btn">View Docs</a>
         </div>
       </div>
       <span class="expandable-icon-bg material-icons">flight</span>
@@ -80,7 +69,7 @@ hide:
         <div class="box-header">
           <h3>App Ecosystem</h3>
         </div>
-        <p class="box-description">Discover the available methods for building and deploying apps on an RDK device</p>
+        <p class="box-description">Learn how to develop and integrate apps, and discover the frameworks supported by RDK for app development</p>
         <span class="expand-icon material-icons">add</span>
       </div>
     <!-- Box 2 sub boxes -->
@@ -90,32 +79,32 @@ hide:
             <span class="sub-icon material-icons">polyline</span>
             <h4>Overview</h4>
           </div>
-          <p>For an overview of App ecosystem support across RDK, refer this section.</p>
-          <a href="./rdk7-architecture/" class="view-docs-btn">View Docs</a>
+          <p>For an overview of App ecosystem support across RDK, please follow the below link.</p>
+          <a href="" class="view-docs-btn">View Docs</a>
         </div>
         <div class="sub-box">
           <div class="sub-header">
             <span class="sub-icon material-icons">badge</span>
             <h4>Build an App</h4>
           </div>
-          <p>For steps on the how to build an app or integrate an app, please click here.</p>
-          <a href="/.rd" class="view-docs-btn">View Docs</a>
+          <p>To Explore how to build and run an app in RDK, please follow the below link</p>
+          <a href="" class="view-docs-btn">View Docs</a>
         </div>
         <div class="sub-box">
           <div class="sub-header">
             <span class="sub-icon material-icons">devices</span>
             <h4>Firebolt</h4>
           </div>
-          <p>For details on firebolt, please click here.</p>
-          <a href="/" class="view-docs-btn">View Docs</a>
+          <p>Learn more about Firebolt, the RDK Application Framework SDK</p>
+          <a href="https://rdkcentral.github.io/firebolt/apis/latest/" class="view-docs-btn">View Docs</a>
         </div>
         <div class="sub-box">
           <div class="sub-header">
             <span class="sub-icon material-icons">smartphone</span>
             <h4>Lightning</h4>
           </div>
-          <p>For details of lightning, please click here.</p>
-          <a href="/docs/app-development" class="view-docs-btn">View Docs</a>
+          <p>Learn more about Lightning, the Javascript-based lightweight app development language</p>
+          <a href="https://www.lightningjs.io/" class="view-docs-btn">View Docs</a>
         </div>
       </div>
       <span class="expandable-icon-bg material-icons">devices</span>
@@ -124,7 +113,7 @@ hide:
     <div class="expandable-box" data-box="3">
       <div class="box-main">
         <div class="box-header">
-          <h3>Integration Guide</h3>
+          <h3>Integration</h3>
         </div>
         <p class="box-description">If you are a platform vendor, OEM, or operator, learn how to integrate RDK into your ecosystem</p>
         <span class="expand-icon material-icons">add</span>
@@ -136,43 +125,27 @@ hide:
             <span class="sub-icon material-icons">architecture</span>
             <h4>Vendor Porting Kit</h4>
           </div>
-          <p>Refer the vendor porting kit documentation to know how to adopt RDK in your SOC.</p>
-          <a href="./rdk7-architecture/" class="view-docs-btn">View Docs</a>
+          <p>Refer the vendor porting kit documentation to know how to port RDK in your platform.</p>
+          <a href="../rdk7-vendor-porting-guide/" class="view-docs-btn">View Docs</a>
         </div>
         <div class="sub-box">
           <div class="sub-header">
             <span class="sub-icon material-icons">devices</span>
-            <h4>Available Devices</h4>
+            <h4>HAL Specifications</h4>
           </div>
-          <p>To know more on the currently supported platforms, please click here.</p>
-          <a href="/.rd" class="view-docs-btn">View Docs</a>
+          <p>For details on HAL specification and HAL validation, please follow the below link</p>
+          <a href="https://rdkcentral.github.io/rdk-hpk-documentation/" class="view-docs-btn">View Docs</a>
         </div>
         <div class="sub-box">
           <div class="sub-header">
-            <span class="sub-icon material-icons">cases</span>
-            <h4>Remote Controls</h4>
-          </div>
-          <p>For details on remote controls and architecture, please click here.</p>
-          <a href="/" class="view-docs-btn">View Docs</a>
-        </div>
-        <div class="sub-box">
-          <div class="sub-header">
-            <span class="sub-icon material-icons">cases</span>
-            <h4>HAL Specification</h4>
-          </div>
-          <p>For details on HAL specification, please click here.</p>
-          <a href="/" class="view-docs-btn">View Docs</a>
-        </div>
-        <div class="sub-box">
-          <div class="sub-header">
-            <span class="sub-icon material-icons">cases</span>
+            <span class="sub-icon material-icons">assignment</span>
             <h4>RDK Certification</h4>
           </div>
-          <p>For details on the RDK Certification process and the certification suite coverage, please click here.</p>
-          <a href="/" class="view-docs-btn">View Docs</a>
+          <p>For details on the RDK Certification process and the certification suite coverage, please follow below link.</p>
+          <a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119" class="view-docs-btn">View Docs</a>
         </div>
       </div>
-      <span class="expandable-icon-bg material-icons">memory</span>
+      <span class="expandable-icon-bg material-icons">assignment</span>
     </div>
     <!-- Box 4 -->
     <div class="expandable-box" data-box="4">
@@ -188,45 +161,37 @@ hide:
         <div class="sub-box">
           <div class="sub-header">
             <span class="sub-icon material-icons">layers</span>
-            <h4>Layering Approach</h4>
+            <h4>Architecture</h4>
           </div>
-          <p>To know more about the layered structure of the RDK, please click here</p>
-          <a href="./rdk7-architecture/" class="view-docs-btn">View Docs</a>
+          <p>To know more about the layered structure and architecture of the RDK, please follow the below link</p>
+          <a href="../rdk7-architecture/" class="view-docs-btn">View Docs</a>
         </div>
         <div class="sub-box">
         <div class="sub-header">
           <span class="sub-icon material-icons">build</span>
           <h4>Device Profiles</h4>
         </div>
-        <p>To know more on the different device profiles supported by RDK, please click here.</p>
-        <a href="/.rd" class="view-docs-btn">View Docs</a>
+        <p>To know more on the different device profiles supported by RDK, please follow below link.</p>
+        <a href="../video_profiles/" class="view-docs-btn">View Docs</a>
       </div>
       <div class="sub-box">
         <div class="sub-header">
           <span class="sub-icon material-icons">assignment</span>
           <h4>RDK Components</h4>
         </div>
-        <p>For details on the individual RDK components, please click here.</p>
-        <a href="/" class="view-docs-btn">View Docs</a>
-      </div>
-      <div class="sub-box">
-        <div class="sub-header">
-          <span class="sub-icon material-icons">assignment</span>
-          <h4>Remote Controls</h4>
-        </div>
-        <p>For details on the remote control architecture and key codes for integration, refer below link.</p>
-        <a href="/" class="view-docs-btn">View Docs</a>
+        <p>For detailed documentation of the individual RDK components, please follow the below link.</p>
+        <a href="../rdkv_components/" class="view-docs-btn">View Docs</a>
       </div>
       <div class="sub-box">
         <div class="sub-header">
           <span class="sub-icon material-icons">assignment</span>
           <h4>Device Management</h4>
         </div>
-        <p>To explore the remote device management capabilities available for RDK-E, please click here.</p>
-        <a href="/" class="view-docs-btn">View Docs</a>
+        <p>To explore the remote device management capabilities available for RDK-E, please follow the below link.</p>
+        <a href="../../../device-management/docs/" class="view-docs-btn">View Docs</a>
       </div>
     </div>
-    <span class="expandable-icon-bg material-icons">assignment</span>
+    <span class="expandable-icon-bg material-icons">layers</span>
     </div>
     <!-- Box 5 -->
     <div class="expandable-box" data-box="4">
@@ -244,8 +209,8 @@ hide:
             <span class="sub-icon material-icons">layers</span>
             <h4>Overview</h4>
           </div>
-          <p>To get an overview of tests and certifications, please click here.</p>
-          <a href="./rdk7-architecture/" class="view-docs-btn">View Docs</a>
+          <p>To get an overview of tests and certifications, please follow the below link.</p>
+          <a href="#" class="view-docs-btn">View Docs</a>
         </div>
         <div class="sub-box">
           <div class="sub-header">
@@ -253,7 +218,7 @@ hide:
             <h4>TDK</h4>
           </div>
           <p>Refer the TDK documentation to know the features, coverage and operational details.</p>
-          <a href="./rdk7-architecture/" class="view-docs-btn">View Docs</a>
+          <a href="../../../tools/docs/TDK/" class="view-docs-btn">View Docs</a>
         </div>
         <div class="sub-box">
         <div class="sub-header">
@@ -261,23 +226,15 @@ hide:
           <h4>Automatics</h4>
         </div>
         <p>To know the features, coverage and operational details of automatics, check the automatics documentation.</p>
-        <a href="/.rd" class="view-docs-btn">View Docs</a>
+        <a href="../../../tools/docs/Automatics/" class="view-docs-btn">View Docs</a>
       </div>
       <div class="sub-box">
         <div class="sub-header">
           <span class="sub-icon material-icons">assignment</span>
           <h4>RDK Certification</h4>
         </div>
-        <p>For details on the RDK Certification process and the certification suite coverage, please click here.</p>
-        <a href="/" class="view-docs-btn">View Docs</a>
-      </div>
-      <div class="sub-box">
-        <div class="sub-header">
-          <span class="sub-icon material-icons">assignment</span>
-          <h4>App Certification</h4>
-        </div>
-        <p>To explore the app certification process in RDK ecosystem, please click here.</p>
-        <a href="/" class="view-docs-btn">View Docs</a>
+        <p>For details on the RDK Certification process and the certification suite coverage, please follow below link.</p>
+        <a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119" class="view-docs-btn">View Docs</a>
       </div>
     </div>
     <span class="expandable-icon-bg material-icons">assignment</span>
@@ -287,12 +244,38 @@ hide:
 
 <script>
 
+//align subboxes child elements according to height of the header
+function alignSubBoxParagraphs() {
+  document.querySelectorAll('.sub-boxes').forEach(container => {
+    const headers = [...container.querySelectorAll('.sub-header')];
+    if (!headers.length) return;
+
+    const maxHeight = Math.max(...headers.map(h => h.offsetHeight));
+    headers.forEach(h => {
+      const diff = maxHeight - h.offsetHeight;
+      if (diff > 0) {
+        h.style.marginBottom = `${diff + 8}px`; // adds space below header
+      }
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', alignSubBoxParagraphs);
+document.querySelectorAll('.expand-icon').forEach(icon =>
+  icon.addEventListener('click', () => setTimeout(alignSubBoxParagraphs, 500))
+);
 (function () {
   
   // CSS selectors for icons, boxes, and grid container
   const ICON_SELECTOR = '.expand-icon';
   const BOX_SELECTOR = '.expandable-box';
   const GRID_SELECTOR = '.expandable-section';
+
+  
+  // Store original order of boxes
+  const grid = document.querySelector(GRID_SELECTOR);
+  const originalOrder = grid ? Array.from(grid.children).filter(n => n.matches(BOX_SELECTOR)) : [];
+
 
   /*Function to find how many columns the grid has.*/
   function getColumnsCount(grid) {
@@ -355,14 +338,7 @@ hide:
   const subBoxes = box.querySelector('.sub-boxes');
   if (subBoxes) {
     subBoxes.classList.remove('hidden');
-
-    //adjust grid columns based on child count
-    const subBoxCount = subBoxes.children.length;
-    if (subBoxCount > 4) {
-      subBoxes.style.gridTemplateColumns = 'repeat(3, 1fr)';
-    } else {
-      subBoxes.style.gridTemplateColumns = 'repeat(4, 1fr)';
-    }
+    subBoxes.style.gridTemplateColumns = 'repeat(4, 1fr)';
   }
 }
   //Collapse a box back to normal size and hide its sub-boxes
@@ -373,6 +349,12 @@ hide:
     setTimeout(() => {
       box.classList.remove('expanded', 'collapsed');
       box.style.gridColumn = '';
+
+    //  Restore original order
+    if (grid && originalOrder.length) {
+      originalOrder.forEach(b => grid.appendChild(b));
+    }
+
     }, 400);
 
     if (icon) icon.textContent = 'add';
@@ -438,5 +420,4 @@ function equalizeRowHeights() {
     rowBoxes.forEach(b => b.style.minHeight = `${maxHeight}px`);
   });
 }
-
 </script>

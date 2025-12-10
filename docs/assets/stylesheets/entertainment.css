@@ -27,13 +27,13 @@
 /* Light theme background */
 [data-md-color-scheme="default"] .custom-container {
   background: linear-gradient(-45deg, #c1e4e860, var(--md-default-bg-color), #c1e4e85d);
-  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1) !important;
   transition: box-shadow 0.4s ease, transform 0.3s ease;
 }
 
 [data-md-color-scheme="default"] .custom-container:hover {
   box-shadow: 0 0 12px 0.5px rgba(129, 142, 142, 0.571);
-  transform: translateY(-4px);
+  /* transform: translateY(-4px); */
 }
 
 /* Dark theme background */
@@ -41,12 +41,12 @@
   background: linear-gradient(-45deg, #189ab72e, var(--md-code-bg-color), #0ba9cd1d);
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.4s ease, transform 0.3s ease;
-  border: 2px solid var(--md-code-bg-color) !important;
+  /* border: 2px solid var(--md-code-bg-color) !important; */
 }
 
 [data-md-color-scheme="slate"] .custom-container:hover {
   box-shadow: 0 0 10px 0.5px rgba(255, 255, 255, 0.368);
-  transform: translateY(-4px);
+  /* transform: translateY(-4px); */
 }
 
 /* Hover background overlay */
@@ -70,7 +70,7 @@
 
 /* Hover effect for container */
 .custom-container:hover {
-  transform: scale(1.04) translateY(-5px);
+  /* transform: scale(1.04) translateY(-5px); */
   cursor: pointer;
   background-color: #00b4dc08 !important;
   border: none !important;
@@ -91,8 +91,8 @@
 /* Hover effect for icon and heading */
 .custom-container:hover .custom-icon,
 .custom-container:hover h2 {
-  transform: scale(1.01);
-  transition: transform 0.5s ease;
+  /* transform: scale(1.01); */
+  /* transition: transform 0.5s ease; */
 }
 
 /* Content section layout */

@@ -3,9 +3,13 @@
   gap: 1.5rem;
   align-items: center;
   margin: 0 5%;
-  padding: 2%;
+  padding: 3%;
   border-radius: 20px;
+  background-color: var(--section-blue) !important;
+  box-shadow: 0px 0px 11px 0px rgb(0 0 0 / 18%) !important;
+  border-left:10px solid var(--md-accent-fg-color) ;
 }
+
 .section-info {
   flex: 0 0 32%;
   max-width: 32%;
@@ -17,12 +21,16 @@
   gap: 1rem;
 }
 .section-containers .custom-container {
+  border-radius: 10px !important;
   flex: unset !important;   
   max-width: unset !important;  
   width: 100% !important;   
   box-shadow: none !important;  
   margin-bottom: 0;
-  padding: 0.7rem 1rem;
+  padding: 0.9rem 1rem;
+  background: none !important;
+  background-color:var(--md-default-bg-color) !important; 
+  /* box-shadow:  0px 0px 11px 0px rgb(69 68 68 / 18%) !important; */
 }
 .section-icon {
   font-size: 4rem !important;
@@ -30,73 +38,47 @@
   margin-bottom: 10px;
 }
 .section-info img{
-  width: 20%;
-  height: 20%;
+  width: 25%;
+  height: 25%;
 }
 .section-info h2 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
-  margin-top: 0;
+  margin-top: 0.5rem;
+}
+.section-info p{
+  color: #7a7a7a !important;
 }
 .section-containers .custom-container:hover{
   scale: none !important;
-  box-shadow:  0px 0px 20px 0px rgba(129, 142, 142, 0.571) !important;
+  transition: none !important;
+  box-shadow: 0px 4px 11px 0px rgb(69 68 68 / 18%) !important;
 }
 .section-containers .custom-container h2{
   margin: 0 !important;
   transition: color 0.3s ease !important;
+  color: var(--md-accent-fg-color) !important;
+}
+.section-containers .custom-container p{
+  color:#7a7a7a !important;
 }
 .section-containers .custom-container  .custom-icon-arrow{
   bottom: 10%;
+  color: var(--md-accent-fg-color) !important;
 }
 
- .section-containers .custom-container {
-  background: none !important;
-  background-color:var(--md-default-bg-color) !important; 
+.section-containers .custom-container .link-row a{
+  /* background-color: var(--md-primary-fg-color); */
+  color: var(--md-accent-fg-color) !important;
+  border-radius: 5px;
+  font-size: 14px !important;
 }
-:root {
-  --section-blue: #e6f7fb;
-  --section-yellow: #fff3e0;
-  --section-green: #f0f8e8; 
-  --section-orange: #fff0e6; 
+.section-containers .custom-container:hover .custom-link{
+ /* padding: .2rem .5rem; */
+ text-decoration: underline !important;
+ /* background-color: var(--md-accent-fg-color); */
+ color: var(--md-accent-fg-color) !important;
 }
-
-[data-md-color-scheme="slate"] {
-  --section-blue: #003d4d26;
-  --section-yellow: #4a330029; 
-  --section-green: #2f4d1a2b;
-  --section-orange: #4d1f0036;
-}
-
-.section-wrapper.section-1 {
-  --section-accent: #00b2dc;
-  background-color: var(--section-blue);
-  border-left: 12px solid #00b2dc;
-}
-
-.section-wrapper.section-2 {
-  --section-accent: #fdb73b;
-  background-color: var(--section-yellow);
-  border-left: 12px solid #fdb73b;
-}
-
-.section-wrapper.section-3 {
-  --section-accent: #92c849;
-  background-color: var(--section-green);
-  border-left: 12px solid #92c849;
-}
-
-.section-wrapper.section-4 {
-  --section-accent: #fb8212d4;
-  background-color: var(--section-orange);
-  border-left: 12px solid #fb8212d4;
-}
-
-.section-wrapper .custom-icon,
-.section-wrapper .custom-link {
-  color: var(--section-accent) !important;
-}
-
 /* ---------------- Responsive  Styles ---------------- */
 
 @media (max-width: 1024px) {
@@ -142,5 +124,39 @@
     width: 100% !important;
     font-size: 13px;
     padding: 15px;
+  }
+}
+
+
+
+/* Decorative background icon */
+.bg-icon {
+  position: absolute;
+  right: -36px;           /* slight overflow for style */
+  bottom: -59px;
+  font-size: 11rem !important;      /* large so it sits behind content */
+  line-height: 1;
+  color: var(--md-accent-fg-color);
+  opacity: 0.08;         /* subtle */
+  transform: rotate(-30deg);
+  z-index: 0;            /* behind content */
+  pointer-events: none;  /* keep card fully clickable */
+}
+
+/* Optional hover effect */
+.custom-container:hover .bg-icon {
+  opacity: 0.10;
+  transform: rotate(-23deg);
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+/* Responsive tweak */
+@media (max-width: 768px) {
+  .bg-icon {
+    font-size: 90px;
+    opacity: 0.06;
+    right: -12px;
+    bottom: -16px;
+    transform: rotate(-20deg);
   }
 }
