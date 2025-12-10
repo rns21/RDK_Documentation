@@ -1,0 +1,130 @@
+/* Base Footer Layout */
+.compact-footer {
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  display: grid;
+  grid-template-columns: 2fr 6fr;
+  gap: 0.01em;
+  padding: 1em 2em;
+  font-size: 0.85rem;
+  font-family: var(--md-text-font, Arial, sans-serif);
+  border-top: 1px solid var(--md-default-fg-color);
+  align-items: start;
+  z-index: 5;
+}
+
+body.is-homepage .compact-footer {
+  border-top: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Left Section */
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 1rem 0;
+}
+
+.rdk-logo {
+  width: 120px;
+  margin-bottom: 0.5em;
+}
+
+/* Right Section */
+.footer-right {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 8rem;
+  gap: 2rem;
+  justify-content: flex-end;
+}
+
+.footer-left .copyright {
+  font-size: 0.75em;
+  color: var(--md-default-fg-color);
+}
+
+.copyright a {
+  color: var(--md-accent-fg-color);
+  text-decoration: underline;
+}
+
+/* Banner Group */
+.banner-group {
+  margin-bottom: 0.5em;
+  min-width: 140px;
+  max-width: 166px;
+  flex: 1 1 auto;
+}
+
+.banner-group h3 {
+  font-size: 0.9em;
+  margin-bottom: 0.3em;
+  color: var(--md-default-fg-color) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.banner-group a {
+  color: var(--md-default-fg-color);
+  text-decoration: none;
+  font-size: 0.65em;
+}
+
+.banner-group a:hover {
+  color: var(--md-accent-fg-color);
+  text-decoration: underline;
+}
+
+/* Sub-columns */
+.sub-columns ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sub-columns li {
+  margin: 0.01em 0;
+  break-inside: avoid;
+}
+
+/* Responsive Layout for Tablets */
+@media (max-width: 1024px) {
+  .compact-footer {
+    grid-template-columns: 1fr;
+    text-align: center;
+    z-index: 1;
+  }
+
+  .footer-left {
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .footer-right {
+    justify-content: center;
+    margin-left: 0;
+    gap: 1.5rem;
+  }
+}
+
+/* Responsive Layout for Mobile */
+@media (max-width: 600px) {
+  .footer-right {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .banner-group {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .rdk-logo {
+    width: 100px;
+  }
+}

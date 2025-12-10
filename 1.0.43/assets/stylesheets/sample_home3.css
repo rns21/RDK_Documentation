@@ -1,0 +1,502 @@
+/* ================================Fullscreen layout for main section pages================================ */
+body.is-main-section .md-content,
+body.is-main-section .md-content__inner {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+/* ================================Root variables for banner overlay colors================================ */
+:root {
+  --banner-overlay-start: rgba(0,142,174,0.6);
+  --banner-overlay-end: rgba(0,0,0,0.6);
+  --section-blue:  #00b4dc1d ;
+}
+
+[data-theme="light"] {
+  --banner-overlay-end: rgba(255,255,255,0.6);
+}
+
+/* ================================Banner Section Styles================================ */
+.img-banner {
+  position: relative;
+  width: 100%;
+  min-height: 32vh;
+  overflow: hidden;
+  color: white;
+  margin-top: -5%;
+}
+
+/* Gradient animation for banner overlay */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Banner overlay effect */
+.img-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(1px);
+  background: linear-gradient(to bottom right, var(--banner-overlay-start), var(--banner-overlay-end));
+  z-index: 1;
+  pointer-events: none;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* Banner image styling */
+.img-banner img.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  opacity: .75;
+}
+
+/* Banner text styling */
+.banner-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  padding: 0 1rem;
+  width: max-content;
+}
+
+.banner-text h2 {
+  font-size: 2.2rem;
+  margin: 2.2rem 0 0.5rem;
+}
+
+.banner-text p {
+  font-size: 0.8rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Gradient text effect */
+.banner-text h2, .banner-text p {
+  color: #00ceff !important;
+  background: linear-gradient(90deg, #99ebff, #69e4ff, #99ebff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* ================================Link Banner styles============================================== */
+.link-banner {
+  width: 100%;
+  padding: 20px 20px 0 20px;
+}
+
+.outer.banner {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px; 
+  justify-content: center;
+}
+
+.inner-banner {
+  flex: 1 1 45%;
+  display: flex;
+}
+
+.link-banner-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding:  20px;
+  background: linear-gradient(135deg,var(--section-blue),var(--md-primary-fg-color),var(--section-blue),var(--md-primary-fg-color),var(--section-blue));
+  color: var(--md-default-bg-color) !important;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.link-banner-link:hover {
+  background-color: var(--section-blue);
+  color: #ffffff;
+  text-decoration: none !important;
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .inner-banner {
+    flex: 1 1 100%;
+  }
+}
+/* ================================Expandable Section Grid Layout================================ */
+.expandable-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 2rem;
+  min-height: 60vh;
+  grid-auto-flow: dense;
+}
+
+/* Responsive grid adjustments */
+@media (max-width: 900px) {
+  .expandable-section { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .expandable-section { grid-template-columns: 1fr; }
+}
+
+/* ================================Expand/Collapse Animations================================ */
+@keyframes smoothExpand {
+  from { max-width: 400px; opacity: 0.9; }
+  to { max-width: 100%; opacity: 1; }
+}
+
+@keyframes smoothCollapse {
+  from { max-width: 100%; opacity: 1; }
+  to { max-width: 400px; opacity: 0.9; }
+}
+
+/* ================================Expandable Box Styles================================ */
+.expandable-box {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--md-primary-fg-color);
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  transition: box-shadow 0.25s ease, transform 0.4s ease;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-height: 37vh;
+  border: 1px solid var(--section-blue);
+}
+
+/* Hover effect for non-expanded boxes */
+.expandable-box:hover:not(.expanded) {
+  background-color: var(--section-blue);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Expanded state */
+.expandable-box.expanded {
+  flex-direction: row;
+  grid-column: 1 / -1;
+  z-index: 2;
+  min-height: 48vh;
+  animation: smoothExpand 0.4s ease forwards;
+}
+
+/* Collapsed state */
+.expandable-box.collapsed {
+  flex-direction: column;
+  animation: smoothCollapse 0.4s ease forwards;
+}
+
+/* Responsive expanded layout */
+@media (max-width: 900px) {
+  .expandable-box.expanded { flex-direction: column; }
+}
+
+/* ================================Box Main Content================================ */
+.box-main {
+  flex: 0.3;
+  padding-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.box-header {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.box-header .material-icons {
+  font-size: 24px;
+  color: #00b2dc;
+  transition: transform 0.3s ease;
+}
+
+.box-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color:var(--md-accent-fg-color) !important;
+}
+
+.box-description {
+  margin: 0.5rem 0;
+  font-size: 0.85rem;
+  color: #7a7a7a;
+}
+
+/* ================================Expand Icon Styles================================ */
+.expand-icon {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 6px;
+  border-radius: 50%;
+  background-color: var(--md-code-bg-color);
+  font-size: 24px;
+  color: var(--md-accent-fg-color);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 3;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
+}
+
+.expand-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Background icon for expandable box */
+.expandable-icon-bg {
+  position: absolute;
+  bottom: -80px;
+  left: -75px;
+  font-size: 45vh !important;
+  color: var(--md-accent-fg-color);
+  opacity: 0.07;
+  pointer-events: none;
+  transform: rotate(32deg);
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.expandable-box.expanded .expandable-icon-bg {
+  display: none;
+  opacity: 0;
+}
+
+/* ================================Sub-boxes Grid Layout================================ */
+.sub-boxes {
+  flex: 1.2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .sub-boxes { grid-template-columns: repeat(2, 1fr); margin-top: 1rem; }
+}
+@media (max-width: 600px) {
+  .sub-boxes { grid-template-columns: 1fr; }
+}
+
+/* ================================Sub-box Styles================================ */
+.sub-box {
+  background-color: var(--section-blue);
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  height: 42vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.sub-box:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  border-left: 2px solid var(--md-accent-fg-color);
+}
+
+/* Sub-header styling */
+.sub-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--md-primary-fg-color);
+  padding: .1rem .5rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  width: fit-content;
+}
+
+.sub-header h4 {
+  margin: 0;
+  font-size: 0.87rem;
+  color: var(--md-accent-fg-color) !important;
+}
+
+/* Large faded icon below in sub-box */
+.sub-icon {
+  position: absolute;
+  bottom: -40px;
+  right: -50px;
+  font-size: 30vh !important;
+  color: var(--md-accent-fg-color);
+  opacity: 0.06;
+  pointer-events: none;
+  transform: rotate(-32deg);
+}
+
+/* Sub-box text */
+.sub-box p {
+  font-size: 0.7rem;
+  color: #555;
+  /* margin: 0.5rem 0; */
+  margin-top: .5rem;
+}
+
+/* View Docs button */
+.sub-box .view-docs-btn {
+  display: inline-block;
+  padding: 0.2rem 0.4rem;
+  color: var(--md-accent-fg-color) !important;
+  border: 1px solid var(--md-accent-fg-color);
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  margin-top: auto;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+}
+
+.view-docs-btn:hover {
+  background-color: var(--md-accent-fg-color);
+  color: white !important;
+  text-decoration: none !important;
+}
+
+/* Utility class */
+.hidden { display: none !important; }
+
+/* ================================Responsive Styles================================ */
+
+/* ============= Mobile (≤600px) ============= */
+@media (max-width: 600px) {
+
+  .banner-text {
+    width: 90%;
+    padding: 0.5rem;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .banner-text h2 {
+    font-size: 6vw;
+    margin: 1rem 0 0.5rem;
+    line-height: 1.2;
+    word-break: break-word;
+  }
+  .banner-text p { font-size: 4vw; max-width: 100%; }
+
+  .expandable-section {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    grid-auto-flow: row;
+    align-items: start;
+  }
+
+  .expandable-box {
+    min-height: auto;
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+  .expandable-box.expanded {
+    flex-direction: column;
+    grid-column: 1 / -1;
+  }
+
+
+  .sub-boxes {
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: auto;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .sub-box {
+    height: auto;
+    min-height: auto;
+    padding: 0.8rem;
+  }
+
+  .expandable-icon-bg,
+  .sub-icon {
+    font-size: 0 !important;
+    opacity: 0;
+  }
+
+  .box-main { padding-right: 0; }
+  .expand-icon { bottom: 0.5rem; right: 0.5rem; }
+}
+
+/* ============= Tablet (601px–1024px) ============= */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .banner-text h2 { font-size: 5vw; }
+  .banner-text p { font-size: 3vw; }
+
+  .expandable-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 1.5rem;
+    grid-auto-flow: row;
+    align-items: start;
+  }
+
+  .expandable-box {
+    min-height: auto;
+    padding: 1.25rem;
+  }
+  .expandable-box.expanded {
+    grid-column: 1 / -1;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .sub-boxes {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: auto;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .sub-box {
+    height: auto;
+    min-height: auto;
+    padding: 0.9rem;
+  }
+
+  .expandable-icon-bg,
+  .sub-icon {
+    font-size: 0 !important;
+    opacity: 0;
+  }
+
+  .box-main { padding-right: 0; }
+}
+
+@media (max-width: 900px) {
+  .sub-boxes {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: auto;
+    margin-top: 1rem;
+  }
+}
+
+/* Large screens (1920px and above) */
+@media (min-width: 1920px) {
+  .banner-text h2 {font-size: 2.8rem;}
+  .banner-text p {font-size: 1.3rem;}
+  .expandable-section {
+    gap: 2rem;
+    padding: 3rem 4rem;
+  }
+  .expandable-box {min-height: 50vh;}
+  .box-header h3{font-size: 1.8rem;} 
+  .box-description{font-size: 1.1rem;}
+  .sub-box {height: 45vh;}
+  .sub-box p {font-size: 0.85rem;}
+  .sub-header h4{font-size: 1.2rem;}
+}
