@@ -3,7 +3,7 @@
 | Component Name | Documentation | 
 |:-----|:-----|
 | WAN Manager| [WAN Manager](../wanmanager/) |
-| CCSP Advanced Security| [CCSP Advanced Security](../ccspadvancedsecurity/) |
+| CCSP Advanced Security| [CCSP Advanced Security](../ccspadvancedsecurity.md) |
 | CCSP LMLite | [CCSP LMLite](../ccsplmlite/) |
 | CCSP MoCA | [CCSP MoCA](../ccspmoca/) |
 | DHCP Manager| [DHCP Manager](../dhcpmanager/) |
@@ -26,3 +26,4 @@
 | Test and Diagnostics| [Test and Diagnostics](../testanddiagnostics/) |
 | Telco Voice Manager   | [Telco Voice Manager](../telcovoicemanager/) |
 | VLAN Manager          | [VLAN Manager](../vlanmanager/) |
+
