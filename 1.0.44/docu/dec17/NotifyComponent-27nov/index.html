@@ -1,0 +1,4228 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.com/docu/dec17/NotifyComponent-27nov/" rel="canonical"/>
+<link href="../../../assets/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
+<title>NotifyComponent Documentation - RDK Documentation</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"Fira Code"}</style>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/entertainment.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/getting-started.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/connectivity.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/devices.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/footer.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sidepanes.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sitemap.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home1.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home2.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home3.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home4.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home5.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="#00b2dc" data-md-color-primary="white" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#notifycomponent-documentation">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="RDK Documentation" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="RDK Documentation">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis"> RDK Documentation </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+             NotifyComponent Documentation 
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="white" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to system preference" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to system preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+</form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header_buttons">
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg>
+</div>
+<div class="text">Source Code</div>
+</button></a>
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg>
+</div>
+<div class="text">Contribute</div>
+</button></a>
+<a href="mailto:support@rdkcentral.com"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg>
+</div>
+<div class="text">Get Help</div>
+</button></a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../entertainment/docs/">
+          
+  
+  
+  Entertainment
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../connectivity/docs/">
+          
+  
+  
+  Connectivity
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../preview-rdk/docs/getting-started/">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../devices/docs/">
+        
+  
+  
+    
+  
+  Devices
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tools/docs/TDK/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../review/">
+          
+  
+  
+  Review
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../device-management/docs/">
+          
+  
+  
+  Device Management
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../doc_template_orig_rama.md">
+          
+  
+  
+  Comparison
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="RDK Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="RDK Documentation">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+    RDK Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/rdkcentral" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Entertainment
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Entertainment
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home1/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome1
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home2/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome2
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/Apps/">
+<span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/tryout_rdkv_rdk7/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-vendor-porting-guide/">
+<span class="md-ellipsis">
+    
+  
+    Porting Kit
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdkv_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/westeros/">
+<span class="md-ellipsis">
+    
+  
+    Westeros
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rdkshell/">
+<span class="md-ellipsis">
+    
+  
+    RDK Shell
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rialto/">
+<span class="md-ellipsis">
+    
+  
+    Rialto
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/video_profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Connectivity
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Connectivity
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/features/">
+<span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/tryout_rdkb/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Oldprompt/">
+<span class="md-ellipsis">
+    
+  
+    PSM OldPrompt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_GPT5/">
+<span class="md-ellipsis">
+    
+  
+    PSM GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr Rama.md">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr%20GPT5/">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../preview-rdk/docs/getting-started/">
+<span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../devices/docs/">
+<span class="md-ellipsis">
+    
+  
+    Devices
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/TDK/">
+<span class="md-ellipsis">
+    
+  
+    TDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/Automatics/">
+<span class="md-ellipsis">
+    
+  
+    Automatics
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Review
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Review
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/WANManager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CellularManager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/GPONManager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/PPPManager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/VLANManager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/TelcoVoiceManager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPSM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/LMLite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LM Lite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPandM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PandM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/OneWifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/RBus/">
+<span class="md-ellipsis">
+    
+  
+    RBus
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/Utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Device Management
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Device Management
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/XConf/">
+<span class="md-ellipsis">
+    
+  
+    XConf
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Telemetry/">
+<span class="md-ellipsis">
+    
+  
+    Telemetry
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Webpa/">
+<span class="md-ellipsis">
+    
+  
+    Web PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/TR369/">
+<span class="md-ellipsis">
+    
+  
+    TR 369
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/LogUpload/">
+<span class="md-ellipsis">
+    
+  
+    Log Upload
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Comparison
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparison
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_orig_rama.md">
+<span class="md-ellipsis">
+    
+  
+    Template_Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Backup
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Backup
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1" id="__nav_9_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    26Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    26Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_1" id="__nav_9_2_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PNM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_claude/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_claude/">
+<span class="md-ellipsis">
+    
+  
+    CL_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_claude/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_2" id="__nav_9_2_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PNM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    CL_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2" id="__nav_9_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    30Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    30Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_mod_2609.md">
+<span class="md-ellipsis">
+    
+  
+    Template_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_2" id="__nav_9_2_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_3" id="__nav_9_2_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_3" id="__nav_9_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct10
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct10
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_4" id="__nav_9_2_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct21
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct21
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_5" id="__nav_9_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct22
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct22
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/lmlite/">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_6" id="__nav_9_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct27
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_6_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct27
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_7" id="__nav_9_2_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct28
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct28
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8" id="__nav_9_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Chunked
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Chunked
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_1" id="__nav_9_2_8_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CCSP PNM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_2" id="__nav_9_2_8_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    WAN Manager
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_3" id="__nav_9_2_8_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    LMLite
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_4" id="__nav_9_2_8_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_4_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Utopia
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_9" id="__nav_9_2_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Dec02
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_9_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Dec02
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/tnd/">
+<span class="md-ellipsis">
+    
+  
+    TestnDiagnostics
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/ccspcr/">
+<span class="md-ellipsis">
+    
+  
+    CcspCR
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/faq/">
+<span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct29
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct29
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct31
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct31
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov04
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov04
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov05
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov05
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      
+        Design
+      
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites-and-dependencies">
+<span class="md-ellipsis">
+      
+        Prerequisites and Dependencies
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-state-flow">
+<span class="md-ellipsis">
+      
+        Component State Flow
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#call-flow">
+<span class="md-ellipsis">
+      
+        Call Flow
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tr181-data-models">
+<span class="md-ellipsis">
+      
+        TR‑181 Data Models
+      
+    </span>
+</a>
+<nav aria-label="TR‑181 Data Models" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#supported-tr-181-parameters">
+<span class="md-ellipsis">
+      
+        Supported TR-181 Parameters
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#object-hierarchy">
+<span class="md-ellipsis">
+      
+        Object Hierarchy
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#parameter-definitions">
+<span class="md-ellipsis">
+      
+        Parameter Definitions
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal-modules">
+<span class="md-ellipsis">
+      
+        Internal Modules
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-interactions">
+<span class="md-ellipsis">
+      
+        Component Interactions
+      
+    </span>
+</a>
+<nav aria-label="Component Interactions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#interaction-matrix">
+<span class="md-ellipsis">
+      
+        Interaction Matrix
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ipc-flow-patterns">
+<span class="md-ellipsis">
+      
+        IPC Flow Patterns
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      
+        Implementation Details
+      
+    </span>
+</a>
+<nav aria-label="Implementation Details" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#major-hal-apis-integration">
+<span class="md-ellipsis">
+      
+        Major HAL APIs Integration
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-implementation-logic">
+<span class="md-ellipsis">
+      
+        Key Implementation Logic
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-configuration-files">
+<span class="md-ellipsis">
+      
+        Key Configuration Files
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/rdkcentral/edit/master/docs/docu/dec17/NotifyComponent-27nov.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<h1 id="notifycomponent-documentation">NotifyComponent Documentation</h1>
+<p>The NotifyComponent is a centralized notification service in the RDK-B middleware that manages parameter change notifications between different RDK-B components and protocol agents. It acts as a notification broker that allows components to register interest in specific TR-181 parameter changes and distributes notifications when those parameters are modified. This component ensures efficient and reliable communication across the RDK-B stack by providing a unified notification mechanism for parameter value changes, reducing direct inter-component dependencies and enabling scalable event-driven architecture.</p>
+<p>The NotifyComponent provides essential services to the RDK-B ecosystem by maintaining a dynamic registry of parameter interests from various protocol agents (WebPA, TR-069, DMCLI, SNMP, Wi-Fi, and Mesh), processing notification requests through a message queue system, and distributing parameter change notifications to all registered subscribers. At the module level, it implements a thread-safe notification engine with persistent parameter registration, message queue-based asynchronous communication, and flexible notification masks that allow fine-grained control over which protocol agents receive specific notifications.</p>
+<pre class="mermaid"><code>graph TD
+    subgraph "External Management"
+        ACS[ACS/TR-069 Server]
+        WebUI[Web Management Interface]
+        SNMP_NMS[SNMP Network Management]
+    end
+
+    subgraph "Protocol Agents"
+        TR069PA[TR-069 Protocol Agent]
+        WebPA[WebPA Agent]
+        SNMP_Agent[SNMP Protocol Agent]
+        WiFi_Agent[Wi-Fi Agent]
+        Mesh_Agent[Mesh Agent]
+    end
+
+    subgraph "RDK-B Middleware"
+        NotifyComponent[NotifyComponent]
+        Other_Components[Other RDK-B Components&lt;br/&gt;CcspPandM, CcspCr, etc.]
+    end
+
+    subgraph "System Layer"
+        Message_Queue[POSIX Message Queue&lt;br/&gt;/Notify_queue]
+        File_System[File System&lt;br/&gt;/tmp/.NotifyParamListCache]
+    end
+
+    %% External connections
+    ACS --&gt;|TR-069 Management| TR069PA
+    WebUI --&gt;|HTTP/REST| WebPA
+    SNMP_NMS --&gt;|SNMP Protocol| SNMP_Agent
+
+    %% Protocol agent registrations
+    TR069PA --&gt;|Register Parameters&lt;br/&gt;RBus/DBUS| NotifyComponent
+    WebPA --&gt;|Register Parameters&lt;br/&gt;RBus/DBUS| NotifyComponent  
+    SNMP_Agent --&gt;|Register Parameters&lt;br/&gt;RBus/DBUS| NotifyComponent
+    WiFi_Agent --&gt;|Register Parameters&lt;br/&gt;RBus/DBUS| NotifyComponent
+    Mesh_Agent --&gt;|Register Parameters&lt;br/&gt;RBus/DBUS| NotifyComponent
+
+    %% Notification flows
+    Other_Components --&gt;|Parameter Changes&lt;br/&gt;Message Queue| NotifyComponent
+    NotifyComponent --&gt;|Notifications&lt;br/&gt;RBus/DBUS| TR069PA
+    NotifyComponent --&gt;|Notifications&lt;br/&gt;RBus/DBUS| WebPA
+    NotifyComponent --&gt;|Notifications&lt;br/&gt;RBus/DBUS| SNMP_Agent
+    NotifyComponent --&gt;|Notifications&lt;br/&gt;RBus/DBUS| WiFi_Agent
+    NotifyComponent --&gt;|Notifications&lt;br/&gt;RBus/DBUS| Mesh_Agent
+
+    %% System interactions
+    NotifyComponent &lt;--&gt;|Message Queue I/O| Message_Queue
+    NotifyComponent &lt;--&gt;|Persistent Storage| File_System
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef protocol fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef component fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef system fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class ACS,WebUI,SNMP_NMS external;
+    class TR069PA,WebPA,SNMP_Agent,WiFi_Agent,Mesh_Agent protocol;
+    class NotifyComponent,Other_Components component;
+    class Message_Queue,File_System system;</code></pre>
+<pre class="mermaid"><code>graph LR
+    subgraph "External Systems"
+        RemoteMgmt["Remote Management"]
+        LocalUI["Local Web UI"]
+        SNMPNMS["SNMP Network Management"]
+    end
+
+    subgraph "RDK-B Platform"
+        subgraph "Remote Management Agents"
+            ProtocolAgents["Protocol Agents"]
+            TR069PA["TR-069 PA"]
+            WebPA["WebPA"]
+            SNMPAgent["SNMP Agent"]
+            WiFiAgent["WiFi Agent"]
+            MeshAgent["Mesh Agent"]
+        end
+
+        subgraph "Notification Framework"
+            NotifyComp["NotifyComponent"]
+        end
+
+        subgraph "RDK-B Core Components"
+            PAMComp["P&amp;M Component"]
+            CcspCr["Component Registry"]
+            OtherComps["Other RDK-B Components"]
+        end
+    end
+
+    subgraph "System Layer"
+        MessageQueue["POSIX Message Queue"]
+        FileSystem["Persistent Storage"]
+        Linux["Linux Kernel"]
+    end
+
+    %% External connections
+    RemoteMgmt --&gt;|TR-069/WebPA| ProtocolAgents
+    LocalUI --&gt;|HTTP/HTTPS| WebPA
+    SNMPNMS --&gt;|SNMP Protocol| SNMPAgent
+
+    %% Protocol Agents to NotifyComponent
+    ProtocolAgents --&gt;|IPC| NotifyComp
+    TR069PA --&gt;|Register Parameters| NotifyComp
+    WebPA --&gt;|Register Parameters| NotifyComp
+    SNMPAgent --&gt;|Register Parameters| NotifyComp
+    WiFiAgent --&gt;|Register Parameters| NotifyComp
+    MeshAgent --&gt;|Register Parameters| NotifyComp
+
+    %% NotifyComponent to Other RDK-B Components
+    NotifyComp --&gt;|IPC| PAMComp
+    NotifyComp --&gt;|IPC| CcspCr
+    NotifyComp --&gt;|IPC| OtherComps
+
+    %% System Layer Integration
+    NotifyComp &lt;--&gt;|Message Queue I/O| MessageQueue
+    NotifyComp &lt;--&gt;|Registration Cache| FileSystem
+    PAMComp --&gt;|Parameter Changes| MessageQueue
+    OtherComps --&gt;|Parameter Changes| MessageQueue
+
+    %% System integration
+    MessageQueue &lt;--&gt;|System Calls| Linux
+    FileSystem &lt;--&gt;|File Operations| Linux
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef notifyComponent fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
+    classDef rdkbComponent fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef system fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class RemoteMgmt,LocalUI,SNMPNMS external;
+    class NotifyComp notifyComponent;
+    class ProtocolAgents,TR069PA,WebPA,SNMPAgent,WiFiAgent,MeshAgent,PAMComp,CcspCr,OtherComps rdkbComponent;
+    class MessageQueue,FileSystem,Linux system;</code></pre>
+<p><strong>Key Features &amp; Responsibilities</strong>: </p>
+<ul>
+<li><strong>Centralized Notification Management</strong>: Acts as a broker for all TR-181 parameter change notifications across RDK-B components, eliminating the need for point-to-point notification connections</li>
+<li><strong>Dynamic Parameter Registration</strong>: Allows protocol agents to dynamically register and unregister interest in specific TR-181 parameters using flexible notification masks</li>
+<li><strong>Multi-Protocol Support</strong>: Supports notifications for WebPA, TR-069, DMCLI, SNMP, Wi-Fi, and Mesh protocol agents with individual notification mask management  </li>
+<li><strong>Asynchronous Message Processing</strong>: Implements a message queue-based system for handling parameter change notifications without blocking the sender components</li>
+<li><strong>Persistent Registration Storage</strong>: Maintains parameter registration information in persistent storage to survive component restarts and crashes</li>
+<li><strong>Thread-Safe Operations</strong>: Uses dynamic linked list management and thread-safe operations to handle concurrent registration and notification requests</li>
+</ul>
+<h2 id="design">Design</h2>
+<p>The NotifyComponent follows a broker-based design pattern that centralizes notification management while maintaining loose coupling between RDK-B components and protocol agents. The design implements a hub-and-spoke topology where the NotifyComponent serves as the central hub that receives parameter change notifications from any RDK-B component and distributes them to all registered protocol agents based on their subscription masks. This approach significantly reduces the complexity of inter-component communication by eliminating the need for each component to maintain direct connections with multiple protocol agents.</p>
+<p>The design integrates seamlessly with the RDK-B messaging infrastructure through both synchronous and asynchronous communication patterns. For northbound interactions with protocol agents, the component uses RBus/DBUS for parameter registration and notification delivery, ensuring reliable and standardized communication. For southbound interactions, it employs POSIX message queues to receive parameter change notifications from other RDK-B components, enabling asynchronous and non-blocking communication that doesn't impact the performance of notifying components.</p>
+<p>The IPC mechanisms are carefully chosen based on communication requirements - RBus/DBUS provides reliable synchronous communication for registration operations and notification delivery, while POSIX message queues enable high-performance asynchronous communication for parameter change events. The component also implements persistent data storage through file-based caching of registration information, allowing it to recover quickly after restarts without requiring re-registration from all protocol agents. This hybrid approach optimizes both performance and reliability across different communication scenarios.</p>
+<p><pre class="mermaid"><code>graph TD
+    subgraph "NotifyComponent Container (RDK-B Middleware)"
+        subgraph "Registration Manager"
+            RegAPI[Registration API Handler]
+            ParamRegistry[Parameter Registry&lt;br/&gt;Dynamic Linked List]
+            PersistMgr[Persistence Manager&lt;br/&gt;File I/O]
+            noteReg["Purpose: Manages protocol agent registrations for TR-181 parameters with persistent storage"]
+        end
+
+        subgraph "Notification Engine"
+            EventHandler[Event Handler Thread]
+            MsgQueue[Message Queue Interface&lt;br/&gt;POSIX mq]
+            NotifyDispatcher[Notification Dispatcher]
+            NotifyMasks[Notification Mask Manager]
+            noteNotify["Purpose: Processes incoming parameter changes and distributes notifications to subscribers"]
+        end
+
+        subgraph "IPC Interface Layer"
+            RBusInterface[RBus/DBUS Interface]
+            TR181Handler[TR-181 Parameter Handler]
+            ProtocolComm[Protocol Agent Communication]
+            noteIPC["Purpose: Handles communication with protocol agents and RDK-B components"]
+        end
+    end
+
+    subgraph "Protocol Agents"
+        WebPAAgent[WebPA Agent]
+        TR069Agent[TR-069 Agent] 
+        SNMPAgent[SNMP Agent]
+        WiFiAgent[Wi-Fi Agent]
+        MeshAgent[Mesh Agent]
+    end
+
+    subgraph "RDK-B Components"
+        PandMAgent[P&amp;M Agent]
+        CrAgent[Component Registry]
+        OtherComps[Other Components]
+    end
+
+    subgraph "System Storage"
+        TmpStorage["/tmp/.NotifyParamListCache"]
+        MsgQueueSys["/Notify_queue"]
+    end
+
+    %% Registration flow
+    WebPAAgent --&gt;|Register Parameters&lt;br/&gt;RBus| RegAPI
+    TR069Agent --&gt;|Register Parameters&lt;br/&gt;RBus| RegAPI
+    SNMPAgent --&gt;|Register Parameters&lt;br/&gt;RBus| RegAPI
+    WiFiAgent --&gt;|Register Parameters&lt;br/&gt;RBus| RegAPI
+    MeshAgent --&gt;|Register Parameters&lt;br/&gt;RBus| RegAPI
+
+    RegAPI --&gt; ParamRegistry
+    ParamRegistry --&gt; PersistMgr
+    PersistMgr &lt;--&gt;|Read/Write| TmpStorage
+
+    %% Notification flow
+    PandMAgent --&gt;|Parameter Changes&lt;br/&gt;POSIX Message Queue| MsgQueue
+    CrAgent --&gt;|Parameter Changes&lt;br/&gt;POSIX Message Queue| MsgQueue
+    OtherComps --&gt;|Parameter Changes&lt;br/&gt;POSIX Message Queue| MsgQueue
+
+    MsgQueue --&gt; EventHandler
+    EventHandler --&gt; ParamRegistry
+    EventHandler --&gt; NotifyDispatcher
+    NotifyDispatcher --&gt; NotifyMasks
+    NotifyMasks --&gt; ProtocolComm
+
+    ProtocolComm --&gt;|Notifications&lt;br/&gt;RBus| WebPAAgent
+    ProtocolComm --&gt;|Notifications&lt;br/&gt;RBus| TR069Agent  
+    ProtocolComm --&gt;|Notifications&lt;br/&gt;RBus| SNMPAgent
+    ProtocolComm --&gt;|Notifications&lt;br/&gt;RBus| WiFiAgent
+    ProtocolComm --&gt;|Notifications&lt;br/&gt;RBus| MeshAgent
+
+    %% IPC Layer connections
+    RegAPI --&gt; RBusInterface
+    ProtocolComm --&gt; RBusInterface
+    RBusInterface --&gt; TR181Handler
+    EventHandler &lt;--&gt; MsgQueueSys
+
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef storage fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+
+    class RegAPI,ParamRegistry,PersistMgr,EventHandler,MsgQueue,NotifyDispatcher,NotifyMasks,RBusInterface,TR181Handler,ProtocolComm component;
+    class WebPAAgent,TR069Agent,SNMPAgent,WiFiAgent,MeshAgent,PandMAgent,CrAgent,OtherComps external;
+    class TmpStorage,MsgQueueSys storage;</code></pre>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "NotifyComponent Internal Architecture"
+        subgraph "Interface Layer"
+            TR181API[TR-181 API Handler&lt;br/&gt;cosa_apis_NotifyComponent.h]
+            SSPFramework[SSP Framework&lt;br/&gt;ssp_main.c, plugin_main.c]
+        end
+
+        subgraph "Core Processing"
+            RegMgr[Registration Manager&lt;br/&gt;AddNotifyParam/DelNotifyParam]
+            EventEngine[Event Processing Engine&lt;br/&gt;Event_HandlerThread]
+            NotifyDispatcher[Notification Dispatcher&lt;br/&gt;Notify_To_PAs/Find_Param]
+            MaskMgr[Notification Mask Manager&lt;br/&gt;PA_to_Mask]
+        end
+
+        subgraph "Data Management" 
+            ParamRegistry[Parameter Registry&lt;br/&gt;Dynamic Linked List]
+            PersistLayer[Persistence Layer&lt;br/&gt;UpdateNotifyParamFile/ReloadNotifyParam]
+        end
+
+        subgraph "Communication"
+            IPCInterface[IPC Interface&lt;br/&gt;RBus/DBUS Handling]
+            MsgQueueHandler[Message Queue Handler&lt;br/&gt;MsgPosttoQueue]
+        end
+    end
+
+    %% Interface connections
+    TR181API --&gt; RegMgr
+    SSPFramework --&gt; IPCInterface
+
+    %% Core processing flow
+    RegMgr --&gt; ParamRegistry
+    RegMgr --&gt; PersistLayer
+    EventEngine --&gt; NotifyDispatcher
+    NotifyDispatcher --&gt; MaskMgr
+    NotifyDispatcher --&gt; ParamRegistry
+    MaskMgr --&gt; IPCInterface
+
+    %% Data flow
+    ParamRegistry --&gt; PersistLayer
+    EventEngine --&gt; MsgQueueHandler
+
+    %% External interfaces
+    IPCInterface -.-&gt;|Protocol Agents| TR181API
+    MsgQueueHandler -.-&gt;|RDK-B Components| EventEngine
+
+    classDef interface fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef core fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef data fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef comm fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class TR181API,SSPFramework interface;
+    class RegMgr,EventEngine,NotifyDispatcher,MaskMgr core;
+    class ParamRegistry,PersistLayer data;
+    class IPCInterface,MsgQueueHandler comm;</code></pre></p>
+<h3 id="prerequisites-and-dependencies">Prerequisites and Dependencies</h3>
+<p><strong>Build-Time Flags and Configuration:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Configure Option</th>
+<th>DISTRO Feature</th>
+<th>Build Flag</th>
+<th>Purpose</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--enable-unitTestDockerSupport</code></td>
+<td>N/A</td>
+<td><code>UNIT_TEST_DOCKER_SUPPORT</code></td>
+<td>Enable Docker support for unit testing with specialized test harness</td>
+<td>Disabled</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p><strong>RDK-B Platform and Integration Requirements:</strong></p>
+<ul>
+<li><strong>RDK-B Components</strong>: <code>CcspCommonLibrary</code>, <code>CcspCr</code>, <code>utopia</code>, <code>rdk-logger</code></li>
+<li><strong>HAL Dependencies</strong>: No direct HAL dependencies - operates at middleware layer only</li>
+<li><strong>Systemd Services</strong>: <code>CcspCrSsp.service</code> must be active before <code>NotifyComponent.service</code> starts</li>
+<li><strong>Message Bus</strong>: RBus registration under component-specific namespace for IPC communication</li>
+<li><strong>TR-181 Data Model</strong>: <code>Device.NotifyComponent.*</code> namespace for configuration parameters</li>
+<li><strong>Configuration Files</strong>:<code>NotifyComponent.xml</code> for TR-181 parameter definitions with dm_pack_code_gen.py code generation, <code>msg_daemon.cfg</code> for message bus configuration, <code>/tmp/.NotifyParamListCache</code> for persistent registration storage.</li>
+<li><strong>Startup Order</strong>: Initialize after Component Registry and message bus daemon are running</li>
+</ul>
+<p><br/></p>
+<p><strong>Threading Model:</strong> </p>
+<p>The NotifyComponent implements a minimal multi-threaded architecture designed for efficient notification processing while maintaining thread-safe operations and minimal resource utilization.</p>
+<table>
+<thead>
+<tr>
+<th>Thread &amp; Function</th>
+<th>Purpose</th>
+<th>Cycle/Timeout</th>
+<th>Synchronization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Main Thread</strong><br/><code>main()</code> / <code>ssp_main()</code></td>
+<td>Component initialization, TR-181 parameter processing, RBus message handling</td>
+<td>Event-driven message loop, RBus callbacks, SSP lifecycle management</td>
+<td>RBus async callbacks, component lifecycle mutexes</td>
+</tr>
+<tr>
+<td><strong>Event Handler Thread</strong><br/><code>Event_HandlerThread()</code> / <code>CreateEventHandlerThread()</code></td>
+<td>Primary notification processing thread that monitors POSIX message queue for parameter change notifications and coordinates notification distribution to registered protocol agents</td>
+<td>Continuous monitoring loop with <code>mq_receive()</code>, processes incoming messages from <code>/Notify_queue</code> and triggers notification distribution</td>
+<td>POSIX message queue synchronization, AnscAllocateMemory/AnscFreeMemory for thread-safe memory operations</td>
+</tr>
+</tbody>
+</table>
+<h3 id="component-state-flow">Component State Flow</h3>
+<p><strong>Initialization to Active State</strong></p>
+<p>The NotifyComponent follows a structured initialization sequence that establishes all necessary IPC connections, recovers persistent state, and activates the notification processing system before becoming fully operational.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant System as System Startup
+    participant NotifyComp as NotifyComponent
+    participant MsgBus as Message Bus (RBus/DBUS)
+    participant MsgQueue as POSIX Message Queue
+    participant FileSystem as File System
+    participant EventThread as Event Handler Thread
+
+    System-&gt;&gt;NotifyComp: Initialize Component
+    Note over NotifyComp: State: Initializing&lt;br/&gt;Setup logging, memory pools
+
+    NotifyComp-&gt;&gt;MsgBus: Connect to Message Bus
+    MsgBus--&gt;&gt;NotifyComp: Connection Established
+    Note over NotifyComp: State: Initializing → ConnectingBus
+
+    NotifyComp-&gt;&gt;MsgBus: Register TR-181 Parameters
+    MsgBus--&gt;&gt;NotifyComp: Parameter Registration Complete
+    Note over NotifyComp: State: ConnectingBus → RegisteringParams
+
+    NotifyComp-&gt;&gt;MsgQueue: Create/Open Message Queue
+    MsgQueue--&gt;&gt;NotifyComp: Queue Ready (/Notify_queue)
+    Note over NotifyComp: State: RegisteringParams → InitializingQueue
+
+    NotifyComp-&gt;&gt;FileSystem: Load Persistent Registrations
+    FileSystem--&gt;&gt;NotifyComp: Registration Cache Loaded
+    Note over NotifyComp: State: InitializingQueue → LoadingCache
+
+    NotifyComp-&gt;&gt;EventThread: Create Event Handler Thread
+    EventThread--&gt;&gt;NotifyComp: Thread Started
+    Note over NotifyComp: State: LoadingCache → Active
+
+    NotifyComp-&gt;&gt;System: Initialization Complete (Active State)
+
+    loop Runtime Operations
+        Note over NotifyComp: State: Active&lt;br/&gt;Process registrations &amp; notifications
+        EventThread-&gt;&gt;MsgQueue: Monitor for Parameter Changes
+        NotifyComp-&gt;&gt;MsgBus: Send Notifications to Protocol Agents
+    end
+
+    System-&gt;&gt;NotifyComp: Stop Request
+    Note over NotifyComp: State: Active → Shutdown
+    NotifyComp-&gt;&gt;FileSystem: Save Registration Cache
+    NotifyComp-&gt;&gt;EventThread: Stop Event Handler Thread
+    NotifyComp-&gt;&gt;MsgQueue: Close Message Queue
+    NotifyComp-&gt;&gt;MsgBus: Disconnect from Message Bus
+    NotifyComp-&gt;&gt;System: Shutdown Complete</code></pre>
+<p><strong>Runtime State Changes and Context Switching</strong></p>
+<p>The NotifyComponent maintains operational state primarily through its dynamic parameter registry and does not implement complex state machines, focusing instead on event-driven processing with minimal state transitions.</p>
+<p><strong>State Change Triggers:</strong></p>
+<ul>
+<li><strong>Registration Events</strong>: Protocol agents registering/unregistering parameter interests trigger registry updates and persistent storage operations</li>
+<li><strong>Parameter Change Notifications</strong>: Incoming messages via POSIX queue trigger notification processing and distribution to registered subscribers</li>
+<li><strong>Component Recovery</strong>: After crashes or restarts, loading persistent cache triggers registry reconstruction without requiring re-registration</li>
+</ul>
+<p><strong>Context Switching Scenarios:</strong></p>
+<ul>
+<li><strong>Protocol Agent Registration</strong>: Component switches from idle monitoring to active registration processing when receiving registration requests</li>
+<li><strong>Notification Processing</strong>: Upon receiving parameter change messages, component switches context to notification distribution mode</li>
+<li><strong>Persistence Operations</strong>: During registry updates, component temporarily switches to file I/O context to maintain registration cache consistency</li>
+</ul>
+<h3 id="call-flow">Call Flow</h3>
+<p><strong>Initialization Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Init as Initialization Process
+    participant NotifyComp as NotifyComponent
+    participant MsgBus as Message Bus
+    participant Storage as File System
+
+    Init-&gt;&gt;NotifyComp: Start Component
+    NotifyComp-&gt;&gt;NotifyComp: Initialize Global Variables &amp; Memory
+    NotifyComp-&gt;&gt;MsgBus: Connect to RBus/DBUS
+    MsgBus--&gt;&gt;NotifyComp: Connection Established
+    NotifyComp-&gt;&gt;MsgBus: Register TR-181 Parameters
+    MsgBus--&gt;&gt;NotifyComp: Registration Complete
+    NotifyComp-&gt;&gt;Storage: Load Parameter Registry Cache
+    Storage--&gt;&gt;NotifyComp: Registry Loaded
+    NotifyComp-&gt;&gt;NotifyComp: Create Event Handler Thread
+    NotifyComp-&gt;&gt;Init: Initialization Complete (Active State)</code></pre>
+<p><strong>Parameter Registration Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant ProtocolAgent as Protocol Agent&lt;br/&gt;(WebPA/TR-069/etc.)
+    participant NotifyComp as NotifyComponent
+    participant Registry as Parameter Registry
+    participant Storage as Persistent Storage
+
+    ProtocolAgent-&gt;&gt;NotifyComp: SetNotifi_ParamName&lt;br/&gt;"AgentName,ParamName,true"
+    Note over NotifyComp: Parse registration string&lt;br/&gt;Extract PA name, parameter, action
+    NotifyComp-&gt;&gt;NotifyComp: PA_to_Mask(AgentName)
+    Note over NotifyComp: Convert agent name to notification mask
+
+    alt Add Parameter Registration
+        NotifyComp-&gt;&gt;Registry: AddNotifyParam(PA_Name, param_name)
+        Registry-&gt;&gt;Registry: Search existing registrations
+        alt Parameter exists
+            Registry-&gt;&gt;Registry: Update notification mask
+        else New parameter
+            Registry-&gt;&gt;Registry: Create new registration entry
+        end
+        Registry--&gt;&gt;NotifyComp: Registration Updated
+        NotifyComp-&gt;&gt;Storage: UpdateNotifyParamFile()
+        Storage--&gt;&gt;NotifyComp: Cache Updated
+    else Remove Parameter Registration  
+        NotifyComp-&gt;&gt;Registry: DelNotifyParam(PA_Name, param_name)
+        Registry-&gt;&gt;Registry: Remove PA from parameter mask
+        Registry--&gt;&gt;NotifyComp: Registration Removed
+        NotifyComp-&gt;&gt;Storage: UpdateNotifyParamFile()
+        Storage--&gt;&gt;NotifyComp: Cache Updated
+    end
+
+    NotifyComp--&gt;&gt;ProtocolAgent: Registration Complete</code></pre>
+<p><strong>Notification Processing Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant RDKBComponent as RDK-B Component
+    participant MsgQueue as Message Queue&lt;br/&gt;/Notify_queue
+    participant EventHandler as Event Handler Thread
+    participant Registry as Parameter Registry
+    participant Dispatcher as Notification Dispatcher
+    participant ProtocolAgent as Protocol Agent
+
+    RDKBComponent-&gt;&gt;MsgQueue: Post Parameter Change&lt;br/&gt;"ParamName,NewValue"
+    MsgQueue-&gt;&gt;EventHandler: mq_receive()
+    Note over EventHandler: Parse parameter name from message
+    EventHandler-&gt;&gt;Registry: Find_Param(param_name, message)
+    Registry-&gt;&gt;Registry: Search registration list
+
+    alt Parameter Found in Registry
+        Registry--&gt;&gt;EventHandler: Return notification mask
+        EventHandler-&gt;&gt;Dispatcher: Notify_To_PAs(PA_Bits, message)
+
+        loop For each registered PA
+            alt WebPA Agent registered
+                Dispatcher-&gt;&gt;ProtocolAgent: RBus notification to WebPA
+            end
+            alt TR-069 Agent registered  
+                Dispatcher-&gt;&gt;ProtocolAgent: RBus notification to TR-069
+            end
+            alt SNMP Agent registered
+                Dispatcher-&gt;&gt;ProtocolAgent: RBus notification to SNMP
+            end
+            alt Wi-Fi Agent registered
+                Dispatcher-&gt;&gt;ProtocolAgent: RBus notification to Wi-Fi
+            end
+            alt Mesh Agent registered
+                Dispatcher-&gt;&gt;ProtocolAgent: RBus notification to Mesh
+            end
+        end
+
+    else Parameter Not Found
+        Registry--&gt;&gt;EventHandler: No registrations found
+        Note over EventHandler: Log message and continue
+    end
+
+    EventHandler-&gt;&gt;MsgQueue: Continue monitoring queue</code></pre>
+<h2 id="tr181-data-models">TR‑181 Data Models</h2>
+<h3 id="supported-tr-181-parameters">Supported TR-181 Parameters</h3>
+<p>The NotifyComponent implements a minimal TR-181 interface focused specifically on managing parameter notification registrations. It follows the BBF TR-181 specification for parameter access patterns while providing custom extensions for notification management functionality.</p>
+<h3 id="object-hierarchy">Object Hierarchy</h3>
+<div class="highlight"><pre><span></span><code>Device.
+└── NotifyComponent.
+    ├── Notifi_ParamName (string, R/W)
+    ├── SetNotifi_ParamName (string, R/W)
+    ├── X_RDKCENTRAL-COM_Connected-Client (string, R)
+    └── X_RDKCENTRAL-COM_PresenceNotification (string, R)
+</code></pre></div>
+<h3 id="parameter-definitions">Parameter Definitions</h3>
+<p><strong>Core Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter Path</th>
+<th>Data Type</th>
+<th>Access</th>
+<th>Default Value</th>
+<th>Description</th>
+<th>BBF Compliance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Device.NotifyComponent.Notifi_ParamName</code></td>
+<td>string</td>
+<td>R/W</td>
+<td><code>""</code></td>
+<td>Read-only parameter for querying current notification registrations. Returns comma-separated list of registered parameter names for diagnostics.</td>
+<td>Custom Extension</td>
+</tr>
+<tr>
+<td><code>Device.NotifyComponent.SetNotifi_ParamName</code></td>
+<td>string</td>
+<td>R/W</td>
+<td><code>""</code></td>
+<td>Primary interface for managing parameter notification registrations. Format: "AgentName,ParameterName,Action" where Action is "true" for add or "false" for remove.</td>
+<td>Custom Extension</td>
+</tr>
+<tr>
+<td><code>Device.NotifyComponent.X_RDKCENTRAL-COM_Connected-Client</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>""</code></td>
+<td>Special notification parameter for TR-069 connected client notifications. Provides information about client connection status changes.</td>
+<td>Custom Extension</td>
+</tr>
+<tr>
+<td><code>Device.NotifyComponent.X_RDKCENTRAL-COM_PresenceNotification</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>""</code></td>
+<td>Special notification parameter for presence detection events. Used for device presence and connectivity state notifications.</td>
+<td>Custom Extension</td>
+</tr>
+</tbody>
+</table>
+<h2 id="internal-modules">Internal Modules</h2>
+<p>The NotifyComponent is organized into several key modules that handle different aspects of notification management, from parameter registration to message processing and notification distribution.</p>
+<table>
+<thead>
+<tr>
+<th>Module/Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Registration Manager</strong></td>
+<td>Handles protocol agent registration requests, maintains dynamic parameter registry using linked list, and manages persistent storage of registrations</td>
+<td><code>cosa_apis_NotifyComponent.c</code> (AddNotifyParam, DelNotifyParam, NotifyParam functions)</td>
+</tr>
+<tr>
+<td><strong>Event Processing Engine</strong></td>
+<td>Implements the core event handler thread that monitors POSIX message queue for parameter change notifications and coordinates notification distribution</td>
+<td><code>cosa_apis_NotifyComponent.c</code> (Event_HandlerThread, CreateEventHandlerThread)</td>
+</tr>
+<tr>
+<td><strong>Notification Dispatcher</strong></td>
+<td>Processes notification requests, applies notification masks to determine target protocol agents, and delivers notifications via RBus/DBUS</td>
+<td><code>cosa_apis_NotifyComponent.c</code> (Notify_To_PAs, Find_Param, PA_to_Mask)</td>
+</tr>
+<tr>
+<td><strong>Persistence Layer</strong></td>
+<td>Manages file-based caching of parameter registrations to survive component restarts and provides recovery mechanisms</td>
+<td><code>cosa_apis_NotifyComponent.c</code> (UpdateNotifyParamFile, ReloadNotifyParam)</td>
+</tr>
+<tr>
+<td><strong>IPC Interface</strong></td>
+<td>Handles communication with protocol agents through TR-181 parameter interface and manages message queue operations</td>
+<td><code>cosa_apis_NotifyComponent.c</code> (NotifyComponent_SetParamStringValue, MsgPosttoQueue)</td>
+</tr>
+<tr>
+<td><strong>SSP Framework</strong></td>
+<td>Provides CCSP integration layer including component lifecycle management, message bus registration, and system service integration</td>
+<td><code>ssp_main.c</code>, <code>plugin_main.c</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="component-interactions">Component Interactions</h2>
+<p>The NotifyComponent serves as a central hub for notification management across the RDK-B middleware, maintaining connections with protocol agents, other RDK-B components, and system services through multiple IPC mechanisms optimized for different communication patterns.</p>
+<h3 id="interaction-matrix">Interaction Matrix</h3>
+<table>
+<thead>
+<tr>
+<th>Target Component/Layer</th>
+<th>Interaction Purpose</th>
+<th>Key APIs/Endpoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Protocol Agents</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>TR-069 Protocol Agent</td>
+<td>Parameter change notifications for ACS synchronization</td>
+<td><code>Device.TR069Notify.X_RDKCENTRAL-COM_Connected-Client</code>, <code>Device.TR069Notify.X_RDKCENTRAL-COM_TR069_Notification</code></td>
+</tr>
+<tr>
+<td>WebPA Agent</td>
+<td>Real-time parameter notifications for cloud management</td>
+<td><code>eRT.com.cisco.spvtg.ccsp.webpaagent</code> RBus interface</td>
+</tr>
+<tr>
+<td>SNMP Protocol Agent</td>
+<td>SNMP trap generation for parameter changes</td>
+<td><code>SNMP</code> mask notifications via RBus</td>
+</tr>
+<tr>
+<td>Wi-Fi Agent</td>
+<td>Wi-Fi specific parameter change notifications</td>
+<td><code>eRT.com.cisco.spvtg.ccsp.wifi</code> RBus interface</td>
+</tr>
+<tr>
+<td>Mesh Agent</td>
+<td>Mesh network topology and status notifications</td>
+<td><code>eRT.com.cisco.spvtg.ccsp.meshagent</code> RBus interface</td>
+</tr>
+<tr>
+<td>DMCLI Agent</td>
+<td>Command-line interface parameter notifications</td>
+<td><code>ccsp.busclient</code> RBus interface</td>
+</tr>
+<tr>
+<td><strong>RDK-B Middleware Components</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>P&amp;M Agent</td>
+<td>Device management parameter changes, system status updates</td>
+<td>POSIX message queue <code>/Notify_queue</code></td>
+</tr>
+<tr>
+<td>Component Registry</td>
+<td>Component discovery and lifecycle management</td>
+<td>RBus component registration and discovery</td>
+</tr>
+<tr>
+<td>Wi-Fi Manager</td>
+<td>Wi-Fi configuration and status parameter changes</td>
+<td>POSIX message queue <code>/Notify_queue</code></td>
+</tr>
+<tr>
+<td>WAN Manager</td>
+<td>WAN connectivity and configuration notifications</td>
+<td>POSIX message queue <code>/Notify_queue</code></td>
+</tr>
+<tr>
+<td><strong>System &amp; Storage</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>POSIX Message Queue</td>
+<td>Asynchronous parameter change notification delivery</td>
+<td><code>mq_open()</code>, <code>mq_send()</code>, <code>mq_receive()</code> for <code>/Notify_queue</code></td>
+</tr>
+<tr>
+<td>File System</td>
+<td>Persistent registration storage and crash recovery</td>
+<td><code>fopen()</code>, <code>fwrite()</code>, <code>fread()</code> for <code>/tmp/.NotifyParamListCache</code></td>
+</tr>
+<tr>
+<td>RBus Daemon</td>
+<td>Inter-process communication and service discovery</td>
+<td>RBus registration, method calls, and event publishing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Events Published by NotifyComponent:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Event Name</th>
+<th>Event Topic/Path</th>
+<th>Trigger Condition</th>
+<th>Subscriber Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parameter Change Notification</td>
+<td>Protocol-specific RBus methods</td>
+<td>Parameter value changes received via message queue</td>
+<td>All registered protocol agents based on notification masks</td>
+</tr>
+<tr>
+<td>TR-069 Connected Client</td>
+<td><code>Device.TR069Notify.X_RDKCENTRAL-COM_Connected-Client</code></td>
+<td>Client connection status changes</td>
+<td>TR-069 Protocol Agent</td>
+</tr>
+<tr>
+<td>TR-069 Notification</td>
+<td><code>Device.TR069Notify.X_RDKCENTRAL-COM_TR069_Notification</code></td>
+<td>TR-069 specific parameter changes</td>
+<td>TR-069 Protocol Agent</td>
+</tr>
+<tr>
+<td>Presence Notification</td>
+<td><code>Device.NotifyComponent.X_RDKCENTRAL-COM_PresenceNotification</code></td>
+<td>Device presence detection events</td>
+<td>WebPA Agent, Mesh Agent</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ipc-flow-patterns">IPC Flow Patterns</h3>
+<p><strong>Primary IPC Flow - Parameter Registration:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant PA as Protocol Agent
+    participant RBus as RBus Daemon
+    participant NotifyComp as NotifyComponent
+    participant Registry as Parameter Registry
+    participant Storage as File System
+
+    PA-&gt;&gt;RBus: SetParameterValues()&lt;br/&gt;Device.NotifyComponent.SetNotifi_ParamName&lt;br/&gt;"webpaagent,Device.WiFi.Radio.1.Enable,true"
+    RBus-&gt;&gt;NotifyComp: RBus Method Call
+    Note over NotifyComp: Parse: PA="webpaagent"&lt;br/&gt;Param="Device.WiFi.Radio.1.Enable"&lt;br/&gt;Action="true"
+    NotifyComp-&gt;&gt;Registry: AddNotifyParam(webpaagent, Device.WiFi.Radio.1.Enable)
+    Registry-&gt;&gt;Registry: Update linked list with WebPA mask
+    Registry--&gt;&gt;NotifyComp: Registration Complete
+    NotifyComp-&gt;&gt;Storage: UpdateNotifyParamFile()
+    Storage--&gt;&gt;NotifyComp: Cache Updated
+    NotifyComp--&gt;&gt;RBus: SetParameterValues Response (Success)
+    RBus--&gt;&gt;PA: Registration Confirmed</code></pre>
+<p><strong>Event Notification Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant RDKBComp as RDK-B Component
+    participant MsgQueue as Message Queue
+    participant EventThread as Event Handler Thread
+    participant Registry as Parameter Registry
+    participant Dispatcher as Notification Dispatcher
+    participant RBus as RBus Daemon
+    participant WebPA as WebPA Agent
+    participant TR069 as TR-069 Agent
+
+    RDKBComp-&gt;&gt;MsgQueue: mq_send(/Notify_queue)&lt;br/&gt;"Device.WiFi.Radio.1.Enable,true"
+    Note over MsgQueue: Asynchronous delivery
+    MsgQueue-&gt;&gt;EventThread: mq_receive()
+    EventThread-&gt;&gt;Registry: Find_Param("Device.WiFi.Radio.1.Enable")
+    Registry--&gt;&gt;EventThread: Found: NotifyMask=WebPA|TR069
+    EventThread-&gt;&gt;Dispatcher: Notify_To_PAs(WebPA|TR069, message)
+
+    par WebPA Notification
+        Dispatcher-&gt;&gt;RBus: RBus call to webpaagent
+        RBus-&gt;&gt;WebPA: Parameter Change Notification
+        WebPA--&gt;&gt;RBus: Ack
+        RBus--&gt;&gt;Dispatcher: Success
+    and TR-069 Notification
+        Dispatcher-&gt;&gt;RBus: RBus call to tr069pa&lt;br/&gt;Device.TR069Notify.X_RDKCENTRAL-COM_TR069_Notification
+        RBus-&gt;&gt;TR069: Parameter Change Notification
+        TR069--&gt;&gt;RBus: Ack  
+        RBus--&gt;&gt;Dispatcher: Success
+    end
+
+    Dispatcher--&gt;&gt;EventThread: Notifications Sent
+    EventThread-&gt;&gt;MsgQueue: Continue monitoring</code></pre>
+<h2 id="implementation-details">Implementation Details</h2>
+<h3 id="major-hal-apis-integration">Major HAL APIs Integration</h3>
+<p>The NotifyComponent operates entirely within the RDK-B middleware layer and does not directly integrate with Hardware Abstraction Layer (HAL) APIs. It functions as a pure software service that manages inter-component communication without requiring hardware-specific operations.</p>
+<p><strong>No Direct HAL Integration:</strong></p>
+<p>The NotifyComponent's design philosophy emphasizes middleware-level notification management without hardware dependencies, allowing it to operate consistently across different RDK-B platform implementations regardless of underlying hardware variations.</p>
+<h3 id="key-implementation-logic">Key Implementation Logic</h3>
+<ul>
+<li>
+<p><strong>Dynamic Parameter Registry Management</strong>: The core state management is implemented using a dynamic linked list structure in <code>cosa_apis_NotifyComponent.c</code>, with thread-safe operations using ANSC memory management functions</p>
+<ul>
+<li>Main implementation in <code>AddNotifyParam()</code> and <code>DelNotifyParam()</code> functions for registration management</li>
+<li>Dynamic linked list traversal and modification in <code>Find_Param()</code> function for notification lookup</li>
+</ul>
+</li>
+<li>
+<p><strong>Asynchronous Event Processing</strong>: The message queue-based notification system enables non-blocking parameter change processing through dedicated thread management</p>
+<ul>
+<li>POSIX message queue operations in <code>Event_HandlerThread()</code> with continuous monitoring loop</li>
+<li>Message parsing and parameter extraction using <code>strtok_r()</code> for safe string tokenization</li>
+<li>Thread-safe message processing with proper error handling and logging</li>
+</ul>
+</li>
+<li>
+<p><strong>Notification Mask System</strong>: Protocol agent identification and notification targeting implemented through bitmask operations for efficient subscriber management</p>
+<ul>
+<li>Protocol agent to mask conversion in <code>PA_to_Mask()</code> function with lookup table</li>
+<li>Notification distribution logic in <code>Notify_To_PAs()</code> with per-agent message delivery</li>
+<li>Support for WebPA (0x1), DMCLI (0x2), SNMP (0x4), TR-069 (0x8), Wi-Fi (0x10), and Mesh (0x20) agents</li>
+</ul>
+</li>
+<li>
+<p><strong>Persistent Registration Storage</strong>: File-based caching system ensures registration persistence across component restarts and system failures</p>
+<ul>
+<li>Registration serialization in <code>UpdateNotifyParamFile()</code> with atomic file operations</li>
+<li>Recovery mechanism in <code>ReloadNotifyParam()</code> for startup registration reconstruction</li>
+<li>Crash-resilient design with immediate cache updates on registration changes</li>
+</ul>
+</li>
+<li>
+<p><strong>Error Handling Strategy</strong>: Comprehensive error detection and recovery mechanisms for robust operation in production environments</p>
+<ul>
+<li>POSIX message queue error handling with automatic retry and graceful degradation</li>
+<li>File I/O error management with fallback to in-memory operation</li>
+<li>RBus communication error handling with logging and continuation of service</li>
+</ul>
+</li>
+<li>
+<p><strong>Logging &amp; Debugging</strong>: Multi-level logging system with component-specific trace categories for operational visibility</p>
+<ul>
+<li>Parameter registration and notification activity logging with <code>CcspNotifyCompTraceInfo()</code></li>
+<li>Error condition logging with detailed context information</li>
+<li>Debug support for registration state inspection and message flow tracing</li>
+</ul>
+</li>
+</ul>
+<h3 id="key-configuration-files">Key Configuration Files</h3>
+<table>
+<thead>
+<tr>
+<th>Configuration File</th>
+<th>Purpose</th>
+<th>Override Mechanisms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NotifyComponent.xml</code></td>
+<td>TR-181 parameter definitions and COSA API function mappings for component interface</td>
+<td>Environment variable overrides for file location</td>
+</tr>
+<tr>
+<td><code>msg_daemon.cfg</code></td>
+<td>Message bus daemon configuration for RBus/DBUS connectivity</td>
+<td>Command-line parameters during component startup</td>
+</tr>
+<tr>
+<td><code>/tmp/.NotifyParamListCache</code></td>
+<td>Runtime persistent storage for parameter registrations to survive restarts</td>
+<td>Automatic regeneration if file is corrupted or missing</td>
+</tr>
+<tr>
+<td><code>configure.ac</code></td>
+<td>Build-time configuration for autotools integration and dependency management</td>
+<td>Configure script parameters and cross-compilation settings</td>
+</tr>
+</tbody>
+</table>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<div class="bottom-banner compact-footer">
+<!-- Left Section: Logo and Copyright -->
+<div class="footer-left">
+<img alt="RDK Logo" class="rdk-logo" src="../../../assets/logo.png">
+<p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+</img></div>
+<!-- Right Section: Links and Support -->
+<div class="footer-right">
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Explore RDK</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../preview-rdk/docs/getting-started">Getting Started</a></li>
+<li><a href="../../../devices/docs/">Devices</a></li>
+<li><a href="../../../preview-rdk/docs/getting-started">Tools</a></li>
+</ul>
+</div>
+</div>
+<!-- Device Management -->
+<div class="banner-group">
+<h3>Device Management</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../device-management/docs/XConf">XConf</a></li>
+<li><a href="../../../device-management/docs/Telemetry">Telemetry</a></li>
+<li><a href="./entertainment/docs/sample_home1/">Ent Home 1</a></li>
+<li><a href="./entertainment/docs/sample_home2/">Ent Home 2</a></li>
+<li><a href="./entertainment/docs/sample_home3/">Ent Home 3</a></li>
+</ul>
+</div>
+</div>
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Test &amp; Certification</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119">RDK Certification</a></li>
+<li><a href="../../../tools/docs/TDK/">TDK</a></li>
+<li><a href="../../../tools/docs/Automatics/">Automatics</a></li>
+</ul>
+</div>
+</div>
+<!-- Resources-->
+<div class="banner-group">
+<h3>Resources</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="./entertainment/docs/sample_home4/">Ent Home 4</a></li>
+<li><a href="./entertainment/docs/sample_home5/">Ent Home 5</a></li>
+<li><a href="./docu/nov05/rdkb_components/">RDK-B Review</a></li>
+<li><a href="/sitemap.xml">Site Map</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../../assets/javascripts/extra.js"></script>
+</div></body>
+</html>

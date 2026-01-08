@@ -1,0 +1,4738 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.com/docu/dec17/mocaagent/" rel="canonical"/>
+<link href="../../../assets/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
+<title>MoCA Agent Documentation - RDK Documentation</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"Fira Code"}</style>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/entertainment.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/getting-started.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/connectivity.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/devices.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/footer.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sidepanes.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sitemap.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home1.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home2.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home3.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home4.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home5.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="#00b2dc" data-md-color-primary="white" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#moca-agent-documentation">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="RDK Documentation" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="RDK Documentation">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis"> RDK Documentation </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+             MoCA Agent Documentation 
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="white" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to system preference" class="md-option" data-md-color-accent="#00b2dc" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to system preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+</form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header_buttons">
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg>
+</div>
+<div class="text">Source Code</div>
+</button></a>
+<a href="https://github.com/rdkcentral"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg>
+</div>
+<div class="text">Contribute</div>
+</button></a>
+<a href="mailto:support@rdkcentral.com"><button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg>
+</div>
+<div class="text">Get Help</div>
+</button></a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../entertainment/docs/">
+          
+  
+  
+  Entertainment
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../connectivity/docs/">
+          
+  
+  
+  Connectivity
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../preview-rdk/docs/getting-started/">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../devices/docs/">
+        
+  
+  
+    
+  
+  Devices
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tools/docs/TDK/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../review/">
+          
+  
+  
+  Review
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../device-management/docs/">
+          
+  
+  
+  Device Management
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../doc_template_orig_rama.md">
+          
+  
+  
+  Comparison
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="RDK Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="RDK Documentation">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+    RDK Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/rdkcentral" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Entertainment
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Entertainment
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home1/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome1
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home2/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome2
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/Apps/">
+<span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/tryout_rdkv_rdk7/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-vendor-porting-guide/">
+<span class="md-ellipsis">
+    
+  
+    Porting Kit
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdkv_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/westeros/">
+<span class="md-ellipsis">
+    
+  
+    Westeros
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rdkshell/">
+<span class="md-ellipsis">
+    
+  
+    RDK Shell
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rialto/">
+<span class="md-ellipsis">
+    
+  
+    Rialto
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/video_profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Connectivity
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Connectivity
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/features/">
+<span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/tryout_rdkb/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Oldprompt/">
+<span class="md-ellipsis">
+    
+  
+    PSM OldPrompt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_GPT5/">
+<span class="md-ellipsis">
+    
+  
+    PSM GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr Rama.md">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr%20GPT5/">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../preview-rdk/docs/getting-started/">
+<span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../devices/docs/">
+<span class="md-ellipsis">
+    
+  
+    Devices
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/TDK/">
+<span class="md-ellipsis">
+    
+  
+    TDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/Automatics/">
+<span class="md-ellipsis">
+    
+  
+    Automatics
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Review
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Review
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/WANManager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CellularManager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/GPONManager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/PPPManager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/VLANManager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/TelcoVoiceManager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPSM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/LMLite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LM Lite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPandM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PandM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/OneWifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/RBus/">
+<span class="md-ellipsis">
+    
+  
+    RBus
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/Utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Device Management
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Device Management
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/XConf/">
+<span class="md-ellipsis">
+    
+  
+    XConf
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Telemetry/">
+<span class="md-ellipsis">
+    
+  
+    Telemetry
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Webpa/">
+<span class="md-ellipsis">
+    
+  
+    Web PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/TR369/">
+<span class="md-ellipsis">
+    
+  
+    TR 369
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/LogUpload/">
+<span class="md-ellipsis">
+    
+  
+    Log Upload
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Comparison
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparison
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_orig_rama.md">
+<span class="md-ellipsis">
+    
+  
+    Template_Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Backup
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Backup
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1" id="__nav_9_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    26Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    26Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_1" id="__nav_9_2_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PNM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_claude/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_claude/">
+<span class="md-ellipsis">
+    
+  
+    CL_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_claude/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_2" id="__nav_9_2_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PNM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    CL_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2" id="__nav_9_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    30Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    30Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_mod_2609.md">
+<span class="md-ellipsis">
+    
+  
+    Template_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_2" id="__nav_9_2_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_3" id="__nav_9_2_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_3" id="__nav_9_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct10
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct10
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_4" id="__nav_9_2_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct21
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct21
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_5" id="__nav_9_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct22
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct22
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/lmlite/">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_6" id="__nav_9_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct27
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_6_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct27
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_7" id="__nav_9_2_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct28
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct28
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8" id="__nav_9_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Chunked
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Chunked
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_1" id="__nav_9_2_8_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CCSP PNM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_2" id="__nav_9_2_8_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    WAN Manager
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_3" id="__nav_9_2_8_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    LMLite
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_4" id="__nav_9_2_8_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_4_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Utopia
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_9" id="__nav_9_2_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Dec02
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_9_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Dec02
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/tnd/">
+<span class="md-ellipsis">
+    
+  
+    TestnDiagnostics
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/ccspcr/">
+<span class="md-ellipsis">
+    
+  
+    CcspCR
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/faq/">
+<span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct29
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct29
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct31
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct31
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov04
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov04
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov05
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov05
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      
+        Design
+      
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites-and-dependencies">
+<span class="md-ellipsis">
+      
+        Prerequisites and Dependencies
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-state-flow">
+<span class="md-ellipsis">
+      
+        Component State Flow
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#call-flow">
+<span class="md-ellipsis">
+      
+        Call Flow
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal-modules">
+<span class="md-ellipsis">
+      
+        Internal Modules
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-interactions">
+<span class="md-ellipsis">
+      
+        Component Interactions
+      
+    </span>
+</a>
+<nav aria-label="Component Interactions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#interaction-matrix">
+<span class="md-ellipsis">
+      
+        Interaction Matrix
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ipc-flow-patterns">
+<span class="md-ellipsis">
+      
+        IPC Flow Patterns
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      
+        Implementation Details
+      
+    </span>
+</a>
+<nav aria-label="Implementation Details" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#major-hal-apis-integration">
+<span class="md-ellipsis">
+      
+        Major HAL APIs Integration
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-implementation-logic">
+<span class="md-ellipsis">
+      
+        Key Implementation Logic
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-configuration-files">
+<span class="md-ellipsis">
+      
+        Key Configuration Files
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/rdkcentral/edit/master/docs/docu/dec17/mocaagent.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<h1 id="moca-agent-documentation">MoCA Agent Documentation</h1>
+<p>The MoCA (Multimedia over Coax Alliance) Agent is a critical RDK-B middleware component responsible for managing and monitoring MoCA network interfaces in residential gateway devices. This component provides comprehensive management capabilities for MoCA networks, which enable high-speed data communication over existing coaxial cable infrastructure within the home. The MoCA Agent serves as the primary interface between the RDK-B middleware stack and the underlying MoCA hardware abstraction layer (HAL), facilitating network configuration, topology management, performance monitoring, and Quality of Service (QoS) control for MoCA-connected devices.</p>
+<p>In the RDK-B ecosystem, the MoCA Agent acts as a bridge between high-level network management orchestration (performed by cloud management systems, TR-069 Auto Configuration Servers, or Web UI interfaces) and low-level hardware control (executed through vendor-specific MoCA HAL implementations). It exposes a comprehensive TR-181 data model for MoCA network configuration and monitoring, supports WebConfig framework integration for remote bulk provisioning, and provides real-time network topology information. The component ensures that MoCA networks remain operational throughout device lifecycle events including bootup, firmware upgrades, and network transitions, while maintaining compliance with MoCA Alliance specifications and CableLabs standards.</p>
+<pre class="mermaid"><code>graph TD
+    subgraph External ["External Systems"]
+        ACS[("ACS/TR-069&lt;br/&gt;Remote Management")]
+        WebUI[("Web UI&lt;br/&gt;Local Management")]
+        WebConfig[("WebConfig Server&lt;br/&gt;Bulk Provisioning")]
+    end
+
+    subgraph RDKBMiddleware ["RDK-B Middleware Layer"]
+        CR[("Component Registrar&lt;br/&gt;CR")]
+        PAM[("PAM Agent&lt;br/&gt;Platform Abstraction")]
+        PSM[("PSM&lt;br/&gt;Persistent Storage")]
+        MoCAAgent[("MoCA Agent&lt;br/&gt;Network Management")]
+        LMLite[("LM Lite&lt;br/&gt;Host Discovery")]
+        TelemetryAgent[("Telemetry&lt;br/&gt;Event Reporting")]
+        SysCfg[("Syscfg&lt;br/&gt;Configuration DB")]
+    end
+
+    subgraph HALPlatform ["HAL &amp; Platform Layer"]
+        MoCAHAL[("MoCA HAL&lt;br/&gt;Hardware Abstraction")]
+        Linux[("Linux Network Stack&lt;br/&gt;Routing/Bridging")]
+        Hardware[("MoCA Hardware&lt;br/&gt;Coax Transceiver")]
+    end
+
+    ACS --&gt;|TR-069/CWMP| CR
+    WebUI --&gt;|HTTP/HTTPS| CR
+    WebConfig --&gt;|HTTPS/msgpack| MoCAAgent
+
+    CR &lt;--&gt;|D-Bus| MoCAAgent
+    PAM &lt;--&gt;|D-Bus| MoCAAgent
+    MoCAAgent &lt;--&gt;|D-Bus| PSM
+    MoCAAgent --&gt;|Events| TelemetryAgent
+    MoCAAgent &lt;--&gt;|API Calls| SysCfg
+    LMLite --&gt;|Query MoCA Devices| MoCAAgent
+
+    MoCAAgent --&gt;|HAL API Calls| MoCAHAL
+    MoCAHAL --&gt;|Control/Status| Hardware
+    MoCAHAL --&gt;|Routing/Bridging| Linux
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef middleware fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef hal fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+
+    class ACS,WebUI,WebConfig external;
+    class CR,PAM,PSM,MoCAAgent,LMLite,TelemetryAgent,SysCfg middleware;
+    class MoCAHAL,Linux,Hardware hal;</code></pre>
+<p><strong>Simplified System Context (Horizontal View):</strong></p>
+<pre class="mermaid"><code>graph LR
+    subgraph "External Systems"
+        RemoteMgmt["Remote Management&lt;br/&gt;(ACS/TR-069)"]
+        LocalUI["Local Web UI"]
+        CloudMgmt["WebConfig Server&lt;br/&gt;(Bulk Provisioning)"]
+    end
+
+    subgraph "RDK-B Platform"
+        subgraph "Management Agents"
+            PAMAgent["PAM Agent"]
+            TR069Agent["TR-069 Agent"]
+            WebPA["WebPA Agent"]
+        end
+
+        subgraph "Network Management Middleware"
+            MoCAAgent["MoCA Agent&lt;br/&gt;(Network Management)"]
+            LMLite["LM Lite&lt;br/&gt;(Host Discovery)"]
+        end
+
+        subgraph "Supporting Components"
+            ComponentReg["Component&lt;br/&gt;Registrar"]
+            PSM["Persistent&lt;br/&gt;Storage Manager"]
+            Syscfg["Syscfg&lt;br/&gt;(Config DB)"]
+            Telemetry["Telemetry&lt;br/&gt;Agent"]
+        end
+    end
+
+    subgraph "System &amp; HAL Layer"
+        MoCAHAL["MoCA HAL"]
+        LinuxStack["Linux Network&lt;br/&gt;Stack"]
+    end
+
+    subgraph "Hardware Layer"
+        MoCAHW["MoCA Hardware&lt;br/&gt;(Coax Transceiver)"]
+    end
+
+    %% External connections
+    RemoteMgmt --&gt;|TR-069/CWMP| TR069Agent
+    LocalUI --&gt;|HTTP/HTTPS| PAMAgent
+    CloudMgmt --&gt;|HTTPS/msgpack| MoCAAgent
+
+    %% Management to MoCA Agent
+    TR069Agent --&gt;|D-Bus| MoCAAgent
+    PAMAgent --&gt;|D-Bus| MoCAAgent
+    WebPA --&gt;|D-Bus| MoCAAgent
+
+    %% MoCA Agent to Supporting Components
+    MoCAAgent &lt;--&gt;|D-Bus| ComponentReg
+    MoCAAgent &lt;--&gt;|D-Bus| PSM
+    MoCAAgent &lt;--&gt;|API| Syscfg
+    MoCAAgent --&gt;|Events| Telemetry
+
+    %% MoCA Agent to Other Network Components
+    LMLite --&gt;|Query| MoCAAgent
+
+    %% MoCA Agent to HAL
+    MoCAAgent &lt;--&gt;|HAL APIs| MoCAHAL
+
+    %% System integration
+    MoCAHAL &lt;--&gt;|Driver APIs| LinuxStack
+    MoCAHAL &lt;--&gt;|Control| MoCAHW
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef mocaAgent fill:#e1f5fe,stroke:#0277bd,stroke-width:3px;
+    classDef rdkbComponent fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+    classDef system fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+    classDef hardware fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+
+    class RemoteMgmt,LocalUI,CloudMgmt external;
+    class MoCAAgent mocaAgent;
+    class PAMAgent,TR069Agent,WebPA,LMLite,ComponentReg,PSM,Syscfg,Telemetry rdkbComponent;
+    class MoCAHAL,LinuxStack system;
+    class MoCAHW hardware;</code></pre>
+<p><strong>Key Features &amp; Responsibilities</strong>: </p>
+<ul>
+<li><strong>MoCA Network Configuration</strong>: Manages MoCA interface configuration including enable/disable control, frequency settings, privacy enable, password management, preferred network controller (NC) selection, and beacon power level adjustments for optimal network performance</li>
+<li><strong>Topology Discovery &amp; Monitoring</strong>: Provides real-time MoCA network topology information including associated device discovery, node status tracking, mesh PHY rates, and network admission control for comprehensive network visibility</li>
+<li><strong>Performance Monitoring &amp; Statistics</strong>: Collects and reports detailed network performance metrics including packet statistics, link quality measurements, PHY rates, transmission power levels, and error counters for capacity planning and troubleshooting</li>
+<li><strong>Quality of Service (QoS) Management</strong>: Implements MoCA QoS flow management including ingress/egress node control, packet aggregation, flow table management, and priority-based traffic shaping for real-time application support</li>
+<li><strong>WebConfig Framework Integration</strong>: Supports remote bulk configuration through WebConfig framework using msgpack-encoded MoCA parameter sets, enabling zero-touch provisioning and cloud-based configuration management</li>
+<li><strong>Network Isolation &amp; Security</strong>: Provides MoCA network isolation capabilities, whitelist control for node admission, and privacy key management to ensure secure coexial network operation</li>
+<li><strong>Multicast Routing Daemon (MRD)</strong>: Includes integrated MRD functionality for efficient multicast packet handling over MoCA networks, supporting IPTV and streaming media applications</li>
+<li><strong>Persistent Configuration Storage</strong>: Maintains MoCA network configuration across reboots through syscfg integration and PSM persistence, ensuring consistent network behavior after power cycles and firmware upgrades</li>
+</ul>
+<h2 id="design">Design</h2>
+<p>The MoCA Agent is architected as a CCSP (Common Component Software Platform) component following the standardized RDK-B middleware design pattern. The component consists of three primary architectural layers: the Service Specific Platform (SSP) layer which handles component initialization, message bus registration, and lifecycle management; the Middle Layer which implements TR-181 data model interfaces and business logic; and the Board Specific API (SBAPI) layer which abstracts hardware-specific operations through the MoCA HAL. This layered architecture ensures clean separation of concerns, enabling the component to be portable across different hardware platforms while maintaining consistent TR-181 data model behavior.</p>
+<p>The design emphasizes robust inter-process communication through D-Bus message bus integration for northbound interfaces (communicating with TR-069 agents, Web UI, and other RDK-B components) and direct HAL API invocation for southbound interfaces (controlling MoCA hardware). The component registers the TR-181 namespace <code>Device.MoCA.*</code> for comprehensive MoCA network management parameters. State management is handled through a combination of runtime caching, PSM (Persistent Storage Manager) for configuration persistence, and syscfg for bootstrap parameters. The component implements intelligent polling mechanisms for dynamic MoCA network information including associated devices, mesh topology, and performance statistics.</p>
+<p>The MoCA Agent employs an event-driven architecture where external configuration changes trigger D-Bus method invocations that flow through the middle layer validation and commit phases before being applied to hardware through HAL calls. The component supports asynchronous device synchronization through dedicated threads that periodically poll MoCA HAL for network topology changes and update internal data structures. WebConfig integration enables the component to receive bulk configuration updates encoded in msgpack format, which are decoded, validated, and applied atomically to ensure configuration consistency without service interruption.</p>
+<p>Data persistence is achieved through multiple mechanisms: syscfg for simple key-value configuration storage such as enable/disable state and privacy settings, PSM for complex data model parameters that require transaction support, and runtime caching for frequently accessed dynamic information like associated device lists and statistics. The component ensures data integrity by validating all configuration changes against MoCA Alliance specifications before committing to persistent storage and hardware. Error handling follows RDK-B conventions with comprehensive logging through RDK Logger (rdklogger) and telemetry event generation for critical state transitions and error conditions.</p>
+<pre class="mermaid"><code>graph TD
+    subgraph MoCAAgent ["MoCA Agent"]
+        subgraph SSP ["Service Specific Platform"]
+            SSPMain["ssp_main.c"]
+            SSPMsgBus["ssp_messagebus_interface.c"]
+            SSPAction["ssp_action.c"]
+        end
+
+        subgraph MiddleLayer ["Middle Layer (TR-181 DML)"]
+            PluginMain["plugin_main.c"]
+            MoCADml["cosa_moca_dml.c"]
+            MoCAInternal["cosa_moca_internal.c"]
+            MoCANetworkInfo["cosa_moca_network_info.c"]
+        end
+
+        subgraph SBAPI ["Board Specific API"]
+            MoCAApis["cosa_moca_apis.c"]
+            MoCAHelpers["cosa_moca_helpers.c"]
+            MoCAParam["cosa_moca_param.c"]
+            MoCAWebConfig["cosa_moca_webconfig_api.c"]
+        end
+
+        subgraph MRD ["Multicast Routing Daemon"]
+            MRDModule["mrd.c"]
+        end
+    end
+
+    subgraph ExternalSystems ["External Systems"]
+        RdkbComponents["Other RDK-B Components&lt;br/&gt;(TR-069, WebUI, PAM, LMLite)"]
+        WebConfigServer["WebConfig Server"]
+        PSM[("PSM&lt;br/&gt;Persistent Storage")]
+        Syscfg[("Syscfg&lt;br/&gt;Config DB")]
+    end
+
+    subgraph HALLayer ["HAL Layer"]
+        MoCAHAL["moca_hal.h&lt;br/&gt;MoCA HAL Interface"]
+    end
+
+    SSPMain --&gt; SSPMsgBus
+    SSPMain --&gt; SSPAction
+
+    SSPMsgBus --&gt; PluginMain
+    PluginMain --&gt; MoCADml
+    MoCADml --&gt; MoCAInternal
+    MoCADml --&gt; MoCANetworkInfo
+    MoCAInternal --&gt; MoCAApis
+    MoCANetworkInfo --&gt; MoCAApis
+
+    WebConfigServer --&gt; MoCAWebConfig
+    MoCAWebConfig --&gt; MoCAApis
+    MoCAApis --&gt; MoCAHelpers
+    MoCAApis --&gt; MoCAParam
+
+    RdkbComponents &lt;--&gt; SSPMsgBus
+    PSM &lt;--&gt; MoCAInternal
+    Syscfg &lt;--&gt; MoCAApis
+
+    MoCAApis --&gt; MoCAHAL
+    MRDModule --&gt; MoCAHAL
+
+    classDef mocaAgent fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef hal fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+
+    class SSPMain,SSPMsgBus,SSPAction,PluginMain,MoCADml,MoCAInternal,MoCANetworkInfo,MoCAApis,MoCAHelpers,MoCAParam,MoCAWebConfig,MRDModule mocaAgent;
+    class RdkbComponents,WebConfigServer,PSM,Syscfg external;
+    class MoCAHAL hal;</code></pre>
+<h3 id="prerequisites-and-dependencies">Prerequisites and Dependencies</h3>
+<p><strong>Build-Time Flags and Configuration:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Configure Option</th>
+<th>DISTRO Feature</th>
+<th>Build Flag</th>
+<th>Purpose</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--enable-unitTestDockerSupport</code></td>
+<td>N/A</td>
+<td>Unit test support</td>
+<td>Enable Docker support for unit testing with modified test configurations</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td><code>safec</code></td>
+<td><code>pkg-config --cflags/--libs libsafec</code></td>
+<td>Enable bounds-checking string functions via safec library; adds SafeC compiler and linker flags</td>
+<td>Not set (uses <code>SAFEC_DUMMY_API</code>)</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td><code>!safec</code></td>
+<td><code>SAFEC_DUMMY_API</code></td>
+<td>Define stub implementations for SafeC functions when safec library is not available</td>
+<td>Enabled when safec absent</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td><code>kirkstone</code></td>
+<td>Uses <code>python3native</code></td>
+<td>Yocto Kirkstone build system adjustments; selects Python 3 interpreter for build scripts</td>
+<td>Not set (uses <code>pythonnative</code>)</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>CONFIG_VENDOR_CUSTOMER_COMCAST</code></td>
+<td>Comcast/Xfinity operator-specific customizations and features</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>CONFIG_CISCO_HOTSPOT</code></td>
+<td>Cisco hotspot feature support for MoCA network integration</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>CONFIG_SYSTEM_MOCA</code></td>
+<td>MoCA system support enablement flag; when undefined, enables simulation mode (<code>_COSA_SIM_</code>)</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>FEATURE_SUPPORT_RDKLOG</code></td>
+<td>RDK Logger integration for structured logging (inherited from ccsp_common.inc)</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>_COSA_HAL_</code></td>
+<td>HAL-based implementation; explicitly marks non-simulation build</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>-U_COSA_SIM_</code></td>
+<td>Explicitly undefine simulation mode for real hardware builds</td>
+<td>Undefined</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>_ANSC_LINUX</code></td>
+<td>Linux platform target identification</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>_ANSC_USER</code></td>
+<td>User-space component (not kernel module)</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>_ANSC_LITTLE_ENDIAN_</code></td>
+<td>Little-endian byte order architecture</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>_CCSP_CWMP_TCP_CONNREQ_HANDLER</code></td>
+<td>TR-069 CWMP TCP connection request handler support</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>_COSA_INTEL_USG_ARM_</code></td>
+<td>Intel USG ARM platform identifier</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>_COSA_FOR_COMCAST_</code></td>
+<td>Comcast operator-specific customizations</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>FEATURE_SUPPORT_SYSLOG</code></td>
+<td>Syslog integration for system logging</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>INCLUDE_BREAKPAD</code></td>
+<td>Google Breakpad crash reporting and minidump generation</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>USE_NOTIFY_COMPONENT</code></td>
+<td>Systemd notify protocol support for service management</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>_NO_EXECINFO_H_</code></td>
+<td>Disable execinfo.h backtrace functions (platform-dependent)</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (always)</td>
+<td>N/A</td>
+<td><code>CCSP_SUPPORT_ENABLED</code></td>
+<td>CCSP framework core support</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (recipe)</td>
+<td>N/A</td>
+<td><code>-Wall -Werror -Wextra</code></td>
+<td>Enable strict compiler warnings and treat warnings as errors</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (recipe)</td>
+<td>N/A</td>
+<td><code>-Wno-address</code></td>
+<td>Suppress address comparison warnings</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (recipe)</td>
+<td>N/A</td>
+<td><code>-Wno-enum-conversion</code></td>
+<td>Suppress enum conversion warnings</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A (recipe)</td>
+<td>N/A</td>
+<td><code>breakpad-logmapper</code> inheritance</td>
+<td>Breakpad process/logfile mapping for crash analysis</td>
+<td>Enabled</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p><strong>Platform/Product-Specific Build Flags (Conditional):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Build Flag</th>
+<th>Condition</th>
+<th>Purpose</th>
+<th>Source Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_CM_HIGHSPLIT_SUPPORTED_</code></td>
+<td>Platform-specific</td>
+<td>Cable modem high-split frequency support; enables diplexer mode checking and MoCA disable logic when high-split mode active</td>
+<td>cosa_moca_internal.c, cosa_moca_apis.c, cosa_moca_dml.c, cosa_moca_webconfig_api.c</td>
+</tr>
+<tr>
+<td><code>_XB6_PRODUCT_REQ_</code></td>
+<td>XB6 platform</td>
+<td>XB6 (Arris) product-specific customizations including modified HAL calls and parameter handling</td>
+<td>cosa_moca_apis.c, cosa_moca_dml.c</td>
+</tr>
+<tr>
+<td><code>_COSA_BCM_ARM_</code></td>
+<td>Broadcom ARM</td>
+<td>Broadcom ARM architecture-specific code paths</td>
+<td>cosa_moca_apis.c</td>
+</tr>
+<tr>
+<td><code>_COSA_BCM_MIPS_</code></td>
+<td>Broadcom MIPS</td>
+<td>Broadcom MIPS architecture-specific implementations</td>
+<td>cosa_moca_network_info.c</td>
+</tr>
+<tr>
+<td><code>INTEL_PUMA7</code></td>
+<td>Intel Puma7</td>
+<td>Intel Puma7 chipset-specific modifications</td>
+<td>cosa_moca_network_info.c, cosa_moca_apis.c</td>
+</tr>
+<tr>
+<td><code>_XF3_PRODUCT_REQ_</code></td>
+<td>XF3 platform</td>
+<td>XF3 (Technicolor XB3) product-specific exclusions (when NOT defined)</td>
+<td>cosa_moca_network_info.c</td>
+</tr>
+<tr>
+<td><code>CISCO_MOCA_CPE</code></td>
+<td>Cisco CPE</td>
+<td>Cisco CPE device-specific MoCA features</td>
+<td>cosa_moca_network_info.c</td>
+</tr>
+<tr>
+<td><code>SA_CUSTOM</code></td>
+<td>SA customization</td>
+<td>South American region customizations</td>
+<td>cosa_moca_apis.c</td>
+</tr>
+<tr>
+<td><code>MOCA_DIAGONISTIC</code></td>
+<td>Diagnostic mode</td>
+<td>Enable MoCA diagnostic features and extended testing capabilities</td>
+<td>cosa_moca_dml.c, cosa_moca_apis.c</td>
+</tr>
+<tr>
+<td><code>MULTILAN_FEATURE</code></td>
+<td>Multi-LAN support</td>
+<td>Enable multi-LAN bridge feature support</td>
+<td>cosa_moca_apis.c</td>
+</tr>
+<tr>
+<td><code>MRD_DEBUG</code></td>
+<td>Debug build</td>
+<td>Enable verbose MRD debug logging to trace file</td>
+<td>mrd.c</td>
+</tr>
+<tr>
+<td><code>_BUILD_ANDROID</code></td>
+<td>Android build</td>
+<td>Android platform build (when NOT defined for Linux)</td>
+<td>ssp_main.c</td>
+</tr>
+<tr>
+<td><code>_DEBUG</code></td>
+<td>Debug mode</td>
+<td>Enable debug builds with additional logging (when NOT defined, disables debug output)</td>
+<td>ssp_main.c</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p><strong>Additional Build Configuration:</strong></p>
+<ul>
+<li>
+<p><strong>WebConfig Support</strong>: WebConfig framework is a mandatory dependency (not optional) for MoCA Agent, enabling remote bulk provisioning via msgpack-encoded configuration blobs</p>
+</li>
+<li>
+<p><strong>CCSP Framework Flags</strong>: Inherited from <code>ccsp_common.inc</code> and applied automatically to all CCSP components</p>
+</li>
+<li>
+<p><strong>Platform-Specific Flags</strong>: Defined in platform/product bbappend files or HAL configuration; conditionally compiled in source code</p>
+</li>
+<li>
+<p><strong>SafeC Integration</strong>: When <code>safec</code> DISTRO feature is enabled, pkg-config automatically adds appropriate compiler/linker flags; otherwise <code>SAFEC_DUMMY_API</code> provides stub implementations</p>
+</li>
+<li>
+<p><strong>Yocto Release Variations</strong>: Kirkstone uses <code>python3native</code>, earlier releases use <code>pythonnative</code>; SafeC library naming varies (<code>libsafec-3.5.1</code> for dunfell, <code>libsafec</code> for kirkstone)</p>
+</li>
+</ul>
+<p><strong>RDK-B Platform and Integration Requirements:</strong></p>
+<ul>
+<li><strong>Build Dependencies</strong>: </li>
+<li><code>ccsp-common-library</code> (CCSP framework and base interfaces)</li>
+<li><code>webconfig-framework</code> (Required for bulk configuration support)</li>
+<li><code>utopia</code> (System utility functions and configuration)</li>
+<li><code>hal-moca</code> (MoCA hardware abstraction layer)</li>
+<li><code>curl</code> (HTTP/HTTPS client for WebConfig)</li>
+<li><code>trower-base64</code> (Base64 encoding/decoding for data serialization)</li>
+<li><code>msgpack-c</code> (MessagePack serialization for WebConfig)</li>
+<li><code>libunpriv</code> (Privilege management and capability control)</li>
+<li>
+<p><code>safec-lib</code> (Bounds-checking string functions - optional)</p>
+</li>
+<li>
+<p><strong>RDK-B Components</strong>: </p>
+</li>
+<li><strong>Component Registrar (CR)</strong>: Must be running for D-Bus component discovery and registration</li>
+<li><strong>PAM (Platform and Application Manager)</strong>: Provides platform-level configuration management</li>
+<li><strong>PSM (Persistent Storage Manager)</strong>: Required for persisting MoCA configuration across reboots</li>
+<li><strong>LM Lite</strong>: Queries MoCA Agent for MoCA-connected device information</li>
+<li>
+<p><strong>Telemetry</strong>: Receives MoCA network events and statistics for cloud reporting</p>
+</li>
+<li>
+<p><strong>HAL Dependencies</strong>: </p>
+</li>
+<li><code>moca_hal.h</code> interface implementation (minimum version depends on platform)</li>
+<li>
+<p>HAL must provide: <code>moca_GetIfConfig()</code>, <code>moca_SetIfConfig()</code>, <code>moca_GetAssocDevices()</code>, <code>moca_GetMeshTable()</code>, <code>moca_GetFlowStatistics()</code>, QoS management APIs</p>
+</li>
+<li>
+<p><strong>Systemd Services</strong>: </p>
+</li>
+<li><code>dbus.service</code> must be active</li>
+<li><code>CcspCrSsp.service</code> (Component Registrar) should start before MoCA Agent</li>
+<li>
+<p><code>PsmSsp.service</code> (PSM) should be available before MoCA Agent initialization completes</p>
+</li>
+<li>
+<p><strong>Message Bus</strong>: </p>
+</li>
+<li>D-Bus system bus registration required</li>
+<li>Component ID: <code>com.cisco.spvtg.ccsp.moca</code></li>
+<li>D-Bus path: <code>/com/cisco/spvtg/ccsp/moca</code></li>
+<li>
+<p>TR-181 namespace: <code>Device.MoCA.*</code></p>
+</li>
+<li>
+<p><strong>Configuration Files</strong>: </p>
+</li>
+<li><code>/usr/ccsp/moca/CcspMoCA.cfg</code> - Component configuration (component ID, D-Bus path)</li>
+<li><code>/usr/ccsp/moca/CcspMoCADM.cfg</code> - Data model XML configuration</li>
+<li><code>/nvram/moca_initialized_bootup</code> - Bootup state tracking file</li>
+<li>
+<p><code>/etc/syscfg</code> - Persistent configuration storage (moca_enabled, privacy settings)</p>
+</li>
+<li>
+<p><strong>Startup Order</strong>: </p>
+</li>
+<li>D-Bus system bus</li>
+<li>Component Registrar (CR)</li>
+<li>PSM (for configuration loading)</li>
+<li>MoCA Agent initialization</li>
+<li>Async MoCA device synchronization thread</li>
+<li>WebConfig Framework (for remote provisioning)</li>
+</ul>
+<p><strong>Threading Model</strong> </p>
+<p>The MoCA Agent implements a multi-threaded architecture designed to handle concurrent message bus operations, periodic network topology updates, multicast routing daemon operations, telemetry logging, and sysevent monitoring without blocking critical configuration requests.</p>
+<ul>
+<li><strong>Threading Architecture</strong>: Multi-threaded with main event loop and specialized worker threads for different operational domains</li>
+<li><strong>Main Thread</strong>: </li>
+<li>Handles component initialization and registration with Component Registrar</li>
+<li>Processes D-Bus method calls for TR-181 parameter get/set operations</li>
+<li>Manages WebConfig bulk configuration requests</li>
+<li>Coordinates HAL API calls for configuration changes</li>
+</ul>
+<p><strong>Thread Summary:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Thread Name</th>
+<th>Function Name</th>
+<th>Purpose</th>
+<th>Lifecycle</th>
+<th>Priority/Detach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Main Thread</strong></td>
+<td><code>main()</code> (ssp_main.c)</td>
+<td>Component initialization, D-Bus message bus processing, TR-181 parameter handling, WebConfig updates, HAL coordination</td>
+<td>Created at process start; runs until process termination</td>
+<td>Default (joinable)</td>
+</tr>
+<tr>
+<td><strong>MoCA Device Sync Thread</strong></td>
+<td><code>SynchronizeMoCADevices()</code></td>
+<td>Periodically polls MoCA HAL for associated device updates, mesh topology changes, network status; updates internal data structures; triggers LM Lite notifications on topology changes</td>
+<td>Created during <code>CosaMoCAInitialize()</code>; runs continuously polling every 10 seconds</td>
+<td>Default (joinable)</td>
+</tr>
+<tr>
+<td><strong>Sysevent Handler Thread</strong></td>
+<td><code>Moca_sysevent_handler()</code></td>
+<td>Monitors sysevent notifications for <code>moca_updated</code> events; triggers MoCA configuration updates and device synchronization when external changes occur</td>
+<td>Created during <code>CosaMoCACreate()</code>; runs continuously waiting for sysevent notifications</td>
+<td>Default (joinable)</td>
+</tr>
+<tr>
+<td><strong>Logger Thread</strong></td>
+<td><code>Logger_Thread()</code></td>
+<td>Performs periodic MoCA logging operations based on configured log interval; writes MoCA status and statistics to log files</td>
+<td>Created by <code>CosaMoCALogger()</code>; runs with configurable sleep periods (default 60 sec intervals)</td>
+<td>Default (joinable)</td>
+</tr>
+<tr>
+<td><strong>Telemetry xOps Settings Thread</strong></td>
+<td><code>MocaTelemetryxOpsLogSettingsEventThread()</code></td>
+<td>Monitors <code>/tmp/moca_telemetry_xOpsLogSettings.txt</code> file using inotify for configuration changes; updates telemetry logging settings dynamically</td>
+<td>Created during <code>CosaMoCATelemetryInit()</code>; runs continuously monitoring file changes</td>
+<td>Detached</td>
+</tr>
+<tr>
+<td><strong>Telemetry Logging Thread</strong></td>
+<td><code>MocaTelemetryLoggingThread()</code></td>
+<td>Performs periodic telemetry data collection and logging based on dynamic xOps configuration; writes MoCA metrics to <code>/rdklogs/logs/moca_telemetry.txt</code></td>
+<td>Created during <code>CosaMoCATelemetryInit()</code>; runs with configurable intervals controlled by xOps settings</td>
+<td>Detached</td>
+</tr>
+<tr>
+<td><strong>MoCA Interface Reset Thread</strong></td>
+<td><code>MoCA_Interface_Reset()</code></td>
+<td>Handles MoCA interface reset operations asynchronously; performs HAL reset calls with configured delays (5 seconds) to prevent blocking D-Bus operations</td>
+<td>Created on-demand during TR-181 <code>Reset()</code> operation; terminates after reset completion</td>
+<td>Default (joinable)</td>
+</tr>
+<tr>
+<td><strong>Multicast Routing Daemon (MRD)</strong></td>
+<td><code>main()</code> (mrd.c)</td>
+<td>Manages multicast packet routing over MoCA network; monitors ARP cache for multicast group membership; manages whitelist verification; injects multicast packets using libnet</td>
+<td>Standalone process (not pthread); runs as separate executable <code>/usr/bin/mrd</code>; continuous main loop</td>
+<td>Process (not thread)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Synchronization Mechanisms:</strong></p>
+<ul>
+<li><strong>Mutex Locks</strong>: Protects shared data structures including MoCA interface tables, associated device lists, and telemetry configuration variables (e.g., <code>pthread_mutex_t mutex</code> in telemetry subsystem)</li>
+<li><strong>Condition Variables</strong>: Used for thread communication in telemetry logging subsystem (<code>pthread_cond_t cond</code>) to signal configuration changes</li>
+<li><strong>Atomic Operations</strong>: Thread-safe counter updates through pthread mechanisms for statistics collection</li>
+<li><strong>Sysevent Tokens</strong>: Sysevent file descriptors (<code>sysevent_fd</code>, <code>sysevent_token</code>) for inter-process event notification</li>
+<li><strong>Shared Memory</strong>: MRD process uses System V shared memory (shmget/shmat) for device whitelist access shared with xupnp service</li>
+<li><strong>File-Based Locking</strong>: inotify mechanisms for configuration file monitoring without explicit locks</li>
+<li><strong>PSM Synchronization</strong>: PSM database operations are synchronous and handled through D-Bus calls to PSM component ensuring atomic configuration persistence</li>
+</ul>
+<h3 id="component-state-flow">Component State Flow</h3>
+<p><strong>Initialization to Active State</strong></p>
+<p>The MoCA Agent follows a structured initialization sequence that aligns with CCSP component lifecycle requirements. The component begins in an uninitialized state and progresses through configuration loading, data model registration, message bus engagement, HAL initialization, and device synchronization before entering an active operational state. This phased approach ensures all dependencies are satisfied and the component is fully ready to service requests before advertising availability to other RDK-B components.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    participant SystemD as Systemd
+    participant Main as ssp_main.c
+    participant MsgBus as Message Bus Interface
+    participant Plugin as Plugin Main
+    participant Internal as MoCA Internal
+    participant HAL as MoCA HAL
+    participant SyncThread as Device Sync Thread
+    participant WebCfg as WebConfig Framework
+
+    SystemD-&gt;&gt;Main: Start CcspMoC ASsp Process
+    Note over Main: State: Initializing&lt;br/&gt;Load component config&lt;br/&gt;Setup logging
+
+    Main-&gt;&gt;Main: Parse Command Line Args
+    Main-&gt;&gt;Main: Load CcspMoCA.cfg
+
+    Main-&gt;&gt;MsgBus: Initialize Message Bus
+    MsgBus-&gt;&gt;MsgBus: Connect to D-Bus
+    Note over MsgBus: Register component ID&lt;br/&gt;com.cisco.spvtg.ccsp.moca
+
+    Main-&gt;&gt;Plugin: COSA_Init()
+    Plugin-&gt;&gt;Internal: CosaMoCACreate()
+    Internal-&gt;&gt;HAL: moca_GetIfConfig()
+    HAL--&gt;&gt;Internal: MoCA Interface Config
+    Internal-&gt;&gt;Internal: Initialize Data Structures
+    Internal--&gt;&gt;Plugin: MoCA Object Created
+    Plugin--&gt;&gt;Main: Plugin Initialized
+
+    Main-&gt;&gt;Internal: CosaMoCAInitialize()
+    Internal-&gt;&gt;HAL: moca_GetIfConfig() for all interfaces
+    Internal-&gt;&gt;HAL: moca_GetDynamicInfo()
+    HAL--&gt;&gt;Internal: Interface Status &amp; Config
+    Internal-&gt;&gt;Internal: Populate MoCA Tables
+
+    Internal-&gt;&gt;SyncThread: pthread_create(SynchronizeMoCADevices)
+    Note over SyncThread: Background thread started&lt;br/&gt;Polls for topology changes
+
+    Internal-&gt;&gt;WebCfg: webConfigFrameworkInit()
+    WebCfg-&gt;&gt;WebCfg: Register "moca" subdoc
+    WebCfg--&gt;&gt;Internal: WebConfig Registered
+
+    Internal--&gt;&gt;Main: Initialization Complete
+
+    Main-&gt;&gt;MsgBus: ssp_Mbi_MessageBusEngage()
+    MsgBus-&gt;&gt;MsgBus: Register D-Bus Methods
+    Note over MsgBus: State: Active&lt;br/&gt;Ready to handle requests
+
+    Main-&gt;&gt;SystemD: Notify READY (systemd)
+    Note over Main: State: Active&lt;br/&gt;Processing TR-181 requests
+
+    loop Runtime Operations
+        SyncThread-&gt;&gt;HAL: Poll for Associated Devices
+        HAL--&gt;&gt;SyncThread: Device List
+        SyncThread-&gt;&gt;SyncThread: Update Internal Cache
+        SyncThread-&gt;&gt;SyncThread: Detect Topology Changes
+    end</code></pre>
+<p><strong>Runtime State Changes and Context Switching</strong></p>
+<p>During normal operation, the MoCA Agent responds to various runtime events that trigger state changes in the underlying MoCA network and service configuration. These state transitions are primarily driven by external configuration changes, network topology events, and HAL status updates.</p>
+<p><strong>State Change Triggers:</strong></p>
+<ul>
+<li><strong>MoCA Enable/Disable State Changes</strong>: When MoCA interface enable state changes through TR-181 parameter <code>Device.MoCA.Interface.{i}.Enable</code>, the component transitions between operational and non-operational states, triggering HAL configuration updates, network topology resets, and telemetry events</li>
+<li><strong>Network Admission Control Events</strong>: Dynamic node admission or removal from MoCA network causes topology table updates, triggers device synchronization thread to poll HAL, and generates notifications to LM Lite for host management updates</li>
+<li><strong>Privacy Mode Transitions</strong>: Enabling or disabling privacy mode with password changes triggers network re-formation, existing node re-authentication, and new security key distribution to all admitted nodes</li>
+<li><strong>WebConfig Bulk Updates</strong>: Receipt of MoCA configuration blob from WebConfig server triggers atomic configuration application including validation, HAL updates, and persistence operations without service interruption</li>
+<li><strong>Preferred NC Selection Changes</strong>: Changing preferred network controller (NC) node can trigger network re-organization, backup NC promotion, and temporary service disruption during NC transition</li>
+<li><strong>Frequency Band Changes</strong>: Modifying operating frequency parameters requires network shutdown, HAL reconfiguration, and network restart with new frequency settings</li>
+</ul>
+<p><strong>Context Switching Scenarios:</strong></p>
+<ul>
+<li><strong>Bootstrap to Normal Configuration</strong>: During first boot or factory reset, the component loads default MoCA configuration from syscfg (<code>moca_enabled</code>), applies vendor-specific HAL defaults, then transitions to runtime configuration mode where changes are persisted to PSM and syscfg</li>
+<li><strong>High-Split Mode Coexistence</strong>: When cable modem high-split mode is detected (via sysevent), the component adjusts MoCA frequency parameters to avoid interference with DOCSIS upstream channels, temporarily reconfiguring the network</li>
+<li><strong>Multicast Routing State Changes</strong>: MRD daemon dynamically enables/disables multicast routing based on IGMP group membership, switching between multicast forwarding and non-forwarding states</li>
+<li><strong>Failover and Recovery</strong>: If MoCA HAL operations fail (timeout, hardware error), the component logs errors, generates telemetry events, and may retry operations or enter a degraded state while maintaining data model accessibility for diagnostics</li>
+</ul>
+<h3 id="call-flow">Call Flow</h3>
+<p><strong>Initialization Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Init as System Init
+    participant SSP as SSP Main
+    participant Plugin as Plugin Main
+    participant DML as MoCA DML
+    participant Internal as MoCA Internal
+    participant HAL as MoCA HAL
+
+    Init-&gt;&gt;SSP: Start Component
+    SSP-&gt;&gt;SSP: Load Configuration
+    SSP-&gt;&gt;Plugin: COSA_Init()
+    Plugin-&gt;&gt;Internal: CosaMoCACreate()
+    Internal-&gt;&gt;HAL: moca_GetIfConfig()
+    HAL--&gt;&gt;Internal: Interface Config
+    Internal--&gt;&gt;Plugin: Object Created
+    SSP-&gt;&gt;Internal: CosaMoCAInitialize()
+    Internal-&gt;&gt;HAL: Get All Interface Info
+    HAL--&gt;&gt;Internal: Status &amp; Dynamic Info
+    Internal-&gt;&gt;Internal: Start Sync Thread
+    Internal--&gt;&gt;SSP: Init Complete
+    SSP-&gt;&gt;Init: Component Active</code></pre>
+<p><strong>TR-181 Parameter Get Request Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Client as TR-069/WebUI
+    participant DBus as D-Bus Message Bus
+    participant DML as cosa_moca_dml.c
+    participant Internal as cosa_moca_internal.c
+    participant APIs as cosa_moca_apis.c
+    participant HAL as MoCA HAL
+
+    Client-&gt;&gt;DBus: GetParameterValues(Device.MoCA.Interface.1.Enable)
+    DBus-&gt;&gt;DML: MoCAIf_GetParamBoolValue()
+
+    alt Cached Value Available
+        DML-&gt;&gt;Internal: Get from MoCAIfFullTable
+        Internal--&gt;&gt;DML: Cfg.bEnabled
+        DML--&gt;&gt;DBus: Boolean Value
+    else Dynamic Info Needed
+        DML-&gt;&gt;APIs: CosaDmlMocaIfGetDinfo()
+        APIs-&gt;&gt;HAL: moca_GetIfConfig()
+        HAL--&gt;&gt;APIs: Interface Config
+        APIs-&gt;&gt;Internal: Update Cache
+        APIs--&gt;&gt;DML: Dynamic Info
+        DML--&gt;&gt;DBus: Boolean Value
+    end
+
+    DBus--&gt;&gt;Client: Response with MoCA Enable Status</code></pre>
+<p><strong>TR-181 Parameter Set Request Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Client as TR-069/WebUI
+    participant DBus as D-Bus Message Bus
+    participant DML as cosa_moca_dml.c
+    participant Internal as cosa_moca_internal.c
+    participant APIs as cosa_moca_apis.c
+    participant HAL as MoCA HAL
+    participant Syscfg as Syscfg DB
+
+    Client-&gt;&gt;DBus: SetParameterValues(Device.MoCA.Interface.1.Enable=true)
+    DBus-&gt;&gt;DML: MoCAIf_SetParamBoolValue()
+
+    Note over DML: Validation Phase
+    DML-&gt;&gt;DML: Validate Parameter Value
+    DML-&gt;&gt;Internal: Update MoCAIfFullTable.Cfg
+    Internal--&gt;&gt;DML: Validation Success
+
+    Note over DML: Commit Phase
+    DML-&gt;&gt;DML: MoCAIf_Commit()
+    DML-&gt;&gt;APIs: CosaDmlMocaIfSetCfg()
+
+    APIs-&gt;&gt;HAL: moca_SetIfConfig(bEnabled=true)
+    HAL-&gt;&gt;HAL: Configure MoCA Hardware
+    HAL--&gt;&gt;APIs: Success
+
+    APIs-&gt;&gt;Syscfg: syscfg_set("moca_enabled", "1")
+    Syscfg--&gt;&gt;APIs: Persisted
+
+    APIs--&gt;&gt;DML: Configuration Applied
+    DML--&gt;&gt;DBus: Success Response
+    DBus--&gt;&gt;Client: SetParameterValues Response
+
+    Note over HAL: MoCA Network&lt;br/&gt;Initialization Started</code></pre>
+<p><strong>WebConfig MoCA Bulk Configuration Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant WebCfg as WebConfig Server
+    participant Framework as WebConfig Framework
+    participant Handler as cosa_moca_webconfig_api.c
+    participant APIs as cosa_moca_apis.c
+    participant HAL as MoCA HAL
+    participant Syscfg as Syscfg DB
+
+    WebCfg-&gt;&gt;Framework: POST /moca subdoc (msgpack)
+    Framework-&gt;&gt;Framework: Validate Version
+    Framework-&gt;&gt;Handler: Process_Moca_WebConfigRequest()
+
+    Handler-&gt;&gt;Handler: Unpack msgpack blob
+    Note over Handler: Extract MoCA parameters:&lt;br/&gt;Enable, PrivacyEnable,&lt;br/&gt;Password, etc.
+
+    Handler-&gt;&gt;Handler: Validate Configuration
+
+    alt Configuration Valid
+        Handler-&gt;&gt;APIs: Apply MoCA Configuration
+        APIs-&gt;&gt;HAL: moca_SetIfConfig()
+        HAL-&gt;&gt;HAL: Configure Hardware
+        HAL--&gt;&gt;APIs: Success
+
+        APIs-&gt;&gt;Syscfg: Persist Settings
+        Syscfg--&gt;&gt;APIs: Committed
+
+        APIs--&gt;&gt;Handler: Configuration Applied
+        Handler-&gt;&gt;Framework: setBlobVersion("moca", new_version)
+        Handler--&gt;&gt;Framework: Success (execRetVal=0)
+        Framework--&gt;&gt;WebCfg: HTTP 200 OK
+    else Validation Failed
+        Handler--&gt;&gt;Framework: Failure (execRetVal=1)
+        Framework--&gt;&gt;WebCfg: HTTP 400 Bad Request
+    end</code></pre>
+<p><strong>MoCA Device Topology Sync Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant SyncThread as SynchronizeMoCADevices Thread
+    participant APIs as cosa_moca_apis.c
+    participant HAL as MoCA HAL
+    participant Internal as MoCA Internal
+    participant LMLite as LM Lite
+
+    loop Every 60 Seconds
+        SyncThread-&gt;&gt;APIs: CosaDmlMocaIfGetAssocDevices()
+        APIs-&gt;&gt;HAL: moca_GetNumAssociatedDevices()
+        HAL--&gt;&gt;APIs: Device Count
+
+        APIs-&gt;&gt;HAL: moca_GetAssociatedDeviceTable()
+        HAL--&gt;&gt;APIs: Associated Device Array
+
+        APIs-&gt;&gt;Internal: Update pMoCAAssocDevice Cache
+
+        alt Topology Changed
+            Internal-&gt;&gt;Internal: Detect New/Removed Devices
+            Internal-&gt;&gt;LMLite: Notify Device Changes
+            Note over LMLite: Update Host Table
+        end
+
+        SyncThread-&gt;&gt;SyncThread: sleep(60)
+    end</code></pre>
+<h2 id="internal-modules">Internal Modules</h2>
+<p>The MoCA Agent is organized into distinct functional modules that implement the CCSP component architecture pattern. Each module has specific responsibilities ranging from system integration and message bus handling to data model implementation, hardware abstraction, and multicast routing.</p>
+<table>
+<thead>
+<tr>
+<th>Module/Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Service Specific Platform (SSP)</strong></td>
+<td>Component entry point and lifecycle management. Handles process initialization, command-line argument parsing, component configuration loading, message bus connection establishment, and graceful shutdown. Provides health monitoring interface and signal handling for crash recovery with breakpad integration.</td>
+<td><code>ssp_main.c</code>, <code>ssp_action.c</code>, <code>ssp_global.h</code>, <code>ssp_internal.h</code></td>
+</tr>
+<tr>
+<td><strong>Message Bus Interface</strong></td>
+<td>D-Bus integration layer implementing CCSP message bus protocol. Manages component registration with Component Registrar, handles incoming D-Bus method calls (GetParameterValues, SetParameterValues, GetParameterNames, GetParameterAttributes), and routes requests to appropriate data model handlers.</td>
+<td><code>ssp_messagebus_interface.c</code>, <code>ssp_messagebus_interface.h</code></td>
+</tr>
+<tr>
+<td><strong>Plugin Main</strong></td>
+<td>Data model plugin infrastructure providing COSA (Component Object Service Architecture) initialization. Implements plugin entry points for DM library integration, manages data model object creation/destruction, and provides versioning support for TR-181 implementation.</td>
+<td><code>plugin_main.c</code>, <code>plugin_main.h</code>, <code>plugin_main_apis.h</code></td>
+</tr>
+<tr>
+<td><strong>MoCA DML (Data Model Layer)</strong></td>
+<td>TR-181 Device.MoCA.* object implementation providing standardized interface for MoCA network configuration and monitoring. Implements get/set/commit handlers for all TR-181 parameters including interface configuration, statistics, QoS settings, and associated device tables. Provides parameter validation and change notification capabilities.</td>
+<td><code>cosa_moca_dml.c</code>, <code>cosa_moca_dml.h</code></td>
+</tr>
+<tr>
+<td><strong>MoCA Internal Manager</strong></td>
+<td>Backend manager responsible for MoCA object lifecycle, data structure initialization, and state management. Manages MoCA interface tables, associated device cache, mesh topology cache, and flow statistics. Coordinates device synchronization thread and WebConfig framework initialization.</td>
+<td><code>cosa_moca_internal.c</code>, <code>cosa_moca_internal.h</code></td>
+</tr>
+<tr>
+<td><strong>MoCA Network Info</strong></td>
+<td>Network topology and device information module providing comprehensive visibility into MoCA network structure. Manages associated device discovery, node status tracking, mesh PHY rate reporting, and network admission control information. Implements caching strategies for performance optimization.</td>
+<td><code>cosa_moca_network_info.c</code>, <code>cosa_moca_network_info.h</code></td>
+</tr>
+<tr>
+<td><strong>MoCA APIs (SBAPI)</strong></td>
+<td>Board-specific API layer abstracting MoCA HAL interactions. Provides wrapper functions for all HAL operations including interface configuration, statistics retrieval, QoS management, and device enumeration. Implements error handling, retry logic, and data conversion between TR-181 and HAL data structures.</td>
+<td><code>cosa_moca_apis.c</code></td>
+</tr>
+<tr>
+<td><strong>MoCA Helpers</strong></td>
+<td>Utility functions for MoCA parameter validation, data format conversion, and common operations. Provides helper routines for MAC address manipulation, frequency band calculations, PHY rate conversions, and configuration sanity checks.</td>
+<td><code>cosa_moca_helpers.c</code>, <code>cosa_moca_helpers.h</code></td>
+</tr>
+<tr>
+<td><strong>MoCA Parameters</strong></td>
+<td>Parameter definition and management module providing centralized parameter metadata. Defines parameter constraints, default values, and validation rules for MoCA configuration parameters. Supports parameter serialization for WebConfig integration.</td>
+<td><code>cosa_moca_param.c</code>, <code>cosa_moca_param.h</code></td>
+</tr>
+<tr>
+<td><strong>WebConfig API</strong></td>
+<td>WebConfig framework integration module enabling remote bulk provisioning. Implements msgpack-based configuration blob parsing, version management, parameter validation, and atomic configuration application. Registers "moca" subdocument with WebConfig framework and provides version get/set callbacks.</td>
+<td><code>cosa_moca_webconfig_api.c</code>, <code>cosa_moca_webconfig_api.h</code></td>
+</tr>
+<tr>
+<td><strong>Multicast Routing Daemon (MRD)</strong></td>
+<td>Standalone multicast routing daemon for efficient multicast packet handling over MoCA networks. Monitors ARP cache for multicast group membership, manages shared memory for multicast routing table, and performs libnet-based packet injection for multicast forwarding. Supports IPTV and streaming media applications.</td>
+<td><code>mrd.c</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>graph TD
+    subgraph SSPLayer ["Service Specific Platform"]
+        SSPMain[ssp_main.c&lt;br/&gt;Entry Point]
+        SSPMsgBus[ssp_messagebus_interface.c&lt;br/&gt;D-Bus Handler]
+        SSPAction[ssp_action.c&lt;br/&gt;Lifecycle]
+    end
+
+    subgraph MiddleLayer ["Middle Layer (TR-181)"]
+        Plugin[plugin_main.c&lt;br/&gt;COSA Plugin]
+        MoCADML[cosa_moca_dml.c&lt;br/&gt;Data Model Layer]
+        MoCAInternal[cosa_moca_internal.c&lt;br/&gt;Backend Manager]
+        MoCANetInfo[cosa_moca_network_info.c&lt;br/&gt;Topology Info]
+    end
+
+    subgraph SBAPILayer ["Board Specific API"]
+        MoCAAPIs[cosa_moca_apis.c&lt;br/&gt;HAL Wrapper]
+        MoCAHelpers[cosa_moca_helpers.c&lt;br/&gt;Utilities]
+        MoCAParam[cosa_moca_param.c&lt;br/&gt;Parameters]
+        MoCAWebCfg[cosa_moca_webconfig_api.c&lt;br/&gt;WebConfig]
+    end
+
+    subgraph MRDModule ["Multicast Routing"]
+        MRD[mrd.c&lt;br/&gt;Multicast Daemon]
+    end
+
+    SSPMain --&gt; SSPMsgBus
+    SSPMain --&gt; SSPAction
+    SSPMsgBus --&gt; Plugin
+    Plugin --&gt; MoCADML
+    MoCADML --&gt; MoCAInternal
+    MoCADML --&gt; MoCANetInfo
+    MoCAInternal --&gt; MoCAAPIs
+    MoCANetInfo --&gt; MoCAAPIs
+    MoCAWebCfg --&gt; MoCAAPIs
+    MoCAAPIs --&gt; MoCAHelpers
+    MoCAAPIs --&gt; MoCAParam
+    MRD -.-&gt; MoCAAPIs
+
+    classDef ssp fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef middle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef sbapi fill:#fff9c4,stroke:#f57f17,stroke-width:2px;
+    classDef mrd fill:#e0f2f1,stroke:#00796b,stroke-width:2px;
+
+    class SSPMain,SSPMsgBus,SSPAction ssp;
+    class Plugin,MoCADML,MoCAInternal,MoCANetInfo middle;
+    class MoCAAPIs,MoCAHelpers,MoCAParam,MoCAWebCfg sbapi;
+    class MRD mrd;</code></pre>
+<h2 id="component-interactions">Component Interactions</h2>
+<p>The MoCA Agent maintains extensive interactions with RDK-B middleware components, system services, and external management systems to provide comprehensive MoCA network management and monitoring capabilities. These interactions span multiple protocols and communication patterns including synchronous API calls, asynchronous event notifications, and data synchronization mechanisms.</p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "External Services"
+        ACS[ACS/TR-069 Server]
+        WebCfgSrv[WebConfig Server]
+        WebUI[Local Web UI]
+    end
+
+    subgraph "Middleware Layer"
+        MoCAAgent[MoCA Agent]
+        PAM[PAM Agent]
+        TR069[TR-069 Agent]
+        LMLite[LM Lite]
+        PSM[PSM]
+        Telemetry[Telemetry]
+    end
+
+    subgraph "HAL/Platform Layer"
+        MoCAHAL[MoCA HAL]
+        Syscfg[Syscfg]
+        Linux[Linux Network Stack]
+    end
+
+    ACS --&gt;|CWMP| TR069
+    WebCfgSrv --&gt;|HTTPS/msgpack| MoCAAgent
+    WebUI --&gt;|HTTP| PAM
+
+    TR069 &lt;--&gt;|D-Bus GetParameterValues/SetParameterValues| MoCAAgent
+    PAM &lt;--&gt;|D-Bus| MoCAAgent
+    MoCAAgent &lt;--&gt;|D-Bus Parameter Persistence| PSM
+    MoCAAgent --&gt;|Event Notifications| Telemetry
+    LMLite --&gt;|D-Bus Query MoCA Devices| MoCAAgent
+
+    MoCAAgent &lt;--&gt;|HAL APIs| MoCAHAL
+    MoCAAgent &lt;--&gt;|syscfg_get/syscfg_set| Syscfg
+    MoCAHAL &lt;--&gt;|Driver Control| Linux
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef middleware fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef hal fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+
+    class ACS,WebCfgSrv,WebUI external;
+    class MoCAAgent,PAM,TR069,LMLite,PSM,Telemetry middleware;
+    class MoCAHAL,Syscfg,Linux hal;</code></pre>
+<h3 id="interaction-matrix">Interaction Matrix</h3>
+<table>
+<thead>
+<tr>
+<th>Target Component/Layer</th>
+<th>Interaction Purpose</th>
+<th>Key APIs/Endpoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RDK-B Middleware Components</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Component Registrar</td>
+<td>Component discovery, registration, and namespace reservation</td>
+<td><code>registerCapabilities()</code>, component registration via D-Bus</td>
+</tr>
+<tr>
+<td>PAM Agent</td>
+<td>Platform configuration management, system-level MoCA enable/disable control</td>
+<td>D-Bus: <code>Device.MoCA.*</code> parameter access</td>
+</tr>
+<tr>
+<td>TR-069 Agent</td>
+<td>Remote management via CWMP, parameter synchronization with ACS</td>
+<td>D-Bus: <code>GetParameterValues</code>, <code>SetParameterValues</code>, <code>AddObject</code>, <code>DeleteObject</code></td>
+</tr>
+<tr>
+<td>WebPA Agent</td>
+<td>Cloud-based device management and configuration via WebPA protocol</td>
+<td>D-Bus: TR-181 parameter access, event subscriptions</td>
+</tr>
+<tr>
+<td>LM Lite</td>
+<td>MoCA-connected device discovery for host management and network analytics</td>
+<td>D-Bus: Query <code>Device.MoCA.Interface.{i}.AssociatedDevice.{i}.*</code></td>
+</tr>
+<tr>
+<td>PSM (Persistent Storage Manager)</td>
+<td>Configuration persistence across reboots for MoCA interface settings</td>
+<td><code>PSM_Set_Record_Value2()</code>, <code>PSM_Get_Record_Value2()</code>, D-Bus based</td>
+</tr>
+<tr>
+<td>Telemetry Agent</td>
+<td>Network event reporting, statistics collection for cloud analytics</td>
+<td>Telemetry marker posting for MoCA state changes and errors</td>
+</tr>
+<tr>
+<td><strong>System &amp; HAL Layers</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MoCA HAL</td>
+<td>Hardware control, status monitoring, network topology discovery</td>
+<td><code>moca_GetIfConfig()</code>, <code>moca_SetIfConfig()</code>, <code>moca_GetAssocDevices()</code>, <code>moca_GetMeshTable()</code>, <code>moca_GetFlowStatistics()</code>, <code>moca_GetQoSFlowTable()</code></td>
+</tr>
+<tr>
+<td>Syscfg</td>
+<td>Persistent key-value storage for bootstrap configuration</td>
+<td><code>syscfg_get()</code>, <code>syscfg_set()</code>, <code>syscfg_commit()</code> for moca_enabled, privacy settings</td>
+</tr>
+<tr>
+<td>Linux Network Stack</td>
+<td>Network interface bridging, routing table management, ARP cache monitoring</td>
+<td>File system access to <code>/proc/net/arp</code>, <code>/sys/class/net/</code>, network interface ioctls</td>
+</tr>
+<tr>
+<td>Sysevent</td>
+<td>Event-driven system configuration synchronization (for high-split mode)</td>
+<td><code>sysevent_get()</code>, <code>sysevent_set()</code> for CM operational mode detection</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Events Published by MoCA Agent:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Event Name</th>
+<th>Event Topic/Path</th>
+<th>Trigger Condition</th>
+<th>Subscriber Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MoCA_Interface_Enable_Change</td>
+<td><code>Device.MoCA.Interface.{i}.Enable</code></td>
+<td>MoCA interface enabled or disabled</td>
+<td>PAM, TR-069, Telemetry</td>
+</tr>
+<tr>
+<td>MoCA_Device_Associated</td>
+<td><code>Device.MoCA.Interface.{i}.AssociatedDeviceNumberOfEntries</code></td>
+<td>New MoCA device joins network</td>
+<td>LM Lite, Telemetry</td>
+</tr>
+<tr>
+<td>MoCA_Device_Disassociated</td>
+<td><code>Device.MoCA.Interface.{i}.AssociatedDeviceNumberOfEntries</code></td>
+<td>MoCA device leaves network</td>
+<td>LM Lite, Telemetry</td>
+</tr>
+<tr>
+<td>MoCA_Network_Status_Change</td>
+<td><code>Device.MoCA.Interface.{i}.Status</code></td>
+<td>Network status transitions (Up, Down, Error)</td>
+<td>PAM, Telemetry</td>
+</tr>
+<tr>
+<td>MoCA_Privacy_Mode_Change</td>
+<td><code>Device.MoCA.Interface.{i}.PrivacyEnabledSetting</code></td>
+<td>Privacy mode enabled/disabled or password changed</td>
+<td>Telemetry, Security Components</td>
+</tr>
+<tr>
+<td>MoCA_NC_Change</td>
+<td><code>Device.MoCA.Interface.{i}.NetworkCoordinator</code></td>
+<td>Network Coordinator (NC) role changes</td>
+<td>Telemetry</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ipc-flow-patterns">IPC Flow Patterns</h3>
+<p><strong>Primary IPC Flow - TR-181 Parameter Access:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Client as TR-069/PAM/WebUI
+    participant DBus as D-Bus System Bus
+    participant MoCAAgent as MoCA Agent
+    participant HAL as MoCA HAL
+
+    Client-&gt;&gt;DBus: D-Bus Method Call&lt;br/&gt;GetParameterValues("Device.MoCA.Interface.1.Status")
+    DBus-&gt;&gt;MoCAAgent: Route to MoCA Component
+    Note over MoCAAgent: Validate request &amp; check cache
+
+    alt Cached Value Fresh
+        MoCAAgent--&gt;&gt;DBus: Return Cached Value
+    else Need Fresh Data
+        MoCAAgent-&gt;&gt;HAL: moca_GetIfConfig(ifIndex)
+        HAL--&gt;&gt;MoCAAgent: Interface Status
+        MoCAAgent-&gt;&gt;MoCAAgent: Update Internal Cache
+        MoCAAgent--&gt;&gt;DBus: Return Fresh Value
+    end
+
+    DBus--&gt;&gt;Client: D-Bus Response (Status="Up")</code></pre>
+<p><strong>Event Notification Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant SyncThread as Device Sync Thread
+    participant MoCAAgent as MoCA Agent
+    participant HAL as MoCA HAL
+    participant LMLite as LM Lite
+    participant Telemetry as Telemetry Agent
+
+    loop Every 60 Seconds
+        SyncThread-&gt;&gt;HAL: Poll for Associated Devices
+        HAL--&gt;&gt;SyncThread: Device List
+        SyncThread-&gt;&gt;SyncThread: Compare with Cached List
+
+        alt Topology Changed
+            Note over SyncThread: New device detected or&lt;br/&gt;existing device removed
+            SyncThread-&gt;&gt;MoCAAgent: Update Internal Cache
+            SyncThread-&gt;&gt;LMLite: Notify Device Change (D-Bus)
+            LMLite--&gt;&gt;SyncThread: Ack
+            SyncThread-&gt;&gt;Telemetry: Post Telemetry Event
+            Telemetry--&gt;&gt;SyncThread: Ack
+        end
+    end</code></pre>
+<p><strong>WebConfig Bulk Configuration Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Cloud as WebConfig Server
+    participant Framework as WebConfig Framework
+    participant MoCAAgent as MoCA Agent (WebConfig Handler)
+    participant HAL as MoCA HAL
+    participant Syscfg as Syscfg
+
+    Cloud-&gt;&gt;Framework: HTTP POST /moca subdoc&lt;br/&gt;(msgpack blob + version)
+    Framework-&gt;&gt;Framework: Check Version
+
+    alt Version &gt; Current
+        Framework-&gt;&gt;MoCAAgent: Process_Moca_WebConfigRequest(blob)
+        MoCAAgent-&gt;&gt;MoCAAgent: Unpack msgpack
+        MoCAAgent-&gt;&gt;MoCAAgent: Validate Parameters
+
+        alt Validation Success
+            MoCAAgent-&gt;&gt;HAL: Apply Configuration
+            HAL--&gt;&gt;MoCAAgent: Success
+            MoCAAgent-&gt;&gt;Syscfg: Persist Settings
+            Syscfg--&gt;&gt;MoCAAgent: Committed
+            MoCAAgent-&gt;&gt;Framework: setBlobVersion("moca", new_version)
+            MoCAAgent--&gt;&gt;Framework: execRetVal=0 (Success)
+            Framework--&gt;&gt;Cloud: HTTP 200 OK
+        else Validation Failed
+            MoCAAgent--&gt;&gt;Framework: execRetVal=1 (Failure)
+            Framework--&gt;&gt;Cloud: HTTP 400 Bad Request
+        end
+    else Version &lt;= Current
+        Framework--&gt;&gt;Cloud: HTTP 304 Not Modified
+    end</code></pre>
+<h2 id="implementation-details">Implementation Details</h2>
+<h3 id="major-hal-apis-integration">Major HAL APIs Integration</h3>
+<p>The MoCA Agent integrates comprehensively with the MoCA HAL interface to provide full control and monitoring of MoCA hardware. The component abstracts hardware-specific implementations through standardized HAL APIs while maintaining flexibility for vendor-specific optimizations and extensions.</p>
+<p><strong>Core HAL APIs:</strong></p>
+<table>
+<thead>
+<tr>
+<th>HAL API</th>
+<th>Purpose</th>
+<th>Implementation File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>moca_GetIfConfig()</code></td>
+<td>Retrieve MoCA interface configuration including enable state, preferred NC, frequency mask, privacy settings, and operational parameters</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfGetCfg()</code></td>
+</tr>
+<tr>
+<td><code>moca_SetIfConfig()</code></td>
+<td>Apply MoCA interface configuration changes to hardware including network enable/disable, frequency adjustments, privacy mode, and power settings</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfSetCfg()</code></td>
+</tr>
+<tr>
+<td><code>moca_GetDynamicInfo()</code></td>
+<td>Query dynamic MoCA interface information including link status, current NC node ID, backup NC ID, network version, and operational frequency</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfGetDinfo()</code></td>
+</tr>
+<tr>
+<td><code>moca_GetStaticInfo()</code></td>
+<td>Retrieve static interface information such as firmware version, hardware version, MAC address, and supported feature capabilities</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfGetSinfo()</code></td>
+</tr>
+<tr>
+<td><code>moca_GetStats()</code></td>
+<td>Collect interface-level statistics including packet counters, byte counters, error statistics, and unicast/broadcast/multicast traffic</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfGetStats()</code></td>
+</tr>
+<tr>
+<td><code>moca_GetNumAssociatedDevices()</code></td>
+<td>Get count of MoCA nodes currently associated with the network</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfGetAssocDevices()</code></td>
+</tr>
+<tr>
+<td><code>moca_GetAssociatedDeviceTable()</code></td>
+<td>Enumerate all associated MoCA devices with detailed information including MAC address, node ID, PHY rates, link status, and active status</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfGetAssocDevices()</code></td>
+</tr>
+<tr>
+<td><code>moca_GetMeshTable()</code></td>
+<td>Retrieve mesh PHY rate table showing transmission rates between all node pairs for network performance analysis</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfGetMeshTable()</code></td>
+</tr>
+<tr>
+<td><code>moca_GetFlowStatistics()</code></td>
+<td>Query per-flow statistics for QoS flow tracking including ingress/egress node IDs, packet counts, and flow priority</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfGetFlowTable()</code></td>
+</tr>
+<tr>
+<td><code>moca_GetQoSFlowTable()</code></td>
+<td>Retrieve QoS flow configuration table with flow parameters, packet aggregation settings, and priority assignments</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfExtCounterGetInfo()</code></td>
+</tr>
+<tr>
+<td><code>moca_SetPreferredNC()</code></td>
+<td>Configure preferred Network Coordinator node for network leadership selection</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfSetCfg()</code></td>
+</tr>
+<tr>
+<td><code>moca_SetPrivacyPassword()</code></td>
+<td>Set MoCA network privacy password for secure network operation and node authentication</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfSetCfg()</code></td>
+</tr>
+<tr>
+<td><code>moca_cancelAssociation()</code></td>
+<td>Force disassociation of a specific MoCA node from the network by MAC address</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaIfExtAggrCounterGetInfo()</code></td>
+</tr>
+<tr>
+<td><code>moca_GetResetCount()</code></td>
+<td>Query MoCA interface reset counter for stability monitoring and diagnostics</td>
+<td><code>cosa_moca_apis.c</code>: <code>CosaDmlMocaGetResetCount()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-implementation-logic">Key Implementation Logic</h3>
+<ul>
+<li>
+<p><strong>Device Synchronization Engine</strong>: Multi-threaded polling system (<code>SynchronizeMoCADevices</code> in <code>cosa_moca_internal.c</code>) that periodically queries MoCA HAL for network topology changes. Runs every 60 seconds to discover new associated devices, detect node departures, and update internal cache. Implements change detection algorithms to minimize D-Bus notification overhead by only reporting actual topology changes to subscribers like LM Lite. Thread-safe access to shared device tables using mutex protection.</p>
+</li>
+<li>
+<p><strong>WebConfig Integration</strong>: Msgpack-based bulk configuration system (<code>Process_Moca_WebConfigRequest</code> in <code>cosa_moca_webconfig_api.c</code>) supporting atomic configuration updates from cloud management. Implements version control through syscfg to prevent configuration rollback. Validates all parameters before HAL application to ensure configuration consistency. Supports rollback on partial failure to maintain service availability. Persists configuration to both syscfg and PSM for redundancy.</p>
+</li>
+<li>
+<p><strong>Parameter Validation &amp; Sanity Checks</strong>: Comprehensive validation in <code>cosa_moca_dml.c</code> for all TR-181 parameter sets including frequency mask range checking, privacy password length validation (12-17 characters), transmit power level bounds checking, and beacon power adjustment limits. Implements interdependency validation such as requiring privacy password when privacy is enabled. Provides detailed error codes for debugging configuration issues.</p>
+</li>
+<li>
+<p><strong>MoCA Isolation &amp; Whitelist Control</strong>: Network security features (<code>MoCA_isolation.sh</code>, <code>moca_whitelist_ctl.sh</code>) implementing node admission control and network isolation from untrusted devices. Whitelist management supports MAC address-based filtering for controlled network access. Isolation mode prevents unauthorized node association while maintaining existing connections.</p>
+</li>
+<li>
+<p><strong>Multicast Routing Optimization</strong>: MRD daemon (<code>mrd.c</code>) implements efficient multicast packet forwarding over MoCA by monitoring ARP cache for multicast group membership (224.0.0.0/4), managing shared memory-based multicast routing table, and performing libnet-based packet injection for multicast streams. Supports IGMP snooping integration and reduces CPU overhead for IPTV applications by offloading multicast replication to MoCA hardware where supported.</p>
+</li>
+<li>
+<p><strong>Event Processing</strong>: Asynchronous event handling for D-Bus requests with non-blocking I/O. Parameter get operations utilize cached data when available to minimize HAL calls and improve response latency. Parameter set operations implement two-phase commit (validate then apply) to ensure atomic configuration changes. WebConfig requests processed in dedicated handler thread to prevent blocking main message bus thread.</p>
+</li>
+<li>
+<p><strong>Error Handling Strategy</strong>: Comprehensive error detection with retry logic for transient HAL failures. HAL error codes mapped to CCSP error codes for consistent error reporting. Timeout handling with configurable thresholds for HAL operations (default 30 seconds). Graceful degradation during HAL unavailability - component remains responsive to queries using cached data while logging errors. Automatic recovery mechanisms including HAL reinitialization on persistent failures. Telemetry event generation for all critical errors enabling remote diagnostics.</p>
+</li>
+<li>
+<p><strong>Logging &amp; Debugging</strong>: Multi-level logging system using RDK Logger with component-specific log file (<code>MOCAlog.txt.0</code>). Structured logging with function name, line number, and contextual information. Debug logging for all HAL interactions including API calls, parameters, and return values. Performance logging for device synchronization timing and cache update durations. Console debug mode support via command-line flag for development troubleshooting. Trace logging for message bus transactions and parameter access patterns.</p>
+</li>
+</ul>
+<h3 id="key-configuration-files">Key Configuration Files</h3>
+<table>
+<thead>
+<tr>
+<th>Configuration File</th>
+<th>Purpose</th>
+<th>Override Mechanisms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CcspMoCA.cfg</code></td>
+<td>Component registration configuration defining component ID (<code>com.cisco.spvtg.ccsp.moca</code>), D-Bus path (<code>/com/cisco/spvtg/ccsp/moca</code>), and data model XML reference</td>
+<td>Compile-time configuration, no runtime override</td>
+</tr>
+<tr>
+<td><code>CcspMoCADM.cfg</code></td>
+<td>Data model XML configuration pointer specifying TR-181 data model XML file location for COSA framework</td>
+<td>Configuration file path, can be overridden via component config</td>
+</tr>
+<tr>
+<td><code>TR181-MoCA.XML</code></td>
+<td>Complete TR-181 MoCA data model definition including object hierarchy, parameter types, access permissions, and DML function mappings</td>
+<td>Data model version updates via XML replacement</td>
+</tr>
+<tr>
+<td><code>/etc/syscfg</code> (moca_enabled)</td>
+<td>Persistent MoCA enable/disable state stored as "0" (disabled) or "1" (enabled)</td>
+<td><code>syscfg set moca_enabled &lt;value&gt;; syscfg commit</code></td>
+</tr>
+<tr>
+<td><code>/etc/syscfg</code> (moca_version)</td>
+<td>WebConfig subdocument version tracking for configuration synchronization</td>
+<td>WebConfig framework automatic version management</td>
+</tr>
+<tr>
+<td><code>/nvram/moca_initialized_bootup</code></td>
+<td>Bootup state marker file indicating component initialization status for crash recovery</td>
+<td>File presence/absence, automatically managed</td>
+</tr>
+<tr>
+<td><code>MoCA_isolation.sh</code></td>
+<td>Shell script implementing MoCA network isolation controls via iptables rules and bridge filtering</td>
+<td>Script parameters: <code>enable</code>/<code>disable</code></td>
+</tr>
+<tr>
+<td><code>moca_whitelist_ctl.sh</code></td>
+<td>Whitelist management script for MAC-based node admission control</td>
+<td>Script parameters: <code>add &lt;MAC&gt;</code>/<code>remove &lt;MAC&gt;</code>/<code>clear</code></td>
+</tr>
+<tr>
+<td><code>moca_mroute.sh</code></td>
+<td>Multicast routing setup script configuring multicast forwarding rules for MoCA interface</td>
+<td>Executed during MoCA enable, no runtime parameters</td>
+</tr>
+<tr>
+<td><code>moca_mroute_ip.sh</code></td>
+<td>IP-specific multicast routing configuration for IPTV stream forwarding</td>
+<td>Executed with IP parameters for specific multicast groups</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<div class="bottom-banner compact-footer">
+<!-- Left Section: Logo and Copyright -->
+<div class="footer-left">
+<img alt="RDK Logo" class="rdk-logo" src="../../../assets/logo.png">
+<p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+</img></div>
+<!-- Right Section: Links and Support -->
+<div class="footer-right">
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Explore RDK</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../preview-rdk/docs/getting-started">Getting Started</a></li>
+<li><a href="../../../devices/docs/">Devices</a></li>
+<li><a href="../../../preview-rdk/docs/getting-started">Tools</a></li>
+</ul>
+</div>
+</div>
+<!-- Device Management -->
+<div class="banner-group">
+<h3>Device Management</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../device-management/docs/XConf">XConf</a></li>
+<li><a href="../../../device-management/docs/Telemetry">Telemetry</a></li>
+<li><a href="./entertainment/docs/sample_home1/">Ent Home 1</a></li>
+<li><a href="./entertainment/docs/sample_home2/">Ent Home 2</a></li>
+<li><a href="./entertainment/docs/sample_home3/">Ent Home 3</a></li>
+</ul>
+</div>
+</div>
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Test &amp; Certification</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119">RDK Certification</a></li>
+<li><a href="../../../tools/docs/TDK/">TDK</a></li>
+<li><a href="../../../tools/docs/Automatics/">Automatics</a></li>
+</ul>
+</div>
+</div>
+<!-- Resources-->
+<div class="banner-group">
+<h3>Resources</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="./entertainment/docs/sample_home4/">Ent Home 4</a></li>
+<li><a href="./entertainment/docs/sample_home5/">Ent Home 5</a></li>
+<li><a href="./docu/nov05/rdkb_components/">RDK-B Review</a></li>
+<li><a href="/sitemap.xml">Site Map</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../../assets/javascripts/extra.js"></script>
+</div></body>
+</html>

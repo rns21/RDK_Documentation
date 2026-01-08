@@ -1,0 +1,204 @@
+/* Hide the markdown content button */
+.md-content__button {
+  display: none !important;
+}
+
+/* Container styling for custom cards */
+.custom-container {
+  flex: 1 1 calc(30% - 20px);
+  max-width: calc(30% - 20px);
+  padding: 20px;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  color: var(--md-default-fg-color) !important;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-family: "IBM Plex Sans", sans-serif !important;
+  transition:
+    transform 0.3s cubic-bezier(0.39, 0.575, 0.565, 1),
+    box-shadow 0.5s cubic-bezier(0.39, 0.575, 0.565, 1),
+    background 0.4s ease !important;
+  overflow: hidden;
+  position: relative;
+  height: auto;
+}
+
+/* Light theme background */
+[data-md-color-scheme="default"] .custom-container {
+  background: linear-gradient(-45deg, #c1e4e860, var(--md-default-bg-color), #c1e4e85d);
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1) !important;
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+[data-md-color-scheme="default"] .custom-container:hover {
+  box-shadow: 0 0 12px 0.5px rgba(129, 142, 142, 0.571);
+  /* transform: translateY(-4px); */
+}
+
+/* Dark theme background */
+[data-md-color-scheme="slate"] .custom-container {
+  background: linear-gradient(-45deg, #189ab72e, var(--md-code-bg-color), #0ba9cd1d);
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+  /* border: 2px solid var(--md-code-bg-color) !important; */
+}
+
+[data-md-color-scheme="slate"] .custom-container:hover {
+  box-shadow: 0 0 10px 0.5px rgba(255, 255, 255, 0.368);
+  /* transform: translateY(-4px); */
+}
+
+/* Hover background overlay */
+.custom-container::before {
+  content: '';
+  position: absolute;
+  top: -161%;
+  left: -11%;
+  width: 218%;
+  height: 230%;
+  background: linear-gradient(0deg, #00b4dc09, #00b4dc09 30%, #00b4dc15) !important;
+  transform: rotate(-45deg) !important;
+  transition: all 1s ease !important;
+  opacity: 0 !important;
+}
+
+.custom-container:hover::before {
+  opacity: 1 !important;
+  transform: rotate(-45deg) translateY(100%) !important;
+}
+
+/* Hover effect for container */
+.custom-container:hover {
+  /* transform: scale(1.04) translateY(-5px); */
+  cursor: pointer;
+  background-color: #00b4dc08 !important;
+  border: none !important;
+}
+
+/* Title section layout */
+.title_section {
+  display: flex;
+  gap: 10px;
+}
+
+/* Icon styling */
+.custom-icon {
+  color: var(--md-accent-fg-color);
+  margin-top: 3.5px;
+}
+
+/* Hover effect for icon and heading */
+.custom-container:hover .custom-icon,
+.custom-container:hover h2 {
+  /* transform: scale(1.01); */
+  /* transition: transform 0.5s ease; */
+}
+
+/* Content section layout */
+.content-section {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: -10px;
+}
+
+/* Link-row layout */
+.link-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-top: auto;
+}
+
+/* Arrow icon animation on hover */
+.custom-icon-arrow {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.custom-container:hover .custom-icon-arrow {
+  opacity: 1;
+  animation: bounce-arrow 2s infinite !important;
+}
+
+/* Arrow bounce animation keyframes */
+@keyframes bounce-arrow {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Link styling */
+.custom-link {
+  text-decoration: none;
+  font-weight: bold;
+  color: #607D8B;
+  transition: text-decoration 0.3s ease;
+}
+
+.custom-container:hover .custom-link {
+  text-decoration: underline;
+}
+
+/* Remove top margin from heading */
+.custom-container h2 {
+  margin-top: 0;
+}
+
+/* -------------------------- Responsive Breakpoints -------------------------- */
+
+/* Tablets (≤1024px) */
+@media (max-width: 1024px) {
+  .custom-container {
+    flex: 1 1 calc(45% - 20px);
+    max-width: calc(45% - 20px);
+  }
+}
+
+/* Mobile landscape & small tablets (≤768px) */
+@media (max-width: 768px) {
+  .custom-container {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .title_section,
+  .link-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .link-row {
+    font-size: 14px;
+  }
+  .custom-container::before {
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 300%;
+  }
+}
+
+/* Mobile (≤480px) */
+@media (max-width: 480px) {
+  .custom-container {
+    padding: 15px;
+    font-size: 13px;
+  }
+
+  .custom-container h2 {
+    font-size: 16px;
+  }
+
+  .custom-link {
+    font-size: 14px;
+  }
+}
