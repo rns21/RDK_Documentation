@@ -77,9 +77,9 @@ The Advanced Security component follows a layered modular design that separates 
 
 The component implements a plugin-based architecture where each security feature (Device Fingerprinting, Safe Browsing, Softflowd, Parental Controls) is handled by dedicated modules with well-defined interfaces. The design ensures loose coupling between components while providing centralized configuration management and event coordination. The architecture supports both synchronous parameter operations (get/set) and asynchronous event-driven processing for real-time security responses.
 
-North-bound interactions are handled through RBus messaging for integration with other RDK-B components, WebConfig framework for cloud-based configuration management, and direct TR-181 parameter access for management systems. South-bound interactions utilize IPC mechanisms (sockets, shared memory) for communication with security agents, system calls for kernel module management, and file-based configuration for persistent settings.
+North-bound interactions are handled through RBus/DBus messaging for integration with other RDK-B components, WebConfig framework for cloud-based configuration management, and direct TR-181 parameter access for management systems. South-bound interactions utilize IPC mechanisms (sockets, shared memory) for communication with security agents, system calls for kernel module management, and file-based configuration for persistent settings.
 
-IPC mechanisms are designed based on platform capabilities, with RBus being the preferred method for component-to-component communication on newer platforms, while maintaining [⚠️ DBUS - NEEDS REVIEW: Change to RBus?] compatibility for legacy systems. The design includes fail-safe mechanisms ensuring that security features degrade gracefully when agents are unavailable, and configuration changes are validated before commitment to prevent system instability.
+IPC mechanisms are designed based on platform capabilities, with RBus being the preferred method for component-to-component communication on newer platforms, while maintaining DBUS compatibility for legacy systems. The design includes fail-safe mechanisms ensuring that security features degrade gracefully when agents are unavailable, and configuration changes are validated before commitment to prevent system instability.
 
 Data persistence is achieved through a combination of syscfg for persistent configuration storage, temporary files for runtime state management, and WebConfig framework for cloud-synchronized settings. The component manages configuration versioning and provides rollback capabilities for failed configuration updates.
 
@@ -159,7 +159,7 @@ graph LR
 - **HAL Dependencies**: Platform HAL for network interface management, minimum version supporting netfilter integration
 - **Systemd Services**: CcspCrSsp.service, CcspPsmSsp.service must be active before advanced security starts; network.target dependency for network availability
 - **Hardware Requirements**: Minimum 256MB RAM for agent operation, netfilter kernel support, network interface access capabilities
-- **Message Bus**: RBus registration for "eRT.com.cisco.spvtg.ccsp.advsecurity" namespace (newer platforms) or [⚠️ DBUS - NEEDS REVIEW: Change to RBus?] com.cisco.spvtg.ccsp.advsecurity (legacy platforms)
+- **Message Bus**: RBus registration for "eRT.com.cisco.spvtg.ccsp.advsecurity" namespace (newer platforms) or DBUS com.cisco.spvtg.ccsp.advsecurity (legacy platforms)
 - **TR-181 Data Model**: Device.DeviceInfo.X_RDKCENTRAL-COM_DeviceFingerPrint.* and Device.DeviceInfo.X_RDKCENTRAL-COM_AdvancedSecurity.* parameter support
 - **Configuration Files**: /usr/ccsp/advsecurity/TR181-AdvSecurity.xml data model definition, /etc/cujo-agent configuration directory
 - **Startup Order**: Must initialize after PSM, CR, and WebConfig components; starts CuJo Agent/Rabid after component initialization
@@ -193,7 +193,7 @@ sequenceDiagram
     AdvSec->>PSM: Load Configuration
     PSM-->>AdvSec: Configuration Data
     AdvSec->>AdvSec: Register TR-181 Parameters
-    AdvSec->>System: Connect to RBus
+    AdvSec->>System: Connect to RBus/DBUS
     System-->>AdvSec: IPC Established
     AdvSec->>Agent: Start Security Agent
     Agent-->>AdvSec: Agent Ready
@@ -344,7 +344,7 @@ The Advanced Security component consists of several specialized modules that han
 | Module/Class | Description | Key Files |
 |-------------|------------|-----------|
 | AdvSecurityDml | Core TR-181 parameter handling and security feature management. Implements all DML functions for device fingerprinting, safe browsing, and parental controls. Handles parameter validation, persistence, and agent coordination. | `cosa_adv_security_dml.c`, `cosa_adv_security_dml.h` |
-| AdvSecuritySsp | Service Support Provider for component lifecycle management. Handles process initialization, RBus registration, message bus interface, and component shutdown procedures. | `ssp_main.c`, `ssp_messagebus_interface.c`, `ssp_global.h` |
+| AdvSecuritySsp | Service Support Provider for component lifecycle management. Handles process initialization, RBus/DBUS registration, message bus interface, and component shutdown procedures. | `ssp_main.c`, `ssp_messagebus_interface.c`, `ssp_global.h` |
 | WebConfigModule | WebConfig framework integration for cloud-based configuration management. Handles remote configuration updates, version management, and configuration validation for security features. | `cosa_adv_security_webconfig.c`, `cosa_adv_security_webconfig.h` |
 | InternalHelpers | Utility functions for security operations including parameter validation, URL checking, security agent communication, and system state management. | `cosa_adv_security_internal.c`, `cosa_adv_security_internal.h`, `advsecurity_helpers.c` |
 | PluginMain | Plugin initialization and function registration interface. Registers all DML callback functions with the COSA framework and manages plugin lifecycle. | `plugin_main.c`, `plugin_main.h` |
