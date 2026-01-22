@@ -1,0 +1,374 @@
+/* ------------------------------------Typography and Base Style---------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+
+
+/*-------------- Global defaults (for documentation pages) -------------------*/
+:root {
+  --md-text-font: "Roboto", system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+  --md-code-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+body {
+  font-family: var(--md-text-font);
+}
+
+.md-typeset .hd-h1{
+  text-align: center;
+}
+
+.md-typeset .hd-h1,
+.md-typeset .hd-h2,
+.md-typeset .hd-h3,
+.md-typeset .hd-h4,
+.md-typeset .hd-h5 {
+  font-family: "Anuphan", sans-serif;
+  color: var(--md-default-fg-color);
+  letter-spacing: 0;
+}
+
+.md-typeset p {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0;
+}
+
+/*--------Typography for non doc pages---------------------*/
+
+.is-homepage .md-typeset .hd-h1, .is-main-section .md-typeset .hd-h1 { font-size: 54px; line-height: 120%; font-weight: 600; }
+.is-homepage .md-typeset .hd-h2, .is-main-section .md-typeset .hd-h2 { font-size: 40px; line-height: 120%; font-weight: 600; }
+.is-homepage .md-typeset .hd-h3, .is-main-section .md-typeset .hd-h3 { font-size: 32px; line-height: 120%; font-weight: 600; }
+.is-homepage .md-typeset .hd-h4, .is-main-section .md-typeset .hd-h4 { font-size: 28px; line-height: 120%; font-weight: 600; }
+.is-homepage .md-typeset .hd-h5, .is-main-section .md-typeset .hd-h5 { font-size: 24px; line-height: 150%; font-weight: 400; }
+
+.is-homepage .md-typeset .hd-semibold, .is-main-section .md-typeset .hd-semibold { font-weight: 600; }
+.is-homepage .md-typeset .hd-regular  { font-weight: 400; }
+.is-homepage .md-typeset .hd-upcase   { text-transform: uppercase; }
+
+/* Mobile mapping (≤900px) */
+@media (max-width: 900px) {
+  .is-homepage .md-typeset .hd-h1, .is-main-section .md-typeset .hd-h1 { font-size: 36px; line-height: 120%; }
+  .is-homepage .md-typeset .hd-h2, .is-main-section .md-typeset .hd-h2 { font-size: 24px; line-height: 120%; }
+  .is-homepage .md-typeset .hd-h3, .is-main-section .md-typeset .hd-h3 { font-size: 20px; line-height: 150%; }
+  .is-homepage .md-typeset .hd-h4, .is-main-section .md-typeset .hd-h4 { font-size: 18px; line-height: 150%; }
+  .is-homepage .md-typeset .hd-h5, .is-main-section .md-typeset .hd-h5 { font-size: 16px; line-height: 150%; }
+}
+@media screen and (min-width: 1920px) {
+  .is-homepage .md-typeset .hd-h2, .is-main-section .md-typeset .hd-h1 { font-size: 54px; line-height: 120%; font-weight: 600; }
+  .is-homepage .md-typeset .hd-h3, .is-main-section .md-typeset .hd-h2 { font-size: 40px; line-height: 120%; font-weight: 600; }
+  .is-homepage .md-typeset .hd-h4, .is-main-section .md-typeset .hd-h3 { font-size: 32px; line-height: 120%; font-weight: 600; }
+  .is-homepage .md-typeset .hd-h5, .is-main-section .md-typeset .hd-h4 { font-size: 28px; line-height: 120%; font-weight: 600; }
+  .is-homepage .md-typeset .hd-h6, .is-main-section .md-typeset .hd-h5 { font-size: 24px; line-height: 150%; font-weight: 400; }
+  .md-typeset p.p-regular      { font-size: 20px !important; line-height: 150%; }
+  .md-typeset p.p-small        { font-size: 16px !important; line-height: 150%; }
+}
+
+/* === Paragraph utilities (Desktop defaults) === */
+ .md-typeset p.p-large        { font-size: 20px; line-height: 150%; }
+ .md-typeset p.p-regular      { font-size: 16px; line-height: 150%; }
+ .md-typeset p.p-small        { font-size: 14px; line-height: 150%; }
+ .md-typeset p.p-small-bold   { font-size: 14px; line-height: 150%; font-weight: 700; }
+
+ .md-typeset p.is-subtext { color: var(--subtext-color); }
+
+/* === Mobile mapping (≤768px) === */
+@media (max-width: 768px) {
+   .md-typeset p { font-size: 14px; }
+   .md-typeset p.p-large      { font-size: 16px; } /* p mobile large */
+   .md-typeset p.p-regular    { font-size: 14px; } /* p mobile */
+   .md-typeset p.p-small      { font-size: 12px; } /* p mobile small */
+   .md-typeset p.p-small-bold { font-size: 12px; } /* p mobile small + bold via class */
+}
+
+/* -------------------------------------colors----------------------------------------------- */
+
+/* =========================
+   Brand Tokens (shared)
+   ========================= */
+:root {
+  --rdk-dark-blue:  #002C4D;
+  --rdk-blue:       #00B3DC;
+  --rdk-orange:     #F58233;
+  --rdk-darkest:    #00182A;
+  --rdk-yellow:     #FDB73B;
+  --rdk-green:      #91C848;
+  --rdk-white:      #FFFFFF;
+  --rdk-off-white:  #F1F1F1;
+
+  /* Optional gradients */
+  --rdk-gradient: linear-gradient(90deg, #00B3DC 0%, #91C848 33%, #FDB73B 66%, #F58233 100%);
+  --rdk-dark-gradient-1: linear-gradient(90deg, #00182A 0%, #00223b 100%);
+  --rdk-dark-gradient-2: linear-gradient(180deg, #00182A 0%, #002C4D 100%);
+  --rdk-dark-gradient-3: linear-gradient(90deg, #00121b 0%, #002a3f 100%);
+}
+
+/* =========================
+   Material palette: LIGHT
+   ========================= */
+[data-md-color-scheme="default"] {
+  /* Primary/Accent */
+  --md-primary-fg-color:            var(--rdk-blue);
+  --md-primary-fg-color--light:     #4fd8f0;
+  --md-primary-fg-color--dark:      var(--rdk-dark-blue);
+  --md-accent-fg-color:             var(--rdk-blue);
+
+  /* Surfaces & text */
+  --md-default-bg-color:            var(--rdk-white);
+  --md-default-fg-color:            var(--rdk-dark-blue);
+  --md-typeset-a-color:             var(--rdk-blue);
+  --md-code-bg-color:               var(--rdk-off-white);
+  --md-code-fg-color:               #1f2937;
+  --subtext-color:                  #385472;
+
+  /* Optional: borders and subtle fills */
+  --rdk-surface:                    #ffffff;
+  --rdk-border:                     rgba(0,0,0,0.08);
+  --rdk-border-accent:              rgba(0, 0, 0, 0.189);
+}
+
+
+/* =========================
+   Material palette: DARK
+   ========================= */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:            var(--rdk-blue);
+  --md-primary-fg-color--light:     #4fd8f0;
+  --md-primary-fg-color--dark:      var(--rdk-dark-blue);
+  --md-accent-fg-color:             var(--rdk-blue);
+
+  /* Dark surfaces & text */
+  --md-default-bg-color:            #0b1620;
+  --md-default-fg-color:            #f3f3f3;
+  --md-typeset-a-color:             var(--rdk-blue);
+  --md-code-bg-color:               #0f1b28;
+  --md-code-fg-color:               #e6edf3;
+
+  /* Optional: borders and subtle fills */
+  --rdk-surface:                    #0f1b28;
+  --rdk-border:                     rgba(255,255,255,0.10);
+  --rdk-border-accent:              rgba(255, 255, 255, 0.162);
+  --subtext-color:                  #a7bdc2;
+}
+body[data-md-color-scheme="slate"]{
+  background:var(--rdk-dark-gradient-3) !important;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-mermaid-label-fg-color: var(--md-accent-fg-color) !important;
+  --md-mermaid-label-bg-color: var(--md-code-bg-color) !important;
+} 
+/*------------------------------------------- General Styles ---------------------------------------------- */
+.md-grid {
+  max-width: 100% !important;
+  padding: 0 !important;
+  padding-right: 0 !important;
+  margin-top: 0;
+}
+.md-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  z-index: -1;
+  pointer-events: none;
+  background-image: none !important;
+}
+
+/* Link Styling */
+.md-typeset a {
+  color: var(--md-accent-fg-color) !important;
+  text-decoration: none;
+}
+
+.md-typeset a:hover {
+  text-decoration: underline;
+}
+
+/* Content Button */
+.md-content__button {
+  display: none !important;
+}
+
+/* Layout */
+.full-image-layout {
+  display: flex;
+  height: 100%;
+}
+.md-content__inner{
+  padding-top: 0 !important;
+}
+
+/*----------------------------------------------mermaid diagram expand styles---------------------------------------- */
+.fullscreen-btn-inline {
+  position: absolute;
+  top: 0rem;
+  right: .5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  background: var(--md-accent-fg-color);
+  color: white;
+  border: none;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.3rem;
+  z-index: 1;
+}
+
+.zoom-controls {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 10000;
+  display: flex;
+  gap: .5rem;
+}
+
+.zoom-btn {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  padding: 0.6rem 0.9rem;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.zoom-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.close-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10000;
+  background: rgba(210, 0, 0, 0.8);
+  color: white;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: rgba(255, 0, 0, 1);
+}
+.tooltip-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+.custom-tooltip {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  text-align: center;
+  border-radius: 0.3rem;
+  padding: 0.3rem 0.2rem;
+  position: absolute;
+  z-index: 10001;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tooltip-wrapper.fullscreen-btn-inline .custom-tooltip,
+.tooltip-wrapper.close-btn .custom-tooltip {
+  top: 100%;
+  right: 0;
+  margin-top: 2.5rem;
+}
+
+.tooltip-wrapper:not(.fullscreen-btn-inline):not(.close-btn) .custom-tooltip {
+  top: 100%;
+  left: 50%;      
+  transform: translateX(-50%);
+  margin-top: 0.4rem;
+}
+
+.tooltip-wrapper:hover .custom-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-wrapper.fullscreen-btn-inline {
+  position: absolute;
+  top: 0rem;
+  right: 0.5rem;
+  z-index: 1;
+}
+
+.tooltip-wrapper.close-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10000;
+}
+
+.zoom-controls {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 10000;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.zoom-btn {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  padding: 0.6rem 0.9rem;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.zoom-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.mermaid-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.mermaid-wrapper.fullscreen-active {
+  position: fixed;
+  inset: 0; 
+  background: var(--md-code-bg-color);
+  display: grid;
+  place-items: center;
+  overflow: auto;
+  z-index: 9999;
+  padding: 2rem;
+}
+.mermaid-wrapper.fullscreen-active .mermaid {
+  display: block;
+  margin: auto;
+  max-width: none !important;
+  max-height: none !important;
+}
+.mermaid-wrapper.fullscreen-active .mermaid svg {
+  width: auto !important; 
+  height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: block;
+  margin: 0 auto;
+}

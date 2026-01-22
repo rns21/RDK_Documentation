@@ -1,0 +1,4230 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.com/docu/dec17/RDKLogger-3dec/" rel="canonical"/>
+<link href="../../../assets/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
+<title>RDK Logger Documentation - Developer Portal</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/home.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/entertainment.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/getting-started.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/connectivity.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/devices.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/footer.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/header.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sidepanes.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sitemap.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home1.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home3.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="custom" data-md-color-primary="custom" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#rdk-logger-documentation">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<input autocomplete="off" class="md-toggle" data-md-toggle="actions" id="__actions" type="checkbox"/>
+<div aria-hidden="true" class="mobile-actions-backdrop"></div>
+<aside aria-label="Quick actions" class="mobile-actions-panel">
+<div class="section">
+<div class="palette-slot"></div>
+</div>
+<div class="section">
+<div class="buttons-slot">
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Source Code</strong>
+</div>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg></div>
+<div class="text">Source Code</div>
+</button>
+</a>
+</div>
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Contribute</strong>
+</div>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg></div>
+<div class="text">Contribute</div>
+</button>
+</a>
+</div>
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Get help</strong>
+</div>
+<a href="mailto:support@rdkcentral.com">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg></div>
+<div class="text">Get Help</div>
+</button>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Developer Portal" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Developer Portal">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon md-hamburger--desktop" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M6 10l6 6 6-6-1.4-1.4-4.6 4.6-4.6-4.6z"></path></svg>
+</label>
+<label class="md-header__button md-icon md-hamburger--mobile" for="__actions">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 8H3V6h18M9 13h12v-2H9m0 7h12v-2H9"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">Developer Portal</span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              RDK Logger Documentation
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="custom" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="custom" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to system preference" class="md-option" data-md-color-accent="custom" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="custom" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to system preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header_buttons">
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg></div>
+<div class="text">Source Code</div>
+</button>
+</a>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg>
+</div>
+<div class="text">Contribute</div>
+</button>
+</a>
+<a href="mailto:support@rdkcentral.com">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg></div>
+<div class="text">Get Help</div>
+</button>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../entertainment/docs/">
+          
+  
+  
+  Entertainment
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../connectivity/docs/">
+          
+  
+  
+  Connectivity
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../preview-rdk/docs/getting-started/">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../devices/docs/">
+        
+  
+  
+    
+  
+  Devices
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tools/docs/TDK/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../review/">
+          
+  
+  
+  Review
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../device-management/docs/">
+          
+  
+  
+  Device Management
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../doc_template_orig_rama.md">
+          
+  
+  
+  Comparison
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Developer Portal" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Developer Portal">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+    Developer Portal
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/rdkcentral" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Entertainment
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Entertainment
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home1/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome1
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home3/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome3
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/Apps.md">
+<span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/tryout_rdkv_rdk7/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-vendor-porting-guide/">
+<span class="md-ellipsis">
+    
+  
+    Porting Kit
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdkv_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/westeros/">
+<span class="md-ellipsis">
+    
+  
+    Westeros
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rdkshell/">
+<span class="md-ellipsis">
+    
+  
+    RDK Shell
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rialto/">
+<span class="md-ellipsis">
+    
+  
+    Rialto
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/video_profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Connectivity
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Connectivity
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/features/">
+<span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/tryout_rdkb/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Oldprompt/">
+<span class="md-ellipsis">
+    
+  
+    PSM OldPrompt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_GPT5/">
+<span class="md-ellipsis">
+    
+  
+    PSM GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr Rama.md">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr%20GPT5/">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../preview-rdk/docs/getting-started/">
+<span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../devices/docs/">
+<span class="md-ellipsis">
+    
+  
+    Devices
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/TDK/">
+<span class="md-ellipsis">
+    
+  
+    TDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/Automatics/">
+<span class="md-ellipsis">
+    
+  
+    Automatics
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Review
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Review
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/WANManager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CellularManager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/GPONManager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/PPPManager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/VLANManager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/TelcoVoiceManager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPSM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/LMLite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LM Lite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPandM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PandM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/OneWifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/RBus/">
+<span class="md-ellipsis">
+    
+  
+    RBus
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/Utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Device Management
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Device Management
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/XConf/">
+<span class="md-ellipsis">
+    
+  
+    XConf
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Telemetry/">
+<span class="md-ellipsis">
+    
+  
+    Telemetry
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Webpa/">
+<span class="md-ellipsis">
+    
+  
+    Web PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/TR369/">
+<span class="md-ellipsis">
+    
+  
+    TR 369
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/LogUpload/">
+<span class="md-ellipsis">
+    
+  
+    Log Upload
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Comparison
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparison
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_orig_rama.md">
+<span class="md-ellipsis">
+    
+  
+    Template_Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Backup
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Backup
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1" id="__nav_9_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    26Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    26Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_1" id="__nav_9_2_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PNM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_claude/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_claude/">
+<span class="md-ellipsis">
+    
+  
+    CL_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_claude/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_2" id="__nav_9_2_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PNM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    CL_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2" id="__nav_9_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    30Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    30Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_mod_2609.md">
+<span class="md-ellipsis">
+    
+  
+    Template_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_2" id="__nav_9_2_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_3" id="__nav_9_2_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_3" id="__nav_9_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct10
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct10
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_4" id="__nav_9_2_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct21
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct21
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_5" id="__nav_9_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct22
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct22
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/lmlite/">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_6" id="__nav_9_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct27
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_6_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct27
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_7" id="__nav_9_2_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct28
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct28
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8" id="__nav_9_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Chunked
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Chunked
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_1" id="__nav_9_2_8_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CCSP PNM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_2" id="__nav_9_2_8_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    WAN Manager
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_3" id="__nav_9_2_8_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    LMLite
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_4" id="__nav_9_2_8_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_4_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Utopia
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_9" id="__nav_9_2_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Dec02
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_9_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Dec02
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/tnd/">
+<span class="md-ellipsis">
+    
+  
+    TestnDiagnostics
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/ccspcr/">
+<span class="md-ellipsis">
+    
+  
+    CcspCR
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/faq/">
+<span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct29
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct29
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct31
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct31
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov04
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov04
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov05
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov05
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      
+        Design
+      
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites-and-dependencies">
+<span class="md-ellipsis">
+      
+        Prerequisites and Dependencies
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-state-flow">
+<span class="md-ellipsis">
+      
+        Component State Flow
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#call-flow">
+<span class="md-ellipsis">
+      
+        Call Flow
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal-modules">
+<span class="md-ellipsis">
+      
+        Internal Modules
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-interactions">
+<span class="md-ellipsis">
+      
+        Component Interactions
+      
+    </span>
+</a>
+<nav aria-label="Component Interactions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#interaction-matrix">
+<span class="md-ellipsis">
+      
+        Interaction Matrix
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ipc-flow-patterns">
+<span class="md-ellipsis">
+      
+        IPC Flow Patterns
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      
+        Implementation Details
+      
+    </span>
+</a>
+<nav aria-label="Implementation Details" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#major-hal-apis-integration">
+<span class="md-ellipsis">
+      
+        Major HAL APIs Integration
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-implementation-logic">
+<span class="md-ellipsis">
+      
+        Key Implementation Logic
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-configuration-files">
+<span class="md-ellipsis">
+      
+        Key Configuration Files
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/rdkcentral/edit/master/docs/docu/dec17/RDKLogger-3dec.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<h1 id="rdk-logger-documentation">RDK Logger Documentation</h1>
+<p>RDK Logger is a comprehensive logging framework that serves as the cornerstone logging mechanism for all RDK-B middleware components. It provides centralized, configurable, and runtime-controllable logging capabilities across the entire RDK-B ecosystem. The component abstracts the complexity of underlying logging utilities while offering fine-grained control over log levels, formatting, and output destinations for different modules and components.</p>
+<p>RDK Logger serves three critical functions in the RDK-B middleware: First, it provides a unified logging interface that standardizes how all RDK-B components generate and manage log messages, ensuring consistency across the entire platform. Second, it enables dynamic runtime control of logging behavior, allowing operators to adjust logging levels and verbosity without requiring system restarts or service interruptions. Third, it optimizes system performance by providing efficient filtering mechanisms that minimize logging overhead when verbose logging is disabled.</p>
+<p>At the module level, RDK Logger implements a sophisticated configuration-driven architecture that allows each component to maintain its own logging context while participating in a centralized logging ecosystem. The framework handles log message formatting, filtering, routing, and output management, while providing thread-safe operations and minimal performance impact on the host applications.</p>
+<pre class="mermaid"><code>graph TD
+    subgraph ExternalSys["External Systems"]
+        Admin[System Administrator]
+        Monitor[Monitoring Systems]
+        Debug[Debug Tools]
+    end
+
+    subgraph RDKBComponents["RDK-B Middleware Components"]
+        CM[CcspCMAgent]
+        TR069[CcspTr069Pa]
+        WiFi[CcspWifiAgent]
+        PAM[CcspPandM]
+        Other[Other RDK Components]
+    end
+
+    subgraph RDKLoggerCore["RDK Logger Core"]
+        RDKLog[RDK Logger Library]
+        Config[Configuration Manager]
+        Runtime[Runtime Controller]
+        Format[Log Formatter]
+    end
+
+    subgraph PlatformLayer["Platform Layer"]
+        Log4C[(Log4C Backend)]
+        FileSystem[File System]
+        Stdout[Standard Output]
+        Syslog[System Logger]
+    end
+
+    subgraph ConfigFiles["Configuration"]
+        DebugIni[debug.ini]
+        Override[nvram override]
+    end
+
+    Admin --&gt;|rdklogctrl commands| Runtime
+    Monitor --&gt;|Log parsing/analysis| FileSystem
+    Debug --&gt;|Real-time monitoring| Stdout
+
+    CM --&gt;|RDK_LOG calls| RDKLog
+    TR069 --&gt;|RDK_LOG calls| RDKLog
+    WiFi --&gt;|RDK_LOG calls| RDKLog
+    PAM --&gt;|RDK_LOG calls| RDKLog
+    Other --&gt;|RDK_LOG calls| RDKLog
+
+    Config --&gt;|Loads| DebugIni
+    Config --&gt;|Override from| Override
+    Runtime --&gt;|Dynamic updates| Config
+
+    RDKLog --&gt;|Formatted messages| Format
+    Format --&gt;|Output routing| Log4C
+    Format --&gt;|Direct output| Stdout
+    Format --&gt;|System integration| Syslog
+    Log4C --&gt;|File management| FileSystem
+
+    classDef user fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef rdklogger fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px;
+    classDef platform fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef config fill:#fff8e1,stroke:#f57f17,stroke-width:2px;
+
+    class Admin,Monitor,Debug user;
+    class CM,TR069,WiFi,PAM,Other component;
+    class RDKLog,Config,Runtime,Format rdklogger;
+    class Log4C,FileSystem,Stdout,Syslog platform;
+    class DebugIni,Override config;</code></pre>
+<pre class="mermaid"><code>graph LR
+    subgraph "External Systems"
+        RemoteMgmt["Remote Management"]
+        LocalUI["Local Web UI"]
+        AdminTools["Admin Tools&lt;br/&gt;rdklogctrl"]
+        MonitorSys["Monitoring Systems"]
+    end
+
+    subgraph "RDK-B Platform"
+        subgraph "Remote Management Agents"
+            ProtocolAgents["TR-069/WebPA/TR-369&lt;br/&gt;Protocol Agents"]
+        end
+
+        subgraph "Logging Framework"
+            RDKLogger["RDKLogger&lt;br/&gt;(Logging Framework)"]
+        end
+
+        subgraph "RDK-B Core Components"
+            CMAgent["CM Agent"]
+            WiFiAgent["WiFi Agent"]
+            PAM["P&amp;M Component"]
+            PSM["PSM"]
+            OtherComp["Other Components"]
+        end
+
+        subgraph "System Layer"
+            Log4C["Log4C Backend"]
+            Linux["Linux Kernel&lt;br/&gt;(System Logger)"]
+        end
+    end
+
+    %% External connections
+    RemoteMgmt --&gt;|TR-069/WebPA/TR-369| ProtocolAgents
+    LocalUI --&gt;|HTTP/HTTPS| ProtocolAgents
+    AdminTools --&gt;|UDP Control| RDKLogger
+    MonitorSys --&gt;|Log Analysis| RDKLogger
+
+    %% Upper layer to RDK Logger
+    ProtocolAgents --&gt;|RDK_LOG APIs| RDKLogger
+
+    %% RDK-B Components to Logger
+    CMAgent --&gt;|RDK_LOG APIs| RDKLogger
+    WiFiAgent --&gt;|RDK_LOG APIs| RDKLogger
+    PAM --&gt;|RDK_LOG APIs| RDKLogger
+    PSM --&gt;|RDK_LOG APIs| RDKLogger
+    OtherComp --&gt;|RDK_LOG APIs| RDKLogger
+
+    %% System Layer interactions
+    RDKLogger &lt;--&gt;|Log4C APIs| Log4C
+    Log4C &lt;--&gt;|System Calls| Linux
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef rdklogger fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
+    classDef rdkbComponent fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef system fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class RemoteMgmt,LocalUI,AdminTools,MonitorSys external;
+    class RDKLogger rdklogger;
+    class ProtocolAgents,CMAgent,WiFiAgent,PAM,PSM,OtherComp rdkbComponent;
+    class Log4C,Linux system;</code></pre>
+<p><strong>Key Features &amp; Responsibilities</strong>: </p>
+<ul>
+<li><strong>Centralized Logging Framework</strong>: Provides a unified logging API and configuration system for all RDK-B middleware components, ensuring consistent logging behavior across the entire platform</li>
+<li><strong>Dynamic Runtime Control</strong>: Enables real-time adjustment of log levels and verbosity for individual modules through the <code>rdklogctrl</code> utility without requiring service restarts</li>
+<li><strong>Module-Specific Configuration</strong>: Supports independent log level configuration for each component through the <code>debug.ini</code> file, allowing fine-grained control over logging behavior</li>
+<li><strong>Performance Optimization</strong>: Implements efficient filtering mechanisms that minimize CPU and memory overhead when verbose logging is disabled, crucial for resource-constrained embedded systems</li>
+<li><strong>Multi-Level Logging Support</strong>: Provides comprehensive log level hierarchy (TRACE, DEBUG, INFO, NOTICE, WARN, ERROR, FATAL) with configurable verbosity control</li>
+<li><strong>Thread-Safe Operations</strong>: Ensures safe concurrent access to logging functions across multi-threaded RDK-B components without requiring external synchronization</li>
+<li><strong>Configuration Management</strong>: Handles automatic detection of configuration file overrides (<code>/nvram/debug.ini</code> vs <code>/etc/debug.ini</code>) and runtime configuration updates</li>
+<li><strong>Log Format Standardization</strong>: Enforces consistent timestamp, module identification, and message formatting across all RDK-B components for improved log analysis and monitoring</li>
+</ul>
+<h2 id="design">Design</h2>
+<p>RDK Logger is architected as a lightweight, efficient logging abstraction layer that sits between RDK-B applications and the underlying Log4C logging infrastructure. The design follows a modular approach where the core logging functionality is separated from configuration management, runtime control, and output formatting. This separation enables independent evolution of each subsystem while maintaining backward compatibility and minimizing performance impact on client applications.</p>
+<p>The architecture emphasizes configuration-driven behavior where all logging policies are externalized to the <code>debug.ini</code> configuration file. This design choice enables system administrators and developers to adjust logging behavior without code changes or application restarts. The framework implements a two-tier configuration system: default system-wide settings in <code>/etc/debug.ini</code> and optional overrides in <code>/nvram/debug.ini</code>, providing flexibility for both development and production environments.</p>
+<p>Northbound interactions with RDK-B middleware components are handled through a simple, high-performance C API that provides printf-style logging functions. The API design minimizes function call overhead and includes compile-time optimizations for disabled log levels. Southbound interactions with the Log4C library and system logging facilities are abstracted through a pluggable backend architecture that allows for future extensibility to alternative logging systems.</p>
+<p>The IPC mechanism design leverages UDP sockets for runtime log level control, enabling the <code>rdklogctrl</code> utility to communicate with running processes without requiring complex IPC infrastructure. This lightweight approach ensures that runtime control operations have minimal impact on system performance and can function reliably even under high system load conditions.</p>
+<p>Data persistence and storage management are handled through a combination of in-memory configuration caching and file-based persistence. The framework loads configuration at startup, caches it in memory for performance, and provides mechanisms for runtime updates. Log output persistence is delegated to the underlying Log4C system, which handles file rotation, compression, and storage management according to its own configuration.</p>
+<pre class="mermaid"><code>graph TD
+
+    subgraph ContainerBoundary ["RDK Logger Library"]
+        subgraph CoreAPI ["Core Logging API"]
+            API[RDK_LOG Macros &amp; Functions]
+            Init[rdk_logger_init.c]
+            Utils[rdk_logger_util.c]
+            noteAPI["Purpose: Main logging interface"]
+        end
+
+        subgraph ConfigMgmt ["Configuration Management"]
+            Config[Configuration Parser]
+            Override[Override Handler]
+            Cache[In-Memory Cache]
+            noteConfig["Purpose: Manages debug.ini parsing"]
+        end
+
+        subgraph Runtime ["Runtime Control System"]
+            DynLog[rdk_dynamic_logger.c]
+            Socket[UDP Socket Handler]
+            LevelCtrl[Level Control Logic]
+            noteRuntime["Purpose: Dynamic log level changes"]
+        end
+
+        subgraph Debug ["Debug &amp; Utilities"]
+            DebugMod[rdk_debug.c]
+            DebugPriv[rdk_debug_priv.c]
+            Milestone[rdk_logger_milestone.c]
+            noteDebug["Purpose: Debugging and diagnostics"]
+        end
+
+        subgraph OutputMgmt ["Output Management"]
+            Formatter[Log Formatter]
+            Router[Output Router]
+            Filter[Level Filter]
+            noteOutput["Purpose: Message formatting and routing"]
+        end
+    end
+
+    subgraph ExternalSystems ["External Systems"]
+        Log4C[(Log4C Logging Library)]
+        GLib[(GLib-2.0)]
+        FileSystem[File System]
+        ConfigFiles[Configuration Files]
+    end
+
+    subgraph Utilities ["Utility Programs"]
+        RdkLogCtrl[rdklogctrl]
+        OnBoard[onboard_main.c]
+        MilestoneUtil[rdklogmilestone]
+    end
+
+    API --&gt;|Configuration requests| Config
+    Config --&gt;|Cached settings| Cache
+    Cache --&gt;|Level queries| Filter
+
+    DynLog --&gt;|UDP Socket communication| Socket
+    Socket --&gt;|Runtime updates| Cache
+
+    API --&gt;|Log messages| Formatter
+    Formatter --&gt;|Filtered output| Filter
+    Filter --&gt;|Formatted logs| Router
+    Router --&gt;|Backend calls| Log4C
+    Router --&gt;|Direct output| FileSystem
+
+    DebugMod --&gt;|Internal logging| API
+    Milestone --&gt;|Milestone events| API
+
+    Config --&gt;|File I/O| ConfigFiles
+    Log4C --&gt;|File management| FileSystem
+
+    RdkLogCtrl --&gt;|UDP control messages| Socket
+    OnBoard --&gt;|Initialization support| Init</code></pre>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "RDK Logger Architecture"
+        subgraph "Public API Layer"
+            API[Core Logging API&lt;br/&gt;rdk_logger.h]
+            Macros[RDK_LOG Macros]
+        end
+
+        subgraph "Configuration Layer"
+            Config[Configuration Manager]
+            Cache[Configuration Cache]
+        end
+
+        subgraph "Runtime Control"
+            DynLog[Dynamic Logger]
+            UDPServer[UDP Control Server]
+        end
+
+        subgraph "Logging Subsystems"
+            Debug[Debug Support]
+            Milestone[Milestone Logging]
+            OnBoard[Onboarding Support]
+        end
+
+        subgraph "Output Management"
+            Formatter[Message Formatter]
+            Filter[Level Filter]
+            Router[Output Router]
+        end
+
+        subgraph "Backend Integration"
+            Log4C[Log4C Backend]
+            FileOut[File Output]
+            ConsoleOut[Console Output]
+        end
+    end
+
+    API --&gt; Config
+    Macros --&gt; Filter
+    Config --&gt; Cache
+    Cache --&gt; Filter
+
+    DynLog --&gt; UDPServer
+    UDPServer --&gt; Cache
+
+    API --&gt; Debug
+    Debug --&gt; Milestone
+    Milestone --&gt; OnBoard
+
+    Filter --&gt; Formatter
+    Formatter --&gt; Router
+    Router --&gt; Log4C
+    Router --&gt; FileOut
+    Router --&gt; ConsoleOut
+
+    classDef api fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef config fill:#fff8e1,stroke:#f57f17,stroke-width:2px;
+    classDef runtime fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef subsystem fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef output fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef backend fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class API,Macros api;
+    class Config,Cache config;
+    class DynLog,UDPServer runtime;
+    class Debug,Milestone,OnBoard subsystem;
+    class Formatter,Filter,Router output;
+    class Log4C,FileOut,ConsoleOut backend;</code></pre>
+<h3 id="prerequisites-and-dependencies">Prerequisites and Dependencies</h3>
+<p><strong>Build-Time Flags and Configuration:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Configure Option</th>
+<th>DISTRO Feature</th>
+<th>Build Flag</th>
+<th>Purpose</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--enable-milestone</code></td>
+<td>N/A</td>
+<td><code>LOGMILESTONE</code></td>
+<td>Enable milestone logging for system events and boot tracking</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td><code>--enable-onboardlog</code></td>
+<td>N/A</td>
+<td><code>IS_ONBOARDLOG_ENABLED</code></td>
+<td>Enable onboard logging utilities and support</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td><code>--enable-systemd-syslog-helper</code></td>
+<td>N/A</td>
+<td><code>SYSTEMD_SYSLOG_HELPER</code></td>
+<td>Enable systemd syslog helper integration</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td><code>--enable-journal</code></td>
+<td>N/A</td>
+<td><code>SYSTEMD_JOURNAL</code></td>
+<td>Enable systemd journal logging support</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td><code>safec</code></td>
+<td><code>SAFEC_DUMMY_API</code></td>
+<td>Safe C library integration for secure string operations</td>
+<td>Auto-detected</td>
+</tr>
+</tbody>
+</table>
+<p><strong>RDK-B Platform and Integration Requirements</strong></p>
+<ul>
+<li><strong>RDK-B Components</strong>: </li>
+<li>No mandatory RDK-B middleware dependencies (RDK Logger is a foundational component)</li>
+<li>Integration with <code>systemd</code> for service management in systemd-enabled builds</li>
+<li>Coordination with <code>rdk-logger</code> recipe in Yocto build system</li>
+<li><strong>HAL Dependencies</strong>: No direct HAL interface dependencies (operates at middleware layer)</li>
+<li><strong>Systemd Services</strong>: No specific systemd service dependencies, but integrates with systemd journal when available</li>
+<li><strong>Message Bus</strong>: No RBus registration required (RDK Logger operates below the message bus layer)</li>
+<li><strong>Configuration Files</strong>: </li>
+<li><code>/etc/debug.ini</code> (primary configuration file, must exist)</li>
+<li><code>/nvram/debug.ini</code> (optional override configuration)</li>
+<li>Proper file system permissions for configuration file access</li>
+<li><strong>Startup Order</strong>: Must initialize before any RDK-B component that uses logging (typically first in startup sequence)</li>
+</ul>
+<p><br/></p>
+<p><strong>Threading Model:</strong></p>
+<p>RDK Logger implements a library-based architecture with minimal threading, designed for high-performance integration into multi-threaded RDK-B applications. Unlike service-based components, RDK Logger operates as a shared library that provides thread-safe logging APIs to client applications.</p>
+<table>
+<thead>
+<tr>
+<th>Thread &amp; Function</th>
+<th>Purpose</th>
+<th>Cycle/Timeout</th>
+<th>Synchronization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Client Application Thread</strong><br/><code>RDK_LOG()</code> calls</td>
+<td>Primary logging interface for client applications</td>
+<td>Event-driven API calls, immediate log processing, thread-safe Log4C integration</td>
+<td>Thread-safe Log4C backend, atomic log level checks</td>
+</tr>
+<tr>
+<td><strong>UDP Control Listener</strong><br/><code>rdk_dyn_log_process_pending_request()</code></td>
+<td>Runtime log level control via rdklogctrl utility</td>
+<td>Non-blocking UDP socket polling, immediate configuration updates</td>
+<td>Socket-based IPC, configuration cache updates</td>
+</tr>
+<tr>
+<td><strong>Configuration Manager</strong><br/><code>rdk_logger_init()</code> / <code>rdk_logger_deinit()</code></td>
+<td>Library initialization and cleanup operations</td>
+<td>One-time initialization per process, configuration file parsing</td>
+<td>File system synchronization, memory management</td>
+</tr>
+</tbody>
+</table>
+<h3 id="component-state-flow">Component State Flow</h3>
+<p><strong>Initialization to Active State</strong></p>
+<p>RDK Logger follows a well-defined initialization sequence that ensures proper configuration loading, backend initialization, and runtime control setup before becoming available for client applications.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant System as System Startup/Application
+    participant Logger as RDK Logger Core
+    participant Config as Configuration Manager
+    participant Log4C as Log4C Backend
+    participant DynCtrl as Dynamic Controller
+    participant FileSystem as File System
+
+    System-&gt;&gt;Logger: RDK_LOGGER_INIT()
+    Note over Logger: State: Initializing&lt;br/&gt;Check file paths, setup logging context
+
+    Logger-&gt;&gt;FileSystem: Check /nvram/debug.ini existence
+    FileSystem--&gt;&gt;Logger: File status (exists/not exists)
+
+    alt Override file exists
+        Logger-&gt;&gt;Config: Load /nvram/debug.ini
+    else Default configuration
+        Logger-&gt;&gt;Config: Load /etc/debug.ini
+    end
+
+    Config-&gt;&gt;FileSystem: Parse configuration file
+    FileSystem--&gt;&gt;Config: Configuration data
+    Config--&gt;&gt;Logger: Configuration loaded successfully
+    Note over Logger: State: LoadingConfig → InitializingBackend
+
+    Logger-&gt;&gt;Log4C: Initialize Log4C backend
+    Log4C--&gt;&gt;Logger: Backend initialization complete
+    Note over Logger: State: InitializingBackend → StartingDynamicControl
+
+    Logger-&gt;&gt;DynCtrl: Start UDP listener for runtime control
+    DynCtrl--&gt;&gt;Logger: Dynamic control service active
+    Note over Logger: State: StartingDynamicControl → Active
+
+    Logger-&gt;&gt;System: RDK_SUCCESS (Initialization Complete)
+
+    loop Runtime Operations
+        Note over Logger: State: Active&lt;br/&gt;Process log messages, handle runtime updates
+        System-&gt;&gt;Logger: RDK_LOG() calls
+        Logger-&gt;&gt;Logger: Filter, format, and route messages
+
+        DynCtrl-&gt;&gt;Config: Runtime level changes via rdklogctrl
+        Config-&gt;&gt;Logger: Update cached configuration
+    end
+
+    System-&gt;&gt;Logger: rdk_logger_deinit()
+    Note over Logger: State: Active → Shutdown
+    Logger-&gt;&gt;DynCtrl: Stop dynamic control service
+    Logger-&gt;&gt;Log4C: Cleanup backend resources
+    Logger-&gt;&gt;System: Shutdown complete</code></pre>
+<p><strong>Runtime State Changes and Context Switching</strong></p>
+<p>RDK Logger maintains several operational contexts that can change during runtime based on external events and configuration updates.</p>
+<p><strong>State Change Triggers:</strong></p>
+<ul>
+<li><strong>Configuration File Updates</strong>: Detection of changes to debug.ini files triggers configuration reload and cache updates</li>
+<li><strong>Dynamic Log Level Changes</strong>: Runtime commands via <code>rdklogctrl</code> trigger immediate log level updates for specific modules</li>
+<li><strong>Backend Failures</strong>: Log4C backend errors trigger fallback to direct stdout/stderr output to maintain logging availability</li>
+<li><strong>Memory Pressure</strong>: High memory usage can trigger log message queuing and batch processing optimizations</li>
+</ul>
+<p><strong>Context Switching Scenarios:</strong></p>
+<ul>
+<li><strong>Configuration Override Detection</strong>: Switch between <code>/etc/debug.ini</code> and <code>/nvram/debug.ini</code> based on file availability and modification times</li>
+<li><strong>Output Destination Switching</strong>: Automatic fallback from file output to console output when log files become unavailable</li>
+<li><strong>Debug Mode Activation</strong>: Enhanced logging and diagnostic output when debug flags are enabled through configuration or runtime commands</li>
+</ul>
+<h3 id="call-flow">Call Flow</h3>
+<p><strong>Initialization Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant App as RDK-B Application
+    participant RDKLog as RDK Logger API
+    participant ConfigMgr as Configuration Manager
+    participant Log4C as Log4C Backend
+    participant DynLog as Dynamic Logger
+
+    App-&gt;&gt;RDKLog: RDK_LOGGER_INIT()
+    RDKLog-&gt;&gt;RDKLog: Check configuration file paths
+    RDKLog-&gt;&gt;ConfigMgr: Initialize configuration system
+    ConfigMgr-&gt;&gt;ConfigMgr: Parse debug.ini file
+    ConfigMgr--&gt;&gt;RDKLog: Configuration loaded
+    RDKLog-&gt;&gt;Log4C: Initialize Log4C backend
+    Log4C--&gt;&gt;RDKLog: Backend ready
+    RDKLog-&gt;&gt;DynLog: Start dynamic control listener
+    DynLog--&gt;&gt;RDKLog: UDP listener active
+    RDKLog--&gt;&gt;App: RDK_SUCCESS (Active State)</code></pre>
+<p><strong>Request Processing Call Flow:</strong></p>
+<p>The most critical flow is the standard log message processing, which must be highly optimized for performance:</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant App as RDK-B Application
+    participant RDKLog as RDK Logger Macro
+    participant Filter as Level Filter
+    participant Formatter as Message Formatter
+    participant Backend as Log4C/Output
+
+    App-&gt;&gt;RDKLog: RDK_LOG(level, module, format, ...)
+    RDKLog-&gt;&gt;Filter: Check if level enabled for module
+
+    alt Log level enabled
+        Filter--&gt;&gt;RDKLog: Level check passed
+        RDKLog-&gt;&gt;Formatter: Format message with timestamp, module, level
+        Formatter-&gt;&gt;Backend: Send formatted message
+        Backend--&gt;&gt;Formatter: Message written
+        Formatter--&gt;&gt;RDKLog: Success
+        RDKLog--&gt;&gt;App: Message logged
+    else Log level disabled
+        Filter--&gt;&gt;RDKLog: Level check failed (no-op)
+        RDKLog--&gt;&gt;App: Message filtered (fast return)
+    end</code></pre>
+<p><strong>Dynamic Control Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Admin as System Administrator
+    participant RdkLogCtrl as rdklogctrl utility
+    participant UDPListener as UDP Control Listener
+    participant ConfigCache as Configuration Cache
+    participant TargetApp as Target Application
+
+    Admin-&gt;&gt;RdkLogCtrl: rdklogctrl process_name module_name log_level
+    RdkLogCtrl-&gt;&gt;UDPListener: UDP control message
+    UDPListener-&gt;&gt;ConfigCache: Update log level for module
+    ConfigCache-&gt;&gt;TargetApp: Apply new log level immediately
+    TargetApp--&gt;&gt;ConfigCache: Level update acknowledged
+    ConfigCache--&gt;&gt;UDPListener: Update successful
+    UDPListener--&gt;&gt;RdkLogCtrl: Control command completed
+    RdkLogCtrl--&gt;&gt;Admin: Log level changed successfully</code></pre>
+<h2 id="internal-modules">Internal Modules</h2>
+<p>RDK Logger is composed of several specialized modules, each responsible for specific aspects of the logging functionality. The modular design enables maintainability and allows for independent testing and optimization of each component.</p>
+<table>
+<thead>
+<tr>
+<th>Module/Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core Logging API</strong></td>
+<td>Main application interface providing RDK_LOG macros and initialization functions</td>
+<td><code>include/rdk_logger.h</code>, <code>src/rdk_logger_init.c</code>, <code>src/rdk_logger_util.c</code></td>
+</tr>
+<tr>
+<td><strong>Configuration Manager</strong></td>
+<td>Handles parsing, caching, and management of debug.ini configuration files</td>
+<td><code>src/rdk_logger_init.c</code>, configuration parsing logic embedded</td>
+</tr>
+<tr>
+<td><strong>Dynamic Logger</strong></td>
+<td>Runtime control system for changing log levels via UDP socket communication</td>
+<td><code>src/rdk_dynamic_logger.c</code>, <code>include/rdk_dynamic_logger.h</code></td>
+</tr>
+<tr>
+<td><strong>Debug Support</strong></td>
+<td>Enhanced debugging capabilities, internal diagnostics, and development tools</td>
+<td><code>src/rdk_debug.c</code>, <code>src/rdk_debug_priv.c</code>, <code>include/rdk_debug.h</code></td>
+</tr>
+<tr>
+<td><strong>Milestone Logging</strong></td>
+<td>Special-purpose logging for system milestones and significant events</td>
+<td><code>src/rdk_logger_milestone.c</code>, <code>include/rdk_logger_milestone.h</code>, <code>scripts/logMilestone.sh</code></td>
+</tr>
+<tr>
+<td><strong>Onboarding Support</strong></td>
+<td>Utilities for component integration and initialization assistance</td>
+<td><code>src/rdk_logger_onboard.c</code>, <code>utils/rdk_logger_onboard_main.c</code></td>
+</tr>
+<tr>
+<td><strong>Runtime Control Utilities</strong></td>
+<td>Command-line tools for log level management and system interaction</td>
+<td><code>utils/rdklogctrl.c</code>, <code>utils/rdklogmilestone.c</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="component-interactions">Component Interactions</h2>
+<p>RDK Logger serves as a foundational component that interfaces with multiple layers of the RDK-B architecture, from application-level middleware components down to system-level services and external administrative tools.</p>
+<h3 id="interaction-matrix">Interaction Matrix</h3>
+<table>
+<thead>
+<tr>
+<th>Target Component/Layer</th>
+<th>Interaction Purpose</th>
+<th>Key APIs/Endpoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RDK-B Middleware Components</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CcspCMAgent</td>
+<td>Cable modem status and configuration logging</td>
+<td><code>RDK_LOG()</code>, module: <code>LOG.RDK.CM</code></td>
+</tr>
+<tr>
+<td>CcspTr069Pa</td>
+<td>TR-069 protocol events and diagnostic logging</td>
+<td><code>RDK_LOG()</code>, module: <code>LOG.RDK.TR069</code></td>
+</tr>
+<tr>
+<td>CcspWifiAgent</td>
+<td>WiFi operations, connection events, security logging</td>
+<td><code>RDK_LOG()</code>, module: <code>LOG.RDK.WIFI</code></td>
+</tr>
+<tr>
+<td>CcspPandM</td>
+<td>Platform and management events, system status</td>
+<td><code>RDK_LOG()</code>, module: <code>LOG.RDK.PAM</code></td>
+</tr>
+<tr>
+<td>CcspPsm</td>
+<td>Parameter storage and retrieval operations</td>
+<td><code>RDK_LOG()</code>, module: <code>LOG.RDK.PSM</code></td>
+</tr>
+<tr>
+<td>WAN Manager</td>
+<td>WAN interface management and failover events</td>
+<td><code>RDK_LOG()</code>, module: <code>LOG.RDK.WANMGR</code></td>
+</tr>
+<tr>
+<td><strong>System &amp; Platform Layers</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Log4C Library</td>
+<td>Backend log message formatting and file management</td>
+<td><code>log4c_init()</code>, <code>log4c_category_log()</code>, configuration via log4crc</td>
+</tr>
+<tr>
+<td>System Logger (syslog)</td>
+<td>System-wide log integration and kernel message coordination</td>
+<td>Direct syslog API calls, facility LOG_USER</td>
+</tr>
+<tr>
+<td>File System</td>
+<td>Configuration file access and log file storage</td>
+<td><code>/etc/debug.ini</code>, <code>/nvram/debug.ini</code>, <code>/var/log/*</code></td>
+</tr>
+<tr>
+<td>systemd Journal</td>
+<td>Modern Linux logging integration</td>
+<td>Journal API integration when available</td>
+</tr>
+<tr>
+<td>Network Services</td>
+<td>UDP socket communication for runtime control</td>
+<td>UDP port 12035, localhost interface</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Events Published by RDK Logger:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Event Name</th>
+<th>Event Topic/Path</th>
+<th>Trigger Condition</th>
+<th>Subscriber Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Log Level Change</td>
+<td>UDP control message</td>
+<td>Dynamic log level modification via rdklogctrl</td>
+<td>All RDK-B components using affected module</td>
+</tr>
+<tr>
+<td>Configuration Reload</td>
+<td>Internal event</td>
+<td>debug.ini file modification detection</td>
+<td>Internal configuration cache, all active loggers</td>
+</tr>
+<tr>
+<td>Backend Failure</td>
+<td>Internal diagnostic</td>
+<td>Log4C backend initialization or runtime failure</td>
+<td>Internal fallback mechanisms, system administrators</td>
+</tr>
+<tr>
+<td>Milestone Event</td>
+<td>Log message</td>
+<td>System milestone reached (boot, configuration, etc.)</td>
+<td>Log monitoring systems, diagnostic tools</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ipc-flow-patterns">IPC Flow Patterns</h3>
+<p><strong>Primary IPC Flow - Standard Logging:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Client as RDK-B Component
+    participant RDKLogger as RDK Logger Library
+    participant ConfigCache as Configuration Cache
+    participant Log4C as Log4C Backend
+    participant FileSystem as File System
+
+    Client-&gt;&gt;RDKLogger: RDK_LOG(level, module, message, ...)
+    Note over RDKLogger: Fast path: Check log level enabled
+    RDKLogger-&gt;&gt;ConfigCache: Query level for module (atomic read)
+    ConfigCache--&gt;&gt;RDKLogger: Level enabled/disabled
+
+    alt Log level enabled
+        RDKLogger-&gt;&gt;RDKLogger: Format message with timestamp, module ID
+        RDKLogger-&gt;&gt;Log4C: log4c_category_log(category, priority, message)
+        Log4C-&gt;&gt;FileSystem: Write formatted log to file
+        FileSystem--&gt;&gt;Log4C: Write acknowledged
+        Log4C--&gt;&gt;RDKLogger: Log operation complete
+        RDKLogger--&gt;&gt;Client: Success (minimal overhead)
+    else Log level disabled
+        Note over RDKLogger: Fast return - no processing
+        RDKLogger--&gt;&gt;Client: No-op return (optimized path)
+    end</code></pre>
+<p><strong>Dynamic Control Flow - Runtime Log Level Changes:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Admin as System Administrator
+    participant RdkLogCtrl as rdklogctrl Utility
+    participant UDPListener as RDK Logger UDP Listener
+    participant ConfigCache as Configuration Cache
+    participant ActiveLoggers as Active Logger Instances
+
+    Admin-&gt;&gt;RdkLogCtrl: rdklogctrl myapp LOG.RDK.WIFI DEBUG
+    RdkLogCtrl-&gt;&gt;RdkLogCtrl: Parse and validate command parameters
+    RdkLogCtrl-&gt;&gt;UDPListener: UDP control packet (port 12035)
+    Note over UDPListener: Process: myapp, Module: LOG.RDK.WIFI, Level: DEBUG
+
+    UDPListener-&gt;&gt;ConfigCache: Update log level for module (atomic write)
+    ConfigCache-&gt;&gt;ActiveLoggers: Propagate level change to all instances
+    Note over ActiveLoggers: Immediate effect - new log level active
+
+    ActiveLoggers--&gt;&gt;ConfigCache: Update confirmation
+    ConfigCache--&gt;&gt;UDPListener: Level change successful
+    UDPListener--&gt;&gt;RdkLogCtrl: Success response
+    RdkLogCtrl--&gt;&gt;Admin: "Log level changed successfully"</code></pre>
+<p><strong>Configuration Loading Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant App as Application Startup
+    participant RDKLogger as RDK Logger Init
+    participant FileSystem as File System
+    participant ConfigParser as Configuration Parser
+    participant ConfigCache as Configuration Cache
+
+    App-&gt;&gt;RDKLogger: RDK_LOGGER_INIT()
+    RDKLogger-&gt;&gt;FileSystem: Check /nvram/debug.ini (override)
+
+    alt Override file exists and is newer
+        FileSystem--&gt;&gt;RDKLogger: Override file available
+        RDKLogger-&gt;&gt;ConfigParser: Parse /nvram/debug.ini
+    else Use default configuration
+        FileSystem--&gt;&gt;RDKLogger: Use default config
+        RDKLogger-&gt;&gt;ConfigParser: Parse /etc/debug.ini
+    end
+
+    ConfigParser-&gt;&gt;FileSystem: Read configuration file
+    FileSystem--&gt;&gt;ConfigParser: Configuration data
+    ConfigParser-&gt;&gt;ConfigCache: Populate log level cache
+    ConfigCache--&gt;&gt;ConfigParser: Cache initialized
+    ConfigParser--&gt;&gt;RDKLogger: Configuration loaded
+    RDKLogger--&gt;&gt;App: RDK_SUCCESS (ready for logging)</code></pre>
+<h2 id="implementation-details">Implementation Details</h2>
+<h3 id="major-hal-apis-integration">Major HAL APIs Integration</h3>
+<p>RDK Logger operates at the middleware layer and does not directly interface with Hardware Abstraction Layer (HAL) APIs. Instead, it provides logging services to RDK-B components that do interact with HAL layers. However, RDK Logger does integrate with system-level APIs for file access, network communication, and process management.</p>
+<p><strong>Core System APIs:</strong></p>
+<table>
+<thead>
+<tr>
+<th>System API</th>
+<th>Purpose</th>
+<th>Implementation File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>socket()</code>, <code>bind()</code>, <code>recvfrom()</code></td>
+<td>UDP socket communication for runtime control via rdklogctrl</td>
+<td><code>src/rdk_dynamic_logger.c</code></td>
+</tr>
+<tr>
+<td><code>fopen()</code>, <code>fread()</code>, <code>stat()</code></td>
+<td>Configuration file reading and monitoring</td>
+<td><code>src/rdk_logger_init.c</code></td>
+</tr>
+<tr>
+<td><code>log4c_init()</code>, <code>log4c_category_log()</code></td>
+<td>Log4C backend initialization and message output</td>
+<td><code>src/rdk_logger_init.c</code>, <code>src/rdk_logger_util.c</code></td>
+</tr>
+<tr>
+<td><code>gettimeofday()</code>, <code>localtime_r()</code></td>
+<td>Timestamp generation for log message formatting</td>
+<td><code>src/rdk_logger_util.c</code></td>
+</tr>
+<tr>
+<td><code>pthread_mutex_*()</code></td>
+<td>Thread synchronization for configuration updates</td>
+<td><code>src/rdk_dynamic_logger.c</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-implementation-logic">Key Implementation Logic</h3>
+<ul>
+<li>
+<p><strong>Configuration Management Engine</strong>: Core configuration system implemented in <code>src/rdk_logger_init.c</code> handles parsing of debug.ini files, detection of configuration overrides, and maintenance of in-memory configuration cache. The system supports both default configuration (<code>/etc/debug.ini</code>) and runtime overrides (<code>/nvram/debug.ini</code>) with automatic fallback mechanisms.</p>
+<ul>
+<li>Main configuration parsing logic in <code>rdk_logger_init()</code> function </li>
+<li>Configuration override detection and file priority handling</li>
+<li>In-memory cache management with atomic updates for thread safety</li>
+</ul>
+</li>
+<li>
+<p><strong>Dynamic Runtime Control</strong>: Real-time log level modification system implemented in <code>src/rdk_dynamic_logger.c</code> provides UDP-based communication mechanism for the <code>rdklogctrl</code> utility. The system enables immediate log level changes without application restart.</p>
+<ul>
+<li>UDP server implementation for control message reception</li>
+<li>Message parsing and validation for security and stability </li>
+<li>Atomic configuration updates with immediate effect propagation</li>
+</ul>
+</li>
+<li>
+<p><strong>Performance Optimization Strategy</strong>: High-performance logging implementation optimizes the critical path for log message processing to minimize impact on client applications.</p>
+<ul>
+<li>Fast-path log level checking using atomic memory operations</li>
+<li>Compile-time optimization for disabled log levels through macro expansion</li>
+<li>Minimal function call overhead with inline level checks</li>
+<li>Efficient message formatting with pre-allocated buffers</li>
+</ul>
+</li>
+<li>
+<p><strong>Error Handling and Resilience</strong>: Comprehensive error handling ensures logging system availability even under adverse conditions.</p>
+<ul>
+<li>Configuration file parsing error recovery with fallback to default settings</li>
+<li>Log4C backend failure handling with automatic fallback to stdout/stderr</li>
+<li>Network communication error handling for runtime control operations</li>
+<li>Memory allocation failure handling with graceful degradation</li>
+</ul>
+</li>
+<li>
+<p><strong>Logging &amp; Debugging</strong>: Multi-level internal diagnostics and debugging support for troubleshooting logging system issues.</p>
+<ul>
+<li>Internal debug logging with separate debug levels for RDK Logger itself</li>
+<li>Configuration validation and reporting mechanisms</li>
+<li>Runtime state monitoring and diagnostic output</li>
+<li>Performance metrics collection for optimization analysis</li>
+</ul>
+</li>
+</ul>
+<h3 id="key-configuration-files">Key Configuration Files</h3>
+<table>
+<thead>
+<tr>
+<th>Configuration File</th>
+<th>Purpose</th>
+<th>Override Mechanisms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/etc/debug.ini</code></td>
+<td>Primary system-wide logging configuration with default log levels for all RDK-B components</td>
+<td>Environment variable <code>RDK_LOGGER_CONFIG_PATH</code>, <code>/nvram/debug.ini</code> override</td>
+</tr>
+<tr>
+<td><code>/nvram/debug.ini</code></td>
+<td>Runtime configuration override file for temporary or persistent log level changes</td>
+<td>Takes precedence when present and readable, automatic detection</td>
+</tr>
+<tr>
+<td><code>log4crc</code></td>
+<td>Log4C backend configuration for output formatting, file rotation, and destination control</td>
+<td>Log4C environment variables, application-specific log4crc files</td>
+</tr>
+<tr>
+<td><code>/var/log/messages</code></td>
+<td>Default log output destination for system-wide RDK-B component logs</td>
+<td>Log4C configuration, syslog configuration, systemd journal settings</td>
+</tr>
+</tbody>
+</table>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<div class="bottom-banner compact-footer">
+<!-- Left Section: Logo and Copyright -->
+<div class="footer-left">
+<img alt="RDK Logo" class="rdk-logo" src="../../../assets/logo.png">
+<p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+</img></div>
+<!-- Right Section: Links and Support -->
+<div class="footer-right">
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Explore RDK</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../preview-rdk/docs/getting-started">Getting Started</a></li>
+<li><a href="../../../devices/docs/">Devices</a></li>
+<li><a href="../../../preview-rdk/docs/getting-started">Tools</a></li>
+<li><a href="../../../entertainment/docs/sample_home1">Entsample1</a></li>
+<li><a href="../../../entertainment/docs/sample_home3">Entsample3</a></li>
+</ul>
+</div>
+</div>
+<!-- Device Management -->
+<div class="banner-group">
+<h3>Device Management</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../device-management/docs/XConf">XConf</a></li>
+<li><a href="../../../device-management/docs/Telemetry">Telemetry</a></li>
+<li><a href="../../../device-management/docs/Webpa">Web PA</a></li>
+<li><a href="../../../device-management/docs/TR369">TR 369</a></li>
+</ul>
+</div>
+</div>
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Test &amp; Certification</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119">RDK Certification</a></li>
+<li><a href="../../../tools/docs/TDK/">TDK</a></li>
+<li><a href="../../../tools/docs/Automatics/">Automatics</a></li>
+</ul>
+</div>
+</div>
+<!-- Resources-->
+<div class="banner-group">
+<h3>Resources</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../WANMgr_Claude_2609 ">Knowledge Articles</a></li>
+<li><a href="../../../sitemap">Quick Links</a></li>
+<li><a href="../../../sitemap.xml">Site Map</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../../assets/javascripts/extra.js"></script>
+</div></body>
+</html>

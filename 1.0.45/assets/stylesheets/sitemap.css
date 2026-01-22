@@ -1,0 +1,95 @@
+/* === Sitemap Grid Layout === */
+.sitemap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 25px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* === Sitemap Column Styling === */
+.sitemap-column {
+  background-color: var(--md-code-bg-color);
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.sitemap-column h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--md-default-fg-color) !important;
+}
+
+.sitemap-column h3 {
+  font-size: 1.1em;
+  margin: 15px 0 8px;
+}
+
+.sitemap-column ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.sitemap-column ul li {
+  margin: 6px -10px;
+  color: var(--md-accent-fg-color);
+}
+
+.md-typeset ul li {
+  margin-left: 0 !important;
+}
+
+.sitemap-column ul li a {
+  text-decoration: none;
+  transition: color 0.2s ease !important;
+}
+
+/* === Responsive Styles === */
+@media (max-width: 1024px) {
+  .sitemap-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sitemap-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .sitemap-column {
+    padding: 18px;
+  }
+
+  .sitemap-column h2 {
+    font-size: 1.1em;
+  }
+
+  .sitemap-column h3 {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .sitemap-grid {
+    padding: 15px;
+  }
+
+  .sitemap-column {
+    padding: 15px;
+  }
+
+  .sitemap-column h2 {
+    font-size: 1em;
+  }
+
+  .sitemap-column h3 {
+    font-size: 0.95em;
+  }
+}
