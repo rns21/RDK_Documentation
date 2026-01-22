@@ -1,4 +1,4 @@
-site_name: RDK Documentation
+site_name: Developer Portal
 site_url: https://github.com/
 
 repo_name: Source Code
@@ -6,7 +6,10 @@ repo_url: https://github.com/rdkcentral
 
 plugins:
   - search
-  - mermaid2
+  - mermaid2:
+      arguments:
+        theme: default
+        cache: false
 use_directory_urls: true
 theme:
   name: material
@@ -30,20 +33,19 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: white
-      accent: '#00b2dc'
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: black
-      accent: '#00b2dc'
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-sunny
         name: Switch to system preference
   font:
-    text: 'IBM Plex Sans'
     code: 'Fira Code'
 markdown_extensions:
   - admonition
@@ -59,18 +61,17 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 extra_css:
   - assets/stylesheets/extra.css
+  - assets/stylesheets/home.css
   - assets/stylesheets/entertainment.css
   - assets/stylesheets/getting-started.css
   - assets/stylesheets/connectivity.css
   - assets/stylesheets/devices.css
   - assets/stylesheets/footer.css
+  - assets/stylesheets/header.css
   - assets/stylesheets/sidepanes.css
   - assets/stylesheets/sitemap.css
   - assets/stylesheets/sample_home1.css
-  - assets/stylesheets/sample_home2.css
   - assets/stylesheets/sample_home3.css
-  - assets/stylesheets/sample_home4.css
-  - assets/stylesheets/sample_home5.css
   - https://fonts.googleapis.com/icon?family=Material+Icons
 extra_javascript:
   - assets/javascripts/extra.js
@@ -79,7 +80,7 @@ nav:
   - Entertainment:
     - Home: ./entertainment/docs/README.md
     - sampleHome1: ./entertainment/docs/sample_home1.md
-    - sampleHome2: ./entertainment/docs/sample_home2.md
+    - sampleHome3: ./entertainment/docs/sample_home3.md
     - Architecture: ./entertainment/docs/rdk7-architecture.md
     - Apps: ./entertainment/docs/Apps.md
     - Try Out RDK: ./entertainment/docs/tryout_rdkv_rdk7.md

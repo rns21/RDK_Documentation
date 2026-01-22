@@ -46,7 +46,7 @@
 .md-sidebar--secondary .md-sidebar__scrollwrap .md-sidebar__inner {
   background-color: var(--md-code-bg-color);
   margin: 0em 0.5em;
-  padding: 1.5em 0.1em 1.5em 2em;
+  padding: 3.5em 0.1em 3.5em 2em;
   display: block;
   max-width: 100%;
   border-radius: 15px;
@@ -70,7 +70,7 @@
 .sidebar-toggle,
 .sidebar-toggle-right {
   position: fixed;
-  top: 15%;
+  top: 22%;
   transform: translateY(-50%);
   z-index: 2;
   background-color: var(--md-default-fg-color);

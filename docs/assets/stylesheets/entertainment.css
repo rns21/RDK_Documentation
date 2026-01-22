@@ -10,10 +10,10 @@
   padding: 20px;
   margin-bottom: 1rem;
   border-radius: 12px;
-  color: var(--md-default-fg-color) !important;
+  /* color: var(--md-default-fg-color) !important; */
   display: flex;
   flex-direction: column;
-  font-size: 14px;
+  /* font-size: 14px; */
   font-family: "IBM Plex Sans", sans-serif !important;
   transition:
     transform 0.3s cubic-bezier(0.39, 0.575, 0.565, 1),
@@ -51,12 +51,18 @@
 
 /* Hover background overlay */
 .custom-container::before {
-  content: '';
+  /* content: '';
   position: absolute;
   top: -161%;
   left: -11%;
   width: 218%;
-  height: 230%;
+  height: 230%; */
+  content: '';
+  position: absolute;
+  top: -33%;
+  left: -11%;
+  width: 120%;
+  height: 170%;
   background: linear-gradient(0deg, #00b4dc09, #00b4dc09 30%, #00b4dc15) !important;
   transform: rotate(-45deg) !important;
   transition: all 1s ease !important;
@@ -85,7 +91,6 @@
 /* Icon styling */
 .custom-icon {
   color: var(--md-accent-fg-color);
-  margin-top: 3.5px;
 }
 
 /* Hover effect for icon and heading */

@@ -4,15 +4,14 @@ hide:
   - toc
 ---
 
-<div style="margin: auto; padding: 0px; text-align: center;">
-  <h1>Getting Started with RDK for Entertainment</h1>
+<div>
+  <h2>Getting Started with RDK for Entertainment</h2>
 </div>
-<br>
 
-<div style="display: flex; justify-content: center; gap: 3%; padding: 0px; flex-wrap: wrap;">
+<div style="display: flex; justify-content: center; gap: 3%; padding: 0px; flex-wrap: wrap;align-content:center;min-height:75vh;box-sizing:border-box">
 
   <!-- First Message Box -->
-  <div class="custom-container" onclick="window.location.href='./rdk7-architecture/'">
+  <div class="custom-container" onclick="window.location.href='./rdk7-architecture'">
     <div class="title_section">
       <span class="material-icons custom-icon">architecture</span>
       <h2>Architecture</h2>
@@ -27,15 +26,15 @@ hide:
   </div>
 
   <!-- Second Message Box -->
-  <div class="custom-container" onclick="window.location.href='./Apps/'">
+  <div class="custom-container" onclick="window.location.href='./apps/'">
     <div class="title_section">
-      <span class="material-icons custom-icon">list</span>
+      <span class="material-icons custom-icon">apps</span>
       <h2>Apps</h2>
     </div>
     <div class="content-section">
-      <p>A defining strength of any modern platform lies in the robust facilities it offers for seamless app development and integration</p>
+      <p>A deciding factor of any software stack is the number of user centric features that are supported by that software.</p>
       <div class="link-row">
-        <a href="./Apps/" class="custom-link">Read More</a>
+        <a href="./rdk7-features/" class="custom-link">Read More</a>
         <span class="material-icons custom-icon-arrow">arrow_forward</span>
       </div>
     </div>
@@ -57,7 +56,7 @@ hide:
   </div>
 
   <!-- First Message Box -->
-  <div class="custom-container" onclick="window.location.href='./tryout_rdkv_rdk7/'">
+  <div class="custom-container" onclick="window.location.href='./tryout_rdkv/'">
     <div class="title_section">
       <span class="material-icons custom-icon">try</span>
       <h2>Try Out RDK</h2>
@@ -72,7 +71,7 @@ hide:
   </div>
 
    <!-- Second Message Box -->
-  <div class="custom-container" onclick="window.location.href='./rdk7-vendor-porting-guide/'">
+  <div class="custom-container" onclick="window.location.href='./hpk/'">
     <div class="title_section">
       <span class="material-icons custom-icon">book</span>
       <h2>Vendor Porting Guide</h2>

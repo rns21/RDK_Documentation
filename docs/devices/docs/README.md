@@ -10,6 +10,7 @@ hide:
     <button class="tab-button" onclick="showTabs('connectivity', event)">Connectivity</button>
   </div>
   <div id="tab-entertainment">
+   <div class="e-section-wrap">
     <div class="e-section-1">
       <div class="section-text">
         <h3>SOC Reference Platform</h3>
@@ -22,6 +23,8 @@ hide:
        <img src="../../../assets/icons/Realtek.webp" alt="Realtek Icon" style="width: 165px !important; height: 100px; object-fit: contain;">
       </div>
     </div>
+    </div>
+    <div class="e-section-wrap">
     <div class="e-section-2">
       <div class="icon-section">
       <img src="../../../assets/icons/Raspberry.png" alt="Raspberry Icon" style="width: 130px !important; height: 120px; object-fit: contain;">
@@ -32,6 +35,8 @@ hide:
         </p>
       </div>
     </div>
+    </div>
+    <div class="e-section-wrap">
     <div class="e-section-3">
       <div class="section-text">
         <h3>Remote Controls</h3>
@@ -43,8 +48,10 @@ hide:
       </div>
     </div>
   </div>
+  </div>
 
   <div id="tab-connectivity" >
+    <div class="e-section-wrap">
     <div class="c-section">
       <div class="section-text">
         <h3>Generic Reference Platform</h3>
@@ -55,7 +62,6 @@ hide:
        <img src="../../../assets/icons/bpi.png" alt="UniversalElectronics Icon" style="width: 120px !important; height: 100px; object-fit: contain;">
       </div>
     </div>
+    </div>
   </div>
 </div>
-
-

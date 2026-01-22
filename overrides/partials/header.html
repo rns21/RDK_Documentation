@@ -1,71 +1,163 @@
-{% set class =
-"md-header" %} {% if "navigation.tabs.sticky" in features %} {% set class =
-class ~ " md-header--shadow md-header--lifted" %} {% elif "navigation.tabs" not
-in features %} {% set class = class ~ " md-header--shadow" %} {% endif %}
+<input class="md-toggle" data-md-toggle="actions" type="checkbox" id="__actions" autocomplete="off">
+
+<div class="mobile-actions-backdrop" aria-hidden="true"></div>
+
+<aside class="mobile-actions-panel" aria-label="Quick actions">
+  {# ---- Theme palette toggle in the panel (shown on mobile/tablet) ---- #}
+  <div class="section">
+    <div class="palette-slot"></div>
+  </div>
+
+  {% if config.repo_url %}
+    <div class="section">
+      <div class="buttons-slot">
+        
+      <div class="tooltip" role="tooltip" aria-hidden="true">
+        <div class="tooltip-content">
+          <strong>Source Code</strong>
+        </div>
+        <a href="https://github.com/rdkcentral">
+          <button class="Btn" type="button">
+            <div class="sign">{% include ".icons/material/github.svg" %}</div>
+            <div class="text">Source Code</div>
+          </button>
+        </a>
+      </div>
+
+      <div class="tooltip" role="tooltip" aria-hidden="true">
+        <div class="tooltip-content">
+          <strong>Contribute</strong>
+        </div>
+        <a href="https://github.com/rdkcentral">
+          <button class="Btn" type="button">
+            <div class="sign">{% include ".icons/material/hand-coin-outline.svg" %}</div>
+            <div class="text">Contribute</div>
+          </button>
+        </a>
+      </div>
+
+      <div class="tooltip" role="tooltip" aria-hidden="true">
+        <div class="tooltip-content">
+          <strong>Get help</strong>
+        </div>
+        <a href="mailto:support@rdkcentral.com">
+          <button class="Btn" type="button">
+            <div class="sign">{% include ".icons/material/help.svg" %}</div>
+            <div class="text">Get Help</div>
+          </button>
+        </a>
+      </div>
+
+      </div>
+    </div>
+  {% endif %}
+</aside>
+
+
+{% set class = "md-header" %}
+{% if "navigation.tabs.sticky" in features %}
+  {% set class = class ~ " md-header--shadow md-header--lifted" %}
+{% elif "navigation.tabs" not in features %}
+  {% set class = class ~ " md-header--shadow" %}
+{% endif %}
+
 <header class="{{ class }}" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header') }}">
+    {# ---- Logo ---- #}
     <a
-      href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}"
-      title="{{ config.site_name | e }}"
-      class="md-header__button md-logo"
-      aria-label="{{ config.site_name }}"
-      data-md-component="logo"
-    >
-      {% include "partials/logo.html" %}
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      {% set icon = config.theme.icon.menu or "material/menu" %} {% include
-      ".icons/" ~ icon ~ ".svg" %}
+    href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}"
+    title="{{ config.site_name | e }}"
+    class="md-header__button md-logo"
+    aria-label="{{ config.site_name }}"
+    data-md-component="logo"
+  >
+    {% include "partials/logo.html" %}
+  </a>
+    <label class="md-header__button md-icon md-hamburger--desktop" for="__drawer">
+      {% set icon = config.theme.icon.menu or "material/chevron-down-circle" %}
+      {% include ".icons/" ~ icon ~ ".svg" %}
     </label>
+
+    <label class="md-header__button md-icon md-hamburger--mobile" for="__actions">
+      {% set icon = config.theme.icon.menu or "material/segment" %}
+      {% include ".icons/" ~ icon ~ ".svg" %}
+    </label>
+
+    {# ---- Title ---- #}
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
-          <span class="md-ellipsis"> {{ config.site_name }} </span>
+          <span class="md-ellipsis">{{ config.site_name }}</span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
-            {% if page.meta and page.meta.title %} {{ page.meta.title }} {% else
-            %} {{ page.title }} {% endif %}
+            {% if page.meta and page.meta.title %}
+              {{ page.meta.title }}
+            {% else %}
+              {{ page.title }}
+            {% endif %}
           </span>
         </div>
       </div>
     </div>
-    {% if config.theme.palette %} {% if not config.theme.palette is mapping %}
-    {% include "partials/palette.html" %} {% endif %} {% endif %} {% if not
-    config.theme.palette is mapping %} {% include
-    "partials/javascripts/palette.html" %} {% endif %} {% if
-    config.extra.alternate %} {% include "partials/alternate.html" %} {% endif
-    %} {% if "material/search" in config.plugins %} {% set search =
-    config.plugins["material/search"] | attr("config") %} {% if search.enabled
-    %}
-    <label class="md-header__button md-icon" for="__search">
-      {% set icon = config.theme.icon.search or "material/magnify" %} {% include
-      ".icons/" ~ icon ~ ".svg" %}
-    </label>
-    {% include "partials/search.html" %} {% endif %} {% endif %} {% if
-    config.repo_url %}
-       <div class="header_buttons">
-  <a href="https://github.com/rdkcentral"><button class="Btn" type="button">
-    <div class="sign">
-      {% include ".icons/material/github.svg" %}
-    </div>
-    <div class="text">Source Code</div>
-  </button></a>
-   <a href="https://github.com/rdkcentral" ><button class="Btn" type="button">
-    <div class="sign">
-      {% include ".icons/material/hand-coin-outline.svg" %}
-    </div>
-    <div class="text">Contribute</div>
-  </button></a>
-  <a href="mailto:support@rdkcentral.com"><button class="Btn" type="button">
-    <div class="sign">
-      {% include ".icons/material/help.svg" %}
-    </div>
-    <div class="text">Get Help</div>
-  </button></a>
-</div>
+
+    {# ---- Palette toggle (stays in nav for desktop; CSS hides on mobile/tablet) ---- #}
+    {% if config.theme.palette %}
+      {% if not config.theme.palette is mapping %}
+        {% include "partials/palette.html" %}
+      {% endif %}
+    {% endif %}
+    {% if not config.theme.palette is mapping %}
+      {% include "partials/javascripts/palette.html" %}
+    {% endif %}
+
+    {# ---- Alternate language/version (if configured) ---- #}
+    {% if config.extra.alternate %}
+      {% include "partials/alternate.html" %}
+    {% endif %}
+
+    {# ---- Search in NAV ONLY (desktop + mobile) ---- #}
+    {% if "material/search" in config.plugins %}
+      {% set search = config.plugins["material/search"] | attr("config") %}
+      {% if search.enabled %}
+        <label class="md-header__button md-icon" for="__search">
+          {% set icon = config.theme.icon.search or "material/magnify" %}
+          {% include ".icons/" ~ icon ~ ".svg" %}
+        </label>
+        {% include "partials/search.html" %}
+      {% endif %}
+    {% endif %}
+
+    {% if config.repo_url %}
+      <div class="header_buttons">
+        <a href="https://github.com/rdkcentral">
+          <button class="Btn" type="button">
+            <div class="sign">{% include ".icons/material/github.svg" %}</div>
+            <div class="text">Source Code</div>
+          </button>
+        </a>
+        <a href="https://github.com/rdkcentral">
+          <button class="Btn" type="button">
+            <div class="sign">
+              {% include ".icons/material/hand-coin-outline.svg" %}
+            </div>
+            <div class="text">Contribute</div>
+          </button>
+        </a>
+        <a href="mailto:support@rdkcentral.com">
+          <button class="Btn" type="button">
+            <div class="sign">{% include ".icons/material/help.svg" %}</div>
+            <div class="text">Get Help</div>
+          </button>
+        </a>
+      </div>
     {% endif %}
   </nav>
-  {% if "navigation.tabs.sticky" in features %} {% if "navigation.tabs" in
-  features %} {% include "partials/tabs.html" %} {% endif %} {% endif %}
+
+  {# ---- Tabs (if enabled) ---- #}
+  {% if "navigation.tabs.sticky" in features %}
+    {% if "navigation.tabs" in features %}
+      {% include "partials/tabs.html" %}
+    {% endif %}
+  {% endif %}
 </header>

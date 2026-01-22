@@ -1,16 +1,16 @@
 /* Base Footer Layout */
 .compact-footer {
-  background-color: var(--md-default-bg-color);
-  color: var(--md-default-fg-color);
+  background-color: var(--rdk-dark-blue);
+  color: var(--rdk-off-white) !important;
   display: grid;
   grid-template-columns: 2fr 6fr;
   gap: 0.01em;
   padding: 1em 2em;
   font-size: 0.85rem;
   font-family: var(--md-text-font, Arial, sans-serif);
-  border-top: 1px solid var(--md-default-fg-color);
   align-items: start;
   z-index: 5;
+  margin-top: 1rem;
 }
 
 body.is-homepage .compact-footer {
@@ -43,7 +43,6 @@ body.is-homepage .compact-footer {
 
 .footer-left .copyright {
   font-size: 0.75em;
-  color: var(--md-default-fg-color);
 }
 
 .copyright a {
@@ -62,14 +61,12 @@ body.is-homepage .compact-footer {
 .banner-group h3 {
   font-size: 0.9em;
   margin-bottom: 0.3em;
-  color: var(--md-default-fg-color) !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .banner-group a {
-  color: var(--md-default-fg-color);
   text-decoration: none;
   font-size: 0.65em;
 }

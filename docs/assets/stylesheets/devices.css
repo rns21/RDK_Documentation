@@ -1,36 +1,40 @@
 .e-section-1, .e-section-2, .e-section-3 ,.c-section{
   display: flex;
   justify-content: space-between;
-  background-color: #00b4dc1d !important;
+  background-color: var(--md-code-bg-color) !important;
   padding: 0.5rem 2rem;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   border-radius: 12px;
   border: 1px solid var(--md-code-bg-color);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, .08);
+  box-shadow:0px 0px 8px 0px rgba(0, 0, 0, .08);
   gap: 2rem; 
   flex-wrap: nowrap;
   height: auto;
   transition: transform 0.25s ease, bos-shadow 0.25s ease;
+  z-index: 2 !important;
+  overflow: hidden;
 }
-.e-section-1:hover, .e-section-2:hover, .e-section-3:hover {
-   transform: translateY(-4px);
-   box-shadow: 0 10px 25px rgba(0, 0, 0, .12);
+.e-section-1:hover, .e-section-2:hover, .e-section-3:hover,.c-section:hover {
+   transform: translateY(-1px);
 }
 .e-section .section-text {
   gap: 0.8rem;
   flex: 1; 
 }
-.e-section-1,.e-section-3,.c-section{
+.e-section-1,.e-section-2,.e-section-3,.c-section{
   border-left: 12px solid var(--md-accent-fg-color);
 }
-.e-section-2{
+/* .e-section-2{
    border-right: 12px solid var(--md-accent-fg-color); 
-}
+} */
 .section-text h3{
   margin-top: 0.8em !important;
 }
-
+#tab-entertainment , #tab-connectivity{
+  margin:  2rem;
+  padding: 0 1rem;
+}
 #tab-entertainment .icon-section img ,#tab-connectivity .icon-section img{
   max-width: 150px !important; 
   min-width: 150px;
@@ -55,6 +59,25 @@
     transform: scale(1.08) !important;
  }
 
+ .e-section-wrap {
+  position: relative;
+  overflow: visible;
+  border-radius: 0;
+  height: auto;
+  width: fit-content;
+}
+
+/* Hover glow*/
+.e-section-wrap:hover::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  background-image: var(--rdk-gradient);
+  filter: blur(26px);
+  opacity: 0.80;
+  pointer-events: none;
+  z-index: 0;
+}
 
 /* ===Responsive === */
 
@@ -101,12 +124,15 @@
     max-width: 100px;
     padding: 0.5rem;
   }
+  #tab-entertainment , #tab-connectivity{
+    margin: 0rem;
+  }
 }
 
 /* Large Screens (≥1920px, 4K) */
 @media screen and (min-width: 1920px) {
   .e-section-1, .e-section-2, .e-section-3, .c-section {
-    max-width: 1600px;
+    min-width: 1700px;
     margin: 1rem auto;
     padding: 2rem 3rem;
   }
