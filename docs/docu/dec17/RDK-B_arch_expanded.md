@@ -117,6 +117,7 @@ flowchart TB
     class A1,A2,A3,A4,C1,C2,C3,C4,C5,C6,C7,C8,U1,U2,U3,U4,U5,U6,U7,U8,U9,H1,H2,H3,H4,H5,H6,H7,O1,O2,O3,O4,O5,O6,O7,P1,P2,P3 compStyle
 ```
 ### Sample 2:
+
 ```mermiad
 flowchart TB
     %% Application Layer
@@ -308,4 +309,5 @@ Open source software packages and utilities from Yocto/Linux ecosystem.
 
 ### Platform Layer (Orange)
 Low-level system components including kernel, bootloader, and vendor-specific implementations.
+
 
