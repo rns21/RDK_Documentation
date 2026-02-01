@@ -118,7 +118,7 @@ flowchart TB
 ```
 ### Sample 2:
 
-```mermiad
+```mermaid
 flowchart TB
     %% Application Layer
     subgraph APP[" "]
@@ -309,5 +309,6 @@ Open source software packages and utilities from Yocto/Linux ecosystem.
 
 ### Platform Layer (Orange)
 Low-level system components including kernel, bootloader, and vendor-specific implementations.
+
 
 
