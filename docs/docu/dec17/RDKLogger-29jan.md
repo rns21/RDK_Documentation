@@ -7,74 +7,6 @@ RDK Logger serves three critical functions in the RDK-B middleware: First, it pr
 At the module level, RDK Logger implements a sophisticated configuration-driven architecture that allows each component to maintain its own logging context while participating in a centralized logging ecosystem. The framework handles log message formatting, filtering, routing, and output management, while providing thread-safe operations and minimal performance impact on the host applications.
 
 ```mermaid
-graph TD
-    subgraph ExternalSys["External Systems"]
-        Admin[System Administrator]
-        Monitor[Monitoring Systems]
-        Debug[Debug Tools]
-    end
-    
-    subgraph RDKBComponents["RDK-B Middleware Components"]
-        CM[CcspCMAgent]
-        TR069[CcspTr069Pa]
-        WiFi[CcspWifiAgent]
-        PAM[CcspPandM]
-        Other[Other RDK Components]
-    end
-    
-    subgraph RDKLoggerCore["RDK Logger Core"]
-        RDKLog[RDK Logger Library]
-        Config[Configuration Manager]
-        Runtime[Runtime Controller]
-        Format[Log Formatter]
-    end
-    
-    subgraph PlatformLayer["Platform Layer"]
-        Log4C[(Log4C Backend)]
-        FileSystem[File System]
-        Stdout[Standard Output]
-        Syslog[System Logger]
-    end
-    
-    subgraph ConfigFiles["Configuration"]
-        DebugIni[debug.ini]
-        Override[nvram override]
-    end
-    
-    Admin -->|rdklogctrl commands| Runtime
-    Monitor -->|Log parsing/analysis| FileSystem
-    Debug -->|Real-time monitoring| Stdout
-    
-    CM -->|RDK_LOG calls| RDKLog
-    TR069 -->|RDK_LOG calls| RDKLog
-    WiFi -->|RDK_LOG calls| RDKLog
-    PAM -->|RDK_LOG calls| RDKLog
-    Other -->|RDK_LOG calls| RDKLog
-    
-    Config -->|Loads| DebugIni
-    Config -->|Override from| Override
-    Runtime -->|Dynamic updates| Config
-    
-    RDKLog -->|Formatted messages| Format
-    Format -->|Output routing| Log4C
-    Format -->|Direct output| Stdout
-    Format -->|System integration| Syslog
-    Log4C -->|File management| FileSystem
-
-    classDef user fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
-    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
-    classDef rdklogger fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px;
-    classDef platform fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    classDef config fill:#fff8e1,stroke:#f57f17,stroke-width:2px;
-    
-    class Admin,Monitor,Debug user;
-    class CM,TR069,WiFi,PAM,Other component;
-    class RDKLog,Config,Runtime,Format rdklogger;
-    class Log4C,FileSystem,Stdout,Syslog platform;
-    class DebugIni,Override config;
-```
-
-```mermaid
 graph LR
     subgraph "External Systems"
         RemoteMgmt["Remote Management"]
@@ -159,82 +91,6 @@ Northbound interactions with RDK-B middleware components are handled through a s
 The IPC mechanism design leverages UDP sockets for runtime log level control, enabling the `rdklogctrl` utility to communicate with running processes without requiring complex IPC infrastructure. This lightweight approach ensures that runtime control operations have minimal impact on system performance and can function reliably even under high system load conditions.
 
 Data persistence and storage management are handled through a combination of in-memory configuration caching and file-based persistence. The framework loads configuration at startup, caches it in memory for performance, and provides mechanisms for runtime updates. Log output persistence is delegated to the underlying Log4C system, which handles file rotation, compression, and storage management according to its own configuration.
-
-```mermaid
-graph TD
-
-    subgraph ContainerBoundary ["RDK Logger Library"]
-        subgraph CoreAPI ["Core Logging API"]
-            API[RDK_LOG Macros & Functions]
-            Init[rdk_logger_init.c]
-            Utils[rdk_logger_util.c]
-            noteAPI["Purpose: Main logging interface"]
-        end
-
-        subgraph ConfigMgmt ["Configuration Management"]
-            Config[Configuration Parser]
-            Override[Override Handler]
-            Cache[In-Memory Cache]
-            noteConfig["Purpose: Manages debug.ini parsing"]
-        end
-
-        subgraph Runtime ["Runtime Control System"]
-            DynLog[rdk_dynamic_logger.c]
-            Socket[UDP Socket Handler]
-            LevelCtrl[Level Control Logic]
-            noteRuntime["Purpose: Dynamic log level changes"]
-        end
-
-        subgraph Debug ["Debug & Utilities"]
-            DebugMod[rdk_debug.c]
-            DebugPriv[rdk_debug_priv.c]
-            Milestone[rdk_logger_milestone.c]
-            noteDebug["Purpose: Debugging and diagnostics"]
-        end
-
-        subgraph OutputMgmt ["Output Management"]
-            Formatter[Log Formatter]
-            Router[Output Router]
-            Filter[Level Filter]
-            noteOutput["Purpose: Message formatting and routing"]
-        end
-    end
-
-    subgraph ExternalSystems ["External Systems"]
-        Log4C[(Log4C Logging Library)]
-        GLib[(GLib-2.0)]
-        FileSystem[File System]
-        ConfigFiles[Configuration Files]
-    end
-
-    subgraph Utilities ["Utility Programs"]
-        RdkLogCtrl[rdklogctrl]
-        OnBoard[onboard_main.c]
-        MilestoneUtil[rdklogmilestone]
-    end
-
-    API -->|Configuration requests| Config
-    Config -->|Cached settings| Cache
-    Cache -->|Level queries| Filter
-    
-    DynLog -->|UDP Socket communication| Socket
-    Socket -->|Runtime updates| Cache
-    
-    API -->|Log messages| Formatter
-    Formatter -->|Filtered output| Filter
-    Filter -->|Formatted logs| Router
-    Router -->|Backend calls| Log4C
-    Router -->|Direct output| FileSystem
-    
-    DebugMod -->|Internal logging| API
-    Milestone -->|Milestone events| API
-    
-    Config -->|File I/O| ConfigFiles
-    Log4C -->|File management| FileSystem
-    
-    RdkLogCtrl -->|UDP control messages| Socket
-    OnBoard -->|Initialization support| Init
-```
 
 ```mermaid
 flowchart TD
@@ -675,3 +531,4 @@ RDK Logger operates at the middleware layer and does not directly interface with
 | `/nvram/debug.ini` | Runtime configuration override file for temporary or persistent log level changes | Takes precedence when present and readable, automatic detection |
 | `log4crc` | Log4C backend configuration for output formatting, file rotation, and destination control | Log4C environment variables, application-specific log4crc files |
 | `/var/log/messages` | Default log output destination for system-wide RDK-B component logs | Log4C configuration, syslog configuration, systemd journal settings |
+
