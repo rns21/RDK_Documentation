@@ -655,6 +655,114 @@ flowchart TB
     class O1,O2,O3,O4,O5,O6,O7,O8,O9,O10,O11,O12,O13,O14,O15 compStyle
     class P1,P2,P3,P4 compStyle
 ```
+### Sample 5:
+
+```mermaid
+flowchart TB
+    %% Application Layer
+    subgraph ROW1[" "]
+        direction LR
+        APPLABEL["<b>Application<br/>Layer</b>"]
+        subgraph APP[" "]
+            A1["Web Apps | Operator Apps | 3rd Party Apps | RDK Reference Apps"]
+        end
+        APPLABEL ~~~ APP
+    end
+    
+    %% Middleware Layer
+    subgraph ROW2[" "]
+        direction LR
+        MIDLABEL["<b>Middleware<br/>Layer</b>"]
+        subgraph MIDDLEWARE[" "]
+            direction LR
+            
+            subgraph CCSP["Ccsp components"]
+                C1["• Webui<br/>• WebPa<br/>• Provisioning & Mgmnt<br/>• CcspCr<br/>• CcspCommonLibrary<br/>• hotspot<br/>• CcspCMAgent<br/>• Persistent Storage<br/>• Utopia<br/>• CcspEthAgent<br/>• CcspWifiAgent<br/>• CcspPandM<br/>• CcspPsm<br/>• CcspLMLite<br/>• CcspDmCli"]
+            end
+            
+            subgraph UNIFIED["RDK Unified Components"]
+                U1["• Onewifi<br/>• RDK VlanBridgeManager<br/>• RDK Gpon Manager<br/>• RDK Ppp Manager<br/>• RDK WAN Manager<br/>• RDK Telco Voice Manager<br/>• RDK Cellular Manager-MM"]
+            end
+            
+            subgraph GENERIC["Generic open source components"]
+                G1["• IP Tables<br/>• IGMP Proxy<br/>• UPNP IGD<br/>• Bridge Utils"]
+            end
+            
+            subgraph IPC["Rbus/Dbus IPC"]
+                I1[" "]
+            end
+            
+            subgraph REMOTE["Remote Management"]
+                R1["• TR-369<br/>• TR-069<br/>• WebPA<br/>• Webconfig<br/>• SNMP<br/>• SSH<br/>• Local WebUI"]
+            end
+            
+            subgraph DEVICE["Device Management"]
+                D1["• Firmware Upgrade<br/>• Telemetry 2.0<br/>• RFC<br/>• Log Upload<br/>• Crash Upload<br/>• Log Rotation"]
+            end
+            
+            CCSP ~~~ UNIFIED ~~~ GENERIC
+            IPC ~~~ REMOTE ~~~ DEVICE
+        end
+        MIDLABEL ~~~ MIDDLEWARE
+    end
+    
+    %% HAL Layer
+    subgraph ROW3[" "]
+        direction LR
+        HALLABEL["<b>HAL<br/>Layer</b>"]
+        subgraph HAL[" "]
+            H1["WiFi HAL | Ethernet HAL | DHCP V4 HAL | DHCP V6 HAL | XDSL HAL | MoCA HAL | Platform HAL<br/>Cellular HAL | VLAN HAL | Voice HAL | MTA HAL | MSO HAL | FW Upgrade HAL | DPOE HAL"]
+        end
+        HALLABEL ~~~ HAL
+    end
+    
+    %% OSS Core
+    subgraph ROW4[" "]
+        direction LR
+        OSSLABEL["<b>OSS Core<br/>Layer</b>"]
+        subgraph OSS[" "]
+            O1["systemd | dbus | iptables | dnsmasq | libhostap | ModemManager | busybox<br/>Bridge Utils | VLAN Utils | Wireless Tools | UPnP | IGMP Proxy | wget/curl | Libqmi | Dibbler"]
+        end
+        OSSLABEL ~~~ OSS
+    end
+    
+    %% Platform Layer
+    subgraph ROW5[" "]
+        direction LR
+        PLATLABEL["<b>Platform<br/>Layer</b>"]
+        subgraph PLATFORM[" "]
+            P1["Linux Kernel & Drivers | Bootloader | Vendor Libraries | SoC/OEM"]
+        end
+        PLATLABEL ~~~ PLATFORM
+    end
+    
+    %% Connections
+    ROW1 --> ROW2
+    ROW2 --> ROW3
+    ROW3 --> ROW4
+    ROW4 --> ROW5
+    
+    %% Styling
+    classDef appStyle fill:#E27100,stroke:#333,stroke-width:3px,color:#000
+    classDef middlewareStyle fill:#F0A30A,stroke:#333,stroke-width:3px,color:#000
+    classDef halStyle fill:#1BA1E2,stroke:#333,stroke-width:3px,color:#000
+    classDef ossStyle fill:#60A917,stroke:#333,stroke-width:3px,color:#000
+    classDef platformStyle fill:#E27100,stroke:#333,stroke-width:3px,color:#000
+    classDef compStyle fill:#fff,stroke:#666,stroke-width:1px,color:#000,text-align:left
+    classDef subgraphStyle fill:#F0A30A,stroke:#333,stroke-width:2px,color:#000
+    classDef labelStyle fill:#666,stroke:#333,stroke-width:2px,color:#fff
+    classDef rowStyle fill:none,stroke:none
+    
+    class APP appStyle
+    class MIDDLEWARE middlewareStyle
+    class HAL halStyle
+    class OSS ossStyle
+    class PLATFORM platformStyle
+    class CCSP,UNIFIED,GENERIC,IPC,REMOTE,DEVICE subgraphStyle
+    class A1,C1,U1,G1,I1,R1,D1,H1,O1,P1 compStyle
+    class APPLABEL,MIDLABEL,HALLABEL,OSSLABEL,PLATLABEL labelStyle
+    class ROW1,ROW2,ROW3,ROW4,ROW5 rowStyle
+```
 
 ## Layer Details
 
@@ -674,6 +782,7 @@ Open source software packages and utilities from Yocto/Linux ecosystem.
 
 ### Platform Layer (Orange)
 Low-level system components including kernel, bootloader, and vendor-specific implementations.
+
 
 
 
