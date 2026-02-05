@@ -264,6 +264,8 @@ The following diagram provides a detailed view of the RDK-B architecture, showin
 
 **CCSP (Common Component Software Platform)** is a comprehensive framework developed as part of the RDK-B initiative to provide a standardized, component-based approach to implementing broadband device functionality. The framework provides standardized component interfaces, reference implementations, common libraries and utilities, and unified message bus communication.
 
+### CCSP Architecture
+
 ### Design Approach
 
 CCSP implements a component-based architecture where each functional domain (WiFi, Ethernet, provisioning, management) runs as an independent process with its own address space and lifecycle.
@@ -420,16 +422,6 @@ Performance: rtMessage delivers 10-100x faster operations than D-Bus with under 
 **Persistent Subscriptions**: Providers cache subscription information to disk. On restart, subscriptions automatically restore without consumer action, preventing lost notifications.
 
 **RBUS CLI (rbuscli)**: Interactive tool for testing and debugging with operations for property get/set, event subscription, method invocation, element discovery, and event logging.
-
-### Operation Types
-
-**Property Management**: Get and set parameter values, subscribe to value changes, receive change notifications. Used for configuration and status monitoring.
-
-**Method Invocation**: Remote procedure calls between components for triggering actions, executing multi-step operations, and transaction-style changes.
-
-**Event Subscription**: Publish/subscribe pattern supporting general events (triggered on subscription) and value change events (automatic on parameter change). Used for state monitoring, action triggering, telemetry collection, and component coordination.
-
-**Table Row Operations**: Manage TR-181 multi-instance objects (WiFi SSIDs, DHCP leases, firewall rules, VLANs) with add, delete, query, and handler registration operations.
 
 ---
 
@@ -598,8 +590,6 @@ Synchronous, top-down pattern for simple get/set operations. Requests flow from 
 
 **Advantages**: Simple and predictable, synchronous error handling, easy debugging with clear call stacks
 
-**Limitations**: Blocking operations delay caller, no notification of later changes, timeout risk on slow operations
-
 **Use Cases**: Configuration queries, single parameter updates, status reads that complete in <100ms
 
 ### Event-Driven Pattern
@@ -626,8 +616,6 @@ sequenceDiagram
 Asynchronous publish/subscribe pattern where producers publish events and multiple consumers react independently. Hardware events flow from driver through HAL to middleware, which publishes RBUS events received by subscribers (Telemetry, WAN Manager, Analytics).
 
 **Advantages**: Loose coupling (publishers unaware of subscribers), multiple consumers without producer overhead, asynchronous and non-blocking, scales with additional subscribers
-
-**Limitations**: No delivery guarantee without acknowledgment, event ordering not guaranteed across publishers, debugging harder due to asynchronous flow
 
 **Use Cases**: WiFi client association/disassociation, WAN link up/down events, DHCP lease changes, system alarms, real-time telemetry
 
@@ -657,8 +645,6 @@ sequenceDiagram
 Coordinated multi-component operation where one component orchestrates actions across multiple others. Example: WAN failover requires WAN Manager to coordinate cellular activation, routing updates, NAT reconfiguration, and DNS changes in specific sequence.
 
 **Advantages**: Central coordination ensures correct sequencing, easier to implement complex business logic, enables transaction-like semantics with rollback
-
-**Limitations**: Orchestrator is single point of failure, creates tight coupling to orchestrator, complexity increases with transaction size
 
 **Use Cases**: Multi-step WAN failover, firmware upgrade (download, verify, backup, flash, reboot), factory reset (stop services, clear config, reboot), network mode switching (router to bridge mode)
 
