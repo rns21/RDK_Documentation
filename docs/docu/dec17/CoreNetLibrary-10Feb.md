@@ -447,4 +447,5 @@ The Core Net Library does not require or manage specific configuration files. It
 |--------------------|---------|--------------------|
 | **Runtime Parameters** | All configuration passed via function parameters | Environment variables in calling applications |
 | **/proc/sys/net/*** | Kernel networking parameters accessible via file_read/file_write | Direct file operations with proper validation |
+
 | **/sys/class/net/*** | Network interface attributes and statistics | Interface-specific file operations through library APIs |
