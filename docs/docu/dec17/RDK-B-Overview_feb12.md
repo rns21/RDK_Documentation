@@ -13,6 +13,7 @@ Some of the key characteristics of RDK-B are:
 
 **Hardware-Agnostic:** Clearly defined HAL APIs for each functions, making it easy for multiple chipset vendors to adopt RDK, as well as keeping RDK middleware platform agnostic.
 
+![RDK-B Overview](./Overview.png)
 
 RDK-B supports multiple access technologies including DOCSIS 3.0/3.1, GPON/XGS-PON, DSL (ADSL2+, VDSL2, G.fast), Fixed Wireless (LTE/5G), and Ethernet WAN with multi-WAN capabilities. Networking features include WiFi (WiFi 6/6E), mesh networking, LAN bridging, VLAN, DHCP server, routing, and QoS. Security is provided through firewall, WPA3 encryption, access control, and parental controls. Device management is supported via TR-069 (CWMP), TR-369 (USP), WebPA, and WebConfig protocols. Additional features include voice services (SIP/VoIP), IoT protocol support (Zigbee, Z-Wave, Thread), IPv6 support, and DNS management.
 
@@ -29,3 +30,4 @@ A router serves as a central hub for distributing internet connectivity in homes
 The RDK-B WiFi extender is designed to extend the WiFi range for wireless clients. It operates in conjunction with the RDKB gateway and broadcasts the same SSID as the gateway, ensuring seamless connectivity. The hardware of the WiFi extender is cost sensitive, and it does not require all the software components of the gateway. Acting as a Layer-2 switch, it supports various RF technologies like MoCA, Wi-Fi, Zigbee, and BLE for user device connectivity. The extender can establish backhaul IP connectivity using MoCA, Ethernet, or WiFi.
 
 ---
+
