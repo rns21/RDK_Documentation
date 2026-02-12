@@ -282,7 +282,7 @@ Asynchronous publish/subscribe pattern where producers publish events and multip
 
 ---
 
-## Practical Use Cases
+## Practical Use Case
 
 ### WAN Interface Failover
 
@@ -324,3 +324,4 @@ WAN Manager reconfigures the system: updates routing (default route to wwan0), u
 WAN Manager monitors primary cable every 10 seconds. On recovery, it verifies 60-second stability before automatic failback to the preferred lower-cost, higher-speed cable connection.
 
 ---
+
