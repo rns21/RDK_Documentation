@@ -7,54 +7,6 @@ This library enables RDK-B components to perform network configuration tasks wit
 At the module level, the Core Net Library provides standardized APIs for network interface lifecycle management (create, configure, delete), bridge networking capabilities for creating software bridges and managing bridge ports, VLAN tagging and untagging functionality, routing table management for both IPv4 and IPv6, and neighbor table operations for ARP/NDP management.
 
 ```mermaid
-graph TD
-    subgraph "External Systems"
-        WebUI[Web Management Interface]
-        Cloud[Cloud Management Platform]
-        SNMP[SNMP Management]
-    end
-    
-    subgraph "RDK-B Middleware Layer"
-        WanMgr[WAN Manager]
-        EthAgent[Ethernet Agent]
-        WiFiAgent[WiFi Agent]
-        VlanMgr[VLAN Manager]
-        NetworkMgr[Network Manager]
-        CoreNetLib[Core Net Library]
-    end
-    
-    subgraph "System Layer"
-        NetlinkAPI[Netlink API]
-        LinuxKernel[Linux Kernel Networking]
-        NetworkHAL[Network HAL]
-    end
-
-    WebUI -->|Configuration Requests| WanMgr
-    Cloud -->|Remote Management| NetworkMgr
-    SNMP -->|Status Queries| EthAgent
-    
-    WanMgr -->|Interface Management| CoreNetLib
-    EthAgent -->|Bridge Operations| CoreNetLib
-    WiFiAgent -->|VLAN Configuration| CoreNetLib
-    VlanMgr -->|VLAN Management| CoreNetLib
-    NetworkMgr -->|Route Management| CoreNetLib
-    
-    CoreNetLib -->|Netlink Messages| NetlinkAPI
-    NetlinkAPI -->|System Calls| LinuxKernel
-    CoreNetLib -->|HAL Abstractions| NetworkHAL
-
-    classDef user fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
-    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
-    classDef corelib fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px;
-    classDef system fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
-    
-    class WebUI,Cloud,SNMP user;
-    class WanMgr,EthAgent,WiFiAgent,VlanMgr,NetworkMgr component;
-    class CoreNetLib corelib;
-    class NetlinkAPI,LinuxKernel,NetworkHAL system;
-```
-
-```mermaid
 graph LR
     subgraph "External Systems"
         RemoteMgmt["Remote Management"]
@@ -132,51 +84,6 @@ The Core Net Library follows a layered architecture design that abstracts the co
 The design emphasizes thread safety through careful resource management and proper socket handling. Each major operation follows a consistent pattern of socket allocation, connection establishment, operation execution, and resource cleanup. Error handling is comprehensive, with detailed logging and status codes that allow calling components to make informed decisions about failure recovery. The component abstracts away the complexity of netlink message construction and parsing, providing simple function calls that hide the underlying kernel communication protocols.
 
 The northbound interface provides clean C APIs that can be easily consumed by other RDK-B middleware components, while the southbound interface efficiently utilizes netlink sockets for kernel communication. The IPC mechanism is primarily based on function calls within the same process space, as this is a library component rather than a standalone service. Data persistence is handled by the calling components, though the library provides utilities for reading and writing configuration files when needed.
-
-```mermaid
-flowchart TB
-    subgraph CoreNetLibContainer ["Core Net Library (C Library)"]
-        subgraph NetworkAPIs ["Network Management APIs"]
-            InterfaceMgmt([Interface Management<br/>Create, Configure, IP/MAC, MTU])
-            BridgeMgmt([Bridge Operations<br/>Creation, STP, Port Management])
-            VlanMgmt([VLAN Management<br/>802.1Q Tagging/Untagging])
-        end
-        
-        subgraph RoutingAPIs ["Routing & Connectivity APIs"]
-            RoutingMgmt([Routing Management<br/>Tables, Policies, Tunnels])
-            NeighborMgmt([Neighbor Operations<br/>ARP/NDP Management])
-        end
-        
-        subgraph UtilityAPIs ["Core Utility APIs"]
-            FileOps([File Operations<br/>Kernel Parameters, Config Files])
-            NetlinkUtils([Netlink Utilities<br/>Socket Management, Error Handling])
-        end
-    end
-
-    subgraph KernelLayer ["Linux Kernel Networking"]
-        NetlinkInterface[Netlink Socket Interface]
-        NetworkStack[Kernel Network Stack]
-    end
-
-    %% API to Kernel connections
-    InterfaceMgmt -->|Interface Config| NetlinkInterface
-    BridgeMgmt -->|Bridge Ops| NetlinkInterface
-    VlanMgmt -->|VLAN Config| NetlinkInterface
-    RoutingMgmt -->|Route Mgmt| NetlinkInterface
-    NeighborMgmt -->|Neighbor Ops| NetlinkInterface
-    FileOps -->|File I/O| NetworkStack
-    NetlinkUtils -->|Socket Mgmt| NetlinkInterface
-
-    classDef networkApi fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
-    classDef routingApi fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    classDef utilityApi fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
-    classDef kernel fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
-    
-    class InterfaceMgmt,BridgeMgmt,VlanMgmt networkApi;
-    class RoutingMgmt,NeighborMgmt routingApi;
-    class FileOps,NetlinkUtils utilityApi;
-    class NetlinkInterface,NetworkStack kernel;
-```
 
 ```mermaid
 flowchart TD
@@ -448,3 +355,4 @@ The Core Net Library does not require or manage specific configuration files. It
 | **Runtime Parameters** | All configuration passed via function parameters | Environment variables in calling applications |
 | **/proc/sys/net/*** | Kernel networking parameters accessible via file_read/file_write | Direct file operations with proper validation |
 | **/sys/class/net/*** | Network interface attributes and statistics | Interface-specific file operations through library APIs |
+
