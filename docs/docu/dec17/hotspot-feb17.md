@@ -898,7 +898,7 @@ The CCSP Hotspot component implements several critical algorithms and mechanisms
 
 **Implementation Details:**
   - Main implementation in `hotspotfd.c`: main keep-alive loop, tunnel creation, state management
-  - State transition handlers in [hotspotfd.c](hotspot/source/hotspotfd/hotspotfd.c): endpoint switching logic, WAN status handling
+  - State transition handlers in `hotspotfd.c`: endpoint switching logic, WAN status handling
   - Helper functions: `create_tunnel()`, `recreate_tunnel()`, `hotspot_start()`, tunnel parameter validation
   
 - **Keep-Alive Health Monitoring Algorithm**: Implements a threshold-based failure detection mechanism with the following logic:
@@ -961,4 +961,5 @@ The CCSP Hotspot component implements several critical algorithms and mechanisms
 | `/nvram/syscfg.db` | Syscfg persistent configuration database. Stores general system configuration, may include hotspot-related settings on some platforms. | Modified via `syscfg set <namespace>.<param> <value>`; requires `syscfg commit` to persist |
 | **Shared Memory Segment** | Read-only statistics structure `hotspotfd_statistics_s` containing: <br/>- Primary/secondary endpoint status and IPs<br/>- Keep-alive counters (sent, received, failed)<br/>- Active endpoint indicator<br/>- Checksum/sequence discard counters<br/>- Operational parameters (interval, threshold, max secondary time) | Written exclusively by hotspot daemon, Read by monitoring tools/scripts. Not persistent (recreated on restart). |
 | `/var/log/messages` or `/rdklogs/logs/` | System logs containing hotspot component messages via CcspTraceInfo/Error macros, mapped to syslog or RDK log files depending on platform. | Log rotation policies, log level filtering via debug.ini |
+
 
