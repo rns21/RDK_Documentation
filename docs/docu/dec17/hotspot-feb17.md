@@ -897,7 +897,7 @@ The CCSP Hotspot component implements several critical algorithms and mechanisms
 | **ERROR** | Unrecoverable failure state | Critical errors such as tunnel creation failure, both endpoints unreachable |
 
 **Implementation Details:**
-  - Main implementation in [hotspotfd.c](hotspot/source/hotspotfd/hotspotfd.c): main keep-alive loop, tunnel creation, state management
+  - Main implementation in `hotspotfd.c`: main keep-alive loop, tunnel creation, state management
   - State transition handlers in [hotspotfd.c](hotspot/source/hotspotfd/hotspotfd.c): endpoint switching logic, WAN status handling
   - Helper functions: `create_tunnel()`, `recreate_tunnel()`, `hotspot_start()`, tunnel parameter validation
   
@@ -913,7 +913,7 @@ The CCSP Hotspot component implements several critical algorithms and mechanisms
   
   The algorithm uses raw ICMP sockets to avoid dependency on ping utilities and provides sub-second detection granularity. Sequence numbers are monotonically increasing to detect reply re-ordering or duplication.
   
-  - Implementation in [hotspotfd.c](hotspot/source/hotspotfd/hotspotfd.c): keep-alive loop and ICMP packet handling functions
+  - Implementation in `hotspotfd.c`: keep-alive loop and ICMP packet handling functions
   - Checksum validation: `hotspotfd_checksum()` function
 
 - **Event Processing**: Hardware events (in this context, network interface events and DHCP packets) are processed through multiple pathways:
@@ -961,3 +961,4 @@ The CCSP Hotspot component implements several critical algorithms and mechanisms
 | `/nvram/syscfg.db` | Syscfg persistent configuration database. Stores general system configuration, may include hotspot-related settings on some platforms. | Modified via `syscfg set <namespace>.<param> <value>`; requires `syscfg commit` to persist |
 | **Shared Memory Segment** | Read-only statistics structure `hotspotfd_statistics_s` containing: <br/>- Primary/secondary endpoint status and IPs<br/>- Keep-alive counters (sent, received, failed)<br/>- Active endpoint indicator<br/>- Checksum/sequence discard counters<br/>- Operational parameters (interval, threshold, max secondary time) | Written exclusively by hotspot daemon, Read by monitoring tools/scripts. Not persistent (recreated on restart). |
 | `/var/log/messages` or `/rdklogs/logs/` | System logs containing hotspot component messages via CcspTraceInfo/Error macros, mapped to syslog or RDK log files depending on platform. | Log rotation policies, log level filtering via debug.ini |
+
