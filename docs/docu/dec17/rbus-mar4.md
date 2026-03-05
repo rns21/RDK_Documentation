@@ -63,7 +63,11 @@ graph LR
 - **Remote Method Invocation**: Supports synchronous and asynchronous remote procedure calls with parameter marshalling, error handling, and timeout management
 - **Message Routing**: Central rtrouted daemon provides intelligent message routing, load balancing, and fault tolerance for all IPC operations
 - **Security & Authentication**: Implements access control mechanisms, message encryption capabilities, and component authentication for secure inter-process communication
-- **Deployment and Runtime**: Operates as a distributed system with rtrouted daemon central coordination - (1) Daemon Startup: The rtrouted process starts and binds to communication endpoints (typically Unix domain sockets), (2) Provider Registration: Provider processes call `rbus_open()` and `rbus_regDataElements()` to register their data model elements, (3) Consumer Operations: Consumer processes connect and issue `rbus_get()`, `rbus_set()`, `rbusEvent_Subscribe()`, and `rbusMethod_Invoke()` calls, (4) Message Routing: All inter-process communication flows through rtrouted using the routing tree for efficient message delivery (Source: src/rtmessage/rtrouted.c)
+- **Deployment and Runtime**: Operates as a distributed system with rtrouted daemon central coordination:
+  - **Daemon Startup**: The rtrouted process starts and binds to communication endpoints (typically Unix domain sockets)
+  - **Provider Registration**: Provider processes call `rbus_open()` and `rbus_regDataElements()` to register their data model elements
+  - **Consumer Operations**: Consumer processes connect and issue `rbus_get()`, `rbus_set()`, `rbusEvent_Subscribe()`, and `rbusMethod_Invoke()` calls
+  - **Message Routing**: All inter-process communication flows through rtrouted using the routing tree for efficient message delivery (Source: src/rtmessage/rtrouted.c)
 
 ## Design
 
