@@ -13,7 +13,7 @@ graph LR
     subgraph "RDK-B Middleware Layer"
         HomeSecurity[CcspHomeSecurity<br/>HNAP Server]
         CcspPandM[CcspPandM<br/>Parameter Manager]
-        CcspCR[Component Registrar<br/>Service Discovery]
+        CcspCR[Component registry<br/>Service Discovery]
         PSM[PSM<br/>Configuration Storage]
     end
 
@@ -55,12 +55,12 @@ CcspHomeSecurity follows a request-response architecture designed around the HNA
 
 The architecture separates HNAP protocol handling from device-specific operations through a well-defined abstraction layer. The core protocol engine manages HTTP communication, XML serialization/deserialization, and SOAP message processing, while the Abstract Device Interface (ADI) layer provides device-agnostic implementations of HNAP methods. The device glue layer connects ADI implementations to the CCSP message bus for accessing the underlying data model.
 
-The northbound interface accepts HTTP POST requests on the `/HNAP1` endpoint, with SOAP Action headers identifying the requested method. The southbound interface utilizes CCSP message bus APIs for component discovery, parameter retrieval, and parameter modification across the RDK-B middleware stack. The component registers with the message bus as a client and discovers component destinations through the Component Registrar. Configuration persistence is achieved through syscfg APIs for local storage and PSM integration for TR-181 parameter persistence.
+The northbound interface accepts HTTP POST requests on the `/HNAP1` endpoint, with SOAP Action headers identifying the requested method. The southbound interface utilizes CCSP message bus APIs for component discovery, parameter retrieval, and parameter modification across the RDK-B middleware stack. The component registers with the message bus as a client and discovers component destinations through the Component registry. Configuration persistence is achieved through syscfg APIs for local storage and PSM integration for TR-181 parameter persistence.
 
 ```mermaid
 graph TD
     subgraph ExternalSystems ["External Systems"]
-        CCR[Component Registrar<br/>Service Discovery]
+        CCR[Component registry<br/>Service Discovery]
         DMComponents[Data Model Components<br/>PandM, WiFi, etc.]
         Syscfg[Syscfg<br/>Configuration Storage]
     end
@@ -131,7 +131,7 @@ graph TD
 - **Systemd Services**: `CcspCrSsp.service` must be active before `CcspHomeSecurity` starts for component registration
 - **Message Bus**: CCSP message bus (R-Bus) client registration for accessing data model components
 - **Configuration Files**: Syscfg configuration database for authentication credentials and device settings
-- **Startup Order**: Initialize after message bus and Component Registrar are operational
+- **Startup Order**: Initialize after message bus and Component registry are operational
 
 **Threading Model:** 
 
@@ -303,7 +303,7 @@ CcspHomeSecurity maintains interactions with CCSP middleware components and syst
 | Target Component/Layer | Interaction Purpose | Key APIs/Endpoints |
 |------------------------|-------------------|------------------|
 | **RDK-B Middleware Components** |
-| Component Registrar | Component discovery for locating data model providers | `CcspBaseIf_discComponentSupportingNamespace()` |
+| Component registry | Component discovery for locating data model providers | `CcspBaseIf_discComponentSupportingNamespace()` |
 | CcspPandM | Device management parameters including LAN settings, device info, firmware details | `CcspBaseIf_getParameterValues()`, `CcspBaseIf_setParameterValues()` |
 | CcspWiFi | Wireless configuration including SSID, security settings, radio parameters | `CcspBaseIf_getParameterValues()`, `CcspBaseIf_setParameterValues()` |
 | PSM | Configuration parameter persistence and retrieval | `CcspBaseIf_getParameterValues()`, `CcspBaseIf_setParameterValues()` |
@@ -324,7 +324,7 @@ sequenceDiagram
     participant Client as HNAP Client
     participant Server as CcspHomeSecurity
     participant MBus as R-Bus
-    participant CR as Component Registrar
+    participant CR as Component registry
     participant PandM as CcspPandM
     
     Client->>Server: HNAP Request (GetDeviceSettings)
@@ -413,3 +413,4 @@ CcspHomeSecurity utilizes CCSP message bus APIs for accessing the TR-181 data mo
 |--------------------|---------|--------------------|
 | CCSP message bus config | Message bus configuration specifying R-Bus connection parameters referenced by CCSP_MSG_BUS_CFG macro | Environment variables for bus configuration paths |
 | Syscfg database | Authentication credentials (admin username/password) and device configuration parameters | `syscfg_set` command-line utility |
+
