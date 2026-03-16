@@ -1,4 +1,4 @@
-# CcspHomeSecurity Documentation
+# CcspHomeSecurity
 
 CcspHomeSecurity is the RDK-B component responsible for providing Home Network Administration Protocol (HNAP) server functionality for managing home security devices and settings. This component serves as a protocol adapter that bridges HNAP requests from external clients to the CCSP data model infrastructure, enabling remote management and configuration of home security devices through standardized HNAP interfaces. CcspHomeSecurity implements HNAP 1.0 protocol specifications and provides device abstraction layer for accessing various device settings, network configurations, and security parameters through XML-based SOAP messaging.
 
@@ -448,7 +448,6 @@ sequenceDiagram
     
     Server->>Server: Build success response
     Server-->>Client: HTTP 200 OK (SetWiFiRadioSettingsResponse)
-```
 ```
 
 ## Implementation Details
