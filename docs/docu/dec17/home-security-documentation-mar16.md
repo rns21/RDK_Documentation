@@ -19,7 +19,7 @@ graph LR
     end
 
     subgraph "System Layer"
-        MBus((CCSP Message Bus))
+        MBus[CCSP Message Bus]
         Syscfg[Syscfg<br/>Local Storage]
     end
 
