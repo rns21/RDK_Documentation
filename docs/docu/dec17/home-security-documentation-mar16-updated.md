@@ -1,4 +1,4 @@
-# CcspHomeSecurity Documentation
+# CcspHomeSecurity
 
 CcspHomeSecurity is the RDK-B component responsible for providing Home Network Administration Protocol (HNAP) server functionality for managing home security devices and settings. This component serves as a protocol adapter that bridges HNAP requests from external clients to the CCSP data model infrastructure, enabling remote management and configuration of home security devices through standardized HNAP interfaces. CcspHomeSecurity implements HNAP 1.0 protocol specifications and provides device abstraction layer for accessing various device settings, network configurations, and security parameters through XML-based SOAP messaging.
 
@@ -351,11 +351,11 @@ CcspHomeSecurity maintains interactions with CCSP middleware components and syst
 | Target Component/Layer | Interaction Purpose | Key APIs/Endpoints |
 |------------------------|-------------------|------------------|
 | **RDK-B Middleware Components** |
-| CcspCr | Dynamic component discovery for TR-181 parameter access - queries which component owns specific data model namespaces before each parameter operation | `CcspBaseIf_discComponentSupportingNamespace()` (hdk_ccsp_mbus.c) |
-| CcspPandM | Retrieve device information, network settings, and system configuration for HNAP GetDeviceSettings, SetRouterSettings, GetRouterSettings, port forwarding, DHCP management | **TR-181 Parameters** (hdk_device.c):<br/>• `Device.DeviceInfo.ModelName`, `.Manufacturer`, `.Description`, `.X_CISCO_COM_FirmwareName`<br/>• `Device.UserInterface.X_CISCO_COM_RemoteAccess.HttpEnable/HttpPort/HttpsEnable/HttpsPort`, `.CurrentLanguage`<br/>• `Device.Time.LocalTimeZone`, `.X_CISCO_COM_DaylightSavingAutoAdjust`<br/>• `Device.NAT.PortMapping.{i}.*` (InternalClient, InternalPort, ExternalPort, Protocol, Description)<br/>• `Device.Users.User.{i}.Username`, `.X_CISCO_COM_Password`<br/>• `Device.X_CISCO_COM_MultiLAN.HomeSecurityDHCPv4ServerPool`, `.PrimaryLANDHCPv4ServerPool`<br/>• DHCP Pool: `.Enable`, `.MinAddress`, `.MaxAddress`, `.LeaseTime`, `.IPRouters`, `.SubnetMask`, `.DomainName`, `.Client.{i}.*`, `.StaticAddress.{i}.*`<br/><br/>**APIs**: `MBus_GetParamVal()`, `MBus_SetParamVal()`, `MBus_FindObjectIns()`, `MBus_AddObjectIns()`, `MBus_DelObjectIns()` |
-| CcspWiFiAgent/OneWifi | Wireless configuration and status retrieval for HNAP SetWiFiRadioSettings, SetWiFiSettings, GetWiFiRadioSettings | **TR-181 Parameters**: `Device.WiFi.Radio.{i}.*` (Enable, Channel, OperatingFrequencyBand, SupportedStandards), `Device.WiFi.AccessPoint.{i}.*` (SSID, SSIDAdvertisementEnabled, Security modes, WPS settings)<br/><br/>**APIs**: `MBus_GetParamVal()`, `MBus_SetParamVal()`, `MBus_FindObjectIns()` |
+| CcspCr | Dynamic component discovery for TR-181 parameter access - queries which component owns specific data model namespaces before each parameter operation | Component namespace discovery via CCSP base APIs (hdk_ccsp_mbus.c) |
+| CcspPandM | Retrieve device information, network settings, and system configuration for HNAP GetDeviceSettings, SetRouterSettings, GetRouterSettings, port forwarding, DHCP management | **TR-181 Parameters** (accessed via hdk_device.c):<br/>• `Device.DeviceInfo.ModelName`, `.Manufacturer`, `.Description`, `.X_CISCO_COM_FirmwareName`<br/>• `Device.UserInterface.X_CISCO_COM_RemoteAccess.HttpEnable/HttpPort/HttpsEnable/HttpsPort`, `.CurrentLanguage`<br/>• `Device.Time.LocalTimeZone`, `.X_CISCO_COM_DaylightSavingAutoAdjust`<br/>• `Device.NAT.PortMapping.{i}.*` (InternalClient, InternalPort, ExternalPort, Protocol, Description)<br/>• `Device.Users.User.{i}.Username`, `.X_CISCO_COM_Password`<br/>• `Device.X_CISCO_COM_MultiLAN.HomeSecurityDHCPv4ServerPool`, `.PrimaryLANDHCPv4ServerPool`<br/>• DHCP Pool: `.Enable`, `.MinAddress`, `.MaxAddress`, `.LeaseTime`, `.IPRouters`, `.SubnetMask`, `.DomainName`, `.Client.{i}.*`, `.StaticAddress.{i}.*` |
+| CcspWiFiAgent/OneWifi | Wireless configuration and status retrieval for HNAP SetWiFiRadioSettings, SetWiFiSettings, GetWiFiRadioSettings | **TR-181 Parameters** (accessed via hdk_device.c):<br/>• `Device.WiFi.Radio.{i}.*` (Enable, Channel, OperatingFrequencyBand, SupportedStandards)<br/>• `Device.WiFi.AccessPoint.{i}.*` (SSID, SSIDAdvertisementEnabled, Security modes, WPS settings) |
 | **System & HAL Layers** |
-| CCSP Message Bus | IPC transport layer for all TR-181 CRUD operations - enables communication with dynamically discovered data model components | **Initialization**: `CCSP_Message_Bus_Init()` (hdk_ccsp_mbus.c)<br/>**Operations**: `CcspBaseIf_getParameterValues()`, `CcspBaseIf_setParameterValues()`, `CcspBaseIf_setCommit()`, `CcspBaseIf_AddTblRow()`, `CcspBaseIf_DeleteTblRow()` (hdk_ccsp_mbus.c) |
+| CCSP Message Bus | IPC transport layer for all TR-181 CRUD operations - enables communication with dynamically discovered data model components | CCSP base APIs for parameter get/set, table row operations, and commit via hdk_ccsp_mbus.c |
 | Syscfg | Read-only configuration access for home security Ethernet interface flag | `syscfg_get()` for `HomeSecurityEthernet4Flag` parameter (hnapd.c, hdk_device.c)<br/><br/>**Note**: Component uses read-only syscfg access |
 
 **Events Published by CcspHomeSecurity:**
@@ -465,20 +465,19 @@ CcspHomeSecurity operates as a protocol adapter layer, translating HNAP protocol
 
 CcspHomeSecurity utilizes CCSP message bus APIs for accessing the TR-181 data model across RDK-B components.
 
-**Core Message Bus APIs:**
+**Core Message Bus Wrapper APIs:**
 
-| Message Bus API | Purpose | Implementation File |
+| Wrapper API | Purpose | Implementation File |
 |---------|---------|-------------------|
 | `MBus_Create()` | Initialize message bus object with subsystem configuration and component registration | `hdk_ccsp_mbus.c` |
 | `MBus_Destroy()` | Clean up message bus resources and disconnect from bus | `hdk_ccsp_mbus.c` |
 | `MBus_GetParamVal()` | Retrieve single parameter value from data model with component discovery | `hdk_ccsp_mbus.c` |
 | `MBus_SetParamVal()` | Set single parameter value in data model with type validation | `hdk_ccsp_mbus.c` |
-| `MBus_GetParamList()` | Retrieve multiple parameter values in single operation | `hdk_ccsp_mbus.c` |
-| `MBus_SetParamList()` | Set multiple parameter values atomically | `hdk_ccsp_mbus.c` |
+| `MBus_SetParamVect()` | Set multiple parameter values atomically with commit option | `hdk_ccsp_mbus.c` |
 | `MBus_Commit()` | Commit pending parameter changes to persistent storage | `hdk_ccsp_mbus.c` |
-| `MBus_AddObject()` | Create new data model object instance | `hdk_ccsp_mbus.c` |
-| `MBus_DelObject()` | Delete data model object instance | `hdk_ccsp_mbus.c` |
-| `CcspBaseIf_discComponentSupportingNamespace()` | Discover component responsible for data model namespace | `hdk_ccsp_mbus.c` |
+| `MBus_AddObjectIns()` | Create new data model object instance and return instance number | `hdk_ccsp_mbus.c` |
+| `MBus_DelObjectIns()` | Delete data model object instance by instance number | `hdk_ccsp_mbus.c` |
+| `MBus_FindObjectIns()` | Find object instances matching specified parameter name and value criteria | `hdk_ccsp_mbus.c` |
 
 ### Key Implementation Logic
 
