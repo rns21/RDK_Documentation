@@ -499,4 +499,3 @@ CcspHomeSecurity utilizes CCSP message bus APIs for accessing the TR-181 data mo
 |--------------------|---------|--------------------|
 | CCSP message bus config | Message bus configuration specifying R-Bus connection parameters referenced by CCSP_MSG_BUS_CFG macro | Environment variables for bus configuration paths |
 | Syscfg database | HomeSecurityEthernet4Flag configuration flag | `syscfg_set` command-line utility |
-```
