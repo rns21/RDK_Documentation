@@ -1,4 +1,4 @@
-# SNMP Protocol Agent Documentation
+# SNMP Protocol Agent
 
 The SNMP Protocol Agent is an RDK-B component that provides network management capabilities through the Simple Network Management Protocol. This component operates as an SNMP subagent using the AgentX protocol to communicate with a master SNMP daemon. It translates SNMP Object Identifiers (OIDs) into RDK-B data model parameters, enabling remote network management systems to monitor and configure RDK-B gateway devices through standard SNMP operations. The component supports both SNMPv2 and SNMPv3 protocols and provides comprehensive Management Information Base (MIB) implementations for various gateway subsystems.
 
@@ -19,14 +19,14 @@ graph LR
         SNMPAgent[SNMP Protocol Agent<br/>snmp_subagent]
         CR[Component Registry<br/>CcspCr]
         PAM[CcspPandM]
-        WiFi[CcspWiFiAgent]
+        WiFi[CcspWiFiAgent/OneWifi]
         MoCA[CcspMoCAAgent]
         TR069[CcspTr069Pa]
         Firewall[CcspFirewall]
     end
     
     subgraph "System Layer"
-        MessageBus[(CCSP Message Bus<br/>DBus)]
+        MessageBus[(CCSP Message Bus<br/>RBus)]
         SysCfg[syscfg]
         SysEvent[sysevent]
     end
@@ -35,12 +35,12 @@ graph LR
         Privilege[Privilege Manager]
     end
     
-    NMS -->|SNMPv2/v3 UDP:161| MasterSNMPD
+    NMS -->|SNMPv2/v3| MasterSNMPD
     SNMP_Tools -->|SNMP GET/SET| MasterSNMPD
-    MasterSNMPD <-->|AgentX TCP:705| SNMPAgent
+    MasterSNMPD <-->|AgentX Protocol| SNMPAgent
     
-    SNMPAgent <-->|DBus Component Discovery| CR
-    SNMPAgent <-->|DBus Parameter Operations| MessageBus
+    SNMPAgent <-->|RBus Component Discovery| CR
+    SNMPAgent <-->|RBus Parameter Operations| MessageBus
     SNMPAgent -->|syscfg_get/syscfg_set| SysCfg
     SNMPAgent -->|sysevent_get/sysevent_set| SysEvent
     SNMPAgent -->|drop_root_caps| Privilege
@@ -79,14 +79,14 @@ The SNMP Protocol Agent follows a modular architecture designed around the net-s
 
 The component initializes by establishing an AgentX connection to the master SNMP daemon, loading MIB mapping XML files, and registering MIB handlers for each supported subsystem. Communication with RDK-B components occurs through the CCSP message bus using the CcspBaseIf API set, which provides parameter discovery, get, set, and commit operations. The design implements caching strategies for frequently accessed parameters and supports both scalar and tabular SNMP objects with automatic instance management.
 
-The northbound interface accepts SNMP requests from network management systems through the master SNMP daemon using the AgentX protocol over TCP socket. The southbound interface communicates with RDK-B middleware components through DBus-based message bus calls for parameter operations and with system services through syscfg and sysevent APIs for configuration persistence. The component implements privilege separation by dropping root capabilities after initialization using the privilege manager API.
+The northbound interface accepts SNMP requests via AgentX protocol on TCP port 705 (loopback, configured as `tcp:127.0.0.1:705` in ccsp_snmp_subagent.c). External SNMP requests arrive on UDP port 161; trap notifications use UDP port 162. The southbound interface uses RBus message bus for RDK-B component parameter operations and syscfg/sysevent APIs for system configuration. The component drops root capabilities after initialization via privilege manager API.
 
 MIB mapping configurations are stored in XML files located in the Mib2DmMapping directory, with CcspRDKBMibList.xml serving as the master index. Each MIB module has a corresponding XML file specifying OID-to-parameter mappings, data types, access permissions, and handler function bindings. The component supports conditional MIB loading through XML preprocessing directives enabling feature-specific MIB definitions.
 
 ```mermaid
 graph TD
     subgraph ExternalInterface ["External Interface"]
-        AgentXProtocol[AgentX Protocol<br/>TCP:705]
+        AgentXProtocol[AgentX Protocol]
         MasterSNMPD[Master SNMP Daemon<br/>snmpd]
     end
     
@@ -105,15 +105,7 @@ graph TD
         end
         
         subgraph CustomHandlers ["Custom MIB Handlers"]
-            WiFiHandler[WiFi Handler<br/>source/custom/rg_wifi_handler.c]
-            DevMgmtHandler[Device Mgmt Handler<br/>source/custom/rg_devmgmt_handler.c]
-            FirewallHandler[Firewall Handler<br/>source/custom/rg_firewall_handler.c]
-            MoCAHandler[MoCA Handler<br/>source/custom/rg_moca_handler.c]
-            HotspotHandler[Hotspot Handler<br/>source/custom/rg_hotspot_handler.c]
-            DiagHandler[Diagnostics Handler<br/>source/custom/rg_diag_handler.c]
-            WANDNSHandler[WAN DNS Handler<br/>source/custom/rg_wandns_handler.c]
-            NTPHandler[NTP Handler<br/>source/custom/rg_ntpserver_handler.c]
-            IPMgmtHandler[IP Mgmt Handler<br/>source/custom/rg_ipmgmt_handler.c]
+            Handlers[Subsystem Handlers<br/>WiFi, DeviceMgmt, Firewall,<br/>MoCA, Hotspot, Diagnostics,<br/>DNS, NTP, IP Management<br/>source/custom/*.c]
         end
         
         subgraph Integration ["CCSP Integration"]
@@ -139,7 +131,7 @@ graph TD
     end
     
     subgraph SystemServices ["System Services"]
-        MessageBus[(CCSP Message Bus<br/>DBus)]
+        MessageBus[(CCSP Message Bus<br/>RBus)]
         SysCfg[syscfg]
         SysEvent[sysevent]
     end
@@ -181,10 +173,10 @@ graph TD
 
 **RDK-B Platform and Integration Requirements:**
 
-* **RDK-B Components**: CcspCommonLibrary, CcspCr (Component Registry), CcspPandM, CcspWiFiAgent, CcspMoCAAgent, CcspTr069Pa
+* **RDK-B Components**: CcspCommonLibrary, CcspCr (Component Registry), CcspPandM, CcspWiFiAgent/OneWifi, CcspMoCAAgent, CcspTr069Pa
 * **HAL Dependencies**: No direct HAL dependencies
 * **Systemd Services**: Master SNMP daemon (snmpd) must be running before snmp_subagent starts
-* **Message Bus**: CCSP Message Bus (DBus) registration under component name `ccsp.cisco.spvtg.ccsp.snmp` with connection to Component Registry at `eRT.com.cisco.spvtg.ccsp.CR`
+* **Message Bus**: CCSP Message Bus (RBus) registration under component name `ccsp.cisco.spvtg.ccsp.snmp` with connection to Component Registry at `eRT.com.cisco.spvtg.ccsp.CR`
 * **Configuration Files**: 
   * `/tmp/ccsp_msg.cfg` for CCSP message bus configuration
   * `config/snmpd.conf` for SNMP daemon configuration
@@ -237,7 +229,7 @@ sequenceDiagram
     MIBLoader->>CCSP: Cosa_Init()
     CCSP->>CCSP: CCSP_Message_Bus_Init()
     CCSP-->>MIBLoader: Message Bus Connected
-    Note over SubAgent: Connected to DBus
+    Note over SubAgent: Connected to RBus
     
     MIBLoader->>MIBLoader: Load CcspRDKBMibList.xml
     MIBLoader->>MIBLoader: Parse XML and Load MIB Files
@@ -340,11 +332,11 @@ sequenceDiagram
     
     Handler->>CCSP: Cosa_FindDestComp(parameter)
     CCSP->>CCSP: CcspBaseIf_discComponentSupportingNamespace()
-    CCSP-->>Handler: Component Name, DBus Path
+    CCSP-->>Handler: Component Name, RBus Path
     
     Handler->>CCSP: Cosa_GetParamValues(component, path, param)
     CCSP->>CCSP: CcspBaseIf_getParameterValues()
-    CCSP->>Component: DBus Method Call (getParameterValues)
+    CCSP->>Component: RBus Method Call (getParameterValues)
     Component-->>CCSP: Parameter Value
     CCSP-->>Handler: Parameter Value
     
@@ -375,12 +367,12 @@ sequenceDiagram
     
     SubAgent->>Handler: Handler SET Callback (Commit Phase)
     Handler->>CCSP: Cosa_FindDestComp(parameter)
-    CCSP-->>Handler: Component Name, DBus Path
+    CCSP-->>Handler: Component Name, RBus Path
     
     Handler->>Handler: Convert SNMP Value to DataModel Type
     Handler->>CCSP: Cosa_SetParamValues(component, path, param, value)
     CCSP->>CCSP: CcspBaseIf_setParameterValues()
-    CCSP->>Component: DBus Method Call (setParameterValues)
+    CCSP->>Component: RBus Method Call (setParameterValues)
     Component-->>CCSP: Set Result
     
     CCSP->>Component: CcspBaseIf_setCommit() if auto-commit enabled
@@ -420,7 +412,7 @@ The SNMP Protocol Agent is organized into specialized modules separating core SN
 
 ## Component Interactions
 
-The SNMP Protocol Agent maintains interactions with network management systems, the master SNMP daemon, RDK-B middleware components, and system services. These interactions span multiple protocols including AgentX for SNMP communication, DBus for middleware integration, and direct API calls for system configuration access.
+The SNMP Protocol Agent maintains interactions with network management systems, the master SNMP daemon, RDK-B middleware components, and system services. These interactions span multiple protocols including AgentX for SNMP communication, RBus for middleware integration, and direct API calls for system configuration access.
 
 ### Interaction Matrix
 
@@ -430,15 +422,15 @@ The SNMP Protocol Agent maintains interactions with network management systems, 
 | Network Management System | SNMP-based remote monitoring and configuration of gateway device | SNMPv2/v3 protocol via master daemon |
 | Master SNMP Daemon (snmpd) | AgentX subagent protocol communication for SNMP request delegation | AgentX protocol over `tcp:127.0.0.1:705` |
 | **RDK-B Middleware Components** |
-| Component Registry (CcspCr) | Component discovery to locate which component owns specific data model parameters | `CcspBaseIf_discComponentSupportingNamespace()` via DBus path `eRT.com.cisco.spvtg.ccsp.CR` |
+| Component Registry (CcspCr) | Component discovery to locate which component owns specific data model parameters | `CcspBaseIf_discComponentSupportingNamespace()` via RBus path `eRT.com.cisco.spvtg.ccsp.CR` |
 | CcspPandM | Access to Device.* parameters including device information, LAN settings, and general platform configuration | `CcspBaseIf_getParameterValues()`, `CcspBaseIf_setParameterValues()` |
-| CcspWiFiAgent | WiFi MIB operations for access point configuration, associated devices, security settings, and wireless statistics | `Device.WiFi.*` parameters via message bus |
+| CcspWiFiAgent/OneWifi | WiFi MIB operations for access point configuration, associated devices, security settings, and wireless statistics | `Device.WiFi.*` parameters via message bus |
 | CcspMoCAAgent | MoCA MIB operations for interface status, associated devices, and MoCA network topology | `Device.MoCA.*` parameters via message bus |
 | CcspTr069Pa | TR-069 management server parameters for ACS connection, parameter attributes, and device provisioning | `Device.ManagementServer.*` parameters via message bus |
 | CcspFirewall | Firewall MIB operations for security rules, port forwarding, and firewall configuration | `Device.Firewall.*`, `Device.NAT.*` parameters via message bus |
 | CcspWanManager | WAN interface configuration and device control parameters | `Device.X_CISCO_COM_DeviceControl.*` parameters (when `FEATURE_RDKB_WAN_MANAGER` enabled) |
 | **System & Platform Services** |
-| CCSP Message Bus (DBus) | Primary IPC mechanism for all RDK-B component communication and data model access | `CCSP_Message_Bus_Init()`, `CcspBaseIf_*` API family |
+| CCSP Message Bus (RBus) | Primary IPC mechanism for all RDK-B component communication and data model access | `CCSP_Message_Bus_Init()`, `CcspBaseIf_*` API family |
 | syscfg | Persistent configuration storage for system settings including SNMP v2 support flags | `syscfg_get()`, `syscfg_set()` |
 | sysevent | Event notification system for system state changes and inter-process communication | `sysevent_get()`, `sysevent_set()` |
 | Privilege Manager | Security service for dropping root privileges after initialization | `drop_root_caps()`, `init_capability()`, `update_process_caps()` |
@@ -465,9 +457,9 @@ sequenceDiagram
     
     SubAgent->>CR: CcspBaseIf_discComponentSupportingNamespace(param)
     Note over CR: Search component database
-    CR-->>SubAgent: Component Name, DBus Path
+    CR-->>SubAgent: Component Name, RBus Path
     
-    SubAgent->>Target: CcspBaseIf_getParameterValues(param) via DBus
+    SubAgent->>Target: CcspBaseIf_getParameterValues(param) via RBus
     Note over Target: Access internal data<br/>Return current value
     Target-->>SubAgent: Parameter Value, Type
     
@@ -491,11 +483,11 @@ sequenceDiagram
     SubAgent-->>Master: Reserve OK
     
     Master->>SubAgent: AgentX SET Request (Commit Phase)
-    SubAgent->>Target: CcspBaseIf_setParameterValues(param, value) via DBus
+    SubAgent->>Target: CcspBaseIf_setParameterValues(param, value) via RBus
     Note over Target: Validate parameter<br/>Set new value
     Target-->>SubAgent: Set Result
     
-    SubAgent->>Target: CcspBaseIf_setCommit() via DBus
+    SubAgent->>Target: CcspBaseIf_setCommit() via RBus
     Note over Target: Apply configuration changes<br/>Persist to storage if needed
     Target-->>SubAgent: Commit Result
     
@@ -512,13 +504,13 @@ sequenceDiagram
     participant CR as Component Registry
 
     SubAgent->>SubAgent: Cosa_FindDestComp(parameter_name)
-    SubAgent->>Bus: Connect to DBus (if not connected)
+    SubAgent->>Bus: Connect to RBus (if not connected)
     Bus-->>SubAgent: Connection Handle
     
-    SubAgent->>CR: CcspBaseIf_discComponentSupportingNamespace()<br/>via DBus path: eRT.com.cisco.spvtg.ccsp.CR
+    SubAgent->>CR: CcspBaseIf_discComponentSupportingNamespace()<br/>via RBus path: eRT.com.cisco.spvtg.ccsp.CR
     Note over CR: Query component database<br/>Match parameter namespace
     
-    CR-->>SubAgent: Component Name (e.g., com.cisco.spvtg.ccsp.pam)<br/>DBus Path (e.g., /com/cisco/spvtg/ccsp/pam)
+    CR-->>SubAgent: Component Name (e.g., com.cisco.spvtg.ccsp.pam)<br/>RBus Path (e.g., /com/cisco/spvtg/ccsp/pam)
     
     Note over SubAgent: Cache component info<br/>for subsequent requests
 ```
@@ -569,7 +561,7 @@ The SNMP Protocol Agent does not directly integrate with HAL APIs. It operates a
 | Configuration File | Purpose | Override Mechanisms |
 |--------------------|---------|---------------------|
 | `config/snmpd.conf` | Master SNMP daemon configuration including community strings, AgentX settings, and plugin loading directives | System integrator configuration |
-| `/tmp/ccsp_msg.cfg` | CCSP message bus configuration specifying component names, DBus paths, and subsystem prefixes | Copied from `/usr/ccsp/ccsp_msg.cfg` at startup |
+| `/tmp/ccsp_msg.cfg` | CCSP message bus configuration specifying component names, RBus paths, and subsystem prefixes | Copied from `/usr/ccsp/ccsp_msg.cfg` at startup |
 | `Mib2DmMapping/CcspRDKBMibList.xml` | Master index of MIB mapping XML files to be loaded by the plugin | Build-time selection between CcspRDKBMibList.xml and CcspMibList.xml via RDKB_MIB flag |
 | `Mib2DmMapping/Ccsp_RDKB-RG-WiFi-MIB.xml` | MIB-to-DataModel mapping for WiFi subsystem including access point and associated device parameters | XML preprocessing directives for feature-specific includes |
 | `Mib2DmMapping/Ccsp_RDKB-RG-MIB-DeviceMgmt.xml` | MIB-to-DataModel mapping for device management operations including reboot, reset, and firmware management | Platform-specific parameter mappings |
