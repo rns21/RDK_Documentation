@@ -61,9 +61,8 @@ graph LR
 **Key Features & Responsibilities**: 
 
 - **Secure Device Discovery**: Implements UDP-based device discovery mechanism with configurable broadcast intervals and detection windows for automatic detection of RDK devices on the local network
-- **mTLS Authentication**: Establishes mutual TLS authentication between gateway and LAN devices using X.509 certificates with support for hardware-backed certificates for enhanced security
+- **Secure Communication**: Establishes mutual TLS authentication between gateway and LAN devices and maintains persistent encrypted TCP connections for secure command execution, parameter access, and data exchange
 - **Remote Device Management**: Provides TR-181 compliant interface for discovering, tracking, and managing remote RDK device status, capabilities, and network information
-- **Secure Communication Channel**: Maintains persistent TLS-encrypted TCP connections between devices for secure command execution, parameter access, and data exchange
 - **File Transfer Capability**: Supports secure file transfer between devices with configurable size limits and path validation for controlled data exchange
 - **Capability Advertisement**: Enables devices to advertise and query supported capabilities allowing dynamic feature discovery and interoperability between heterogeneous RDK devices
 
@@ -77,103 +76,48 @@ The northbound interface provides TR-181 compliant access through RBus messaging
 
 ```mermaid
 graph LR
-    subgraph ExternalSystems ["External Systems"]
-        RemoteMgmt["Remote Management"]
-        RemoteDevices["Remote RDK Devices"]
+    subgraph IDM ["RdkInterDeviceManager"]
+        MGR["IDM Manager"]
+        DISC["Discovery Engine<br/>UDP Broadcast/Listen"]
+        TCP["TCP Server/Client<br/>mTLS Connections"]
+        MSG["Message Processor"]
+        DATA["Data Manager<br/>RBus Interface"]
     end
 
-    subgraph RDKBMiddleware ["RDK-B Middleware Layer"]
+    subgraph RDK ["RDK-B Platform"]
         PANDM["CcspPandM"]
         PSM["CcspPsm"]
-        ONEWIFI["CcspWiFiAgent/OneWifi"]
     end
 
-    subgraph IDMProcess ["RdkInterDeviceManager Process"]
-        subgraph RBusLayer ["RBus Interface Layer"]
-            RBusInit["RBus Registration"]
-            RBusHandlers["Get/Set Handlers"]
-        end
-
-        subgraph CoreMgmt ["Core Management"]
-            MGR["IDM Manager"]
-            DATA["Data Manager"]
-        end
-
-        subgraph DiscoveryEng ["Discovery Engine"]
-            DiscBC["UDP Broadcast"]
-            DiscListen["Discovery Listener"]
-            DiscCB["Discovery Callbacks"]
-        end
-
-        subgraph CommLayer ["Communication Layer"]
-            TCPServer["TCP Server"]
-            TCPClient["TCP Client"]
-            TLSMgr["TLS Context Manager"]
-        end
-
-        subgraph MsgProc ["Message Processing"]
-            MsgProcessor["Message Processor"]
-            ReqHandler["Request Handler"]
-            ResHandler["Response Handler"]
-        end
-
-        subgraph UtilLayer ["Utility Layer"]
-            SysEvent["Sysevent Client"]
-            Utils["Utilities"]
-        end
+    subgraph Sys ["System Layer"]
+        OpenSSL["OpenSSL"]
+        Network["Linux Network"]
     end
 
-    subgraph SystemSecurity ["System & Security Layer"]
-        OpenSSL["OpenSSL/TLS"]
-        PlatformHAL["Platform HAL"]
-        LinuxNet["Linux Network"]
-        SecWrap["Secure Wrapper"]
-    end
+    Remote["Remote RDK Devices"]
 
-    RemoteMgmt -->|TR-181 Get/Set| RBusHandlers
-    RemoteDevices <-->|mTLS TCP| CommLayer
-    PANDM -->|RBus Method Calls| RBusInit
-    PSM -->|Parameter Storage| DATA
-    ONEWIFI -->|STA Status Events| DiscCB
-
-    RBusHandlers --> MGR
+    MGR --> DISC
+    MGR --> TCP
+    MGR --> MSG
     MGR --> DATA
-    MGR --> DiscCB
-    MGR --> RBusInit
+    
+    DISC -->|UDP Broadcast| Network
+    TCP -->|mTLS TCP| Network
+    TCP --> OpenSSL
+    MSG --> DATA
+    
+    DATA --> PSM
+    DATA --> PANDM
+    
+    Network <-->|Device Discovery<br/>mTLS Communication| Remote
 
-    DATA --> SysEvent
-
-    DiscCB --> DiscoveryEng
-    DiscBC --> DiscListen
-    DiscListen --> DiscCB
-
-    DiscCB --> TCPClient
-    TCPServer --> MsgProcessor
-    TCPClient --> TLSMgr
-    TCPServer --> TLSMgr
-
-    MsgProcessor --> ReqHandler
-    MsgProcessor --> ResHandler
-    ReqHandler --> RBusHandlers
-    ResHandler --> DiscCB
-
-    TLSMgr --> OpenSSL
-    TLSMgr --> PlatformHAL
-    CommLayer --> LinuxNet
-    MGR --> SecWrap
-
-    TCPServer -.->|Incoming Connections| TCPClient
-    DiscBC -.->|UDP Broadcast| LinuxNet
-
-    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
-    classDef middleware fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
-    classDef core fill:#c5cae9,stroke:#3f51b5,stroke-width:2px
+    classDef comp fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
     classDef system fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
 
-    class RemoteMgmt,RemoteDevices external
-    class PANDM,PSM,ONEWIFI middleware
-    class MGR,DATA,RBusLayer,DiscoveryEng,CommLayer,MsgProc,UtilLayer core
-    class OpenSSL,PlatformHAL,LinuxNet,SecWrap system
+    class IDM,MGR,DISC,TCP,MSG,DATA comp
+    class OpenSSL,Network,PSM,PANDM system
+    class Remote external
 ```
 
 ### Prerequisites and Dependencies
@@ -471,10 +415,10 @@ Device.
 
 | Parameter Path | Data Type | Access | Default Value | Description | Compliance |
 |----------------|-----------|--------|---------------|-------------|-----------|
-| `Device.X_RDK_Connection.HelloInterval` | unsignedInt | R/W | `10000` | Interval in milliseconds for broadcasting device discovery hello messages. Valid range: 1000-60000. Controls discovery responsiveness versus network overhead. | Vendor Extension |
+| `Device.X_RDK_Connection.HelloInterval` | unsignedInt | R/W | `10000` | Interval in milliseconds for broadcasting device discovery hello messages. Valid range: 1000-60000 ms. Controls discovery responsiveness versus network overhead. | Vendor Extension |
 | `Device.X_RDK_Connection.HelloIPv4SubnetList` | string | R | `"255.255.255.0"` | Comma-separated list of IPv4 subnet masks used for hello message broadcast. Determines which network segments receive discovery broadcasts. | Vendor Extension |
 | `Device.X_RDK_Connection.HelloIPv6SubnetList` | string | R | `""` | Comma-separated list of IPv6 subnet prefixes for hello message multicast. Currently not implemented. | Vendor Extension |
-| `Device.X_RDK_Connection.DetectionWindow` | unsignedInt | R/W | `30000` | Timeout in milliseconds for considering a device offline when no hello received. Valid range: 5000-300000. Affects stale device removal timing. | Vendor Extension |
+| `Device.X_RDK_Connection.DetectionWindow` | unsignedInt | R/W | `30000` | Timeout in milliseconds for considering a device offline when no hello received. Valid range: 5000-300000 ms. Affects stale device removal timing. | Vendor Extension |
 | `Device.X_RDK_Connection.Interface` | string | R/W | `"br403"` | Network interface name used for broadcasting discovery messages. Must be valid and active interface. Changes require discovery restart. | Vendor Extension |
 | `Device.X_RDK_Connection.Port` | unsignedInt | R/W | `50765` | UDP port number for device discovery broadcast and listener. Changes require discovery restart to rebind socket. | Vendor Extension |
 
@@ -724,4 +668,17 @@ RdkInterDeviceManager integrates with platform HAL interfaces for device identif
 
 **Configuration Persistence:**
 
-All `Device.X_RDK_Connection.*` configuration parameters (HelloInterval, DetectionWindow, Interface, Port) and device capabilities are persisted to PSM using `dmsb.interdevicemanager.*` namespace, ensuring settings survive reboots. Changes to these parameters via TR-181 Set operations automatically trigger PSM write and operational updates (e.g., discovery restart for Interface/Port changes). Remote device information (Device.X_RDK_Remote.Device.{i}.*) is maintained in runtime memory only and repopulated through device discovery after reboot.
+All `Device.X_RDK_Connection.*` configuration parameters (HelloInterval, DetectionWindow, Interface, Port) and device capabilities are persisted to PSM using the `dmsb.interdevicemanager.*` namespace, ensuring settings survive reboots. Changes to these parameters via TR-181 Set operations automatically trigger PSM write and operational updates (e.g., discovery restart for Interface/Port changes). Remote device information (Device.X_RDK_Remote.Device.{i}.*) is maintained in runtime memory only and repopulated through device discovery after reboot.
+
+**PSM Parameter Registry:**
+
+The following parameters are stored under the `dmsb.interdevicemanager.*` namespace in PSM:
+
+| PSM Parameter | Purpose |
+|---------------|---------| 
+| `dmsb.interdevicemanager.BroadcastInterface` | Network interface name for device discovery broadcasts |
+| `dmsb.interdevicemanager.Capabilities` | Local device capabilities advertised to remote devices |
+| `dmsb.interdevicemanager.HelloInterval` | Discovery hello message broadcast interval in milliseconds |
+| `dmsb.interdevicemanager.DetectionWindow` | Device offline detection timeout in milliseconds |
+| `dmsb.interdevicemanager.BroadcastPort` | UDP port for device discovery (default 50765) |
+| `dmsb.interdevicemanager.MessagingPort` | TCP port for secure messaging to remote devices (default 4444) |
