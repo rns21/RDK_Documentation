@@ -1,4 +1,4 @@
-# Component Registry (CcspCr) Documentation
+# Component Registry (CcspCr)
 
 Component Registry (CR) is a core RDK-B middleware component that serves as the central registration and discovery service for all CCSP components in the system. The Component Registry maintains a comprehensive database of all registered components, their supported namespaces, capabilities, and communication endpoints, enabling dynamic service discovery and component interaction across the RDK-B middleware stack. CR acts as the primary authority for component lifecycle management, namespace resolution, and inter-component communication routing.
 
@@ -7,57 +7,64 @@ The Component Registry loads device profile XML configurations that define expec
 Component Registry enables the CCSP middleware architecture by decoupling components from direct dependencies and providing runtime service binding through namespace-based discovery. This architectural pattern supports modular component development, flexible deployment configurations, and dynamic system composition without compile-time component dependencies.
 
 ```mermaid
-graph LR
+graph TB
     subgraph External ["External Systems"]
-        RM["Remote Management (TR-069, WebPA)"]
-        WEBUI["Web UI"]
+        RM["Remote Management<br/>(TR-069/WebPA)"]
+        WEBUI["Web UI / Dashboard"]
     end
     
-    subgraph RDKBMiddleware ["RDK-B Middleware"]
-        CR["Component Registry (CcspCrSsp)"]
+    subgraph Middleware ["RDK-B CCSP Middleware"]
+        CR["Component Registry<br/>(CcspCrSsp)"]
         PAM["PandM"]
-        WIFI["CcspWiFiAgent/OneWifi"]
-        PSM["CcspPsm"]
-        OTHER["Other CCSP Components"]
+        WIFI["WiFi Agent"]
+        PSM["PSM"]
+        OTHER["Other Components"]
     end
     
-    subgraph MessageBus ["Message Bus Layer"]
-        DBUS["RBus/D-Bus"]
+    subgraph IPC ["Inter-Process Communication"]
+        RBUS["RBus (Modern)"]
+        DBUS["D-Bus (Legacy)"]
     end
     
-    subgraph System ["System & Security Layer"]
+    subgraph System ["System Services"]
         SYSCFG["Syscfg"]
         TELEMETRY["Telemetry"]
         UNPRIV["libunpriv"]
-        LINUX["Linux OS"]
     end
     
-    RM -.->|"TR-069/WebPA Component Discovery"| CR
-    WEBUI -.->|"Component Query"| CR
+    LINUX["Linux OS / Kernel"]
     
-    PAM <-->|"RBus/D-Bus RegisterCapabilities()"| CR
-    WIFI <-->|"RBus/D-Bus RegisterCapabilities()"| CR
-    PSM <-->|"RBus/D-Bus Component Discovery"| CR
-    OTHER <-->|"RBus/D-Bus Namespace Resolution"| CR
+    RM -.->|discovery| CR
+    WEBUI -.->|queries| CR
     
-    CR -->|"Uses"| PSM
-    CR --> DBUS
+    PAM <-->|register/discover| CR
+    WIFI <-->|register/discover| CR
+    PSM <-->|register/discover| CR
+    OTHER <-->|register/discover| CR
     
-    CR -->|"Read Config"| SYSCFG
-    CR -->|"Send Events"| TELEMETRY
-    CR -->|"Drop Privileges"| UNPRIV
+    CR -->|messages| RBUS
+    CR -->|messages| DBUS
+    
+    CR -->|read config| SYSCFG
+    CR -->|publish events| TELEMETRY
+    CR -->|privileges| UNPRIV
+    
+    RBUS --> LINUX
     DBUS --> LINUX
     SYSCFG --> LINUX
     TELEMETRY --> LINUX
     
     classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
     classDef middleware fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
-    classDef bus fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef ipc fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
     classDef system fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef kernel fill:#f1f8e9,stroke:#558b2f,stroke-width:2px
     
     class RM,WEBUI external
     class CR,PAM,WIFI,PSM,OTHER middleware
-    class DBUS bus
+    class RBUS,DBUS ipc
+    class SYSCFG,TELEMETRY,UNPRIV system
+    class LINUX kernel
     class SYSCFG,TELEMETRY,UNPRIV,LINUX system
 ```
 
@@ -81,89 +88,57 @@ The CR component initializes by loading XML device profile configurations from t
 The northbound interface exposes component registration, namespace discovery, and data type validation APIs through both RBus and D-Bus protocols depending on build configuration. RBus support enables modern deployments with improved performance and reduced complexity while D-Bus support provides backward compatibility with legacy CCSP deployments. The southbound interface reads device profile XML files from the filesystem and integrates with syscfg for configuration data and telemetry services for event reporting. Component Registry does not persist registration state to non-volatile storage; instead, all components must re-register on each system initialization, ensuring registration state reflects current runtime topology.
 
 ```mermaid
-graph LR
-    subgraph ExtDeps ["External Dependencies"]
-        XML["libxml2"]
-        TELEMETRY["libtelemetry"]
-        PRIVDROP["libunpriv"]
-        SYSCFG["libsyscfg"]
-    end
+graph TB
+    Config["XML Device Profile<br/>(cr-deviceprofile.xml)"] 
     
-    subgraph Config ["Configuration Files"]
-        DEVPROF["cr-deviceprofile.xml"]
-        ETHPROF["cr-ethwan-deviceprofile.xml"]
-    end
+    ssp_main["ssp_main.c<br/>Initialization & Lifecycle"]
+    ssp_ipc["ssp_rbus.c / ssp_dbus.c<br/>Message Bus Interface"]
     
-    subgraph CRComponent ["Component Registry (CcspCrSsp)"]
-        direction TB
-        
-        subgraph SSP ["Service Support Platform"]
-            SSPMAIN["ssp_main.c"]
-            SSPDBUS["ssp_dbus.c"]
-            SSPRBUS["ssp_rbus.c"]
-        end
-        
-        subgraph CRCore ["CR Core Engine"]
-            CRBASE["ccsp_cr_base.c"]
-            CROPER["ccsp_cr_operation.c"]
-            CRPROF["ccsp_cr_profile.c"]
-            CRSESS["ccsp_cr_session.c"]
-            CRUTIL["ccsp_cr_utility.c"]
-            CREXPORT["ccsp_cr_exportDM.c"]
-        end
-        
-        subgraph DataMgmt ["Data Management"]
-            NSMGR["Namespace Manager"]
-            COMPQ["Component Queues"]
-        end
-        
-        SSPMAIN --> CRBASE
-        SSPDBUS --> CROPER
-        SSPRBUS --> CROPER
-        
-        CRBASE --> CRPROF
-        CRBASE --> NSMGR
-        CROPER --> NSMGR
-        CROPER --> CRSESS
-        CROPER --> CRUTIL
-        CROPER --> COMPQ
-        CRPROF --> COMPQ
-        NSMGR --> COMPQ
-    end
+    ProfileLoader["Profile Loader<br/>(ccsp_cr_profile.c)"]
+    RegHandler["Registration Handler<br/>(ccsp_cr_operation.c)"]
+    NamespaceMgr["Namespace Manager"]
+    ComponentQueue["Component Registry Queue"]
     
-    subgraph MessageBus ["Message Bus"]
-        BUS["RBus/D-Bus"]
-    end
+    libxml2["libxml2"]
+    libunpriv["libunpriv"]
+    libtelemetry["libtelemetry"]
+    rbus_dbus["RBus / D-Bus"]
     
-    subgraph SystemLayer ["System Layer"]
-        LINUX["Linux OS"]
-    end
+    Config -->|load| ProfileLoader
+    ProfileLoader -->|parse| libxml2
+    ProfileLoader -->|populate| ComponentQueue
     
-    DEVPROF --> CRPROF
-    ETHPROF --> CRPROF
-    CRPROF --> XML
-    SSPMAIN --> TELEMETRY
-    SSPMAIN --> PRIVDROP
-    SSPMAIN --> SYSCFG
+    ssp_main -->|init| ProfileLoader
+    ssp_main -->|drop privs| libunpriv
+    ssp_main -->|send events| libtelemetry
+    ssp_main -->|launch| ssp_ipc
     
-    SSP --> BUS
-    BUS --> LINUX
+    ssp_ipc -->|register methods| rbus_dbus
+    ssp_ipc -->|invoke| RegHandler
+    ssp_ipc -->|publish events| rbus_dbus
     
-    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    RegHandler -->|lookup| ComponentQueue
+    RegHandler -->|register namespaces| NamespaceMgr
+    RegHandler -->|check readiness| ComponentQueue
+    
+    NamespaceMgr -->|index| ComponentQueue
+    
+    rbus_dbus -->|component registration| RegHandler
+    rbus_dbus -->|namespace discovery| RegHandler
+    
     classDef config fill:#fce4ec,stroke:#c2185b,stroke-width:2px
     classDef ssp fill:#e3f2fd,stroke:#0277bd,stroke-width:2px
     classDef core fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
     classDef data fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
     classDef bus fill:#e1f5fe,stroke:#01579b,stroke-width:2px
-    classDef system fill:#f1f8e9,stroke:#558b2f,stroke-width:2px
     
-    class XML,TELEMETRY,PRIVDROP,SYSCFG external
-    class DEVPROF,ETHPROF config
-    class SSPMAIN,SSPDBUS,SSPRBUS ssp
-    class CRBASE,CROPER,CRPROF,CRSESS,CRUTIL,CREXPORT core
-    class NSMGR,COMPQ data
-    class BUS bus
-    class LINUX system
+    class Config config
+    class ssp_main,ssp_ipc ssp
+    class ProfileLoader,RegHandler core
+    class NamespaceMgr,ComponentQueue data
+    class libxml2,libunpriv,libtelemetry external
+    class rbus_dbus bus
 ```
 
 ### Prerequisites and Dependencies
@@ -193,11 +168,13 @@ graph LR
 
 **Threading Model:** 
 
-Component Registry implements a single-threaded synchronous request processing model for component registration and discovery operations. The main thread handles RBus or D-Bus message loop processing and invokes registration and discovery handlers synchronously, ensuring atomic updates to internal component and namespace data structures.
+Component Registry uses a multi-threaded request processing model with dedicated threads for system readiness monitoring and message bus interactions.
 
-- **Threading Architecture**: Single-threaded with synchronous message processing
-- **Main Thread**: RBus or D-Bus message loop handling component registration requests, namespace discovery queries, and system readiness requests
-- **Synchronization**: No explicit locking required due to single-threaded model; all data structure modifications occur on main thread in response to IPC requests
+- **Threading Architecture**: Multi-threaded with asynchronous message processing
+  - **D-Bus variant**: Uses CCSP message bus framework with internal threading via `DslhCreateCpeController::Engage()`; spawns `waitingForSystemReadyTask` as separate task
+  - **RBus variant**: Explicitly spawns threads for waiting on system ready (`waitForSystemReady`) and monitoring component dependencies (`pollingComponentReady`)
+- **Main Thread**: Supervises component lifecycle and yields to IPC message processing threads
+- **Synchronization**: Uses mutex locks (`pthread_mutex_t`) and condition variables (`pthread_cond_t`) for thread-safe access to component registry and system readiness state; synchronization mechanisms protect shared data structures during concurrent registration and discovery operations
 
 ### Component State Flow
 
@@ -257,27 +234,27 @@ sequenceDiagram
     participant Main as ssp_main
     participant CR as CR Manager
     participant Profile as Profile Loader
-    participant NS as Namespace Manager
-    participant IPC as D-Bus/RBus
+    participant IPC as IPC Layer
+    participant WaitThr as SystemReady<br/>Monitor Thread
 
     Init->>Main: Execute CcspCrSsp
-    Main->>Main: Initialize Logging and Tracing
+    Main->>Main: Initialize Logging & Tracing
     Main->>Main: Drop Root Privileges
     Main->>CR: CcspCreateCR()
-    CR->>CR: Allocate CR Manager Object
-    CR->>CR: Initialize Component Queues
+    CR->>CR: Allocate CR Manager<br/>Initialize Component Queues
     CR-->>Main: CR Handle
     Main->>Profile: LoadDeviceProfile()
     Profile->>Profile: Check /nvram/ETHWAN_ENABLE
     Profile->>Profile: Parse XML Device Profile
     Profile->>CR: Populate Component Info Queue
     Profile-->>Main: Success
-    Main->>NS: Create Namespace Manager
-    NS-->>Main: NS Handle
-    Main->>IPC: Initialize Message Bus (RBus/D-Bus)
-    IPC->>IPC: Register CR Methods & Properties
+    Main->>IPC: Initialize Message Bus<br/>(RBus or D-Bus)
+    IPC->>IPC: Register Methods & Properties
     IPC-->>Main: Success
-    Main->>Main: Enter Message Loop (Active State)
+    Main->>WaitThr: Spawn SystemReady<br/>Monitor Thread
+    WaitThr->>WaitThr: Wait for All Components<br/>to Register
+    Main->>Main: Continue in Main Loop<br/>(Daemon Mode)
+    Note over WaitThr: Publishes SystemReady event<br/>when all components registered
 ```
 
 **Request Processing Call Flow:**
@@ -462,8 +439,8 @@ Component Registry does not directly integrate with HAL APIs. CR operates entire
 - **Error Handling Strategy**: Registration failures log warnings but component operation continues; unknown component registrations are accepted and tracked in separate queue for diagnostic purposes
   - Files: `ccsp_cr_operation.c` - registration validates against profile but does not reject unknown components
   
-- **Logging & Debugging**: Uses CCSP trace macros for debug output; RBus variant uses RDK Logger when `DISABLE_RDK_LOGGER` is not defined
-  - Files: `ssp_main.c`, `ssp_rbus.c`
+- **Logging & Debugging**: Both RBus and D-Bus variants use RDK Logger via RDK_LOG macros when `DISABLE_RDK_LOGGER` is not defined; falls back to rtLog functions when RDK Logger is disabled. Also uses CCSP trace macros (AnscTrace) for general trace output.
+  - Files: `ssp_main.c`, `ssp_rbus.c`, `ssp_dbus.c`; RDK Logger initialized in main via `RDK_LOGGER_INIT()` when `FEATURE_SUPPORT_RDKLOG` is defined
 
 ### Key Configuration Files
 
@@ -473,4 +450,3 @@ Component Registry relies on XML device profile configurations that define expec
 |--------------------|---------|---------------------|
 | `/usr/ccsp/cr-deviceprofile.xml` | Standard device profile defining expected CCSP component registrations and namespace allocations | Selected by default; overridden by Ethernet WAN profile if `/nvram/ETHWAN_ENABLE` exists |
 | `/usr/ccsp/cr-ethwan-deviceprofile.xml` | Ethernet WAN device profile with modified component topology for Ethernet WAN configurations | Automatically selected when `/nvram/ETHWAN_ENABLE` file is present |
-
