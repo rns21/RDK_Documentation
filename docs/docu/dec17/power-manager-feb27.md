@@ -1,8 +1,8 @@
-# Power Manager Documentation
+# Power Manager
 
-The RDKB Power Manager is a lightweight system service responsible for managing power state transitions and coordinating orderly shutdown and startup of RDKB CCSP components based on power source changes and thermal conditions. This component monitors power transition events from the system layer and orchestrates component lifecycle management to ensure system stability during power state changes. Power Manager handles transitions between AC power and battery operation on supported platforms, as well as thermal management states to protect hardware from overheating conditions.
+The RDKB Power Manager is a lightweight system service responsible for managing power state transitions and coordinating orderly shutdown and startup of RDKB CCSP components based on power source changes and thermal conditions. This component monitors power transition events from the system layer and orchestrates component lifecycle management during power state changes. Power Manager handles transitions between AC power and battery operation on supported platforms, as well as thermal management states to protect hardware from overheating conditions.
 
-The component operates as a daemon process that listens to sysevent notifications for power state changes, validates transitions, invokes management scripts to control RDKB component lifecycles, and publishes the current power state for other components to consume. Power Manager maintains minimal resource footprint while ensuring reliable power event handling and component coordination across different power modes.
+The component operates as a daemon process that listens to sysevent notifications for power state changes, validates transitions, invokes management scripts to control RDKB component lifecycles, and publishes the current power state for other components to consume. Power Manager maintains minimal resource footprint for power event handling and component coordination across different power modes.
 
 ```mermaid
 graph LR
@@ -58,18 +58,18 @@ graph LR
 - **Power State Transition Management**: Monitors and processes power source transitions between AC power and battery operation on supported platforms, ensuring graceful component shutdown and startup sequences
 - **Thermal State Management**: Handles thermal condition transitions from normal operation to hot state and back to cooled state, triggering protective component shutdowns to prevent hardware damage
 - **Component Lifecycle Coordination**: Orchestrates orderly shutdown and startup of non-essential RDKB components while preserving critical services for remote management and voice functionality
-- **Sysevent Integration**: Listens to rdkb-power-transition events and publishes rdkb-power-state notifications enabling system-wide awareness of current power operating mode
+- **Sysevent Integration**: Listens to rdkb-power-transition events and publishes rdkb-power-state notifications for current power operating mode
 
 ## Design
 
-Power Manager implements a lightweight event-driven architecture focused on reliable power state monitoring and component coordination with minimal system overhead. The design separates power event detection, state transition validation, and component lifecycle management through well-defined interfaces. The component operates as a standalone daemon process with dedicated threading for asynchronous event handling ensuring responsive state transitions without blocking critical operations.
+Power Manager implements a lightweight event-driven architecture focused on power state monitoring and component coordination with minimal system overhead. The design separates power event detection, state transition validation, and component lifecycle management. The component operates as a standalone daemon process with dedicated threading for asynchronous event handling without blocking critical operations.
 
-The architecture maintains a simple state machine tracking current power mode and validating transition requests to prevent invalid state changes. Power Manager delegates actual component shutdown and startup operations to a companion shell script that encapsulates platform-specific systemd service management commands. This separation enables flexible adaptation to different platform requirements while maintaining consistent core power management logic across product variants.
+The architecture maintains a simple state machine tracking current power mode and validating transition requests to prevent invalid state changes. Power Manager delegates actual component shutdown and startup operations to a companion shell script that encapsulates platform-specific systemd service management commands. This separation allows platform-specific customization while maintaining consistent core power management logic.
 
 Sysevent serves as the primary IPC mechanism for both receiving power transition notifications and publishing current state information. The component establishes two sysevent connections - one dedicated to asynchronous event notifications and another for synchronous state publication operations. On startup, Power Manager queries battery status through MTA HAL on battery-capable platforms to initialize with correct power state before beginning event processing.
 
 ```mermaid
-graph TD
+flowchart LR
     subgraph External ["External Services"]
         SYSE[Sysevent Daemon]
         HAL[MTA HAL]
@@ -77,7 +77,6 @@ graph TD
     end
     
     subgraph PowerMgr ["Power Manager"]
-        direction TB
         MAIN[Main Process]
         INIT[Initialization Module]
         STATE[State Machine]
@@ -96,15 +95,14 @@ graph TD
     TRANS -->|Check Current State| STATE
     TRANS -->|Execute Script| SCRIPT
     SCRIPT -->|Invoke Shell| SHELL
-    SHELL -->|systemctl commands| External
     TRANS -->|Update State| STATE
     TRANS -->|Publish State| SYSE
     
-    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
-    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef component fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
     
-    class MAIN,INIT,STATE,SYSE_HAND,TRANS,SCRIPT component;
-    class SYSE,HAL,SHELL external;
+    class MAIN,INIT,STATE,SYSE_HAND,TRANS,SCRIPT component
+    class SYSE,HAL,SHELL external
 ```
 
 ### Prerequisites and Dependencies
@@ -147,7 +145,7 @@ Power Manager implements a multi-threaded architecture with a main process threa
 
 **Initialization to Active State**
 
-Power Manager follows a sequential initialization process establishing sysevent connections, querying initial power state, and spawning the event handler thread before transitioning to active monitoring mode.
+Power Manager follows a sequential initialization process: establish sysevent connections, query initial power state, spawn event handler thread, then transition to active monitoring mode.
 
 ```mermaid
 sequenceDiagram
@@ -200,7 +198,7 @@ sequenceDiagram
 
 **Runtime State Changes and Context Switching**
 
-During active operation Power Manager responds to power transition events triggering state validation and component lifecycle management operations.
+During active operation, Power Manager responds to power transition events by validating state and managing component lifecycle.
 
 **State Change Triggers:**
 
@@ -228,19 +226,23 @@ sequenceDiagram
     participant Reg as PwrMgr_Register_sysevent
     participant Def as PwrMgr_SetDefaults
     participant HAL as MTA HAL
+    participant Sysevent as Sysevent Daemon
 
     Main->>Main: Daemonize Process
     Main->>Main: checkIfAlreadyRunning
     Main->>Init: PwrMgr_Init
     Init->>Reg: PwrMgr_Register_sysevent
-    Reg->>Reg: sysevent_open rdkb_power_manger
-    Reg->>Reg: sysevent_open rdkb_power_manger-gs
+    Reg->>Sysevent: sysevent_open rdkb_power_manger
+    Sysevent-->>Reg: sysevent_fd and token
+    Reg->>Sysevent: sysevent_open rdkb_power_manger-gs
+    Sysevent-->>Reg: sysevent_fd_gs and token_gs
     Reg->>Def: PwrMgr_SetDefaults
     Def->>HAL: mta_hal_BatteryGetPowerStatus
     HAL-->>Def: Battery Status AC or Battery
     Def->>Def: Set gCurPowerState
     Def->>Def: sleep 5 seconds
-    Def->>Def: PwrMgr_SyseventSetStr rdkb-power-state
+    Def->>Sysevent: sysevent_set rdkb-power-state
+    Note over Sysevent: Publish initial power state
     Def-->>Reg: Initialization Complete
     Reg-->>Init: Registration Complete
     Init->>Init: pthread_create PwrMgr_sysevent_handler
@@ -251,26 +253,41 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant Event as External Event Source
+    participant External as External Event Source
+    participant Sysevent as Sysevent Daemon
     participant Thread as Sysevent Handler Thread
-    participant Trans as PwrMgr_StateTransition
-    participant Script as Shell Script Executor
-    participant Systemd as Systemd Services
+    participant Trans as PwrMgr_StateTranstion
+    participant Script as rdkb_power_manager.sh
+    participant Systemd as Systemd
 
-    Event->>Thread: Power Transition Event
-    Thread->>Thread: sysevent_getnotification
+    External->>Sysevent: sysevent set rdkb-power-transition POWER_TRANS_*
+    Sysevent->>Thread: Notification with event name and value
+    Thread->>Thread: sysevent_getnotification rdkb-power-transition
     Thread->>Thread: Parse Event Name and Value
-    Thread->>Trans: PwrMgr_StateTransition Value
+    Thread->>Trans: PwrMgr_StateTranstion POWER_TRANS_*
     Trans->>Trans: Convert String to Power State Enum
     Trans->>Trans: Validate Current vs New State
     
-    alt Valid Transition
-        Trans->>Script: v_secure_system rdkb_power_manager.sh
-        Script->>Systemd: systemctl stop/start Services
-        Systemd-->>Script: Services Stopped/Started
+    alt Valid Transition AC/COOLED
+        Trans->>Script: v_secure_system rdkb_power_manager.sh POWER_TRANS_AC/COOLED
+        Script->>Systemd: systemctl start CcspMoca.service
+        Script->>Systemd: systemctl start ccspwifiagent/onewifi.service
+        Script->>Systemd: systemctl start CcspLMLite.service
+        Script->>Systemd: systemctl start harvester.service
+        Systemd-->>Script: Services Started
         Script-->>Trans: Exit Code 0 Success
         Trans->>Trans: Update gCurPowerState
-        Trans->>Trans: PwrMgr_SyseventSetStr rdkb-power-state
+        Trans->>Sysevent: sysevent_set rdkb-power-state AC/ThermalCooled
+    else Valid Transition BATTERY/HOT
+        Trans->>Script: v_secure_system rdkb_power_manager.sh POWER_TRANS_BATTERY/HOT
+        Script->>Systemd: systemctl stop harvester.service
+        Script->>Systemd: systemctl stop CcspLMLite.service
+        Script->>Systemd: systemctl stop ccspwifiagent/onewifi.service
+        Script->>Systemd: systemctl stop CcspMoca.service
+        Systemd-->>Script: Services Stopped
+        Script-->>Trans: Exit Code 0 Success
+        Trans->>Trans: Update gCurPowerState
+        Trans->>Sysevent: sysevent_set rdkb-power-state Battery/ThermalHot
     else Invalid or Same State
         Trans->>Trans: Log Warning and Ignore
     end
@@ -299,11 +316,21 @@ Power Manager maintains focused interactions with system services for event moni
 
 | Target Component/Layer | Interaction Purpose | Key APIs/Endpoints |
 |------------------------|-------------------|------------------|
-| **System Services** |
-| Sysevent Daemon | Power state event monitoring and current state publication | `sysevent_open()`, `sysevent_setnotification()`, `sysevent_getnotification()`, `sysevent_set()` for rdkb-power-transition and rdkb-power-state |
-| Systemd Services | Orderly component shutdown and startup during power transitions | `systemctl stop/start` via shell script for CcspMoca.service, ccspwifiagent.service, onewifi.service, CcspLMLite.service, harvester.service |
-| **HAL Layer** |
-| MTA HAL | Battery power status query on initialization for battery-capable platforms | `mta_hal_BatteryGetPowerStatus()` |
+| **RDK-B Middleware Components (Indirect via Systemd)** |
+| CcspMoca.service | Stop during battery/thermal modes and restart on AC/cooled transitions | Controlled via `/usr/ccsp/pwrMgr/rdkb_power_manager.sh` executing `systemctl stop/start CcspMoca.service` |
+| WiFi Services (ccspwifiagent.service / onewifi.service) | Stop during battery/thermal modes and restart on AC/cooled transitions | Controlled via shell script executing `systemctl stop/start ccspwifiagent.service` or `onewifi.service` based on OneWiFiEnabled flag |
+| CcspLMLite.service | Stop during battery/thermal modes and restart on AC/cooled transitions | Controlled via shell script executing `systemctl stop/start CcspLMLite.service` |
+| harvester.service | Stop during battery/thermal modes and restart on AC/cooled transitions | Controlled via shell script executing `systemctl stop/start harvester.service` |
+| CcspPandM.service | Kept running in all power modes for remote monitoring | No direct control - preserved during power transitions |
+| CcspMtaAgent.service | Kept running in all power modes for voice service | No direct control - preserved during power transitions |
+| **System & HAL Layers** |
+| Sysevent Daemon | IPC mechanism for receiving power transition events and publishing current power state | Sysevent API: `sysevent_open()`, `sysevent_setnotification()`, `sysevent_getnotification()`, `sysevent_set()` on events `rdkb-power-transition` (subscribed), `rdkb-power-state` (published) |
+| Systemd | Service lifecycle management for RDKB component orderly shutdown and startup | Shell script invocation via `v_secure_system()` API executing `/usr/ccsp/pwrMgr/rdkb_power_manager.sh` with parameters POWER_TRANS_AC, POWER_TRANS_BATTERY, POWER_TRANS_HOT, POWER_TRANS_COOLED |
+| MTA HAL | Query battery power status during initialization on battery-capable platforms (XBB1, CBR2) | HAL API: `mta_hal_BatteryGetPowerStatus()` returns "AC", "Battery", or "Unknown" |
+| Secure Wrapper | Secure execution of shell scripts with sanitized inputs | Security API: `v_secure_system()` for safe shell command execution |
+
+**Configuration Persistence:**
+Power Manager does not persist power state configuration across reboots. The component queries MTA HAL on startup to determine initial power state on battery-capable platforms, defaulting to AC mode otherwise. Runtime power state changes are handled via sysevent notifications and are not stored in syscfg or PSM.
 
 **Events Published by Power Manager:**
 
@@ -329,19 +356,23 @@ sequenceDiagram
     participant Script as rdkb_power_manager.sh
     participant Systemd as Systemd
 
-    External->>Sysevent: sysevent set rdkb-power-transition Value
-    Note over Sysevent: Event: rdkb-power-transition<br/>Value: POWER_TRANS_*
+    External->>Sysevent: sysevent set rdkb-power-transition POWER_TRANS_BATTERY
+    Note over Sysevent: Event: rdkb-power-transition<br/>Value: POWER_TRANS_BATTERY
     Sysevent->>PowerMgr: Notification Callback
     Note over PowerMgr: Validate transition request
-    PowerMgr->>Script: v_secure_system Execute
-    Script->>Systemd: systemctl stop/start Commands
-    Systemd-->>Script: Service State Changed
-    Script-->>PowerMgr: Exit Status 0 or 1
+    PowerMgr->>Script: v_secure_system rdkb_power_manager.sh POWER_TRANS_BATTERY
+    Script->>Systemd: systemctl stop harvester.service
+    Script->>Systemd: systemctl stop CcspLMLite.service
+    Script->>Systemd: systemctl stop ccspwifiagent/onewifi.service
+    Script->>Systemd: systemctl stop CcspMoca.service
+    Note over Systemd: Non-essential services stopped
+    Systemd-->>Script: Services Stopped Successfully
+    Script-->>PowerMgr: Exit Status 0
     
     alt Success
-        PowerMgr->>PowerMgr: Update gCurPowerState
-        PowerMgr->>Sysevent: sysevent_set rdkb-power-state
-        Note over Sysevent: Published State Available
+        PowerMgr->>PowerMgr: Update gCurPowerState to BATTERY
+        PowerMgr->>Sysevent: sysevent_set rdkb-power-state Battery
+        Note over Sysevent: State: Battery published
     else Failure
         PowerMgr->>PowerMgr: Log Error Keep Current State
     end
@@ -353,20 +384,21 @@ sequenceDiagram
 sequenceDiagram
     participant Sysevent as Sysevent Daemon
     participant PowerMgr as Power Manager Sysevent Thread
-    participant Components as Listening Components
+    participant Components as RDKB Components
 
     loop Active Monitoring
         PowerMgr->>Sysevent: sysevent_getnotification
-        Note over PowerMgr: Blocking call waiting for events
-        Sysevent-->>PowerMgr: Event Name and Value
-        PowerMgr->>PowerMgr: Process rdkb-power-transition
-        PowerMgr->>PowerMgr: Execute State Transition
-        PowerMgr->>Sysevent: sysevent_set rdkb-power-state
+        Note over PowerMgr: Blocking call waiting for rdkb-power-transition
+        Sysevent-->>PowerMgr: Event: rdkb-power-transition<br/>Value: POWER_TRANS_AC
+        PowerMgr->>PowerMgr: Process rdkb-power-transition POWER_TRANS_AC
+        PowerMgr->>PowerMgr: Execute State Transition to AC
+        Note over PowerMgr: Start CcspMoca, WiFi, LMLite, Harvester
+        PowerMgr->>Sysevent: sysevent_set rdkb-power-state AC
     end
     
-    Note over Sysevent: State change published
-    Sysevent->>Components: Notify subscribed components
-    Components->>Components: Adjust behavior based on power state
+    Note over Sysevent: Power state change published:<br/>rdkb-power-state = AC
+    Sysevent->>Components: Notify subscribed RDKB components
+    Components->>Components: Adjust behavior for AC power mode
 ```
 
 ## Implementation Details
