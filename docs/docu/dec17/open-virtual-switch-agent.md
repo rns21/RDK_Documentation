@@ -52,7 +52,7 @@ graph LR
 
 - **OVSDB Gateway Config Monitoring**: Connects to the OVSDB server via Unix domain socket at `/var/run/openvswitch/db.sock` and monitors the `Gateway_Config` table for incoming network interface and bridge configuration requests from other RDK-B components.
 - **Bridge and Port Management**: Translates `Gateway_Config` records into actual Linux networking commands — creating or removing OVS bridges with `ovs-vsctl`, adding or removing ports, bringing interfaces up or down, and configuring VLAN and GRE interfaces.
-- **Dual-mode Networking Backend**: Selects between OVS-managed (`ovs-vsctl`) and Linux-native (`brctl`/`ifconfig`) bridge operations at runtime based on the bridge name. To meet Xfinity WiFi requirements, specific bridges (`brlan2`–`brlan5`, `brpublic`, `bropen6g`, `brsecure6g`) are unconditionally managed using Linux bridge utilities on all platforms, regardless of OVS availability. This behavior is not protected by any platform-specific flags and applies universally.
+- **Dual-mode Networking Backend**: Selects between OVS-managed (`ovs-vsctl`) and Linux-native (`brctl`/`ifconfig`) bridge operations at runtime based on the bridge name. To meet Xfinity WiFi requirements, specific bridges (`brlan2`–`brlan5`, `brpublic`, `bropen6g`, `brsecure6g`) are managed using Linux bridge utilities.
 - **Feedback Reporting**: After applying each configuration, inserts a `Feedback` record into the OVSDB `Feedback` table containing the request UUID and the operation status, allowing the originating component to confirm the outcome.
 - **OpenFlow Flow Configuration**: Sets up OpenFlow flows on OVS bridges for specific Wi-Fi hardware models and Mesh fast-roaming scenarios using `ovs-ofctl` commands after bridge configuration.
 - **Conditional Startup via syscfg**: Reads the `mesh_ovs_enable` syscfg key at startup. If the key is not set to `true` and neither `OneWiFiEnabled` nor `/etc/WFO_enabled` is present, the agent skips execution and touches `/tmp/ovsagent_initialized` to signal readiness without launching the main process.
@@ -249,7 +249,7 @@ OvsAgent does not implement a formal state machine beyond init/active/deinit. Du
 
 - A new row inserted into the OVSDB `Gateway_Config` table by BridgeUtils or MeshAgent triggers `gwconf_mon_cb()` on the listener thread.
 - The `if_cmd` field in `Gateway_Config` determines the specific operation: `OVS_IF_UP_CMD`, `OVS_IF_DOWN_CMD`, `OVS_IF_DELETE_CMD`, or `OVS_BR_REMOVE_CMD`.
-- The `parent_bridge` name determines whether OVS or Linux bridge tools are used; for Xfinity WiFi support, `brlan2`–`brlan5`, `brpublic`, `bropen6g`, `brsecure6g` are unconditionally handled by Linux bridges on all platforms (not protected by any platform flag).
+- The `parent_bridge` name determines whether OVS or Linux bridge tools are used; for Xfinity WiFi support, `brlan2`–`brlan5`, `brpublic`, `bropen6g`, `brsecure6g` are handled by Linux bridges.
 - Presence of `/nvram/enable_ovs_debug` at startup switches the log level from `RDK_LOG_INFO` to `RDK_LOG_DEBUG`.
 
 **Context Switching Scenarios:**
@@ -408,7 +408,7 @@ sequenceDiagram
 
 ### Key Implementation Logic
 
-- **Bridge Backend Selection**: In `ovs_modifyParentBridge()` ([ovs_action.c](open-virtual-switch-agent/source/OvsAction/ovs_action.c#L1178-L1186)), the bridge name is checked against a hard-coded list (`brlan2`–`brlan5`, `brpublic`, `bropen6g`, `brsecure6g`) to meet Xfinity WiFi requirements. These bridges unconditionally use Linux bridge utilities on all platforms, regardless of whether OVS is otherwise active. This behavior is not protected by any platform-specific or build-time flags — it applies universally. All other bridges use `ovs-vsctl`.
+- **Bridge Backend Selection**: In `ovs_modifyParentBridge()` ([ovs_action.c](open-virtual-switch-agent/source/OvsAction/ovs_action.c#L1178-L1186)), the bridge name is checked against a hard-coded list (`brlan2`–`brlan5`, `brpublic`, `bropen6g`, `brsecure6g`) to meet Xfinity WiFi requirements. These bridges use Linux bridge utilities. All other bridges use `ovs-vsctl`.
 
 - **OpenFlow Flow Setup**: After creating or modifying a bridge, `ovs_setup_bridge_flows()` is called. For specific Wi-Fi hardware models (identified as `OVS_CGM4331COM_MODEL`, `OVS_CGA4332COM_MODEL`, `OVS_CGM4981COM_MODEL`, `OVS_CGM601TCOM_MODEL`, `OVS_SG417DBCT_MODEL`, `OVS_VTER11QEL_MODEL`, `OVS_SR203_MODEL`), `ovs_setup_brcm_wifi_flows()` sets up OpenFlow flows. Additional flows handle Mesh fast-roaming scenarios.
 
