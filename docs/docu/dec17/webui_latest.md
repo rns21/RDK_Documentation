@@ -812,12 +812,3 @@ Partner branding resources including device pause screen assets (`device_pause_s
 | **Supported Locales** | English (en), French (fre), Italian (it), English GB (en_GB) |
 | **Fallback Mechanism** | `locale/jquery.i18n.fallbacks.js` handles missing translations |
 
-### Device Models with Special Handling
-
-| Model | Special Behavior |
-|-------|-----------------|
-| CGM4140COM, CGM4331COM, CGM4981COM | Client IP retrieved via `snmpget` |
-| TG1682G | Uses `HTTP_X_FORWARDED_FOR` for session IP tracking |
-| TG1682P | Defined as `PREPAID` device |
-| SR213, SR203 | Different Ethernet interface numbering |
-| XFI devices | Comcast-specific WiFi personalization |
