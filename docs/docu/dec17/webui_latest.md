@@ -35,15 +35,15 @@ graph LR
     DmFuncs -->|CCSP message bus| CCSPBus
     CCSPBus -->|Get/Set TR-181| DataModelOwners
 
-    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
-    classDef webui fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
-    classDef rdkbComponent fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
-    classDef system fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+    classDef external fill:#fff3e0,stroke:#ef6c00,strokeWidth:2px
+    classDef webui fill:#e3f2fd,stroke:#1976d2,strokeWidth:3px
+    classDef rdkbComponent fill:#e8f5e8,stroke:#2e7d32,strokeWidth:2px
+    classDef system fill:#fce4ec,stroke:#c2185b,strokeWidth:2px
 
-    class Browser external;
-    class Pages,DmFuncs webui;
-    class CCSPBus,DataModelOwners rdkbComponent;
-    class Lighttpd,Duktape system;
+    class Browser external
+    class Pages,DmFuncs webui
+    class CCSPBus,DataModelOwners rdkbComponent
+    class Lighttpd,Duktape system
 ```
 
 **Key Features & Responsibilities**:
@@ -123,15 +123,15 @@ graph LR
     Handlers -->|getStr/setStr| CCSPBus
     CCSPBus -->|Get/Set TR-181| DataModelOwners
 
-    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
-    classDef webui fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
-    classDef rdkbComponent fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
-    classDef system fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+    classDef external fill:#fff3e0,stroke:#ef6c00,strokeWidth:2px
+    classDef webui fill:#e3f2fd,stroke:#1976d2,strokeWidth:3px
+    classDef rdkbComponent fill:#e8f5e8,stroke:#2e7d32,strokeWidth:2px
+    classDef system fill:#fce4ec,stroke:#c2185b,strokeWidth:2px
 
-    class Browser external;
-    class Pages,Includes,Handlers,Csrf,Jwt,Validators,PhpCompat,Hash webui;
-    class CCSPBus,DataModelOwners rdkbComponent;
-    class Lighttpd,Duktape system;
+    class Browser external
+    class Pages,Includes,Handlers,Csrf,Jwt,Validators,PhpCompat,Hash webui
+    class CCSPBus,DataModelOwners rdkbComponent
+    class Lighttpd,Duktape system
 ```
 
 ### Prerequisites and Dependencies
@@ -350,8 +350,8 @@ graph LR
     Pages --> Locale
     Pages --> Assets
 
-    classDef webui fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
-    class Pages,Includes,Handlers,Validators,Csrf,Jwt,PhpCompat,Hash,Locale,Assets webui;
+    classDef webui fill:#e3f2fd,stroke:#1976d2,strokeWidth:3px
+    class Pages,Includes,Handlers,Validators,Csrf,Jwt,PhpCompat,Hash,Locale,Assets webui
 ```
 
 ### UI Pages Inventory
@@ -487,42 +487,35 @@ WebUI interacts with several classes of dependencies, all device-local. CCSP dat
 
 ```mermaid
 graph LR
-    subgraph "External Systems"
-        Browser["User Browser"]
-        OAuthProvider["Microsoft OAuth<br>(JWT key endpoint)"]
+    subgraph ext[External Systems]
+        Browser[User Browser]
+        OAuthProvider["Microsoft OAuth (JWT key endpoint)"]
     end
 
-    subgraph "RDK-B Device"
-        Lighttpd["lighttpd"]
-        WebUI["WebUI JST<br>(Duktape Engine)"]
-        CCSP["CCSP Message Bus"]
-        DataModel["TR-181 Data Model Owners"]
-        SessionStore["Session Storage<br>(DUKSID cookie)"]
+    subgraph device[RDK-B Device]
+        Lighttpd[lighttpd]
+        WebUI["WebUI JST (Duktape Engine)"]
+        CCSP[CCSP Message Bus]
+        DataModel[TR-181 Data Model Owners]
+        SessionStore["Session Storage (DUKSID cookie)"]
     end
 
-    %% External connections
     Browser -->|HTTP/HTTPS| Lighttpd
-    WebUI -.->|JWT key fetch<br>(MSO auth only)| OAuthProvider
-
-    %% Local runtime integration
+    WebUI -.->|JWT key fetch - MSO auth only| OAuthProvider
     Lighttpd -->|Route .jst| WebUI
-
-    %% Data model access
     WebUI -->|getStr/setStr| CCSP
     CCSP -->|Get/Set TR-181| DataModel
-
-    %% Session
     WebUI -->|read/write| SessionStore
 
-    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
-    classDef webui fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
-    classDef rdkbComponent fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
-    classDef system fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+    classDef external fill:#fff3e0,stroke:#ef6c00,strokeWidth:2px
+    classDef webui fill:#e3f2fd,stroke:#1976d2,strokeWidth:3px
+    classDef rdkbComponent fill:#e8f5e8,stroke:#2e7d32,strokeWidth:2px
+    classDef system fill:#fce4ec,stroke:#c2185b,strokeWidth:2px
 
-    class Browser,OAuthProvider external;
-    class WebUI webui;
-    class CCSP,DataModel rdkbComponent;
-    class Lighttpd,SessionStore system;
+    class Browser,OAuthProvider external
+    class WebUI webui
+    class CCSP,DataModel rdkbComponent
+    class Lighttpd,SessionStore system
 ```
 
 ### Interaction Matrix
