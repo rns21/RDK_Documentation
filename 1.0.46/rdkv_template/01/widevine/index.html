@@ -1,0 +1,5302 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.com/rdkv_template/01/widevine/" rel="canonical"/>
+<link href="../../../assets/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.6" name="generator"/>
+<title>widevine-rdk - Developer Portal</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/home.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/entertainment.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/getting-started.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/connectivity.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/devices.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/footer.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/header.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sidepanes.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sitemap.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home1.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home3.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="custom" data-md-color-primary="custom" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#widevine-rdk">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<input autocomplete="off" class="md-toggle" data-md-toggle="actions" id="__actions" type="checkbox"/>
+<div aria-hidden="true" class="mobile-actions-backdrop"></div>
+<aside aria-label="Quick actions" class="mobile-actions-panel">
+<div class="section">
+<div class="palette-slot"></div>
+</div>
+<div class="section">
+<div class="buttons-slot">
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Source Code</strong>
+</div>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg></div>
+<div class="text">Source Code</div>
+</button>
+</a>
+</div>
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Contribute</strong>
+</div>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg></div>
+<div class="text">Contribute</div>
+</button>
+</a>
+</div>
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Get help</strong>
+</div>
+<a href="mailto:support@rdkcentral.com">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg></div>
+<div class="text">Get Help</div>
+</button>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Developer Portal" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Developer Portal">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon md-hamburger--desktop" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M6 10l6 6 6-6-1.4-1.4-4.6 4.6-4.6-4.6z"></path></svg>
+</label>
+<label class="md-header__button md-icon md-hamburger--mobile" for="__actions">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 8H3V6h18M9 13h12v-2H9m0 7h12v-2H9"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">Developer Portal</span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              widevine-rdk
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="custom" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="custom" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to system preference" class="md-option" data-md-color-accent="custom" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="custom" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to system preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header_buttons">
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg></div>
+<div class="text">Source Code</div>
+</button>
+</a>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg>
+</div>
+<div class="text">Contribute</div>
+</button>
+</a>
+<a href="mailto:support@rdkcentral.com">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg></div>
+<div class="text">Get Help</div>
+</button>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../entertainment/docs/">
+          
+  
+  
+  Entertainment
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../connectivity/docs/">
+          
+  
+  
+  Connectivity
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../preview-rdk/docs/getting-started/">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../devices/docs/">
+        
+  
+  
+    
+  
+  Devices
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tools/docs/TDK/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../review/">
+          
+  
+  
+  Review
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../device-management/docs/">
+          
+  
+  
+  Device Management
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../docu/doc_template_orig_rama.md">
+          
+  
+  
+  Comparison
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Developer Portal" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Developer Portal">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+    Developer Portal
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/rdkcentral" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Entertainment
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Entertainment
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home1/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome1
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home3/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome3
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/Apps.md">
+<span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/tryout_rdkv_rdk7/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-vendor-porting-guide/">
+<span class="md-ellipsis">
+    
+  
+    Porting Kit
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdkv_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/westeros/">
+<span class="md-ellipsis">
+    
+  
+    Westeros
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rdkshell/">
+<span class="md-ellipsis">
+    
+  
+    RDK Shell
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rialto/">
+<span class="md-ellipsis">
+    
+  
+    Rialto
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/video_profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Connectivity
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Connectivity
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/features/">
+<span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/tryout_rdkb/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Oldprompt/">
+<span class="md-ellipsis">
+    
+  
+    PSM OldPrompt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_GPT5/">
+<span class="md-ellipsis">
+    
+  
+    PSM GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr Rama.md">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr%20GPT5/">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../preview-rdk/docs/getting-started/">
+<span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../devices/docs/">
+<span class="md-ellipsis">
+    
+  
+    Devices
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/TDK/">
+<span class="md-ellipsis">
+    
+  
+    TDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/Automatics/">
+<span class="md-ellipsis">
+    
+  
+    Automatics
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Review
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Review
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/WANManager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CellularManager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/GPONManager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/PPPManager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/VLANManager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/TelcoVoiceManager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPSM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/LMLite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LM Lite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPandM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PandM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/OneWifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/RBus/">
+<span class="md-ellipsis">
+    
+  
+    RBus
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/Utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Device Management
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Device Management
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/XConf/">
+<span class="md-ellipsis">
+    
+  
+    XConf
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Telemetry/">
+<span class="md-ellipsis">
+    
+  
+    Telemetry
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Webpa/">
+<span class="md-ellipsis">
+    
+  
+    Web PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/TR369/">
+<span class="md-ellipsis">
+    
+  
+    TR 369
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/LogUpload/">
+<span class="md-ellipsis">
+    
+  
+    Log Upload
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Comparison
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparison
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/doc_template_orig_rama.md">
+<span class="md-ellipsis">
+    
+  
+    Template_Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Backup
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Backup
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1" id="__nav_9_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    26Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    26Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_1" id="__nav_9_2_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/pnm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PNM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/wanmgr_claude/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/raheen/cl_claude/">
+<span class="md-ellipsis">
+    
+  
+    CL_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/raheen/lmlite_claude/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/raheen/psm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_2" id="__nav_9_2_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/pnm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PNM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/wanmgr_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/raheen/cl_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    CL_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/raheen/lmlite_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/raheen/psm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2" id="__nav_9_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    30Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    30Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/doc_template_mod_2609.md">
+<span class="md-ellipsis">
+    
+  
+    Template_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_2" id="__nav_9_2_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/WANMgr_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/LMLite_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/PSM_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/RBUS_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_3" id="__nav_9_2_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/WANMgr_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/LMLite_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/PSM_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/RBUS_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_3" id="__nav_9_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct10
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct10
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/templateOct10/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/templateOct10/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/templateOct10/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_4" id="__nav_9_2_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct21
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct21
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct21/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct21/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct21/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_5" id="__nav_9_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct22
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct22
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct22/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct22/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct22/lmlite/">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_6" id="__nav_9_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct27
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_6_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct27
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct27/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct27/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct27/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct27/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct27/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_7" id="__nav_9_2_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct28
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct28
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8" id="__nav_9_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Chunked
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Chunked
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_1" id="__nav_9_2_8_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CCSP PNM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/pnm/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/pnm/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/pnm/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_2" id="__nav_9_2_8_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    WAN Manager
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/wanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/wanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/wanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_3" id="__nav_9_2_8_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    LMLite
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/lanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/lanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/lanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_4" id="__nav_9_2_8_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_4_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Utopia
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/utopia/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/utopia/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/utopia/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_9" id="__nav_9_2_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Dec02
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_9_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Dec02
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/dec02/tnd/">
+<span class="md-ellipsis">
+    
+  
+    TestnDiagnostics
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/dec02/ccspcr/">
+<span class="md-ellipsis">
+    
+  
+    CcspCR
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/dec02/faq/">
+<span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct29
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct29
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct31
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct31
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct31/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct31/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct31/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct31/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov04
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov04
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov05
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov05
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_7" id="__nav_9_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Kavia
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Kavia
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_7_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_7_2" id="__nav_9_7_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_7_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_7_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    LMLite
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../lmlite_kavia_freeflow.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia Freeflow
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../lmlite_kavia_template.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia with Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../lmlite_copilot_template.md">
+<span class="md-ellipsis">
+    
+  
+    Copilot with Template
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_7_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_7_3" id="__nav_9_7_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    WanManager
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_7_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_7_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    WanManager
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../wm_kavia_freeflow.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia Freeflow
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../wm_kavia_template.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia with Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../wm_copilot_template.md">
+<span class="md-ellipsis">
+    
+  
+    Copilot with Template
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#overview">
+<span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#architecture">
+<span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+</a>
+<nav aria-label="Architecture" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#high-level-architecture">
+<span class="md-ellipsis">
+      
+        High-Level Architecture
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-architectural-patterns">
+<span class="md-ellipsis">
+      
+        Key Architectural Patterns
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#threading-concurrency">
+<span class="md-ellipsis">
+      
+        Threading &amp; Concurrency
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      
+        Design
+      
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design-principles">
+<span class="md-ellipsis">
+      
+        Design Principles
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#northbound-southbound-interactions">
+<span class="md-ellipsis">
+      
+        Northbound &amp; Southbound Interactions
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ipc-mechanisms">
+<span class="md-ellipsis">
+      
+        IPC Mechanisms
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-persistence-storage">
+<span class="md-ellipsis">
+      
+        Data Persistence &amp; Storage
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-diagram">
+<span class="md-ellipsis">
+      
+        Component Diagram
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal-modules">
+<span class="md-ellipsis">
+      
+        Internal Modules
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites-dependencies">
+<span class="md-ellipsis">
+      
+        Prerequisites &amp; Dependencies
+      
+    </span>
+</a>
+<nav aria-label="Prerequisites &amp; Dependencies" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rdk-e-platform-requirements">
+<span class="md-ellipsis">
+      
+        RDK-E Platform Requirements
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-dependencies">
+<span class="md-ellipsis">
+      
+        Build Dependencies
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#runtime-dependencies">
+<span class="md-ellipsis">
+      
+        Runtime Dependencies
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-installation">
+<span class="md-ellipsis">
+      
+        Build &amp; Installation
+      
+    </span>
+</a>
+<nav aria-label="Build &amp; Installation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cmake-configuration-options">
+<span class="md-ellipsis">
+      
+        CMake Configuration Options
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration">
+<span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+</a>
+<nav aria-label="Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-parameters">
+<span class="md-ellipsis">
+      
+        Configuration Parameters
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#runtime-configuration">
+<span class="md-ellipsis">
+      
+        Runtime Configuration
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-persistence">
+<span class="md-ellipsis">
+      
+        Configuration Persistence
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-usage">
+<span class="md-ellipsis">
+      
+        API / Usage
+      
+    </span>
+</a>
+<nav aria-label="API / Usage" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#interface-type">
+<span class="md-ellipsis">
+      
+        Interface Type
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#methods-imediakeys-via-widevine">
+<span class="md-ellipsis">
+      
+        Methods — IMediaKeys (via WideVine)
+      
+    </span>
+</a>
+<nav aria-label="Methods — IMediaKeys (via WideVine)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#initialize">
+<span class="md-ellipsis">
+      
+        Initialize
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#createmediakeysession">
+<span class="md-ellipsis">
+      
+        CreateMediaKeySession
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#setservercertificate">
+<span class="md-ellipsis">
+      
+        SetServerCertificate
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#destroymediakeysession">
+<span class="md-ellipsis">
+      
+        DestroyMediaKeySession
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#getmetrics">
+<span class="md-ellipsis">
+      
+        GetMetrics
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#methods-imediakeysession-via-mediakeysession">
+<span class="md-ellipsis">
+      
+        Methods — IMediaKeySession (via MediaKeySession)
+      
+    </span>
+</a>
+<nav aria-label="Methods — IMediaKeySession (via MediaKeySession)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#run">
+<span class="md-ellipsis">
+      
+        Run
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#update">
+<span class="md-ellipsis">
+      
+        Update
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#load">
+<span class="md-ellipsis">
+      
+        Load
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#remove">
+<span class="md-ellipsis">
+      
+        Remove
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#close">
+<span class="md-ellipsis">
+      
+        Close
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#decrypt">
+<span class="md-ellipsis">
+      
+        Decrypt
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#setparameter">
+<span class="md-ellipsis">
+      
+        SetParameter
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#callbacks-fired-on-imediakeysessioncallback">
+<span class="md-ellipsis">
+      
+        Callbacks Fired on IMediaKeySessionCallback
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-interactions">
+<span class="md-ellipsis">
+      
+        Component Interactions
+      
+    </span>
+</a>
+<nav aria-label="Component Interactions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#interaction-matrix">
+<span class="md-ellipsis">
+      
+        Interaction Matrix
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-state-flow">
+<span class="md-ellipsis">
+      
+        Component State Flow
+      
+    </span>
+</a>
+<nav aria-label="Component State Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#initialization-to-active-state">
+<span class="md-ellipsis">
+      
+        Initialization to Active State
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#runtime-state-changes">
+<span class="md-ellipsis">
+      
+        Runtime State Changes
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#call-flows">
+<span class="md-ellipsis">
+      
+        Call Flows
+      
+    </span>
+</a>
+<nav aria-label="Call Flows" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provisioning-call-flow">
+<span class="md-ellipsis">
+      
+        Provisioning Call Flow
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#license-acquisition-call-flow">
+<span class="md-ellipsis">
+      
+        License Acquisition Call Flow
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#decryption-call-flow">
+<span class="md-ellipsis">
+      
+        Decryption Call Flow
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      
+        Implementation Details
+      
+    </span>
+</a>
+<nav aria-label="Implementation Details" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-implementation-logic">
+<span class="md-ellipsis">
+      
+        Key Implementation Logic
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-handling-strategy">
+<span class="md-ellipsis">
+      
+        Error Handling Strategy
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#logging-diagnostics">
+<span class="md-ellipsis">
+      
+        Logging &amp; Diagnostics
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-flow">
+<span class="md-ellipsis">
+      
+        Data Flow
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-handling">
+<span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+</a>
+<nav aria-label="Error Handling" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#layered-error-handling">
+<span class="md-ellipsis">
+      
+        Layered Error Handling
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exception-safety">
+<span class="md-ellipsis">
+      
+        Exception Safety
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-considerations">
+<span class="md-ellipsis">
+      
+        Performance Considerations
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-safety">
+<span class="md-ellipsis">
+      
+        Security &amp; Safety
+      
+    </span>
+</a>
+<nav aria-label="Security &amp; Safety" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#input-validation">
+<span class="md-ellipsis">
+      
+        Input Validation
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hardware-resource-protection">
+<span class="md-ellipsis">
+      
+        Hardware / Resource Protection
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#threat-model-notes">
+<span class="md-ellipsis">
+      
+        Threat Model Notes
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#versioning-release">
+<span class="md-ellipsis">
+      
+        Versioning &amp; Release
+      
+    </span>
+</a>
+<nav aria-label="Versioning &amp; Release" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#branch-strategy">
+<span class="md-ellipsis">
+      
+        Branch Strategy
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#changelog">
+<span class="md-ellipsis">
+      
+        Changelog
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#contributing">
+<span class="md-ellipsis">
+      
+        Contributing
+      
+    </span>
+</a>
+<nav aria-label="Contributing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#license-requirements">
+<span class="md-ellipsis">
+      
+        License Requirements
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-to-contribute">
+<span class="md-ellipsis">
+      
+        How to Contribute
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pull-request-checklist">
+<span class="md-ellipsis">
+      
+        Pull Request Checklist
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#repository-structure">
+<span class="md-ellipsis">
+      
+        Repository Structure
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#questions-contact">
+<span class="md-ellipsis">
+      
+        Questions &amp; Contact
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/rdkcentral/edit/master/docs/rdkv_template/01/widevine.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<h1 id="widevine-rdk">widevine-rdk</h1>
+<p>CDMi (Content Decryption Module interface) implementation of Google Widevine DRM for the RDK-E OCDM framework, providing encrypted media session management and hardware-accelerated decryption.</p>
+<hr/>
+<h2 id="overview">Overview</h2>
+<p><code>widevine-rdk</code> is the RDK-E layer implementation of the Open Content Decryption Module (OCDM) interface for Widevine. It is not a Thunder plugin itself — it is a <code>.drm</code> shared library loaded at runtime by the OCDM Thunder plugin. It bridges the CDMi abstract interface and the Widevine CE CDM library, managing key sessions, device provisioning, and sample decryption.</p>
+<p>At the device level, this component enables Widevine-protected video and audio playback across <code>video/webm</code>, <code>video/mp4</code>, <code>audio/webm</code>, and <code>audio/mp4</code> MIME types. At the middleware level, it exposes the <code>IMediaKeys</code> and <code>IMediaKeySession</code> CDMi interfaces to the OCDM plugin, which routes decryption requests from the media pipeline.</p>
+<pre class="mermaid"><code>graph TD
+    App["Client Application\n(Lightning / WebApp / Native)"]
+    OCDM["OCDM Thunder Plugin\n(org.rdk.OCDMi)"]
+    WV["widevine-rdk\n(Widevine.drm)"]
+    WVLib["widevine_ce_cdm_shared\n(Widevine CE CDM Library)"]
+    SVP["gst-svp-ext\n(Secure Video Path)"]
+    ProvServer["Widevine Provisioning Server\n(HTTP / libcurl)"]
+    LicServer["Widevine License Server\n(http://widevine-proxy.appspot.com/proxy)"]
+
+    App --&gt;|"CDM API"| OCDM
+    OCDM --&gt;|"CDMi IMediaKeys / IMediaKeySession"| WV
+    WV --&gt;|"widevine::Cdm API"| WVLib
+    WV --&gt;|"svp_allocate_secure_buffers / gst_svp_ext"| SVP
+    WV --&gt;|"HTTP POST (libcurl)"| ProvServer
+    WV --&gt;|"OnKeyMessage callback"| OCDM
+    OCDM --&gt;|"License fetch"| LicServer</code></pre>
+<p><strong>Key Features &amp; Responsibilities:</strong></p>
+<ul>
+<li><strong>Session management</strong>: Creates, loads, updates, removes, and closes Widevine CDM sessions via <code>widevine::Cdm</code> APIs. Supports <code>kTemporary</code>, <code>kPersistentLicense</code>, and (for Widevine versions earlier than 17) <code>kPersistentUsageRecord</code> session types.</li>
+<li><strong>Device provisioning</strong>: Detects <code>kNeedsDeviceCertificate</code> (status 101) on session creation and automatically performs the provisioning flow: generates a provisioning request, posts it to <code>WV_PROV_SERVER_URL</code> via libcurl, and processes the response with <code>handleProvisioningResponse()</code>.</li>
+<li><strong>Sample decryption</strong>: Decrypts CENC and WebM encrypted samples. Integrates with <code>gst-svp-ext</code> for Secure Video Path (SVP) support when <code>USE_SVP</code> is defined, allocating and managing hardware-secure memory regions.</li>
+<li><strong>Key status reporting</strong>: Maps Widevine key status and error codes to CDMi string constants and forwards them to the OCDM framework via <code>IMediaKeySessionCallback</code>.</li>
+<li><strong>Host services</strong>: Implements all host interfaces required by the Widevine CDM: in-memory file storage (<code>IStorage</code>), system clock (<code>IClock</code>), and timer scheduling (<code>ITimer</code>) using WPEFramework core primitives.</li>
+<li><strong>Multi-platform support</strong>: Conditionally links platform-specific libraries for Broadcom (NEXUS/NXCLIENT), Realtek (<code>liboec_ref_shared.so</code>), and Amlogic (OpenSSL) at build time.</li>
+</ul>
+<hr/>
+<h2 id="architecture">Architecture</h2>
+<h3 id="high-level-architecture">High-Level Architecture</h3>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────┐
+│               OCDM Thunder Plugin (org.rdk.OCDMi)             │
+│                  CDMi IMediaKeys / IMediaKeySession           │
+├──────────────────────────────────────────────────────────────┤
+│                         widevine-rdk                          │
+│  ┌─────────────────────┬──────────────────────────────────┐  │
+│  │   WideVine class    │      MediaKeySession class       │  │
+│  │  (IMediaKeys +      │  (IMediaKeySession +             │  │
+│  │   IEventListener +  │   Decrypt + SVP integration)     │  │
+│  │   ISystemMetrics)   │                                  │  │
+│  └─────────────────────┴──────────────────────────────────┘  │
+│  ┌─────────────────────────────────────────────────────────┐  │
+│  │              HostImplementation                          │  │
+│  │    (IStorage  /  IClock  /  ITimer  [/ ILogger v18])    │  │
+│  └─────────────────────────────────────────────────────────┘  │
+├──────────────────────────────────────────────────────────────┤
+│  widevine_ce_cdm_shared  │  gst-svp-ext  │  libcurl          │
+└──────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="key-architectural-patterns">Key Architectural Patterns</h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Description</th>
+<th>Where Applied</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Factory</td>
+<td><code>GetSystemFactory()</code> exports a <code>SystemFactoryType&lt;WideVine&gt;</code> to the OCDM plugin loader</td>
+<td><code>MediaSystem.cpp</code></td>
+</tr>
+<tr>
+<td>Observer</td>
+<td><code>WideVine</code> implements <code>widevine::Cdm::IEventListener</code>; CDM fires callbacks on events</td>
+<td><code>WideVine::onMessage()</code>, <code>onKeyStatusesChange()</code></td>
+</tr>
+<tr>
+<td>RAII</td>
+<td>Session destructor calls <code>Close()</code>; SVP buffers freed on session destruction</td>
+<td><code>MediaKeySession::~MediaKeySession()</code></td>
+</tr>
+<tr>
+<td>Singleton</td>
+<td>One <code>widevine::Cdm</code> instance per <code>WideVine</code> object, shared across all sessions</td>
+<td><code>WideVine::_cdm</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="threading-concurrency">Threading &amp; Concurrency</h3>
+<ul>
+<li><strong>Threading Architecture</strong>: Multi-threaded. The WPEFramework OCDM plugin may call CDMi interfaces from multiple threads.</li>
+<li><strong>Session map protection</strong>: <code>WideVine::_adminLock</code> (<code>WPEFramework::Core::CriticalSection</code>) protects access to the <code>_sessions</code> map in all <code>IMediaKeys</code> and <code>IEventListener</code> methods.</li>
+<li><strong>Decrypt / CDM call serialization</strong>: A global <code>WPEFramework::Core::CriticalSection g_lock</code> (declared in <code>MediaSession.cpp</code>) serializes <code>Load()</code>, <code>Update()</code>, <code>Remove()</code>, <code>Close()</code>, and <code>Decrypt()</code> calls against the underlying <code>widevine::Cdm</code> object.</li>
+<li><strong>Timer thread</strong>: <code>HostImplementation</code> runs a <code>WPEFramework::Core::TimerType&lt;Timer&gt;</code> thread named <code>"widevine"</code> to service CDM timer callbacks (<code>ITimer::setTimeout</code> / <code>cancel</code>).</li>
+<li><strong>Async / Provisioning</strong>: Provisioning HTTP requests in the <code>MediaKeySession</code> constructor are synchronous blocking calls via libcurl. No async dispatch is used for provisioning.</li>
+</ul>
+<hr/>
+<h2 id="design">Design</h2>
+<h3 id="design-principles">Design Principles</h3>
+<p>The component is a thin adaptation layer. Its design is constrained by two external contracts: the CDMi <code>IMediaKeys</code> / <code>IMediaKeySession</code> interface defined by the OCDM framework, and the <code>widevine::Cdm</code> API from the Widevine CE CDM library. Business logic is kept minimal — the component translates CDMi calls to <code>widevine::Cdm</code> calls, maps error and status codes, and routes callbacks. Platform-specific differences (Broadcom, Realtek, Amlogic) are isolated to CMake link-time flags rather than runtime code paths, keeping the C++ source portable. SVP integration is fully guarded by <code>#ifdef USE_SVP</code> preprocessor blocks, so the component builds without SVP when the flag is absent. The Widevine CDM version (14, 17, 18) is handled via <code>#if (WIDEVINE_VERSION == N)</code> guards that select the correct <code>widevine::Cdm::initialize()</code> signature and interface set.</p>
+<h3 id="northbound-southbound-interactions">Northbound &amp; Southbound Interactions</h3>
+<p><strong>Northbound</strong>: The OCDM Thunder plugin calls <code>GetSystemFactory()</code> at load time to obtain a <code>SystemFactoryType&lt;WideVine&gt;</code> factory. The factory is registered for the MIME types <code>video/webm</code>, <code>video/mp4</code>, <code>audio/webm</code>, and <code>audio/mp4</code>. All further interaction is through the CDMi C++ interfaces: <code>IMediaKeys</code> (session lifecycle) and <code>IMediaKeySession</code> (key acquisition and decryption).</p>
+<p><strong>Southbound</strong>: All DRM operations are delegated to <code>widevine::Cdm</code> from <code>widevine_ce_cdm_shared</code>. Provisioning responses are fetched via HTTP POST using libcurl. Sample decryption with SVP enabled routes encrypted data through <code>gst-svp-ext</code> secure memory APIs before passing it to the CDM decryptor.</p>
+<h3 id="ipc-mechanisms">IPC Mechanisms</h3>
+<ul>
+<li><strong>CDMi C++ interface</strong>: Direct in-process function calls between the OCDM plugin and this library. No JSON-RPC or COM-RPC involved at this layer.</li>
+<li><strong>libcurl HTTP</strong>: Used only during provisioning. <code>sendPostRequest()</code> in <code>MediaSession.cpp</code> builds a GET-style URL by appending <code>&amp;signedRequest=&lt;request&gt;</code> to <code>WV_PROV_SERVER_URL</code> and performs a synchronous <code>curl_easy_perform()</code>.</li>
+<li><strong>gst-svp-ext IPC</strong>: The <code>rpcId</code> parameter set via <code>SetParameter()</code> carries an RPC identifier for <code>gst_svp_ext_get_context()</code> to establish a client-side SVP context. The actual secure buffer operations are executed through <code>gst-svp-ext</code> function calls.</li>
+</ul>
+<h3 id="data-persistence-storage">Data Persistence &amp; Storage</h3>
+<p>All storage for the Widevine CDM is in-memory. <code>HostImplementation</code> implements <code>widevine::Cdm::IStorage</code> using a <code>std::map&lt;std::string, std::string&gt; _files</code>. Files written by the CDM via <code>write()</code> are stored only in this map and are not persisted to the filesystem. The certificate file (<code>cert.bin</code>) is pre-populated from the path specified in the <code>certificate</code> configuration field via <code>PreloadFile()</code> at initialization. The keybox path is set by writing the <code>WIDEVINE_KEYBOX_PATH</code> environment variable — the keybox file itself on disk is accessed by the Widevine CDM library directly, not by this component.</p>
+<p>Configuration changes are not persisted across reboots by this component.</p>
+<h3 id="component-diagram">Component Diagram</h3>
+<pre class="mermaid"><code>graph TD
+    subgraph WidevineDRM ["widevine-rdk (Widevine.drm)"]
+        subgraph SystemLayer ["System Factory Layer"]
+            GF["GetSystemFactory()\nSystemFactoryType&lt;WideVine&gt;"]
+        end
+        subgraph MediaSystemLayer ["Media System Layer"]
+            WV["WideVine\nIMediaKeys + IEventListener + ISystemMetrics\nMediaSystem.cpp"]
+        end
+        subgraph SessionLayer ["Session Layer"]
+            MKS["MediaKeySession\nIMediaKeySession\nMediaSession.cpp"]
+        end
+        subgraph HostLayer ["Host Services Layer"]
+            HI["HostImplementation\nIStorage / IClock / ITimer\nHostImplementation.cpp"]
+        end
+    end
+    subgraph External ["External"]
+        CDM["widevine_ce_cdm_shared\n(widevine::Cdm)"]
+        SVP["gst-svp-ext"]
+        CURL["libcurl\n(Provisioning HTTP)"]
+    end
+
+    GF --&gt;|"creates"| WV
+    WV --&gt;|"creates / manages"| MKS
+    WV --&gt;|"hosts"| HI
+    WV --&gt;|"widevine::Cdm::initialize / create"| CDM
+    MKS --&gt;|"createSession / generateRequest\nupdate / load / remove / close\ndecrypt / getKeyStatuses"| CDM
+    MKS --&gt;|"SVP secure buffer ops"| SVP
+    MKS --&gt;|"Provisioning POST"| CURL
+    HI --&gt;|"IStorage / IClock / ITimer callbacks"| CDM</code></pre>
+<hr/>
+<h2 id="internal-modules">Internal Modules</h2>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WideVine</code></td>
+<td>Implements <code>IMediaKeys</code> and <code>widevine::Cdm::IEventListener</code>. Owns the single <code>widevine::Cdm*</code> instance and the session map. Reads JSON configuration, sets client info, and initializes the CDM. Routes CDM event callbacks (<code>onMessage</code>, <code>onKeyStatusesChange</code>, etc.) to the correct <code>MediaKeySession</code>.</td>
+<td><code>MediaSystem.cpp</code></td>
+</tr>
+<tr>
+<td><code>MediaKeySession</code></td>
+<td>Implements <code>IMediaKeySession</code>. Manages one Widevine session: runs provisioning on demand, calls <code>generateRequest</code>, processes <code>Update</code> (license response), <code>Load</code>, <code>Remove</code>, <code>Close</code>, and <code>Decrypt</code>. Handles SVP secure memory allocation and decryption routing.</td>
+<td><code>MediaSession.cpp</code>, <code>MediaSession.h</code></td>
+</tr>
+<tr>
+<td><code>HostImplementation</code></td>
+<td>Implements the three host interfaces required by the Widevine CDM: <code>IStorage</code> (in-memory <code>std::map</code>), <code>IClock</code> (WPEFramework <code>Core::Time</code>), and <code>ITimer</code> (WPEFramework <code>Core::TimerType</code>). For Widevine version 18, also implements <code>ILogger</code> (empty body).</td>
+<td><code>HostImplementation.cpp</code>, <code>HostImplementation.h</code></td>
+</tr>
+<tr>
+<td><code>Policy.h</code></td>
+<td>Provides compile-time string constants: <code>kLicenseServer</code> URL, default server certificate hex strings, and test CENC init data. Consumed by <code>MediaSession.cpp</code>.</td>
+<td><code>Policy.h</code></td>
+</tr>
+<tr>
+<td><code>Module.cpp</code></td>
+<td>Declares the WPEFramework module name <code>OCDM_Widevine</code> via <code>MODULE_NAME_DECLARATION(BUILD_REFERENCE)</code>.</td>
+<td><code>Module.cpp</code>, <code>Module.h</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>flowchart TD
+    subgraph widevine_rdk ["widevine-rdk"]
+        GF(["GetSystemFactory()"])
+        WV(["WideVine\n(MediaSystem.cpp)"])
+        MKS(["MediaKeySession\n(MediaSession.cpp)"])
+        HI(["HostImplementation\n(HostImplementation.cpp)"])
+        PH(["Policy.h\n(kLicenseServer, certs)"])
+        MOD(["Module.cpp\n(MODULE_NAME_DECLARATION)"])
+    end
+    GF --&gt; WV
+    WV --&gt; MKS
+    WV --&gt; HI
+    MKS --&gt; PH</code></pre>
+<hr/>
+<h2 id="prerequisites-dependencies">Prerequisites &amp; Dependencies</h2>
+<p><strong>Documentation Verification:</strong></p>
+<ul>
+<li>No <code>IARM_Bus_RegisterEventHandler</code> or <code>IARM_Bus_Call</code> calls found in source. No IARM integration is implemented.</li>
+<li>No Device Services (DS) API calls found in source. No DS integration is implemented.</li>
+<li>No persistent store read/write calls found in source. Storage is in-memory only.</li>
+<li>No <code>.service</code> file found in repository. Systemd dependencies are not documented here.</li>
+<li>Configuration is read from a JSON string passed by the OCDM plugin's <code>Initialize()</code>, not from a standalone file opened by this component.</li>
+</ul>
+<h3 id="rdk-e-platform-requirements">RDK-E Platform Requirements</h3>
+<ul>
+<li><strong>WPEFramework Version</strong>: Requires <code>WPEFramework</code> package; uses <code>Core::CriticalSection</code>, <code>Core::Time</code>, <code>Core::TimerType</code>, <code>Core::DataElementFile</code>, <code>Core::SystemInfo::SetEnvironment</code>, and <code>TRACE_L1</code>.</li>
+<li><strong>Build Dependencies</strong>: Widevine CE CDM library (<code>widevine_ce_cdm_shared</code>, header <code>cdm.h</code>); OpenSSL headers (<code>openssl/aes.h</code>, <code>openssl/evp.h</code>); libcurl; <code>gst-svp-ext</code> (when <code>USE_SVP</code> is enabled).</li>
+<li><strong>RDK-E Plugin Dependencies</strong>: The OCDM Thunder plugin (<code>org.rdk.OCDMi</code>) must be present. <code>widevine-rdk</code> is not active independently — it is loaded as a <code>.drm</code> plugin by OCDM.</li>
+<li><strong>Device Services / HAL</strong>: No Device Services integration implemented.</li>
+<li><strong>IARM Bus</strong>: No IARM integration implemented.</li>
+<li><strong>Configuration Files</strong>: <code>/etc/device.properties</code> is read at <code>Initialize()</code> time to populate <code>OPERATOR_NAME</code>, <code>MODEL_NUM</code>, <code>DEVICE_NAME</code>, and <code>COBALT_CERT_SCOPE</code> fields when those fields are not set in the JSON configuration.</li>
+<li><strong>Widevine Keybox</strong>: The keybox file path is set via the <code>WIDEVINE_KEYBOX_PATH</code> environment variable. The keybox file is read directly by <code>widevine_ce_cdm_shared</code>.</li>
+</ul>
+<h3 id="build-dependencies">Build Dependencies</h3>
+<table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Minimum Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CMake</td>
+<td>3.3</td>
+<td>Build system</td>
+</tr>
+<tr>
+<td>WPEFramework</td>
+<td>—</td>
+<td>Core utilities, plugin host</td>
+</tr>
+<tr>
+<td><code>widevine_ce_cdm_shared</code></td>
+<td>—</td>
+<td>Widevine CE CDM implementation</td>
+</tr>
+<tr>
+<td>OpenSSL</td>
+<td>—</td>
+<td>AES/EVP headers used in <code>MediaSession.cpp</code></td>
+</tr>
+<tr>
+<td>libcurl</td>
+<td>—</td>
+<td>HTTP POST for device provisioning</td>
+</tr>
+<tr>
+<td><code>gst-svp-ext</code></td>
+<td>—</td>
+<td>Secure Video Path integration (when <code>USE_SVP</code> defined)</td>
+</tr>
+<tr>
+<td>GStreamer 1.0 / GLib 2.0</td>
+<td>—</td>
+<td>Header includes for SVP (when <code>USE_SVP</code> defined)</td>
+</tr>
+<tr>
+<td>NEXUS / NXCLIENT / NexusWidevine</td>
+<td>—</td>
+<td>Broadcom platform linking (when <code>WIDEVINE_BROADCOM</code> defined)</td>
+</tr>
+<tr>
+<td><code>liboec_ref_shared.so</code></td>
+<td>—</td>
+<td>Realtek platform linking (when <code>WIDEVINE_REALTEK</code> defined)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="runtime-dependencies">Runtime Dependencies</h3>
+<table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OCDM Thunder plugin</td>
+<td>Loads <code>Widevine.drm</code> via <code>GetSystemFactory()</code>.</td>
+</tr>
+<tr>
+<td><code>widevine_ce_cdm_shared</code></td>
+<td>Must be present on the device. Path resolved by dynamic linker.</td>
+</tr>
+<tr>
+<td><code>gst-svp-ext</code></td>
+<td>Required at runtime when <code>USE_SVP</code> is compiled in.</td>
+</tr>
+<tr>
+<td><code>/etc/device.properties</code></td>
+<td>Consulted during <code>Initialize()</code> for operator, model, and device info.</td>
+</tr>
+<tr>
+<td>Widevine keybox file</td>
+<td>Must exist at <code>WIDEVINE_KEYBOX_PATH</code>; accessed by the CDM library.</td>
+</tr>
+<tr>
+<td>Widevine provisioning server</td>
+<td>Required at first use if device is not provisioned.</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="build-installation">Build &amp; Installation</h2>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/rdkcentral/widevine-rdk.git
+<span class="nb">cd</span><span class="w"> </span>widevine-rdk
+
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+
+<span class="c1"># WV_PROV_SERVER_URL_STRING is mandatory and must include a query parameter</span>
+cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DWV_PROV_SERVER_URL_STRING<span class="o">=</span><span class="s2">"https://&lt;provisioning-server&gt;/provision?key=&lt;key&gt;"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_WIDEVINE_VERSION<span class="o">=</span><span class="m">17</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>../
+
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+sudo<span class="w"> </span>make<span class="w"> </span>install
+</code></pre></div>
+<p>The library is installed to <code>${CMAKE_INSTALL_PREFIX}/share/${NAMESPACE}/OCDM/</code> as <code>Widevine.drm</code> (no <code>lib</code> prefix, <code>.drm</code> extension).</p>
+<h3 id="cmake-configuration-options">CMake Configuration Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Values</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CMAKE_BUILD_TYPE</code></td>
+<td><code>Debug</code> / <code>Release</code></td>
+<td>—</td>
+<td>Build variant.</td>
+</tr>
+<tr>
+<td><code>WV_PROV_SERVER_URL_STRING</code></td>
+<td>URL string</td>
+<td>—</td>
+<td><strong>Mandatory.</strong> Full provisioning URL including at least one query parameter (e.g. <code>?key=XXX</code>). <code>MediaSession.cpp</code> appends <code>&amp;signedRequest=</code> at runtime.</td>
+</tr>
+<tr>
+<td><code>CMAKE_WIDEVINE_VERSION</code></td>
+<td><code>17</code> / <code>18</code></td>
+<td>—</td>
+<td>Sets <code>WIDEVINE_VERSION</code> preprocessor define. Selects the correct <code>widevine::Cdm::initialize()</code> signature and interface set.</td>
+</tr>
+<tr>
+<td><code>WIDEVINE_BROADCOM</code></td>
+<td>defined / not set</td>
+<td>not set</td>
+<td>Link NEXUS, NXCLIENT, NexusWidevine, and curl.</td>
+</tr>
+<tr>
+<td><code>WIDEVINE_REALTEK</code></td>
+<td>defined / not set</td>
+<td>not set</td>
+<td>Link <code>liboec_ref_shared.so</code>, crypto, curl, ssl, rt, pthread.</td>
+</tr>
+<tr>
+<td><code>WIDEVINE_AMLOGIC</code></td>
+<td>defined / not set</td>
+<td>not set</td>
+<td>Link OpenSSL and curl.</td>
+</tr>
+<tr>
+<td><code>WIDEVINE_DEFAULT_SERVER_CERTIFICATE_SUPPORTED</code></td>
+<td>defined / not set</td>
+<td>not set</td>
+<td>Include the hardcoded production service certificate in <code>MediaSession.cpp</code> and the default server certificate in <code>Policy.h</code>.</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="configuration">Configuration</h2>
+<h3 id="configuration-parameters">Configuration Parameters</h3>
+<p>Configuration is provided as a JSON string by the OCDM plugin when it calls <code>Initialize()</code>. All fields are optional; fallback behavior is noted.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default / Fallback</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>certificate</code></td>
+<td>string</td>
+<td>—</td>
+<td>Filesystem path to the certificate file. Loaded into in-memory storage as <code>cert.bin</code>.</td>
+</tr>
+<tr>
+<td><code>keybox</code></td>
+<td>string</td>
+<td>—</td>
+<td>Filesystem path to the Widevine keybox. Sets <code>WIDEVINE_KEYBOX_PATH</code> environment variable.</td>
+</tr>
+<tr>
+<td><code>product</code></td>
+<td>string</td>
+<td><code>"WPEFramework"</code></td>
+<td>Widevine client <code>product_name</code>.</td>
+</tr>
+<tr>
+<td><code>company</code></td>
+<td>string</td>
+<td><code>OPERATOR_NAME</code> field from <code>/etc/device.properties</code></td>
+<td>Widevine client <code>company_name</code>.</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td>string</td>
+<td><code>MODEL_NUM</code> field from <code>/etc/device.properties</code></td>
+<td>Widevine client <code>model_name</code>.</td>
+</tr>
+<tr>
+<td><code>device</code></td>
+<td>string</td>
+<td><code>"Linux"</code> (Linux); <code>DEVICE_NAME</code> from <code>/etc/device.properties</code> (other)</td>
+<td>Widevine client <code>device_name</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="runtime-configuration">Runtime Configuration</h3>
+<p>The <code>SetParameter()</code> method on <code>MediaKeySession</code> accepts the following key-value pairs at runtime:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter name</th>
+<th>Value format</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mediaType</code></td>
+<td>MIME type string</td>
+<td>Sets internal <code>StreamType</code> to <code>Video</code> or <code>Audio</code> based on presence of <code>"video"</code> or <code>"audio"</code> substring.</td>
+</tr>
+<tr>
+<td><code>RESOLUTION</code></td>
+<td><code>"&lt;width&gt;,&lt;height&gt;"</code></td>
+<td>Calls <code>m_cdm-&gt;setVideoResolution(sessionId, width, height)</code>.</td>
+</tr>
+<tr>
+<td><code>rpcId</code></td>
+<td>Hex string</td>
+<td>Initializes the gst-svp-ext client context via <code>gst_svp_ext_get_context()</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="configuration-persistence">Configuration Persistence</h3>
+<p>Configuration changes are not persisted across reboots. All CDM storage is held in the <code>HostImplementation::_files</code> in-memory map and is lost when the process terminates.</p>
+<hr/>
+<h2 id="api-usage">API / Usage</h2>
+<h3 id="interface-type">Interface Type</h3>
+<p>C++ CDMi interfaces (<code>IMediaKeys</code>, <code>IMediaKeySession</code>) called in-process by the OCDM Thunder plugin. The library entry point is <code>GetSystemFactory()</code>, which returns an <code>ISystemFactory*</code>.</p>
+<h3 id="methods-imediakeys-via-widevine">Methods — <code>IMediaKeys</code> (via <code>WideVine</code>)</h3>
+<h4 id="initialize"><code>Initialize</code></h4>
+<p>Called by the OCDM plugin after loading the factory. Initializes the Widevine CDM and sets device client info.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shell</code></td>
+<td><code>const WPEFramework::PluginHost::IShell*</code></td>
+<td>WPEFramework shell reference.</td>
+</tr>
+<tr>
+<td><code>configline</code></td>
+<td><code>const std::string&amp;</code></td>
+<td>JSON configuration string.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Behavior</strong>: Reads <code>certificate</code>, <code>keybox</code>, <code>product</code>, <code>company</code>, <code>model</code>, <code>device</code> from JSON. Falls back to <code>/etc/device.properties</code> for <code>company</code>, <code>model</code>, <code>device</code>. Calls <code>svpPlatformInitializeWidevine()</code>, then <code>widevine::Cdm::initialize()</code>, then <code>widevine::Cdm::create()</code>. Sets the <code>youtube_cert_scope</code> app parameter from <code>COBALT_CERT_SCOPE</code> in <code>/etc/device.properties</code>.</p>
+<hr/>
+<h4 id="createmediakeysession"><code>CreateMediaKeySession</code></h4>
+<p>Creates a new <code>MediaKeySession</code> and registers it in the session map.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>licenseType</code></td>
+<td><code>int32_t</code></td>
+<td><code>0</code> = Temporary, <code>1</code> = PersistentLicense, <code>2</code> = PersistentUsageRecord (v&lt;17 only).</td>
+</tr>
+<tr>
+<td><code>f_pwszInitDataType</code></td>
+<td><code>const char*</code></td>
+<td><code>"cenc"</code> or <code>"webm"</code>.</td>
+</tr>
+<tr>
+<td><code>f_pbInitData</code></td>
+<td><code>const uint8_t*</code></td>
+<td>PSSH / init data bytes.</td>
+</tr>
+<tr>
+<td><code>f_cbInitData</code></td>
+<td><code>uint32_t</code></td>
+<td>Length of init data.</td>
+</tr>
+<tr>
+<td><code>f_pbCDMData</code></td>
+<td><code>const uint8_t*</code></td>
+<td>CDM-specific data.</td>
+</tr>
+<tr>
+<td><code>f_cbCDMData</code></td>
+<td><code>uint32_t</code></td>
+<td>Length of CDM data.</td>
+</tr>
+<tr>
+<td><code>f_ppiMediaKeySession</code></td>
+<td><code>IMediaKeySession**</code></td>
+<td>Output: pointer to the created session.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns</strong>: <code>CDMi_SUCCESS</code> on success, <code>CDMi_S_FALSE</code> on failure. On failure the <code>MediaKeySession</code> object is deleted before returning.</p>
+<hr/>
+<h4 id="setservercertificate"><code>SetServerCertificate</code></h4>
+<p>Sets a service certificate on the CDM using <code>widevine::Cdm::ServiceRole::kAllServices</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>f_pbServerCertificate</code></td>
+<td><code>const uint8_t*</code></td>
+<td>Certificate bytes.</td>
+</tr>
+<tr>
+<td><code>f_cbServerCertificate</code></td>
+<td><code>uint32_t</code></td>
+<td>Certificate length in bytes.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns</strong>: <code>CDMi_SUCCESS</code> if <code>_cdm-&gt;setServiceCertificate()</code> returns <code>widevine::Cdm::kSuccess</code>, otherwise <code>CDMi_S_FALSE</code>.</p>
+<hr/>
+<h4 id="destroymediakeysession"><code>DestroyMediaKeySession</code></h4>
+<p>Calls <code>Close()</code> on the session, removes it from the session map, and deletes the object.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>f_piMediaKeySession</code></td>
+<td><code>IMediaKeySession*</code></td>
+<td>Session to destroy.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns</strong>: Always <code>CDMi_SUCCESS</code>.</p>
+<hr/>
+<h4 id="getmetrics"><code>GetMetrics</code></h4>
+<p>Retrieves CDM metrics via <code>_cdm-&gt;getMetrics()</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>metrics</code></td>
+<td><code>std::string&amp;</code></td>
+<td>Output: serialized metrics data.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns</strong>: <code>CDMi_SUCCESS</code> if the CDM returns <code>kSuccess</code>, otherwise <code>CDMi_S_FALSE</code>.</p>
+<hr/>
+<h3 id="methods-imediakeysession-via-mediakeysession">Methods — <code>IMediaKeySession</code> (via <code>MediaKeySession</code>)</h3>
+<h4 id="run"><code>Run</code></h4>
+<p>Calls <code>m_cdm-&gt;generateRequest()</code> to produce the initial license request message. Fires <code>OnKeyMessage</code> callback on success, <code>OnError</code> on failure.</p>
+<h4 id="update"><code>Update</code></h4>
+<p>Processes a license server response. Calls <code>m_cdm-&gt;update(sessionId, keyResponse)</code> then <code>onKeyStatusChange()</code>. Protected by <code>g_lock</code>.</p>
+<h4 id="load"><code>Load</code></h4>
+<p>Loads a previously stored persistent session. Calls <code>m_cdm-&gt;load(sessionId)</code>. Protected by <code>g_lock</code>.</p>
+<h4 id="remove"><code>Remove</code></h4>
+<p>Removes a persistent session. Calls <code>m_cdm-&gt;remove(sessionId)</code>. Protected by <code>g_lock</code>.</p>
+<h4 id="close"><code>Close</code></h4>
+<p>Closes the session. Calls <code>m_cdm-&gt;close(sessionId)</code>. Protected by <code>g_lock</code>.</p>
+<h4 id="decrypt"><code>Decrypt</code></h4>
+<p>Decrypts an encrypted media sample.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>inData</code></td>
+<td><code>uint8_t*</code></td>
+<td>Encrypted input buffer.</td>
+</tr>
+<tr>
+<td><code>inDataLength</code></td>
+<td><code>uint32_t</code></td>
+<td>Length of input buffer.</td>
+</tr>
+<tr>
+<td><code>outData</code></td>
+<td><code>uint8_t**</code></td>
+<td>Decrypted output buffer pointer.</td>
+</tr>
+<tr>
+<td><code>outDataLength</code></td>
+<td><code>uint32_t*</code></td>
+<td>Output data length.</td>
+</tr>
+<tr>
+<td><code>sampleInfo</code></td>
+<td><code>const SampleInfo*</code></td>
+<td>IV, key ID, subsamples, pattern.</td>
+</tr>
+<tr>
+<td><code>properties</code></td>
+<td><code>const IStreamProperties*</code></td>
+<td>Stream type (video/audio).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>SVP Path</strong>: When <code>USE_SVP</code> is defined, checks <code>svpIsDynamicSVPEncEnabled()</code>. If dynamic SVP is active, SVP is used for video streams only. Encrypted data is copied to a secure memory region via <code>svp_allocate_secure_buffers()</code>, and a secure token is generated for the CDM decryptor.</p>
+<h4 id="setparameter"><code>SetParameter</code></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mediaType</code></td>
+<td>MIME type string</td>
+<td>Sets <code>m_StreamType</code> to <code>Video</code> or <code>Audio</code>.</td>
+</tr>
+<tr>
+<td><code>RESOLUTION</code></td>
+<td><code>"W,H"</code></td>
+<td>Calls <code>m_cdm-&gt;setVideoResolution()</code>.</td>
+</tr>
+<tr>
+<td><code>rpcId</code></td>
+<td>Hex string</td>
+<td>Calls <code>gst_svp_ext_get_context()</code> with parsed RPC ID.</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h3 id="callbacks-fired-on-imediakeysessioncallback">Callbacks Fired on <code>IMediaKeySessionCallback</code></h3>
+<table>
+<thead>
+<tr>
+<th>Callback</th>
+<th>Trigger</th>
+<th>Payload</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OnKeyMessage</code></td>
+<td><code>onMessage()</code> for <code>kLicenseRequest</code>, <code>kLicenseRenewal</code>, <code>kLicenseRelease</code></td>
+<td><code>&lt;messageType&gt;:Type:&lt;message&gt;</code>, license server URL</td>
+</tr>
+<tr>
+<td><code>OnKeyStatusUpdate</code></td>
+<td><code>onKeyStatusChange()</code> after <code>Update()</code> or <code>onKeyStatusesChange()</code> event</td>
+<td>Key status string, key ID bytes</td>
+</tr>
+<tr>
+<td><code>OnKeyStatusesUpdated</code></td>
+<td>After all key status updates are dispatched</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>OnError</code></td>
+<td>CDM error status or failed <code>generateRequest()</code></td>
+<td>Error string (see error table below)</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="component-interactions">Component Interactions</h2>
+<pre class="mermaid"><code>flowchart TD
+    subgraph OCDMPlugin ["OCDM Thunder Plugin"]
+        OCDM["org.rdk.OCDMi"]
+    end
+    subgraph WidevineDRM ["widevine-rdk (Widevine.drm)"]
+        WV["WideVine"]
+        MKS["MediaKeySession"]
+        HI["HostImplementation"]
+    end
+    subgraph External ["External"]
+        CDMLib["widevine_ce_cdm_shared"]
+        SVPLib["gst-svp-ext"]
+        ProvSrv["Widevine Provisioning Server\n(WV_PROV_SERVER_URL)"]
+        DevProp["/etc/device.properties"]
+    end
+
+    OCDM --&gt;|"GetSystemFactory()\nIMediaKeys calls"| WV
+    WV --&gt;|"creates / forwards callbacks"| MKS
+    WV --&gt;|"widevine::Cdm::initialize / create"| CDMLib
+    WV --&gt;|"IStorage / IClock / ITimer"| HI
+    MKS --&gt;|"createSession / generateRequest\nupdate / load / remove / close\ndecrypt / getKeyStatuses\nsetVideoResolution"| CDMLib
+    MKS --&gt;|"svp_allocate/release_secure_buffers\ngst_svp_ext_get_context\ngst_svp_has_header"| SVPLib
+    MKS --&gt;|"HTTP POST (libcurl)"| ProvSrv
+    WV --&gt;|"fopen / getline (read-only)"| DevProp</code></pre>
+<h3 id="interaction-matrix">Interaction Matrix</h3>
+<table>
+<thead>
+<tr>
+<th>Target Component / Layer</th>
+<th>Interaction Purpose</th>
+<th>Key APIs / Topics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OCDM Plugin</strong></td>
+<td>DRM session lifecycle and decryption</td>
+<td><code>IMediaKeys</code>, <code>IMediaKeySession</code>, <code>IMediaKeySessionCallback</code></td>
+</tr>
+<tr>
+<td><strong>widevine_ce_cdm_shared</strong></td>
+<td>All DRM operations delegated to CE CDM</td>
+<td><code>widevine::Cdm::initialize()</code>, <code>widevine::Cdm::create()</code>, <code>createSession()</code>, <code>generateRequest()</code>, <code>update()</code>, <code>load()</code>, <code>remove()</code>, <code>close()</code>, <code>getKeyStatuses()</code>, <code>setServiceCertificate()</code>, <code>getProvisioningRequest()</code>, <code>handleProvisioningResponse()</code>, <code>getMetrics()</code>, <code>setAppParameter()</code>, <code>setVideoResolution()</code></td>
+</tr>
+<tr>
+<td><strong>gst-svp-ext</strong></td>
+<td>Secure Video Path buffer management</td>
+<td><code>svpPlatformInitializeWidevine()</code>, <code>gst_svp_ext_get_context()</code>, <code>svp_allocate_secure_buffers()</code>, <code>svp_release_secure_buffers()</code>, <code>gst_svp_has_header()</code>, <code>gst_svp_header_get_start_of_data()</code>, <code>gst_svp_header_get_field()</code>, <code>svp_buffer_alloc_token()</code>, <code>svp_buffer_to_token()</code>, <code>svpIsDynamicSVPEncEnabled()</code></td>
+</tr>
+<tr>
+<td><strong>Widevine Provisioning Server</strong></td>
+<td>Device provisioning</td>
+<td>HTTP GET to <code>WV_PROV_SERVER_URL + &amp;signedRequest=&lt;request&gt;</code> via <code>curl_easy_perform()</code></td>
+</tr>
+<tr>
+<td><strong>/etc/device.properties</strong></td>
+<td>Device identity info at initialization</td>
+<td><code>OPERATOR_NAME</code>, <code>MODEL_NUM</code>, <code>DEVICE_NAME</code>, <code>COBALT_CERT_SCOPE</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>No IARM Bus integration is implemented.</strong>
+<strong>No Device Services (DS) API integration is implemented.</strong></p>
+<hr/>
+<h2 id="component-state-flow">Component State Flow</h2>
+<h3 id="initialization-to-active-state">Initialization to Active State</h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant OCDM as OCDM Thunder Plugin
+    participant WV as WideVine
+    participant CDM as widevine_ce_cdm_shared
+    participant SVP as gst-svp-ext / svpPlatformInitializeWidevine
+
+    OCDM-&gt;&gt;WV: GetSystemFactory() — load Widevine.drm
+    OCDM-&gt;&gt;WV: Initialize(shell, configline)
+    Note over WV: Parse JSON config (certificate, keybox, product, company, model, device)
+    Note over WV: Read /etc/device.properties for fallback values
+    WV-&gt;&gt;SVP: svpPlatformInitializeWidevine()
+    WV-&gt;&gt;CDM: widevine::Cdm::initialize(kOpaqueHandle, client_info, &amp;_host, ...)
+    CDM--&gt;&gt;WV: kSuccess
+    WV-&gt;&gt;CDM: widevine::Cdm::create(this, &amp;_host, false)
+    CDM--&gt;&gt;WV: widevine::Cdm* instance
+    WV-&gt;&gt;CDM: _cdm-&gt;setAppParameter("youtube_cert_scope", value)
+    Note over WV: State: Active — ready to create sessions
+
+    loop Per encrypted stream
+        OCDM-&gt;&gt;WV: CreateMediaKeySession(licenseType, initDataType, initData, ...)
+        WV-&gt;&gt;CDM: new MediaKeySession → createSession(licenseType, &amp;sessionId)
+        alt kNeedsDeviceCertificate (status 101)
+            CDM--&gt;&gt;WV: status 101
+            Note over WV: Provisioning flow
+            WV-&gt;&gt;CDM: getProvisioningRequest(&amp;request)
+            WV-&gt;&gt;WV: sendPostRequest(request, response) [libcurl]
+            WV-&gt;&gt;CDM: handleProvisioningResponse(response)
+            WV-&gt;&gt;CDM: createSession(licenseType, &amp;sessionId) [retry]
+        end
+        CDM--&gt;&gt;WV: sessionId
+        WV--&gt;&gt;OCDM: IMediaKeySession*
+    end</code></pre>
+<h3 id="runtime-state-changes">Runtime State Changes</h3>
+<p><strong>Per-session lifecycle:</strong></p>
+<ol>
+<li><code>Run()</code> — calls <code>generateRequest()</code>; CDM fires <code>onMessage(kLicenseRequest)</code> → <code>OnKeyMessage</code> callback to OCDM.</li>
+<li><code>Update()</code> — processes license server response; CDM updates key statuses; <code>onKeyStatusChange()</code> fires <code>OnKeyStatusUpdate</code> + <code>OnKeyStatusesUpdated</code>.</li>
+<li><code>Load()</code> — for persistent sessions, restores previously stored session state.</li>
+<li><code>Remove()</code> — triggers <code>onRemoveComplete()</code> which sets all keys to <code>KeyReleased</code>.</li>
+<li><code>Close()</code> → <code>Decrypt()</code> calls are rejected after session is closed.</li>
+</ol>
+<hr/>
+<h2 id="call-flows">Call Flows</h2>
+<h3 id="provisioning-call-flow">Provisioning Call Flow</h3>
+<p>Triggered automatically when <code>widevine::Cdm::createSession()</code> returns status <code>101</code> (<code>kNeedsDeviceCertificate</code>).</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant MKS as MediaKeySession (constructor)
+    participant CDM as widevine::Cdm
+    participant CURL as libcurl
+
+    MKS-&gt;&gt;CDM: createSession(licenseType, &amp;sessionId)
+    CDM--&gt;&gt;MKS: status = 101 (kNeedsDeviceCertificate)
+
+    opt WIDEVINE_DEFAULT_SERVER_CERTIFICATE_SUPPORTED
+        MKS-&gt;&gt;CDM: setServiceCertificate(kProvisioningService, kCpProductionServiceCertificate)
+    end
+
+    MKS-&gt;&gt;CDM: getProvisioningRequest(&amp;request)
+    CDM--&gt;&gt;MKS: provisioning request bytes
+    MKS-&gt;&gt;CURL: curl_easy_perform(WV_PROV_SERVER_URL + "&amp;signedRequest=" + request)
+    CURL--&gt;&gt;MKS: response bytes
+    MKS-&gt;&gt;CDM: handleProvisioningResponse(response)
+    CDM--&gt;&gt;MKS: kSuccess
+    MKS-&gt;&gt;CDM: createSession(licenseType, &amp;sessionId)
+    CDM--&gt;&gt;MKS: sessionId</code></pre>
+<h3 id="license-acquisition-call-flow">License Acquisition Call Flow</h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant App as Client Application
+    participant OCDM as OCDM Thunder Plugin
+    participant WV as WideVine
+    participant MKS as MediaKeySession
+    participant CDM as widevine::Cdm
+    participant LicSrv as License Server
+
+    App-&gt;&gt;OCDM: requestMediaKeySession
+    OCDM-&gt;&gt;WV: CreateMediaKeySession(...)
+    WV-&gt;&gt;MKS: new MediaKeySession → createSession
+    WV--&gt;&gt;OCDM: IMediaKeySession*
+    OCDM-&gt;&gt;MKS: Run(callback)
+    MKS-&gt;&gt;CDM: generateRequest(sessionId, initDataType, initData)
+    CDM-&gt;&gt;WV: onMessage(sessionId, kLicenseRequest, message)
+    WV-&gt;&gt;MKS: onMessage(kLicenseRequest, message)
+    MKS-&gt;&gt;OCDM: callback-&gt;OnKeyMessage(message, kLicenseServer)
+    OCDM-&gt;&gt;LicSrv: POST license request
+    LicSrv--&gt;&gt;OCDM: license response
+    OCDM-&gt;&gt;MKS: Update(licenseResponse, length)
+    MKS-&gt;&gt;CDM: update(sessionId, keyResponse)
+    MKS-&gt;&gt;CDM: getKeyStatuses(sessionId, &amp;map)
+    CDM--&gt;&gt;MKS: key status map
+    MKS-&gt;&gt;OCDM: callback-&gt;OnKeyStatusUpdate("KeyUsable", keyId, length)
+    MKS-&gt;&gt;OCDM: callback-&gt;OnKeyStatusesUpdated()</code></pre>
+<h3 id="decryption-call-flow">Decryption Call Flow</h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant OCDM as OCDM / Media Pipeline
+    participant MKS as MediaKeySession
+    participant CDM as widevine::Cdm
+    participant SVP as gst-svp-ext
+
+    OCDM-&gt;&gt;MKS: Decrypt(inData, inDataLength, &amp;outData, &amp;outDataLength, sampleInfo, properties)
+    Note over MKS: g_lock.Lock()
+    MKS-&gt;&gt;CDM: getKeyStatuses(sessionId, &amp;map)
+    CDM--&gt;&gt;MKS: key status map
+    Note over MKS: Verify key is kUsable
+
+    opt USE_SVP enabled and useSVP = true
+        MKS-&gt;&gt;SVP: gst_svp_has_header / gst_svp_header_get_start_of_data / gst_svp_header_get_field
+        MKS-&gt;&gt;SVP: svp_allocate_secure_buffers (resize if needed)
+        MKS-&gt;&gt;SVP: svp_buffer_alloc_token / svp_buffer_to_token
+    end
+
+    Note over MKS: Build decryptSample (subsamples, IV, encryption scheme, pattern)
+    MKS-&gt;&gt;CDM: decrypt(sessionId, decryptSample, &amp;decryptedData)
+    CDM--&gt;&gt;MKS: decrypted data
+    Note over MKS: g_lock.Unlock()
+    MKS--&gt;&gt;OCDM: CDMi_SUCCESS, outData, outDataLength</code></pre>
+<hr/>
+<h2 id="implementation-details">Implementation Details</h2>
+<h3 id="key-implementation-logic">Key Implementation Logic</h3>
+<ul>
+<li>
+<p><strong>Session lifecycle state</strong>: Tracked implicitly through <code>m_sessionId</code> (set by <code>createSession</code>, cleared after <code>Close</code>). No explicit state enum. Session objects live in <code>WideVine::_sessions</code> map; removal from map is the deactivation signal.</p>
+</li>
+<li>
+<p><strong>Widevine version branching</strong>: <code>WIDEVINE_VERSION</code> preprocessor define controls:</p>
+</li>
+<li><code>widevine::Cdm::initialize()</code> signature: 3 host args (v17), 4 host args (v18), or <code>client_info</code> struct arg (v14/default).</li>
+<li><code>onMessage</code> signature: v18 adds <code>f_server_url</code> parameter.</li>
+<li><code>onExpirationChange</code> callback: v18 only.</li>
+<li><code>ILogger</code> implementation: v18 only (empty body).</li>
+<li>
+<p><code>kPersistentUsageRecord</code> session type: available only for <code>WIDEVINE_VERSION &lt; 17</code>.</p>
+</li>
+<li>
+<p><strong>Provisioning</strong>: Implemented inside the <code>MediaKeySession</code> constructor. If <code>createSession</code> returns <code>101</code> and the <code>WIDEVINE_DEFAULT_SERVER_CERTIFICATE_SUPPORTED</code> define is set, <code>setServiceCertificate</code> is called first with the hardcoded production certificate before generating the provisioning request.</p>
+</li>
+<li>
+<p><strong>In-memory storage</strong>: <code>HostImplementation::_files</code> is a <code>std::map&lt;std::string, std::string&gt;</code>. <code>read()</code>, <code>write()</code>, <code>exists()</code>, <code>remove()</code>, <code>size()</code>, <code>list()</code> all operate on this map. <code>remove("")</code> (empty name) calls <code>_files.clear()</code> — deletes all in-memory files. No filesystem I/O in <code>HostImplementation</code> beyond the <code>PreloadFile()</code> call at init time.</p>
+</li>
+<li>
+<p><strong>SVP secure memory sizing</strong>: The initial secure memory region is allocated at 512 KB in the <code>MediaKeySession</code> constructor. In <code>Decrypt()</code>, if the encrypted data is larger than the current region, the region is released and reallocated at the new required size.</p>
+</li>
+</ul>
+<h3 id="error-handling-strategy">Error Handling Strategy</h3>
+<table>
+<thead>
+<tr>
+<th>Error Source</th>
+<th>Error Code / Condition</th>
+<th>Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>createSession()</code> → 101</td>
+<td><code>kNeedsDeviceCertificate</code></td>
+<td>Triggers inline provisioning flow; retries <code>createSession</code></td>
+</tr>
+<tr>
+<td><code>generateRequest()</code> fail</td>
+<td>non-<code>kSuccess</code></td>
+<td>Calls <code>m_piCallback-&gt;OnError(0, CDMi_S_FALSE, "generateRequest")</code></td>
+</tr>
+<tr>
+<td><code>update()</code> / <code>load()</code> / <code>remove()</code> fail</td>
+<td>non-<code>kSuccess</code></td>
+<td><code>onKeyStatusError()</code> maps status to string, calls <code>OnError</code></td>
+</tr>
+<tr>
+<td><code>getKeyStatuses()</code> fail in <code>Decrypt</code></td>
+<td>non-<code>kSuccess</code></td>
+<td>Returns <code>CDMi_S_FALSE</code> without decrypting</td>
+</tr>
+<tr>
+<td>Key not <code>kUsable</code> in <code>Decrypt</code></td>
+<td>—</td>
+<td>Skips decryption path, returns <code>CDMi_S_FALSE</code></td>
+</tr>
+<tr>
+<td>SVP allocation failure</td>
+<td>non-zero return from <code>svp_allocate_secure_buffers</code></td>
+<td>Logs to stderr, jumps to <code>ErrorExit</code> label</td>
+</tr>
+<tr>
+<td>Certificate file load fail</td>
+<td><code>Core::DataElementFile::IsValid() == false</code></td>
+<td><code>TRACE_L1</code> error, certificate not preloaded</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key status error mapping</strong> (fired as <code>OnError</code> string):</p>
+<table>
+<thead>
+<tr>
+<th><code>widevine::Cdm::Status</code></th>
+<th>String passed to <code>OnError</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kNeedsDeviceCertificate</code></td>
+<td><code>"NeedsDeviceCertificate"</code></td>
+</tr>
+<tr>
+<td><code>kSessionNotFound</code></td>
+<td><code>"SessionNotFound"</code></td>
+</tr>
+<tr>
+<td><code>kDecryptError</code></td>
+<td><code>"DecryptError"</code></td>
+</tr>
+<tr>
+<td><code>kTypeError</code></td>
+<td><code>"TypeError"</code></td>
+</tr>
+<tr>
+<td><code>kQuotaExceeded</code></td>
+<td><code>"QuotaExceeded"</code></td>
+</tr>
+<tr>
+<td><code>kNotSupported</code></td>
+<td><code>"NotSupported"</code></td>
+</tr>
+<tr>
+<td>default</td>
+<td><code>"UnExpectedError"</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="logging-diagnostics">Logging &amp; Diagnostics</h3>
+<ul>
+<li>Log prefix: <code>[RDK_LOG]</code> (printed via <code>std::cout</code>).</li>
+<li>Verbose function entry/exit logging gated behind <code>#define DEBUG</code> (commented out in shipped code).</li>
+<li><code>HostImplementation</code> uses <code>TRACE_L1</code> from WPEFramework for storage operation traces.</li>
+<li>Module name declared as <code>OCDM_Widevine</code> via <code>MODULE_NAME_DECLARATION(BUILD_REFERENCE)</code> in <code>Module.cpp</code>.</li>
+</ul>
+<hr/>
+<h2 id="data-flow">Data Flow</h2>
+<p>Primary decrypt path:</p>
+<div class="highlight"><pre><span></span><code>Encrypted media sample (from GStreamer pipeline via OCDM plugin)
+        |
+        v
+[MediaKeySession::Decrypt() — validate key status via getKeyStatuses()]
+        |
+        v
+[SVP path: copy to secure memory via svp_allocate_secure_buffers, generate token]
+        |
+        v
+[widevine::Cdm::decrypt() — hardware-accelerated decryption using session key]
+        |
+        v
+[Return decrypted data pointer and length to OCDM plugin / media pipeline]
+</code></pre></div>
+<p>License acquisition path:</p>
+<div class="highlight"><pre><span></span><code>PSSH / init data (from media container)
+        |
+        v
+[MediaKeySession::Init() — store init data and license type]
+        |
+        v
+[MediaKeySession::Run() — widevine::Cdm::generateRequest() → OnKeyMessage callback]
+        |
+        v
+[OCDM plugin fetches license from server, calls Update()]
+        |
+        v
+[MediaKeySession::Update() — widevine::Cdm::update() → onKeyStatusChange() → OnKeyStatusUpdate]
+</code></pre></div>
+<hr/>
+<h2 id="error-handling">Error Handling</h2>
+<h3 id="layered-error-handling">Layered Error Handling</h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Error Type</th>
+<th>Handling Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Widevine CDM</td>
+<td><code>widevine::Cdm::Status</code> codes</td>
+<td>Mapped to <code>CDMi_RESULT</code> or string via <code>onKeyStatusError()</code></td>
+</tr>
+<tr>
+<td>MediaKeySession</td>
+<td>CDMi result codes</td>
+<td>Propagate <code>CDMi_S_FALSE</code> to caller or fire <code>OnError</code></td>
+</tr>
+<tr>
+<td>WideVine (system)</td>
+<td>Session not found in map</td>
+<td>Silent return; callback not invoked</td>
+</tr>
+<tr>
+<td>SVP</td>
+<td>Non-zero return from <code>svp_*</code> functions</td>
+<td>Log to stderr, goto <code>ErrorExit</code></td>
+</tr>
+<tr>
+<td>HTTP / provisioning</td>
+<td>libcurl failure</td>
+<td>Empty response string returned; subsequent <code>handleProvisioningResponse</code> will fail</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exception-safety">Exception Safety</h3>
+<p>No C++ exceptions are used. All error paths use return codes. The <code>MediaKeySession</code> destructor calls <code>Close()</code> before releasing SVP resources, ensuring the CDM session is cleanly closed even if the session object is destroyed abnormally. SVP buffer deallocation is performed unconditionally in the destructor when <code>USE_SVP</code> is defined.</p>
+<hr/>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><strong>SVP memory reuse</strong>: The secure memory region allocated in the constructor (512 KB) is reused across <code>Decrypt()</code> calls. Reallocation only occurs when a sample larger than the current region is encountered, avoiding per-frame allocation overhead.</li>
+<li><strong>Global lock in Decrypt</strong>: <code>g_lock</code> serializes all CDM calls including <code>Decrypt()</code>. Multiple concurrent decryption calls from audio and video pipelines are serialized at this lock.</li>
+<li><strong>Provisioning is blocking</strong>: The <code>sendPostRequest()</code> HTTP call in the session constructor is synchronous. Session creation blocks until the provisioning server responds.</li>
+<li><strong>In-memory storage</strong>: All CDM file I/O is served from an in-memory map, avoiding filesystem latency for CDM internal state access.</li>
+</ul>
+<hr/>
+<h2 id="security-safety">Security &amp; Safety</h2>
+<h3 id="input-validation">Input Validation</h3>
+<ul>
+<li><code>SetParameter()</code> uses <code>std::string::find()</code> substring matching for parameter name dispatch; no shell or system call injection is possible.</li>
+<li><code>RESOLUTION</code> parameter is parsed with <code>sscanf</code> into two <code>uint32_t</code> values before being passed to <code>setVideoResolution()</code>.</li>
+<li><code>rpcId</code> parameter is parsed with <code>std::stoul(..., nullptr, 16)</code> and only applied if non-zero.</li>
+</ul>
+<h3 id="hardware-resource-protection">Hardware / Resource Protection</h3>
+<ul>
+<li>SVP path routes decrypted content through hardware-secure memory, preventing clear content from being accessible in unsecured DRAM.</li>
+</ul>
+<h3 id="threat-model-notes">Threat Model Notes</h3>
+<ul>
+<li>The provisioning server URL is compiled in at build time (<code>WV_PROV_SERVER_URL_STRING</code>). The URL is appended with caller-supplied string data (<code>signedRequest</code>). No sanitization of the request payload is performed in <code>sendPostRequest()</code> before appending — the request content is generated by the Widevine CDM library, not from external caller input.</li>
+<li>The <code>GetKeySystem()</code> method returns the placeholder string <code>"keysystem-placeholder"</code> (marked TODO in source); the actual key system identifier check is not implemented.</li>
+<li>All CDMi method calls originate from the OCDM Thunder plugin, which controls access. No direct external caller validation is performed at this layer.</li>
+</ul>
+<hr/>
+<h2 id="versioning-release">Versioning &amp; Release</h2>
+<h3 id="branch-strategy">Branch Strategy</h3>
+<table>
+<thead>
+<tr>
+<th>Branch</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>main</code></td>
+<td>Stable, release-ready code</td>
+</tr>
+<tr>
+<td><code>develop</code></td>
+<td>Active development and contributions</td>
+</tr>
+</tbody>
+</table>
+<h3 id="changelog">Changelog</h3>
+<p>See <a href="CHANGELOG.md">CHANGELOG.md</a> for the full release history.</p>
+<p>Current version: <strong>1.0.2</strong> (18 February 2026)</p>
+<p>Notable changes per version:</p>
+<ul>
+<li><strong>1.0.2</strong>: Removed Google API secret from repository; fixed double-free issue; added Widevine version 18 support on Broadcom platform.</li>
+<li><strong>1.0.1</strong>: Fixed OCDM plugin crash in <code>WidevineH264MultiMediaKeySessions</code> and <code>VP9VideoCbcsAACAudioCbcs</code> tests; fixed duplicate key count update.</li>
+<li><strong>1.0.0</strong>: Initial release. Base code from <code>OCDM-Widevine</code> master and generic OCDM changes from <code>generic-mediasession</code> branch.</li>
+</ul>
+<hr/>
+<h2 id="contributing">Contributing</h2>
+<h3 id="license-requirements">License Requirements</h3>
+<ol>
+<li>Sign the RDK <a href="https://developer.rdkcentral.com/source/contribute/contribute/before_you_contribute/">Contributor License Agreement (CLA)</a> before submitting code.</li>
+<li>Each new file must include the Apache 2.0 license header with <code>Copyright (c) RDK Management</code>.</li>
+<li>No additional license files should be added inside subdirectories.</li>
+</ol>
+<h3 id="how-to-contribute">How to Contribute</h3>
+<ol>
+<li>Fork the repository and commit changes on a feature branch.</li>
+<li>Submit a pull request to the active sprint or <code>develop</code> branch.</li>
+<li>Reference the relevant RDK ticket number in every commit and PR description.</li>
+</ol>
+<h3 id="pull-request-checklist">Pull Request Checklist</h3>
+<ul>
+<li>[ ] BlackDuck, copyright, and CLA checks pass.</li>
+<li>[ ] At least one reviewer has approved the PR.</li>
+<li>[ ] Commit messages include RDK ticket / GitHub issue number and reason for change.</li>
+</ul>
+<hr/>
+<h2 id="repository-structure">Repository Structure</h2>
+<div class="highlight"><pre><span></span><code>widevine-rdk/
+├── CMakeLists.txt          # Build definition; platform flags; WV_PROV_SERVER_URL_STRING
+├── Module.h                # MODULE_NAME definition (OCDM_Widevine); WPEFramework includes
+├── Module.cpp              # MODULE_NAME_DECLARATION(BUILD_REFERENCE)
+├── MediaSystem.cpp         # WideVine class: IMediaKeys + IEventListener + ISystemMetrics; GetSystemFactory()
+├── MediaSession.h          # MediaKeySession class declaration
+├── MediaSession.cpp        # MediaKeySession implementation: provisioning, decrypt, SVP
+├── HostImplementation.h    # HostImplementation class declaration
+├── HostImplementation.cpp  # IStorage (in-memory map) / IClock / ITimer / ILogger implementations
+├── Policy.h                # kLicenseServer, kDefaultServerCertificate, kCencInitData constants
+├── CHANGELOG.md            # Release history
+├── README.md               # Repository overview
+├── CONTRIBUTING.md         # Contribution guidelines
+├── LICENSE                 # Apache 2.0
+└── cmake/
+    ├── FindWideVine.cmake       # Locates widevine_ce_cdm_shared and cdm.h
+    └── broadcom/
+        ├── FindNEXUS.cmake
+        ├── FindNexusWidevine.cmake
+        └── FindNXCLIENT.cmake
+</code></pre></div>
+<hr/>
+<h2 id="questions-contact">Questions &amp; Contact</h2>
+<ul>
+<li>Open a <a href="https://github.com/rdkcentral/widevine-rdk/issues">GitHub Issue</a></li>
+<li>RDK community: <a href="https://rdkcentral.com">https://rdkcentral.com</a></li>
+</ul>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<div class="bottom-banner compact-footer">
+<!-- Left Section: Logo and Copyright -->
+<div class="footer-left">
+<img alt="RDK Logo" class="rdk-logo" src="../../../assets/logo.png">
+<p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+</img></div>
+<!-- Right Section: Links and Support -->
+<div class="footer-right">
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Explore RDK</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../preview-rdk/docs/getting-started">Getting Started</a></li>
+<li><a href="../../../devices/docs/">Devices</a></li>
+<li><a href="../../../preview-rdk/docs/getting-started">Tools</a></li>
+<li><a href="../../../entertainment/docs/sample_home1">Entsample1</a></li>
+<li><a href="../../../entertainment/docs/sample_home3">Entsample3</a></li>
+</ul>
+</div>
+</div>
+<!-- Device Management -->
+<div class="banner-group">
+<h3>Device Management</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../device-management/docs/XConf">XConf</a></li>
+<li><a href="../../../device-management/docs/Telemetry">Telemetry</a></li>
+<li><a href="../../../device-management/docs/Webpa">Web PA</a></li>
+<li><a href="../../../device-management/docs/TR369">TR 369</a></li>
+</ul>
+</div>
+</div>
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Test &amp; Certification</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119">RDK Certification</a></li>
+<li><a href="../../">Video Template</a></li>
+<li><a href="../../../tools/docs/Automatics/">Automatics</a></li>
+</ul>
+</div>
+</div>
+<!-- Resources-->
+<div class="banner-group">
+<h3>Resources</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../kavia/ ">Kavia</a></li>
+<li><a href="../../../sitemap">Quick Links</a></li>
+<li><a href="../../../sitemap.xml">Site Map</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../../assets/javascripts/extra.js"></script>
+</div></body>
+</html>

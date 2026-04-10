@@ -1,0 +1,4865 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.com/docu/dec17/hotspot-feb17/" rel="canonical"/>
+<link href="../../../assets/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.6" name="generator"/>
+<title>CCSP Hotspot Component Documentation - Developer Portal</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/home.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/entertainment.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/getting-started.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/connectivity.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/devices.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/footer.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/header.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sidepanes.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sitemap.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home1.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home3.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="custom" data-md-color-primary="custom" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#ccsp-hotspot-component-documentation">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<input autocomplete="off" class="md-toggle" data-md-toggle="actions" id="__actions" type="checkbox"/>
+<div aria-hidden="true" class="mobile-actions-backdrop"></div>
+<aside aria-label="Quick actions" class="mobile-actions-panel">
+<div class="section">
+<div class="palette-slot"></div>
+</div>
+<div class="section">
+<div class="buttons-slot">
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Source Code</strong>
+</div>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg></div>
+<div class="text">Source Code</div>
+</button>
+</a>
+</div>
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Contribute</strong>
+</div>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg></div>
+<div class="text">Contribute</div>
+</button>
+</a>
+</div>
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Get help</strong>
+</div>
+<a href="mailto:support@rdkcentral.com">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg></div>
+<div class="text">Get Help</div>
+</button>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Developer Portal" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Developer Portal">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon md-hamburger--desktop" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M6 10l6 6 6-6-1.4-1.4-4.6 4.6-4.6-4.6z"></path></svg>
+</label>
+<label class="md-header__button md-icon md-hamburger--mobile" for="__actions">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 8H3V6h18M9 13h12v-2H9m0 7h12v-2H9"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">Developer Portal</span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              CCSP Hotspot Component Documentation
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="custom" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="custom" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to system preference" class="md-option" data-md-color-accent="custom" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="custom" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to system preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header_buttons">
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg></div>
+<div class="text">Source Code</div>
+</button>
+</a>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg>
+</div>
+<div class="text">Contribute</div>
+</button>
+</a>
+<a href="mailto:support@rdkcentral.com">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg></div>
+<div class="text">Get Help</div>
+</button>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../entertainment/docs/">
+          
+  
+  
+  Entertainment
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../connectivity/docs/">
+          
+  
+  
+  Connectivity
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../preview-rdk/docs/getting-started/">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../devices/docs/">
+        
+  
+  
+    
+  
+  Devices
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tools/docs/TDK/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../review/">
+          
+  
+  
+  Review
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../device-management/docs/">
+          
+  
+  
+  Device Management
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../doc_template_orig_rama.md">
+          
+  
+  
+  Comparison
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Developer Portal" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Developer Portal">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+    Developer Portal
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/rdkcentral" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Entertainment
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Entertainment
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home1/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome1
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home3/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome3
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/Apps.md">
+<span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/tryout_rdkv_rdk7/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-vendor-porting-guide/">
+<span class="md-ellipsis">
+    
+  
+    Porting Kit
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdkv_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/westeros/">
+<span class="md-ellipsis">
+    
+  
+    Westeros
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rdkshell/">
+<span class="md-ellipsis">
+    
+  
+    RDK Shell
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rialto/">
+<span class="md-ellipsis">
+    
+  
+    Rialto
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/video_profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Connectivity
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Connectivity
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/features/">
+<span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/tryout_rdkb/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Oldprompt/">
+<span class="md-ellipsis">
+    
+  
+    PSM OldPrompt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_GPT5/">
+<span class="md-ellipsis">
+    
+  
+    PSM GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr Rama.md">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr%20GPT5/">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../preview-rdk/docs/getting-started/">
+<span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../devices/docs/">
+<span class="md-ellipsis">
+    
+  
+    Devices
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/TDK/">
+<span class="md-ellipsis">
+    
+  
+    TDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/Automatics/">
+<span class="md-ellipsis">
+    
+  
+    Automatics
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Review
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Review
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/WANManager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CellularManager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/GPONManager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/PPPManager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/VLANManager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/TelcoVoiceManager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPSM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/LMLite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LM Lite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPandM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PandM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/OneWifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/RBus/">
+<span class="md-ellipsis">
+    
+  
+    RBus
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/Utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Device Management
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Device Management
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/XConf/">
+<span class="md-ellipsis">
+    
+  
+    XConf
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Telemetry/">
+<span class="md-ellipsis">
+    
+  
+    Telemetry
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Webpa/">
+<span class="md-ellipsis">
+    
+  
+    Web PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/TR369/">
+<span class="md-ellipsis">
+    
+  
+    TR 369
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/LogUpload/">
+<span class="md-ellipsis">
+    
+  
+    Log Upload
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Comparison
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparison
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_orig_rama.md">
+<span class="md-ellipsis">
+    
+  
+    Template_Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Backup
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Backup
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1" id="__nav_9_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    26Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    26Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_1" id="__nav_9_2_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PNM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_claude/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_claude/">
+<span class="md-ellipsis">
+    
+  
+    CL_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_claude/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_2" id="__nav_9_2_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PNM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    CL_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2" id="__nav_9_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    30Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    30Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_mod_2609.md">
+<span class="md-ellipsis">
+    
+  
+    Template_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_2" id="__nav_9_2_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_3" id="__nav_9_2_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_3" id="__nav_9_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct10
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct10
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_4" id="__nav_9_2_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct21
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct21
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_5" id="__nav_9_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct22
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct22
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/lmlite/">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_6" id="__nav_9_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct27
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_6_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct27
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_7" id="__nav_9_2_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct28
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct28
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8" id="__nav_9_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Chunked
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Chunked
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_1" id="__nav_9_2_8_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CCSP PNM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_2" id="__nav_9_2_8_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    WAN Manager
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_3" id="__nav_9_2_8_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    LMLite
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_4" id="__nav_9_2_8_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_4_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Utopia
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_9" id="__nav_9_2_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Dec02
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_9_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Dec02
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/tnd/">
+<span class="md-ellipsis">
+    
+  
+    TestnDiagnostics
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/ccspcr/">
+<span class="md-ellipsis">
+    
+  
+    CcspCR
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/faq/">
+<span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct29
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct29
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct31
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct31
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov04
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov04
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov05
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov05
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_7" id="__nav_9_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Kavia
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Kavia
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_7_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_7_2" id="__nav_9_7_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_7_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_7_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    LMLite
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../lmlite_kavia_freeflow.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia Freeflow
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../lmlite_kavia_template.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia with Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../lmlite_copilot_template.md">
+<span class="md-ellipsis">
+    
+  
+    Copilot with Template
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_7_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_7_3" id="__nav_9_7_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    WanManager
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_7_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_7_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    WanManager
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../wm_kavia_freeflow.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia Freeflow
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../wm_kavia_template.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia with Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../wm_copilot_template.md">
+<span class="md-ellipsis">
+    
+  
+    Copilot with Template
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      
+        Design
+      
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites-and-dependencies">
+<span class="md-ellipsis">
+      
+        Prerequisites and Dependencies
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-state-flow">
+<span class="md-ellipsis">
+      
+        Component State Flow
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#call-flow">
+<span class="md-ellipsis">
+      
+        Call Flow
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal-modules">
+<span class="md-ellipsis">
+      
+        Internal Modules
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-interactions">
+<span class="md-ellipsis">
+      
+        Component Interactions
+      
+    </span>
+</a>
+<nav aria-label="Component Interactions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#interaction-matrix">
+<span class="md-ellipsis">
+      
+        Interaction Matrix
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ipc-flow-patterns">
+<span class="md-ellipsis">
+      
+        IPC Flow Patterns
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      
+        Implementation Details
+      
+    </span>
+</a>
+<nav aria-label="Implementation Details" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#major-hal-apis-integration">
+<span class="md-ellipsis">
+      
+        Major HAL APIs Integration
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-implementation-logic">
+<span class="md-ellipsis">
+      
+        Key Implementation Logic
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-configuration-files">
+<span class="md-ellipsis">
+      
+        Key Configuration Files
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/rdkcentral/edit/master/docs/docu/dec17/hotspot-feb17.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<h1 id="ccsp-hotspot-component-documentation">CCSP Hotspot Component Documentation</h1>
+<p>The CCSP Hotspot component is a critical middleware service in the RDK-B stack that manages GRE (Generic Routing Encapsulation) tunnels for Xfinity Hotspot functionality. This component enables service providers to offer secure guest WiFi access on customer premises equipment (CPE) by establishing and maintaining encrypted tunnels to remote hotspot endpoints.</p>
+<p>The Hotspot component provides three primary services to the RDK-B device: <strong>GRE Tunnel Management</strong> - creates, configures, and maintains GRE tunnels with primary and secondary remote endpoints for redundancy; <strong>Endpoint Health Monitoring</strong> - implements intelligent ICMP keep-alive mechanisms with automatic failover between primary and secondary endpoints when connectivity issues are detected; <strong>VLAN and Client Management</strong> - manages VLAN configurations for hotspot SSIDs across multiple frequency bands (2.4GHz, 5GHz, 6GHz) and provides DHCP snooping capabilities for tracking connected client devices.</p>
+<p>At the module level, the component consists of multiple cooperating processes: the main hotspot daemon (CcspHotspot) handles tunnel lifecycle and endpoint monitoring, the HotspotApi library provides a programmatic interface for configuration and WebConfig integration, the hotspot_arpd process manages ARP/NDP traffic using netfilter queue mechanisms, the DHCP snooper tracks client connections and generates telemetry events, and the tunnel test agent validates connectivity. These modules work together through RBus, sysevent, and shared memory mechanisms to provide a robust hotspot service infrastructure.</p>
+<pre class="mermaid"><code>graph LR
+    subgraph "External Systems"
+        RemoteMgmt["Remote Management"]
+        XfinityHS["Xfinity Hotspot Infrastructure"]
+    end
+
+    subgraph "RDK-B Platform"
+        subgraph "Remote Management Agents"
+            ProtocolAgents["Protocol Agents&lt;br&gt;( TR-069, WebPA, etc.)"]
+        end
+
+        PNM["CCSP P&amp;M"]
+        PSM["CCSP PSM"]
+        Hotspot["Hotspot"]
+        WiFi["WiFi Manager"]
+        LMLite["LM-Lite"]
+
+        subgraph "Platform Layer"
+            HAL["Platform HAL"]
+            Linux["Linux"]
+        end
+    end
+
+    %% External connections
+    RemoteMgmt --&gt;|TR-069/WebPA| ProtocolAgents
+    XfinityHS &lt;--&gt;|GRE/ICMP| Linux
+
+    %% Upper layer to Hotspot
+    ProtocolAgents --&gt;|IPC| Hotspot
+
+    %% Hotspot to Other RDK-B Components
+    Hotspot --&gt;|IPC| PNM
+    Hotspot --&gt;|IPC| PSM
+    Hotspot --&gt;|IPC| WiFi
+    Hotspot --&gt;|IPC| LMLite
+
+    %% Interface Managers to HAL
+    Hotspot &lt;--&gt;|System APIs| HAL
+
+    %% System integration
+    HAL &lt;--&gt;|Driver Interfaces| Linux
+    Hotspot &lt;--&gt;|System Events| Linux
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef hotspotComponent fill:#e3f2fd,stroke:#1976d2,stroke-width:3px;
+    classDef rdkbComponent fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+    classDef system fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+
+    class RemoteMgmt,XfinityHS external;
+    class Hotspot hotspotComponent;
+    class ProtocolAgents,PNM,PSM,WiFi,LMLite rdkbComponent;
+    class HAL,Linux system;</code></pre>
+<p><strong>Key Features &amp; Responsibilities</strong>: </p>
+<ul>
+<li><strong>GRE Tunnel Management</strong>: Creates and maintains GRE tunnels (<code>gretap0</code>) to Xfinity hotspot infrastructure with configurable primary and secondary remote endpoints, supporting both IPv4 and IPv6 addressing with automatic failover capabilities</li>
+<li><strong>Endpoint Health Monitoring</strong>: Implements sophisticated ICMP keep-alive mechanism with configurable intervals (default 60s), threshold-based failover (default 5 failures), and automatic switchback to primary endpoint after recovery</li>
+<li><strong>VLAN Configuration</strong>: Manages VLAN tagging for multiple hotspot SSIDs across 2.4GHz, 5GHz, and 6GHz bands, coordinating with WiFi manager and Linux bridge subsystem for proper traffic isolation</li>
+<li><strong>DHCP Client Tracking</strong>: Provides DHCP snooping functionality to monitor client connections, generate presence notifications, and support Circuit ID and Remote ID options for subscriber identification</li>
+<li><strong>WebConfig Integration</strong>: Supports RFC-based configuration through WebConfig framework, enabling cloud-managed tunnel and VLAN provisioning with transactional rollback capabilities</li>
+<li><strong>ARP/NDP Processing</strong>: Handles ARP solicitation for IPv4 and Neighbor Discovery Protocol (NDP) for IPv6 using netfilter queue mechanisms, with MAPT/NAT46 translation support</li>
+<li><strong>Telemetry and Diagnostics</strong>: Publishes operational metrics including tunnel status, endpoint switches, keep-alive statistics, and client activity events through RDK Telemetry framework</li>
+</ul>
+<h2 id="design">Design</h2>
+<p>The CCSP Hotspot component is designed as a multi-process architecture with clear separation of concerns. The core design centers around the main daemon (CcspHotspot/hotspotfd) that acts as the control plane for tunnel lifecycle management and health monitoring, while specialized helper processes handle traffic plane functions. The component integrates tightly with the RDK-B middleware stack through multiple IPC mechanisms - RBus for data model registration and event publication, sysevent for platform-level event coordination, and PSM for persistent configuration storage. This distributed design allows the component to operate efficiently with minimal resource consumption while maintaining high availability for the hotspot service.</p>
+<p>The design emphasizes operational resilience through several key mechanisms: dual endpoint support with automatic failover ensures continuous service even when the primary tunnel endpoint becomes unreachable; shared memory segments provide lock-free statistics sharing between the main daemon and monitoring tools; and transactional configuration updates through WebConfig allow atomic changes with automatic rollback on validation failures. The component follows the CCSP plugin architecture, registering its data model namespace (<code>Device.X_COMCAST-COM_GRE.Hotspot</code>) with the system and responding to both synchronous parameter queries and asynchronous configuration events.</p>
+<p>For northbound interactions, the component exposes a TR-181 compliant data model accessible via RBus/D-Bus, allowing management entities (Web UI, TR-069 ACS, SNMP) to configure tunnel endpoints, keep-alive parameters, and enable/disable the hotspot service. The WebConfig integration provides an alternative configuration path optimized for cloud-managed deployments, using JSON documents validated against schemas and applied transactionally. Southbound interactions occur primarily through system calls to the Linux network stack for GRE interface creation, VLAN configuration, and bridge management, while netfilter queue integration enables packet-level processing for ARP/NDP handling.</p>
+<p>IPC mechanisms are carefully selected based on use case requirements: RBus provides the primary data model and event bus with support for method calls, parameter get/set, and publish/subscribe patterns; sysevent handles asynchronous system-wide events like WAN status changes and interface state transitions; PSM stores persistent configuration that survives reboots; and shared memory segments provide high-performance statistics access without IPC overhead. Thread safety is ensured through mutex protection for shared data structures, particularly in the DHCP snooper module where client lists are accessed concurrently.</p>
+<p>Data persistence and storage are managed through multiple mechanisms: PSM stores critical configuration parameters like tunnel endpoints, VLAN IDs, and enable flags that survive reboots; JSON files in <code>/nvram</code> cache WebConfig documents for rollback and WAN failover scenarios; and temporary files in <code>/tmp</code> hold runtime state such as current WAN IP addresses and tunnel status. The component also maintains shared memory segments for keep-alive statistics that need to be accessed by external monitoring tools without involving the main process.</p>
+<pre class="mermaid"><code>graph TD
+    subgraph "Container: CCSP Hotspot (C, Autotools)"
+        subgraph "Main Daemon (CcspHotspot)"
+            DM["Data Model Handler&lt;br/&gt;(cosa_hotspot_dml.c)"]
+            TM["Tunnel Manager&lt;br/&gt;(hotspotfd.c)"]
+            KA["Keep-Alive Engine&lt;br/&gt;(hotspotfd.c)"]
+            MB["Message Bus&lt;br/&gt;Interface&lt;br/&gt;(ssp_messagebus_interface.c)"]
+        end
+
+        subgraph "API Library (libHotspotApi.so)"
+            API["Public API&lt;br/&gt;(HotspotApi.c)"]
+            WC["WebConfig Handler&lt;br/&gt;(HotspotJansson.c)"]
+            TL["Tunnel Logic&lt;br/&gt;(HotspotLib.c)"]
+        end
+
+        subgraph "Helper Processes"
+            ARPD["ARP/NDP Daemon&lt;br/&gt;(hotspot_arpd)"]
+            DHCP["DHCP Snooper&lt;br/&gt;(dhcpsnooper.c)"]
+        end
+    end
+
+    subgraph "External Components"
+        RBus[("RBus&lt;br/&gt;Message Bus")]
+        SysEvt[("Sysevent")]
+        PSM[("PSM")]
+        NFQ[("Netfilter&lt;br/&gt;Queue")]
+        NetSys[("Network&lt;br/&gt;Stack")]
+    end
+
+    DM &lt;--&gt;|"RBus DM"| MB
+    MB &lt;--&gt;|"Register/Publish"| RBus
+    TM --&gt;|"System Calls"| NetSys
+    KA --&gt;|"ICMP Packets"| NetSys
+
+    API &lt;--&gt;|"JSON Config"| WC
+    WC --&gt;|"Validate/Apply"| TL
+    TL --&gt;|"Call"| TM
+    API &lt;--&gt;|"Read/Write"| PSM
+
+    ARPD &lt;--&gt;|"Dequeue/Verdict"| NFQ
+    DHCP --&gt;|"Parse/Track"| NetSys
+    DHCP --&gt;|"Events"| RBus
+
+    TM &lt;--&gt;|"Get/Set Events"| SysEvt
+    TM &lt;--&gt;|"Statistics"| SHMEM["Shared Memory"]
+
+    classDef daemon fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef library fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef helper fill:#fff9c4,stroke:#f57f17,stroke-width:2px;
+    classDef external fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+
+    class DM,TM,KA,MB daemon;
+    class API,WC,TL library;
+    class ARPD,DHCP helper;
+    class RBus,SysEvt,PSM,NFQ,NetSys,SHMEM external;</code></pre>
+<h3 id="prerequisites-and-dependencies">Prerequisites and Dependencies</h3>
+<p>The CCSP Hotspot component requires a fully functional RDK-B middleware environment with specific platform capabilities and dependent services. The component is built using the Autotools build system and integrates with the Yocto Project through the <code>ccsp-hotspot.bb</code> recipe in the <code>meta-rdk-broadband</code> layer.</p>
+<p><strong>Build-Time Flags and Configuration:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Configure Option</th>
+<th>DISTRO Feature</th>
+<th>Build Flag</th>
+<th>Purpose</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--enable-unitTestDockerSupport</code></td>
+<td>N/A</td>
+<td><code>UNIT_TEST_DOCKER_SUPPORT</code></td>
+<td>Enable Docker container support for unit testing; compiles test harness (<code>HotspotApiTest</code>, <code>HotspotFdTest</code>) with mocking frameworks for isolated component testing</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td><code>--enable-wanfailover</code></td>
+<td><code>WanFailOverSupportEnable</code></td>
+<td><code>WAN_FAILOVER_SUPPORTED</code></td>
+<td>Enable WAN failover support for multi-WAN scenarios; subscribes to WAN Manager interface change events and rebinds GRE tunnel to active WAN interface automatically</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td><code>--enable-core_net_lib_feature_support</code></td>
+<td><code>core-net-lib</code></td>
+<td><code>CORE_NET_LIB</code></td>
+<td>Enable advanced core networking library for enhanced network operations; links against libnet for low-level packet construction and network interface manipulation</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td><code>safec</code></td>
+<td>(absence triggers <code>SAFEC_DUMMY_API</code>)</td>
+<td>Enable SafeC library for bounds-checked string operations; provides memory-safe alternatives to standard C string functions (strcpy_s, memcpy_s, etc.) for vulnerability mitigation</td>
+<td>Enabled (recommended)</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td><code>OneWifi</code></td>
+<td><code>RDK_ONEWIFI</code></td>
+<td>Enable OneWifi unified WiFi stack integration; increases MAX_VAP from 4 to 6 to support 6GHz band hotspot SSIDs (hotspot_open_6g, hotspot_secure_6g)</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>Platform-specific</td>
+<td>N/A</td>
+<td><code>_CBR_PRODUCT_REQ_</code></td>
+<td>CBR product variant configuration; sets MAX_VAP=5 with specific PSM VLAN mapping for Comcast Business Router platforms</td>
+<td>Platform-dependent</td>
+</tr>
+<tr>
+<td>Platform-specific</td>
+<td>N/A</td>
+<td><code>_XB8_PRODUCT_REQ_</code></td>
+<td>XB8 (Gen 3) product configuration; enables 6GHz support when combined with RDK_ONEWIFI, configures platform-specific VLAN sync data structures</td>
+<td>Platform-dependent</td>
+</tr>
+<tr>
+<td>Platform-specific</td>
+<td>N/A</td>
+<td><code>_XB7_PRODUCT_REQ_</code></td>
+<td>XB7 (Gen 2) product configuration; adjusts VLAN mappings and WiFi interface names for XB7 hardware platform</td>
+<td>Platform-dependent</td>
+</tr>
+<tr>
+<td>Platform-specific</td>
+<td>N/A</td>
+<td><code>_SCXF11BFL_PRODUCT_REQ_</code></td>
+<td>SCXF11 (fiber) product configuration; similar to XB8 with 6GHz support and platform-specific network interface configurations</td>
+<td>Platform-dependent</td>
+</tr>
+<tr>
+<td>Platform-specific</td>
+<td>N/A</td>
+<td><code>FEATURE_SUPPORT_MAPT_NAT46</code></td>
+<td>Enable MAP-T (Mapping of Address and Port with Translation) NAT46 support in ARP daemon for IPv4/IPv6 translation in hotspot traffic</td>
+<td>Platform-dependent</td>
+</tr>
+<tr>
+<td>Platform-specific</td>
+<td>N/A</td>
+<td><code>AMENITIES_NETWORK_ENABLED</code></td>
+<td>Enable amenities network support for hospitality/MDU deployments; creates separate bridge interfaces for amenities SSIDs with dedicated DHCP snooping queues</td>
+<td>Disabled</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Configuration Examples:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Basic build with safec and standard features</span>
+<span class="nv">DISTRO_FEATURES</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">"safec"</span>
+
+<span class="c1"># Build with WAN failover support</span>
+<span class="nv">DISTRO_FEATURES</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">"safec WanFailOverSupportEnable"</span>
+EXTRA_OECONF_append_pn-ccsp-hotspot<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" --enable-wanfailover"</span>
+
+<span class="c1"># Build with OneWifi 6GHz support</span>
+<span class="nv">DISTRO_FEATURES</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">"safec OneWifi"</span>
+
+<span class="c1"># Build with all optional features</span>
+<span class="nv">DISTRO_FEATURES</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">"safec core-net-lib OneWifi WanFailOverSupportEnable"</span>
+EXTRA_OECONF_append_pn-ccsp-hotspot<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" --enable-wanfailover --enable-core_net_lib_feature_support"</span>
+
+<span class="c1"># Build with unit test support</span>
+EXTRA_OECONF_append_pn-ccsp-hotspot<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" --enable-unitTestDockerSupport"</span>
+</code></pre></div>
+<p><strong>Flag Impact on Code Behavior:</strong></p>
+<ul>
+<li><strong>RDK_ONEWIFI</strong>: Changes <code>MAX_VAP</code> definition from 4 to 6, adds support for <code>VAP_NAME_11</code> (hotspot_open_6g) and <code>VAP_NAME_12</code> (hotspot_secure_6g), includes additional PSM VLAN keys for 6GHz bands</li>
+<li><strong>WAN_FAILOVER_SUPPORTED</strong>: Enables RBus subscription thread for <code>Device.X_RDK_WanManager.CurrentActiveInterface</code> events, adds WAN interface rebinding logic, includes failover JSON configuration handling</li>
+<li><strong>CORE_NET_LIB</strong>: Uses <code>libnet</code> library calls for network operations instead of system() calls, provides more efficient packet construction and interface manipulation</li>
+<li><strong>AMENITIES_NETWORK_ENABLED</strong>: Expands DHCP snooper to handle additional netfilter queues for amenities networks, creates separate bridge interfaces and VLAN configurations for hospitality SSIDs</li>
+<li><strong>FEATURE_SUPPORT_MAPT_NAT46</strong>: Enables IPv4/IPv6 address translation in ARP daemon, reads MAP-T configuration from sysevent, performs address mapping for dual-stack hotspot deployments</li>
+</ul>
+<p><br/></p>
+<p><strong>RDK-B Platform and Integration Requirements:</strong></p>
+<ul>
+<li><strong>DISTRO Features</strong>: Configure options and DISTRO features are detailed in the Build-Time Flags table above. Key features include:</li>
+<li><code>safec</code> - Recommended for production builds to enable memory-safe string operations</li>
+<li><code>core-net-lib</code> - Optional, provides enhanced networking capabilities via libnet</li>
+<li><code>OneWifi</code> - Required for 6GHz hotspot SSID support on compatible platforms</li>
+<li>
+<p><code>WanFailOverSupportEnable</code> - Required for multi-WAN deployments with automatic failover</p>
+</li>
+<li>
+<p><strong>Build Dependencies</strong>: Required Yocto packages and libraries that must be present at build time:</p>
+</li>
+<li><code>ccsp-common-library</code> - CCSP framework and base utilities</li>
+<li><code>dbus</code> - D-Bus message bus library</li>
+<li><code>libnetfilter-queue</code> - Netfilter queue library for packet processing</li>
+<li><code>utopia</code> - System configuration and event framework</li>
+<li><code>ccsp-lm-lite</code> - LAN Manager Lite for client tracking integration</li>
+<li><code>telemetry</code> - RDK Telemetry framework for metrics reporting</li>
+<li><code>libunpriv</code> - Privilege management library</li>
+<li><code>safec</code> - Safe C library for bounds-checked operations</li>
+<li><code>breakpadwrapper</code> - Crash reporting framework</li>
+<li><code>webconfig-framework</code> - WebConfig RFC support</li>
+<li><code>jansson</code> - JSON parsing library</li>
+<li>
+<p><code>core-net-lib</code> (conditional) - Core networking library</p>
+</li>
+<li>
+<p><strong>RDK-B Components</strong>: The following middleware components must be running before hotspot starts:</p>
+</li>
+<li><strong>CR (Component Registrar)</strong> - Component registry and discovery service</li>
+<li><strong>PSM (Persistent Storage Manager)</strong> - Configuration persistence layer</li>
+<li><strong>PAM (Protocol Address Management)</strong> - WAN interface management</li>
+<li><strong>WiFi Manager</strong> - WiFi configuration and control (for SSID enable/disable queries)</li>
+<li>
+<p><strong>Sysevent daemon</strong> - System event coordination</p>
+</li>
+<li>
+<p><strong>HAL Dependencies</strong>: The component does not directly depend on HAL APIs but requires:</p>
+</li>
+<li>Linux kernel with GRE tunnel support (<code>ip_gre</code>, <code>gre</code> kernel modules)</li>
+<li>VLAN support in kernel (<code>8021q</code> module)</li>
+<li>Bridge support (<code>bridge</code> module)</li>
+<li>
+<p>Netfilter support with QUEUE target</p>
+</li>
+<li>
+<p><strong>Systemd Services</strong>: The hotspot systemd service unit typically depends on:</p>
+</li>
+<li><code>ccsp-cr.service</code> - Component Registrar must be active</li>
+<li><code>ccsp-psm.service</code> - PSM must be initialized</li>
+<li><code>syseventd.service</code> - Sysevent daemon must be running</li>
+<li>
+<p>Network prerequisite services (varies by platform)</p>
+</li>
+<li>
+<p><strong>Message Bus</strong>: RBus configuration requirements:</p>
+</li>
+<li>RBus daemon must be running</li>
+<li>Component registers namespace: <code>Device.X_COMCAST-COM_GRE.Hotspot</code></li>
+<li>Must have permissions to publish events and register data model elements</li>
+<li>
+<p>Requires CCSP D-Bus configuration file: <code>/etc/ccsp_msg.cfg</code> (or platform-specific path)</p>
+</li>
+<li>
+<p><strong>Configuration Files</strong>: Mandatory configuration files and expected locations:</p>
+</li>
+<li><code>/etc/ccsp_msg.cfg</code> - CCSP message bus configuration</li>
+<li><code>/etc/debug.ini</code> - Debug and logging configuration</li>
+<li><code>/nvram/syscfg.db</code> - System configuration database (managed by syscfg)</li>
+<li><code>/nvram/hotspot.json</code> - Hotspot configuration cache (created at runtime)</li>
+<li>
+<p>PSM database must contain hotspot configuration namespace</p>
+</li>
+<li>
+<p><strong>Startup Order</strong>: Components that must initialize before hotspot:</p>
+</li>
+<li>System logging (<code>syslog</code>)</li>
+<li>Sysevent daemon (<code>syseventd</code>)</li>
+<li>PSM (<code>CcspPsm</code>)</li>
+<li>Component Registrar (<code>CcspCr</code>)</li>
+<li>PAM (<code>CcspPandM</code>) - for WAN status monitoring</li>
+<li>WiFi Manager - for SSID state queries</li>
+</ul>
+<p><strong>Threading Model</strong></p>
+<p>The CCSP Hotspot component uses a multi-threaded architecture designed to handle concurrent tunnel management, health monitoring, event processing, and client tracking without blocking critical operations.</p>
+<ul>
+<li><strong>Threading Architecture</strong>: Multi-threaded with main event loop and specialized worker threads for different operational domains</li>
+<li><strong>Main Thread</strong>: Handles CCSP message bus event loop, RBus callbacks, TR-181 parameter get/set operations, tunnel lifecycle management, ICMP keep-alive packet generation and validation, and shared memory management for statistics</li>
+<li><strong>Worker Threads</strong>: </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Thread Name</th>
+<th>Thread Function</th>
+<th>Purpose</th>
+<th>Creation Location</th>
+<th>Synchronization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sysevent Handler Thread</strong></td>
+<td><code>hotspotfd_sysevent_handler()</code></td>
+<td>Monitors sysevent notifications for configuration parameter changes (primary/secondary endpoints, keep-alive settings, enable/disable), WAN status transitions, DHCP snooper settings, and WAN failover events. Registers async notifications and processes events in dedicated event loop.</td>
+<td><code>hotspotfd.c</code><br><code>pthread_create(&amp;sysevent_tid, NULL, hotspotfd_sysevent_handler, NULL)</code></br></td>
+<td>Event-driven with sysevent async notifications, no explicit locks (sysevent handles concurrency)</td>
+</tr>
+<tr>
+<td><strong>DHCP Snooper Thread</strong></td>
+<td><code>dhcp_snooper_init()</code></td>
+<td>Processes DHCP packets from netfilter queues to track client connections on hotspot SSIDs. Parses DHCP ACK/RELEASE messages, maintains dynamic client list, extracts Circuit ID/Remote ID options, and publishes client presence events via RBus.</td>
+<td><code>hotspotfd.c</code><br/><code>pthread_create(&amp;dhcp_snooper_tid, NULL, dhcp_snooper_init, NULL)</code></td>
+<td><code>pthread_mutex_t global_stats_mutex</code> protects client list during traversal, insertion, deletion operations</td>
+</tr>
+<tr>
+<td><strong>RBus WAN Subscriber Thread</strong></td>
+<td><code>handle_rbusSubscribe()</code></td>
+<td>Subscribes to WAN Manager's current active interface change events (<code>Device.X_RDK_WanManager.CurrentActiveInterface</code>) for WAN failover support. Handles interface switching and tunnel rebinding during WAN failover scenarios.</td>
+<td><code>hotspotfd.c</code><br/><code>pthread_create(&amp;rbus_tid, NULL, handle_rbusSubscribe, NULL)</code><br/>(Conditional: <code>WAN_FAILOVER_SUPPORTED</code>)</td>
+<td>RBus subscription with retry logic (up to 10 attempts), event-driven callbacks</td>
+</tr>
+<tr>
+<td><strong>IPv6 SLAAC Thread</strong></td>
+<td><code>checkglobalipv6()</code></td>
+<td>Performs IPv6 Stateless Address Autoconfiguration (SLAAC) on GRE tunnel interface during connectivity tests. Monitors for global IPv6 address acquisition with 10-second timeout, verifies Duplicate Address Detection (DAD) completion. Used in XfinityTestAgent tunnel validation.</td>
+<td><code>tunnelcheck.c</code><br/><code>pthread_create(&amp;slaacthread, NULL, checkglobalipv6, NULL)</code></td>
+<td>Thread is joined after completion (<code>pthread_join</code>), single-shot operation with timeout mechanism</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Synchronization Mechanisms</strong>: </li>
+<li><strong>Mutex Protection</strong>: <code>pthread_mutex_t global_stats_mutex</code> in DHCP snooper for thread-safe client list access</li>
+<li><strong>Signal Handlers</strong>: <code>SIGTERM</code>, <code>SIGINT</code>, <code>SIGKILL</code> handlers for graceful shutdown with atomic flag checks</li>
+<li><strong>Lock-free Statistics</strong>: Keep-alive statistics in shared memory use single-writer (daemon), multiple-reader pattern without locks</li>
+<li><strong>Event-driven Coordination</strong>: Sysevent async notifications and RBus event subscriptions eliminate polling overhead</li>
+</ul>
+<p><strong>Helper Process Threading Model:</strong></p>
+<ul>
+<li><strong>hotspot_arpd</strong>: Single-threaded process using select-based event loop to process ARP/NDP packets from netfilter queues synchronously. No internal threading required as packet processing is sequential.</li>
+</ul>
+<h3 id="component-state-flow">Component State Flow</h3>
+<p><strong>Initialization to Active State</strong></p>
+<p>The CCSP Hotspot component follows a structured initialization sequence that transitions through several states before reaching full operational readiness. The component starts when systemd launches the CcspHotspot daemon, which then performs subsystem initialization in a specific order to ensure all dependencies are satisfied.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Systemd as Systemd
+    participant SSP as SSP Main&lt;br/&gt;(ssp_main.c)
+    participant MBus as Message Bus&lt;br/&gt;Interface
+    participant RBus as RBus/D-Bus
+    participant DM as Data Model&lt;br/&gt;Handler
+    participant TM as Tunnel Manager
+    participant PSM as PSM
+    participant SysEvt as Sysevent
+    participant Net as Network Stack
+
+    Systemd-&gt;&gt;SSP: Start CcspHotspot
+    Note over SSP: State: Initializing&lt;br/&gt;Parse args, setup logging
+
+    SSP-&gt;&gt;SSP: daemonize() - Fork to background
+    SSP-&gt;&gt;SSP: Initialize breakpad crash handler
+
+    SSP-&gt;&gt;MBus: ssp_Mbi_MessageBusEngage()
+    Note over MBus: State: Connecting to Bus
+    MBus-&gt;&gt;RBus: CCSP_Message_Bus_Init()
+    RBus--&gt;&gt;MBus: Bus Handle
+
+    MBus-&gt;&gt;RBus: Register Component&lt;br/&gt;"com.cisco.spvtg.ccsp.hotspot"
+    RBus--&gt;&gt;MBus: Registration Success
+
+    SSP-&gt;&gt;DM: ssp_create() - Create plugin
+    Note over DM: State: Registering Data Model
+    DM-&gt;&gt;RBus: Register Namespace&lt;br/&gt;"Device.X_COMCAST-COM_GRE.Hotspot"
+    DM-&gt;&gt;RBus: Register Parameter Callbacks
+    RBus--&gt;&gt;DM: DM Registration Complete
+
+    SSP-&gt;&gt;TM: ssp_engage() → hotspot_start()
+    Note over TM: State: Initializing Tunnel Manager
+
+    TM-&gt;&gt;PSM: Read Configuration
+    PSM--&gt;&gt;TM: Config: Enable, Endpoints, VLANs
+
+    TM-&gt;&gt;SysEvt: gre_sysevent_syscfg_init()
+    SysEvt--&gt;&gt;TM: Sysevent Handle
+
+    TM-&gt;&gt;TM: hotspotfd_setupSharedMemory()
+    Note over TM: Create shared memory segment&lt;br/&gt;for statistics
+
+    alt Hotspot Enabled
+        TM-&gt;&gt;Net: Validate Primary/Secondary IPs
+        TM-&gt;&gt;Net: Create GRE Tunnel (gretap0)
+        Net--&gt;&gt;TM: Tunnel Created
+
+        TM-&gt;&gt;Net: Configure VLANs for Hotspot SSIDs
+        Net--&gt;&gt;TM: VLAN Bridges Ready
+
+        TM-&gt;&gt;TM: Start Keep-Alive Engine
+        Note over TM: Fork/spawn keep-alive loop
+
+        TM-&gt;&gt;SysEvt: Set "hotspotfd-tunnelEP" event
+        Note over TM: State: Active (Primary Endpoint)
+    else Hotspot Disabled
+        Note over TM: State: Active (Idle)
+    end
+
+    TM--&gt;&gt;SSP: Initialization Complete
+    SSP-&gt;&gt;SSP: Enter Main Event Loop
+
+    loop Runtime Operations
+        Note over SSP,Net: State: Active&lt;br/&gt;Process RBus events, keep-alives, sysevent notifications
+        RBus-&gt;&gt;DM: Parameter Get/Set Requests
+        DM-&gt;&gt;TM: Execute Operations
+        TM-&gt;&gt;Net: Apply Network Changes
+
+        TM-&gt;&gt;TM: Send ICMP Keep-Alive
+        Net--&gt;&gt;TM: ICMP Reply (or timeout)
+
+        alt Keep-Alive Failed (threshold exceeded)
+            TM-&gt;&gt;TM: Switch to Secondary Endpoint
+            TM-&gt;&gt;Net: Update GRE Remote IP
+            TM-&gt;&gt;SysEvt: Publish "hotspotfd-tunnelEP" event
+            Note over TM: State: Active (Secondary Endpoint)
+        end
+    end
+
+    Systemd-&gt;&gt;SSP: SIGTERM (Stop Request)
+    Note over SSP: State: Shutting Down
+    SSP-&gt;&gt;TM: ssp_cancel()
+    TM-&gt;&gt;Net: Cleanup GRE Interface
+    TM-&gt;&gt;TM: Delete Shared Memory
+    TM-&gt;&gt;SysEvt: Close Sysevent Handle
+    SSP-&gt;&gt;RBus: Unregister Component
+    SSP-&gt;&gt;Systemd: Exit(0) - Shutdown Complete</code></pre>
+<p><strong>Runtime State Changes and Context Switching</strong></p>
+<p>During normal operation, the hotspot component undergoes several runtime state changes driven by external events and tunnel health monitoring. These state changes are designed to maintain service continuity in the face of network disruptions or configuration updates.</p>
+<p><strong>State Change Triggers:</strong></p>
+<ul>
+<li>
+<p><strong>WAN Status Changes</strong>: When sysevent <code>wan-status</code> transitions to "started" or "stopped", the component validates tunnel endpoints and may suspend/resume keep-alive monitoring. If WAN is down, keep-alive checks are paused to avoid unnecessary failure detection.</p>
+</li>
+<li>
+<p><strong>Keep-Alive Failures</strong>: When consecutive ICMP keep-alive failures reach the threshold (default 5), the component switches from the primary endpoint to the secondary endpoint. This state change updates the GRE tunnel's remote endpoint IP and publishes a <code>hotspotfd-tunnelEP</code> sysevent to notify other components.</p>
+</li>
+<li>
+<p><strong>Endpoint Recovery</strong>: After switching to the secondary endpoint, the component continues monitoring the primary endpoint. Upon successful primary endpoint recovery detection, it switches back automatically. A configurable "secondary maximum time" parameter can force switchback even if both endpoints respond.</p>
+</li>
+<li>
+<p><strong>Configuration Updates</strong>: When WebConfig delivers a new hotspot configuration document, or when parameters change via TR-181 data model, the component validates the changes and applies them transactionally:</p>
+</li>
+<li>If GRE enable status changes, tunnels are created or destroyed</li>
+<li>If endpoint IPs change, the GRE remote address is updated without tunnel recreation</li>
+<li>If VLANs change, bridge and VLAN configurations are updated incrementally</li>
+<li>
+<p>Failed validation triggers automatic rollback to the last known good configuration</p>
+</li>
+<li>
+<p><strong>WAN Failover</strong> (if enabled): On platforms supporting WAN failover, when <code>current_wan_ifname</code> sysevent changes, the component re-evaluates the WAN interface used for GRE encapsulation and may rebind the tunnel to the new WAN interface.</p>
+</li>
+<li>
+<p><strong>WiFi SSID State Changes</strong>: When hotspot SSIDs are enabled or disabled via WiFi manager, the component queries SSID state and adjusts VLAN bridge memberships accordingly, ensuring traffic isolation is maintained only for active SSIDs.</p>
+</li>
+</ul>
+<p><strong>Context Switching Scenarios:</strong></p>
+<ul>
+<li>
+<p><strong>Primary ↔ Secondary Endpoint Switching</strong>: The most common runtime context switch occurs during endpoint failover. The component maintains a state machine tracking the active endpoint, failed keep-alive counts, and switchback timers. State transitions are atomic - the GRE remote endpoint is updated via <code>ip link set gretap0 type gre remote &lt;new_ip&gt;</code>, and statistics counters are incremented in shared memory. Recovery involves exponential backoff to avoid flapping between endpoints.</p>
+</li>
+<li>
+<p><strong>WebConfig Transaction Mode</strong>: When processing WebConfig documents, the component enters a transactional mode where changes are staged but not committed. Upon validation success, all changes are applied atomically; upon failure, a rollback mechanism restores the previous configuration from cached JSON in <code>/nvram/hotspot.json</code>. This ensures configuration consistency even if the component crashes during update.</p>
+</li>
+<li>
+<p><strong>DHCP Snooper Client Tracking</strong>: The DHCP snooper maintains a dynamic client list that changes as devices connect and disconnect. When a client presence event is detected (DHCP ACK packets), the snooper adds the client to its internal list and publishes an RBus event to LM-Lite. Clients are aged out after lease expiry or explicit DHCP release.</p>
+</li>
+</ul>
+<h3 id="call-flow">Call Flow</h3>
+<p><strong>Initialization Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Main as main()&lt;br/&gt;(ssp_main.c)
+    participant Eng as ssp_Mbi_MessageBusEngage()
+    participant Cre as ssp_create()
+    participant EngS as ssp_engage()
+    participant HS as hotspot_start()&lt;br/&gt;(hotspotfd.c)
+    participant RBus as RBus
+    participant PSM as PSM
+    participant SysEvt as Sysevent
+
+    Main-&gt;&gt;Main: Parse command line args
+    Main-&gt;&gt;Main: daemonize() if not debug mode
+    Main-&gt;&gt;Main: Setup signal handlers
+
+    Main-&gt;&gt;Eng: Connect to Message Bus
+    Eng-&gt;&gt;RBus: CCSP_Message_Bus_Init()&lt;br/&gt;"com.cisco.spvtg.ccsp.hotspot"
+    RBus--&gt;&gt;Eng: bus_handle
+    Eng-&gt;&gt;RBus: CCSP_Message_Bus_Register_Path()&lt;br/&gt;Register base callbacks
+    RBus--&gt;&gt;Eng: Success
+    Eng--&gt;&gt;Main: ANSC_STATUS_SUCCESS
+
+    Main-&gt;&gt;Cre: Create Component
+    Cre-&gt;&gt;Cre: Allocate component structures
+    Cre-&gt;&gt;Cre: Register data model elements
+    Cre--&gt;&gt;Main: Component Handle
+
+    Main-&gt;&gt;EngS: Engage Component
+    EngS-&gt;&gt;HS: hotspot_start()
+    Note over HS: Initialize Hotspot Subsystem
+
+    HS-&gt;&gt;SysEvt: gre_sysevent_syscfg_init()&lt;br/&gt;Initialize sysevent/syscfg
+    SysEvt--&gt;&gt;HS: Sysevent FD &amp; Token
+
+    HS-&gt;&gt;PSM: PsmGet("dmsb.hotspot.enable")
+    PSM--&gt;&gt;HS: Enable Status
+
+    alt Hotspot Enabled
+        HS-&gt;&gt;PSM: Read tunnel configuration&lt;br/&gt;(endpoints, VLANs, DSCP)
+        PSM--&gt;&gt;HS: Configuration Data
+
+        HS-&gt;&gt;HS: hotspot_sysevent_enable_param()&lt;br/&gt;Validate and cache parameters
+
+        HS-&gt;&gt;HS: create_tunnel(primary_endpoint)
+        Note over HS: Create GRE interface gretap0&lt;br/&gt;Configure VLAN bridges
+
+        HS-&gt;&gt;HS: hotspotfd_setupSharedMemory()
+        Note over HS: Create shared mem
+
+        HS-&gt;&gt;HS: Start keep-alive monitoring loop
+    end
+
+    HS--&gt;&gt;EngS: Initialization Complete
+    EngS--&gt;&gt;Main: ANSC_STATUS_SUCCESS
+
+    Main-&gt;&gt;Main: Enter message bus event loop&lt;br/&gt;while (g_bActive)</code></pre>
+<p><strong>Request Processing Call Flow:</strong></p>
+<p>The most critical operational flow is the tunnel endpoint health monitoring and automatic failover sequence, which ensures continuous hotspot service availability.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant KA as Keep-Alive Engine&lt;br/&gt;(hotspotfd.c)
+    participant Net as Network Stack
+    participant Stats as Shared Memory&lt;br/&gt;Statistics
+    participant SysEvt as Sysevent
+    participant RBus as RBus
+    participant Remote as Remote&lt;br/&gt;Endpoint
+
+    Note over KA: Timer fires every keepAliveInterval (default 60s)
+
+    loop For each keep-alive count (default 1 per interval)
+        KA-&gt;&gt;KA: Build ICMP Echo Request&lt;br/&gt;Sequence #, Checksum
+        KA-&gt;&gt;Net: sendto() raw ICMP packet
+        Net-&gt;&gt;Remote: ICMP Echo Request
+
+        KA-&gt;&gt;Net: recvfrom() with timeout&lt;br/&gt;wait for ICMP Echo Reply
+
+        alt Reply Received
+            Remote-&gt;&gt;Net: ICMP Echo Reply
+            Net--&gt;&gt;KA: Reply packet
+
+            KA-&gt;&gt;KA: Validate checksum &amp; sequence
+
+            alt Valid Reply
+                KA-&gt;&gt;Stats: Increment keepAlivesReceived
+                KA-&gt;&gt;Stats: Reset failure counter = 0
+                Note over KA: State: Active Endpoint Healthy
+            else Invalid Reply (checksum/seq mismatch)
+                KA-&gt;&gt;Stats: Increment discarded counters
+                Note over KA: Treat as failure
+            end
+
+        else Timeout (No Reply)
+            Note over KA: Keep-alive failure detected
+            KA-&gt;&gt;Stats: Increment keepAlivesSent&lt;br/&gt;(no corresponding Received)
+            KA-&gt;&gt;Stats: Increment failure counter
+
+            alt Failure Counter &gt;= Threshold (default 5)
+                Note over KA: Endpoint considered DOWN
+
+                alt Currently on Primary
+                    KA-&gt;&gt;KA: Check if secondary endpoint valid
+                    KA-&gt;&gt;Net: ip link set gretap0 type gre&lt;br/&gt;remote &lt;secondary_ip&gt;
+                    Net--&gt;&gt;KA: Tunnel updated
+
+                    KA-&gt;&gt;Stats: Update primaryIsActive = false&lt;br/&gt;secondaryIsActive = true
+                    KA-&gt;&gt;Stats: Increment switchedBackToPrimary counter
+
+                    KA-&gt;&gt;SysEvt: Set "hotspotfd-tunnelEP"&lt;br/&gt;value = secondary_ip
+                    SysEvt-&gt;&gt;RBus: Notify subscribers
+
+                    Note over KA: State: Secondary Endpoint Active
+                    KA-&gt;&gt;KA: Reset failure counter = 0&lt;br/&gt;Start secondary max time timer
+
+                else Currently on Secondary
+                    alt Secondary max time exceeded
+                        Note over KA: Force switchback to primary
+                        KA-&gt;&gt;Net: ip link set gretap0 type gre&lt;br/&gt;remote &lt;primary_ip&gt;
+                        KA-&gt;&gt;Stats: Update primaryIsActive = true&lt;br/&gt;secondaryIsActive = false
+                        KA-&gt;&gt;SysEvt: Set "hotspotfd-tunnelEP"&lt;br/&gt;value = primary_ip
+                        Note over KA: State: Primary Endpoint Active (forced)
+                    else Both endpoints down
+                        Note over KA: Use dead interval (longer wait)&lt;br/&gt;between retries
+                        KA-&gt;&gt;Stats: Both primaryIsAlive=false&lt;br/&gt;secondaryIsAlive=false
+                    end
+                end
+            end
+        end
+    end
+
+    Note over KA: Check for recovery if on secondary
+    alt On Secondary Endpoint
+        KA-&gt;&gt;KA: Test primary endpoint
+        KA-&gt;&gt;Net: ICMP Echo to primary
+        alt Primary responds
+            Note over KA: Primary recovered
+            KA-&gt;&gt;Net: ip link set gretap0 type gre&lt;br/&gt;remote &lt;primary_ip&gt;
+            KA-&gt;&gt;Stats: Update primaryIsActive = true&lt;br/&gt;secondaryIsActive = false
+            KA-&gt;&gt;SysEvt: Set "hotspotfd-tunnelEP"&lt;br/&gt;value = primary_ip
+            Note over KA: State: Primary Endpoint Active (recovered)
+        end
+    end</code></pre>
+<h2 id="internal-modules">Internal Modules</h2>
+<p>The CCSP Hotspot component is organized into several logical modules, each responsible for specific aspects of tunnel management, health monitoring, and client tracking. These modules are compiled into separate executables and libraries that cooperate through IPC mechanisms.</p>
+<table>
+<thead>
+<tr>
+<th>Module/Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SSP Framework</strong></td>
+<td>Provides the CCSP Single Service Process framework implementation, handling component registration, message bus engagement, lifecycle management (initialize/engage/cancel), and signal handling. This module bootstraps the entire component.</td>
+<td><code>ssp_main.c</code>, <code>ssp_action.c</code>, <code>ssp_messagebus_interface.c</code>, <code>ssp_global.h</code>, <code>ssp_internal.h</code></td>
+</tr>
+<tr>
+<td><strong>Data Model Handler</strong></td>
+<td>Implements the TR-181 data model interface for <code>Device.X_COMCAST-COM_GRE.Hotspot</code> namespace. Handles parameter get/set operations, validates input, and bridges RBus/D-Bus calls to the tunnel manager logic. Exposes the <code>ClientChange</code> parameter for DHCP snooper integration.</td>
+<td><code>cosa_hotspot_dml.c</code>, <code>cosa_hotspot_dml.h</code>, <code>plugin_main.c</code></td>
+</tr>
+<tr>
+<td><strong>Tunnel Manager</strong></td>
+<td>Core tunnel lifecycle manager responsible for GRE tunnel creation, configuration, and destruction. Maintains tunnel state, coordinates with network stack for interface operations, manages VLAN bridge configurations, and handles sysevent-based coordination with other system components.</td>
+<td><code>hotspotfd.c</code>, <code>hotspotfd.h</code></td>
+</tr>
+<tr>
+<td><strong>Keep-Alive Engine</strong></td>
+<td>Implements ICMP-based endpoint health monitoring with configurable intervals, thresholds, and policies. Manages the primary/secondary endpoint failover state machine, maintains keep-alive statistics in shared memory, and publishes endpoint change events via sysevent.</td>
+<td><code>hotspotfd.c</code> (hotspotfd_isPrimaryAlive, hotspotfd_isSecondaryAlive, keep-alive loop)</td>
+</tr>
+<tr>
+<td><strong>Hotspot API Library</strong></td>
+<td>Public library providing programmatic API for hotspot configuration and control. Used by WebConfig framework for RFC-based provisioning, implements configuration validation, comparison, and transactional application with rollback support.</td>
+<td><code>HotspotApi.c</code>, <code>libHotspotApi.h</code></td>
+</tr>
+<tr>
+<td><strong>WebConfig Handler</strong></td>
+<td>Processes JSON-based WebConfig documents (subdoc: "hotspot"), performs schema validation using Jansson library, manages configuration persistence to PSM and filesystem, and coordinates with tunnel manager for atomic configuration updates.</td>
+<td><code>HotspotJansson.c</code>, <code>HotspotLib.c</code></td>
+</tr>
+<tr>
+<td><strong>DHCP Snooper</strong></td>
+<td>Monitors DHCP traffic on hotspot SSIDs to track client connections, parses DHCP ACK packets to extract client MAC addresses and lease information, maintains a dynamic client list in memory, supports DHCP Option 82 (Circuit ID / Remote ID) for carrier-grade NAT deployments, and publishes client presence events via RBus. Receives DHCP packets from external sources (WiFi manager forwarding).</td>
+<td><code>dhcpsnooper.c</code>, <code>dhcpsnooper.h</code>, <code>dhcp.h</code> (DHCP packet structures)</td>
+</tr>
+<tr>
+<td><strong>ARP/NDP Daemon</strong></td>
+<td>Standalone process that handles ARP (IPv4) and Neighbor Discovery Protocol (IPv6) packet processing using netfilter queue mechanism. Receives packets from iptables/ip6tables NFQUEUE targets, validates source addresses, generates ARP replies or NDP neighbor advertisements, and supports MAPT/NAT46 address translation for dual-stack environments.</td>
+<td><code>hotspot_arpd.c</code></td>
+</tr>
+<tr>
+<td><strong>Tunnel Test Agent</strong></td>
+<td>Diagnostic utility for validating tunnel connectivity, performs IPv6 SLAAC on GRE interface, verifies global IPv6 address acquisition, tests reachability to remote endpoints, and generates connectivity reports. Can be executed standalone or invoked by monitoring systems.</td>
+<td><code>tunnelcheck.c</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="component-interactions">Component Interactions</h2>
+<p>The CCSP Hotspot component interacts extensively with other RDK-B middleware components, platform services, and external systems to deliver comprehensive hotspot functionality. These interactions span multiple IPC mechanisms and involve both synchronous request-response patterns and asynchronous event notifications.</p>
+<h3 id="interaction-matrix">Interaction Matrix</h3>
+<p>The following table consolidates all component interactions, their purposes, and the specific APIs or endpoints used for communication.</p>
+<table>
+<thead>
+<tr>
+<th>Target Component/Layer</th>
+<th>Interaction Purpose</th>
+<th>Key APIs/Endpoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RDK-B Middleware Components</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>WiFi Manager (CcspWifiSsp)</td>
+<td>Query SSID enable/disable status to determine if hotspot VAPs are active, coordinate VLAN configuration changes when SSIDs are enabled/disabled</td>
+<td>RBus method call: <code>getParameterValues("Device.WiFi.SSID.{i}.Enable")</code>, <code>get_ssid_enable(ssidIdx)</code> wrapper function</td>
+</tr>
+<tr>
+<td>LM-Lite (CcspLMLite)</td>
+<td>Notify about hotspot client connections and disconnections for network topology tracking and analytics</td>
+<td>RBus parameter set: <code>Device.X_COMCAST-COM_GRE.Hotspot.ClientChange</code> (format: <code>&lt;add\|delete&gt;,&lt;ssid_idx&gt;,&lt;mac_addr&gt;,&lt;rssi&gt;</code>), DM callback: <code>HotspotConnectedDevice_SetParamStringValue()</code></td>
+</tr>
+<tr>
+<td>PAM (CcspPandM)</td>
+<td>Monitor WAN interface status to pause/resume keep-alive checks during WAN outages, query current WAN IP addresses for local endpoint validation</td>
+<td>Sysevent subscription: <code>wan-status</code>, <code>current_wan_ipaddr</code>, <code>wan6_ipaddr</code>, Optional: <code>current_wan_ifname</code> (for WAN failover)</td>
+</tr>
+<tr>
+<td>PSM (CcspPsm)</td>
+<td>Persist tunnel configuration (endpoints, VLANs, enable flags) across reboots, read configuration during initialization</td>
+<td>PSM API calls: <code>PsmGet()</code>, <code>PsmSet()</code> - Namespace: <code>dmsb.hotspot.enable</code>, <code>dmsb.hotspot.tunnel.1.PrimaryRemoteEndpoint</code>, <code>dmsb.hotspot.tunnel.1.SecondaryRemoteEndpoint</code>, <code>dmsb.hotspot.tunnel.1.interface.{i}.VLANID</code>, <code>dmsb.l2net.{i}.Vid</code> (per-SSID VLAN PSM keys)</td>
+</tr>
+<tr>
+<td>CR (Component Registrar)</td>
+<td>Register component at startup for discovery by other CCSP components and PAM</td>
+<td>D-Bus/RBus registration: Component name <code>com.cisco.spvtg.ccsp.hotspot</code>, Namespace: <code>Device.X_COMCAST-COM_GRE.Hotspot</code>, Path: <code>/com/cisco/spvtg/ccsp/hotspot</code></td>
+</tr>
+<tr>
+<td>Telemetry (T2)</td>
+<td>Report operational metrics and events for monitoring and analytics (tunnel status, endpoint switches, keep-alive failures, client counts)</td>
+<td>T2 API: <code>t2_event_s()</code>, <code>t2_event_d()</code> - Markers: <code>HOTSPOT_TUNNEL_STATUS</code>, <code>HOTSPOT_ENDPOINT_SWITCH</code>, <code>HOTSPOT_CLIENT_COUNT</code>, Log parsing for RDK Telemetry 2.0</td>
+</tr>
+<tr>
+<td>WebPA / WebConfig Framework</td>
+<td>Receive RFC-based configuration updates for tunnel parameters via cloud-managed deployment model</td>
+<td>WebConfig callback registration: <code>register_sub_doc_handler("hotspot", setHotspot, deleteHotspot)</code>, Function: <code>setHotspot(void* network)</code> receives <code>tunneldoc_t*</code> structure</td>
+</tr>
+<tr>
+<td><strong>System &amp; HAL Layers</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Linux Network Stack</td>
+<td>Create and configure GRE tunnel interface (gretap0), manage VLAN tagging on bridge interfaces, send/receive ICMP packets for keep-alive, configure bridge memberships for hotspot SSIDs</td>
+<td>System calls: <code>system("ip link add gretap0 type gretap remote &lt;endpoint&gt;")</code>, <code>system("ip link set gretap0 up")</code>, <code>system("bridge vlan add vid &lt;vlan&gt; dev &lt;interface&gt;")</code>, Raw socket APIs: <code>socket(AF_INET, SOCK_RAW, IPPROTO_ICMP)</code>, <code>sendto()</code>, <code>recvfrom()</code> for ICMP</td>
+</tr>
+<tr>
+<td>Sysevent Framework</td>
+<td>Subscribe to system-wide events (WAN status, interface changes), publish hotspot-specific events (tunnel endpoint changes) for coordination with firewall and routing</td>
+<td>Sysevent API: <code>sysevent_open()</code>, <code>sysevent_get()</code>, <code>sysevent_set()</code>, <code>sysevent_set_options()</code>, Events: Get: <code>wan-status</code>, <code>current_wan_ipaddr</code>, Set: <code>hotspotfd-tunnelEP</code>, <code>hotspotfd-enable</code>, <code>hotspotfd-keep-alive</code></td>
+</tr>
+<tr>
+<td>Syscfg Framework</td>
+<td>Read persistent system configuration during initialization (used less frequently than PSM for hotspot-specific config)</td>
+<td>Syscfg API: <code>syscfg_init()</code>, <code>syscfg_get()</code>, Used for general system settings, not hotspot-specific configuration</td>
+</tr>
+<tr>
+<td>Netfilter Queue</td>
+<td>Process ARP and NDP packets intercepted by iptables/ip6tables rules, generate replies for hotspot interface IPv4/IPv6 addresses</td>
+<td>Netfilter queue library: <code>nfq_open()</code>, <code>nfq_bind_pf()</code>, <code>nfq_create_queue()</code>, <code>nfq_set_verdict()</code>, Queue numbers: Configured at runtime (e.g., queue 0-3 for different SSIDs)</td>
+</tr>
+<tr>
+<td>Shared Memory</td>
+<td>Store keep-alive statistics for access by diagnostic tools and monitoring scripts without IPC overhead</td>
+<td>System V shared memory: <code>shmget(size=sizeof(hotspotfd_statistics_s), IPC_CREAT)</code>, <code>shmat()</code>, Structure: <code>hotspotfd_statistics_s</code> with counters and status flags</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Events Published by CCSP Hotspot:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Event Name</th>
+<th>Event Topic/Path</th>
+<th>Trigger Condition</th>
+<th>Subscriber Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tunnel Endpoint Change</td>
+<td><code>hotspotfd-tunnelEP</code> (sysevent)</td>
+<td>When keep-alive failover switches between primary and secondary endpoints, or during switchback to primary. Value contains the new active endpoint IP address.</td>
+<td>Firewall manager (for NAT rules), Routing (for route updates), TR-069 client (for status reporting), Monitoring/diagnostic scripts</td>
+</tr>
+<tr>
+<td>Hotspot Enable/Disable</td>
+<td><code>hotspotfd-enable</code> (sysevent)</td>
+<td>When hotspot service is enabled or disabled via data model or WebConfig. Value: "true" or "false".</td>
+<td>WiFi manager (to enable/disable hotspot SSIDs), Firewall (to enable/disable hotspot rules), DHCP server (for hotspot subnet management)</td>
+</tr>
+<tr>
+<td>Keep-Alive Interval</td>
+<td><code>hotspotfd-keep-alive</code> (sysevent)</td>
+<td>When keep-alive interval is configured or changed. Value: interval in seconds.</td>
+<td>Monitoring tools (to synchronize polling intervals)</td>
+</tr>
+<tr>
+<td>Keep-Alive Threshold</td>
+<td><code>hotspotfd-threshold</code> (sysevent)</td>
+<td>When failure threshold is configured. Value: number of consecutive failures before failover.</td>
+<td>Diagnostic tools (for threshold reporting)</td>
+</tr>
+<tr>
+<td>Client Connection</td>
+<td><code>Device.X_COMCAST-COM_GRE.Hotspot.ClientChange</code> (RBus parameter)</td>
+<td>When DHCP ACK is detected for a new client connection. Format: "add,<ssid_idx>,<mac>,<rssi>".</rssi></mac></ssid_idx></td>
+<td>LM-Lite (for network topology), Parental Control (for device tracking), Analytics components</td>
+</tr>
+<tr>
+<td>Client Disconnection</td>
+<td><code>Device.X_COMCAST-COM_GRE.Hotspot.ClientChange</code> (RBus parameter)</td>
+<td>When DHCP release or lease expiry is detected. Format: "delete,<ssid_idx>,<mac>,<rssi>".</rssi></mac></ssid_idx></td>
+<td>LM-Lite, Parental Control, Analytics components</td>
+</tr>
+<tr>
+<td>WAN Status</td>
+<td>Subscriber to <code>wan-status</code> (sysevent)</td>
+<td>Component subscribes to this event; triggers reevaluation of tunnel configuration when WAN transitions between "started" and "stopped".</td>
+<td>Published by PAM, subscribed by Hotspot</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ipc-flow-patterns">IPC Flow Patterns</h3>
+<p><strong>Primary IPC Flow - RBus Data Model Parameter Set:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant WebUI as Web UI / TR-069
+    participant RBus as RBus Message Bus
+    participant DM as Data Model Handler&lt;br/&gt;(cosa_hotspot_dml.c)
+    participant TM as Tunnel Manager&lt;br/&gt;(hotspotfd.c)
+    participant PSM as PSM
+    participant SysEvt as Sysevent
+    participant Net as Network Stack
+
+    WebUI-&gt;&gt;RBus: SetParameterValues()&lt;br/&gt;"Device.X_COMCAST-COM_GRE.Hotspot" namespace
+    Note over RBus: RBus routes to registered handler
+
+    RBus-&gt;&gt;DM: Parameter Set Callback&lt;br/&gt;e.g., ClientChange parameter
+    Note over DM: Validate request &amp; parameters&lt;br/&gt;Check authentication, bounds
+
+    alt Valid Parameter
+        DM-&gt;&gt;DM: Parse parameter value&lt;br/&gt;e.g., "add,4,AA:BB:CC:DD:EE:FF,75"
+        DM-&gt;&gt;TM: Forward to tunnel manager&lt;br/&gt;Update DHCP client list
+        TM-&gt;&gt;TM: Update internal client tracking
+
+        opt Persist Configuration
+            DM-&gt;&gt;PSM: PsmSet(parameter, value)
+            PSM--&gt;&gt;DM: Success
+        end
+
+        opt Trigger Actions
+            alt Tunnel endpoint changed
+                TM-&gt;&gt;Net: Update GRE remote endpoint&lt;br/&gt;ip link set gretap0 type gre remote &lt;new_ip&gt;
+                Net--&gt;&gt;TM: Interface updated
+                TM-&gt;&gt;SysEvt: Publish "hotspotfd-tunnelEP" event
+            else VLAN configuration changed
+                TM-&gt;&gt;Net: Update bridge VLAN membership&lt;br/&gt;bridge vlan add/del
+            else Enable status changed
+                TM-&gt;&gt;Net: Create or destroy tunnel
+                TM-&gt;&gt;SysEvt: Publish "hotspotfd-enable"
+            end
+        end
+
+        TM--&gt;&gt;DM: Operation success
+        DM--&gt;&gt;RBus: CCSP_SUCCESS
+        RBus--&gt;&gt;WebUI: Success Response
+
+    else Invalid Parameter
+        DM--&gt;&gt;RBus: CCSP_ERR_INVALID_PARAMETER_VALUE
+        RBus--&gt;&gt;WebUI: Error Response
+    end</code></pre>
+<p><strong>Event Notification Flow - Client Connection Event:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant DHCP as DHCP Snooper&lt;br/&gt;(dhcpsnooper.c)
+    participant Net as Network Stack&lt;br/&gt;(Packet Capture)
+    participant List as Client List&lt;br/&gt;(Protected by Mutex)
+    participant RBus as RBus
+    participant DM as Data Model Handler
+    participant LMLite as LM-Lite
+
+    Net-&gt;&gt;DHCP: DHCP ACK packet received&lt;br/&gt;(forwarded from WiFi driver)
+    Note over DHCP: Parse DHCP packet&lt;br/&gt;Extract client MAC, IP, lease
+
+    DHCP-&gt;&gt;DHCP: Validate packet format&lt;br/&gt;Check message type (ACK)
+
+    alt New Client Connection
+        DHCP-&gt;&gt;List: pthread_mutex_lock(&amp;global_stats_mutex)
+        DHCP-&gt;&gt;List: Search for existing client entry&lt;br/&gt;by MAC address
+
+        alt Client not in list
+            DHCP-&gt;&gt;List: Allocate new client entry&lt;br/&gt;Store MAC, IP, timestamp, SSID index
+            DHCP-&gt;&gt;List: Insert into linked list
+            Note over DHCP: New client detected
+
+            DHCP-&gt;&gt;List: pthread_mutex_unlock(&amp;global_stats_mutex)
+
+            DHCP-&gt;&gt;DHCP: Build notification string&lt;br/&gt;"add,&lt;ssid_idx&gt;,&lt;mac&gt;,&lt;rssi&gt;"
+
+            DHCP-&gt;&gt;RBus: Set parameter&lt;br/&gt;"Device.X_COMCAST-COM_GRE.Hotspot.ClientChange"
+            RBus-&gt;&gt;DM: Parameter set callback&lt;br/&gt;(passthrough)
+            DM-&gt;&gt;RBus: Trigger value change event
+            RBus-&gt;&gt;LMLite: Event notification&lt;br/&gt;subscribed to ClientChange
+
+            LMLite-&gt;&gt;LMLite: Update network topology&lt;br/&gt;Add client to hotspot network
+
+        else Client already in list
+            DHCP-&gt;&gt;List: Update timestamp (lease renewal)
+            DHCP-&gt;&gt;List: pthread_mutex_unlock(&amp;global_stats_mutex)
+            Note over DHCP: Lease renewal, no event
+        end
+
+    else DHCP Release/Expire
+        DHCP-&gt;&gt;List: pthread_mutex_lock(&amp;global_stats_mutex)
+        DHCP-&gt;&gt;List: Find and remove client entry
+        DHCP-&gt;&gt;List: pthread_mutex_unlock(&amp;global_stats_mutex)
+
+        DHCP-&gt;&gt;DHCP: Build notification string&lt;br/&gt;"delete,&lt;ssid_idx&gt;,&lt;mac&gt;,0"
+        DHCP-&gt;&gt;RBus: Set parameter ClientChange
+        RBus-&gt;&gt;LMLite: Event notification
+        LMLite-&gt;&gt;LMLite: Remove client from topology
+    end</code></pre>
+<p><strong>WebConfig Document Update Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Cloud as WebConfig Cloud
+    participant Parodus as WebPA/Parodus
+    participant WCF as WebConfig Framework
+    participant API as HotspotApi&lt;br/&gt;(setHotspot)
+    participant Jansson as Validation&lt;br/&gt;(HotspotJansson.c)
+    participant TM as Tunnel Manager
+    participant PSM as PSM
+    participant Net as Network Stack
+
+    Cloud-&gt;&gt;Parodus: HTTPS POST&lt;br/&gt;WebConfig Document (multipart)&lt;br/&gt;subdoc: "hotspot"
+    Parodus-&gt;&gt;WCF: Process document&lt;br/&gt;Identify subdoc handler
+    WCF-&gt;&gt;API: setHotspot(tunneldoc_t* network)
+
+    Note over API: Transactional processing begins
+
+    API-&gt;&gt;Jansson: Parse JSON structure&lt;br/&gt;Extract gre_enable, endpoints, vlans[]
+    Jansson-&gt;&gt;Jansson: Validate schema&lt;br/&gt;Check required fields exist
+
+    alt Schema Invalid
+        Jansson--&gt;&gt;API: Validation Error: Missing field
+        API-&gt;&gt;API: jansson_rollback_tunnel_info()&lt;br/&gt;Restore from /nvram/hotspot.json
+        API--&gt;&gt;WCF: Return ERROR
+        WCF--&gt;&gt;Parodus: NACK Response (400)
+        Parodus--&gt;&gt;Cloud: Rollback notification
+    else Schema Valid
+        Jansson-&gt;&gt;Jansson: Validate IP addresses&lt;br/&gt;validateIpAddress(), ipAddress_version()
+        Jansson-&gt;&gt;Jansson: Prevalidate: prevalidateHotspotBlob()
+
+        alt Validation Failed
+            Jansson--&gt;&gt;API: Validation Error: Invalid IP
+            API-&gt;&gt;API: Rollback to previous config
+            API--&gt;&gt;WCF: Return ERROR
+        else Validation Success
+            Jansson--&gt;&gt;API: Valid configuration
+
+            API-&gt;&gt;API: compareTunnelConfig()&lt;br/&gt;Compare with current config
+
+            alt Configuration Identical
+                API--&gt;&gt;WCF: Return SUCCESS (no changes)
+                WCF--&gt;&gt;Parodus: ACK (304 Not Modified)
+            else Configuration Changed
+                Note over API: Apply new configuration
+
+                API-&gt;&gt;PSM: Store configuration&lt;br/&gt;PsmSet() for all parameters
+                PSM--&gt;&gt;API: Persistence complete
+
+                API-&gt;&gt;API: jansson_store_tunnel_info()&lt;br/&gt;Cache to /nvram/hotspot.json
+
+                API-&gt;&gt;TM: Sync callback: tunnelSet_t structure&lt;br/&gt;Pass endpoints, vlans, enable
+
+                TM-&gt;&gt;TM: Determine change scope&lt;br/&gt;(GRE_ENABLE_CHANGE | PRIMARY_EP_CHANGED | VLAN_CHANGE_*)
+
+                alt GRE Enable Changed
+                    TM-&gt;&gt;Net: Create or destroy gretap0
+                end
+
+                alt Endpoints Changed
+                    TM-&gt;&gt;Net: ip link set gretap0 type gre&lt;br/&gt;remote &lt;new_primary_endpoint&gt;
+                    TM-&gt;&gt;TM: Reset keep-alive state machine
+                end
+
+                alt VLANs Changed
+                    loop For each SSID VLAN change
+                        TM-&gt;&gt;Net: bridge vlan add vid &lt;vlan_id&gt; dev &lt;gretap0.vlan&gt;
+                        TM-&gt;&gt;Net: Update bridge configuration
+                    end
+                end
+
+                Net--&gt;&gt;TM: Network changes applied
+                TM--&gt;&gt;API: Application success
+
+                API--&gt;&gt;WCF: Return SUCCESS
+                WCF--&gt;&gt;Parodus: ACK Response (200 OK)
+                Parodus--&gt;&gt;Cloud: Success confirmation
+            end
+        end
+    end</code></pre>
+<p><strong>Sysevent-based Coordination Flow - WAN Status Change:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant PAM as PAM&lt;br/&gt;(WAN Manager)
+    participant SysEvt as Sysevent Daemon
+    participant HSFD as Hotspot Daemon&lt;br/&gt;(hotspotfd.c)
+    participant KA as Keep-Alive Engine
+    participant Net as Network Stack
+
+    Note over PAM: WAN interface transitions&lt;br/&gt;from "stopped" to "started"
+
+    PAM-&gt;&gt;SysEvt: sysevent_set("wan-status", "started")
+    SysEvt-&gt;&gt;HSFD: Event notification&lt;br/&gt;(async callback or polling)
+
+    HSFD-&gt;&gt;SysEvt: sysevent_get("wan-status")
+    SysEvt--&gt;&gt;HSFD: Value: "started"
+
+    HSFD-&gt;&gt;SysEvt: sysevent_get("current_wan_ipaddr")
+    SysEvt--&gt;&gt;HSFD: WAN IPv4 address
+
+    HSFD-&gt;&gt;SysEvt: sysevent_get("wan6_ipaddr")
+    SysEvt--&gt;&gt;HSFD: WAN IPv6 address (if available)
+
+    alt WAN became active
+        Note over HSFD: Resume tunnel operations
+        HSFD-&gt;&gt;HSFD: Validate tunnel endpoints reachable
+
+        HSFD-&gt;&gt;Net: Check if gretap0 exists
+        alt Tunnel not created
+            HSFD-&gt;&gt;Net: Create GRE tunnel&lt;br/&gt;ip link add gretap0 type gretap&lt;br/&gt;local &lt;wan_ip&gt; remote &lt;primary_endpoint&gt;
+            HSFD-&gt;&gt;Net: ip link set gretap0 up
+        end
+
+        HSFD-&gt;&gt;KA: Resume keep-alive monitoring&lt;br/&gt;(was paused during WAN down)
+        KA-&gt;&gt;Net: Send ICMP keep-alive to primary endpoint
+        Net--&gt;&gt;KA: ICMP reply received
+
+        KA-&gt;&gt;KA: Update statistics:&lt;br/&gt;primaryIsAlive = true
+
+    else WAN became inactive
+        Note over HSFD: Pause tunnel operations
+        HSFD-&gt;&gt;KA: Suspend keep-alive monitoring&lt;br/&gt;(avoid false failures during WAN outage)
+
+        HSFD-&gt;&gt;HSFD: Mark tunnel as "WAN down" state&lt;br/&gt;(don't destroy tunnel, keep config)
+    end
+
+    opt WAN Failover Scenario (if enabled)
+        PAM-&gt;&gt;SysEvt: sysevent_set("current_wan_ifname", "erouter1")
+        SysEvt-&gt;&gt;HSFD: Event notification
+        HSFD-&gt;&gt;HSFD: Detect WAN interface change
+        HSFD-&gt;&gt;Net: Rebind GRE tunnel to new WAN interface&lt;br/&gt;ip link set gretap0 type gretap local &lt;new_wan_ip&gt;
+        HSFD-&gt;&gt;KA: Reset keep-alive state, resume monitoring
+    end</code></pre>
+<h2 id="implementation-details">Implementation Details</h2>
+<h3 id="major-hal-apis-integration">Major HAL APIs Integration</h3>
+<p>The CCSP Hotspot component does not directly integrate with traditional RDK-B HAL (Hardware Abstraction Layer) APIs. Instead, it operates at the middleware layer and interfaces with the Linux kernel networking stack through system calls and standard Linux APIs. This is because tunnel management, VLAN configuration, and ICMP processing are OS-level functions rather than hardware-specific operations that would require HAL abstraction.</p>
+<p><strong>Core System APIs (Linux Kernel Interface):</strong></p>
+<table>
+<thead>
+<tr>
+<th>System API / Interface</th>
+<th>Purpose</th>
+<th>Implementation File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>system("ip link add/set/del")</code></td>
+<td>Create, configure, and delete GRE tunnel interfaces (gretap0); set tunnel parameters like local/remote endpoints, MTU, and operational state</td>
+<td><code>HotspotLib.c</code>, <code>hotspotfd.c</code> (create_tunnel(), recreate_tunnel())</td>
+</tr>
+<tr>
+<td><code>system("bridge vlan add/del")</code></td>
+<td>Manage VLAN tagging on bridge interfaces for hotspot SSIDs; add/remove VLAN IDs on bridge ports</td>
+<td><code>HotspotLib.c</code> (configHotspotBridgeVlan(), update_bridge_config())</td>
+</tr>
+<tr>
+<td><code>socket(AF_INET, SOCK_RAW, IPPROTO_ICMP)</code></td>
+<td>Create raw sockets for sending and receiving ICMP Echo Request/Reply packets for keep-alive health monitoring</td>
+<td><code>hotspotfd.c</code> (keep-alive loop)</td>
+</tr>
+<tr>
+<td><code>sendto() / recvfrom()</code></td>
+<td>Send ICMP keep-alive packets to remote endpoints and receive replies; implements timeout-based failure detection</td>
+<td><code>hotspotfd.c</code> (keep-alive monitoring functions)</td>
+</tr>
+<tr>
+<td><code>shmget() / shmat() / shmdt()</code></td>
+<td>Create and access System V shared memory segment for keep-alive statistics; allows inter-process communication without message passing overhead</td>
+<td><code>hotspotfd.c</code> (hotspotfd_setupSharedMemory(), kKeepAlive_Statistics)</td>
+</tr>
+<tr>
+<td><code>nfq_open() / nfq_create_queue() / nfq_set_verdict()</code></td>
+<td>Interface with Linux netfilter_queue for intercepting and processing ARP/NDP packets; receive packets from iptables NFQUEUE target and issue verdicts (ACCEPT/DROP)</td>
+<td><code>hotspot_arpd.c</code> (ARP/NDP daemon main loop)</td>
+</tr>
+<tr>
+<td><code>ioctl(SIOCGIFADDR, SIOCGIFINDEX)</code></td>
+<td>Query network interface properties (IP addresses, interface index) for validation and configuration</td>
+<td><code>hotspot_arpd.c</code>, <code>hotspotfd.c</code> (interface validation)</td>
+</tr>
+<tr>
+<td>PSM API: <code>PSM_Get_Record_Value2() / PSM_Set_Record_Value2()</code></td>
+<td>Read and write persistent configuration to the PSM database; stores tunnel endpoints, VLAN IDs, enable flags</td>
+<td><code>HotspotApi.c</code> (PsmGet(), PsmSet() wrappers)</td>
+</tr>
+<tr>
+<td>Sysevent API: <code>sysevent_open() / sysevent_get() / sysevent_set()</code></td>
+<td>Subscribe to and publish system-wide events for coordination with other RDK-B components; handles WAN status, interface changes, tunnel endpoint updates</td>
+<td><code>hotspotfd.c</code>, <code>HotspotApi.c</code> (gre_sysevent_syscfg_init(), hotspot_sysevent_enable_param())</td>
+</tr>
+<tr>
+<td>Syscfg API: <code>syscfg_get() / syscfg_set()</code></td>
+<td>Access system configuration database for general platform settings (used less frequently than PSM for hotspot-specific config)</td>
+<td><code>HotspotApi.c</code> (configuration initialization)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-implementation-logic">Key Implementation Logic</h3>
+<p>The CCSP Hotspot component implements several critical algorithms and mechanisms that ensure robust tunnel management and service availability.</p>
+<ul>
+<li><strong>Tunnel Lifecycle State Machine</strong>: The tunnel manager maintains a finite state machine that tracks the operational status of the GRE tunnel and manages transitions between different operational modes. State transitions are triggered by configuration changes, keep-alive failures, WAN status events, and endpoint recovery.</li>
+</ul>
+<p><strong>State Machine States:</strong></p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Description</th>
+<th>Entry Conditions / Triggers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UNINITIALIZED</strong></td>
+<td>Initial state before first configuration</td>
+<td>Component startup before configuration is loaded</td>
+</tr>
+<tr>
+<td><strong>DISABLED</strong></td>
+<td>Hotspot service is administratively disabled</td>
+<td>Hotspot enable flag set to false via configuration or data model</td>
+</tr>
+<tr>
+<td><strong>INITIALIZING</strong></td>
+<td>Creating GRE interface and configuring VLANs</td>
+<td>Configuration loaded with hotspot enabled; GRE tunnel and VLAN setup in progress</td>
+</tr>
+<tr>
+<td><strong>PRIMARY_ACTIVE</strong></td>
+<td>Operating normally on primary endpoint</td>
+<td>Tunnel created successfully; primary endpoint responding to keep-alives</td>
+</tr>
+<tr>
+<td><strong>SECONDARY_ACTIVE</strong></td>
+<td>Failed over to secondary endpoint</td>
+<td>Primary endpoint failed keep-alive threshold; secondary endpoint responding</td>
+</tr>
+<tr>
+<td><strong>WAN_DOWN</strong></td>
+<td>Tunnel paused due to WAN outage</td>
+<td>WAN interface down; keep-alive monitoring suspended to avoid false failures</td>
+</tr>
+<tr>
+<td><strong>ERROR</strong></td>
+<td>Unrecoverable failure state</td>
+<td>Critical errors such as tunnel creation failure, both endpoints unreachable</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Implementation Details:</strong>
+  - Main implementation in <code>hotspotfd.c</code>: main keep-alive loop, tunnel creation, state management
+  - State transition handlers in <code>hotspotfd.c</code>: endpoint switching logic, WAN status handling
+  - Helper functions: <code>create_tunnel()</code>, <code>recreate_tunnel()</code>, <code>hotspot_start()</code>, tunnel parameter validation</p>
+<ul>
+<li>
+<p><strong>Keep-Alive Health Monitoring Algorithm</strong>: Implements a threshold-based failure detection mechanism with the following logic:</p>
+</li>
+<li>
+<p>Every <code>keepAliveInterval</code> seconds (default 60), send <code>keepAliveCount</code> (default 1) ICMP Echo Request packets to the active endpoint</p>
+</li>
+<li>Wait for ICMP Echo Reply with matching sequence number and valid checksum</li>
+<li>If reply received, reset failure counter; if timeout or invalid reply, increment failure counter</li>
+<li>When failure counter reaches <code>keepAliveThreshold</code> (default 5), trigger endpoint failover</li>
+<li>During SECONDARY_ACTIVE state, continue monitoring primary endpoint for recovery</li>
+<li>If primary responds successfully, switch back to primary (unless <code>secondaryMaxTime</code> exceeded)</li>
+<li>If both endpoints fail, enter <code>deadInterval</code> mode with longer polling intervals to reduce overhead</li>
+</ul>
+<p>The algorithm uses raw ICMP sockets to avoid dependency on ping utilities and provides sub-second detection granularity. Sequence numbers are monotonically increasing to detect reply re-ordering or duplication.</p>
+<ul>
+<li>Implementation in <code>hotspotfd.c</code>: keep-alive loop and ICMP packet handling functions</li>
+<li>
+<p>Checksum validation: <code>hotspotfd_checksum()</code> function</p>
+</li>
+<li>
+<p><strong>Event Processing</strong>: Hardware events (in this context, network interface events and DHCP packets) are processed through multiple pathways:</p>
+</li>
+<li>
+<p><strong>Sysevent Notifications</strong>: WAN status changes and interface transitions are received via sysevent get/set operations. The main event loop polls sysevent or receives async notifications.</p>
+</li>
+<li><strong>DHCP Packet Processing</strong>: DHCP snooper receives packets forwarded from the WiFi driver or captured via packet sockets. Packets are parsed to extract client information (MAC, IP, lease time, Option 82) and client lists are updated atomically under mutex protection.</li>
+<li><strong>Netfilter Queue Processing</strong>: ARP/NDP packets are dequeued from netfilter queue, validated, and appropri ate replies are generated. The <code>hotspot_arpd</code> process runs an event loop with <code>nfq_handle_packet()</code> processing each intercepted packet.</li>
+</ul>
+<p>Events trigger state machine transitions, configuration updates, or telemetry publications as appropriate.</p>
+<ul>
+<li>
+<p><strong>Error Handling Strategy</strong>: The component implements multi-layered error handling and recovery:</p>
+</li>
+<li>
+<p><strong>Configuration Validation</strong>: IP addresses are validated using <code>validateIpAddress()</code> and <code>ipAddress_version()</code> before applying. VLAN IDs are range-checked (1-4094). Invalid configurations are rejected with appropriate error codes.</p>
+</li>
+<li><strong>Transactional Rollback</strong>: WebConfig updates are applied transactionally. If validation fails mid-transaction, <code>jansson_rollback_tunnel_info()</code> restores the previous configuration from <code>/nvram/hotspot.json</code>.</li>
+<li><strong>Endpoint Failover</strong>: Keep-alive failures trigger automatic failover to secondary endpoint. If both endpoints fail, the component logs errors, publishes telemetry events, but maintains the tunnel configuration so service resumes automatically when endpoints recover.</li>
+<li><strong>Graceful Degradation</strong>: If GRE tunnel creation fails (e.g., kernel module not loaded), the component logs the error, disables keep-alive monitoring, and publishes telemetry. It retries tunnel creation on next configuration change or WAN status change.</li>
+<li><strong>Crash Recovery</strong>: The component uses breakpad for crash dump generation. On restart after crash, PSM configuration is re-read and tunnel is recreated from persistent state.</li>
+<li><strong>Timeout Handling</strong>: ICMP keep-alive uses <code>select()</code> with timeout for non-blocking receive. Sysevent operations have implicit timeouts. If timeout occurs, the operation is retried with exponential backoff.</li>
+<li>
+<p><strong>Resource Cleanup</strong>: Signal handlers (<code>SIGTERM</code>, <code>SIGINT</code>) ensure graceful shutdown: shared memory is deleted (<code>shmctl(IPC_RMID)</code>), sysevent handles are closed, GRE interfaces are deleted, and RBus is unregistered.</p>
+</li>
+<li>
+<p><strong>Logging &amp; Debugging</strong>: The component uses the CCSP trace framework for hierarchical logging:</p>
+</li>
+<li>
+<p><strong>Log Categories</strong>: Initialization, configuration, tunnel management, keep-alive, DHCP snooping, errors</p>
+</li>
+<li><strong>Verbosity Levels</strong>: ERROR, WARNING, INFO, DEBUG, TRACE - controlled via <code>/etc/debug.ini</code> and runtime DM parameters</li>
+<li><strong>State Transition Logging</strong>: Each state machine transition logs the previous state, trigger event, and new state with timestamps</li>
+<li><strong>Keep-Alive Diagnostics</strong>: Logs include ICMP sequence numbers, checksums, round-trip times, failure counts, and active endpoint</li>
+<li><strong>Telemetry Integration</strong>: Critical events are published via T2 markers: <code>HOTSPOT_TUNNEL_STATUS</code>, <code>HOTSPOT_EP_SWITCH_PRIMARY</code>, <code>HOTSPOT_EP_SWITCH_SECONDARY</code>, <code>HOTSPOT_CLIENT_CONNECT</code>, <code>HOTSPOT_CLIENT_DISCONNECT</code></li>
+<li><strong>Debug Hooks</strong>: <ul>
+<li>Shared memory statistics can be dumped via <code>cat /proc/&lt;pid&gt;/maps</code> and <code>ipcs -m</code></li>
+<li>Sysevent values can be inspected: <code>sysevent get hotspotfd-tunnelEP</code></li>
+<li>DHCP client list can be queried via RBus (future enhancement)</li>
+<li>Verbose ICMP packet logging can be enabled at compile time (<code>VERBOSE_KEEPALIVE_LOGGING</code>)</li>
+</ul>
+</li>
+</ul>
+<h3 id="key-configuration-files">Key Configuration Files</h3>
+<table>
+<thead>
+<tr>
+<th>Configuration File</th>
+<th>Purpose</th>
+<th>Override Mechanisms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PSM Database</strong> (<code>dmsb.hotspot.*</code> namespace)</td>
+<td>Stores persistent hotspot configuration that survives reboots: <br/>- <code>dmsb.hotspot.enable</code> - Master enable/disable flag<br/>- <code>dmsb.hotspot.tunnel.1.PrimaryRemoteEndpoint</code> - Primary tunnel endpoint IP<br/>- <code>dmsb.hotspot.tunnel.1.SecondaryRemoteEndpoint</code> - Secondary tunnel endpoint IP<br/>- <code>dmsb.hotspot.gre.1.DSCPMarkPolicy</code> - DSCP marking for QoS<br/>- <code>dmsb.hotspot.tunnel.1.interface.{i}.VLANID</code> - Per-interface VLAN IDs<br/>- <code>dmsb.l2net.{i}.Vid</code> - VLAN IDs for specific L2 networks (SSIDs)</td>
+<td>TR-181 data model SetParameterValues, WebConfig document updates, Direct PSM API calls</td>
+</tr>
+<tr>
+<td><code>/nvram/hotspot.json</code></td>
+<td>JSON cache of the last successfully applied WebConfig document. Used for rollback on validation failures and restoration after reboot if WebConfig server is unreachable. Contains full tunnel configuration in RFC schema format.</td>
+<td>Overwritten on each successful WebConfig update via <code>jansson_store_tunnel_info()</code>, Restored on rollback via <code>jansson_rollback_tunnel_info()</code></td>
+</tr>
+<tr>
+<td><code>/tmp/hotspot.json</code></td>
+<td>Temporary working copy of WebConfig document during processing and validation. Deleted after successful application or rollback.</td>
+<td>Created during WebConfig processing, deleted after completion</td>
+</tr>
+<tr>
+<td><code>/tmp/hotspot_wanfailover.json</code></td>
+<td>Temporary file storing WAN failover configuration when WAN failover feature is enabled. Contains mapping of WAN interfaces to tunnel configurations.</td>
+<td>Created/updated by <code>hotspot_wan_failover()</code> function when WAN interface changes</td>
+</tr>
+<tr>
+<td><code>/etc/ccsp_msg.cfg</code></td>
+<td>CCSP message bus configuration file specifying D-Bus/RBus connection parameters, component registration paths.</td>
+<td>System configuration file, typically not overridden at runtime. Can be customized per-platform during image build.</td>
+</tr>
+<tr>
+<td><code>/etc/debug.ini</code></td>
+<td>Debug and logging configuration for CCSP components. Controls log level, output destination (console/file/syslog), module-specific verbosity.</td>
+<td>Modified manually for debugging; may be overridden by DM parameter <code>Device.Logging.X_RDKCENTRAL-COM_LogLevel</code></td>
+</tr>
+<tr>
+<td>Sysevent Variables</td>
+<td>Runtime configuration and state variables: <br/>- <code>hotspotfd-primary</code> - Primary endpoint IP (sysevent variable)<br/>- <code>hotspotfd-secondary</code> - Secondary endpoint IP<br/>- <code>hotspotfd-keep-alive</code> - Keep-alive interval in seconds<br/>- <code>hotspotfd-threshold</code> - Failure threshold count<br/>- <code>hotspotfd-max-secondary</code> - Max time on secondary in seconds<br/>- <code>hotspotfd-policy</code> - Keep-alive policy (ICMP=2, NONE=0)<br/>- <code>hotspotfd-count</code> - Pings per keep-alive interval<br/>- <code>hotspotfd-dead-interval</code> - Polling interval when both EPs down<br/>- <code>hotspotfd-enable</code> - Runtime enable flag<br/>- <code>hotspotfd-tunnelEP</code> - Currently active endpoint IP (read-only status)</td>
+<td>Set via <code>sysevent set &lt;name&gt; &lt;value&gt;</code>, Can be overridden by scripts, Typically populated from PSM during initialization</td>
+</tr>
+<tr>
+<td><code>/nvram/syscfg.db</code></td>
+<td>Syscfg persistent configuration database. Stores general system configuration, may include hotspot-related settings on some platforms.</td>
+<td>Modified via <code>syscfg set &lt;namespace&gt;.&lt;param&gt; &lt;value&gt;</code>; requires <code>syscfg commit</code> to persist</td>
+</tr>
+<tr>
+<td><strong>Shared Memory Segment</strong></td>
+<td>Read-only statistics structure <code>hotspotfd_statistics_s</code> containing: <br/>- Primary/secondary endpoint status and IPs<br/>- Keep-alive counters (sent, received, failed)<br/>- Active endpoint indicator<br/>- Checksum/sequence discard counters<br/>- Operational parameters (interval, threshold, max secondary time)</td>
+<td>Written exclusively by hotspot daemon, Read by monitoring tools/scripts. Not persistent (recreated on restart).</td>
+</tr>
+<tr>
+<td><code>/var/log/messages</code> or <code>/rdklogs/logs/</code></td>
+<td>System logs containing hotspot component messages via CcspTraceInfo/Error macros, mapped to syslog or RDK log files depending on platform.</td>
+<td>Log rotation policies, log level filtering via debug.ini</td>
+</tr>
+</tbody>
+</table>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<div class="bottom-banner compact-footer">
+<!-- Left Section: Logo and Copyright -->
+<div class="footer-left">
+<img alt="RDK Logo" class="rdk-logo" src="../../../assets/logo.png">
+<p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+</img></div>
+<!-- Right Section: Links and Support -->
+<div class="footer-right">
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Explore RDK</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../preview-rdk/docs/getting-started">Getting Started</a></li>
+<li><a href="../../../devices/docs/">Devices</a></li>
+<li><a href="../../../preview-rdk/docs/getting-started">Tools</a></li>
+<li><a href="../../../entertainment/docs/sample_home1">Entsample1</a></li>
+<li><a href="../../../entertainment/docs/sample_home3">Entsample3</a></li>
+</ul>
+</div>
+</div>
+<!-- Device Management -->
+<div class="banner-group">
+<h3>Device Management</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../device-management/docs/XConf">XConf</a></li>
+<li><a href="../../../device-management/docs/Telemetry">Telemetry</a></li>
+<li><a href="../../../device-management/docs/Webpa">Web PA</a></li>
+<li><a href="../../../device-management/docs/TR369">TR 369</a></li>
+</ul>
+</div>
+</div>
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Test &amp; Certification</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119">RDK Certification</a></li>
+<li><a href="../../../rdkv_template/">Video Template</a></li>
+<li><a href="../../../tools/docs/Automatics/">Automatics</a></li>
+</ul>
+</div>
+</div>
+<!-- Resources-->
+<div class="banner-group">
+<h3>Resources</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../kavia/ ">Kavia</a></li>
+<li><a href="../../../sitemap">Quick Links</a></li>
+<li><a href="../../../sitemap.xml">Site Map</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../../assets/javascripts/extra.js"></script>
+</div></body>
+</html>

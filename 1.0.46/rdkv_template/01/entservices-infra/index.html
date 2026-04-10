@@ -1,0 +1,6825 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.com/rdkv_template/01/entservices-infra/" rel="canonical"/>
+<link href="../../../assets/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.6" name="generator"/>
+<title>entservices-infra - Developer Portal</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/home.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/entertainment.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/getting-started.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/connectivity.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/devices.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/footer.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/header.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sidepanes.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sitemap.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home1.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home3.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="custom" data-md-color-primary="custom" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#entservices-infra">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<input autocomplete="off" class="md-toggle" data-md-toggle="actions" id="__actions" type="checkbox"/>
+<div aria-hidden="true" class="mobile-actions-backdrop"></div>
+<aside aria-label="Quick actions" class="mobile-actions-panel">
+<div class="section">
+<div class="palette-slot"></div>
+</div>
+<div class="section">
+<div class="buttons-slot">
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Source Code</strong>
+</div>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg></div>
+<div class="text">Source Code</div>
+</button>
+</a>
+</div>
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Contribute</strong>
+</div>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg></div>
+<div class="text">Contribute</div>
+</button>
+</a>
+</div>
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Get help</strong>
+</div>
+<a href="mailto:support@rdkcentral.com">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg></div>
+<div class="text">Get Help</div>
+</button>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Developer Portal" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Developer Portal">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon md-hamburger--desktop" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M6 10l6 6 6-6-1.4-1.4-4.6 4.6-4.6-4.6z"></path></svg>
+</label>
+<label class="md-header__button md-icon md-hamburger--mobile" for="__actions">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 8H3V6h18M9 13h12v-2H9m0 7h12v-2H9"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">Developer Portal</span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              entservices-infra
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="custom" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="custom" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to system preference" class="md-option" data-md-color-accent="custom" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="custom" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to system preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header_buttons">
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg></div>
+<div class="text">Source Code</div>
+</button>
+</a>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg>
+</div>
+<div class="text">Contribute</div>
+</button>
+</a>
+<a href="mailto:support@rdkcentral.com">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg></div>
+<div class="text">Get Help</div>
+</button>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../entertainment/docs/">
+          
+  
+  
+  Entertainment
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../connectivity/docs/">
+          
+  
+  
+  Connectivity
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../preview-rdk/docs/getting-started/">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../devices/docs/">
+        
+  
+  
+    
+  
+  Devices
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tools/docs/TDK/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../review/">
+          
+  
+  
+  Review
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../device-management/docs/">
+          
+  
+  
+  Device Management
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../docu/doc_template_orig_rama.md">
+          
+  
+  
+  Comparison
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Developer Portal" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Developer Portal">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+    Developer Portal
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/rdkcentral" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Entertainment
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Entertainment
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home1/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome1
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home3/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome3
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/Apps.md">
+<span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/tryout_rdkv_rdk7/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-vendor-porting-guide/">
+<span class="md-ellipsis">
+    
+  
+    Porting Kit
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdkv_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/westeros/">
+<span class="md-ellipsis">
+    
+  
+    Westeros
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rdkshell/">
+<span class="md-ellipsis">
+    
+  
+    RDK Shell
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rialto/">
+<span class="md-ellipsis">
+    
+  
+    Rialto
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/video_profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Connectivity
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Connectivity
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/features/">
+<span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/tryout_rdkb/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Oldprompt/">
+<span class="md-ellipsis">
+    
+  
+    PSM OldPrompt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_GPT5/">
+<span class="md-ellipsis">
+    
+  
+    PSM GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr Rama.md">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr%20GPT5/">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../preview-rdk/docs/getting-started/">
+<span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../devices/docs/">
+<span class="md-ellipsis">
+    
+  
+    Devices
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/TDK/">
+<span class="md-ellipsis">
+    
+  
+    TDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/Automatics/">
+<span class="md-ellipsis">
+    
+  
+    Automatics
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Review
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Review
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/WANManager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CellularManager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/GPONManager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/PPPManager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/VLANManager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/TelcoVoiceManager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPSM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/LMLite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LM Lite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPandM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PandM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/OneWifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/RBus/">
+<span class="md-ellipsis">
+    
+  
+    RBus
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/Utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Device Management
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Device Management
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/XConf/">
+<span class="md-ellipsis">
+    
+  
+    XConf
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Telemetry/">
+<span class="md-ellipsis">
+    
+  
+    Telemetry
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Webpa/">
+<span class="md-ellipsis">
+    
+  
+    Web PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/TR369/">
+<span class="md-ellipsis">
+    
+  
+    TR 369
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/LogUpload/">
+<span class="md-ellipsis">
+    
+  
+    Log Upload
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Comparison
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparison
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/doc_template_orig_rama.md">
+<span class="md-ellipsis">
+    
+  
+    Template_Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Backup
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Backup
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1" id="__nav_9_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    26Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    26Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_1" id="__nav_9_2_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/pnm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PNM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/wanmgr_claude/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/raheen/cl_claude/">
+<span class="md-ellipsis">
+    
+  
+    CL_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/raheen/lmlite_claude/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/raheen/psm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_2" id="__nav_9_2_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/pnm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PNM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/wanmgr_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/raheen/cl_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    CL_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/raheen/lmlite_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/raheen/psm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2" id="__nav_9_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    30Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    30Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/doc_template_mod_2609.md">
+<span class="md-ellipsis">
+    
+  
+    Template_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_2" id="__nav_9_2_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/WANMgr_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/LMLite_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/PSM_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/RBUS_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_3" id="__nav_9_2_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/WANMgr_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/LMLite_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/PSM_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/sep26/RBUS_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_3" id="__nav_9_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct10
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct10
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/templateOct10/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/templateOct10/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/templateOct10/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_4" id="__nav_9_2_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct21
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct21
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct21/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct21/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct21/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_5" id="__nav_9_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct22
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct22
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct22/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct22/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct22/lmlite/">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_6" id="__nav_9_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct27
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_6_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct27
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct27/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct27/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct27/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct27/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct27/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_7" id="__nav_9_2_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct28
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct28
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8" id="__nav_9_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Chunked
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Chunked
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_1" id="__nav_9_2_8_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CCSP PNM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/pnm/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/pnm/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/pnm/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_2" id="__nav_9_2_8_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    WAN Manager
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/wanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/wanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/wanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_3" id="__nav_9_2_8_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    LMLite
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/lanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/lanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/lanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_4" id="__nav_9_2_8_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_4_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Utopia
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/utopia/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/utopia/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/chunked/utopia/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_9" id="__nav_9_2_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Dec02
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_9_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Dec02
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/dec02/tnd/">
+<span class="md-ellipsis">
+    
+  
+    TestnDiagnostics
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/dec02/ccspcr/">
+<span class="md-ellipsis">
+    
+  
+    CcspCR
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/dec02/faq/">
+<span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct29
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct29
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct29/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct31
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct31
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct31/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct31/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct31/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/oct31/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov04
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov04
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov04/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov05
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov05
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../docu/nov05/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_7" id="__nav_9_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Kavia
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Kavia
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_7_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_7_2" id="__nav_9_7_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_7_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_7_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    LMLite
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../lmlite_kavia_freeflow.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia Freeflow
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../lmlite_kavia_template.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia with Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../lmlite_copilot_template.md">
+<span class="md-ellipsis">
+    
+  
+    Copilot with Template
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_7_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_7_3" id="__nav_9_7_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    WanManager
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_7_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_7_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    WanManager
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../wm_kavia_freeflow.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia Freeflow
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../wm_kavia_template.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia with Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../wm_copilot_template.md">
+<span class="md-ellipsis">
+    
+  
+    Copilot with Template
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#overview">
+<span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+</a>
+<nav aria-label="Overview" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#plugins-included-in-this-repository">
+<span class="md-ellipsis">
+      
+        Plugins included in this repository
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#architecture">
+<span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+</a>
+<nav aria-label="Architecture" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#high-level-architecture">
+<span class="md-ellipsis">
+      
+        High-Level Architecture
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-architectural-patterns">
+<span class="md-ellipsis">
+      
+        Key Architectural Patterns
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#threading-concurrency">
+<span class="md-ellipsis">
+      
+        Threading &amp; Concurrency
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      
+        Design
+      
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design-principles">
+<span class="md-ellipsis">
+      
+        Design Principles
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#northbound-southbound-interactions">
+<span class="md-ellipsis">
+      
+        Northbound &amp; Southbound Interactions
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ipc-mechanisms">
+<span class="md-ellipsis">
+      
+        IPC Mechanisms
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-persistence-storage">
+<span class="md-ellipsis">
+      
+        Data Persistence &amp; Storage
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-diagram">
+<span class="md-ellipsis">
+      
+        Component Diagram
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal-modules">
+<span class="md-ellipsis">
+      
+        Internal Modules
+      
+    </span>
+</a>
+<nav aria-label="Internal Modules" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#analytics">
+<span class="md-ellipsis">
+      
+        Analytics
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appmanager">
+<span class="md-ellipsis">
+      
+        AppManager
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lifecyclemanager">
+<span class="md-ellipsis">
+      
+        LifecycleManager
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#runtimemanager">
+<span class="md-ellipsis">
+      
+        RuntimeManager
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resourcemanager">
+<span class="md-ellipsis">
+      
+        ResourceManager
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appgateway">
+<span class="md-ellipsis">
+      
+        AppGateway
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appnotifications">
+<span class="md-ellipsis">
+      
+        AppNotifications
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storagemanager">
+<span class="md-ellipsis">
+      
+        StorageManager
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#packagemanager">
+<span class="md-ellipsis">
+      
+        PackageManager
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#downloadmanager">
+<span class="md-ellipsis">
+      
+        DownloadManager
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#preinstallmanager">
+<span class="md-ellipsis">
+      
+        PreinstallManager
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rdkshell">
+<span class="md-ellipsis">
+      
+        RDKShell
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rdkwindowmanager">
+<span class="md-ellipsis">
+      
+        RDKWindowManager
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#telemetrymetrics">
+<span class="md-ellipsis">
+      
+        TelemetryMetrics
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#webbridge">
+<span class="md-ellipsis">
+      
+        WebBridge
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nativejs">
+<span class="md-ellipsis">
+      
+        NativeJS
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sceneset">
+<span class="md-ellipsis">
+      
+        SceneSet
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rustadapter">
+<span class="md-ellipsis">
+      
+        RustAdapter
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fbsettings">
+<span class="md-ellipsis">
+      
+        FbSettings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#helpers">
+<span class="md-ellipsis">
+      
+        helpers/
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites-dependencies">
+<span class="md-ellipsis">
+      
+        Prerequisites &amp; Dependencies
+      
+    </span>
+</a>
+<nav aria-label="Prerequisites &amp; Dependencies" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rdk-e-platform-requirements">
+<span class="md-ellipsis">
+      
+        RDK-E Platform Requirements
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-dependencies">
+<span class="md-ellipsis">
+      
+        Build Dependencies
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#runtime-dependencies">
+<span class="md-ellipsis">
+      
+        Runtime Dependencies
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#platform-build-defines-from-servicescmake">
+<span class="md-ellipsis">
+      
+        Platform Build Defines (from services.cmake)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-installation">
+<span class="md-ellipsis">
+      
+        Build &amp; Installation
+      
+    </span>
+</a>
+<nav aria-label="Build &amp; Installation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-install-system-packages">
+<span class="md-ellipsis">
+      
+        1. Install System Packages
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-build-trower-base64">
+<span class="md-ellipsis">
+      
+        2. Build trower-base64
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-clone-and-build-thundertools-r443">
+<span class="md-ellipsis">
+      
+        3. Clone and Build ThunderTools (R4.4.3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-build-thunder-r441">
+<span class="md-ellipsis">
+      
+        4. Build Thunder (R4.4.1)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-build-entservices-apis">
+<span class="md-ellipsis">
+      
+        5. Build entservices-apis
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-build-entservices-infra">
+<span class="md-ellipsis">
+      
+        6. Build entservices-infra
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cmake-configuration-options">
+<span class="md-ellipsis">
+      
+        CMake Configuration Options
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration">
+<span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+</a>
+<nav aria-label="Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#plugin-configuration-files">
+<span class="md-ellipsis">
+      
+        Plugin Configuration Files
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#analytics-configuration-parameters">
+<span class="md-ellipsis">
+      
+        Analytics Configuration Parameters
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#runtimemanager-configuration-parameters">
+<span class="md-ellipsis">
+      
+        RuntimeManager Configuration Parameters
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storagemanager-additional-configuration">
+<span class="md-ellipsis">
+      
+        StorageManager Additional Configuration
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rustadapter-configuration-parameters">
+<span class="md-ellipsis">
+      
+        RustAdapter Configuration Parameters
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-usage">
+<span class="md-ellipsis">
+      
+        API / Usage
+      
+    </span>
+</a>
+<nav aria-label="API / Usage" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#analytics-orgrdkanalytics">
+<span class="md-ellipsis">
+      
+        Analytics — org.rdk.Analytics
+      
+    </span>
+</a>
+<nav aria-label="Analytics — org.rdk.Analytics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sendevent">
+<span class="md-ellipsis">
+      
+        sendEvent
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resourcemanager-orgrdkresourcemanager">
+<span class="md-ellipsis">
+      
+        ResourceManager — org.rdk.ResourceManager
+      
+    </span>
+</a>
+<nav aria-label="ResourceManager — org.rdk.ResourceManager" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#setavblocked">
+<span class="md-ellipsis">
+      
+        setAVBlocked
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#getblockedavapplications">
+<span class="md-ellipsis">
+      
+        getBlockedAVApplications
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reservettsresource">
+<span class="md-ellipsis">
+      
+        reserveTTSResource
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reservettsresourceforapps">
+<span class="md-ellipsis">
+      
+        reserveTTSResourceForApps
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appmanager-orgrdkappmanager">
+<span class="md-ellipsis">
+      
+        AppManager — org.rdk.AppManager
+      
+    </span>
+</a>
+<nav aria-label="AppManager — org.rdk.AppManager" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#events">
+<span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lifecyclemanager-orgrdklifecyclemanager">
+<span class="md-ellipsis">
+      
+        LifecycleManager — org.rdk.LifecycleManager
+      
+    </span>
+</a>
+<nav aria-label="LifecycleManager — org.rdk.LifecycleManager" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#events_1">
+<span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rdkwindowmanager-orgrdkrdkwindowmanager">
+<span class="md-ellipsis">
+      
+        RDKWindowManager — org.rdk.RDKWindowManager
+      
+    </span>
+</a>
+<nav aria-label="RDKWindowManager — org.rdk.RDKWindowManager" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#events_2">
+<span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#downloadmanager_1">
+<span class="md-ellipsis">
+      
+        DownloadManager
+      
+    </span>
+</a>
+<nav aria-label="DownloadManager" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#events_3">
+<span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#packagemanager_1">
+<span class="md-ellipsis">
+      
+        PackageManager
+      
+    </span>
+</a>
+<nav aria-label="PackageManager" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#events_4">
+<span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#preinstallmanager_1">
+<span class="md-ellipsis">
+      
+        PreinstallManager
+      
+    </span>
+</a>
+<nav aria-label="PreinstallManager" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#events_5">
+<span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-interactions">
+<span class="md-ellipsis">
+      
+        Component Interactions
+      
+    </span>
+</a>
+<nav aria-label="Component Interactions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#interaction-matrix">
+<span class="md-ellipsis">
+      
+        Interaction Matrix
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-state-flow">
+<span class="md-ellipsis">
+      
+        Component State Flow
+      
+    </span>
+</a>
+<nav aria-label="Component State Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#analytics-initialization">
+<span class="md-ellipsis">
+      
+        Analytics Initialization
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#runtimemanager-container-launch-flow">
+<span class="md-ellipsis">
+      
+        RuntimeManager Container Launch Flow
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      
+        Implementation Details
+      
+    </span>
+</a>
+<nav aria-label="Implementation Details" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hal-ds-api-integration">
+<span class="md-ellipsis">
+      
+        HAL / DS API Integration
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-handling-strategy">
+<span class="md-ellipsis">
+      
+        Error Handling Strategy
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#logging-diagnostics">
+<span class="md-ellipsis">
+      
+        Logging &amp; Diagnostics
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#testing">
+<span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+</a>
+<nav aria-label="Testing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#test-levels">
+<span class="md-ellipsis">
+      
+        Test Levels
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-l1-tests">
+<span class="md-ellipsis">
+      
+        Running L1 Tests
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-l2-tests">
+<span class="md-ellipsis">
+      
+        Running L2 Tests
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mock-framework">
+<span class="md-ellipsis">
+      
+        Mock Framework
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#plugin-migration-table">
+<span class="md-ellipsis">
+      
+        Plugin Migration Table
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#versioning-release">
+<span class="md-ellipsis">
+      
+        Versioning &amp; Release
+      
+    </span>
+</a>
+<nav aria-label="Versioning &amp; Release" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#current-version">
+<span class="md-ellipsis">
+      
+        Current Version
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#branch-strategy">
+<span class="md-ellipsis">
+      
+        Branch Strategy
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#changelog">
+<span class="md-ellipsis">
+      
+        Changelog
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#contributing">
+<span class="md-ellipsis">
+      
+        Contributing
+      
+    </span>
+</a>
+<nav aria-label="Contributing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#license-requirements">
+<span class="md-ellipsis">
+      
+        License Requirements
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-to-contribute">
+<span class="md-ellipsis">
+      
+        How to Contribute
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pull-request-checklist">
+<span class="md-ellipsis">
+      
+        Pull Request Checklist
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#repository-structure">
+<span class="md-ellipsis">
+      
+        Repository Structure
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#questions-contact">
+<span class="md-ellipsis">
+      
+        Questions &amp; Contact
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/rdkcentral/edit/master/docs/rdkv_template/01/entservices-infra.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<h1 id="entservices-infra">entservices-infra</h1>
+<p>A collection of WPEFramework/Thunder plugins that form the infrastructure layer for RDK-E entertainment services, providing app lifecycle management, window management, analytics, resource management, storage, and related platform services.</p>
+<hr/>
+<h2 id="overview">Overview</h2>
+<p><code>entservices-infra</code> is a multi-plugin repository hosted at <a href="https://github.com/rdkcentral/entservices-infra">github.com/rdkcentral/entservices-infra</a>. It packages the following WPEFramework plugins into a single CMake super-project. Each plugin is independently activated via its own callsign and runs as a Thunder <code>IPlugin</code>.</p>
+<p><strong>Migration note:</strong> As of version 3.22.x, several plugins have been migrated to dedicated repositories (see <a href="#plugin-migration-table">Plugin Migration Table</a>). New development for those plugins must target the listed repositories on the <code>develop</code> branch. Ongoing release changes for branches <code>8.0</code>–<code>8.4</code> still use this repository.</p>
+<h3 id="plugins-included-in-this-repository">Plugins included in this repository</h3>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>Callsign</th>
+<th>CMake Guard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Analytics</td>
+<td><code>org.rdk.Analytics</code></td>
+<td><code>PLUGIN_ANALYTICS</code></td>
+</tr>
+<tr>
+<td>AppGateway</td>
+<td><code>org.rdk.AppGateway</code></td>
+<td><code>PLUGIN_APPGATEWAY</code></td>
+</tr>
+<tr>
+<td>AppManager</td>
+<td><code>org.rdk.AppManager</code></td>
+<td><code>PLUGIN_APPMANAGER</code></td>
+</tr>
+<tr>
+<td>AppNotifications</td>
+<td><em>(no callsign set in config)</em></td>
+<td><code>PLUGIN_APPNOTIFICATIONS</code></td>
+</tr>
+<tr>
+<td>DownloadManager</td>
+<td><em>(no callsign set in config)</em></td>
+<td><code>PLUGIN_DOWNLOADMANAGER</code></td>
+</tr>
+<tr>
+<td>FbSettings</td>
+<td><em>(internal)</em></td>
+<td><code>PLUGIN_FBSETTINGS</code></td>
+</tr>
+<tr>
+<td>LifecycleManager</td>
+<td><code>org.rdk.LifecycleManager</code></td>
+<td><code>PLUGIN_LIFECYCLE_MANAGER</code></td>
+</tr>
+<tr>
+<td>NativeJS</td>
+<td><em>(no callsign set in config)</em></td>
+<td><code>PLUGIN_NATIVEJS</code></td>
+</tr>
+<tr>
+<td>PackageManager</td>
+<td><em>(no callsign set in config)</em></td>
+<td><code>PLUGIN_PACKAGE_MANAGER</code></td>
+</tr>
+<tr>
+<td>PreinstallManager</td>
+<td><em>(no callsign set in config)</em></td>
+<td><code>PLUGIN_PREINSTALL_MANAGER</code></td>
+</tr>
+<tr>
+<td>RDKShell</td>
+<td><code>org.rdk.RDKShell</code></td>
+<td><code>PLUGIN_RDKSHELL</code></td>
+</tr>
+<tr>
+<td>RDKWindowManager</td>
+<td><code>org.rdk.RDKWindowManager</code></td>
+<td><code>PLUGIN_RDK_WINDOW_MANAGER</code></td>
+</tr>
+<tr>
+<td>ResourceManager</td>
+<td><code>org.rdk.ResourceManager</code></td>
+<td><code>PLUGIN_RESOURCEMANAGER</code></td>
+</tr>
+<tr>
+<td>RuntimeManager</td>
+<td><code>org.rdk.RuntimeManager</code></td>
+<td><code>PLUGIN_RUNTIME_MANAGER</code></td>
+</tr>
+<tr>
+<td>RustAdapter</td>
+<td><em>(configurable)</em></td>
+<td><code>PLUGIN_RUSTADAPTER</code></td>
+</tr>
+<tr>
+<td>SceneSet</td>
+<td><em>(no callsign set in config)</em></td>
+<td><code>PLUGIN_SCENESET</code></td>
+</tr>
+<tr>
+<td>StorageManager</td>
+<td><code>org.rdk.StorageManager</code></td>
+<td><code>PLUGIN_STORAGE_MANAGER</code></td>
+</tr>
+<tr>
+<td>TelemetryMetrics</td>
+<td><em>(no callsign set in config)</em></td>
+<td><code>PLUGIN_TELEMETRYMETRICS</code></td>
+</tr>
+<tr>
+<td>WebBridge</td>
+<td><em>(no callsign set in config)</em></td>
+<td><code>PLUGIN_WEBBRIDGE</code></td>
+</tr>
+</tbody>
+</table>
+<p>Product configuration is located under <code>/etc/entservices</code> at runtime (<code>PRODUCT_CONFIG_DIR</code>).</p>
+<pre class="mermaid"><code>graph TD
+    Client["Client Applications\n(Lightning / WebApp / Native)"]
+    Thunder["WPEFramework / Thunder Core"]
+    Plugins["entservices-infra Plugins\n(Analytics, AppManager, LifecycleManager,\nRuntimeManager, ResourceManager, etc.)"]
+    Dobby["Dobby / OCI Container Runtime"]
+    Rialto["Rialto Server Manager"]
+    WM["RDKWindowManager / RDKShell"]
+    IARMBus["IARM Bus"]
+    ERM["Essos Resource Manager\n(essosrmgr)"]
+
+    Client --&gt;|"JSON-RPC / COM-RPC"| Thunder
+    Thunder --&gt;|"Plugin lifecycle"| Plugins
+    Plugins --&gt;|"Exchange::IOCIContainer"| Dobby
+    Plugins --&gt;|"Rialto ServerManagerService"| Rialto
+    Plugins --&gt;|"Exchange::IRDKWindowManager"| WM
+    Plugins --&gt;|"IARM_Bus_Init / Connect"| IARMBus
+    Plugins --&gt;|"-lessosrmgr"| ERM</code></pre>
+<hr/>
+<h2 id="architecture">Architecture</h2>
+<h3 id="high-level-architecture">High-Level Architecture</h3>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────────┐
+│                     Client Applications                          │
+├──────────────────────────────────────────────────────────────────┤
+│               JSON-RPC / COM-RPC (WPEFramework)                  │
+├──────────────────────────────────────────────────────────────────┤
+│                     entservices-infra                            │
+│  ┌─────────────┬──────────────┬──────────────┬────────────────┐  │
+│  │  Analytics  │  AppManager  │LifecycleManager RuntimeManager│  │
+│  │  AppGateway │  AppNotifs   │ResourceManager StorageManager │  │
+│  │  RDKShell   │RDKWindowMgr  │PackageManager  DownloadMgr   │  │
+│  │  NativeJS   │  WebBridge   │RustAdapter     SceneSet       │  │
+│  │  FbSettings │TelemetryMetrics PreinstallMgr               │  │
+│  └─────────────┴──────────────┴──────────────┴────────────────┘  │
+│                        helpers/                                   │
+├──────────────────────────────────────────────────────────────────┤
+│  IARM Bus │ Dobby / OCI │ Rialto ServerMgr │ essosrmgr │ SQLite  │
+└──────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="key-architectural-patterns">Key Architectural Patterns</h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Description</th>
+<th>Where Applied</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plugin split (thin shell + implementation)</td>
+<td><code>&lt;Plugin&gt;.cpp</code> delegates to <code>&lt;Plugin&gt;Implementation.cpp</code> via <code>Exchange::I&lt;Name&gt;</code> COM-RPC interface. The implementation runs in a separate process (<code>root.mode</code> configuration).</td>
+<td>Analytics, AppManager, LifecycleManager, ResourceManager, RDKWindowManager, RuntimeManager, StorageManager, PackageManager, DownloadManager, PreinstallManager</td>
+</tr>
+<tr>
+<td>Observer / Notification sink</td>
+<td><code>Notification</code> inner class implements both <code>RPC::IRemoteConnection::INotification</code> and <code>Exchange::I&lt;Name&gt;::INotification</code>, routing events to the plugin host.</td>
+<td>AppManager, LifecycleManager, RDKWindowManager, PreinstallManager</td>
+</tr>
+<tr>
+<td>Action queue (producer-consumer)</td>
+<td>Events are pushed as typed <code>Action</code> structs onto a <code>std::queue&lt;Action&gt;</code> and consumed by a dedicated <code>std::thread</code>.</td>
+<td><code>AnalyticsImplementation</code></td>
+</tr>
+<tr>
+<td>Backend loader (dynamic library)</td>
+<td><code>AnalyticsBackendLoader</code> opens a backend <code>.so</code> at runtime via <code>Utils::LibraryLoader</code>; the path is set via CMake option <code>PLUGIN_ANALYTICS_BACKEND_LIBRARY_NAME</code>.</td>
+<td>Analytics</td>
+</tr>
+<tr>
+<td>IConfiguration two-phase init</td>
+<td>Plugins call <code>QueryInterface&lt;Exchange::IConfiguration&gt;</code> on the implementation object and call <code>Configure(service)</code> after Out-of-Process (OOP) root activation.</td>
+<td>Analytics, AppManager, RuntimeManager, StorageManager</td>
+</tr>
+<tr>
+<td>RAII thread</td>
+<td><code>AnalyticsImplementation</code> constructor starts <code>mThread</code>; destructor pushes <code>ACTION_TYPE_SHUTDOWN</code> and calls <code>mThread.join()</code>.</td>
+<td>AnalyticsImplementation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="threading-concurrency">Threading &amp; Concurrency</h3>
+<ul>
+<li><strong>Analytics</strong>: One dedicated worker thread (<code>mThread</code>) runs <code>ActionLoop()</code>. Events are enqueued from the Thunder dispatch thread and consumed by the worker thread. Coordination uses <code>std::mutex mQueueMutex</code> and <code>std::condition_variable mQueueCondition</code>.</li>
+<li><strong>SystemTime (Analytics sub-module)</strong>: One event thread (<code>mEventThread</code>) runs <code>EventLoop()</code>, receiving time-status and time-zone events. Uses <code>std::mutex mQueueLock</code> and <code>std::condition_variable mQueueCondition</code>.</li>
+<li><strong>LifecycleManager</strong>: Uses <code>Core::IDispatch</code> jobs (<code>Job::Create</code>) posted onto the Thunder thread pool for event dispatch.</li>
+<li><strong>All other plugins</strong>: Rely on the WPEFramework Thunder dispatch thread for JSON-RPC and COM-RPC calls; no additional threads are created in the plugin (thin-shell) layer itself.</li>
+</ul>
+<hr/>
+<h2 id="design">Design</h2>
+<h3 id="design-principles">Design Principles</h3>
+<p>Each plugin follows the WPEFramework two-process model: a thin plugin shell (<code>IPlugin</code> + <code>JSONRPC</code> or <code>IPluginExtended</code>) running in the main Thunder process, and an implementation library instantiated out-of-process via <code>service-&gt;Root&lt;Exchange::I&lt;Name&gt;&gt;(connectionId, timeout, "ImplementationName")</code>. The plugin shell and implementation communicate via COM-RPC Exchange interfaces defined in <code>entservices-apis</code>. The <code>helpers/</code> directory provides shared utilities (<code>UtilsIarm.h</code>, <code>UtilsLogging.h</code>, <code>UtilsLibraryLoader.h</code>, etc.) that are included by individual plugins at compile time; there is no separate helpers shared library.</p>
+<h3 id="northbound-southbound-interactions">Northbound &amp; Southbound Interactions</h3>
+<p><strong>Northbound:</strong> Client applications reach plugins via Thunder's JSON-RPC WebSocket or COM-RPC. Plugins that expose <code>PluginHost::JSONRPC</code> register their methods using the generated <code>Exchange::J&lt;Name&gt;::Register(*this, impl)</code> call in <code>Initialize()</code>. Plugins that do not expose JSON-RPC directly (e.g., <code>RuntimeManager</code>, <code>TelemetryMetrics</code>) implement only <code>PluginHost::IPlugin</code> and expose their interface through the <code>INTERFACE_AGGREGATE</code> macro.</p>
+<p><strong>Southbound:</strong></p>
+<ul>
+<li><code>ResourceManagerImplementation</code> links against <code>-lessosrmgr</code> (Essos Resource Manager) for AV blacklisting and TTS resource reservation. When built with <code>ENABLE_ERM</code> or <code>ENABLE_L1TEST</code>, it instantiates an <code>EssRMgr*</code> object.</li>
+<li><code>RuntimeManagerImplementation</code> integrates with <strong>Dobby</strong> via <code>Exchange::IOCIContainer</code> (listened to through <code>DobbyEventListener</code>), and optionally with <strong>Rialto</strong> (<code>RialtoConnector</code>, guarded by <code>RIALTO_IN_DAC_FEATURE_ENABLED</code>) for session lifecycle management.</li>
+<li><code>AnalyticsImplementation</code> loads a backend <code>.so</code> at runtime and uses <code>SystemTime</code> (which subscribes to time-status JSON-RPC events) and <code>LocalStore</code> (SQLite via <code>DatabaseConnection</code>).</li>
+<li><code>RDKShell</code> includes <code>rdkshell.h</code>, <code>rdkshellevents.h</code>, and <code>linuxkeys.h</code> from the <code>rdkshell</code> library.</li>
+<li>IARM bus is used by helper code (<code>UtilsIarm.h</code>) via <code>IARM_Bus_Init</code> / <code>IARM_Bus_Connect</code>.</li>
+</ul>
+<h3 id="ipc-mechanisms">IPC Mechanisms</h3>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Used By</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JSON-RPC (WPEFramework WebSocket)</td>
+<td>Analytics, AppManager, AppGateway, AppNotifications, DownloadManager, LifecycleManager, NativeJS, PackageManager, PreinstallManager, RDKShell, RDKWindowManager, StorageManager, WebBridge</td>
+<td>Primary client-facing API</td>
+</tr>
+<tr>
+<td>COM-RPC (Exchange interfaces)</td>
+<td>All out-of-process plugins</td>
+<td>Plugin shell ↔ implementation communication via <code>service-&gt;Root&lt;&gt;(...)</code></td>
+</tr>
+<tr>
+<td>IARM Bus (<code>libIBus.h</code>)</td>
+<td><code>helpers/UtilsIarm.h</code></td>
+<td><code>IARM_Bus_Init</code>, <code>IARM_Bus_Connect</code> wrapped in <code>Utils::IARM::init()</code></td>
+</tr>
+<tr>
+<td>WebSocket (<code>IWebSocket</code>)</td>
+<td>WebBridge, NativeJS</td>
+<td><code>WebBridge</code> implements <code>PluginHost::IWebSocket</code>; NativeJS uses websocket internally</td>
+</tr>
+<tr>
+<td>Unix socket / TCP socket</td>
+<td>RustAdapter</td>
+<td><code>SocketServer</code> with configurable <code>address</code> and <code>port</code> for Rust plugin communication</td>
+</tr>
+<tr>
+<td>Rialto gRPC</td>
+<td>RuntimeManager</td>
+<td><code>RialtoConnector</code> uses <code>rialto::servermanager::service::IServerManagerService</code> (guarded by <code>RIALTO_IN_DAC_FEATURE_ENABLED</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-persistence-storage">Data Persistence &amp; Storage</h3>
+<ul>
+<li><strong>Analytics (<code>LocalStore</code>)</strong>: Uses SQLite via <code>DatabaseConnection</code>. <code>LocalStore</code> exposes <code>Open()</code>, <code>CreateTable()</code>, <code>AddEntry()</code>, <code>GetEntries()</code>, <code>RemoveEntries()</code>. The database path is passed to <code>LocalStore::Open()</code> at runtime.</li>
+<li><strong>All other plugins</strong>: No direct persistence mechanism is implemented within the plugin (thin-shell) layer. Configuration is read from the Thunder plugin <code>.config</code> files at <code>Initialize()</code> time via <code>PluginHost::IShell::ConfigLine()</code> / <code>Core::JSON::Container</code>.</li>
+</ul>
+<h3 id="component-diagram">Component Diagram</h3>
+<pre class="mermaid"><code>graph TD
+    subgraph entservices-infra
+        subgraph Analytics
+            A_Plugin["Analytics.cpp\nIPlugin + JSONRPC"]
+            A_Impl["AnalyticsImplementation.cpp\nIAnalytics + IConfiguration"]
+            A_BL["AnalyticsBackendLoader\nDynamic .so load"]
+            A_ST["SystemTime\nISystemTime"]
+            A_LS["LocalStore\nSQLite"]
+        end
+        subgraph AppManager
+            AM_Plugin["AppManager.cpp\nIPlugin + JSONRPC"]
+            AM_Impl["AppManagerImplementation.cpp\nIAppManager + IConfiguration"]
+            AM_LC["LifecycleInterfaceConnector"]
+            AM_Tel["AppManagerTelemetryReporting"]
+        end
+        subgraph LifecycleManager
+            LM_Plugin["LifecycleManager.cpp\nIPlugin + JSONRPC"]
+            LM_Impl["LifecycleManagerImplementation.cpp\nILifecycleManager + ILifecycleManagerState + IConfiguration"]
+            LM_Req["RequestHandler"]
+            LM_State["StateHandler / StateTransitionHandler"]
+            LM_WM["WindowManagerHandler"]
+            LM_RT["RuntimeManagerHandler"]
+        end
+        subgraph RuntimeManager
+            RM_Plugin["RuntimeManager.cpp\nIPlugin"]
+            RM_Impl["RuntimeManagerImplementation.cpp\nIRuntimeManager + IConfiguration"]
+            RM_Dobby["DobbyEventListener\nIOCIContainer::INotification"]
+            RM_Rialto["RialtoConnector\n(RIALTO_IN_DAC_FEATURE_ENABLED)"]
+            RM_WM["WindowManagerConnector\nIRDKWindowManager::INotification"]
+        end
+        subgraph ResourceManager
+            RES_Plugin["ResourceManager.cpp\nIPlugin + JSONRPC"]
+            RES_Impl["ResourceManagerImplementation.cpp\nIResourceManager"]
+        end
+        subgraph AppGateway
+            AG_Plugin["AppGateway.cpp\nIPlugin + JSONRPC"]
+            AG_Impl["AppGatewayImplementation.cpp\nIAppGatewayResolver"]
+            AG_Resp["AppGatewayResponderImplementation\nIAppGatewayResponder"]
+            AG_Res["Resolver.cpp"]
+        end
+        helpers["helpers/\nUtilsIarm, UtilsLogging,\nUtilsLibraryLoader, etc."]
+    end
+
+    A_Plugin --&gt;|"service-&gt;Root&lt;IAnalytics&gt;"| A_Impl
+    A_Impl --&gt; A_BL
+    A_Impl --&gt; A_ST
+    A_Impl --&gt; A_LS
+
+    AM_Plugin --&gt;|"service-&gt;Root&lt;IAppManager&gt;"| AM_Impl
+    AM_Impl --&gt; AM_LC
+    AM_Impl --&gt; AM_Tel
+
+    LM_Plugin --&gt;|"service-&gt;Root&lt;ILifecycleManager&gt;"| LM_Impl
+    LM_Impl --&gt; LM_Req
+    LM_Impl --&gt; LM_State
+    LM_Impl --&gt; LM_WM
+    LM_Impl --&gt; LM_RT
+
+    RM_Plugin --&gt;|"service-&gt;Root&lt;IRuntimeManager&gt;"| RM_Impl
+    RM_Impl --&gt; RM_Dobby
+    RM_Impl --&gt; RM_Rialto
+    RM_Impl --&gt; RM_WM
+
+    RES_Plugin --&gt;|"service-&gt;Root&lt;IResourceManager&gt;"| RES_Impl
+
+    AG_Plugin --&gt;|"service-&gt;Root&lt;IAppGatewayResolver&gt;"| AG_Impl
+    AG_Impl --&gt; AG_Res
+    AG_Plugin --&gt;|"service-&gt;Root&lt;IAppGatewayResponder&gt;"| AG_Resp</code></pre>
+<hr/>
+<h2 id="internal-modules">Internal Modules</h2>
+<h3 id="analytics">Analytics</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Analytics</code></td>
+<td>Plugin shell. Registers <code>Exchange::JAnalytics</code> JSON-RPC methods. Activates <code>AnalyticsImplementation</code> OOP.</td>
+<td><code>Analytics.cpp</code>, <code>Analytics.h</code></td>
+</tr>
+<tr>
+<td><code>AnalyticsImplementation</code></td>
+<td>Business logic. Maintains a <code>std::queue&lt;Action&gt;</code> processed by <code>ActionLoop()</code> on a dedicated thread. Validates event fields, fills uptime if no timestamp provided, routes events to backends via <code>IAnalyticsBackend</code>. Supports an <code>EventMapper</code> for optional event-name remapping via a JSON map file.</td>
+<td><code>Implementation/AnalyticsImplementation.cpp</code>, <code>Implementation/AnalyticsImplementation.h</code></td>
+</tr>
+<tr>
+<td><code>AnalyticsBackendLoader</code></td>
+<td>Loads a backend <code>.so</code> at runtime using <code>Utils::LibraryLoader</code>. The path is configured via <code>backendlib</code> in the plugin config.</td>
+<td><code>Implementation/Backend/AnalyticsBackendLoader.cpp</code>, <code>AnalyticsBackendLoader.h</code></td>
+</tr>
+<tr>
+<td><code>IAnalyticsBackend</code></td>
+<td>Pure-virtual interface that backend implementations must satisfy: <code>Name()</code>, <code>Configure(shell, sysTime, store)</code>, <code>SendEvent(event)</code>.</td>
+<td><code>Implementation/Interfaces/IAnalyticsBackend.h</code></td>
+</tr>
+<tr>
+<td><code>SystemTime</code></td>
+<td>Subscribes to Thunder JSON-RPC events (<code>onTimeStatusChanged</code>, <code>onTimeZoneDSTChanged</code>) and provides <code>IsSystemTimeAvailable()</code> and <code>GetTimeZoneOffset()</code>. Owns an event thread.</td>
+<td><code>Implementation/SystemTime/SystemTime.cpp</code>, <code>SystemTime.h</code></td>
+</tr>
+<tr>
+<td><code>LocalStore</code></td>
+<td>SQLite-backed storage via <code>DatabaseConnection</code>. Implements <code>ILocalStore</code>: open, create table, set limit, add/get/remove entries.</td>
+<td><code>Implementation/LocalStore/LocalStore.cpp</code>, <code>LocalStore.h</code>, <code>DatabaseConnection.cpp</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>flowchart TD
+    subgraph Analytics
+        Plugin(["Analytics (plugin shell)"])
+        Impl(["AnalyticsImplementation\n(action queue + thread)"])
+        BL(["AnalyticsBackendLoader"])
+        ST(["SystemTime"])
+        LS(["LocalStore / SQLite"])
+        Backend(["IAnalyticsBackend (.so)"])
+    end
+    Plugin --&gt; Impl
+    Impl --&gt; BL
+    Impl --&gt; ST
+    Impl --&gt; LS
+    BL --&gt; Backend</code></pre>
+<h3 id="appmanager">AppManager</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AppManager</code></td>
+<td>Plugin shell. Implements <code>Exchange::IAppManager::INotification</code> to forward <code>OnAppInstalled</code>, <code>OnAppUninstalled</code>, <code>OnAppLifecycleStateChanged</code>, <code>OnAppLaunchRequest</code>, <code>OnAppUnloaded</code> as JSON-RPC events via <code>Exchange::JAppManager::Event::*</code>.</td>
+<td><code>AppManager.cpp</code>, <code>AppManager.h</code></td>
+</tr>
+<tr>
+<td><code>AppManagerImplementation</code></td>
+<td>Business logic. Implements <code>IAppManager</code> + <code>IConfiguration</code>. Uses <code>IStore2</code>, <code>IAppPackageManager</code>, <code>IStorageManager</code>, <code>IPackageManager</code>. Tracks app packages in <code>std::map&lt;string, PackageInfo&gt;</code>. Optionally reports telemetry markers (<code>ENABLE_AIMANAGERS_TELEMETRY_METRICS</code> guard).</td>
+<td><code>AppManagerImplementation.cpp</code>, <code>AppManagerImplementation.h</code></td>
+</tr>
+<tr>
+<td><code>LifecycleInterfaceConnector</code></td>
+<td>Bridges AppManager to the LifecycleManager Exchange interface.</td>
+<td><code>LifecycleInterfaceConnector.cpp</code>, <code>LifecycleInterfaceConnector.h</code></td>
+</tr>
+<tr>
+<td><code>AppManagerTelemetryReporting</code></td>
+<td>Handles telemetry reporting for app actions (guarded by <code>ENABLE_AIMANAGERS_TELEMETRY_METRICS</code>).</td>
+<td><code>AppManagerTelemetryReporting.cpp</code>, <code>AppManagerTelemetryReporting.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="lifecyclemanager">LifecycleManager</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LifecycleManager</code></td>
+<td>Plugin shell. Subscribes to <code>ILifecycleManagerState::INotification</code> and dispatches <code>OnAppLifecycleStateChanged</code> JSON-RPC events.</td>
+<td><code>LifecycleManager.cpp</code>, <code>LifecycleManager.h</code></td>
+</tr>
+<tr>
+<td><code>LifecycleManagerImplementation</code></td>
+<td>Implements <code>ILifecycleManager</code>, <code>ILifecycleManagerState</code>, <code>IConfiguration</code>, and <code>IEventHandler</code>. Uses a <code>Core::IDispatch</code>-based job system for event posting.</td>
+<td><code>LifecycleManagerImplementation.cpp</code>, <code>LifecycleManagerImplementation.h</code></td>
+</tr>
+<tr>
+<td><code>ApplicationContext</code></td>
+<td>Holds per-application state context.</td>
+<td><code>ApplicationContext.cpp</code>, <code>ApplicationContext.h</code></td>
+</tr>
+<tr>
+<td><code>RequestHandler</code></td>
+<td>Handles incoming lifecycle requests.</td>
+<td><code>RequestHandler.cpp</code>, <code>RequestHandler.h</code></td>
+</tr>
+<tr>
+<td><code>StateHandler</code> / <code>StateTransitionHandler</code></td>
+<td>Manages and validates lifecycle state transitions.</td>
+<td><code>State.cpp</code>, <code>StateHandler.cpp</code>, <code>StateTransitionHandler.cpp</code></td>
+</tr>
+<tr>
+<td><code>WindowManagerHandler</code></td>
+<td>Bridges LifecycleManager to the window manager for display-related lifecycle steps.</td>
+<td><code>WindowManagerHandler.cpp</code>, <code>WindowManagerHandler.h</code></td>
+</tr>
+<tr>
+<td><code>RuntimeManagerHandler</code></td>
+<td>Bridges LifecycleManager to RuntimeManager for container-level lifecycle operations.</td>
+<td><code>RuntimeManagerHandler.cpp</code>, <code>RuntimeManagerHandler.h</code></td>
+</tr>
+<tr>
+<td><code>LifecycleManagerTelemetryReporting</code></td>
+<td>Telemetry reporting for lifecycle events.</td>
+<td><code>LifecycleManagerTelemetryReporting.cpp</code>, <code>LifecycleManagerTelemetryReporting.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="runtimemanager">RuntimeManager</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RuntimeManager</code></td>
+<td>Plugin shell. Implements <code>IPlugin</code> only (no JSONRPC). Activates <code>RuntimeManagerImplementation</code> OOP via <code>IRuntimeManager</code>.</td>
+<td><code>RuntimeManager.cpp</code>, <code>RuntimeManager.h</code></td>
+</tr>
+<tr>
+<td><code>RuntimeManagerImplementation</code></td>
+<td>Implements <code>IRuntimeManager</code>, <code>IConfiguration</code>, <code>IEventHandler</code>. Reads <code>runtimeAppPortal</code> from plugin config. Emits events: <code>RUNTIME_MANAGER_EVENT_STATECHANGED</code>, <code>CONTAINERSTARTED</code>, <code>CONTAINERSTOPPED</code>, <code>CONTAINERFAILED</code>. Optionally records telemetry markers for launch/close/suspend/resume/hibernate/wake (<code>ENABLE_AIMANAGERS_TELEMETRY_METRICS</code>).</td>
+<td><code>RuntimeManagerImplementation.cpp</code>, <code>RuntimeManagerImplementation.h</code></td>
+</tr>
+<tr>
+<td><code>DobbyEventListener</code></td>
+<td>Subscribes to <code>Exchange::IOCIContainer::INotification</code> events (<code>OnContainerStarted</code>, <code>OnContainerStopped</code>, <code>OnContainerFailed</code>, <code>OnContainerStateChanged</code>) and routes them to <code>IEventHandler</code>.</td>
+<td><code>DobbyEventListener.cpp</code>, <code>DobbyEventListener.h</code></td>
+</tr>
+<tr>
+<td><code>RialtoConnector</code></td>
+<td>Manages Rialto <code>IServerManagerService</code> sessions: <code>createAppSession</code>, <code>resumeSession</code>, <code>suspendSession</code>, <code>deactivateSession</code>, <code>waitForStateChange</code>. Guarded by <code>RIALTO_IN_DAC_FEATURE_ENABLED</code>. Timeout: 5000 ms.</td>
+<td><code>RialtoConnector.cpp</code>, <code>RialtoConnector.h</code></td>
+</tr>
+<tr>
+<td><code>WindowManagerConnector</code></td>
+<td>Subscribes to <code>Exchange::IRDKWindowManager::INotification::OnUserInactivity</code> events.</td>
+<td><code>WindowManagerConnector.cpp</code>, <code>WindowManagerConnector.h</code></td>
+</tr>
+<tr>
+<td><code>UserIdManager</code></td>
+<td>Manages user identity information for containers.</td>
+<td><code>UserIdManager.cpp</code>, <code>UserIdManager.h</code></td>
+</tr>
+<tr>
+<td><code>DobbySpecGenerator</code></td>
+<td>Generates Dobby OCI container spec.</td>
+<td><code>DobbySpecGenerator.cpp</code>, <code>DobbySpecGenerator.h</code></td>
+</tr>
+<tr>
+<td><code>AIConfiguration</code></td>
+<td>Holds AI/app configuration for container creation.</td>
+<td><code>AIConfiguration.cpp</code>, <code>AIConfiguration.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="resourcemanager">ResourceManager</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ResourceManager</code></td>
+<td>Plugin shell. Implements <code>IPlugin</code> + <code>JSONRPC</code>. Activates <code>ResourceManagerImplementation</code> OOP.</td>
+<td><code>ResourceManager.cpp</code>, <code>ResourceManager.h</code></td>
+</tr>
+<tr>
+<td><code>ResourceManagerImplementation</code></td>
+<td>Implements <code>IResourceManager</code>. Provides <code>SetAVBlocked</code>, <code>GetBlockedAVApplications</code>, <code>ReserveTTSResource</code>, <code>ReserveTTSResourceForApps</code>. Links against <code>-lessosrmgr</code> (production build). Uses <code>EssRMgr*</code> when <code>ENABLE_ERM</code> or <code>ENABLE_L1TEST</code> is defined. <code>mAppsAVBlacklistStatus</code> is a <code>std::map&lt;std::string, bool&gt;</code> protected by <code>Core::CriticalSection _adminLock</code>.</td>
+<td><code>ResourceManagerImplementation.cpp</code>, <code>ResourceManagerImplementation.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="appgateway">AppGateway</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AppGateway</code></td>
+<td>Plugin shell. Aggregates <code>Exchange::IAppGatewayResolver</code> and <code>Exchange::IAppGatewayResponder</code>.</td>
+<td><code>AppGateway.cpp</code>, <code>AppGateway.h</code></td>
+</tr>
+<tr>
+<td><code>AppGatewayImplementation</code></td>
+<td>Implements <code>IAppGatewayResolver</code> + <code>IConfiguration</code>. Reads resolver paths via <code>Configure(IStringIterator* paths)</code>. Handles <code>Resolve(context, origin, method, params, result)</code>. Posts async <code>RespondJob</code> (<code>Core::IDispatch</code>) for responses.</td>
+<td><code>AppGatewayImplementation.cpp</code>, <code>AppGatewayImplementation.h</code></td>
+</tr>
+<tr>
+<td><code>AppGatewayResponderImplementation</code></td>
+<td>Implements <code>IAppGatewayResponder</code>.</td>
+<td><code>AppGatewayResponderImplementation.cpp</code>, <code>AppGatewayResponderImplementation.h</code></td>
+</tr>
+<tr>
+<td><code>Resolver</code></td>
+<td>Resolution logic for gateway routing to registered handlers.</td>
+<td><code>Resolver.cpp</code>, <code>Resolver.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="appnotifications">AppNotifications</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AppNotifications</code></td>
+<td>Plugin shell. Aggregates <code>Exchange::IAppNotifications</code>. Activates <code>AppNotificationsImplementation</code> OOP.</td>
+<td><code>AppNotifications.cpp</code>, <code>AppNotifications.h</code></td>
+</tr>
+<tr>
+<td><code>AppNotificationsImplementation</code></td>
+<td>Business logic implementing <code>IAppNotifications</code>.</td>
+<td><code>AppNotificationsImplementation.cpp</code>, <code>AppNotificationsImplementation.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagemanager">StorageManager</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>StorageManager</code></td>
+<td>Plugin shell. Implements <code>IPlugin</code> + <code>JSONRPC</code>. Aggregates <code>Exchange::IStorageManager</code>.</td>
+<td><code>StorageManager.cpp</code>, <code>StorageManager.h</code></td>
+</tr>
+<tr>
+<td><code>StorageManagerImplementation</code></td>
+<td>Implements <code>IStorageManager</code> + <code>IConfiguration</code>.</td>
+<td><code>StorageManagerImplementation.cpp</code>, <code>StorageManagerImplementation.h</code></td>
+</tr>
+<tr>
+<td><code>RequestHandler</code></td>
+<td>Internal request handling for storage operations.</td>
+<td><code>RequestHandler.cpp</code>, <code>RequestHandler.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="packagemanager">PackageManager</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PackageManager</code></td>
+<td>Plugin shell. Implements <code>IPlugin</code> + <code>JSONRPC</code>. Subscribes to <code>IPackageDownloader::INotification</code> and <code>IPackageInstaller::INotification</code>. Dispatches <code>OnAppDownloadStatus</code> and <code>OnAppInstallationStatus</code> JSON-RPC events.</td>
+<td><code>PackageManager.cpp</code>, <code>PackageManager.h</code></td>
+</tr>
+<tr>
+<td><code>PackageManagerImplementation</code></td>
+<td>Business logic implementing the package download and install interfaces.</td>
+<td><code>PackageManagerImplementation.cpp</code>, <code>PackageManagerImplementation.h</code></td>
+</tr>
+<tr>
+<td><code>HttpClient</code></td>
+<td>HTTP client used for package acquisition.</td>
+<td><code>HttpClient.cpp</code>, <code>HttpClient.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="downloadmanager">DownloadManager</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DownloadManager</code></td>
+<td>Plugin shell. Implements <code>IPlugin</code> + <code>JSONRPC</code>. Subscribes to <code>IDownloadManager::INotification</code>. Dispatches <code>OnAppDownloadStatus</code> events via <code>Exchange::JDownloadManager::Event::OnAppDownloadStatus</code>.</td>
+<td><code>DownloadManager.cpp</code>, <code>DownloadManager.h</code></td>
+</tr>
+<tr>
+<td><code>DownloadManagerImplementation</code></td>
+<td>Business logic implementing <code>IDownloadManager</code>.</td>
+<td><code>DownloadManagerImplementation.cpp</code>, <code>DownloadManagerImplementation.h</code></td>
+</tr>
+<tr>
+<td><code>DownloadManagerHttpClient</code></td>
+<td>HTTP client component used internally.</td>
+<td><code>DownloadManagerHttpClient.cpp</code>, <code>DownloadManagerHttpClient.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="preinstallmanager">PreinstallManager</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PreinstallManager</code></td>
+<td>Plugin shell. Implements <code>IPlugin</code> + <code>JSONRPC</code>. Subscribes to <code>IPreinstallManager::INotification</code>. Dispatches <code>OnAppInstallationStatus</code> via <code>Exchange::JPreinstallManager::Event::OnAppInstallationStatus</code>.</td>
+<td><code>PreinstallManager.cpp</code>, <code>PreinstallManager.h</code></td>
+</tr>
+<tr>
+<td><code>PreinstallManagerImplementation</code></td>
+<td>Business logic implementing <code>IPreinstallManager</code> + <code>IConfiguration</code>.</td>
+<td><code>PreinstallManagerImplementation.cpp</code>, <code>PreinstallManagerImplementation.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="rdkshell">RDKShell</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RDKShell</code></td>
+<td>Plugin shell. Implements <code>IPlugin</code> + <code>JSONRPC</code>. Aggregates <code>Exchange::ICapture</code> via <code>mScreenCapture</code>. Includes <code>rdkshell/rdkshell.h</code>, <code>rdkshellevents.h</code>, <code>linuxkeys.h</code>. Uses <code>tptimer.h</code> from helpers. Optionally integrates Rialto via <code>RialtoConnector</code> (<code>ENABLE_RIALTO_FEATURE</code>). Methods include window Z-ordering (<code>moveToFront</code>, <code>moveToBack</code>, <code>moveBehind</code>), focus control, key intercepts, key listeners, screen resolution, display creation.</td>
+<td><code>RDKShell.cpp</code>, <code>RDKShell.h</code></td>
+</tr>
+<tr>
+<td><code>RialtoConnector</code></td>
+<td>Shared Rialto session management (same pattern as RuntimeManager version). Guarded by <code>ENABLE_RIALTO_FEATURE</code>.</td>
+<td><code>RialtoConnector.cpp</code>, <code>RialtoConnector.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="rdkwindowmanager">RDKWindowManager</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RDKWindowManager</code></td>
+<td>Plugin shell. Implements <code>IPlugin</code> + <code>JSONRPC</code>. Subscribes to <code>IRDKWindowManager::INotification::OnUserInactivity</code> and dispatches it as a JSON-RPC event.</td>
+<td><code>RDKWindowManager.cpp</code>, <code>RDKWindowManager.h</code></td>
+</tr>
+<tr>
+<td><code>RDKWindowManagerImplementation</code></td>
+<td>Implements <code>IRDKWindowManager</code>.</td>
+<td><code>RDKWindowManagerImplementation.cpp</code>, <code>RDKWindowManagerImplementation.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="telemetrymetrics">TelemetryMetrics</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TelemetryMetrics</code></td>
+<td>Plugin shell. Implements <code>IPlugin</code> only. Aggregates <code>Exchange::ITelemetryMetrics</code>. No JSONRPC exposure in the shell.</td>
+<td><code>TelemetryMetrics.cpp</code>, <code>TelemetryMetrics.h</code></td>
+</tr>
+<tr>
+<td><code>TelemetryMetricsImplementation</code></td>
+<td>Implements <code>ITelemetryMetrics</code> + <code>IConfiguration</code>. Filters defined in <code>TelemetryFilters.h</code>.</td>
+<td><code>TelemetryMetricsImplementation.cpp</code>, <code>TelemetryMetricsImplementation.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="webbridge">WebBridge</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WebBridge</code></td>
+<td>Implements <code>IPluginExtended</code>, <code>IDispatcher</code>, <code>IWebSocket</code>. Handles WebSocket-based bridging with custom JSON-RPC routing states: <code>STATE_INCORRECT_HANDLER</code>, <code>STATE_INCORRECT_VERSION</code>, <code>STATE_UNKNOWN_METHOD</code>, <code>STATE_REGISTRATION</code>, <code>STATE_UNREGISTRATION</code>, <code>STATE_EXISTS</code>, <code>STATE_NONE_EXISTING</code>, <code>STATE_CUSTOM</code>.</td>
+<td><code>WebBridge.cpp</code>, <code>WebBridge.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="nativejs">NativeJS</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NativeJS</code></td>
+<td>Plugin shell. Implements <code>IPlugin</code> + <code>JSONRPC</code>. Aggregates <code>Exchange::INativeJS</code>. Config fields: <code>embedthunderjs</code> (bool) and <code>clientidentifier</code> (display string).</td>
+<td><code>NativeJSPlugin.cpp</code>, <code>NativeJSPlugin.h</code></td>
+</tr>
+<tr>
+<td><code>NativeJSImplementation</code></td>
+<td>Business logic implementing <code>INativeJS</code>.</td>
+<td><code>NativeJSImplementation.cpp</code>, <code>NativeJSImplementation.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="sceneset">SceneSet</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SceneSet</code></td>
+<td>Plugin. Implements <code>IPlugin</code>. Subscribes to <code>Exchange::IAppManager::INotification::OnAppLifecycleStateChanged</code>. Config field: <code>refAppName</code> (string).</td>
+<td><code>SceneSet.cpp</code>, <code>SceneSet.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="rustadapter">RustAdapter</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RustAdapter</code></td>
+<td>Implements <code>Rust::IPlugin</code>. Config fields: <code>outofprocess</code> (bool), <code>address</code> (string), <code>port</code> (uint16), <code>autoexec</code> (bool), <code>libname</code> (string). Can run plugins as local in-process libraries or remote out-of-process via <code>SocketServer</code>.</td>
+<td><code>RustAdapter.cpp</code>, <code>RustAdapter.h</code></td>
+</tr>
+<tr>
+<td><code>LocalPlugin</code></td>
+<td>Loads and runs a Rust plugin in-process.</td>
+<td><code>LocalPlugin.cpp</code>, <code>LocalPlugin.h</code></td>
+</tr>
+<tr>
+<td><code>RemotePlugin</code></td>
+<td>Manages an out-of-process connection to a Rust plugin via socket.</td>
+<td><code>RemotePlugin.cpp</code>, <code>RemotePlugin.h</code></td>
+</tr>
+<tr>
+<td><code>SocketServer</code></td>
+<td>TCP/Unix socket server for remote Rust plugin communication.</td>
+<td><code>SocketServer.cpp</code>, <code>SocketServer.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="fbsettings">FbSettings</h3>
+<table>
+<thead>
+<tr>
+<th>Module / Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FbSettings</code></td>
+<td>Plugin. Implements <code>IPlugin</code>, <code>Exchange::IAppGatewayRequestHandler</code>, <code>Exchange::IAppNotificationHandler</code>. Handles app gateway requests and app notifications. Uses <code>SettingsDelegate</code> (in <code>delegate/</code>) and <code>UtilsController.h</code>. Posts event registration via <code>EventRegistrationJob</code> (<code>Core::IDispatch</code>).</td>
+<td><code>FbSettings.cpp</code>, <code>FbSettings.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="helpers">helpers/</h3>
+<p>Shared header-only or inline utilities included by individual plugins. No separate compiled library.</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UtilsIarm.h</code></td>
+<td>IARM Bus init/connect helpers (<code>Utils::IARM::init()</code>, <code>IARM_CHECK</code> macro)</td>
+</tr>
+<tr>
+<td><code>UtilsLogging.h</code></td>
+<td><code>LOGTRACE</code>, <code>LOGDBG</code>, <code>LOGINFO</code>, <code>LOGWARN</code>, <code>LOGERR</code> macros writing to stderr with thread ID, file, line, function</td>
+</tr>
+<tr>
+<td><code>UtilsLibraryLoader.h</code></td>
+<td>Dynamic <code>.so</code> loading (<code>Utils::LibraryLoader</code>) used by <code>AnalyticsBackendLoader</code></td>
+</tr>
+<tr>
+<td><code>UtilsJsonRpc.h</code></td>
+<td>JSON-RPC utility helpers</td>
+</tr>
+<tr>
+<td><code>UtilsController.h</code></td>
+<td>Thunder controller interaction utilities</td>
+</tr>
+<tr>
+<td><code>UtilsCallsign.h</code></td>
+<td>Callsign resolution utilities</td>
+</tr>
+<tr>
+<td><code>PowerManagerInterface.h</code></td>
+<td>Power manager interface wrapper</td>
+</tr>
+<tr>
+<td><code>PluginInterfaceBuilder.h</code></td>
+<td>Exchange interface acquisition helpers</td>
+</tr>
+<tr>
+<td><code>WebSocketLink.h</code>, <code>WsManager.h</code></td>
+<td>WebSocket link and manager helpers</td>
+</tr>
+<tr>
+<td><code>tptimer.h</code></td>
+<td>Timer utility (used by RDKShell)</td>
+</tr>
+<tr>
+<td><code>UtilsThreadRAII.h</code></td>
+<td>Thread RAII wrapper</td>
+</tr>
+<tr>
+<td><code>UtilsSynchro.hpp</code>, <code>UtilsSynchroIarm.hpp</code></td>
+<td>Synchronization utilities</td>
+</tr>
+<tr>
+<td><code>frontpanel.cpp/.h</code></td>
+<td>Front panel helpers</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="prerequisites-dependencies">Prerequisites &amp; Dependencies</h2>
+<h3 id="rdk-e-platform-requirements">RDK-E Platform Requirements</h3>
+<ul>
+<li><strong>WPEFramework / Thunder</strong>: Branch <code>R4.4.1</code> (cloned in <code>build_dependencies.sh</code>)</li>
+<li><strong>ThunderTools</strong>: Branch <code>R4.4.3</code></li>
+<li><strong>entservices-apis</strong>: <code>main</code> branch — provides all <code>Exchange::I*</code> interfaces and generated JSON headers (<code>interfaces/json/J*.h</code>, <code>interfaces/json/JsonData_*.h</code>)</li>
+<li><strong>entservices-testframework</strong>: Required for L1/L2 test builds</li>
+</ul>
+<h3 id="build-dependencies">Build Dependencies</h3>
+<table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Version / Branch</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CMake</td>
+<td>≥ 3.3</td>
+<td>Build system (<code>cmake_minimum_required(VERSION 3.3)</code>)</td>
+</tr>
+<tr>
+<td>WPEFramework (Thunder)</td>
+<td>R4.4.1</td>
+<td>Plugin host and COM-RPC framework</td>
+</tr>
+<tr>
+<td>ThunderTools</td>
+<td>R4.4.3</td>
+<td>CMake helpers, code generation</td>
+</tr>
+<tr>
+<td>entservices-apis</td>
+<td>main</td>
+<td>Exchange interface definitions (<code>IAnalytics</code>, <code>IAppManager</code>, <code>IRuntimeManager</code>, etc.)</td>
+</tr>
+<tr>
+<td>libsqlite3-dev</td>
+<td>system</td>
+<td>SQLite used by <code>LocalStore</code> (Analytics)</td>
+</tr>
+<tr>
+<td>libcurl4-openssl-dev</td>
+<td>system</td>
+<td>HTTP client (DownloadManager, PackageManager)</td>
+</tr>
+<tr>
+<td>libsystemd-dev</td>
+<td>system</td>
+<td>systemd integration</td>
+</tr>
+<tr>
+<td>libboost-all-dev</td>
+<td>system</td>
+<td>Boost libraries</td>
+</tr>
+<tr>
+<td>libwebsocketpp-dev</td>
+<td>system</td>
+<td>WebSocket support</td>
+</tr>
+<tr>
+<td>protobuf-compiler-grpc, libgrpc-dev, libgrpc++-dev</td>
+<td>system</td>
+<td>Rialto gRPC (RuntimeManager)</td>
+</tr>
+<tr>
+<td>libunwind-dev</td>
+<td>system</td>
+<td>Stack unwinding</td>
+</tr>
+<tr>
+<td>libgstreamer1.0-dev, libgstreamer-plugins-base1.0-dev</td>
+<td>system</td>
+<td>GStreamer</td>
+</tr>
+<tr>
+<td>trower-base64</td>
+<td>main</td>
+<td>Base64 encoding (<code>build_dependencies.sh</code>)</td>
+</tr>
+<tr>
+<td>meson, ninja</td>
+<td>system</td>
+<td>Build tools for trower-base64 and Thunder</td>
+</tr>
+<tr>
+<td>essosrmgr (<code>-lessosrmgr</code>)</td>
+<td>system</td>
+<td>Essos Resource Manager (ResourceManager)</td>
+</tr>
+<tr>
+<td>rdkshell (<code>rdkshell/rdkshell.h</code>)</td>
+<td>system</td>
+<td>RDK Shell integration (RDKShell plugin)</td>
+</tr>
+<tr>
+<td>Dobby (<code>Exchange::IOCIContainer</code>)</td>
+<td>system</td>
+<td>OCI container runtime (RuntimeManager)</td>
+</tr>
+<tr>
+<td>Rialto (<code>rialto/ServerManagerServiceFactory.h</code>)</td>
+<td>system</td>
+<td>Media session management (RuntimeManager, RDKShell)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="runtime-dependencies">Runtime Dependencies</h3>
+<table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WPEFramework daemon</td>
+<td>Must be running; all plugins are activated by Thunder</td>
+</tr>
+<tr>
+<td>IARM Bus daemon</td>
+<td>Required where <code>Utils::IARM::init()</code> is called (plugin-dependent via <code>USE_IARM</code> / <code>USE_IARM_BUS</code> definitions in <code>services.cmake</code>)</td>
+</tr>
+<tr>
+<td>Dobby daemon</td>
+<td>Required by RuntimeManager when OCI container features are used</td>
+</tr>
+<tr>
+<td>Rialto Server Manager</td>
+<td>Required by RuntimeManager (<code>RialtoConnector</code>) when <code>RIALTO_IN_DAC_FEATURE_ENABLED</code> is set</td>
+</tr>
+<tr>
+<td>Essos Resource Manager</td>
+<td>Required by ResourceManager in production build (<code>-lessosrmgr</code>)</td>
+</tr>
+<tr>
+<td>SQLite library (<code>libsqlite3.so</code>)</td>
+<td>Required by Analytics <code>LocalStore</code> at runtime</td>
+</tr>
+</tbody>
+</table>
+<h3 id="platform-build-defines-from-servicescmake">Platform Build Defines (from <code>services.cmake</code>)</h3>
+<p>The following defines are set unconditionally in <code>services.cmake</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Define</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>USE_IARM</code>, <code>USE_IARM_BUS</code>, <code>USE_IARMBUS</code></td>
+<td>Enable IARM bus code paths</td>
+</tr>
+<tr>
+<td><code>USE_TR_69</code></td>
+<td>Enable TR-069 code paths</td>
+</tr>
+<tr>
+<td><code>HAS_API_SYSTEM</code>, <code>HAS_API_POWERSTATE</code></td>
+<td>Enable system/power-state API code paths</td>
+</tr>
+<tr>
+<td><code>RDK_LOG_MILESTONE</code></td>
+<td>Enable milestone logging</td>
+</tr>
+<tr>
+<td><code>USE_DS</code></td>
+<td>Enable Device Services code paths</td>
+</tr>
+<tr>
+<td><code>ENABLE_DEEP_SLEEP</code></td>
+<td>Enable deep sleep code paths</td>
+</tr>
+</tbody>
+</table>
+<p>Conditional defines (set by CMake cache variables):</p>
+<table>
+<thead>
+<tr>
+<th>Define</th>
+<th>Guard Variable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BUILD_DBUS</code> / <code>IARM_USE_DBUS</code></td>
+<td><code>BUILD_DBUS</code></td>
+</tr>
+<tr>
+<td><code>BUILD_ENABLE_THERMAL_PROTECTION</code> / <code>ENABLE_THERMAL_PROTECTION</code></td>
+<td><code>BUILD_ENABLE_THERMAL_PROTECTION</code></td>
+</tr>
+<tr>
+<td><code>ENABLE_DEVICE_MANUFACTURER_INFO</code></td>
+<td><code>BUILD_ENABLE_DEVICE_MANUFACTURER_INFO</code></td>
+</tr>
+<tr>
+<td><code>ENABLE_SYSTIMEMGR_SUPPORT</code></td>
+<td><code>BUILD_ENABLE_SYSTIMEMGR_SUPPORT</code></td>
+</tr>
+<tr>
+<td><code>CLOCK_BRIGHTNESS_ENABLED</code></td>
+<td><code>BUILD_ENABLE_CLOCK</code></td>
+</tr>
+<tr>
+<td><code>ENABLE_TELEMETRY_LOGGING</code></td>
+<td><code>BUILD_ENABLE_TELEMETRY_LOGGING</code></td>
+</tr>
+<tr>
+<td><code>ENABLE_LINK_LOCALTIME</code></td>
+<td><code>BUILD_ENABLE_LINK_LOCALTIME</code></td>
+</tr>
+<tr>
+<td><code>APP_CONTROL_AUDIOPORT_INIT</code></td>
+<td><code>BUILD_ENABLE_APP_CONTROL_AUDIOPORT_INIT</code></td>
+</tr>
+<tr>
+<td><code>NET_DISABLE_NETSRVMGR_CHECK</code></td>
+<td><code>NET_DISABLE_NETSRVMGR_CHECK</code></td>
+</tr>
+<tr>
+<td><code>ENABLE_WHOAMI</code></td>
+<td><code>ENABLE_WHOAMI</code></td>
+</tr>
+<tr>
+<td><code>ENABLE_RFC_MANAGER</code></td>
+<td><code>ENABLE_RFC_MANAGER</code></td>
+</tr>
+<tr>
+<td><code>DISABLE_DCM_TASK</code></td>
+<td><code>DISABLE_DCM_TASK</code></td>
+</tr>
+<tr>
+<td><code>ENABLE_ERM</code></td>
+<td><code>BUILD_ENABLE_ERM</code></td>
+</tr>
+<tr>
+<td><code>DISABLE_SECURITY_TOKEN</code></td>
+<td><code>DISABLE_SECURITY_TOKEN</code></td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="build-installation">Build &amp; Installation</h2>
+<p>The full build process (including dependencies) is scripted in <code>build_dependencies.sh</code>. Below are the essential steps.</p>
+<h3 id="1-install-system-packages">1. Install System Packages</h3>
+<div class="highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libsqlite3-dev<span class="w"> </span>libcurl4-openssl-dev<span class="w"> </span>valgrind<span class="w"> </span>lcov<span class="w"> </span>clang<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libsystemd-dev<span class="w"> </span>libboost-all-dev<span class="w"> </span>libwebsocketpp-dev<span class="w"> </span>meson<span class="w"> </span>libcunit1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcunit1-dev<span class="w"> </span>curl<span class="w"> </span>protobuf-compiler-grpc<span class="w"> </span>libgrpc-dev<span class="w"> </span>libgrpc++-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libunwind-dev<span class="w"> </span>libgstreamer1.0-dev<span class="w"> </span>libgstreamer-plugins-base1.0-dev
+pip<span class="w"> </span>install<span class="w"> </span>jsonref
+</code></pre></div>
+<h3 id="2-build-trower-base64">2. Build trower-base64</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/xmidt-org/trower-base64.git
+<span class="nb">cd</span><span class="w"> </span>trower-base64
+meson<span class="w"> </span>setup<span class="w"> </span>--warnlevel<span class="w"> </span><span class="m">3</span><span class="w"> </span>--werror<span class="w"> </span>build
+ninja<span class="w"> </span>-C<span class="w"> </span>build
+ninja<span class="w"> </span>-C<span class="w"> </span>build<span class="w"> </span>install
+<span class="nb">cd</span><span class="w"> </span>..
+</code></pre></div>
+<h3 id="3-clone-and-build-thundertools-r443">3. Clone and Build ThunderTools (R4.4.3)</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>R4.4.3<span class="w"> </span>https://github.com/rdkcentral/ThunderTools.git
+cmake<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span>-S<span class="w"> </span>ThunderTools<span class="w"> </span>-B<span class="w"> </span>build/ThunderTools<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DEXCEPTIONS_ENABLE<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/install/usr"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_MODULE_PATH<span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/install/tools/cmake"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DGENERIC_CMAKE_MODULE_PATH<span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/install/tools/cmake"</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>build/ThunderTools<span class="w"> </span>--target<span class="w"> </span>install
+</code></pre></div>
+<h3 id="4-build-thunder-r441">4. Build Thunder (R4.4.1)</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>R4.4.1<span class="w"> </span>https://github.com/rdkcentral/Thunder.git
+cmake<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span>-S<span class="w"> </span>Thunder<span class="w"> </span>-B<span class="w"> </span>build/Thunder<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DMESSAGING<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/install/usr"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_MODULE_PATH<span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/install/tools/cmake"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DGENERIC_CMAKE_MODULE_PATH<span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/install/tools/cmake"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DBINDING<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DPORT<span class="o">=</span><span class="m">55555</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DEXCEPTIONS_ENABLE<span class="o">=</span>ON
+cmake<span class="w"> </span>--build<span class="w"> </span>build/Thunder<span class="w"> </span>--target<span class="w"> </span>install
+</code></pre></div>
+<h3 id="5-build-entservices-apis">5. Build entservices-apis</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>main<span class="w"> </span>https://github.com/rdkcentral/entservices-apis.git
+cmake<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span>-S<span class="w"> </span>entservices-apis<span class="w"> </span>-B<span class="w"> </span>build/entservices-apis<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DEXCEPTIONS_ENABLE<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/install/usr"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_MODULE_PATH<span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/install/tools/cmake"</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>build/entservices-apis<span class="w"> </span>--target<span class="w"> </span>install
+</code></pre></div>
+<h3 id="6-build-entservices-infra">6. Build entservices-infra</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/rdkcentral/entservices-infra.git
+<span class="nb">cd</span><span class="w"> </span>entservices-infra
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DPLUGIN_ANALYTICS<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DPLUGIN_APPMANAGER<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DPLUGIN_LIFECYCLE_MANAGER<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DPLUGIN_RUNTIME_MANAGER<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DPLUGIN_RESOURCEMANAGER<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>../
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+sudo<span class="w"> </span>make<span class="w"> </span>install
+</code></pre></div>
+<h3 id="cmake-configuration-options">CMake Configuration Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PLUGIN_ANALYTICS</code></td>
+<td>OFF</td>
+<td>Build Analytics plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_APPMANAGER</code></td>
+<td>OFF</td>
+<td>Build AppManager plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_APPGATEWAY</code></td>
+<td>OFF</td>
+<td>Build AppGateway plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_APPNOTIFICATIONS</code></td>
+<td>OFF</td>
+<td>Build AppNotifications plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_LIFECYCLE_MANAGER</code></td>
+<td>OFF</td>
+<td>Build LifecycleManager plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_RUNTIME_MANAGER</code></td>
+<td>OFF</td>
+<td>Build RuntimeManager plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_RESOURCEMANAGER</code></td>
+<td>OFF</td>
+<td>Build ResourceManager plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_STORAGE_MANAGER</code></td>
+<td>OFF</td>
+<td>Build StorageManager plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_PACKAGE_MANAGER</code></td>
+<td>OFF</td>
+<td>Build PackageManager plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_DOWNLOADMANAGER</code></td>
+<td>OFF</td>
+<td>Build DownloadManager plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_PREINSTALL_MANAGER</code></td>
+<td>OFF</td>
+<td>Build PreinstallManager plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_RDKSHELL</code></td>
+<td>OFF</td>
+<td>Build RDKShell plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_RDK_WINDOW_MANAGER</code></td>
+<td>OFF</td>
+<td>Build RDKWindowManager plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_WEBBRIDGE</code></td>
+<td>OFF</td>
+<td>Build WebBridge plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_NATIVEJS</code></td>
+<td>OFF</td>
+<td>Build NativeJS plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_RUSTADAPTER</code></td>
+<td>OFF</td>
+<td>Build RustAdapter plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_SCENESET</code></td>
+<td>OFF</td>
+<td>Build SceneSet plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_TELEMETRYMETRICS</code></td>
+<td>OFF</td>
+<td>Build TelemetryMetrics plugin</td>
+</tr>
+<tr>
+<td><code>PLUGIN_FBSETTINGS</code></td>
+<td>OFF</td>
+<td>Build FbSettings plugin</td>
+</tr>
+<tr>
+<td><code>COMCAST_CONFIG</code></td>
+<td>ON</td>
+<td>Include <code>services.cmake</code> feature definitions</td>
+</tr>
+<tr>
+<td><code>DISABLE_SECURITY_TOKEN</code></td>
+<td>OFF</td>
+<td>Disable security token enforcement</td>
+</tr>
+<tr>
+<td><code>RDK_SERVICES_L1_TEST</code></td>
+<td>OFF</td>
+<td>Build L1 unit tests</td>
+</tr>
+<tr>
+<td><code>RDK_SERVICE_L2_TEST</code></td>
+<td>OFF</td>
+<td>Build L2 integration tests</td>
+</tr>
+<tr>
+<td><code>BUILD_ENABLE_ERM</code></td>
+<td>OFF</td>
+<td>Enable Essos Resource Manager in ResourceManager</td>
+</tr>
+<tr>
+<td><code>PLUGIN_ANALYTICS_BACKEND_LIBRARY_NAME</code></td>
+<td><code>""</code></td>
+<td>Path to Analytics backend <code>.so</code></td>
+</tr>
+<tr>
+<td><code>PLUGIN_ANALYTICS_AUTOSTART</code></td>
+<td><code>"false"</code></td>
+<td>Auto-start Analytics on Thunder startup</td>
+</tr>
+<tr>
+<td><code>PLUGIN_ANALYTICS_EVENTS_MAP</code></td>
+<td><code>""</code></td>
+<td>Optional path to Analytics events mapping file</td>
+</tr>
+<tr>
+<td><code>PLUGIN_RESOURCE_MANAGER_MODE</code></td>
+<td><code>"Off"</code></td>
+<td>OOP mode for ResourceManager (<code>Off</code>, <code>Local</code>, <code>Remote</code>)</td>
+</tr>
+<tr>
+<td><code>PLUGIN_RUNTIME_MANAGER_MODE</code></td>
+<td><code>""</code></td>
+<td>OOP mode for RuntimeManager</td>
+</tr>
+<tr>
+<td><code>PLUGIN_APP_MANAGER_MODE</code></td>
+<td><code>""</code></td>
+<td>OOP mode for AppManager</td>
+</tr>
+<tr>
+<td><code>PLUGIN_STORAGE_MANAGER_MODE</code></td>
+<td><code>""</code></td>
+<td>OOP mode for StorageManager</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="configuration">Configuration</h2>
+<h3 id="plugin-configuration-files">Plugin Configuration Files</h3>
+<p>Each plugin generates a <code>.json</code> configuration file during build from its <code>.config</code> template. Files are installed under the Thunder configuration directory.</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>Callsign</th>
+<th>Preconditions</th>
+<th>Autostart</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Analytics</td>
+<td><code>org.rdk.Analytics</code></td>
+<td><code>Platform</code></td>
+<td>Configurable (<code>PLUGIN_ANALYTICS_AUTOSTART</code>, default <code>false</code>)</td>
+</tr>
+<tr>
+<td>AppGateway</td>
+<td><code>org.rdk.AppGateway</code></td>
+<td><code>Platform</code></td>
+<td>Configurable (<code>PLUGIN_APPGATEWAY_AUTOSTART</code>)</td>
+</tr>
+<tr>
+<td>AppManager</td>
+<td><code>org.rdk.AppManager</code></td>
+<td><code>Platform</code></td>
+<td>Configurable (<code>PLUGIN_APP_MANAGER_AUTOSTART</code>)</td>
+</tr>
+<tr>
+<td>LifecycleManager</td>
+<td><code>org.rdk.LifecycleManager</code></td>
+<td><code>Platform</code></td>
+<td><code>false</code> (hardcoded)</td>
+</tr>
+<tr>
+<td>ResourceManager</td>
+<td><code>org.rdk.ResourceManager</code></td>
+<td><code>Platform</code></td>
+<td>Configurable (<code>PLUGIN_RESOURCE_MANAGER_AUTOSTART</code>, default <code>false</code>)</td>
+</tr>
+<tr>
+<td>RuntimeManager</td>
+<td><code>org.rdk.RuntimeManager</code></td>
+<td><code>Platform</code></td>
+<td>Configurable (<code>PLUGIN_RUNTIME_MANAGER_AUTOSTART</code>)</td>
+</tr>
+<tr>
+<td>RDKShell</td>
+<td><code>org.rdk.RDKShell</code></td>
+<td><code>Platform</code></td>
+<td>Configurable (<code>PLUGIN_RDKSHELL_AUTOSTART</code>)</td>
+</tr>
+<tr>
+<td>RDKWindowManager</td>
+<td><code>org.rdk.RDKWindowManager</code></td>
+<td><code>Platform</code></td>
+<td><code>false</code> (hardcoded)</td>
+</tr>
+<tr>
+<td>StorageManager</td>
+<td><code>org.rdk.StorageManager</code></td>
+<td><code>Platform</code></td>
+<td>Configurable (<code>PLUGIN_STORAGE_MANAGER_AUTOSTART</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="analytics-configuration-parameters">Analytics Configuration Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Source</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>eventsmap</code></td>
+<td><code>Analytics.config</code> / <code>PLUGIN_ANALYTICS_EVENTS_MAP</code></td>
+<td>Optional path to JSON events mapping file. Loaded by <code>AnalyticsImplementation::ParseEventsMapFile()</code>.</td>
+</tr>
+<tr>
+<td><code>loggername</code></td>
+<td><code>Analytics.config</code> / <code>PLUGIN_ANALYTICS_LOGGER_NAME</code></td>
+<td>Logger name (default: <code>Analytics</code>)</td>
+</tr>
+<tr>
+<td><code>loggerversion</code></td>
+<td><code>Analytics.config</code> / <code>PLUGIN_ANALYTICS_LOGGER_VERSION</code></td>
+<td>Logger version (default: module version)</td>
+</tr>
+<tr>
+<td><code>backendlib</code></td>
+<td><code>Analytics.config</code> / <code>PLUGIN_ANALYTICS_BACKEND_LIBRARY_NAME</code></td>
+<td>Path to analytics backend <code>.so</code>. Loaded by <code>AnalyticsBackendLoader</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="runtimemanager-configuration-parameters">RuntimeManager Configuration Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Source</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>runtimeAppPortal</code></td>
+<td><code>RuntimeManager.config</code> / JSON config</td>
+<td>Runtime application portal endpoint</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagemanager-additional-configuration">StorageManager Additional Configuration</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Source</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td><code>StorageManager.config</code> / <code>PLUGIN_STORAGE_MANAGER_PATH</code></td>
+<td>Storage path used by the implementation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rustadapter-configuration-parameters">RustAdapter Configuration Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>outofprocess</code></td>
+<td>bool</td>
+<td>Run Rust plugin out-of-process</td>
+</tr>
+<tr>
+<td><code>address</code></td>
+<td>string</td>
+<td>Socket address for remote Rust plugin</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>uint16</td>
+<td>TCP port for remote Rust plugin</td>
+</tr>
+<tr>
+<td><code>autoexec</code></td>
+<td>bool</td>
+<td>Auto-execute plugin on load</td>
+</tr>
+<tr>
+<td><code>libname</code></td>
+<td>string</td>
+<td>Rust plugin library name</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="api-usage">API / Usage</h2>
+<p>All client-facing plugins use <strong>JSON-RPC over Thunder WebSocket</strong>. The standard connection is:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">ThunderJS</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"ThunderJS"</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">thunderJS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ThunderJS</span><span class="p">({</span><span class="w"> </span><span class="nx">host</span><span class="o">:</span><span class="w"> </span><span class="s2">"&lt;device-ip&gt;"</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
+<h3 id="analytics-orgrdkanalytics">Analytics — <code>org.rdk.Analytics</code></h3>
+<h4 id="sendevent"><code>sendEvent</code></h4>
+<p>Sends a single analytics event to the configured backend.</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>eventName</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Name of the event. Must not be empty.</td>
+</tr>
+<tr>
+<td><code>eventVersion</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Version string of the event schema.</td>
+</tr>
+<tr>
+<td><code>eventSource</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Identifier of the event source. Must not be empty.</td>
+</tr>
+<tr>
+<td><code>eventSourceVersion</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Version of the event source. Must not be empty.</td>
+</tr>
+<tr>
+<td><code>cetList</code></td>
+<td>array of string</td>
+<td>No</td>
+<td>List of CET (Content Event Type) identifiers.</td>
+</tr>
+<tr>
+<td><code>epochTimestamp</code></td>
+<td>uint64</td>
+<td>No</td>
+<td>Epoch timestamp in milliseconds. If 0 and <code>uptimeTimestamp</code> is also 0, current uptime is used.</td>
+</tr>
+<tr>
+<td><code>uptimeTimestamp</code></td>
+<td>uint64</td>
+<td>No</td>
+<td>System uptime in milliseconds at event time.</td>
+</tr>
+<tr>
+<td><code>appId</code></td>
+<td>string</td>
+<td>No</td>
+<td>Application identifier.</td>
+</tr>
+<tr>
+<td><code>eventPayload</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>JSON payload for the event. Must not be empty.</td>
+</tr>
+<tr>
+<td><code>additionalContext</code></td>
+<td>string</td>
+<td>No</td>
+<td>Additional contextual data.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><strong>Example</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nx">thunderJS</span><span class="p">[</span><span class="s2">"org.rdk.Analytics"</span><span class="p">]</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">sendEvent</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">eventName</span><span class="o">:</span><span class="w"> </span><span class="s2">"appLaunched"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">eventVersion</span><span class="o">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">eventSource</span><span class="o">:</span><span class="w"> </span><span class="s2">"AppManager"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">eventSourceVersion</span><span class="o">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">epochTimestamp</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">uptimeTimestamp</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">appId</span><span class="o">:</span><span class="w"> </span><span class="s2">"com.example.app"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">eventPayload</span><span class="o">:</span><span class="w"> </span><span class="s1">'{"action":"launch"}'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">additionalContext</span><span class="o">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+<span class="w">  </span><span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">));</span>
+</code></pre></div>
+<h3 id="resourcemanager-orgrdkresourcemanager">ResourceManager — <code>org.rdk.ResourceManager</code></h3>
+<h4 id="setavblocked"><code>setAVBlocked</code></h4>
+<p>Blocks or unblocks AV output for a specific application.</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>appid</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Application identifier</td>
+</tr>
+<tr>
+<td><code>blocked</code></td>
+<td>bool</td>
+<td>Yes</td>
+<td><code>true</code> to block AV, <code>false</code> to unblock</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h4 id="getblockedavapplications"><code>getBlockedAVApplications</code></h4>
+<p>Returns the list of applications with AV blocked.</p>
+<p><strong>Parameters</strong>: none</p>
+<p><strong>Response</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"clients"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"com.example.app1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"com.example.app2"</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="reservettsresource"><code>reserveTTSResource</code></h4>
+<p>Reserves the TTS (Text-to-Speech) resource for a single application.</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>appid</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Application identifier</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h4 id="reservettsresourceforapps"><code>reserveTTSResourceForApps</code></h4>
+<p>Reserves the TTS resource for multiple applications.</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>appids</code></td>
+<td>array of string</td>
+<td>Yes</td>
+<td>Application identifiers</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h3 id="appmanager-orgrdkappmanager">AppManager — <code>org.rdk.AppManager</code></h3>
+<h4 id="events">Events</h4>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Trigger Condition</th>
+<th>Payload Fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>onAppInstalled</code></td>
+<td>Application package installed</td>
+<td><code>appId</code> (string), <code>version</code> (string)</td>
+</tr>
+<tr>
+<td><code>onAppUninstalled</code></td>
+<td>Application package removed</td>
+<td><code>appId</code> (string)</td>
+</tr>
+<tr>
+<td><code>onAppLifecycleStateChanged</code></td>
+<td>Application lifecycle state transition</td>
+<td><code>appId</code>, <code>appInstanceId</code>, <code>newState</code>, <code>oldState</code>, <code>errorReason</code></td>
+</tr>
+<tr>
+<td><code>onAppLaunchRequest</code></td>
+<td>External app launch request received</td>
+<td><code>appId</code>, <code>intent</code>, <code>source</code></td>
+</tr>
+<tr>
+<td><code>onAppUnloaded</code></td>
+<td>Application instance unloaded</td>
+<td><code>appId</code>, <code>appInstanceId</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="lifecyclemanager-orgrdklifecyclemanager">LifecycleManager — <code>org.rdk.LifecycleManager</code></h3>
+<h4 id="events_1">Events</h4>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Trigger Condition</th>
+<th>Payload Fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>onAppLifecycleStateChanged</code></td>
+<td>Application lifecycle state change</td>
+<td><code>appId</code>, <code>appInstanceId</code>, <code>oldState</code>, <code>newState</code>, <code>navigationIntent</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="rdkwindowmanager-orgrdkrdkwindowmanager">RDKWindowManager — <code>org.rdk.RDKWindowManager</code></h3>
+<h4 id="events_2">Events</h4>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Trigger Condition</th>
+<th>Payload Fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>onUserInactivity</code></td>
+<td>User inactivity detected</td>
+<td><code>minutes</code> (double)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="downloadmanager_1">DownloadManager</h3>
+<h4 id="events_3">Events</h4>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Trigger Condition</th>
+<th>Payload</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>onAppDownloadStatus</code></td>
+<td>Download status update</td>
+<td>JSON response string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="packagemanager_1">PackageManager</h3>
+<h4 id="events_4">Events</h4>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Trigger Condition</th>
+<th>Payload</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>onAppDownloadStatus</code></td>
+<td>Package download status update</td>
+<td>Iterator of package info objects</td>
+</tr>
+<tr>
+<td><code>onAppInstallationStatus</code></td>
+<td>Package installation status update</td>
+<td>JSON response string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="preinstallmanager_1">PreinstallManager</h3>
+<h4 id="events_5">Events</h4>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Trigger Condition</th>
+<th>Payload</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>onAppInstallationStatus</code></td>
+<td>Pre-install status update</td>
+<td>JSON response string</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="component-interactions">Component Interactions</h2>
+<pre class="mermaid"><code>flowchart TD
+    subgraph ThunderMiddleware["WPEFramework / Thunder"]
+        Analytics["Analytics\norg.rdk.Analytics"]
+        AppManager["AppManager\norg.rdk.AppManager"]
+        LifecycleMgr["LifecycleManager\norg.rdk.LifecycleManager"]
+        RuntimeMgr["RuntimeManager\norg.rdk.RuntimeManager"]
+        RDKWinMgr["RDKWindowManager\norg.rdk.RDKWindowManager"]
+        ResourceMgr["ResourceManager\norg.rdk.ResourceManager"]
+        StorageMgr["StorageManager\norg.rdk.StorageManager"]
+        SceneSet["SceneSet"]
+        FbSettings["FbSettings"]
+        AppGateway["AppGateway\norg.rdk.AppGateway"]
+        AppNotifs["AppNotifications"]
+    end
+
+    subgraph Platform["Platform / External"]
+        Dobby["Dobby (OCI)\nExchange::IOCIContainer"]
+        Rialto["Rialto ServerMgr\n(gRPC)"]
+        ERM["Essos Resource Mgr\n(-lessosrmgr)"]
+        IARM["IARM Bus"]
+        SQLite["SQLite"]
+    end
+
+    RuntimeMgr --&gt;|"IOCIContainer::INotification"| Dobby
+    RuntimeMgr --&gt;|"IServerManagerService (gRPC)"| Rialto
+    RuntimeMgr --&gt;|"IRDKWindowManager (WindowManagerConnector)"| RDKWinMgr
+    LifecycleMgr --&gt;|"IRuntimeManager (RuntimeManagerHandler)"| RuntimeMgr
+    LifecycleMgr --&gt;|"IRDKWindowManager (WindowManagerHandler)"| RDKWinMgr
+    AppManager --&gt;|"ILifecycleManager (LifecycleInterfaceConnector)"| LifecycleMgr
+    AppManager --&gt;|"IStorageManager"| StorageMgr
+    SceneSet --&gt;|"IAppManager::INotification"| AppManager
+    FbSettings --&gt;|"IAppGatewayRequestHandler"| AppGateway
+    FbSettings --&gt;|"IAppNotificationHandler"| AppNotifs
+    ResourceMgr --&gt;|"EssRMgr API"| ERM
+    Analytics --&gt;|"JSONRPC subscribe (SystemTime)"| LifecycleMgr
+    Analytics --&gt;|"SQLite (LocalStore)"| SQLite
+    AppManager .-&gt;|"IARM (via helpers)"| IARM</code></pre>
+<h3 id="interaction-matrix">Interaction Matrix</h3>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Interaction</th>
+<th>Key API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dobby / OCI</strong></td>
+<td>RuntimeManager listens for container lifecycle events</td>
+<td><code>Exchange::IOCIContainer::INotification</code> (<code>OnContainerStarted</code>, <code>OnContainerStopped</code>, <code>OnContainerFailed</code>, <code>OnContainerStateChanged</code>)</td>
+</tr>
+<tr>
+<td><strong>Rialto Server Manager</strong></td>
+<td>RuntimeManager creates/resumes/suspends/deactivates media sessions</td>
+<td><code>IServerManagerService</code> (<code>createAppSession</code>, <code>resumeSession</code>, <code>suspendSession</code>, <code>deactivateSession</code>, <code>waitForStateChange</code>) — <code>RIALTO_IN_DAC_FEATURE_ENABLED</code></td>
+</tr>
+<tr>
+<td><strong>Essos Resource Manager</strong></td>
+<td>ResourceManager enforces AV blocking and TTS reservation</td>
+<td><code>EssRMgr</code> (<code>-lessosrmgr</code>)</td>
+</tr>
+<tr>
+<td><strong>RDKWindowManager</strong></td>
+<td>RuntimeManager and LifecycleManager subscribe to <code>OnUserInactivity</code>; LifecycleManager drives window operations</td>
+<td><code>Exchange::IRDKWindowManager::INotification</code></td>
+</tr>
+<tr>
+<td><strong>LifecycleManager → RuntimeManager</strong></td>
+<td>LifecycleManager delegates container operations</td>
+<td><code>Exchange::IRuntimeManager</code> via <code>RuntimeManagerHandler</code></td>
+</tr>
+<tr>
+<td><strong>AppManager → LifecycleManager</strong></td>
+<td>AppManager drives app lifecycle through LifecycleManager</td>
+<td><code>Exchange::ILifecycleManager</code> via <code>LifecycleInterfaceConnector</code></td>
+</tr>
+<tr>
+<td><strong>AppManager → StorageManager</strong></td>
+<td>AppManager queries and manages app storage</td>
+<td><code>Exchange::IStorageManager</code></td>
+</tr>
+<tr>
+<td><strong>SceneSet → AppManager</strong></td>
+<td>SceneSet reacts to app lifecycle state changes</td>
+<td><code>Exchange::IAppManager::INotification</code></td>
+</tr>
+<tr>
+<td><strong>FbSettings → AppGateway</strong></td>
+<td>FbSettings handles app gateway requests</td>
+<td><code>Exchange::IAppGatewayRequestHandler</code></td>
+</tr>
+<tr>
+<td><strong>FbSettings → AppNotifications</strong></td>
+<td>FbSettings handles app notification events</td>
+<td><code>Exchange::IAppNotificationHandler</code></td>
+</tr>
+<tr>
+<td><strong>Analytics → SystemTime</strong></td>
+<td>Analytics waits for system time availability before forwarding events to backends</td>
+<td><code>ISystemTime</code> (subscribes via JSON-RPC to time-status events)</td>
+</tr>
+<tr>
+<td><strong>Analytics → LocalStore</strong></td>
+<td>Analytics buffers events in SQLite</td>
+<td><code>ILocalStore</code> (SQLite-backed)</td>
+</tr>
+<tr>
+<td><strong>IARM Bus</strong></td>
+<td>Available to all plugins via <code>UtilsIarm.h</code> (<code>USE_IARM</code>/<code>USE_IARM_BUS</code> defined in <code>services.cmake</code>)</td>
+<td><code>IARM_Bus_Init</code>, <code>IARM_Bus_Connect</code></td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="component-state-flow">Component State Flow</h2>
+<h3 id="analytics-initialization">Analytics Initialization</h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Thunder as WPEFramework Core
+    participant Analytics as Analytics (plugin shell)
+    participant Impl as AnalyticsImplementation (OOP)
+    participant BL as AnalyticsBackendLoader
+    participant ST as SystemTime
+
+    Thunder-&gt;&gt;Analytics: Initialize(service)
+    Analytics-&gt;&gt;Impl: service-&gt;Root&lt;IAnalytics&gt;(connectionId, 2000, "AnalyticsImplementation")
+    Analytics-&gt;&gt;Impl: Configure(service) via IConfiguration
+    Impl-&gt;&gt;ST: new SystemTime(shell) — starts EventThread
+    Impl-&gt;&gt;BL: Load(backendlib path)
+    Note over Impl: Starts ActionLoop thread
+    Analytics-&gt;&gt;Analytics: JAnalytics::Register(*this, mAnalytics)
+    Analytics--&gt;&gt;Thunder: SUCCESS or error string</code></pre>
+<h3 id="runtimemanager-container-launch-flow">RuntimeManager Container Launch Flow</h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Client as Client / LifecycleManager
+    participant RM as RuntimeManagerImplementation
+    participant Dobby as DobbyEventListener / IOCIContainer
+    participant Rialto as RialtoConnector
+
+    Client-&gt;&gt;RM: IRuntimeManager launch request
+    RM-&gt;&gt;Dobby: create container via IOCIContainer
+    Dobby--&gt;&gt;RM: OnContainerStarted(containerId, name)
+    opt RIALTO_IN_DAC_FEATURE_ENABLED
+        RM-&gt;&gt;Rialto: createAppSession(callsign, displayName, appId)
+        Rialto--&gt;&gt;RM: waitForStateChange(appId, ACTIVE, 5000ms)
+    end
+    RM--&gt;&gt;Client: RUNTIME_MANAGER_EVENT_STATECHANGED</code></pre>
+<hr/>
+<h2 id="implementation-details">Implementation Details</h2>
+<h3 id="hal-ds-api-integration">HAL / DS API Integration</h3>
+<p>No direct Device Services (DS) API calls are made in any of the plugins in this repository. <code>USE_DS</code> is defined in <code>services.cmake</code> as a compilation flag, but no <code>ds*()</code> function calls are present in the plugin source files reviewed.</p>
+<p>IARM bus access is available through <code>helpers/UtilsIarm.h</code> (<code>IARM_Bus_Init</code>, <code>IARM_Bus_Connect</code>, <code>IARM_Bus_Call</code> macros). The plugins that use IARM do so through this helper.</p>
+<table>
+<thead>
+<tr>
+<th>Integration</th>
+<th>API</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Essos Resource Manager</td>
+<td><code>EssRMgr</code> (opaque pointer)</td>
+<td><code>ResourceManagerImplementation.cpp</code></td>
+</tr>
+<tr>
+<td>OCI Container (Dobby)</td>
+<td><code>Exchange::IOCIContainer</code></td>
+<td><code>RuntimeManager/DobbyEventListener.cpp</code></td>
+</tr>
+<tr>
+<td>Rialto Server Manager</td>
+<td><code>rialto::servermanager::service::IServerManagerService</code></td>
+<td><code>RuntimeManager/RialtoConnector.cpp</code>, <code>RDKShell/RialtoConnector.cpp</code></td>
+</tr>
+<tr>
+<td>SQLite</td>
+<td><code>sqlite3_*</code> (via <code>DatabaseConnection</code>)</td>
+<td><code>Analytics/Implementation/LocalStore/DatabaseConnection.cpp</code></td>
+</tr>
+<tr>
+<td>IARM Bus</td>
+<td><code>IARM_Bus_Init</code>, <code>IARM_Bus_Connect</code></td>
+<td><code>helpers/UtilsIarm.h</code></td>
+</tr>
+<tr>
+<td>rdkshell library</td>
+<td><code>RDKShell::RdkShell::*</code></td>
+<td><code>RDKShell/RDKShell.cpp</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="error-handling-strategy">Error Handling Strategy</h3>
+<ul>
+<li><code>ResourceManagerImplementation</code>: <code>SetAVBlocked</code> and reservation calls return <code>Core::hresult</code>. Success is reported via the <code>Success&amp; result</code> out-parameter.</li>
+<li><code>AnalyticsImplementation::SendEvent</code>: Returns <code>Core::ERROR_GENERAL</code> if <code>eventName</code>, <code>eventSource</code>, <code>eventSourceVersion</code>, or <code>eventPayload</code> are empty. Returns <code>Core::ERROR_NONE</code> on successful queue insertion.</li>
+<li>Plugin initialization: <code>Initialize()</code> returns an empty string on success or a non-empty error string on failure. Example: <code>"Could not retrieve the Analytics interface."</code>.</li>
+<li>All plugins that root an OOP implementation assert <code>impl != nullptr</code> after <code>service-&gt;Root&lt;&gt;()</code> and log failure with <code>SYSLOG</code>.</li>
+</ul>
+<h3 id="logging-diagnostics">Logging &amp; Diagnostics</h3>
+<p>All plugins use macros from <code>helpers/UtilsLogging.h</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Macro</th>
+<th>Level</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LOGTRACE</code></td>
+<td>TRACE</td>
+<td><code>stderr</code>, only built in <code>__DEBUG__</code> mode</td>
+</tr>
+<tr>
+<td><code>LOGDBG</code></td>
+<td>DEBUG</td>
+<td><code>stderr</code> with thread ID, file, line, function</td>
+</tr>
+<tr>
+<td><code>LOGINFO</code></td>
+<td>INFO</td>
+<td><code>stderr</code> with thread ID, file, line, function</td>
+</tr>
+<tr>
+<td><code>LOGWARN</code></td>
+<td>WARN</td>
+<td><code>stderr</code> with thread ID, file, line, function</td>
+</tr>
+<tr>
+<td><code>LOGERR</code></td>
+<td>ERROR</td>
+<td><code>stderr</code> with thread ID, file, line, function</td>
+</tr>
+</tbody>
+</table>
+<p>WPEFramework <code>SYSLOG</code> is used for startup and shutdown lifecycle messages (<code>Logging::Startup</code>, <code>Logging::Shutdown</code>).</p>
+<hr/>
+<h2 id="testing">Testing</h2>
+<h3 id="test-levels">Test Levels</h3>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Scope</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1 – Unit</td>
+<td>Individual plugin classes with mocked Exchange interfaces, IARM, DS dependencies</td>
+<td><code>Tests/L1Tests/tests/</code></td>
+</tr>
+<tr>
+<td>L2 – Integration</td>
+<td>Plugins with real or stub HAL interfaces</td>
+<td><code>Tests/L2Tests/tests/</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="running-l1-tests">Running L1 Tests</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>-DRDK_SERVICES_L1_TEST<span class="o">=</span>ON<span class="w"> </span>../
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+ctest<span class="w"> </span>--output-on-failure
+</code></pre></div>
+<h3 id="running-l2-tests">Running L2 Tests</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>-DRDK_SERVICE_L2_TEST<span class="o">=</span>ON<span class="w"> </span>../
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+ctest<span class="w"> </span>--output-on-failure
+</code></pre></div>
+<h3 id="mock-framework">Mock Framework</h3>
+<p>L1 tests use stub/mock headers generated under <code>entservices-testframework/Tests/headers/</code>. Empty mock headers are created for:</p>
+<ul>
+<li><code>audiocapturemgr/audiocapturemgr_iarm.h</code></li>
+<li><code>rdk/ds/</code> (audioOutputPort, compositeIn, dsDisplay, dsError, dsMgr, dsTypes, dsUtl, host, manager, etc.)</li>
+<li><code>rdk/iarmbus/</code> (libIARM.h, libIBus.h, libIBusDaemon.h)</li>
+<li><code>rdk/halif/deepsleep-manager/deepSleepMgr.h</code></li>
+<li><code>rdk/iarmmgrs-hal/mfrMgr.h</code></li>
+<li><code>ccec/drivers/CecIARMBusMgr.h</code></li>
+<li><code>Dobby/Public/Dobby/</code> and <code>Dobby/IpcService/</code></li>
+<li><code>network/</code>, <code>proc/</code>, <code>libusb/</code></li>
+</ul>
+<p>L2 tests link against <code>TestMocklib</code> when available.</p>
+<hr/>
+<h2 id="plugin-migration-table">Plugin Migration Table</h2>
+<p>As documented in <code>README.md</code>, the following plugins have been migrated to dedicated repositories. New code changes must go to those repositories on the <code>develop</code> branch.</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>New Repository</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appgateway</td>
+<td>https://github.com/rdkcentral/entservices-appgateway</td>
+</tr>
+<tr>
+<td>appmanager</td>
+<td>https://github.com/rdkcentral/entservices-appmanagers</td>
+</tr>
+<tr>
+<td>appnotifications</td>
+<td>https://github.com/rdkcentral/entservices-appgateway</td>
+</tr>
+<tr>
+<td>cloudstore</td>
+<td>https://github.com/rdkcentral/entservices-cloudstore</td>
+</tr>
+<tr>
+<td>downloadmanager</td>
+<td>https://github.com/rdkcentral/entservices-appmanagers</td>
+</tr>
+<tr>
+<td>fbsettings</td>
+<td>Internal repo</td>
+</tr>
+<tr>
+<td>lifecyclemanager</td>
+<td>https://github.com/rdkcentral/entservices-appmanagers</td>
+</tr>
+<tr>
+<td>messagecontrol</td>
+<td>https://github.com/rdkcentral/entservices-messagecontrol</td>
+</tr>
+<tr>
+<td>migration</td>
+<td>https://github.com/rdkcentral/entservices-migration</td>
+</tr>
+<tr>
+<td>monitor</td>
+<td>https://github.com/rdkcentral/entservices-monitor</td>
+</tr>
+<tr>
+<td>ocicontainer</td>
+<td>https://github.com/rdkcentral/entservices-ocicontainer</td>
+</tr>
+<tr>
+<td>packagemanager</td>
+<td>https://github.com/rdkcentral/entservices-appmanagers</td>
+</tr>
+<tr>
+<td>persistentstore</td>
+<td>https://github.com/rdkcentral/entservices-persistentstore</td>
+</tr>
+<tr>
+<td>preinstallmanager</td>
+<td>https://github.com/rdkcentral/entservices-appmanagers</td>
+</tr>
+<tr>
+<td>rdkwindowmanager</td>
+<td>https://github.com/rdkcentral/entservices-appmanagers</td>
+</tr>
+<tr>
+<td>runtimemanager</td>
+<td>https://github.com/rdkcentral/entservices-appmanagers</td>
+</tr>
+<tr>
+<td>sharedstorage</td>
+<td>https://github.com/rdkcentral/entservices-sharedstorage</td>
+</tr>
+<tr>
+<td>storagemanager</td>
+<td>https://github.com/rdkcentral/entservices-appmanagers</td>
+</tr>
+<tr>
+<td>telemetry</td>
+<td>https://github.com/rdkcentral/entservices-telemetry</td>
+</tr>
+<tr>
+<td>telemetrymetrics</td>
+<td>https://github.com/rdkcentral/entservices-appmanagers</td>
+</tr>
+<tr>
+<td>usbdevice</td>
+<td>https://github.com/rdkcentral/entservices-usbdevice</td>
+</tr>
+<tr>
+<td>usbmassstorage</td>
+<td>https://github.com/rdkcentral/entservices-usbmassstorage</td>
+</tr>
+<tr>
+<td>usersettings</td>
+<td>https://github.com/rdkcentral/entservices-usersettings</td>
+</tr>
+<tr>
+<td>webbridge</td>
+<td>https://github.com/rdkcentral/entservices-appmanagers</td>
+</tr>
+</tbody>
+</table>
+<p>Ongoing release changes for branches <code>8.0</code>, <code>8.1</code>, <code>8.2</code>, <code>8.3</code>, and <code>8.4</code> continue to use this repository.</p>
+<hr/>
+<h2 id="versioning-release">Versioning &amp; Release</h2>
+<h3 id="current-version">Current Version</h3>
+<p><code>3.23.0</code> (as of the latest CHANGELOG entry)</p>
+<h3 id="branch-strategy">Branch Strategy</h3>
+<table>
+<thead>
+<tr>
+<th>Branch</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>develop</code></td>
+<td>Active development</td>
+</tr>
+<tr>
+<td><code>main</code></td>
+<td>Not explicitly described; plugin migration targets <code>develop</code></td>
+</tr>
+<tr>
+<td><code>8.0</code>, <code>8.1</code>, <code>8.2</code>, <code>8.3</code>, <code>8.4</code></td>
+<td>Ongoing release maintenance branches</td>
+</tr>
+</tbody>
+</table>
+<h3 id="changelog">Changelog</h3>
+<p>See <a href="CHANGELOG.md">CHANGELOG.md</a> for the full release history. Recent releases:</p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Key Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.23.0</td>
+<td>—</td>
+<td>Fix black screen on Prime Video launch followed by Home screen redirect (RDKEMW-15283)</td>
+</tr>
+<tr>
+<td>3.22.5</td>
+<td>11 Mar 2026</td>
+<td>Revert/re-apply plugin migration to dedicated repos</td>
+</tr>
+<tr>
+<td>3.22.4</td>
+<td>10 Mar 2026</td>
+<td>Data collection via T2 events for socprov.log (RDK-55906)</td>
+</tr>
+<tr>
+<td>3.22.2</td>
+<td>9 Mar 2026</td>
+<td>Fix Coverity-identified issues (RDKEMW-11928)</td>
+</tr>
+<tr>
+<td>3.22.0</td>
+<td>2 Mar 2026</td>
+<td>Add COM-RPC support to ResourceManager plugin (RDKEMW-999)</td>
+</tr>
+<tr>
+<td>3.21.0</td>
+<td>27 Feb 2026</td>
+<td>Disable Setup Cache in infra (RDKEMW-14703)</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="contributing">Contributing</h2>
+<h3 id="license-requirements">License Requirements</h3>
+<ol>
+<li>Sign the RDK <a href="https://developer.rdkcentral.com/source/contribute/contribute/before_you_contribute/">Contributor License Agreement (CLA)</a> before submitting code.</li>
+<li>Each new file must include the Apache 2.0 license header as found in existing source files.</li>
+<li>No additional license files should be added inside subdirectories.</li>
+</ol>
+<h3 id="how-to-contribute">How to Contribute</h3>
+<ol>
+<li>Fork the repository and commit changes on a feature branch.</li>
+<li>For plugins that have been migrated, submit changes to the respective dedicated repository on the <code>develop</code> branch.</li>
+<li>Submit a pull request referencing the relevant RDK ticket or GitHub issue number.</li>
+<li>Reference the ticket number in every commit message.</li>
+</ol>
+<h3 id="pull-request-checklist">Pull Request Checklist</h3>
+<p>As documented in <code>.github/CODEOWNERS</code> and workflow files:</p>
+<ul>
+<li>[ ] BlackDuck, copyright, and CLA checks pass.</li>
+<li>[ ] At least one reviewer has approved the PR.</li>
+<li>[ ] Commit messages include RDK ticket / GitHub issue numbers.</li>
+<li>[ ] New or changed APIs are documented.</li>
+<li>[ ] Unit tests (L1) cover the changed code path.</li>
+</ul>
+<hr/>
+<h2 id="repository-structure">Repository Structure</h2>
+<div class="highlight"><pre><span></span><code>entservices-infra/
+├── Analytics/              # Analytics plugin (IAnalytics)
+│   └── Implementation/
+│       ├── Backend/        # AnalyticsBackendLoader + IAnalyticsBackend interface
+│       ├── Interfaces/     # IAnalyticsBackend.h, ILocalStore.h, ISystemTime.h
+│       ├── LocalStore/     # SQLite-backed local event store
+│       └── SystemTime/     # System time availability and timezone tracking
+├── AppGateway/             # AppGateway plugin (IAppGatewayResolver + IAppGatewayResponder)
+├── AppManager/             # AppManager plugin (IAppManager)
+├── AppNotifications/       # AppNotifications plugin (IAppNotifications)
+├── DownloadManager/        # DownloadManager plugin (IDownloadManager)
+├── FbSettings/             # FbSettings plugin (IAppGatewayRequestHandler + IAppNotificationHandler)
+│   └── delegate/
+├── helpers/                # Shared header utilities (UtilsIarm, UtilsLogging, etc.)
+│   └── WebSockets/
+├── LifecycleManager/       # LifecycleManager plugin (ILifecycleManager + ILifecycleManagerState)
+├── NativeJS/               # NativeJS plugin (INativeJS)
+├── PackageManager/         # PackageManager plugin (IPackageDownloader + IPackageInstaller)
+│   └── cmake/
+├── PreinstallManager/      # PreinstallManager plugin (IPreinstallManager)
+├── RDKShell/               # RDKShell plugin (ICapture + rdkshell library)
+├── RDKWindowManager/       # RDKWindowManager plugin (IRDKWindowManager)
+├── ResourceManager/        # ResourceManager plugin (IResourceManager)
+├── RuntimeManager/         # RuntimeManager plugin (IRuntimeManager)
+├── RustAdapter/            # RustAdapter plugin (Rust::IPlugin)
+├── SceneSet/               # SceneSet plugin (IAppManager::INotification consumer)
+├── StorageManager/         # StorageManager plugin (IStorageManager)
+├── TelemetryMetrics/       # TelemetryMetrics plugin (ITelemetryMetrics)
+├── WebBridge/              # WebBridge plugin (IPluginExtended + IWebSocket)
+├── Tests/
+│   ├── L1Tests/            # Unit tests (mocked dependencies)
+│   └── L2Tests/            # Integration tests
+├── cmake/                  # Find*.cmake scripts for third-party libraries
+├── CMakeLists.txt          # Top-level build definition
+├── services.cmake          # Comcast/product feature flags and definitions
+├── build_dependencies.sh   # Full dependency build script
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+└── README.md
+</code></pre></div>
+<hr/>
+<h2 id="questions-contact">Questions &amp; Contact</h2>
+<ul>
+<li>Open a <a href="https://github.com/rdkcentral/entservices-infra/issues">GitHub Issue</a></li>
+<li>RDK community: <a href="https://rdkcentral.com">https://rdkcentral.com</a></li>
+</ul>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<div class="bottom-banner compact-footer">
+<!-- Left Section: Logo and Copyright -->
+<div class="footer-left">
+<img alt="RDK Logo" class="rdk-logo" src="../../../assets/logo.png">
+<p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+</img></div>
+<!-- Right Section: Links and Support -->
+<div class="footer-right">
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Explore RDK</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../preview-rdk/docs/getting-started">Getting Started</a></li>
+<li><a href="../../../devices/docs/">Devices</a></li>
+<li><a href="../../../preview-rdk/docs/getting-started">Tools</a></li>
+<li><a href="../../../entertainment/docs/sample_home1">Entsample1</a></li>
+<li><a href="../../../entertainment/docs/sample_home3">Entsample3</a></li>
+</ul>
+</div>
+</div>
+<!-- Device Management -->
+<div class="banner-group">
+<h3>Device Management</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../device-management/docs/XConf">XConf</a></li>
+<li><a href="../../../device-management/docs/Telemetry">Telemetry</a></li>
+<li><a href="../../../device-management/docs/Webpa">Web PA</a></li>
+<li><a href="../../../device-management/docs/TR369">TR 369</a></li>
+</ul>
+</div>
+</div>
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Test &amp; Certification</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119">RDK Certification</a></li>
+<li><a href="../../">Video Template</a></li>
+<li><a href="../../../tools/docs/Automatics/">Automatics</a></li>
+</ul>
+</div>
+</div>
+<!-- Resources-->
+<div class="banner-group">
+<h3>Resources</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../kavia/ ">Kavia</a></li>
+<li><a href="../../../sitemap">Quick Links</a></li>
+<li><a href="../../../sitemap.xml">Site Map</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../../assets/javascripts/extra.js"></script>
+</div></body>
+</html>

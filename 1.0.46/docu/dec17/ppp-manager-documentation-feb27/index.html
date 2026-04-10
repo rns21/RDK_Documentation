@@ -1,0 +1,4492 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://github.com/docu/dec17/ppp-manager-documentation-feb27/" rel="canonical"/>
+<link href="../../../assets/favicon.ico" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.6" name="generator"/>
+<title>RdkPppManager Documentation - Developer Portal</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/home.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/entertainment.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/getting-started.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/connectivity.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/devices.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/footer.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/header.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sidepanes.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sitemap.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home1.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/sample_home3.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="custom" data-md-color-primary="custom" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#rdkpppmanager-documentation">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<input autocomplete="off" class="md-toggle" data-md-toggle="actions" id="__actions" type="checkbox"/>
+<div aria-hidden="true" class="mobile-actions-backdrop"></div>
+<aside aria-label="Quick actions" class="mobile-actions-panel">
+<div class="section">
+<div class="palette-slot"></div>
+</div>
+<div class="section">
+<div class="buttons-slot">
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Source Code</strong>
+</div>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg></div>
+<div class="text">Source Code</div>
+</button>
+</a>
+</div>
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Contribute</strong>
+</div>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg></div>
+<div class="text">Contribute</div>
+</button>
+</a>
+</div>
+<div aria-hidden="true" class="tooltip" role="tooltip">
+<div class="tooltip-content">
+<strong>Get help</strong>
+</div>
+<a href="mailto:support@rdkcentral.com">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg></div>
+<div class="text">Get Help</div>
+</button>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Developer Portal" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Developer Portal">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+<label class="md-header__button md-icon md-hamburger--desktop" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M6 10l6 6 6-6-1.4-1.4-4.6 4.6-4.6-4.6z"></path></svg>
+</label>
+<label class="md-header__button md-icon md-hamburger--mobile" for="__actions">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 8H3V6h18M9 13h12v-2H9m0 7h12v-2H9"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">Developer Portal</span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              RdkPppManager Documentation
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="custom" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="custom" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to system preference" class="md-option" data-md-color-accent="custom" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="custom" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to system preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header_buttons">
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path></svg></div>
+<div class="text">Source Code</div>
+</button>
+</a>
+<a href="https://github.com/rdkcentral">
+<button class="Btn" type="button">
+<div class="sign">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2zm8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57z"></path></svg>
+</div>
+<div class="text">Contribute</div>
+</button>
+</a>
+<a href="mailto:support@rdkcentral.com">
+<button class="Btn" type="button">
+<div class="sign"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"></path></svg></div>
+<div class="text">Get Help</div>
+</button>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../entertainment/docs/">
+          
+  
+  
+  Entertainment
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../connectivity/docs/">
+          
+  
+  
+  Connectivity
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../preview-rdk/docs/getting-started/">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../devices/docs/">
+        
+  
+  
+    
+  
+  Devices
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tools/docs/TDK/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../review/">
+          
+  
+  
+  Review
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../device-management/docs/">
+          
+  
+  
+  Device Management
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../doc_template_orig_rama.md">
+          
+  
+  
+  Comparison
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Developer Portal" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Developer Portal">
+<img alt="logo" src="../../../assets/logo.png"/>
+</a>
+    Developer Portal
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/rdkcentral" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    Source Code
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Entertainment
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Entertainment
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home1/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome1
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/sample_home3/">
+<span class="md-ellipsis">
+    
+  
+    sampleHome3
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/Apps.md">
+<span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/tryout_rdkv_rdk7/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdk7-vendor-porting-guide/">
+<span class="md-ellipsis">
+    
+  
+    Porting Kit
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/rdkv_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/westeros/">
+<span class="md-ellipsis">
+    
+  
+    Westeros
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rdkshell/">
+<span class="md-ellipsis">
+    
+  
+    RDK Shell
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/components/rialto/">
+<span class="md-ellipsis">
+    
+  
+    Rialto
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../entertainment/docs/video_profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/RDK/RDK7+Release+Notes">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Connectivity
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Connectivity
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/architecture/">
+<span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/features/">
+<span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/tryout_rdkb/">
+<span class="md-ellipsis">
+    
+  
+    Try Out RDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/profiles/">
+<span class="md-ellipsis">
+    
+  
+    Device Profiles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Core Components
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Components
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Oldprompt/">
+<span class="md-ellipsis">
+    
+  
+    PSM OldPrompt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_GPT5/">
+<span class="md-ellipsis">
+    
+  
+    PSM GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/PSM_Claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr Rama.md">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../connectivity/docs/components/WANMgr%20GPT5/">
+<span class="md-ellipsis">
+    
+  
+    WAN Mgr GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://wiki.rdkcentral.com/display/CMF/RDK-B+Code+Releases">
+<span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../preview-rdk/docs/getting-started/">
+<span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../devices/docs/">
+<span class="md-ellipsis">
+    
+  
+    Devices
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/TDK/">
+<span class="md-ellipsis">
+    
+  
+    TDK
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/docs/Automatics/">
+<span class="md-ellipsis">
+    
+  
+    Automatics
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Review
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Review
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/WANManager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CellularManager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/GPONManager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/PPPManager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/VLANManager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/TelcoVoiceManager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPSM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/LMLite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LM Lite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/CCSPPandM/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PandM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/OneWifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/RBus/">
+<span class="md-ellipsis">
+    
+  
+    RBus
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../review/Utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Device Management
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Device Management
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/XConf/">
+<span class="md-ellipsis">
+    
+  
+    XConf
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Telemetry/">
+<span class="md-ellipsis">
+    
+  
+    Telemetry
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/Webpa/">
+<span class="md-ellipsis">
+    
+  
+    Web PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/TR369/">
+<span class="md-ellipsis">
+    
+  
+    TR 369
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../device-management/docs/LogUpload/">
+<span class="md-ellipsis">
+    
+  
+    Log Upload
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Comparison
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparison
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_orig_rama.md">
+<span class="md-ellipsis">
+    
+  
+    Template_Rama
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Backup
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Backup
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1" id="__nav_9_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    26Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    26Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_1" id="__nav_9_2_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PNM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_claude/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_claude/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_claude/">
+<span class="md-ellipsis">
+    
+  
+    CL_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_claude/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_claude/">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_1_2" id="__nav_9_2_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/pnm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PNM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/wanmgr_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../bhanu/utopia_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    Utopia_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/cl_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    CL_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/lmlite_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../raheen/psm_gpt5/">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2" id="__nav_9_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    30Sep
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    30Sep
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../doc_template_mod_2609.md">
+<span class="md-ellipsis">
+    
+  
+    Template_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_2" id="__nav_9_2_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Claude
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_Claude_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_Claude_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_2_3" id="__nav_9_2_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    GPT5
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_2_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GPT5
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/WANMgr_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    WANMGr_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/LMLite_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    LMLite_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/PSM_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    PSM_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sep26/RBUS_GPT5_2609.md">
+<span class="md-ellipsis">
+    
+  
+    RBUS_GPT5_2609
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_3" id="__nav_9_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct10
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct10
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../templateOct10/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_4" id="__nav_9_2_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct21
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct21
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct21/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_5" id="__nav_9_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct22
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct22
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/lmlite/">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_6" id="__nav_9_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct27
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_6_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct27
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct22/doc_template_22/">
+<span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct27/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_7" id="__nav_9_2_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct28
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct28
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct28/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8" id="__nav_9_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Chunked
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Chunked
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_1" id="__nav_9_2_8_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_1_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CCSP PNM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/pnm/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_2" id="__nav_9_2_8_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    WAN Manager
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/wanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_3" id="__nav_9_2_8_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    LMLite
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/lanmanager/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_8_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_8_4" id="__nav_9_2_8_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_8_4_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_9_2_8_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Utopia
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Overview/">
+<span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Design/">
+<span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../chunked/utopia/Interactions/">
+<span class="md-ellipsis">
+    
+  
+    Interactions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_2_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_2_9" id="__nav_9_2_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Dec02
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_2_9_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_2_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Dec02
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/tnd/">
+<span class="md-ellipsis">
+    
+  
+    TestnDiagnostics
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/ccspcr/">
+<span class="md-ellipsis">
+    
+  
+    CcspCR
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dec02/faq/">
+<span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct29
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct29
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct29/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Oct31
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Oct31
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../oct31/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov04
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov04
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov04/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Nov05
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Nov05
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/rdkb_components/">
+<span class="md-ellipsis">
+    
+  
+    Component List
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/wanmanager/">
+<span class="md-ellipsis">
+    
+  
+    WAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsplmlite/">
+<span class="md-ellipsis">
+    
+  
+    CCSP LMLite
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/utopia/">
+<span class="md-ellipsis">
+    
+  
+    Utopia
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gponmanager/">
+<span class="md-ellipsis">
+    
+  
+    GPON Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcmagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP CM Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspcommonlibrary/">
+<span class="md-ellipsis">
+    
+  
+    CCSP Common Lib
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspdmcli/">
+<span class="md-ellipsis">
+    
+  
+    CCSP DMCLI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppsm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PSM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsppnm/">
+<span class="md-ellipsis">
+    
+  
+    CCSP PNM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccsptr69pa/">
+<span class="md-ellipsis">
+    
+  
+    CCSP TR69PA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/ccspwifiagent/">
+<span class="md-ellipsis">
+    
+  
+    CCSP WiFiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/cellularmanager/">
+<span class="md-ellipsis">
+    
+  
+    Cellular Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/gwprovapp_epon/">
+<span class="md-ellipsis">
+    
+  
+    GW ProvApp EPON
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/onewifi/">
+<span class="md-ellipsis">
+    
+  
+    One WiFi
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/pppmanager/">
+<span class="md-ellipsis">
+    
+  
+    PPP Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/rbus/">
+<span class="md-ellipsis">
+    
+  
+    RBUS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/telcovoicemanager/">
+<span class="md-ellipsis">
+    
+  
+    Telco Voice Manager
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nov05/vlanmanager/">
+<span class="md-ellipsis">
+    
+  
+    VLAN Manager
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_7" id="__nav_9_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Kavia
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_9_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Kavia
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_7_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_7_2" id="__nav_9_7_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    LMLite
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_7_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_7_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    LMLite
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../lmlite_kavia_freeflow.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia Freeflow
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../lmlite_kavia_template.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia with Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../lmlite_copilot_template.md">
+<span class="md-ellipsis">
+    
+  
+    Copilot with Template
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_9_7_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_9_7_3" id="__nav_9_7_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    WanManager
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_9_7_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_9_7_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    WanManager
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../wm_kavia_freeflow.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia Freeflow
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../wm_kavia_template.md">
+<span class="md-ellipsis">
+    
+  
+    Kavia with Template
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../wm_copilot_template.md">
+<span class="md-ellipsis">
+    
+  
+    Copilot with Template
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design">
+<span class="md-ellipsis">
+      
+        Design
+      
+    </span>
+</a>
+<nav aria-label="Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites-and-dependencies">
+<span class="md-ellipsis">
+      
+        Prerequisites and Dependencies
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-state-flow">
+<span class="md-ellipsis">
+      
+        Component State Flow
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#call-flow">
+<span class="md-ellipsis">
+      
+        Call Flow
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tr181-data-models">
+<span class="md-ellipsis">
+      
+        TR‑181 Data Models
+      
+    </span>
+</a>
+<nav aria-label="TR‑181 Data Models" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#supported-tr-181-parameters">
+<span class="md-ellipsis">
+      
+        Supported TR-181 Parameters
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#object-hierarchy">
+<span class="md-ellipsis">
+      
+        Object Hierarchy
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#parameter-definitions">
+<span class="md-ellipsis">
+      
+        Parameter Definitions
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#parameter-registration-and-access">
+<span class="md-ellipsis">
+      
+        Parameter Registration and Access
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal-modules">
+<span class="md-ellipsis">
+      
+        Internal Modules
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#component-interactions">
+<span class="md-ellipsis">
+      
+        Component Interactions
+      
+    </span>
+</a>
+<nav aria-label="Component Interactions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#interaction-matrix">
+<span class="md-ellipsis">
+      
+        Interaction Matrix
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ipc-flow-patterns">
+<span class="md-ellipsis">
+      
+        IPC Flow Patterns
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      
+        Implementation Details
+      
+    </span>
+</a>
+<nav aria-label="Implementation Details" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#major-hal-apis-integration">
+<span class="md-ellipsis">
+      
+        Major HAL APIs Integration
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-implementation-logic">
+<span class="md-ellipsis">
+      
+        Key Implementation Logic
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-configuration-files">
+<span class="md-ellipsis">
+      
+        Key Configuration Files
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/rdkcentral/edit/master/docs/docu/dec17/ppp-manager-documentation-feb27.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<h1 id="rdkpppmanager-documentation">RdkPppManager Documentation</h1>
+<p>RdkPppManager is the RDK-B middleware component responsible for managing Point-to-Point Protocol connections for WAN connectivity. This component implements the TR-181 Device.PPP data model and provides centralized management of PPP interfaces including PPPoE and PPPoA configurations. RdkPppManager handles PPP session lifecycle management, authentication, network control protocol negotiation, and status monitoring for broadband connections requiring PPP encapsulation.</p>
+<p>RdkPppManager acts as the bridge between the RDK-B middleware layer and the underlying pppd daemon, translating TR-181 configuration parameters into pppd runtime options and reporting connection status, statistics, and events back to the management layer. The component integrates with WAN Manager for unified WAN interface management and uses PSM for persistent configuration storage.</p>
+<pre class="mermaid"><code>graph LR
+    subgraph "External Systems"
+        RemoteMgmt["Remote Management"]
+        ISP["ISP Authentication"]
+    end
+
+    subgraph "RDK-B Platform"
+        subgraph "RDK-B Middleware"
+            PAM["PAM/CR Component"]
+            WanMgr["WAN Manager"]
+            PSM["PSM Component"]
+            PppMgr["RdkPppManager"]
+        end
+
+        subgraph "System Layer"
+            PPPD["pppd Daemon"]
+            NetStack["Network Stack"]
+        end
+    end
+
+    RemoteMgmt --&gt;|TR-069/WebPA| PAM
+    ISP --&gt;|PPPoE/PPPoA| NetStack
+    PAM --&gt;|IPC| PppMgr
+    WanMgr --&gt;|IPC| PppMgr
+    PppMgr --&gt;|IPC| PSM
+    PppMgr --&gt;|IPC| PPPD
+    PPPD &lt;--&gt;|Configure| NetStack
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef rdkbComponent fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef system fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+
+    class RemoteMgmt,ISP external;
+    class PAM,WanMgr,PSM,PppMgr rdkbComponent;
+    class PPPD,NetStack system;</code></pre>
+<p><strong>Key Features &amp; Responsibilities</strong>: </p>
+<ul>
+<li><strong>PPP Session Management</strong>: Controls PPP interface lifecycle including session establishment, authentication handshake, connection teardown, and automatic reconnection handling with configurable retry policies</li>
+<li><strong>TR-181 Data Model Implementation</strong>: Provides comprehensive Device.PPP.Interface object implementation with support for PPPoE and PPPoA link types, authentication protocols, and network control protocols</li>
+<li><strong>Network Control Protocol Handling</strong>: Manages IPCP and IPv6CP negotiations for IP address assignment, DNS server configuration, and network parameter establishment with the ISP</li>
+<li><strong>Authentication Protocol Support</strong>: Implements PAP, CHAP, MS-CHAP, and AUTO authentication modes with secure credential storage and retrieval from PSM</li>
+<li><strong>Connection Monitoring</strong>: Tracks PPP connection status, session parameters, LCP echo keepalive, link statistics, and error conditions with event notifications to WAN Manager</li>
+</ul>
+<h2 id="design">Design</h2>
+<p>RdkPppManager follows an event-driven architecture designed to manage PPP connections asynchronously while maintaining synchronous TR-181 parameter access through the CCSP message bus. The design separates configuration management from runtime session control through distinct modules handling data model operations, daemon interaction, and event processing.</p>
+<p>The component operates as a CCSP middleware process integrating with the RDK-B component ecosystem through the CCSP message bus for northbound TR-181 access and PSM integration for configuration persistence. The southbound interface uses nanomsg IPC sockets to communicate with pppd daemon instances, receiving connection state changes, negotiation results, and error notifications asynchronously while sending configuration commands synchronously.</p>
+<p>The threading model uses mutex-based synchronization to protect shared PPP interface data structures accessed by both the CCSP message bus handler thread and the IPC event processing thread. A POSIX message queue handles asynchronous event dispatching for PPP client start/stop operations and configuration changes requiring daemon restarts. The component maintains an in-memory table of PPP interface configurations synchronized with PSM storage and updated dynamically based on runtime status from pppd.</p>
+<pre class="mermaid"><code>graph LR
+    subgraph "External Systems"
+        RemoteMgmt["Remote Management Server"]
+        ISP["ISP AAA Server"]
+    end
+
+    subgraph "RDK-B Middleware"
+        PAM["PAM/CR"]
+        WM["WAN Manager"]
+        PSM["PSM"]
+
+        subgraph PppMgr["RdkPppManager"]
+            MsgBus["Message Bus Interface"]
+            DataModel["TR-181 Data Model"]
+            EventQueue["Event Queue"]
+            IPCClient["IPC Client"]
+            DMLAPI["DML APIs"]
+        end
+    end
+
+    subgraph "System Layer"
+        PPPD["pppd Daemon"]
+        Sysevent["Sysevent"]
+        Syscfg["Syscfg"]
+    end
+
+    RemoteMgmt --&gt;|WebPA/TR-069| PAM
+    PAM --&gt;|getParameterValues/setParameterValues| MsgBus
+    WM --&gt;|Device.PPP.Interface| MsgBus
+    MsgBus --&gt; DataModel
+    DataModel --&gt; DMLAPI
+    DMLAPI --&gt;|PSM_Get/Set_Record_Value2| PSM
+    DMLAPI --&gt;|Post Events| EventQueue
+    EventQueue --&gt; IPCClient
+    IPCClient --&gt;|Nanomsg IPC| PPPD
+    PPPD --&gt;|State Events| IPCClient
+    DMLAPI --&gt;|sysevent_set| Sysevent
+    DMLAPI --&gt;|syscfg_get/set| Syscfg
+    PPPD --&gt;|Authentication| ISP
+
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef middleware fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef system fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px;
+
+    class RemoteMgmt,ISP external;
+    class PAM,WM,PSM,PppMgr,MsgBus,DataModel,EventQueue,IPCClient,DMLAPI middleware;
+    class PPPD,Sysevent,Syscfg system;</code></pre>
+<h3 id="prerequisites-and-dependencies">Prerequisites and Dependencies</h3>
+<p><strong>Build-Time Flags and Configuration:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Configure Option</th>
+<th>DISTRO Feature</th>
+<th>Build Flag</th>
+<th>Purpose</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--enable-notify</code></td>
+<td>N/A</td>
+<td><code>ENABLE_SD_NOTIFY</code></td>
+<td>Enable systemd service notification support for process lifecycle management</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td><code>--enable-dropearly</code></td>
+<td>N/A</td>
+<td><code>DROP_ROOT_EARLY</code></td>
+<td>Enable early privilege dropping for non-root execution security hardening</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td><code>--with-ccsp-arch</code></td>
+<td>N/A</td>
+<td><code>CCSP_ARCH</code></td>
+<td>Specify target CPU architecture: arm, atom, pc, mips for platform-specific builds</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>--with-ccsp-platform</code></td>
+<td>N/A</td>
+<td><code>CCSP_PLATFORM</code></td>
+<td>Specify target platform: intel_usg, pc, bcm for vendor-specific implementations</td>
+<td>None</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td><code>FEATURE_SUPPORT_RDKLOG</code></td>
+<td><code>FEATURE_SUPPORT_RDKLOG</code></td>
+<td>Enable RDK centralized logging framework integration</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td>N/A</td>
+<td><code>USE_PPP_DAEMON</code></td>
+<td>Use pppd plugin libraries rp-pppoe.so and pppoatm.so for link layer</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td>N/A</td>
+<td><code>PPP_USERNAME_PASSWORD_FROM_PSM</code></td>
+<td>Store PPP credentials in PSM instead of runtime memory</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td>N/A</td>
+<td><code>DYNAMIC_CONFIGURE_PPP_LOWERLAYER</code></td>
+<td>Enable dynamic lower layer interface configuration at runtime</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td>N/A</td>
+<td><code>DUID_UUID_ENABLE</code></td>
+<td>Use UUID-based DHCP Unique Identifier generation</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td>N/A</td>
+<td><code>WAN_MANAGER_UNIFICATION_ENABLED</code></td>
+<td>Enable integration with unified WAN Manager architecture</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td>N/A</td>
+<td><code>_DT_QoS_Enable_</code></td>
+<td>Enable QoS parameter configuration for PPP interfaces</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td>N/A</td>
+<td><code>_COSA_DRG_CNS_</code></td>
+<td>Enable vendor-specific extensions for Cisco platforms</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td>N/A</td>
+<td><code>_USE_NM_MSG_SOCK</code></td>
+<td>Use nanomsg library for IPC instead of UNIX domain sockets</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>N/A</td>
+<td>N/A</td>
+<td><code>_ANSC_LINUX</code></td>
+<td>Linux platform compilation flag for ANSC framework</td>
+<td>Enabled</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p><strong>RDK-B Platform and Integration Requirements:</strong></p>
+<ul>
+<li><strong>RDK-B Components</strong>: <code>CcspPandM</code>, <code>CcspPsm</code>, <code>CcspCommonLibrary</code>, <code>WanManager</code>, <code>CcspCr</code></li>
+<li><strong>HAL Dependencies</strong>: <code>hal_platform</code> for platform-specific operations</li>
+<li><strong>Systemd Services</strong>: <code>CcspCrSsp.service</code>, <code>CcspPsmSsp.service</code> must be active before <code>pppmanager.service</code> starts</li>
+<li><strong>Message Bus</strong>: CCSP Message Bus registration under component ID <code>com.cisco.spvtg.ccsp.pppmanager</code> with path <code>/com/cisco/spvtg/ccsp/pppmanager</code></li>
+<li><strong>TR-181 Data Model</strong>: <code>Device.PPP</code> object hierarchy implementation per BBF TR-181 Issue 2 specification</li>
+<li><strong>Configuration Files</strong>: <code>RdkPppManager.xml</code> for TR-181 parameter registration located in component configuration directory</li>
+<li><strong>External Dependencies</strong>: <code>pppd</code> daemon version 2.4.9 or compatible, <code>libnanomsg</code> for IPC, <code>libsysevent</code>, <code>libsyscfg</code> for system integration</li>
+<li><strong>Startup Order</strong>: Initialize after CCSP CR and PSM services are running and message bus is available</li>
+<li><strong>IPC Socket</strong>: Nanomsg socket endpoint at <code>ipc:///tmp/ppp_manager</code> for pppd daemon communication</li>
+</ul>
+<p><br/></p>
+<p><strong>Threading Model:</strong> </p>
+<p>RdkPppManager implements a multi-threaded architecture to handle asynchronous PPP session events while maintaining synchronous TR-181 parameter operations without blocking.</p>
+<ul>
+<li><strong>Threading Architecture</strong>: Multi-threaded with main event loop and dedicated worker threads for IPC event handling and queue processing</li>
+<li><strong>Main Thread</strong>: Handles CCSP message bus operations, TR-181 parameter get/set requests, component initialization, and main event loop processing</li>
+<li><strong>Worker Threads</strong>: </li>
+<li><strong>IPC Event Handler Thread</strong>: Monitors nanomsg socket for incoming PPP state change notifications from pppd daemon and processes connection status updates</li>
+<li><strong>Event Queue Processor Thread</strong>: Processes POSIX message queue for PPP client start/stop operations and configuration change events</li>
+<li><strong>Synchronization</strong>: Uses pthread mutex locks per PPP interface instance protecting shared configuration and status data structures accessed by multiple threads</li>
+</ul>
+<h3 id="component-state-flow">Component State Flow</h3>
+<p><strong>Initialization to Active State</strong></p>
+<p>RdkPppManager follows a structured initialization sequence registering with CCSP infrastructure before entering active state to process TR-181 requests and manage PPP sessions.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant System as System Startup
+    participant Component as RdkPppManager
+    participant Bus as CCSP Message Bus
+    participant PSM as PSM Database
+    participant Queue as Message Queue
+    participant IPC as IPC Server
+
+    System-&gt;&gt;Component: systemd starts pppmanager service
+    Note over Component: State: Initializing
+
+    Component-&gt;&gt;Component: Parse command line arguments
+    Component-&gt;&gt;Component: Initialize logging RDK_LOGGER_INIT
+
+    Component-&gt;&gt;Bus: CCSP_Message_Bus_Init
+    Bus--&gt;&gt;Component: bus_handle assigned
+    Note over Component: State: Connecting to Bus
+
+    Component-&gt;&gt;Bus: CcspBaseIf_SetCallback register handlers
+    Bus--&gt;&gt;Component: Callback registration complete
+
+    Component-&gt;&gt;Bus: Register currentSessionIDSignal event
+    Bus--&gt;&gt;Component: Event registration complete
+    Note over Component: State: Registering Data Model
+
+    Component-&gt;&gt;Component: ssp_create initialize backend manager
+    Component-&gt;&gt;PSM: PSM_Get_Record_Value2 read config count
+    PSM--&gt;&gt;Component: PPP interface count retrieved
+
+    Component-&gt;&gt;Component: BackEndManagerInitialize
+    Component-&gt;&gt;Component: Load PPP interface configurations
+    Note over Component: State: Loading Configurations
+
+    Component-&gt;&gt;Queue: mq_open create event queue
+    Queue--&gt;&gt;Component: Queue handle created
+
+    Component-&gt;&gt;IPC: PppMgr_IpcServerInit
+    IPC-&gt;&gt;IPC: nn_socket create NN_PULL socket
+    IPC-&gt;&gt;IPC: nn_bind to ipc:///tmp/ppp_manager
+    IPC--&gt;&gt;Component: IPC server initialized
+
+    Component-&gt;&gt;Component: pthread_create IPC event handler
+    Component-&gt;&gt;Component: pthread_create queue processor
+    Note over Component: State: Active
+
+    Component-&gt;&gt;System: sd_notify READY=1
+    System-&gt;&gt;System: Service marked active</code></pre>
+<p><strong>Runtime State Changes and Context Switching</strong></p>
+<p>During operation RdkPppManager responds to configuration changes and connection events causing PPP interface state transitions.</p>
+<p><strong>State Change Triggers:</strong></p>
+<ul>
+<li>TR-181 Enable parameter change triggering PPP client start or stop</li>
+<li>PPP connection establishment completing IPCP/IPv6CP negotiation</li>
+<li>LCP echo failure causing connection down detection</li>
+<li>Authentication failure from ISP rejecting credentials</li>
+<li>Configuration parameter changes requiring session restart</li>
+</ul>
+<p><strong>Context Switching Scenarios:</strong></p>
+<ul>
+<li>Interface enable/disable switching between unconfigured and connecting states</li>
+<li>Connection mode switching between AlwaysOn, OnDemand, and Manual trigger modes</li>
+<li>Link type switching between PPPoE and PPPoA requiring different lower layer interfaces</li>
+<li>Authentication protocol fallback from preferred method to supported alternative</li>
+</ul>
+<h3 id="call-flow">Call Flow</h3>
+<p><strong>Initialization Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Init as Initialization Process
+    participant Main as main()
+    participant SSP as SSP Module
+    participant Bus as Message Bus
+    participant DM as Data Model
+    participant PSM as PSM
+    participant IPC as IPC Module
+
+    Init-&gt;&gt;Main: Start pppmanager process
+    Main-&gt;&gt;Main: Parse arguments -subsys
+    Main-&gt;&gt;Main: RDK_LOGGER_INIT
+    Main-&gt;&gt;Main: daemonize if not -c flag
+    Main-&gt;&gt;Main: Setup signal handlers
+
+    Main-&gt;&gt;SSP: cmd_dispatch('e')
+    SSP-&gt;&gt;Bus: ssp_Mbi_MessageBusEngage
+    Bus-&gt;&gt;Bus: CCSP_Message_Bus_Init
+    Bus-&gt;&gt;Bus: CcspBaseIf_SetCallback
+    Bus--&gt;&gt;SSP: Message bus connected
+
+    SSP-&gt;&gt;SSP: ssp_create
+    SSP-&gt;&gt;DM: BackEndManagerCreate
+    DM--&gt;&gt;SSP: Backend manager handle
+
+    SSP-&gt;&gt;SSP: ssp_engage
+    SSP-&gt;&gt;Bus: Cdm_Init register component
+    Bus--&gt;&gt;SSP: Component registered
+
+    SSP-&gt;&gt;DM: BackEndManagerInitialize
+    DM-&gt;&gt;PSM: PSM_Get_Record_Value2 interface count
+    PSM--&gt;&gt;DM: Interface count
+    DM-&gt;&gt;DM: Initialize PPP interface table
+    DM--&gt;&gt;SSP: Data model initialized
+
+    SSP-&gt;&gt;IPC: PppMgr_IpcServerInit
+    IPC-&gt;&gt;IPC: PppMgr_createIpcSocket
+    IPC-&gt;&gt;IPC: nn_socket AF_SP NN_PULL
+    IPC-&gt;&gt;IPC: nn_bind ipc:///tmp/ppp_manager
+    IPC-&gt;&gt;IPC: pthread_create EventHandlerThread
+    IPC--&gt;&gt;SSP: IPC server started
+
+    Main-&gt;&gt;Main: Enter main event loop
+    Note over Main: State: Active</code></pre>
+<p><strong>Request Processing Call Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Client as TR-181 Client
+    participant Bus as CCSP Message Bus
+    participant DML as DML Handler
+    participant API as PPP APIs
+    participant Queue as Event Queue
+    participant PSM as PSM
+    participant PPPD as pppd Daemon
+
+    Client-&gt;&gt;Bus: setParameterValues Device.PPP.Interface.1.Enable=true
+    Bus-&gt;&gt;DML: Interface_SetParamBoolValue
+    DML-&gt;&gt;DML: pthread_mutex_lock interface data
+
+    DML-&gt;&gt;DML: Validate parameter change
+    DML-&gt;&gt;API: Interface_Commit
+    API-&gt;&gt;API: PppMgr_EnableIf instance 1
+
+    API-&gt;&gt;API: PppMgr_SendPppdStartEventToQ
+    API-&gt;&gt;Queue: mq_send PPPMGR_EXEC_PPP_CLIENT event
+    Queue--&gt;&gt;API: Event queued
+
+    API-&gt;&gt;PSM: PSM_Set_Record_Value2 save Enable=true
+    PSM--&gt;&gt;API: Configuration saved
+
+    API--&gt;&gt;DML: Enable operation queued
+    DML-&gt;&gt;DML: pthread_mutex_unlock interface data
+    DML--&gt;&gt;Bus: setParameterValues response
+    Bus--&gt;&gt;Client: Success response
+
+    Note over Queue,PPPD: Asynchronous Processing
+
+    Queue-&gt;&gt;API: Queue processor dequeues event
+    API-&gt;&gt;API: PppMgr_ProcessPppEvent
+    API-&gt;&gt;API: PppMgr_ExecPppClient
+    API-&gt;&gt;API: Build pppd command line
+    API-&gt;&gt;PPPD: fork/exec pppd with parameters
+    PPPD-&gt;&gt;PPPD: PPP connection attempt
+
+    PPPD-&gt;&gt;API: Nanomsg IPC state notification
+    API-&gt;&gt;API: PppMgr_ProcessStateChangedMsg
+    API-&gt;&gt;DML: Update interface connection status
+
+    PPPD-&gt;&gt;API: IPCP negotiation complete
+    API-&gt;&gt;API: PppMgr_ProcessIpcpParams
+    API-&gt;&gt;DML: Update IP address DNS parameters</code></pre>
+<h2 id="tr181-data-models">TR‑181 Data Models</h2>
+<h3 id="supported-tr-181-parameters">Supported TR-181 Parameters</h3>
+<p>RdkPppManager implements the Device.PPP object hierarchy as defined in BBF TR-181 Issue 2 specifications providing comprehensive PPP interface management and monitoring capabilities.</p>
+<h3 id="object-hierarchy">Object Hierarchy</h3>
+<div class="highlight"><pre><span></span><code>Device.
+└── PPP.
+    ├── SupportedNCPs (string, R)
+    ├── InterfaceNumberOfEntries (unsignedInt, R)
+    └── Interface.{i}.
+        ├── Enable (boolean, R/W)
+        ├── IPCPEnable (boolean, R/W)
+        ├── IPv6CPEnable (boolean, R/W)
+        ├── Status (string, R)
+        ├── Alias (string(64), R/W)
+        ├── Name (string(64), R)
+        ├── LastChange (unsignedInt, R)
+        ├── LowerLayers (string, R/W)
+        ├── Reset (boolean, R/W)
+        ├── ConnectionStatus (string, R)
+        ├── LastConnectionError (string, R)
+        ├── AutoDisconnectTime (unsignedInt, R/W)
+        ├── IdleDisconnectTime (unsignedInt, R/W)
+        ├── WarnDisconnectDelay (unsignedInt, R/W)
+        ├── Username (string(64), R/W)
+        ├── Password (string(64), R/W)
+        ├── EncryptionProtocol (string, R)
+        ├── CompressionProtocol (string, R)
+        ├── AuthenticationProtocol (string, R)
+        ├── MaxMRUSize (unsignedInt, R/W)
+        ├── CurrentMRUSize (unsignedInt, R)
+        ├── ConnectionTrigger (string, R/W)
+        ├── X_RDK_LinkType (string, R/W)
+        ├── LCPEcho (unsignedInt, R)
+        ├── LCPEchoRetry (unsignedInt, R)
+        ├── PPPoE.
+        │   ├── SessionID (unsignedInt, R)
+        │   ├── ACName (string(256), R/W)
+        │   └── ServiceName (string(256), R/W)
+        ├── IPCP.
+        │   ├── LocalIPAddress (string, R)
+        │   ├── RemoteIPAddress (string, R)
+        │   ├── DNSServers (string, R)
+        │   └── PassthroughEnable (boolean, R/W)
+        ├── IPv6CP.
+        │   └── LocalInterfaceIdentifier (string, R)
+        └── Stats.
+            ├── BytesSent (unsignedLong, R)
+            ├── BytesReceived (unsignedLong, R)
+            ├── PacketsSent (unsignedLong, R)
+            ├── PacketsReceived (unsignedLong, R)
+            ├── ErrorsSent (unsignedInt, R)
+            ├── ErrorsReceived (unsignedInt, R)
+            ├── UnicastPacketsSent (unsignedLong, R)
+            ├── UnicastPacketsReceived (unsignedLong, R)
+            ├── DiscardPacketsSent (unsignedInt, R)
+            └── DiscardPacketsReceived (unsignedInt, R)
+</code></pre></div>
+<h3 id="parameter-definitions">Parameter Definitions</h3>
+<p><strong>Core Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter Path</th>
+<th>Data Type</th>
+<th>Access</th>
+<th>Default Value</th>
+<th>Description</th>
+<th>BBF Compliance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Device.PPP.SupportedNCPs</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>"IPCP,IPv6CP"</code></td>
+<td>Comma-separated list of supported Network Control Protocols. Implementation supports IPCP and IPv6CP for IPv4 and IPv6 address negotiation</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.InterfaceNumberOfEntries</code></td>
+<td>unsignedInt</td>
+<td>R</td>
+<td><code>0</code></td>
+<td>Number of PPP interface instances in the Interface table. Dynamically reflects configured interface count</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.Enable</code></td>
+<td>boolean</td>
+<td>R/W</td>
+<td><code>false</code></td>
+<td>Enables or disables the PPP interface. Setting to true initiates PPP connection establishment. Setting to false terminates active connection</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.Status</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>"Down"</code></td>
+<td>Current operational status of the interface. Enumerated values: Up, Down, Unknown, Dormant, NotPresent, LowerLayerDown, Error</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.ConnectionStatus</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>"Unconfigured"</code></td>
+<td>Current PPP connection state. Enumerated values: Unconfigured, Connecting, Authenticating, Connected, PendingDisconnect, Disconnecting, Disconnected</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.LastConnectionError</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>"ERROR_NONE"</code></td>
+<td>Last error that caused connection failure. Values include ERROR_AUTHENTICATION_FAILURE, ERROR_ISP_TIME_OUT, ERROR_NO_CARRIER, ERROR_IP_CONFIGURATION per TR-181 specification</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.Username</code></td>
+<td>string(64)</td>
+<td>R/W</td>
+<td><code>""</code></td>
+<td>Username for PPP authentication. Used with PAP CHAP or MS-CHAP authentication protocols</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.Password</code></td>
+<td>string(64)</td>
+<td>R/W</td>
+<td><code>""</code></td>
+<td>Password for PPP authentication. Stored securely in PSM when PPP_USERNAME_PASSWORD_FROM_PSM flag enabled</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.AuthenticationProtocol</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>"AUTO"</code></td>
+<td>Authentication protocol negotiated or configured. Enumerated values: PAP, CHAP, MS-CHAP, AUTO. AUTO allows pppd to select based on peer requirements</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.X_RDK_LinkType</code></td>
+<td>string</td>
+<td>R/W</td>
+<td><code>"PPPoE"</code></td>
+<td>RDK vendor extension specifying PPP encapsulation type. Enumerated values: PPPoE for Ethernet-based DSL connections, PPPoA for ATM-based connections</td>
+<td>Custom Extension</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.LowerLayers</code></td>
+<td>string</td>
+<td>R/W</td>
+<td><code>""</code></td>
+<td>Comma-separated list of lower layer interface references. For PPPoE typically references Device.Ethernet.VLANTermination instance. For PPPoA references Device.ATM.Link instance</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.ConnectionTrigger</code></td>
+<td>string</td>
+<td>R/W</td>
+<td><code>"AlwaysOn"</code></td>
+<td>Connection initiation mode. OnDemand connects when traffic present. AlwaysOn maintains persistent connection. Manual requires explicit connection request</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.MaxMRUSize</code></td>
+<td>unsignedInt</td>
+<td>R/W</td>
+<td><code>1492</code></td>
+<td>Maximum Receive Unit size in bytes for PPP frames. Valid range 1280-1500. PPPoE typically uses 1492 accounting for 8-byte overhead on 1500-byte Ethernet</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.LCPEcho</code></td>
+<td>unsignedInt</td>
+<td>R</td>
+<td><code>30</code></td>
+<td>LCP echo request interval in seconds for keepalive detection. Value 30 sends echo every 30 seconds to detect link failures</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.LCPEchoRetry</code></td>
+<td>unsignedInt</td>
+<td>R</td>
+<td><code>3</code></td>
+<td>Number of consecutive LCP echo failures before declaring connection down. Value 3 allows 90 seconds detection time with 30-second interval</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.PPPoE.SessionID</code></td>
+<td>unsignedInt</td>
+<td>R</td>
+<td><code>0</code></td>
+<td>PPPoE session identifier assigned by access concentrator during session establishment. Valid range 1-65535 with 0 indicating no active session</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.IPCP.LocalIPAddress</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>""</code></td>
+<td>IPv4 address assigned to local PPP interface through IPCP negotiation. Dynamically obtained from ISP during connection establishment</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.IPCP.RemoteIPAddress</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>""</code></td>
+<td>IPv4 address of remote PPP peer. Typically ISP gateway address for routing</td>
+<td>TR-181 Issue 2</td>
+</tr>
+<tr>
+<td><code>Device.PPP.Interface.{i}.IPCP.DNSServers</code></td>
+<td>string</td>
+<td>R</td>
+<td><code>""</code></td>
+<td>Comma-separated list of DNS server IPv4 addresses obtained via IPCP negotiation</td>
+<td>TR-181 Issue 2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="parameter-registration-and-access">Parameter Registration and Access</h3>
+<ul>
+<li><strong>Implemented Parameters</strong>: RdkPppManager implements Device.PPP.SupportedNCPs, InterfaceNumberOfEntries, and complete Device.PPP.Interface.{i} object hierarchy including PPPoE, IPCP, IPv6CP, and Stats sub-objects</li>
+<li><strong>Parameter Registration</strong>: Parameters registered through <code>RdkPppManager.xml</code> configuration file parsed by CCSP Component Registrar. DML handler functions mapped to each parameter in XML function definitions</li>
+<li><strong>Access Mechanism</strong>: External components access parameters via CCSP Message Bus using <code>getParameterValues</code> and <code>setParameterValues</code> RPCs. Message bus routes requests to registered DML handler functions based on parameter path</li>
+<li><strong>Validation Rules</strong>: Enable parameter validates lower layer interface exists. MaxMRUSize validated against 1280-1500 range. Username and Password limited to 64 characters. ConnectionTrigger validated against enumerated values</li>
+</ul>
+<h2 id="internal-modules">Internal Modules</h2>
+<p>RdkPppManager organizes functionality into specialized modules handling TR-181 data model operations, PPP session management, IPC communication, and event processing.</p>
+<table>
+<thead>
+<tr>
+<th>Module/Class</th>
+<th>Description</th>
+<th>Key Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Service Support Platform</strong></td>
+<td>Process initialization and CCSP framework integration providing component entry point, message bus connection, signal handling, and component lifecycle management</td>
+<td><code>pppmgr_ssp_main.c</code>, <code>pppmgr_ssp_action.c</code>, <code>pppmgr_ssp_messagebus_interface.c</code></td>
+</tr>
+<tr>
+<td><strong>Data Model Layer</strong></td>
+<td>TR-181 Device.PPP object implementation with DML handler functions for parameter get/set/validate/commit operations and backend manager for interface table management</td>
+<td><code>pppmgr_dml.c</code>, <code>pppmgr_dml.h</code>, <code>pppmgr_dml_apis.h</code></td>
+</tr>
+<tr>
+<td><strong>PPP API Module</strong></td>
+<td>Core PPP session control logic including pppd daemon execution, configuration building, interface enable/disable, status monitoring, and statistics collection</td>
+<td><code>pppmgr_dml_ppp_apis.c</code>, <code>pppmgr_dml_ppp_apis.h</code></td>
+</tr>
+<tr>
+<td><strong>IPC Communication</strong></td>
+<td>Nanomsg-based inter-process communication with pppd daemon handling state change notifications, IPCP/IPv6CP parameter updates, and connection event processing</td>
+<td><code>pppmgr_ipc.c</code></td>
+</tr>
+<tr>
+<td><strong>Data Management</strong></td>
+<td>Backend manager implementation providing PPP interface table initialization, instance management, mutex-protected data access, and PSM integration for persistence</td>
+<td><code>pppmgr_data.c</code>, <code>pppmgr_data.h</code></td>
+</tr>
+<tr>
+<td><strong>Utility Functions</strong></td>
+<td>Helper functions for string manipulation, parameter validation, PSM operations, and IPv6 address processing</td>
+<td><code>pppmgr_utils.c</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="component-interactions">Component Interactions</h2>
+<p>RdkPppManager integrates with multiple RDK-B middleware components, system services, and external daemons to provide complete PPP connection management functionality.</p>
+<h3 id="interaction-matrix">Interaction Matrix</h3>
+<table>
+<thead>
+<tr>
+<th>Target Component/Layer</th>
+<th>Interaction Purpose</th>
+<th>Key APIs/Endpoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RDK-B Middleware Components</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PAM Component</td>
+<td>TR-181 parameter access for PPP configuration and status monitoring</td>
+<td><code>Device.PPP.Interface.{i}.*</code> via CCSP Message Bus getParameterValues/setParameterValues</td>
+</tr>
+<tr>
+<td>WAN Manager</td>
+<td>WAN interface status synchronization and connection state coordination</td>
+<td><code>Device.X_RDK_WanManager.Interface.*</code> setParameterValues for link status updates</td>
+</tr>
+<tr>
+<td>PSM Component</td>
+<td>Persistent storage of PPP configuration parameters and interface instance data</td>
+<td><code>PSM_Get_Record_Value2()</code>, <code>PSM_Set_Record_Value2()</code> for dml.ppp.* namespace</td>
+</tr>
+<tr>
+<td><strong>System &amp; Services</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>pppd Daemon</td>
+<td>PPP session establishment, authentication, NCP negotiation, connection monitoring</td>
+<td>Nanomsg IPC socket <code>ipc:///tmp/ppp_manager</code> for bidirectional event/command messaging</td>
+</tr>
+<tr>
+<td>Sysevent</td>
+<td>System-wide event notification for PPP status changes</td>
+<td><code>sysevent_set()</code> for ppp-status, wan-status events</td>
+</tr>
+<tr>
+<td>Syscfg</td>
+<td>System configuration database access for device-specific parameters</td>
+<td><code>syscfg_get()</code>, <code>syscfg_set()</code> for persistent configuration</td>
+</tr>
+<tr>
+<td>Linux Network Stack</td>
+<td>Statistics collection and interface status monitoring</td>
+<td><code>/proc/net/dev</code>, <code>/proc/net/dev_extstats</code> parsing for traffic counters</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Events Published by RdkPppManager:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Event Name</th>
+<th>Event Topic/Path</th>
+<th>Trigger Condition</th>
+<th>Subscriber Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PPP_Connection_Up</td>
+<td><code>Device.PPP.Interface.{i}.Status</code> parameter change notification</td>
+<td>PPP connection established and IPCP negotiation complete</td>
+<td>WAN Manager, PAM, Remote Management</td>
+</tr>
+<tr>
+<td>PPP_Connection_Down</td>
+<td><code>Device.PPP.Interface.{i}.Status</code> parameter change notification</td>
+<td>PPP connection terminated or LCP echo failure detected</td>
+<td>WAN Manager, PAM, Remote Management</td>
+</tr>
+<tr>
+<td>PPP_Authentication_Failed</td>
+<td><code>Device.PPP.Interface.{i}.LastConnectionError</code> update</td>
+<td>ISP rejects authentication credentials</td>
+<td>WAN Manager, Logging Services</td>
+</tr>
+<tr>
+<td>IPCP_Negotiation_Complete</td>
+<td>Internal IPC message</td>
+<td>IPv4 address and DNS parameters obtained</td>
+<td>Data Model Layer for parameter updates</td>
+</tr>
+<tr>
+<td>PPP_Session_Reset</td>
+<td>Sysevent <code>ppp-status</code> set to down</td>
+<td>Manual reset triggered via Reset parameter</td>
+<td>Network Services, Firewall</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ipc-flow-patterns">IPC Flow Patterns</h3>
+<p><strong>Primary IPC Flow - PPP Connection Establishment:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Client as Management Client
+    participant MB as Message Bus
+    participant DML as DML Layer
+    participant Queue as Event Queue
+    participant IPC as IPC Module
+    participant PPPD as pppd Process
+
+    Client-&gt;&gt;MB: setParameterValues Enable=true
+    MB-&gt;&gt;DML: Interface_SetParamBoolValue
+    DML-&gt;&gt;DML: Validate and stage change
+    Client-&gt;&gt;MB: setParameterValues commit
+    MB-&gt;&gt;DML: Interface_Commit
+
+    DML-&gt;&gt;Queue: PppMgr_SendDataToQ PPPMGR_EXEC_PPP_CLIENT
+    Queue--&gt;&gt;DML: Event queued
+    DML--&gt;&gt;MB: Commit success
+    MB--&gt;&gt;Client: setParameterValues response
+
+    Note over Queue,PPPD: Asynchronous Processing
+
+    Queue-&gt;&gt;IPC: Queue processor dequeues event
+    IPC-&gt;&gt;IPC: PppMgr_ExecPppClient build command
+    IPC-&gt;&gt;PPPD: fork/exec pppd with options
+
+    PPPD-&gt;&gt;PPPD: LCP negotiation
+    PPPD-&gt;&gt;IPC: NN_PUSH state PPP_INTERFACE_CONNECTING
+    IPC-&gt;&gt;DML: Update ConnectionStatus
+
+    PPPD-&gt;&gt;PPPD: Authentication PAP/CHAP
+    PPPD-&gt;&gt;IPC: NN_PUSH state PPP_LCP_AUTH_COMPLETED
+
+    PPPD-&gt;&gt;PPPD: IPCP negotiation
+    PPPD-&gt;&gt;IPC: NN_PUSH state PPP_IPCP_COMPLETED with IP/DNS
+    IPC-&gt;&gt;DML: PppMgr_ProcessIpcpParams
+    DML-&gt;&gt;DML: Update LocalIPAddress DNSServers
+
+    PPPD-&gt;&gt;IPC: NN_PUSH state PPP_INTERFACE_UP
+    IPC-&gt;&gt;DML: Update Status and ConnectionStatus
+    DML-&gt;&gt;MB: Parameter change notification</code></pre>
+<p><strong>Event Notification Flow:</strong></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant PPPD as pppd Daemon
+    participant IPC as IPC Event Handler
+    participant DML as Data Model
+    participant WM as WAN Manager
+    participant SYSE as Sysevent
+
+    PPPD-&gt;&gt;PPPD: Detect LCP echo failure
+    PPPD-&gt;&gt;IPC: NN_PUSH state PPP_INTERFACE_LCP_ECHO_FAILED
+
+    IPC-&gt;&gt;IPC: PppMgr_ProcessStateChangedMsg
+    IPC-&gt;&gt;DML: Update interface status mutex-protected
+    DML-&gt;&gt;DML: Set Status=Down ConnectionStatus=Disconnected
+    DML-&gt;&gt;DML: Set LastConnectionError=ERROR_NO_CARRIER
+
+    IPC-&gt;&gt;WM: setParameterValues Device.X_RDK_WanManager link status
+    WM--&gt;&gt;IPC: Acknowledgement
+
+    IPC-&gt;&gt;SYSE: sysevent_set ppp-status down
+    SYSE--&gt;&gt;IPC: Event broadcast
+
+    Note over DML: Parameter change notifications sent via CCSP bus</code></pre>
+<h2 id="implementation-details">Implementation Details</h2>
+<h3 id="major-hal-apis-integration">Major HAL APIs Integration</h3>
+<p>RdkPppManager integrates with platform HAL interfaces for hardware-specific operations and system configuration access. The component abstracts platform-specific implementations through standardized HAL APIs while maintaining direct system interface access for performance-critical operations.</p>
+<p><strong>Core HAL APIs:</strong></p>
+<table>
+<thead>
+<tr>
+<th>HAL API</th>
+<th>Purpose</th>
+<th>Implementation File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>platform_hal_GetSerialNumber</code></td>
+<td>Retrieve device serial number for DUID generation when DUID_UUID_ENABLE flag set</td>
+<td><code>pppmgr_utils.c</code></td>
+</tr>
+<tr>
+<td><code>cm_hal_GetDHCPInfo</code></td>
+<td>Query cable modem for DHCP-assigned parameters when operating in cable mode</td>
+<td><code>pppmgr_dml_ppp_apis.c</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-implementation-logic">Key Implementation Logic</h3>
+<ul>
+<li>
+<p><strong>PPP Session Management</strong>: Core session control implemented in <code>pppmgr_dml_ppp_apis.c</code> with <code>PppMgr_EnableIf()</code> function handling interface enable/disable operations. Function validates lower layer configuration ensuring prerequisite interfaces exist, builds pppd command line with authentication parameters including username and password, applies plugin selection based on X_RDK_LinkType for PPPoE or PPPoA modes, and enqueues execution event to message queue for asynchronous processing. Session teardown implemented through <code>PppMgr_StopPppClient()</code> sending SIGTERM signal to pppd process identified by PID file and performing cleanup of interface state including connection status reset and resource deallocation. Configuration validation includes LowerLayers parameter verification and authentication protocol selection.</p>
+</li>
+<li>
+<p><strong>Event Processing Architecture</strong>: Event queue handler in <code>pppmgr_ipc.c</code> implements POSIX message queue pattern with <code>PppMgr_SendDataToQ()</code> providing non-blocking event posting mechanism and dedicated processor thread consuming events from queue named <code>/pppmgr_queue</code>. Queue supports two event types: PPPMGR_EXEC_PPP_CLIENT for connection establishment and termination operations, and PPPMGR_BUS_SET for parameter propagation to WAN Manager component. Event queue created with maximum length 100 messages and 256-byte buffer size. Processing thread implements event dispatching logic routing events to appropriate handlers based on action type with error recovery for failed operations.</p>
+</li>
+<li>
+<p><strong>IPC Communication Protocol</strong>: Nanomsg NN_PULL/NN_PUSH socket pattern in <code>pppmgr_ipc.c</code> with <code>PppMgr_EventHandlerThread()</code> monitoring IPC socket endpoint <code>ipc:///tmp/ppp_manager</code> for incoming PPP state notifications from pppd daemon. Protocol uses structured <code>ipc_ppp_event_msg_t</code> messages containing state enumeration including PPP_INTERFACE_UP, PPP_INTERFACE_DOWN, PPP_IPCP_COMPLETED, session parameters like session ID, and negotiated IP configuration including local address, remote address, and DNS servers. Function <code>PppMgr_ProcessPppState()</code> dispatches messages to appropriate handlers based on state type: <code>PppMgr_ProcessStateChangedMsg()</code> for connection state changes, <code>PppMgr_ProcessIpcpParams()</code> for IPCP negotiation results, <code>PppMgr_ProcessIpv6cpParams()</code> for IPv6CP parameters. Socket operations use NN_DONTWAIT flag for non-blocking receives.</p>
+</li>
+<li>
+<p><strong>Data Synchronization</strong>: Thread-safe interface access in <code>pppmgr_data.c</code> using per-interface pthread mutex with <code>PppMgr_GetIfaceData_locked()</code> acquiring exclusive lock on interface data structure and <code>PppMgr_GetIfaceData_release()</code> releasing lock after access. Locking pattern ensures atomic updates during concurrent TR-181 parameter access from CCSP message bus handler thread and IPC event processing from pppd daemon notifications. Backend manager maintains interface table array indexed by instance number with each entry containing configuration, status, and runtime information. Interface table initialized from PSM storage during <code>BackEndManagerInitialize()</code> with instance count retrieved via <code>PSM_Get_Record_Value2()</code> reading <code>dml.pppmanager.pppifcount</code> key. Mutex protects configuration fields (Enable, Username, Password, LowerLayers), status fields (ConnectionStatus, LastConnectionError), and IPCP/IPv6CP negotiated parameters.</p>
+</li>
+<li>
+<p><strong>Configuration Persistence</strong>: PSM integration in <code>pppmgr_dml_ppp_apis.c</code> with <code>PppDmlGetIfEntry()</code> loading configuration from PSM namespace keys following pattern <code>dml.ppp.if.%d.*</code> where %d represents interface index. Function <code>PppDmlSetIfValues()</code> persists critical parameters including InstanceNumber, Enable state, Username, Password credentials, and lower layer interface references to corresponding PSM keys. Conditional compilation flag <code>PPP_USERNAME_PASSWORD_FROM_PSM</code> controls credential storage location: when enabled, credentials stored in PSM keys; when disabled, credentials passed directly to pppd via command line arguments. PSM operations use <code>PSM_Get_Record_Value2()</code> for reading and <code>PSM_Set_Record_Value2()</code> for writing with subsystem prefix <code>g_Subsystem</code> and bus handle <code>bus_handle</code> for CCSP integration.</p>
+</li>
+<li>
+<p><strong>Statistics Collection</strong>: Traffic counters retrieved from Linux kernel virtual filesystem <code>/proc/net/dev</code> and extended statistics from <code>/proc/net/dev_extstats</code> in <code>CosaUtilGetIfStats()</code> function. Implementation opens file descriptor, parses interface-specific lines matching PPP interface name, extracts fields for transmitted and received bytes, packets, errors, and drops. Standard <code>/proc/net/dev</code> provides basic counters while <code>/proc/net/dev_extstats</code> includes extended metrics when available. Function populates <code>DML_IF_STATS</code> structure with BytesSent, BytesReceived, PacketsSent, PacketsReceived, ErrorsSent, ErrorsReceived fields. Statistics updated on-demand when Device.PPP.Interface.{i}.Stats parameters accessed via TR-181 interface. Error handling includes file open failure detection and graceful degradation when extended statistics unavailable.</p>
+</li>
+</ul>
+<h3 id="key-configuration-files">Key Configuration Files</h3>
+<table>
+<thead>
+<tr>
+<th>Configuration File</th>
+<th>Purpose</th>
+<th>Override Mechanisms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RdkPppManager.xml</code></td>
+<td>TR-181 data model registration defining object hierarchy, parameter types, DML function mappings, and access permissions</td>
+<td>Component-specific overrides via PSM namespace <code>dml.ppp.*</code></td>
+</tr>
+<tr>
+<td><code>/etc/ppp/options</code></td>
+<td>System-wide pppd default options</td>
+<td>Per-interface options via command-line parameters</td>
+</tr>
+<tr>
+<td><code>/etc/ppp/pap-secrets</code></td>
+<td>PAP authentication credentials when not using PSM storage</td>
+<td>Runtime credential passing via pppd command line when <code>PPP_USERNAME_PASSWORD_FROM_PSM</code> enabled</td>
+</tr>
+<tr>
+<td><code>/etc/ppp/chap-secrets</code></td>
+<td>CHAP and MS-CHAP authentication credentials</td>
+<td>Runtime credential passing via pppd command line when <code>PPP_USERNAME_PASSWORD_FROM_PSM</code> enabled</td>
+</tr>
+</tbody>
+</table>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<div class="bottom-banner compact-footer">
+<!-- Left Section: Logo and Copyright -->
+<div class="footer-left">
+<img alt="RDK Logo" class="rdk-logo" src="../../../assets/logo.png">
+<p class="copyright">Copyright © 2025 RDK Management, LLC. For more information, please visit:<a href="https://rdkcentral.com/"> www.rdkcentral.com.</a></p>
+</img></div>
+<!-- Right Section: Links and Support -->
+<div class="footer-right">
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Explore RDK</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../preview-rdk/docs/getting-started">Getting Started</a></li>
+<li><a href="../../../devices/docs/">Devices</a></li>
+<li><a href="../../../preview-rdk/docs/getting-started">Tools</a></li>
+<li><a href="../../../entertainment/docs/sample_home1">Entsample1</a></li>
+<li><a href="../../../entertainment/docs/sample_home3">Entsample3</a></li>
+</ul>
+</div>
+</div>
+<!-- Device Management -->
+<div class="banner-group">
+<h3>Device Management</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../device-management/docs/XConf">XConf</a></li>
+<li><a href="../../../device-management/docs/Telemetry">Telemetry</a></li>
+<li><a href="../../../device-management/docs/Webpa">Web PA</a></li>
+<li><a href="../../../device-management/docs/TR369">TR 369</a></li>
+</ul>
+</div>
+</div>
+<!-- Explore RDK -->
+<div class="banner-group">
+<h3>Test &amp; Certification</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="https://wiki.rdkcentral.com/pages/viewpage.action?pageId=131729119">RDK Certification</a></li>
+<li><a href="../../../rdkv_template/">Video Template</a></li>
+<li><a href="../../../tools/docs/Automatics/">Automatics</a></li>
+</ul>
+</div>
+</div>
+<!-- Resources-->
+<div class="banner-group">
+<h3>Resources</h3>
+<div class="sub-columns">
+<ul>
+<li><a href="../../../kavia/ ">Kavia</a></li>
+<li><a href="../../../sitemap">Quick Links</a></li>
+<li><a href="../../../sitemap.xml">Site Map</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.footer", "navigation.tabs", "toc.follow", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "content.tabs", "content.width"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../../assets/javascripts/extra.js"></script>
+</div></body>
+</html>
