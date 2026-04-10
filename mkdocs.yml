@@ -279,4 +279,14 @@ nav:
         - RBUS: ./docu/nov05/rbus.md
         - Telco Voice Manager: ./docu/nov05/telcovoicemanager.md
         - VLAN Manager: ./docu/nov05/vlanmanager.md
+      - Kavia:
+        - Home: ./README.md
+        - LMLite:
+          - Kavia Freeflow: ./lmlite_kavia_freeflow.md
+          - Kavia with Template: ./lmlite_kavia_template.md
+          - Copilot with Template: ./lmlite_copilot_template.md
+        - WanManager:  
+          - Kavia Freeflow: ./wm_kavia_freeflow.md
+          - Kavia with Template: ./wm_kavia_template.md
+          - Copilot with Template: ./wm_copilot_template.md
         
