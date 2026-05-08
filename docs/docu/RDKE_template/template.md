@@ -62,64 +62,34 @@ List major functions, services provided, and responsibilities. Keep it as a bull
 
 [Add a Component Diagram with a text like – “A Component diagram showing the component's internal structure and dependencies is given below:”. The starting point of this diagram will be the context diagram created above, with the part of this specific component being expanded. The main components will have to cover the message bus registration using appropriate IPC methods, telemetry, persistant data set/get, get/set data from/to HAL, as well as various other components as the case may be] 
 
- 
+```mermaid
+graph TD
 
-```mermaid 
+    subgraph ContainerBoundary ["[CONTAINER_NAME] ([CONTAINER_TECHNOLOGY])"]
+        subgraph Component1 ["[COMPONENT_1_NAME]"]
+            C1[Component 1]
+            noteC1["Purpose: Describe what Component 1 does"]
+        end
 
-graph TD 
+        subgraph Component2 ["[COMPONENT_2_NAME]"]
+            C2[Component 2]
+            noteC2["Purpose: Describe what Component 2 does"]
+        end
 
- 
+        subgraph Component3 ["[COMPONENT_3_NAME]"]
+            C3[Component 3]
+            noteC3["Purpose: Describe what Component 3 does"]
+        end
+    end
 
-    subgraph ContainerBoundary ["[CONTAINER_NAME] ([CONTAINER_TECHNOLOGY])"] 
+    subgraph ExternalSystem ["[EXTERNAL_SYSTEM]"]
+        EXT[(External System)]
+    end
 
-        subgraph Component1 ["[COMPONENT_1_NAME]"] 
-
-            C1[Component 1] 
-
-            noteC1["Purpose: Describe what Component 1 does (e.g., handles business logic)."] 
-
-        end 
-
- 
-
-        subgraph Component2 ["[COMPONENT_2_NAME]"] 
-
-            C2[Component 2] 
-
-            noteC2["Purpose: Describe what Component 2 does (e.g., processes requests)."] 
-
-        end 
-
- 
-
-        subgraph Component3 ["[COMPONENT_3_NAME]"] 
-
-            C3[Component 3] 
-
-            noteC3["Purpose: Describe what Component 3 does (e.g., manages data persistence)."] 
-
-        end 
-
-    end 
-
- 
-
-    subgraph ExternalSystem ["[EXTERNAL_SYSTEM]"] 
-
-        EXT[(External System)] 
-
-    end 
-
- 
-
-    C1 -->|Uses| C2 
-
-    C2 -->|Reads/Writes| C3 
-
-    C3 -->|API Call / Query| EXT 
-
-``` 
-
+    C1 -->|Uses| C2
+    C2 -->|Reads/Writes| C3
+    C3 -->|API Call / Query| EXT
+```
 ### Threading Model
 Describe the threading model in detail. If the component is single-threaded, state that explicitly. If it uses worker threads, list each thread and its responsibility.
 
