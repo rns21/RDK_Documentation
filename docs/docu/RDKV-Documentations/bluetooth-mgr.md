@@ -1,10 +1,10 @@
 # Bluetooth_mgr (btr-mgr)
 
-`btr-mgr` is the Bluetooth Manager daemon for RDK middleware. It runs as the process `btMgrBus` and manages all Bluetooth services on the device. It interfaces with the `btr-core` library (which communicates with BlueZ over DBus), and exposes its control API northbound over either IARM Bus or RBus — selected at build time. The daemon manages device discovery, pairing, connection, A/V audio streaming (A2DP), audio capture, HID gamepad connections, Bluetooth Low Energy operations, and a persistent device registry.
+`btr-mgr` is the Bluetooth Manager daemon for RDK middleware. It runs as a background process and manages all Bluetooth services on the device. It interfaces with the `btr-core` library (which communicates with BlueZ over DBus), and exposes its control API northbound over either IARM Bus or RBus — selected at build time. The daemon manages device discovery, pairing, connection, A/V audio streaming (A2DP), audio capture, HID gamepad connections, Bluetooth Low Energy operations, and a persistent device registry.
 
-At device stack level, `btr-mgr` provides a unified northbound API for other RDK processes and applications to perform all Bluetooth operations without direct knowledge of the BlueZ stack. On startup it waits for `hci0` to become available, calls `BTRMGR_Init()`, signals `systemd` readiness, attempts to auto-connect the last-paired audio output device and gamepads (non-LE mode), and enters a heartbeat loop until `SIGTERM`.
+`btr-mgr` provides a unified northbound API for other RDK processes and applications to perform all Bluetooth operations without direct knowledge of the BlueZ stack. On startup, it waits for the Bluetooth hardware interface to become available, initializes all subsystems, signals readiness to the init system, attempts to auto-connect the last-paired audio output device and any paired gamepads, and then runs until a termination signal is received.
 
-At the module level, the core state machine in `btrMgr.c` drives all device lifecycle, session management, and GLib timer-based retry and hold-off logic. Northbound IARM or RBus method handlers in `src/rpc/` translate IPC calls directly to `BTRMGR_*` API calls. Submodules provide audio stream-out via GStreamer (`btrMgr_streamOut`), audio capture via RMF or ACM (`btrMgr_audioCap`), persistent device storage via cJSON (`btrMgr_persistIface`), system diagnostics (`btrMgr_SysDiag`), LE onboarding (`btrMgr_LEOnboarding`), Columbo diagnostics (`btrMgr_Columbo`), and LE battery service (`btrMgr_batteryService`, LE mode only).
+Internally, a core state machine drives all device lifecycle and session management, using timer-based retry and hold-off logic for robustness. Northbound IPC handlers act as thin pass-through layers that validate initialization state and forward calls to the core API. Dedicated subsystems provide A2DP audio streaming via GStreamer, audio capture via the platform audio subsystem, persistent device storage, system diagnostics, LE onboarding, and LE battery service management.
 
 ```mermaid
 flowchart LR
@@ -45,14 +45,14 @@ PowerMgr -->|power state events| BTRMGR
 
 **Key Features & Responsibilities:**
 
-- **IARM Bus or RBus northbound interface**: Registers all Bluetooth control methods (adapter management, discovery, pairing, connection, streaming, media control, LE operations, system diagnostics) as IARM callable methods or RBus methods, selected at build time via `--enable-rpc` (IARM) or `--enable-rbusrpc` (RBus).
-- **A/V audio stream-out**: Manages A2DP stream-out sessions (`btrMgr_streamOut` + `btrMgr_streamOutGst`) via GStreamer 1.x pipelines. On startup attempts auto-reconnection to the last-paired audio output device (`BTRMGR_StartAudioStreamingOut_StartUp`).
-- **Audio capture (stream-in)**: Captures audio from external BT sources via either direct RMF AudioCapture (`--enable-ac_rmf`) or via IARM calls to `audiocapturemgr` (`--enable-acm`).
-- **HID gamepad management**: On startup connects gamepads (`BTRMGR_ConnectGamepads_StartUp`); tracks HID gamepad enable state and standby mode separately from audio devices.
-- **LE/GATT operations and advertising**: Supports GATT property read/write/notify, LE advertisement start/stop, service and characteristic registration, and LE onboarding (Wi-Fi provisioning via ECDH key exchange over GATT).
-- **Persistent device registry**: Reads and writes `btmgrPersist.json` to track paired profiles, per-device connection status, last-connected device, and optionally volume/mute (RDKTV build).
-- **System diagnostics and Columbo**: `btrMgr_SysDiag` queries device system state (power state, QR code, mesh backhaul status) via IARM or RBus. `btrMgr_Columbo` exposes GATT characteristics for remote diagnostics.
-- **LE battery service** (LE mode only): `btrMgr_batteryService` manages periodic battery level polling, OTA firmware update flow, and battery threshold notifications.
+- **IARM Bus or RBus northbound interface**: Registers all Bluetooth control methods (adapter management, discovery, pairing, connection, streaming, media control, LE operations, system diagnostics) as callable IPC endpoints, allowing any authorized RDK process or application to manage Bluetooth without direct library access. The IPC transport is selected at build time.
+- **A/V audio stream-out**: Manages A2DP audio streaming sessions via GStreamer pipelines. On startup, attempts automatic reconnection to the last-paired audio output device.
+- **Audio capture (stream-in)**: Captures audio from external Bluetooth sources via either direct RMF AudioCapture integration or via the audio capture manager service, selectable at build time.
+- **HID gamepad management**: On startup, connects any paired gamepads and tracks their enable state and standby mode independently from audio devices.
+- **LE/GATT operations and advertising**: Supports GATT property read/write/notify, LE advertisement start/stop, service and characteristic registration, and LE onboarding for Wi-Fi provisioning over GATT.
+- **Persistent device registry**: Reads and writes a JSON file to track paired profiles, per-device connection status, last-connected device, and optionally volume and mute settings.
+- **System diagnostics and Columbo**: Queries device system state (power, QR code, mesh backhaul status) via the platform IPC bus, and exposes GATT characteristics for remote diagnostics.
+- **LE battery service** (LE mode only): Manages periodic battery level polling, OTA firmware update flow, and battery threshold notifications for LE devices.
 
 ---
 
