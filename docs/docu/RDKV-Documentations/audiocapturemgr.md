@@ -1,10 +1,10 @@
 # audiocapturemgr
 
-`audiocapturemgr` is a userspace daemon that captures live audio through RMF AudioCapture APIs and serves audio data to clients over IARM. At startup, `main()` calls `acm_session_mgr::activate()`, blocks in `pause()`, and deactivates on process termination. The manager registers IARM callable methods for session lifecycle control and audio/output property management.
+`audiocapturemgr` is a userspace daemon that captures live audio from the platform audio subsystem and serves audio data to clients over the IARM inter-process communication bus. It runs as a standalone background service that remains active for the lifetime of the system session, registering control methods on the bus at startup and tearing them down on process termination.
 
-The service exposes audio capture sessions per client request. Each session is bound to one of the supported sources (`MAX_SUPPORTED_SOURCES = 1`, primary only) and an output mode selected at open time: `BUFFERED_FILE_OUTPUT` uses `music_id_client` for rolling precapture queue management and audio clip extraction, while `REALTIME_SOCKET` uses `ip_out_client` to stream live PCM buffers over a UNIX domain socket. The component notifies IARM subscribers when a requested clip is ready by broadcasting `DATA_CAPTURE_IARM_EVENT_AUDIO_CLIP_READY`.
+The service exposes audio capture sessions on a per-client basis. Each session is associated with the primary audio source and a delivery mode chosen at session open time: a buffered mode that maintains a rolling precapture queue and extracts audio clips on demand, or a realtime streaming mode that pushes live audio directly to the requesting client over a local socket connection. Clients are notified asynchronously over the bus when a requested audio clip becomes available.
 
-At the module level, `q_mgr` owns the RMF capture device handle, incoming/outgoing buffer queues, and fan-out to registered client objects. `music_id_client` maintains a rolling queue sized by precapture duration and fulfills clip requests immediately (precapture) or after a fresh-capture window elapses. `ip_out_client` accepts one active UNIX socket connection at a time and writes live audio buffers to it.
+Internally, a central capture manager owns the connection to the audio hardware, maintains data queues, and distributes incoming audio to all active client sessions. Each delivery mode is handled by a dedicated subsystem responsible for either managing the precapture buffer and scheduling clip extraction, or forwarding live audio buffers to a connected socket consumer.
 
 ```mermaid
 flowchart LR
@@ -37,11 +37,11 @@ ACM -->|IARM_Bus_BroadcastEvent| IARM
 
 **Key Features & Responsibilities:**
 
-- **IARM service endpoint for audio capture control**: Registers `open`, `close`, `start`, `stop`, `requestSample`, `getAudioProperties`, `setAudioProperties`, `getOutputProperties`, `setOutputProperties`, and `getDefaultAudioProperties` as callable IARM methods on bus name `audiocapturemgr`.
-- **Session-based output routing**: Selects between buffered clip extraction (`music_id_client`) and realtime UNIX socket streaming (`ip_out_client`) based on the `output_type` argument supplied at `open` time.
-- **Audio capture queue management**: `q_mgr` maintains dual incoming/outgoing buffer queues, a semaphore-driven processing thread, and a monitor thread that detects inflow stalls every 5 seconds.
-- **Clip request scheduling**: Fulfills precapture requests immediately from the rolling buffer queue and schedules fresh-sample requests via a timer-decrement worker thread; notifies callers through `DATA_CAPTURE_IARM_EVENT_AUDIO_CLIP_READY`.
-- **Audio format conversion**: `audio_converter` supports passthrough, downmix, downsample, and combined downmix-and-downsample paths for supported input/output format combinations.
+- **IARM service endpoint for audio capture control**: Exposes session lifecycle operations (open, close, start, stop, sample request) and audio/output property management as callable methods on the IARM bus, allowing any authorized process to control audio capture without direct hardware access.
+- **Session-based output routing**: Directs captured audio to either buffered clip extraction or realtime local socket streaming depending on the delivery mode selected when a session is opened.
+- **Audio capture queue management**: Maintains incoming and outgoing data queues between the hardware capture callback and active client sessions, with background monitoring to detect and log periods where audio inflow stalls.
+- **Clip request scheduling**: Satisfies audio clip requests either immediately from the precaptured rolling buffer or after a configured fresh-capture window, then notifies the requesting client asynchronously over the bus when the clip is ready.
+- **Audio format conversion**: Supports passthrough, channel downmix, sample-rate downsample, and combined conversion paths to adapt captured audio to the format required by each client session.
 
 ---
 
