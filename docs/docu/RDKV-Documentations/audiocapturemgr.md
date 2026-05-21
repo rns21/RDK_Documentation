@@ -213,10 +213,10 @@ sequenceDiagram
         MID-->>Mgr: result (immediate)
     else is_precapture == false
         Mgr->>MID: grab_fresh_sample(seconds, filename, callback)
-        Note over MID: worker thread decrements timer; fulfills on completion
+        Note over MID: worker thread decrements timer, fulfills on completion
         MID-->>Mgr: async via request_callback
     end
-    Mgr->>IARM: IARM_Bus_BroadcastEvent(DATA_CAPTURE_IARM_EVENT_AUDIO_CLIP_READY, {dataLocator})
+    Mgr->>IARM: IARM_Bus_BroadcastEvent(DATA_CAPTURE_IARM_EVENT_AUDIO_CLIP_READY,{dataLocator})
     IARM-->>Client: event payload with dataLocator
 ```
 
