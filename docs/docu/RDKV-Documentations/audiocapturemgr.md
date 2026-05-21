@@ -9,15 +9,16 @@ Internally, a central capture manager owns the connection to the audio hardware,
 ```mermaid
 flowchart LR
 
-classDef Apps stroke:#00B9F1,fill:#E6F7FD,stroke-width:2px;
+classDef Apps  stroke:#00B9F1,fill:#E6F7FD,stroke-width:2px;
 classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px;
 classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 
 subgraph Apps["Apps & Runtimes"]
-    Clients["IARM Clients / Test Apps"]
+    ClientApps["Client Applications"]
 end
 
 subgraph RDKMW["RDK Core Middleware"]
+    IARMClients["IARM Clients"]
     ACM["audiocapturemgr\n(standalone daemon)"]
     IARM["IARM Bus"]
 end
@@ -26,11 +27,12 @@ subgraph VL["Vendor Layer"]
     RMF["RMF AudioCapture HAL"]
 end
 
-Clients -->|IARM_Bus_Call| IARM
+ClientApps -->|Firebolt APS| IARMClients
+IARMClients --> IARM
 IARM --> ACM
-ACM -->|RMF_AudioCapture_*| RMF
-RMF -->|data_callback| ACM
-ACM -->|IARM_Bus_BroadcastEvent| IARM
+ACM -->|API Calls| RMF
+RMF -->|Service Interaction| ACM
+ACM -->|Event Notification| IARM
 ```
 
 > **Note:** No Thunder/WPEFramework `IPlugin`, `JSONRPC`, or `Exchange` interfaces are implemented in this component.
@@ -78,7 +80,7 @@ SessionMgr --> IARMBus
 SessionMgr --> MID
 SessionMgr --> IPO
 QMgr --> RMFHAL
-RMFHAL -->|data_callback| QMgr
+RMFHAL -->|Service Interaction| QMgr
 QMgr --> Buf
 MID --> QMgr
 MID --> Conv
@@ -86,7 +88,7 @@ MID --> Sock
 IPO --> QMgr
 IPO --> UDSClients
 Sock --> UDSClients
-SessionMgr -->|BroadcastEvent AUDIO_CLIP_READY| IARMBus
+SessionMgr -->|Event Notification| IARMBus
 ```
 
 ### Threading Model
@@ -102,22 +104,9 @@ SessionMgr -->|BroadcastEvent AUDIO_CLIP_READY| IARMBus
 - **Synchronization**: `pthread_mutex_t` (session manager, queue, client list), `std::mutex` (data monitor), `sem_t` (queue wakeup), and a global audio-buffer mutex for refcount operations.
 - **Async / Event Dispatch**: RMF capture callback pushes data into the incoming queue and posts the semaphore. IARM `BroadcastEvent` delivers `AUDIO_CLIP_READY` to subscribed clients. Socket callbacks trigger clip delivery for socket-output mode.
 
-### Prerequisites & Dependencies
-
-**Documentation Verification Checklist:**
-
-- [x] **Thunder / WPEFramework APIs**: No `IPlugin`, `JSONRPC`, or `Exchange` implementation found.
-- [x] **IARM Bus**: `IARM_Bus_Init`, `IARM_Bus_Connect`, `IARM_Bus_RegisterEvent`, `IARM_Bus_RegisterCall`, `IARM_Bus_BroadcastEvent`, `IARM_Bus_Disconnect`, and `IARM_Bus_Term` are used in `acm_session_mgr.cpp`.
-- [x] **Device Services (DS) APIs**: No DS API usage found; component uses RMF AudioCapture APIs exclusively.
-- [x] **Persistent store**: No persistent store read/write calls found.
-- [x] **Systemd services**: `After=iarmbusd.service` and `Requires=iarmbusd.service` verified in `conf/audiocapturemgr.service`.
-- [x] **Configuration files**: No runtime configuration-file parsing found in the component source.
-
 ### RDK-V Platform and Integration Requirements
 
-- **WPEFramework Version**: Not applicable — no Thunder plugin implementation in this component.
 - **Build Dependencies**: C/C++ toolchain with autotools (`autoconf >= 2.68`) and libtool; headers under `media-utils/audioCapture` (`rmfAudioCapture.h`) and IARM include paths; link dependencies `-lrmfAudioCapture`, `-lIARMBus`, `-lpthread`.
-- **Plugin Dependencies**: None found.
 - **Device Services / HAL**: RMF AudioCapture API (`RMF_AudioCapture_Open`, `RMF_AudioCapture_GetDefaultSettings`, `RMF_AudioCapture_Start`, `RMF_AudioCapture_Stop`, `RMF_AudioCapture_Close`).
 - **IARM Bus**: Bus name `audiocapturemgr`; method names defined in `include/audiocapturemgr_iarm.h`.
 - **Systemd Services**: `iarmbusd.service` must be running before `audiocapturemgr` starts.
@@ -147,12 +136,12 @@ sequenceDiagram
 
     IARM->>Comp: open(source=0, output_type)
     Comp->>Q: instantiate q_mgr, create client (music_id or ip_out)
-    Q->>RMF: RMF_AudioCapture_Open + GetDefaultSettings
+    Q->>RMF: Open + GetDefaultSettings
 
     IARM->>Comp: start(session_id)
     Comp->>Q: register_client + start()
-    Q->>RMF: RMF_AudioCapture_Start(settings, data_callback)
-    RMF-->>Q: audio data via data_callback
+    Q->>RMF: Start capture with settings and data callback
+    RMF-->>Q: audio data via callback
 
     Q-->>Comp: clip ready (callback)
     Comp->>IARM: BroadcastEvent DATA_CAPTURE_IARM_EVENT_AUDIO_CLIP_READY
@@ -166,8 +155,8 @@ sequenceDiagram
 **State Change Triggers:**
 
 - IARM `open` creates a session and binds the output-mode client implementation; output type cannot change without closing and reopening the session.
-- IARM `start` registers the client to `q_mgr` and invokes `RMF_AudioCapture_Start`; data flow begins.
-- IARM `stop` unregisters the client and invokes `RMF_AudioCapture_Stop`; data flow halts.
+- IARM `start` registers the client to `q_mgr` and initiates audio capture; data flow begins.
+- IARM `stop` unregisters the client and halts audio capture; data flow stops.
 - IARM `close` destroys the session object and releases resources.
 - `setAudioProperties` may trigger a capture restart after applying new properties to `q_mgr`.
 
@@ -235,17 +224,17 @@ sequenceDiagram
 
 ## Internal Modules
 
-| Module / Class | Description | Key Files |
-| --- | --- | --- |
-| `acm_main` | Process entry point; calls `acm_session_mgr::activate()`, blocks in `pause()`, calls `deactivate()` on exit. Optionally drops root privileges when built with `DROP_ROOT_PRIV`. | [src/acm_main.cpp](src/acm_main.cpp) |
-| `acm_session_mgr` | IARM API surface; manages the session list (`m_sessions`), dispatches all IARM method handlers, creates/destroys client and source objects, and issues `BroadcastEvent` calls. Singleton via `g_singleton`. | [src/acm_session_mgr.cpp](src/acm_session_mgr.cpp), [include/acm_session_mgr.h](include/acm_session_mgr.h) |
-| `q_mgr` | Owns the RMF capture device handle, dual buffer queues, processing thread (semaphore-driven), data-monitor thread, and the list of registered `audio_capture_client` objects. Calls `RMF_AudioCapture_Open/GetDefaultSettings/Start/Stop/Close`. | [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp), [include/audio_capture_manager.h](include/audio_capture_manager.h) |
-| `music_id_client` | Buffered clip extraction client. Maintains a rolling `std::list<audio_buffer*>` queue sized by precapture duration. Fulfills clip requests immediately (precapture) or via a worker thread timer (fresh sample). Supports file-output and socket-output delivery modes; uses `socket_adaptor` for the latter. | [src/music_id.cpp](src/music_id.cpp), [include/music_id.h](include/music_id.h) |
-| `ip_out_client` | Realtime UNIX socket streaming client. Opens a listening UNIX socket on a path prefixed `/tmp/acm_ip_out_`. Accepts one connection (`MAX_CONNECTIONS = 1`) via a `pthread`-based listener thread controlled by a non-blocking pipe. Writes live PCM buffers on each `data_callback` invocation. | [src/ip_out.cpp](src/ip_out.cpp), [include/ip_out.h](include/ip_out.h) |
-| `audio_converter` | Determines the required conversion operation (passthrough, downmix, downsample, or combined) from input/output `audio_properties_t` structs and applies it to a `std::list<audio_buffer*>`. Writes converted output via an `audio_converter_sink` abstraction (file or memory). | [src/audio_converter.cpp](src/audio_converter.cpp), [include/audio_converter.h](include/audio_converter.h) |
-| `audio_buffer` | Refcounted PCM buffer object. Created by `q_mgr` per incoming capture callback; freed when refcount reaches zero via `unref_audio_buffer()`. A global mutex protects refcount operations. | [src/audio_buffer.cpp](src/audio_buffer.cpp), [include/audio_buffer.h](include/audio_buffer.h) |
-| `socket_adaptor` | UNIX domain socket listener helper for `music_id_client` socket-delivery mode. Starts listening on a supplied path, accepts one connection on a `std::thread`, and invokes a registered data-ready callback. | [src/socket_adaptor.cpp](src/socket_adaptor.cpp), [include/socket_adaptor.h](include/socket_adaptor.h) |
-| `acm_iarm_interface` | Legacy IARM interface (original `enableCapture` / `requestSample` API). Kept alongside the session manager for backward compatibility. | [src/acm_iarm_interface.cpp](src/acm_iarm_interface.cpp) |
+| Module / Class       | Description                                                                                                                                                                                                                                                                                                   | Key Files                                                                                                                          |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `acm_main`           | Process entry point; calls `acm_session_mgr::activate()`, blocks in `pause()`, calls `deactivate()` on exit. Optionally drops root privileges when built with `DROP_ROOT_PRIV`.                                                                                                                               | [src/acm_main.cpp](src/acm_main.cpp)                                                                                               |
+| `acm_session_mgr`    | IARM API surface; manages the session list (`m_sessions`), dispatches all IARM method handlers, creates/destroys client and source objects, and issues `BroadcastEvent` calls. Singleton via `g_singleton`.                                                                                                   | [src/acm_session_mgr.cpp](src/acm_session_mgr.cpp), [include/acm_session_mgr.h](include/acm_session_mgr.h)                         |
+| `q_mgr`              | Owns the RMF capture device handle, dual buffer queues, processing thread (semaphore-driven), data-monitor thread, and the list of registered `audio_capture_client` objects. Calls `RMF_AudioCapture_Open/GetDefaultSettings/Start/Stop/Close`.                                                              | [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp), [include/audio_capture_manager.h](include/audio_capture_manager.h) |
+| `music_id_client`    | Buffered clip extraction client. Maintains a rolling `std::list<audio_buffer*>` queue sized by precapture duration. Fulfills clip requests immediately (precapture) or via a worker thread timer (fresh sample). Supports file-output and socket-output delivery modes; uses `socket_adaptor` for the latter. | [src/music_id.cpp](src/music_id.cpp), [include/music_id.h](include/music_id.h)                                                     |
+| `ip_out_client`      | Realtime UNIX socket streaming client. Opens a listening UNIX socket on a path prefixed `/tmp/acm_ip_out_`. Accepts one connection (`MAX_CONNECTIONS = 1`) via a `pthread`-based listener thread controlled by a non-blocking pipe. Writes live PCM buffers on each `data_callback` invocation.               | [src/ip_out.cpp](src/ip_out.cpp), [include/ip_out.h](include/ip_out.h)                                                             |
+| `audio_converter`    | Determines the required conversion operation (passthrough, downmix, downsample, or combined) from input/output `audio_properties_t` structs and applies it to a `std::list<audio_buffer*>`. Writes converted output via an `audio_converter_sink` abstraction (file or memory).                               | [src/audio_converter.cpp](src/audio_converter.cpp), [include/audio_converter.h](include/audio_converter.h)                         |
+| `audio_buffer`       | Refcounted PCM buffer object. Created by `q_mgr` per incoming capture callback; freed when refcount reaches zero via `unref_audio_buffer()`. A global mutex protects refcount operations.                                                                                                                     | [src/audio_buffer.cpp](src/audio_buffer.cpp), [include/audio_buffer.h](include/audio_buffer.h)                                     |
+| `socket_adaptor`     | UNIX domain socket listener helper for `music_id_client` socket-delivery mode. Starts listening on a supplied path, accepts one connection on a `std::thread`, and invokes a registered data-ready callback.                                                                                                  | [src/socket_adaptor.cpp](src/socket_adaptor.cpp), [include/socket_adaptor.h](include/socket_adaptor.h)                             |
+| `acm_iarm_interface` | Legacy IARM interface (original `enableCapture` / `requestSample` API). Kept alongside the session manager for backward compatibility.                                                                                                                                                                        | [src/acm_iarm_interface.cpp](src/acm_iarm_interface.cpp)                                                                           |
 
 ---
 
@@ -253,20 +242,18 @@ sequenceDiagram
 
 ### Interaction Matrix
 
-| Target Component / Layer | Interaction Purpose | Key APIs / Topics |
-| --- | --- | --- |
-| **RDK-E Plugins** | | |
-| None found | No Thunder plugin interfaces implemented in this component. | N/A |
-| **Device Services / HAL** | | |
-| RMF AudioCapture | Open/start/stop the capture device and receive audio data via callback. | `RMF_AudioCapture_Open`, `RMF_AudioCapture_GetDefaultSettings`, `RMF_AudioCapture_Start`, `RMF_AudioCapture_Stop`, `RMF_AudioCapture_Close` |
-| IARM Bus | Receive control calls from clients and publish clip-ready events. | `IARM_Bus_Init`, `IARM_Bus_Connect`, `IARM_Bus_RegisterEvent`, `IARM_Bus_RegisterCall`, `IARM_Bus_BroadcastEvent`, `IARM_Bus_Disconnect`, `IARM_Bus_Term` |
-| **External Systems** | | |
-| UNIX domain socket clients | Receive realtime PCM stream (ip_out) or audio clip bytes (music_id socket mode). | `socket`, `bind`, `listen`, `accept`, `write` on paths under `/tmp/` |
+| Target Component / Layer   | Interaction Purpose                                                              | Key APIs / Topics                                                                                                                                         |
+| -------------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Device Services / HAL**  |                                                                                  |                                                                                                                                                           |
+| RMF AudioCapture           | Open/start/stop the capture device and receive audio data via callback.          | `RMF_AudioCapture_Open`, `RMF_AudioCapture_GetDefaultSettings`, `RMF_AudioCapture_Start`, `RMF_AudioCapture_Stop`, `RMF_AudioCapture_Close`               |
+| IARM Bus                   | Receive control calls from clients and publish clip-ready events.                | `IARM_Bus_Init`, `IARM_Bus_Connect`, `IARM_Bus_RegisterEvent`, `IARM_Bus_RegisterCall`, `IARM_Bus_BroadcastEvent`, `IARM_Bus_Disconnect`, `IARM_Bus_Term` |
+| **External Systems**       |                                                                                  |                                                                                                                                                           |
+| UNIX domain socket clients | Receive realtime PCM stream (ip_out) or audio clip bytes (music_id socket mode). | `socket`, `bind`, `listen`, `accept`, `write` on paths under `/tmp/`                                                                                      |
 
 ### Events Published
 
-| Event Name | IARM / JSON-RPC Topic | Trigger Condition | Subscriber Components |
-| --- | --- | --- | --- |
+| Event Name                                 | IARM / JSON-RPC Topic                         | Trigger Condition                                                                                         | Subscriber Components                                   |
+| ------------------------------------------ | --------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | `DATA_CAPTURE_IARM_EVENT_AUDIO_CLIP_READY` | IARM event on bus `audiocapturemgr` (index 0) | `request_callback` invoked after clip generation completes (immediate precapture or fresh-sample timeout) | Any IARM client that registers a handler for this event |
 
 ### IPC Flow Patterns
@@ -308,13 +295,13 @@ sequenceDiagram
 
 ### Major HAL APIs Integration
 
-| HAL / DS API | Purpose | Implementation File |
-| --- | --- | --- |
-| `RMF_AudioCapture_Open()` | Opens the capture device and obtains a handle during `q_mgr` construction. | [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp) |
-| `RMF_AudioCapture_GetDefaultSettings()` | Queries default audio format and FIFO settings; used to initialize `m_audio_properties`. | [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp) |
-| `RMF_AudioCapture_Start()` | Starts capture with current settings and registers `q_mgr::data_callback` as the data handler. | [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp) |
-| `RMF_AudioCapture_Stop()` | Stops active audio capture; called on IARM `stop` or before property reconfiguration. | [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp) |
-| `RMF_AudioCapture_Close()` | Releases the capture handle; called in `q_mgr` destructor. | [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp) |
+| HAL / DS API                            | Purpose                                                                                        | Implementation File                                            |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `RMF_AudioCapture_Open()`               | Opens the capture device and obtains a handle during `q_mgr` construction.                     | [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp) |
+| `RMF_AudioCapture_GetDefaultSettings()` | Queries default audio format and FIFO settings; used to initialize `m_audio_properties`.       | [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp) |
+| `RMF_AudioCapture_Start()`              | Starts capture with current settings and registers `q_mgr::data_callback` as the data handler. | [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp) |
+| `RMF_AudioCapture_Stop()`               | Stops active audio capture; called on IARM `stop` or before property reconfiguration.          | [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp) |
+| `RMF_AudioCapture_Close()`              | Releases the capture handle; called in `q_mgr` destructor.                                     | [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp) |
 
 ### Key Implementation Logic
 
@@ -346,20 +333,20 @@ sequenceDiagram
 
 ### Key Configuration Files
 
-No runtime configuration file parsing by this component was found in the source code.
+No runtime configurations.
 
 ### Key Configuration Parameters
 
-| Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| `AUDIOCAPTUREMGR_FILENAME_PREFIX` | string macro | `"audio_sample"` | Filename prefix constant used in session manager request naming paths. Defined in [include/audiocapturemgr_iarm.h](include/audiocapturemgr_iarm.h). |
-| `AUDIOCAPTUREMGR_FILE_PATH` | string macro | `"/opt/"` | Base path constant used alongside the filename prefix. Defined in [include/audiocapturemgr_iarm.h](include/audiocapturemgr_iarm.h). |
-| `DEFAULT_PRECAPTURE_DURATION_SEC` | `unsigned int` constant | `6` | Default precapture rolling window in seconds. Set via `music_id_client::set_precapture_duration()`. Defined in [src/music_id.cpp](src/music_id.cpp). |
-| `MAX_QMGR_BUFFER_DURATION_S` | `unsigned int` constant | `30` | Maximum queued audio duration in seconds before `flush_system()` is triggered. Defined in [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp). |
-| `SOCKNAME_PREFIX` (`ip_out`) | `std::string` | `"/tmp/acm_ip_out_"` | Base path for the realtime output UNIX socket. Defined in [src/ip_out.cpp](src/ip_out.cpp). |
-| `SOCKET_PATH` (`music_id`) | string constant | `"/tmp/acm-songid"` | Base path for the music-id UNIX socket. Suffix appended per instance. Defined in [src/music_id.cpp](src/music_id.cpp). |
-| `DEFAULT_FIFO_SIZE` | `size_t` constant | `65536` (64 KiB) | Default RMF capture FIFO size in bytes. Defined in [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp). |
-| `DEFAULT_THRESHOLD` | `size_t` constant | `8192` (8 KiB) | Default RMF capture callback threshold in bytes. Defined in [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp). |
+| Parameter                         | Type                    | Default              | Description                                                                                                                                               |
+| --------------------------------- | ----------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `AUDIOCAPTUREMGR_FILENAME_PREFIX` | string macro            | `"audio_sample"`     | Filename prefix constant used in session manager request naming paths. Defined in [include/audiocapturemgr_iarm.h](include/audiocapturemgr_iarm.h).       |
+| `AUDIOCAPTUREMGR_FILE_PATH`       | string macro            | `"/opt/"`            | Base path constant used alongside the filename prefix. Defined in [include/audiocapturemgr_iarm.h](include/audiocapturemgr_iarm.h).                       |
+| `DEFAULT_PRECAPTURE_DURATION_SEC` | `unsigned int` constant | `6`                  | Default precapture rolling window in seconds. Set via `music_id_client::set_precapture_duration()`. Defined in [src/music_id.cpp](src/music_id.cpp).      |
+| `MAX_QMGR_BUFFER_DURATION_S`      | `unsigned int` constant | `30`                 | Maximum queued audio duration in seconds before `flush_system()` is triggered. Defined in [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp). |
+| `SOCKNAME_PREFIX` (`ip_out`)      | `std::string`           | `"/tmp/acm_ip_out_"` | Base path for the realtime output UNIX socket. Defined in [src/ip_out.cpp](src/ip_out.cpp).                                                               |
+| `SOCKET_PATH` (`music_id`)        | string constant         | `"/tmp/acm-songid"`  | Base path for the music-id UNIX socket. Suffix appended per instance. Defined in [src/music_id.cpp](src/music_id.cpp).                                    |
+| `DEFAULT_FIFO_SIZE`               | `size_t` constant       | `65536` (64 KiB)     | Default RMF capture FIFO size in bytes. Defined in [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp).                                        |
+| `DEFAULT_THRESHOLD`               | `size_t` constant       | `8192` (8 KiB)       | Default RMF capture callback threshold in bytes. Defined in [src/audio_capture_manager.cpp](src/audio_capture_manager.cpp).                               |
 
 ### Runtime Configuration
 
