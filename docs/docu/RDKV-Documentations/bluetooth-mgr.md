@@ -14,7 +14,7 @@ classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px;
 classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 
 subgraph Apps["Apps & Runtimes"]
-    RDKApps["RDK Applications\n(IARM / RBus clients)"]
+    RDKApps["RDK Applications"]
     HTMLCtrl["btrMgrHTMLControl\n(FastCGI on port 9625)"]
 end
 
@@ -22,7 +22,7 @@ subgraph RDKMW["RDK Core Middleware"]
     BTRMGR["btMgrBus\n(bluetooth_mgr daemon)"]
     IARMBUS["IARM Bus"]
     BTRCore["btr-core library\n(BTRCore API)"]
-    ACM["audiocapturemgr\n(optional, via IARM)"]
+    ACM["audiocapturemgr\n(optional)"]
     PowerMgr["wpeframework-powermanager"]
 end
 
@@ -32,14 +32,14 @@ subgraph VL["Vendor Layer"]
     RMF["RMF AudioCapture\n(optional)"]
 end
 
-RDKApps -->|IARM_Bus_Call / RBus method| IARMBUS
-HTMLCtrl -->|IARM_Bus_Call| IARMBUS
-IARMBUS --> BTRMGR
-BTRMGR -->|BTRCore_* API calls| BTRCore
+RDKApps -->|Firebolt API calls| BTRMGR
+HTMLCtrl -->|Firebolt API calls| BTRMGR
+BTRMGR --> IARMBUS
+BTRMGR -->|API calls| BTRCore
 BTRCore -->|DBus/GDBus| BlueZ
 BTRMGR -->|GStreamer pipeline| GST
-BTRMGR -->|IARM_Bus_Call| ACM
-BTRMGR -->|RMF_AudioCapture_*| RMF
+BTRMGR -->|Service Interaction| ACM
+BTRMGR -->|Service Interaction| RMF
 PowerMgr -->|power state events| BTRMGR
 ```
 
@@ -127,20 +127,8 @@ SysDiag --> RBusDaemon
 - **Synchronization**: `GMutex gBtrMgrAuthMutex` for serializing incoming auth thread creation. GLib atomic operations for volatile `guint` timer reference tracking. No explicit mutex around the global device state arrays (marked as `TODO` in source).
 - **Async / Event Dispatch**: `btr-core` status callbacks (device status, media status, discovery, connection intimation/auth) are received in the `btrCore` OutTask thread and dispatched synchronously into `btrMgr.c` handler functions, which then post GLib timeout sources to the GLib main loop thread for deferred processing or create per-operation GThreads for blocking operations.
 
-### Prerequisites & Dependencies
-
-**Documentation Verification Checklist:**
-
-- [x] **Thunder / WPEFramework APIs**: No `IPlugin`, `JSONRPC`, or `Exchange` implementation found in this component. `wpeframework-powermanager.service` is a systemd dependency only; power state is queried via `PowerController` API or IARM.
-- [x] **IARM Bus**: `IARM_Bus_Init`, `IARM_Bus_Connect`, `IARM_Bus_RegisterCall`, `IARM_Bus_RegisterEventHandler`, `IARM_Bus_BroadcastEvent` are used in `btmgr_iarm_internal_interface.c` and `btmgr_iarm_external_interface.c`.
-- [x] **Device Services (DS) APIs**: No DS API calls found. Bluetooth hardware is accessed exclusively through the `libbtrCore` library.
-- [x] **Persistent store**: `btrMgr_persistIface.c` reads and writes `/opt/lib/bluetooth/btmgrPersist.json` or `/opt/secure/lib/bluetooth/btmgrPersist.json` using `libcjson`.
-- [x] **Systemd services**: `After=` and `Requires=` entries verified in `conf/btmgr.service`: `iarmbusd.service`, `bluetooth.service`, `audiocapturemgr.service`, `wpeframework-powermanager.service`.
-- [x] **Configuration files**: No static runtime config files parsed. RFC parameters queried via `rfcapi.h` (excluded in `BUILD_FOR_PI` builds).
-
 ### RDK-V Platform and Integration Requirements
 
-- **WPEFramework Version**: Not applicable — no Thunder plugin implementation. `wpeframework-powermanager.service` is a systemd runtime dependency only.
 - **Build Dependencies**: C toolchain; autoconf >= 2.69, automake, libtool; `libbtrCore` (required); `glib-2.0 >= 2.24.0`; `gthread-2.0 >= 2.24.0`; `libcjson >= 1.0`; optional `gstreamer-1.0 >= 1.4` + `gstreamer-base-1.0` (`--enable-gstreamer1`); optional `librmfAudioCapture` (`--enable-ac_rmf`); optional `audiocapturemgr_iarm.h` + IARM libs (`--enable-acm`); optional `libsystemd` (`--enable-systemd-notify`); `libsafec` or stub; `librbus` (`--enable-rbusrpc`); `libecdhlib` for LE onboarding; `libcurl`, `libcjson`, `liburlHelper` for SysDiag/LEOnboarding IARM builds.
 - **Plugin Dependencies**: None (no Thunder plugin).
 - **Device Services / HAL**: `libbtrCore` must be present and BlueZ `bluetoothd` must be running. HCI adapter (`hci0`) must be up.
@@ -264,21 +252,21 @@ sequenceDiagram
 
 ## Internal Modules
 
-| Module / Class | Description | Key Files |
-| --- | --- | --- |
-| `btrMgr_main` | Process entry point. Polls `hci0` readiness, calls `BTRMGR_Init()`, starts IARM or RBus IPC mode, starts audio/gamepad auto-connect (non-LE mode), runs heartbeat loop, calls `BTRMGR_DeInit()` on `SIGTERM`. | [src/main/btrMgr_main.c](src/main/btrMgr_main.c) |
-| `btrMgr` (core interface) | Core Bluetooth state machine. Holds all module handles, GLib timer references, device and streaming state. Implements all `BTRMGR_*` public API functions, registers `btr-core` callbacks, and manages GLib main loop and per-operation threads. | [src/ifce/btrMgr.c](src/ifce/btrMgr.c), [include/btmgr.h](include/btmgr.h) |
-| `btmgr_iarm_internal_interface` | IARM northbound handler. Registers all Bluetooth control methods as IARM callable functions and translates IARM calls to `BTRMGR_*` API calls. Broadcasts `BTRMGR_Events_t` events over IARM. Selected by `--enable-rpc`. | [src/rpc/btmgr_iarm_internal_interface.c](src/rpc/btmgr_iarm_internal_interface.c) |
-| `btmgr_iarm_external_interface` | IARM client-side wrapper API (`BTRMGR_Init`, `BTRMGR_GetNumberOfAdapters`, etc.). Used by other processes to interact with `btr-mgr` via IARM without knowing bus internals. Registers IARM event handlers for device and media events. | [src/rpc/btmgr_iarm_external_interface.c](src/rpc/btmgr_iarm_external_interface.c) |
-| `btmgr_rbus_internal_interface` | RBus northbound handler. Registers Bluetooth control methods and properties on the RBus data model. Selected by `--enable-rbusrpc`. | [src/rpc/btmgr_rbus_internal_interface.c](src/rpc/btmgr_rbus_internal_interface.c) |
-| `btmgr_rbus_external_interface` | RBus client-side wrapper API. Provides `BTRMGR_*` public API backed by RBus method invocations. | [src/rpc/btmgr_rbus_external_interface.c](src/rpc/btmgr_rbus_external_interface.c) |
-| `btrMgr_streamOut` + `btrMgr_streamOutGst` | A2DP audio stream-out. `btrMgr_streamOut.c` provides generic streaming state and callback management. `btrMgr_streamOutGst.c` implements the GStreamer 1.x pipeline for encoding and streaming PCM to A2DP sink. | [src/streamOut/btrMgr_streamOut.c](src/streamOut/btrMgr_streamOut.c), [src/streamOut/btrMgr_streamOutGst.c](src/streamOut/btrMgr_streamOutGst.c) |
-| `btrMgr_audioCap` | Audio capture (stream-in) abstraction. Captures audio from an external BT audio source device. Backed by either direct RMF AudioCapture library (`USE_AC_RMF`) or by IARM calls to `audiocapturemgr` (`USE_ACM`). | [src/audioCap/btrMgr_audioCap.c](src/audioCap/btrMgr_audioCap.c) |
-| `btrMgr_persistIface` | Persistent device and profile registry using `libcjson`. Reads/writes `btmgrPersist.json`. Stores adapter ID, paired profile/device lists, last-connected device, connection status, and (RDKTV) volume/mute. | [src/persistIf/btrMgr_persistIface.c](src/persistIf/btrMgr_persistIface.c), [include/persistIf/btrMgr_persistIface.h](include/persistIf/btrMgr_persistIface.h) |
-| `btrMgr_SysDiag` | System diagnostics. Queries device power state via `PowerController`, QR code, and mesh backhaul status via IARM (`sysMgr`) or RBus (`syscfg`). Responds to `SysDiagInfo` IARM/RBus calls. | [src/sysDiag/btrMgr_SysDiag.c](src/sysDiag/btrMgr_SysDiag.c) |
-| `btrMgr_LEOnboarding` | Wi-Fi provisioning over GATT. Exposes GATT characteristics for SSID list, public key, Wi-Fi config, and provision status. Uses ECDH (`libecdhlib`) for key exchange. | [src/leOnboarding/btrMgr_LEOnboarding.c](src/leOnboarding/btrMgr_LEOnboarding.c) |
-| `btrMgr_Columbo` | GATT-based diagnostics interface (Columbo UUID: `64d9f574-7756-4ebc-9ebe-ed5f7f2871ab`). Exposes start/stop/status/report characteristics for remote diagnostic triggering. | [src/columbo/](src/columbo/) |
-| `btrMgr_batteryService` | LE battery service (LE mode only). Manages periodic battery level polling, connection/reconnection to battery devices, GATT start-notify, and OTA firmware update flow for LE devices. | [src/batteryService/](src/batteryService/) |
+| Module / Class                             | Description                                                                                                                                                                                                                                      | Key Files                                                                                                                                                      |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `btrMgr_main`                              | Process entry point. Polls `hci0` readiness, calls `BTRMGR_Init()`, starts IARM or RBus IPC mode, starts audio/gamepad auto-connect (non-LE mode), runs heartbeat loop, calls `BTRMGR_DeInit()` on `SIGTERM`.                                    | [src/main/btrMgr_main.c](src/main/btrMgr_main.c)                                                                                                               |
+| `btrMgr` (core interface)                  | Core Bluetooth state machine. Holds all module handles, GLib timer references, device and streaming state. Implements all `BTRMGR_*` public API functions, registers `btr-core` callbacks, and manages GLib main loop and per-operation threads. | [src/ifce/btrMgr.c](src/ifce/btrMgr.c), [include/btmgr.h](include/btmgr.h)                                                                                     |
+| `btmgr_iarm_internal_interface`            | IARM northbound handler. Registers all Bluetooth control methods as IARM callable functions and translates IARM calls to `BTRMGR_*` API calls. Broadcasts `BTRMGR_Events_t` events over IARM. Selected by `--enable-rpc`.                        | [src/rpc/btmgr_iarm_internal_interface.c](src/rpc/btmgr_iarm_internal_interface.c)                                                                             |
+| `btmgr_iarm_external_interface`            | IARM client-side wrapper API (`BTRMGR_Init`, `BTRMGR_GetNumberOfAdapters`, etc.). Used by other processes to interact with `btr-mgr` via IARM without knowing bus internals. Registers IARM event handlers for device and media events.          | [src/rpc/btmgr_iarm_external_interface.c](src/rpc/btmgr_iarm_external_interface.c)                                                                             |
+| `btmgr_rbus_internal_interface`            | RBus northbound handler. Registers Bluetooth control methods and properties on the RBus data model. Selected by `--enable-rbusrpc`.                                                                                                              | [src/rpc/btmgr_rbus_internal_interface.c](src/rpc/btmgr_rbus_internal_interface.c)                                                                             |
+| `btmgr_rbus_external_interface`            | RBus client-side wrapper API. Provides `BTRMGR_*` public API backed by RBus method invocations.                                                                                                                                                  | [src/rpc/btmgr_rbus_external_interface.c](src/rpc/btmgr_rbus_external_interface.c)                                                                             |
+| `btrMgr_streamOut` + `btrMgr_streamOutGst` | A2DP audio stream-out. `btrMgr_streamOut.c` provides generic streaming state and callback management. `btrMgr_streamOutGst.c` implements the GStreamer 1.x pipeline for encoding and streaming PCM to A2DP sink.                                 | [src/streamOut/btrMgr_streamOut.c](src/streamOut/btrMgr_streamOut.c), [src/streamOut/btrMgr_streamOutGst.c](src/streamOut/btrMgr_streamOutGst.c)               |
+| `btrMgr_audioCap`                          | Audio capture (stream-in) abstraction. Captures audio from an external BT audio source device. Backed by either direct RMF AudioCapture library (`USE_AC_RMF`) or by IARM calls to `audiocapturemgr` (`USE_ACM`).                                | [src/audioCap/btrMgr_audioCap.c](src/audioCap/btrMgr_audioCap.c)                                                                                               |
+| `btrMgr_persistIface`                      | Persistent device and profile registry using `libcjson`. Reads/writes `btmgrPersist.json`. Stores adapter ID, paired profile/device lists, last-connected device, connection status, and (RDKTV) volume/mute.                                    | [src/persistIf/btrMgr_persistIface.c](src/persistIf/btrMgr_persistIface.c), [include/persistIf/btrMgr_persistIface.h](include/persistIf/btrMgr_persistIface.h) |
+| `btrMgr_SysDiag`                           | System diagnostics. Queries device power state via `PowerController`, QR code, and mesh backhaul status via IARM (`sysMgr`) or RBus (`syscfg`). Responds to `SysDiagInfo` IARM/RBus calls.                                                       | [src/sysDiag/btrMgr_SysDiag.c](src/sysDiag/btrMgr_SysDiag.c)                                                                                                   |
+| `btrMgr_LEOnboarding`                      | Wi-Fi provisioning over GATT. Exposes GATT characteristics for SSID list, public key, Wi-Fi config, and provision status. Uses ECDH (`libecdhlib`) for key exchange.                                                                             | [src/leOnboarding/btrMgr_LEOnboarding.c](src/leOnboarding/btrMgr_LEOnboarding.c)                                                                               |
+| `btrMgr_Columbo`                           | GATT-based diagnostics interface (Columbo UUID: `64d9f574-7756-4ebc-9ebe-ed5f7f2871ab`). Exposes start/stop/status/report characteristics for remote diagnostic triggering.                                                                      | [src/columbo/](src/columbo/)                                                                                                                                   |
+| `btrMgr_batteryService`                    | LE battery service (LE mode only). Manages periodic battery level polling, connection/reconnection to battery devices, GATT start-notify, and OTA firmware update flow for LE devices.                                                           | [src/batteryService/](src/batteryService/)                                                                                                                     |
 
 ---
 
@@ -286,33 +274,33 @@ sequenceDiagram
 
 ### Interaction Matrix
 
-| Target Component / Layer | Interaction Purpose | Key APIs / Topics |
-| --- | --- | --- |
-| **RDK-E Plugins** | | |
-| `wpeframework-powermanager` | Receive power state change events to pause/resume BT operations (discovery, streaming). | `PowerController` API (IARM or direct library) |
-| **Device Services / HAL** | | |
-| `libbtrCore` | All Bluetooth operations — adapter control, device discovery, pairing, connection, A/V media sessions, LE/GATT. | `BTRCore_Init`, `BTRCore_StartDiscovery`, `BTRCore_PairDevice`, `BTRCore_ConnectDevice`, `BTRCore_GetMediaTrackInfo`, `BtrCore_LE_PerformGattOp`, etc. |
-| RMF AudioCapture | Direct audio capture from BT audio source device (when `USE_AC_RMF` build flag set). | `RMF_AudioCapture_Open`, `RMF_AudioCapture_Start`, `RMF_AudioCapture_Stop`, `RMF_AudioCapture_Close` |
-| GStreamer | A2DP audio stream-out pipeline management. | GStreamer 1.x element pipeline in `btrMgr_streamOutGst.c` |
-| **IARM Bus** | | |
-| `audiocapturemgr` | Audio-in capture control when built with `--enable-acm`. | `IARM_Bus_Call(audiocapturemgr, open/start/stop/close, ...)` |
-| `sysMgr` | System diagnostics queries (device info, network status). | `IARM_Bus_Call(sysMgr, ...)` |
-| **External Systems** | | |
-| RFC (`rfcapi.h`) | Query RFC parameters for audio-in service enable state and HID gamepad enable state. | `getRFCParameter()` |
+| Target Component / Layer    | Interaction Purpose                                                                                             | Key APIs / Topics                                                                                                                                      |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **RDK-E Plugins**           |                                                                                                                 |                                                                                                                                                        |
+| `wpeframework-powermanager` | Receive power state change events to pause/resume BT operations (discovery, streaming).                         | `PowerController` API (IARM or direct library)                                                                                                         |
+| **Device Services / HAL**   |                                                                                                                 |                                                                                                                                                        |
+| `libbtrCore`                | All Bluetooth operations — adapter control, device discovery, pairing, connection, A/V media sessions, LE/GATT. | `BTRCore_Init`, `BTRCore_StartDiscovery`, `BTRCore_PairDevice`, `BTRCore_ConnectDevice`, `BTRCore_GetMediaTrackInfo`, `BtrCore_LE_PerformGattOp`, etc. |
+| RMF AudioCapture            | Direct audio capture from BT audio source device (when `USE_AC_RMF` build flag set).                            | `RMF_AudioCapture_Open`, `RMF_AudioCapture_Start`, `RMF_AudioCapture_Stop`, `RMF_AudioCapture_Close`                                                   |
+| GStreamer                   | A2DP audio stream-out pipeline management.                                                                      | GStreamer 1.x element pipeline in `btrMgr_streamOutGst.c`                                                                                              |
+| **IARM Bus**                |                                                                                                                 |                                                                                                                                                        |
+| `audiocapturemgr`           | Audio-in capture control when built with `--enable-acm`.                                                        | `IARM_Bus_Call(audiocapturemgr, open/start/stop/close, ...)`                                                                                           |
+| `sysMgr`                    | System diagnostics queries (device info, network status).                                                       | `IARM_Bus_Call(sysMgr, ...)`                                                                                                                           |
+| **External Systems**        |                                                                                                                 |                                                                                                                                                        |
+| RFC (`rfcapi.h`)            | Query RFC parameters for audio-in service enable state and HID gamepad enable state.                            | `getRFCParameter()`                                                                                                                                    |
 
 ### Events Published
 
-| Event Name | IARM / RBus Topic | Trigger Condition | Subscriber Components |
-| --- | --- | --- | --- |
-| `BTRMGR_EVENT_DEVICE_DISCOVERY_UPDATE` | IARM event on bus `BTRMgrBus` | Device found or updated during active scan | IARM clients that register event handlers |
-| `BTRMGR_EVENT_DEVICE_PAIRING_COMPLETE` / `_FAILED` | IARM event on bus `BTRMgrBus` | Pairing operation completes or fails | IARM clients |
-| `BTRMGR_EVENT_DEVICE_CONNECTION_COMPLETE` / `_FAILED` | IARM event on bus `BTRMgrBus` | Connection operation completes or fails | IARM clients |
-| `BTRMGR_EVENT_DEVICE_DISCONNECT_COMPLETE` | IARM event on bus `BTRMgrBus` | Device disconnects | IARM clients |
-| `BTRMGR_EVENT_MEDIA_TRACK_*` | IARM event on bus `BTRMgrBus` | AVRCP track state change (started, playing, paused, stopped, changed, position) | IARM clients |
-| `BTRMGR_EVENT_MEDIA_PLAYER_*` | IARM event on bus `BTRMgrBus` | AVRCP player property change (name, volume, delay, equalizer, shuffle, repeat) | IARM clients |
-| `BTRMGR_EVENT_RECEIVED_EXTERNAL_PAIR_REQUEST` | IARM event on bus `BTRMgrBus` | Incoming pairing request from a remote device | IARM clients |
-| `BTRMGR_EVENT_BATTERY_INFO` | IARM event on bus `BTRMgrBus` | Battery level update from a connected LE device | IARM clients |
-| `BTRMGR_EVENT_DEVICE_OUT_OF_RANGE` | IARM event on bus `BTRMgrBus` | Connected device goes out of range | IARM clients |
+| Event Name                                            | IARM / RBus Topic             | Trigger Condition                                                               | Subscriber Components                     |
+| ----------------------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------- |
+| `BTRMGR_EVENT_DEVICE_DISCOVERY_UPDATE`                | IARM event on bus `BTRMgrBus` | Device found or updated during active scan                                      | IARM clients that register event handlers |
+| `BTRMGR_EVENT_DEVICE_PAIRING_COMPLETE` / `_FAILED`    | IARM event on bus `BTRMgrBus` | Pairing operation completes or fails                                            | IARM clients                              |
+| `BTRMGR_EVENT_DEVICE_CONNECTION_COMPLETE` / `_FAILED` | IARM event on bus `BTRMgrBus` | Connection operation completes or fails                                         | IARM clients                              |
+| `BTRMGR_EVENT_DEVICE_DISCONNECT_COMPLETE`             | IARM event on bus `BTRMgrBus` | Device disconnects                                                              | IARM clients                              |
+| `BTRMGR_EVENT_MEDIA_TRACK_*`                          | IARM event on bus `BTRMgrBus` | AVRCP track state change (started, playing, paused, stopped, changed, position) | IARM clients                              |
+| `BTRMGR_EVENT_MEDIA_PLAYER_*`                         | IARM event on bus `BTRMgrBus` | AVRCP player property change (name, volume, delay, equalizer, shuffle, repeat)  | IARM clients                              |
+| `BTRMGR_EVENT_RECEIVED_EXTERNAL_PAIR_REQUEST`         | IARM event on bus `BTRMgrBus` | Incoming pairing request from a remote device                                   | IARM clients                              |
+| `BTRMGR_EVENT_BATTERY_INFO`                           | IARM event on bus `BTRMgrBus` | Battery level update from a connected LE device                                 | IARM clients                              |
+| `BTRMGR_EVENT_DEVICE_OUT_OF_RANGE`                    | IARM event on bus `BTRMgrBus` | Connected device goes out of range                                              | IARM clients                              |
 
 ### IPC Flow Patterns
 
@@ -320,7 +308,7 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant Client as IARM Client Application
+    participant Client as IARM  Client Application
     participant IARM as IARM Bus
     participant IARMInt as btmgr_iarm_internal_interface.c
     participant Core as btrMgr.c
@@ -363,16 +351,16 @@ sequenceDiagram
 
 This component does not call Device Services (DS) HAL APIs directly. All BT hardware operations go through `libbtrCore`. The audio streaming pipeline uses GStreamer.
 
-| API / Library | Purpose | Implementation File |
-| --- | --- | --- |
-| `BTRCore_Init` / `BTRCore_DeInit` | Initialize and teardown the btr-core library and BlueZ DBus connection. | [src/ifce/btrMgr.c](src/ifce/btrMgr.c) |
-| `BTRCore_StartDiscovery` / `BTRCore_StopDiscovery` | Start and stop BT device scanning. | [src/ifce/btrMgr.c](src/ifce/btrMgr.c) |
-| `BTRCore_PairDevice` / `BTRCore_UnPairDevice` | Pair and unpair a BT device. | [src/ifce/btrMgr.c](src/ifce/btrMgr.c) |
-| `BTRCore_ConnectDevice` / `BTRCore_DisconnectDevice` | Connect and disconnect a paired device. | [src/ifce/btrMgr.c](src/ifce/btrMgr.c) |
-| `BTRCore_GetMediaTrackInfo` / `BTRCore_MediaControl` | AVRCP media track queries and playback control. | [src/ifce/btrMgr.c](src/ifce/btrMgr.c) |
-| `BtrCore_LE_PerformGattOp` / `BTRCore_LE_GetGattProperty` | GATT read/write/notify operations for LE devices. | [src/ifce/btrMgr.c](src/ifce/btrMgr.c) |
-| `BTRCore_LE_StartAdvertisement` / `BTRCore_LE_StopAdvertisement` | LE advertisement registration and release. | [src/ifce/btrMgr.c](src/ifce/btrMgr.c) |
-| `RMF_AudioCapture_Open/Start/Stop/Close` | Direct audio capture from BT source (when `USE_AC_RMF` is set). | [src/audioCap/btrMgr_audioCap.c](src/audioCap/btrMgr_audioCap.c) |
+| API / Library                                                    | Purpose                                                                 | Implementation File                                              |
+| ---------------------------------------------------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `BTRCore_Init` / `BTRCore_DeInit`                                | Initialize and teardown the btr-core library and BlueZ DBus connection. | [src/ifce/btrMgr.c](src/ifce/btrMgr.c)                           |
+| `BTRCore_StartDiscovery` / `BTRCore_StopDiscovery`               | Start and stop BT device scanning.                                      | [src/ifce/btrMgr.c](src/ifce/btrMgr.c)                           |
+| `BTRCore_PairDevice` / `BTRCore_UnPairDevice`                    | Pair and unpair a BT device.                                            | [src/ifce/btrMgr.c](src/ifce/btrMgr.c)                           |
+| `BTRCore_ConnectDevice` / `BTRCore_DisconnectDevice`             | Connect and disconnect a paired device.                                 | [src/ifce/btrMgr.c](src/ifce/btrMgr.c)                           |
+| `BTRCore_GetMediaTrackInfo` / `BTRCore_MediaControl`             | AVRCP media track queries and playback control.                         | [src/ifce/btrMgr.c](src/ifce/btrMgr.c)                           |
+| `BtrCore_LE_PerformGattOp` / `BTRCore_LE_GetGattProperty`        | GATT read/write/notify operations for LE devices.                       | [src/ifce/btrMgr.c](src/ifce/btrMgr.c)                           |
+| `BTRCore_LE_StartAdvertisement` / `BTRCore_LE_StopAdvertisement` | LE advertisement registration and release.                              | [src/ifce/btrMgr.c](src/ifce/btrMgr.c)                           |
+| `RMF_AudioCapture_Open/Start/Stop/Close`                         | Direct audio capture from BT source (when `USE_AC_RMF` is set).         | [src/audioCap/btrMgr_audioCap.c](src/audioCap/btrMgr_audioCap.c) |
 
 ### Key Implementation Logic
 
@@ -401,48 +389,38 @@ This component does not call Device Services (DS) HAL APIs directly. All BT hard
 
 ### Key Configuration Files
 
-| Configuration File | Purpose | Override Mechanism |
-| --- | --- | --- |
+| Configuration File                     | Purpose                                                                                                                                                                 | Override Mechanism                                                                                                                                          |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `/opt/lib/bluetooth/btmgrPersist.json` | Primary persistent storage. Stores adapter ID, profile list, per-device connection status, last-connected device, beacon detection setting, and optionally volume/mute. | Written by `btrMgr_persistIface.c` at runtime. Path falls back to `/opt/secure/lib/bluetooth/btmgrPersist.json` if `/opt/lib/bluetooth/` is not accessible. |
-| `/etc/debug.ini` | RDK logger configuration. | Overridden by `/opt/debug.ini` if present. |
+| `/etc/debug.ini`                       | RDK logger configuration.                                                                                                                                               | Overridden by `/opt/debug.ini` if present.                                                                                                                  |
 
 ### Key Configuration Parameters
 
-| Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| `BTRMGR_DEVICE_COUNT_MAX` | `int` macro | `32` | Maximum number of paired devices tracked. Defined in [include/btmgr.h](include/btmgr.h). |
-| `BTRMGR_DISCOVERED_DEVICE_COUNT_MAX` | `int` macro | `128` | Maximum number of concurrently scanned devices. Defined in [include/btmgr.h](include/btmgr.h). |
-| `BTRMGR_PAIR_RETRY_ATTEMPTS` | `int` constant | `10` | Maximum pairing retry attempts. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c). |
-| `BTRMGR_CONNECT_RETRY_ATTEMPTS` | `int` constant | `2` | Maximum connection retry attempts per request. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c). |
-| `BTMGR_RECONNECTION_ATTEMPTS` | `int` constant | `3` | Maximum automatic reconnection attempts. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c). |
-| `BTMGR_RECONNECTION_HOLD_OFF` | `int` constant | `3` | Seconds to wait before attempting auto-reconnect. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c). |
-| `BTRMGR_DISCOVERY_HOLD_OFF_TIME` | `int` constant | `120` | Seconds of hold-off after discovery stops before it can restart. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c). |
-| `BTRMGR_AUTOCONNECT_ON_STARTUP_TIMEOUT` | `int` constant | `40` | Seconds allowed for startup auto-connect sequence. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c). |
-| `BTMGR_AVDTP_SUSPEND_MAX_RETRIES` | `int` constant | `3` | Maximum AVDTP suspend restart retries before stream is abandoned. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c). |
-| `BT_HCI0_TIMEOUT` | `int` constant | `30` | Maximum seconds to wait for `hci0` to be up at startup. Defined in [src/main/btrMgr_main.c](src/main/btrMgr_main.c). |
-| `BTRMGR_MAX_PERSISTENT_DEVICE_COUNT` | `int` macro | `5` | Max devices stored per profile in persist file. Defined in [include/persistIf/btrMgr_persistIface.h](include/persistIf/btrMgr_persistIface.h). |
-| `BTRMGR_MAX_PERSISTENT_PROFILE_COUNT` | `int` macro | `5` | Max profiles stored in persist file. Defined in [include/persistIf/btrMgr_persistIface.h](include/persistIf/btrMgr_persistIface.h). |
+| Parameter                               | Type           | Default | Description                                                                                                                                    |
+| --------------------------------------- | -------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BTRMGR_DEVICE_COUNT_MAX`               | `int` macro    | `32`    | Maximum number of paired devices tracked. Defined in [include/btmgr.h](include/btmgr.h).                                                       |
+| `BTRMGR_DISCOVERED_DEVICE_COUNT_MAX`    | `int` macro    | `128`   | Maximum number of concurrently scanned devices. Defined in [include/btmgr.h](include/btmgr.h).                                                 |
+| `BTRMGR_PAIR_RETRY_ATTEMPTS`            | `int` constant | `10`    | Maximum pairing retry attempts. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c).                                                             |
+| `BTRMGR_CONNECT_RETRY_ATTEMPTS`         | `int` constant | `2`     | Maximum connection retry attempts per request. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c).                                              |
+| `BTMGR_RECONNECTION_ATTEMPTS`           | `int` constant | `3`     | Maximum automatic reconnection attempts. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c).                                                    |
+| `BTMGR_RECONNECTION_HOLD_OFF`           | `int` constant | `3`     | Seconds to wait before attempting auto-reconnect. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c).                                           |
+| `BTRMGR_DISCOVERY_HOLD_OFF_TIME`        | `int` constant | `120`   | Seconds of hold-off after discovery stops before it can restart. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c).                            |
+| `BTRMGR_AUTOCONNECT_ON_STARTUP_TIMEOUT` | `int` constant | `40`    | Seconds allowed for startup auto-connect sequence. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c).                                          |
+| `BTMGR_AVDTP_SUSPEND_MAX_RETRIES`       | `int` constant | `3`     | Maximum AVDTP suspend restart retries before stream is abandoned. Defined in [src/ifce/btrMgr.c](src/ifce/btrMgr.c).                           |
+| `BT_HCI0_TIMEOUT`                       | `int` constant | `30`    | Maximum seconds to wait for `hci0` to be up at startup. Defined in [src/main/btrMgr_main.c](src/main/btrMgr_main.c).                           |
+| `BTRMGR_MAX_PERSISTENT_DEVICE_COUNT`    | `int` macro    | `5`     | Max devices stored per profile in persist file. Defined in [include/persistIf/btrMgr_persistIface.h](include/persistIf/btrMgr_persistIface.h). |
+| `BTRMGR_MAX_PERSISTENT_PROFILE_COUNT`   | `int` macro    | `5`     | Max profiles stored in persist file. Defined in [include/persistIf/btrMgr_persistIface.h](include/persistIf/btrMgr_persistIface.h).            |
 
 ### Runtime Configuration
 
-Runtime behavior changes are applied through IARM or RBus method calls:
-
-```bash
-# Example: change adapter discoverable state
-IARM_Bus_Call("BTRMgrBus", "SetAdapterDiscoverable", payload)
-
-# Example: start audio streaming out
-IARM_Bus_Call("BTRMgrBus", "StartAudioStreamingOut", payload)
-
-# Example: perform LE GATT operation
-IARM_Bus_Call("BTRMgrBus", "PerformLeOp", payload)
-```
+No runtime configurations.
 
 RFC parameters (queried via `rfcapi.h`) control audio-in service state and HID gamepad enable at runtime without daemon restart.
 
 ### Configuration Persistence
 
 The following are persisted in `btmgrPersist.json` across reboots by `btrMgr_persistIface.c`:
+
 - Adapter ID
 - Per-profile paired device list (up to `BTRMGR_MAX_PERSISTENT_PROFILE_COUNT = 5` profiles, `BTRMGR_MAX_PERSISTENT_DEVICE_COUNT = 5` devices each)
 - Per-device connection status and last-connected flag
