@@ -1,10 +1,10 @@
 # Bluetooth (btr-core)
 
-`btr-core` is a C library that implements the Bluetooth HAL for RDK middleware. It provides a software abstraction layer that interfaces with the BlueZ Bluetooth stack through DBus or GDBus, isolating callers from BlueZ version differences and DBus protocol details. The library is not a standalone daemon; it is linked into a host process (such as a Bluetooth Manager application) that calls `BTRCore_Init()` to obtain a handle and drives the library's event loop through registered callbacks.
+`btr-core` is a C library that implements the Bluetooth HAL for RDK middleware. It provides a software abstraction layer that interfaces with the BlueZ Bluetooth stack through DBus, isolating callers from BlueZ version differences and DBus protocol details. The library is not a standalone daemon; it is linked into a host process (such as a Bluetooth Manager application) that initializes it to obtain a handle and drives event handling through registered callbacks.
 
-At the device stack level, `btr-core` exposes APIs for adapter lifecycle, device discovery, pairing, connection, audio/video media session management (A2DP/AVRCP), and Bluetooth Low Energy (GATT) operations. It supports up to `BTRCORE_MAX_NUM_BT_ADAPTERS = 4` adapters, up to `BTRCORE_MAX_NUM_BT_DEVICES = 64` paired devices, and up to `BTRCORE_MAX_NUM_BT_DISCOVERED_DEVICES = 128` concurrently scanned devices.
+`btr-core` exposes APIs for adapter lifecycle, device discovery, pairing, connection, audio/video media session management (A2DP/AVRCP), and Bluetooth Low Energy (GATT) operations. It supports multiple adapters, a pool of paired devices, and a larger set of concurrently scanned devices.
 
-At the module level, `btrCore.c` coordinates adapter and device state, two internal GLib task queues for decoupled event dispatch, and sub-handles for AV media (`btrCore_avMedia`) and Low Energy/GATT (`btrCore_le`). The Bt-Ifce layer (`btrCore_bt_ifce`) abstracts BlueZ4, BlueZ5 (DBus), and BlueZ5 (GDBus) into a single interface selected at build time.
+Internally, the library coordinates adapter and device state through a central module, using decoupled event queues to separate BlueZ signal dispatch from host-process callback delivery. Dedicated sub-modules handle AV media (A2DP/AVRCP/HFP) and Low Energy/GATT operations. A transport-abstraction layer isolates the rest of the library from the specific DBus binding in use.
 
 ```mermaid
 flowchart LR
@@ -40,13 +40,13 @@ BTRCore -->|fPtr_BTRCore_* callbacks| BtMgr
 
 **Key Features & Responsibilities:**
 
-- **Adapter management**: Provides APIs to enumerate, select, power, name, enable discoverable state, reset, and query version of Bluetooth adapters (`BTRCore_GetListOfAdapters`, `BTRCore_SetAdapterPower`, `BTRCore_SetAdapterDiscoverable`, `BTRCore_EnableAdapter`, `BTRCore_GetVersionInfo`).
-- **Device discovery, pairing, and connection**: Provides `BTRCore_StartDiscovery` / `BTRCore_StopDiscovery` for scanned-device collection, `BTRCore_PairDevice` / `BTRCore_UnPairDevice` for pairing, and `BTRCore_ConnectDevice` / `BTRCore_DisconnectDevice` for connection lifecycle.
-- **A/V media session management**: `btrCore_avMedia` handles A2DP sink/source and HFP media endpoint registration, codec negotiation (SBC, MPEG, AAC defined in `a2dp-codecs.h`), AVRCP transport paths, and media player/browser AVRCP metadata and control commands.
-- **Bluetooth Low Energy (GATT)**: `btrCore_le` manages GATT profile hierarchy (up to 16 profiles, 6 services, 28 characteristics, 6 descriptors per service), LE advertisement registration and release, GATT read/write/notify operations, and OTA firmware transfer helpers.
-- **Battery level monitoring**: A dedicated `btrCore_BatteryLevelThread` polls battery levels for connected devices on a configurable interval (`batteryLevelRefreshInterval`), with threshold-based low-battery detection at `BTRCORE_LOW_BATTERY_THRESHOLD = 10`.
-- **Callback-based event dispatch**: Five registered callback types (`fPtr_BTRCore_DeviceDiscCb`, `fPtr_BTRCore_StatusCb`, `fPtr_BTRCore_MediaStatusCb`, `fPtr_BTRCore_ConnIntimCb`, `fPtr_BTRCore_ConnAuthCb`) deliver events to the host process without blocking the BlueZ DBus dispatch thread.
-- **Telemetry integration**: `bt-telemetry.c` wraps `t2_init`, `t2_event_s`, `t2_event_d`, and `t2_event_f` from `libtelemetry_msgsender`, enabled or stubbed out at build time.
+- **Adapter management**: Provides APIs to enumerate, select, power on/off, rename, enable discoverable state, reset, and query version information for Bluetooth adapters.
+- **Device discovery, pairing, and connection**: Supports scanning for nearby devices, pairing and unpairing, and managing the full connection lifecycle for both classic and LE devices.
+- **A/V media session management**: Handles A2DP sink/source and HFP media endpoint registration, codec negotiation (SBC, MPEG, AAC), AVRCP transport paths, and media player metadata and control commands.
+- **Bluetooth Low Energy (GATT)**: Manages GATT profile hierarchies, LE advertisement registration and release, GATT read/write/notify operations, and OTA firmware transfer.
+- **Battery level monitoring**: Periodically polls battery levels for connected devices and delivers low-battery threshold notifications to the host process.
+- **Callback-based event dispatch**: Delivers device discovery, status, media, connection intimation, and connection authorization events to the host process through registered callbacks, without blocking the BlueZ DBus dispatch path.
+- **Telemetry integration**: Optionally reports Bluetooth events to the platform telemetry service, enabled or disabled at build time.
 
 ---
 
