@@ -1,4 +1,4 @@
-# bluetooth
+# Bluetooth
 
 `btr-core` is a C library that implements the Bluetooth HAL for RDK middleware. It provides a software abstraction layer that interfaces with the BlueZ Bluetooth stack through DBus, isolating callers from BlueZ version differences and DBus protocol details. The library is not a standalone daemon; it is linked into a host process (such as a Bluetooth Manager application) that initializes it to obtain a handle and drives event handling through registered callbacks.
 
