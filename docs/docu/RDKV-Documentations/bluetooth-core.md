@@ -1,4 +1,4 @@
-# Bluetooth (btr-core)
+# bluetooth
 
 `btr-core` is a C library that implements the Bluetooth HAL for RDK middleware. It provides a software abstraction layer that interfaces with the BlueZ Bluetooth stack through DBus, isolating callers from BlueZ version differences and DBus protocol details. The library is not a standalone daemon; it is linked into a host process (such as a Bluetooth Manager application) that initializes it to obtain a handle and drives event handling through registered callbacks.
 
@@ -36,8 +36,6 @@ BtIfce -->|callbacks| BTRCore
 BTRCore -->|Callbacks| BtMgr
 ```
 
-> **Note:** No IARM Bus, Thunder/WPEFramework `IPlugin`, or `JSONRPC` interfaces are implemented in this source folder. The library is consumed by a host process directly via its C API.
-
 **Key Features & Responsibilities:**
 
 - **Adapter management**: Provides APIs to enumerate, select, power on/off, rename, enable discoverable state, reset, and query version information for Bluetooth adapters.
@@ -46,7 +44,7 @@ BTRCore -->|Callbacks| BtMgr
 - **Bluetooth Low Energy (GATT)**: Manages GATT profile hierarchies, LE advertisement registration and release, GATT read/write/notify operations, and OTA firmware transfer.
 - **Battery level monitoring**: Periodically polls battery levels for connected devices and delivers low-battery threshold notifications to the host process.
 - **Callback-based event dispatch**: Delivers device discovery, status, media, connection intimation, and connection authorization events to the host process through registered callbacks, without blocking the BlueZ DBus dispatch path.
-- **Telemetry integration**: Optionally reports Bluetooth events to the platform telemetry service, enabled or disabled at build time.
+- **Telemetry integration**: Reports Bluetooth events to the platform telemetry service via T2 markers.
 
 ---
 
@@ -54,11 +52,11 @@ BTRCore -->|Callbacks| BtMgr
 
 The library is structured as a three-layer stack: the `BTRCore` API layer in `btrCore.c`, a sub-module layer (`btrCore_avMedia`, `btrCore_le`), and a transport-abstraction layer (`Bt-Ifce`). The top layer maintains all device and adapter state in the opaque `stBTRCoreHdl` structure allocated at `BTRCore_Init()`. Incoming DBus/GDBus events from BlueZ are received on the Bt-Ifce callback thread and enqueued onto a GLib asynchronous queue (`pGAQueueRunTask`) for processing in a dedicated `btrCore_RunTask` GThread. Processed events that need to be surfaced to the host process are similarly queued onto `pGAQueueOutTask` and dispatched by `btrCore_OutTask`, decoupling DBus dispatch latency from host-process callback execution. Device identity is represented by a `tBTRCoreDevId` derived from the device MAC address via `btrCore_GenerateUniqueDeviceID`. Known (paired) devices are stored in `stKnownDevicesArr` and scanned devices in `stScannedDevicesArr`, each tracked with a parallel `stBTRCoreDevStateInfo` array.
 
-Northbound interaction is exclusively through C function calls: the host process calls `BTRCore_*` functions and receives asynchronous events via function pointer callbacks. Southbound interaction is through DBus method calls and signal subscriptions to BlueZ's `org.bluez.*` interfaces (`Adapter1`, `Device1`, `AgentManager1`, `Media1`, `MediaTransport1`, `MediaPlayer1`, `GattManager1`, `LEAdvertisingManager1`, `Battery1`, etc.) implemented in `btrCore_dbus_bluez5.c` or `btrCore_gdbus_bluez5.c` depending on the build configuration.
+Northbound, the host process calls `BTRCore_*` functions and receives asynchronous events via function pointer callbacks. Southbound interaction is through DBus method calls and signal subscriptions to BlueZ's `org.bluez.*` interfaces (`Adapter1`, `Device1`, `AgentManager1`, `Media1`, `MediaTransport1`, `MediaPlayer1`, `GattManager1`, `LEAdvertisingManager1`, `Battery1`, etc.) implemented in `btrCore_dbus_bluez5.c` or `btrCore_gdbus_bluez5.c` depending on the build configuration.
 
-IPC mechanisms: DBus (via `libdbus-1`) or GDBus (via `gio-2.0` / `gio-unix-2.0`) to communicate with `bluetoothd`. There is no inter-process mechanism between `btr-core` and its host process beyond direct C function calls and registered callbacks. UNIX domain socket connections are not used by this library.
+DBus (via `libdbus-1`) or GDBus (via `gio-2.0` / `gio-unix-2.0`) is used to communicate with `bluetoothd`. The host process interacts with `btr-core` exclusively through direct C function calls and registered callbacks.
 
-Data persistence: No persistent key-value store, database, or configuration files are read or written at runtime. The known-device list is populated at init time by querying BlueZ's paired-device list via DBus. No state is persisted by the library itself across process restarts.
+The known-device list is populated at init time by querying BlueZ's paired-device list via DBus.
 
 ```mermaid
 graph TD
@@ -67,7 +65,7 @@ subgraph Lib["btr-core library (C)"]
     BTRCoreAPI["btrCore.c\nBTRCore_* public API\nstBTRCoreHdl state store"]
     RunTask["btrCore_RunTask (GThread)\nProcesses incoming BT events\nfrom GAsyncQueue"]
     OutTask["btrCore_OutTask (GThread)\nDispatches events to host\nvia fPtr callbacks"]
-    BattThread["btrCore_BatteryLevelThread (GThread)\nPeriodicbattery level polling"]
+    BattThread["btrCore_BatteryLevelThread (GThread)\nPeriodic battery level polling"]
     HidThread["btrCore_HidNameWaitTimeoutThread (GThread)\nTimeout for HID name resolution"]
     AVMedia["btrCore_avMedia\nA2DP / AVRCP / HFP\ncodec negotiation"]
     LEMod["btrCore_le\nGATT profile tree\nLE advertisement"]
@@ -96,31 +94,27 @@ OutTask -->|Callbacks| HostProc
 
 ### Threading Model
 
-- **Threading Architecture**: Multi-threaded, event-driven; all GLib-based threads.
+- **Threading Architecture**: Multi-threaded, event-driven architecture using GLib-based threads.
 - **Main Thread**: Calls `BTRCore_Init()` and `BTRCore_*` API functions. Registers callbacks and submits operations.
 - **Worker Threads**:
-  - _`btrCore_RunTask`_ (`GThread`): Dequeues tasks from `pGAQueueRunTask`; processes incoming adapter status, device discovery/removal/loss, device status, media status, connection intimation, authentication, and modalias update events from the Bt-Ifce callbacks.
-  - _`btrCore_OutTask`_ (`GThread`): Dequeues tasks from `pGAQueueOutTask`; invokes the host-process-registered callback functions (`fpcBBTRCoreDeviceDisc`, `fpcBBTRCoreStatus`, `fpcBBTRCoreMediaStatus`, `fpcBBTRCoreConnIntim`, `fpcBBTRCoreConnAuth`).
-  - _`btrCore_BatteryLevelThread`_ (`GThread`): Sleeps on `batteryLevelCond` (GMutex/GCond); wakes periodically at `batteryLevelRefreshInterval` to query battery levels for connected devices via GATT; exits on `batteryLevelThreadExit`.
-  - _`btrCore_HidNameWaitTimeoutThread`_ (`GThread`, per-device): Waits `BTRCORE_HID_NAME_WAIT_TIMEOUT_SEC = 7` seconds for a HID controller name to be resolved after connection; cancels or confirms pending name information in `stPendingHidNameInfo`.
-- **Synchronization**: `GMutex` + `GCond` for battery thread coordination and HID name wait; `GAsyncQueue` (internally lock-free) for task hand-off between Bt-Ifce callback thread and RunTask/OutTask threads.
-- **Async / Event Dispatch**: BlueZ events arrive as DBus signal callbacks in the Bt-Ifce layer; these callbacks post `stBTRCoreTaskGAqData` items to `pGAQueueRunTask`. RunTask processes and posts to `pGAQueueOutTask`. OutTask invokes the host-registered callback. This two-queue chain keeps the DBus dispatch thread free.
+  - _`btrCore_RunTask`_ (`GThread`): Dequeues tasks from `pGAQueueRunTask`. It processes incoming adapter status, device discovery/removal/loss, device status, media status, connection intimation, authentication, and modalias update events from the Bt-Ifce callbacks.
+  - _`btrCore_OutTask`_ (`GThread`): Dequeues tasks from `pGAQueueOutTask`. It invokes the host-process-registered callback functions (`fpcBBTRCoreDeviceDisc`, `fpcBBTRCoreStatus`, `fpcBBTRCoreMediaStatus`, `fpcBBTRCoreConnIntim`, `fpcBBTRCoreConnAuth`).
+  - _`btrCore_BatteryLevelThread`_ (`GThread`): Sleeps on `batteryLevelCond` (GMutex/GCond), wakes periodically at `batteryLevelRefreshInterval` to query battery levels for connected devices via GATT, and exits on `batteryLevelThreadExit`.
+  - _`btrCore_HidNameWaitTimeoutThread`_ (`GThread`, per-device): Waits `BTRCORE_HID_NAME_WAIT_TIMEOUT_SEC = 7` seconds for a HID controller name to be resolved after connection. It cancels or confirms pending name information in `stPendingHidNameInfo`.
+- **Synchronization**: `GMutex` + `GCond` for battery thread coordination and HID name wait. `GAsyncQueue` (internally lock-free) is used for task hand-off between the Bt-Ifce callback thread and RunTask/OutTask threads.
+- **Async / Event Dispatch**: BlueZ events arrive as DBus signal callbacks in the Bt-Ifce layer. These callbacks post `stBTRCoreTaskGAqData` items to `pGAQueueRunTask`. RunTask processes and posts to `pGAQueueOutTask`. OutTask invokes the host-registered callback. This two-queue chain keeps the DBus dispatch thread free.
 
 ### RDK-V Platform and Integration Requirements
 
-- **Build Dependencies**: C toolchain; autoconf >= 2.69, automake, libtool; `dbus-1` (required, all modes); `glib-2.0 >= 2.32.0` (bluez4/bluez5 modes); `glib-2.0 >= 2.58.0` + `gio-2.0` + `gio-unix-2.0` + `libffi >= 3.0.0` + `gdbus-codegen` (gdbus_bluez5 mode); `bluetooth/audio/a2dp-codecs.h` from BlueZ source; optional `libbluetooth-dev` for `bluetooth/bluetooth.h` (bluez5 mode).
-- **Plugin Dependencies**: None.
+- **Build Dependencies**: C toolchain; autoconf >= 2.69, automake, libtool; `dbus-1` (required); `bluez5` (required, resolved from `DISTRO_FEATURES` via the `BLUEZ` variable); `rdk-logger` (required); `telemetry` (required); `glib-2.0 >= 2.58.0` + `gio-2.0` + `gio-unix-2.0` + `libffi >= 3.0.0` + `gdbus-codegen` + `glib-2.0-native` (when `gdbus_bluez5` is in `DISTRO_FEATURES`); `safec` (when `safec` is in `DISTRO_FEATURES`); `bluetooth/audio/a2dp-codecs.h` from BlueZ source.
 - **Device Services / HAL**: BlueZ daemon (`bluetoothd`) must be running and reachable on the system DBus.
-- **IARM Bus**: Not used.
-- **Systemd Services**: `bluetoothd` must be running. No systemd service file is provided by this component.
-- **Configuration Files**: None parsed at runtime.
-- **Startup Order**: `bluetoothd` must be available before `BTRCore_Init()` is called; the library queries BlueZ for adapters and paired devices at init time.
-- **Optional build flags**:
-  - `--enable-btr-ifce=bluez4|bluez5|gdbus_bluez5` — selects Bt-Ifce backend.
-  - `--enable-leonly=yes` — builds with `LE_MODE` defined, disabling A/V media code paths.
-  - `--enable-rdk-logger=yes` — links `librdkloggers` and enables `RDK_LOGGER_ENABLED`.
-  - `--enable-telemetry=yes|no` — links `libtelemetry_msgsender` for T2 event reporting.
-  - `--enable-safec=yes` — links `libsafec`; otherwise uses `SAFEC_DUMMY_API` stubs.
+- **Systemd Services**: `bluetoothd` must be running.
+- **Startup Order**: `bluetoothd` must be available before `BTRCore_Init()` is called. The library queries BlueZ for adapters and paired devices at init time.
+- **Build flags** (from `EXTRA_OECONF`):
+  - `--enable-btr-ifce=bluez5|gdbus_bluez5` — selects Bt-Ifce backend. `gdbus_bluez5` is selected when `gdbus_bluez5` is in `DISTRO_FEATURES`, otherwise `bluez5` when `bluez5` is in `DISTRO_FEATURES`.
+  - `--enable-unsupportedgamepad=yes|no` — enables/disables unsupported Bluetooth gamepad support. Defaults to `yes` unless `disable_unsupported_gamepad` is in `DISTRO_FEATURES`.
+  - `--enable-rdk-logger=yes|no` — links `librdkloggers` and enables `RDK_LOGGER_ENABLED` when `rdk-logger` is present in runtime dependencies (`RDEPENDS`).
+  - `--enable-safec=yes|no` — links `libsafec` when `safec` is in `DISTRO_FEATURES`, otherwise uses `SAFEC_DUMMY_API` stubs.
 
 ---
 
@@ -164,17 +158,16 @@ sequenceDiagram
 
 **State Change Triggers:**
 
-- `BTRCore_PairDevice()` transitions a scanned device to `enBTRCoreDevStPaired`; failure leaves it at `enBTRCoreDevStFound`.
-- `BTRCore_ConnectDevice()` transitions a known device through `enBTRCoreDevStConnecting` → `enBTRCoreDevStConnected`; `BTRCore_DisconnectDevice()` transitions it through `enBTRCoreDevStDisconnecting` → `enBTRCoreDevStDisconnected`.
+- `BTRCore_PairDevice()` transitions a scanned device to `enBTRCoreDevStPaired`. On failure, the device remains at `enBTRCoreDevStFound`.
+- `BTRCore_ConnectDevice()` transitions a known device through `enBTRCoreDevStConnecting` → `enBTRCoreDevStConnected`. `BTRCore_DisconnectDevice()` transitions it through `enBTRCoreDevStDisconnecting` → `enBTRCoreDevStDisconnected`.
 - `enBTRCoreDevStPlaying` is set when an A2DP/AVRCP transport path becomes active.
-- `enBTRCoreDevStLost` is set when BlueZ reports a device has disappeared from scan results; `enBTRCoreDevStUnpaired` is set on unpairing.
+- `enBTRCoreDevStLost` is set when BlueZ reports a device has disappeared from scan results. `enBTRCoreDevStUnpaired` is set on unpairing.
 - Connection intimation (`fPtr_BTRCore_ConnIntimCb`) and authentication (`fPtr_BTRCore_ConnAuthCb`) callbacks give the host process the opportunity to accept or reject incoming connection and pairing requests.
 
 **Context Switching Scenarios:**
 
-- LE-only build (`--enable-leonly=yes`) compiles out `btrCore_avMedia` and all A/V media paths; only GATT/LE operations are available.
-- `btrCore_CheckLeHidConnectionStability()` tracks disconnect timestamps (`disconnect_ts`, `last_disconnect_ts`) on `stBTRCoreBTDevice` to detect unstable LE HID connections and calls `btrCore_RemoveUnstableDeviceFromActionList()` to suppress reconnect attempts.
-- HID controller name resolution uses `stPendingHidNameInfo` and a per-device timeout thread (`btrCore_HidNameWaitTimeoutThread`, `BTRCORE_HID_NAME_WAIT_TIMEOUT_SEC = 7`) because BlueZ may deliver the name asynchronously after the connection event.
+- Unstable LE HID connections are detected by monitoring disconnect timestamps. When instability is identified, reconnect attempts are suppressed to prevent connection thrashing.
+- HID controller name resolution is handled asynchronously using a per-device timeout of 7 seconds, as BlueZ may deliver the device name after the connection event.
 
 ---
 
@@ -228,12 +221,11 @@ sequenceDiagram
 | Module / Class                   | Description                                                                                                                                                                                                                                                                                                                                                                                  | Key Files                                                                                                                                      |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | `btrCore`                        | Main BTRCore API implementation. Manages `stBTRCoreHdl`, adapter and device state arrays, task queue threads, battery thread, and routes Bt-Ifce callbacks into the two-stage task dispatch pipeline.                                                                                                                                                                                        | [src/btrCore.c](src/btrCore.c), [include/btrCore.h](include/btrCore.h)                                                                         |
-| `btrCore_avMedia`                | Audio/Video media session management. Handles A2DP media endpoint registration with BlueZ, SBC/MPEG/AAC codec capability negotiation, A2DP transport path acquisition, and AVRCP player/browser path callbacks. Guarded by `#ifndef LE_MODE`.                                                                                                                                                | [src/btrCore_avMedia.c](src/btrCore_avMedia.c), [include/btrCore_avMedia.h](include/btrCore_avMedia.h)                                         |
+| `btrCore_avMedia`                | Audio/Video media session management. Handles A2DP media endpoint registration with BlueZ, SBC/MPEG/AAC codec capability negotiation, A2DP transport path acquisition, and AVRCP player/browser path callbacks.                                                                                                                                                | [src/btrCore_avMedia.c](src/btrCore_avMedia.c), [include/btrCore_avMedia.h](include/btrCore_avMedia.h)                                         |
 | `btrCore_le`                     | Bluetooth Low Energy / GATT implementation. Maintains the GATT profile tree (up to `BTR_MAX_GATT_PROFILE = 16` profiles, `BTR_MAX_GATT_SERVICE = 6` services, `BTR_MAX_GATT_CHAR = 28` characteristics, `BTR_MAX_GATT_DESC = 6` descriptors). Provides LE advertisement registration/release, GATT read/write/notify operations, and OTA transfer helpers (`BtrCore_LE_BatteryOTATransfer`). | [src/btrCore_le.c](src/btrCore_le.c), [include/btrCore_le.h](include/btrCore_le.h)                                                             |
 | `Bt-Ifce (btrCore_dbus_bluez5)`  | DBus/BlueZ5 transport layer. Connects to the system DBus, proxies all `org.bluez.*` method calls, and registers DBus message filter handlers for `org.freedesktop.DBus.ObjectManager` signals and property change events. Selected with `--enable-btr-ifce=bluez5`.                                                                                                                          | [src/bt-ifce/btrCore_dbus_bluez5.c](src/bt-ifce/btrCore_dbus_bluez5.c), [include/bt-ifce/btrCore_bt_ifce.h](include/bt-ifce/btrCore_bt_ifce.h) |
 | `Bt-Ifce (btrCore_gdbus_bluez5)` | GDBus/BlueZ5 transport layer. Uses GLib GDBus bindings generated by `gdbus-codegen` for type-safe BlueZ interface proxies. Selected with `--enable-btr-ifce=gdbus_bluez5`.                                                                                                                                                                                                                   | [src/bt-ifce/btrCore_gdbus_bluez5.c](src/bt-ifce/btrCore_gdbus_bluez5.c)                                                                       |
-| `Bt-Ifce (btrCore_dbus_bluez4)`  | DBus/BlueZ4 transport layer. Legacy BlueZ4 interface. Selected with `--enable-btr-ifce=bluez4` (default).                                                                                                                                                                                                                                                                                    | [src/bt-ifce/btrCore_dbus_bluez4.c](src/bt-ifce/btrCore_dbus_bluez4.c)                                                                         |
-| `bt-telemetry`                   | Thin wrapper for T2 telemetry reporting. Provides `telemetry_init()`, `telemetry_event_s()`, `telemetry_event_d()`, `telemetry_event_f()`. When built without `HAVE_TELEMETRY_MSGSENDER`, all calls are stubbed.                                                                                                                                                                             | [src/bt-telemetry.c](src/bt-telemetry.c)                                                                                                       |
+| `bt-telemetry`                   | Thin wrapper for T2 telemetry reporting. Provides `telemetry_init()`, `telemetry_event_s()`, `telemetry_event_d()`, `telemetry_event_f()`. `telemetry` is a required build dependency (always linked via `DEPENDS`).                                                                                                                                                                         | [src/bt-telemetry.c](src/bt-telemetry.c)                                                                                                       |
 | `btrCore_service`                | Header-only UUID/service string definitions. Maps Bluetooth SDP UUIDs (A2DP source/sink, AVRCP, HFP, Headset, GATT, Tile, Battery, etc.) to shorthand name constants used in UUID-to-service classification logic.                                                                                                                                                                           | [include/btrCore_service.h](include/btrCore_service.h)                                                                                         |
 
 ---
@@ -251,7 +243,7 @@ sequenceDiagram
 
 ### Events Published
 
-No IARM or JSON-RPC events are published. Outbound notifications are delivered synchronously to the host process via registered C function pointer callbacks:
+Outbound notifications are delivered synchronously to the host process via registered C function pointer callbacks:
 
 | Callback Type                | Trigger Condition                                                                                                                   | Data Structure               |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
@@ -305,7 +297,7 @@ sequenceDiagram
 
 ### Major HAL APIs Integration
 
-This component does not call a Device Services (DS) HAL. All southbound calls go directly to BlueZ over DBus/GDBus. The key BlueZ interfaces invoked are listed below; all calls are made from within the Bt-Ifce layer.
+All southbound calls go directly to BlueZ over DBus/GDBus. The key BlueZ interfaces invoked are listed below. All calls are made from within the Bt-Ifce layer.
 
 | BlueZ Interface / Method                                                            | Purpose                                                                    | Implementation File                                                    |
 | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
@@ -323,7 +315,6 @@ This component does not call a Device Services (DS) HAL. All southbound calls go
 
 - **State / Lifecycle Management**:
   - Device state transitions are tracked in `stBTRCoreDevStateInfo.eDevicePrevState` / `eDeviceCurrState` arrays parallel to `stKnownDevicesArr` and `stScannedDevicesArr`.
-  - State transition logic is in [src/btrCore.c](src/btrCore.c) within `btrCore_RunTask`.
   - Device IDs are generated deterministically from MAC address via `btrCore_GenerateUniqueDeviceID()` so they are stable across discovery sessions.
 
 - **Event Processing**:
@@ -332,22 +323,18 @@ This component does not call a Device Services (DS) HAL. All southbound calls go
   - Events destined for the host are posted to `pGAQueueOutTask` and dispatched by `btrCore_OutTask`.
 
 - **Error Handling Strategy**:
-  - All public API functions return `enBTRCoreRet`; failure codes include `enBTRCoreFailure`, `enBTRCoreInitFailure`, `enBTRCoreNotInitialized`, `enBTRCoreInvalidAdapter`, `enBTRCorePairingFailed`, `enBTRCoreDiscoveryFailure`, `enBTRCoreDeviceNotFound`, `enBTRCoreInvalidArg`.
+  - All public API functions return `enBTRCoreRet`. Failure codes include `enBTRCoreFailure`, `enBTRCoreInitFailure`, `enBTRCoreNotInitialized`, `enBTRCoreInvalidAdapter`, `enBTRCorePairingFailed`, `enBTRCoreDiscoveryFailure`, `enBTRCoreDeviceNotFound`, `enBTRCoreInvalidArg`.
   - DBus errors in Bt-Ifce are handled by `btrCore_BTHandleDusError()` which logs the error name and message.
-  - REPORT_IF_UNEQUAL macro is used throughout to log unexpected return codes without aborting.
+  - Unexpected return codes are logged with diagnostic context and do not cause execution to abort.
 
 - **Logging & Diagnostics**:
   - When built with `--enable-rdk-logger=yes` and `RDK_LOGGER_ENABLED` defined, logging uses `rdk_debug.h` macros.
-  - Without RDK logger, `BTRCORELOG_INFO`, `BTRCORELOG_WARN`, `BTRCORELOG_ERROR`, `BTRCORELOG_DEBUG` macros defined in `btrCore_logger.h` are used.
+  - Without RDK logger, the built-in `BTRCORELOG_INFO`, `BTRCORELOG_WARN`, `BTRCORELOG_ERROR`, and `BTRCORELOG_DEBUG` log macros are used.
   - Telemetry events for key operational milestones are emitted via `bt-telemetry.c` wrappers.
 
 ---
 
 ## Configuration
-
-### Key Configuration Files
-
-No runtime configurations.
 
 ### Key Configuration Parameters
 
@@ -363,10 +350,6 @@ No runtime configurations.
 | `BT_MAX_NUM_GATT_SERVICE`               | `int` constant       | `6`     | Maximum GATT services per profile in the LE sub-module. Defined in [include/bt-ifce/btrCore_bt_ifce.h](include/bt-ifce/btrCore_bt_ifce.h). |
 | `BT_MAX_NUM_GATT_CHAR`                  | `int` constant       | `28`    | Maximum GATT characteristics per service. Defined in [include/bt-ifce/btrCore_bt_ifce.h](include/bt-ifce/btrCore_bt_ifce.h).               |
 
-### Runtime Configuration
-
-There is no runtime configuration API, CLI, or file mechanism in this library. All behavioral parameters are compile-time constants. Build-time feature selection (Bt-Ifce backend, LE-only mode, RDK logger, telemetry, safec) is controlled via `configure` flags.
-
 ### Configuration Persistence
 
-Configuration changes are not persisted across reboots. The library does not write any state to storage.
+All configuration parameters are runtime values that apply for the lifetime of the process.
