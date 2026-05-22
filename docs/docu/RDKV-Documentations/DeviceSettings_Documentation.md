@@ -202,7 +202,7 @@ Device Settings is a single-threaded library with thread-safe initialization. Th
 
 - **Synchronization**: Initialization uses a std::mutex (gManagerInitMutex) to protect concurrent access to the IsInitialized state. IarmImpl uses per-callback-list mutexes (m_mutex) to protect the listener registration data structures from concurrent modification during Register, Unregister, and notification dispatch operations.
 
-### RDK-V Platform and Integration Requirements
+### Platform and Integration Requirements
 
 - **Build Dependencies**: 
   - Yocto recipe dependencies: `json-c`, `iarmbus`, `rdk-logger`, `virtual/vendor-devicesettings-hal`, `devicesettings-hal-headers`, `safec-common-wrapper`, `rfc`, `wdmp-c`, `telemetry`, `glib-2.0 >= 2.24.0`, `gthread-2.0 >= 2.24.0`, `dbus-1`, `direct`, `fusion`
@@ -674,6 +674,7 @@ Device Settings does not use traditional text-based configuration files. Configu
 | Configuration File | Purpose | Override Mechanism |
 | ------------------ | ------- | ------------------ |
 | N/A - HAL Library Symbols (`libds-hal.so.0`) | Device-specific configurations (supported resolutions, audio encodings, port types, front panel capabilities) are embedded in the HAL implementation as exported symbols (`kAudioConfigs`, `kVideoPortConfigs`, `kVideoDeviceConfigs`, `kFPDIndicatorColors`, `kIndicators`, `kFPDTextDisplays`, etc.). Device Settings opens the HAL library using `dlopen("libds-hal.so.0", RTLD_LAZY)` and loads these symbols using `dlsym()` during `loadDeviceCapabilities()` in Manager::Initialize(). | Configuration is compiled into the HAL library as exported symbols. Changes require HAL library rebuild and Device Settings reinitialization (or device reboot). |
+
 | Parameter | Type | Default | Description |
 | --------- | ---- | ------- | ----------- |
 | `numSupportedResolutions` | int | Platform-specific | Number of video resolutions supported by the platform. Loaded from `videoOutputPortConfig_t`. |
