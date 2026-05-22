@@ -1,4 +1,4 @@
-# Bluetooth_mgr (btr-mgr)
+# Bluetoothmgr
 
 `btr-mgr` is the Bluetooth Manager daemon for RDK middleware. It runs as a background process and manages all Bluetooth services on the device. It interfaces with the `btr-core` library (which communicates with BlueZ over DBus), and exposes its control API northbound over either IARM Bus or RBus — selected at build time. The daemon manages device discovery, pairing, connection, A/V audio streaming (A2DP), audio capture, HID gamepad connections, Bluetooth Low Energy operations, and a persistent device registry.
 
@@ -7,26 +7,29 @@
 Internally, a core state machine drives all device lifecycle and session management, using timer-based retry and hold-off logic for robustness. Northbound IPC handlers act as thin pass-through layers that validate initialization state and forward calls to the core API. Dedicated subsystems provide A2DP audio streaming via GStreamer, audio capture via the platform audio subsystem, persistent device storage, system diagnostics, LE onboarding, and LE battery service management.
 
 ```mermaid
-flowchart LR
+flowchart TB
 
 classDef Apps stroke:#00B9F1,fill:#E6F7FD,stroke-width:2px;
 classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px;
 classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 
 subgraph Apps["Apps & Runtimes"]
+    direction LR
     RDKApps["RDK Applications"]
     HTMLCtrl["btrMgrHTMLControl\n(FastCGI on port 9625)"]
 end
 
 subgraph RDKMW["RDK Core Middleware"]
+    direction LR
     BTRMGR["btMgrBus\n(bluetooth_mgr daemon)"]
     IARMBUS["IARM Bus"]
     BTRCore["btr-core library\n(BTRCore API)"]
     ACM["audiocapturemgr\n(optional)"]
-    PowerMgr["wpeframework-powermanager"]
+    PowerMgr["wpeframework\npowermanager"]
 end
 
 subgraph VL["Vendor Layer"]
+    direction LR
     BlueZ["bluetoothd (BlueZ)"]
     GST["GStreamer pipeline\n(A2DP stream-out)"]
     RMF["RMF AudioCapture\n(optional)"]
@@ -58,13 +61,13 @@ PowerMgr -->|power state events| BTRMGR
 
 ## Design
 
-`btr-mgr` is designed as a single-process daemon with a GLib main loop for timer-driven operations and separate per-operation GThreads for blocking activities. The core state machine in `btrMgr.c` holds all module handles (`ghBTRCoreHdl`, `ghBTRMgrPiHdl`, `ghBTRMgrSdHdl`, streaming handle, discovery handles) as process-global statics and uses GLib timeout sources (volatile `guint` timer references) for retry logic, hold-off delays, and deferred state transitions. Northbound IPC (IARM or RBus) is separated into `src/rpc/` files which act as thin pass-through layers that validate initialization state and forward calls to `BTRMGR_*` functions.
+`btr-mgr` is designed as a single-process daemon with a GLib main loop for timer-driven operations and separate per-operation GThreads for blocking activities. The core state machine in `btrMgr.c` holds all module handles (`ghBTRCoreHdl`, `ghBTRMgrPiHdl`, `ghBTRMgrSdHdl`, streaming handle, discovery handles) as process-level global state and uses timer sources for retry logic, hold-off delays, and deferred state transitions. Northbound IPC (IARM or RBus) is separated into `src/rpc/` files which act as thin pass-through layers that validate initialization state and forward calls to `BTRMGR_*` functions.
 
-Northbound interaction is over IARM Bus (`BTRMgr_BeginIARMMode()` registers IARM calls and connects to the bus) or RBus (`BTRMgr_BeginRBUSMode()`) depending on the build. Southbound interaction is through direct C API calls to the `libbtrCore` library (`BTRCore_Init`, `BTRCore_StartDiscovery`, `BTRCore_PairDevice`, `BTRCore_ConnectDevice`, etc.) and optionally to GStreamer APIs for audio and to `librmfAudioCapture` or IARM calls to `audiocapturemgr` for audio capture.
+Northbound interaction operates over IARM Bus (`BTRMgr_BeginIARMMode()` registers IARM calls and connects to the bus) or RBus (`BTRMgr_BeginRBUSMode()`) depending on the build. Southbound interaction operates through direct C API calls to the `libbtrCore` library (`BTRCore_Init`, `BTRCore_StartDiscovery`, `BTRCore_PairDevice`, `BTRCore_ConnectDevice`, etc.) and optionally to GStreamer APIs for audio and to `librmfAudioCapture` or IARM calls to `audiocapturemgr` for audio capture.
 
-IPC mechanisms in use: IARM Bus for northbound (IARM build) and for calling `audiocapturemgr`; RBus for northbound (RBus build) and for system diagnostics queries; GLib main loop timer sources for all deferred and retry operations internal to the daemon; GLib GThreads for blocking connection/authentication operations.
+The IPC mechanisms in use include IARM Bus for northbound (IARM build) and for calling `audiocapturemgr`, RBus for northbound (RBus build) and for system diagnostics queries, a main loop timer thread for all deferred and retry operations, and per-operation worker threads for blocking connection and authentication operations.
 
-Data persistence: `btrMgr_persistIface` reads and writes `btmgrPersist.json` using `libcjson`. The file is stored at `/opt/lib/bluetooth/btmgrPersist.json` when that directory is accessible, otherwise at `/opt/secure/lib/bluetooth/btmgrPersist.json`. It stores adapter ID, profile list, per-device connection status, last-connected device, and optionally persisted volume/mute values (`RDKTV_PERSIST_VOLUME` build flag).
+`btrMgr_persistIface` manages data persistence by reading and writing `btmgrPersist.json` using `libcjson`. The file is stored at `/opt/lib/bluetooth/btmgrPersist.json` when that directory is accessible, otherwise at `/opt/secure/lib/bluetooth/btmgrPersist.json`. It stores adapter ID, profile list, per-device connection status, last-connected device, and optionally persisted volume/mute values (`RDKTV_PERSIST_VOLUME` build flag).
 
 ```mermaid
 graph TD
@@ -118,32 +121,35 @@ SysDiag --> RBusDaemon
 
 ### Threading Model
 
-- **Threading Architecture**: Multi-threaded; GLib-based threads around a GLib main loop.
-- **Main Thread**: Waits for `hci0` to come up (`hciconfig hci0` polled up to `BT_HCI0_TIMEOUT = 30` seconds), calls `BTRMGR_Init()`, starts IPC mode, then loops on `sleep(10)` until `gbExitBTRMgr = true` on `SIGTERM`.
+- **Threading Architecture**: Multi-threaded with GLib-based threads around a GLib main loop.
+- **Main Thread**: Waits for `hci0` to come up (`hciconfig hci0` polled up to `BT_HCI0_TIMEOUT = 30` seconds), calls `BTRMGR_Init()`, starts IPC mode, then waits in a loop until a `SIGTERM` signal is received.
 - **Worker Threads**:
   - _`btrMgr_g_main_loop_Task`_ (`GThread`): Runs `g_main_loop_run()` on `gmainContext`. Processes all GLib timeout sources (retry timers, hold-off timers, deferred state change timers) registered by the core state machine.
   - _`btrMgr_incoming_auth_thread`_ (`GThread`, created per incoming connection/auth event): Handles incoming pairing/authentication requests from `btrCore_BTDeviceConnectionIntimationCb` or `btrCore_BTDeviceAuthenticationCb`. Protected by `gBtrMgrAuthMutex` (GMutex).
-  - _`btrMgr_reconnect_thread`_ (`GThread`, created per reconnect operation): Executes reconnection logic for devices after transient disconnections; uses `BTRMGR_ConnectionInformation_t` as thread data.
-- **Synchronization**: `GMutex gBtrMgrAuthMutex` for serializing incoming auth thread creation. GLib atomic operations for volatile `guint` timer reference tracking. No explicit mutex around the global device state arrays (marked as `TODO` in source).
-- **Async / Event Dispatch**: `btr-core` status callbacks (device status, media status, discovery, connection intimation/auth) are received in the `btrCore` OutTask thread and dispatched synchronously into `btrMgr.c` handler functions, which then post GLib timeout sources to the GLib main loop thread for deferred processing or create per-operation GThreads for blocking operations.
+  - _`btrMgr_reconnect_thread`_ (`GThread`, created per reconnect operation): Executes reconnection logic for devices after transient disconnections.
+- **Synchronization**: `GMutex gBtrMgrAuthMutex` for serializing incoming auth thread creation. GLib atomic operations for timer reference tracking.
+- **Async / Event Dispatch**: `btr-core` status callbacks (device status, media status, discovery, connection intimation/auth) are received in the `btrCore` event thread and dispatched into the core state machine handler functions, which schedule deferred processing on the main loop thread or spawn per-operation threads for blocking operations.
 
 ### RDK-V Platform and Integration Requirements
 
-- **Build Dependencies**: C toolchain; autoconf >= 2.69, automake, libtool; `libbtrCore` (required); `glib-2.0 >= 2.24.0`; `gthread-2.0 >= 2.24.0`; `libcjson >= 1.0`; optional `gstreamer-1.0 >= 1.4` + `gstreamer-base-1.0` (`--enable-gstreamer1`); optional `librmfAudioCapture` (`--enable-ac_rmf`); optional `audiocapturemgr_iarm.h` + IARM libs (`--enable-acm`); optional `libsystemd` (`--enable-systemd-notify`); `libsafec` or stub; `librbus` (`--enable-rbusrpc`); `libecdhlib` for LE onboarding; `libcurl`, `libcjson`, `liburlHelper` for SysDiag/LEOnboarding IARM builds.
-- **Plugin Dependencies**: None (no Thunder plugin).
+- **Build Dependencies**: Required (all platforms): `bluetooth-core` (`libbtrCore`), `cjson`, `wpeframework-clientlibraries`, `fcgi`, `rfc`, `rdk-logger`, `commonutilities`, `rdkfwupgrader`, `libsyswrapper`. Platform-specific build-time: `iarmbus` (client and hybrid platforms); `netsrvmgr` (client platform only, when `ENABLE_NETWORKMANAGER` distro feature is absent). Feature-conditional: `gstreamer1.0` + `gstreamer1.0-plugins-base` (when `gstreamer1` distro feature is set); `virtual/vendor-media-utils` + `audiocapturemgr` (client and hybrid platforms). Runtime dependencies (`RDEPENDS`): `bluetooth-core`, `cjson`, `rdk-logger`; `virtual/vendor-media-utils` and `audiocapturemgr` on client and hybrid platforms.
 - **Device Services / HAL**: `libbtrCore` must be present and BlueZ `bluetoothd` must be running. HCI adapter (`hci0`) must be up.
-- **IARM Bus**: Bus name `BTRMgrBus`; IARM method names defined in `btmgr_iarm_interface.h`. Subscribes to events from `audiocapturemgr` bus.
+- **IARM Bus**: Bus name `BTRMgrBus`. IARM method names are defined in `btmgr_iarm_interface.h`. Subscribes to events from the `audiocapturemgr` bus.
 - **Systemd Services**: `iarmbusd.service`, `bluetooth.service` (BlueZ), `audiocapturemgr.service`, and `wpeframework-powermanager.service` must all be running before `btmgr.service` starts.
 - **Configuration Files**: `btmgrPersist.json` (read/write at runtime, path resolved dynamically). RDK logger config at `/etc/debug.ini` or `/opt/debug.ini` (override).
-- **Startup Order**: Systemd `After=` / `Requires=` in `conf/btmgr.service` enforces startup order. The daemon additionally polls `hciconfig hci0` for up to `BT_HCI0_TIMEOUT = 30` seconds before proceeding.
-- **Optional build flags**:
-  - `--enable-rpc` → `IARM_RPC_ENABLED`: northbound IARM interface.
-  - `--enable-rbusrpc` → northbound RBus interface.
-  - `--enable-leonly` → `LE_MODE`: disables audio streaming; enables battery service.
-  - `--enable-ac_rmf` → direct RMF AudioCapture for audio-in.
-  - `--enable-acm` → IARM calls to `audiocapturemgr` for audio-in.
-  - `--enable-gstreamer1` → GStreamer 1.x for A2DP stream-out.
-  - `--enable-systemd-notify` → `ENABLE_SD_NOTIFY`: systemd `sd_notify` readiness signaling (`Type=notify` in service file).
+- **Startup Order**: Systemd `After=` / `Requires=` in `conf/btmgr.service` enforces startup order. A systemd drop-in (`btmgr.conf`) applies a configurable startup delay (default `BTMGR_STARTUP_DELAY = 3` seconds). The daemon additionally polls `hciconfig hci0` for up to `BT_HCI0_TIMEOUT = 30` seconds before proceeding.
+- **Build flags** (`EXTRA_OECONF`):
+  - `--enable-gstreamer1=yes/no` → GStreamer 1.x for A2DP stream-out; auto-set from `gstreamer1` distro feature.
+  - `--enable-safec=yes/no` → SafeC string library; auto-set from `safec` distro feature.
+  - `--enable-brcm-build=yes/no` → Broadcom PCM sink support; auto-set from `btr_bcm_pcm_sink` distro feature.
+  - `--enable-rpc` → northbound IARM interface (`IARM_RPC_ENABLED`); applied on client and hybrid platforms only.
+  - `--enable-acm=yes/no` → IARM calls to `audiocapturemgr` for audio-in; auto-detected from `audiocapturemgr` runtime dependency.
+  - `--enable-ac_rmf=yes/no` → direct RMF AudioCapture for audio-in; auto-detected from `virtual/vendor-media-utils` runtime dependency.
+  - `--enable-rdktv-build=yes` → RDK-TV build mode; always enabled.
+  - `--enable-rdk-logger=yes/no` → RDK logger integration; auto-detected from `rdk-logger` runtime dependency.
+  - `--enable-autoconnectfeature=yes` → automatic reconnection to last-paired audio device on startup; always enabled.
+  - `--enable-systemd-notify` → `ENABLE_SD_NOTIFY`: systemd `sd_notify` readiness signaling (`Type=notify` in service file); applied when `systemd` distro feature is set.
+  - `--enable-sys-diag` → system diagnostics queries (power state, QR code, mesh status); applied on client platforms only.
 
 ---
 
@@ -186,10 +192,10 @@ sequenceDiagram
 
 **State Change Triggers:**
 
-- Discovery start/stop changes `ghBTRMgrDiscoveryHdl.m_disStatus` through `BTRMGR_DISCOVERY_ST_STARTED` → `BTRMGR_DISCOVERY_ST_STOPPED`. A `BTRMGR_DISCOVERY_HOLD_OFF_TIME = 120` second hold-off prevents immediate restart.
+- Discovery state transitions through `BTRMGR_DISCOVERY_ST_STARTED` → `BTRMGR_DISCOVERY_ST_STOPPED`. A `BTRMGR_DISCOVERY_HOLD_OFF_TIME = 120` second hold-off prevents immediate restart.
 - Device pairing completion posts `BTRMGR_EVENT_DEVICE_PAIRING_COMPLETE` or `BTRMGR_EVENT_DEVICE_PAIRING_FAILED` to the registered `BTRMGR_EventCallback`. Pairing is retried up to `BTRMGR_PAIR_RETRY_ATTEMPTS = 10` times.
 - Connection completion posts `BTRMGR_EVENT_DEVICE_CONNECTION_COMPLETE` or `BTRMGR_EVENT_DEVICE_CONNECTION_FAILED`. Auto-reconnect is attempted up to `BTMGR_RECONNECTION_ATTEMPTS = 3` times after a hold-off of `BTMGR_RECONNECTION_HOLD_OFF = 3` seconds.
-- `BTRMGR_EVENT_DEVICE_OUT_OF_RANGE` is fired when a connected device is lost; a `BTRMGR_POST_OUT_OF_RANGE_HOLD_OFF_TIME = 6` second GLib timer guards against flapping.
+- `BTRMGR_EVENT_DEVICE_OUT_OF_RANGE` is fired when a connected device is lost. A `BTRMGR_POST_OUT_OF_RANGE_HOLD_OFF_TIME = 6` second timer guards against flapping.
 - AVDTP suspend causes a stream restart retry up to `BTMGR_AVDTP_SUSPEND_MAX_RETRIES = 3` times before giving up.
 
 **Context Switching Scenarios:**
@@ -276,7 +282,7 @@ sequenceDiagram
 
 | Target Component / Layer    | Interaction Purpose                                                                                             | Key APIs / Topics                                                                                                                                      |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **RDK-E Plugins**           |                                                                                                                 |                                                                                                                                                        |
+| **Plugins**           |                                                                                                                 |                                                                                                                                                        |
 | `wpeframework-powermanager` | Receive power state change events to pause/resume BT operations (discovery, streaming).                         | `PowerController` API (IARM or direct library)                                                                                                         |
 | **Device Services / HAL**   |                                                                                                                 |                                                                                                                                                        |
 | `libbtrCore`                | All Bluetooth operations — adapter control, device discovery, pairing, connection, A/V media sessions, LE/GATT. | `BTRCore_Init`, `BTRCore_StartDiscovery`, `BTRCore_PairDevice`, `BTRCore_ConnectDevice`, `BTRCore_GetMediaTrackInfo`, `BtrCore_LE_PerformGattOp`, etc. |
@@ -349,7 +355,7 @@ sequenceDiagram
 
 ### Major HAL APIs Integration
 
-This component does not call Device Services (DS) HAL APIs directly. All BT hardware operations go through `libbtrCore`. The audio streaming pipeline uses GStreamer.
+All BT hardware operations go through `libbtrCore`. The audio streaming pipeline uses GStreamer.
 
 | API / Library                                                    | Purpose                                                                 | Implementation File                                              |
 | ---------------------------------------------------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------- |
@@ -365,21 +371,22 @@ This component does not call Device Services (DS) HAL APIs directly. All BT hard
 ### Key Implementation Logic
 
 - **State / Lifecycle Management**:
-  - Device handle tracking uses a set of per-role global device handles: `ghBTRMgrDevHdlLastConnected`, `ghBTRMgrDevHdlCurStreaming`, `ghBTRMgrDevHdlLastPaired`, `ghBTRMgrDevHdlConnInProgress`, etc., all in [src/ifce/btrMgr.c](src/ifce/btrMgr.c).
+  - Device handle tracking uses a set of per-role global handles: `ghBTRMgrDevHdlLastConnected`, `ghBTRMgrDevHdlCurStreaming`, `ghBTRMgrDevHdlLastPaired`, `ghBTRMgrDevHdlConnInProgress`, and others.
   - Connection retry (`BTRMGR_CONNECT_RETRY_ATTEMPTS = 2`), pairing retry (`BTRMGR_PAIR_RETRY_ATTEMPTS = 10`), and modalias retry (`BTRMGR_MODALIAS_RETRY_ATTEMPTS = 5`) are driven by GLib timeout sources.
-  - Auto-connect on startup: `BTRMGR_AUTOCONNECT_ON_STARTUP_TIMEOUT = 40` seconds GLib timer guards the startup audio reconnection sequence.
+  - A `BTRMGR_AUTOCONNECT_ON_STARTUP_TIMEOUT = 40` second timer guards the startup audio reconnection sequence.
 
 - **Event Processing**:
-  - `btr-core` calls `btrMgr.c` status callbacks synchronously. The callback sets a GLib timeout source (typically 0 or short delay) to process the event in the GLib main loop thread, updating device state and then calling `gfpcBBTRMgrEventOut` to deliver the `BTRMGR_EventMessage_t` to the registered listener (IARM or RBus interface layer).
-  - Background discovery (`ghBTRMgrBgDiscoveryHdl`) runs concurrently with foreground discovery (`ghBTRMgrDiscoveryHdl`) for specific device types.
+  - `btr-core` status callbacks are invoked synchronously. Each callback schedules event processing on the main loop thread, updating device state and delivering the event to the registered listener (IARM or RBus interface layer).
+  - Background discovery runs concurrently with foreground discovery for specific device types.
 
 - **Error Handling Strategy**:
   - `BTRMGR_Result_t` return codes: `BTRMGR_RESULT_SUCCESS (0)`, `BTRMGR_RESULT_GENERIC_FAILURE (-1)`, `BTRMGR_RESULT_INVALID_INPUT (-2)`, `BTRMGR_RESULT_INIT_FAILED (-3)`.
   - IARM handlers return `IARM_RESULT_INVALID_STATE` when called before `BTRMGR_Init()` completes.
-  - AVDTP suspend events trigger a stream restart; after `BTMGR_AVDTP_SUSPEND_MAX_RETRIES = 3` failures the stream is abandoned.
+  - AVDTP suspend events trigger a stream restart. After `BTMGR_AVDTP_SUSPEND_MAX_RETRIES = 3` consecutive failures, the stream is abandoned.
 
 - **Logging & Diagnostics**:
   - `RDK_LOGGER_BTMGR_NAME` = `"LOG.RDK.BTRMGR"` and `RDK_LOGGER_BTCORE_NAME` = `"LOG.RDK.BTRCORE"` are the RDK logger module names.
+  - Syslog-ng routes daemon output to `btmgrlog.txt` (log rate: very-high, rotated at 512 KB / 5 rotations on persistent storage, 250 KB / 2 rotations in memory). Breakpad maps the `btMgrBus` process to this log file.
   - Debug artifacts are written to `BTRMGR_DEBUG_DIRECTORY = "/tmp/btrMgr_DebugArtifacts"` when `gDebugModeEnabled` is set.
   - Telemetry events are reported via `bt-telemetry.c` wrappers (same library as `btr-core`).
 
@@ -389,10 +396,11 @@ This component does not call Device Services (DS) HAL APIs directly. All BT hard
 
 ### Key Configuration Files
 
-| Configuration File                     | Purpose                                                                                                                                                                 | Override Mechanism                                                                                                                                          |
-| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/opt/lib/bluetooth/btmgrPersist.json` | Primary persistent storage. Stores adapter ID, profile list, per-device connection status, last-connected device, beacon detection setting, and optionally volume/mute. | Written by `btrMgr_persistIface.c` at runtime. Path falls back to `/opt/secure/lib/bluetooth/btmgrPersist.json` if `/opt/lib/bluetooth/` is not accessible. |
-| `/etc/debug.ini`                       | RDK logger configuration.                                                                                                                                               | Overridden by `/opt/debug.ini` if present.                                                                                                                  |
+| Configuration File                                      | Purpose                                                                                                                                                                 | Override Mechanism                                                                                                                                          |
+| ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/opt/lib/bluetooth/btmgrPersist.json`                  | Primary persistent storage. Stores adapter ID, profile list, per-device connection status, last-connected device, beacon detection setting, and optionally volume/mute. | Written by `btrMgr_persistIface.c` at runtime. Path falls back to `/opt/secure/lib/bluetooth/btmgrPersist.json` if `/opt/lib/bluetooth/` is not accessible. |
+| `${systemd_unitdir}/system/btmgr.service.d/btmgr.conf` | Systemd drop-in for `btmgr.service`. Sets the startup delay via `BTMGR_STARTUP_DELAY` (default: `3` seconds).                                                          | Override `BTMGR_STARTUP_DELAY` in the BitBake recipe or a higher-priority layer.                                                                            |
+| `/etc/debug.ini`                                        | RDK logger configuration.                                                                                                                                               | Overridden by `/opt/debug.ini` if present.                                                                                                                  |
 
 ### Key Configuration Parameters
 
@@ -410,12 +418,6 @@ This component does not call Device Services (DS) HAL APIs directly. All BT hard
 | `BT_HCI0_TIMEOUT`                       | `int` constant | `30`    | Maximum seconds to wait for `hci0` to be up at startup. Defined in [src/main/btrMgr_main.c](src/main/btrMgr_main.c).                           |
 | `BTRMGR_MAX_PERSISTENT_DEVICE_COUNT`    | `int` macro    | `5`     | Max devices stored per profile in persist file. Defined in [include/persistIf/btrMgr_persistIface.h](include/persistIf/btrMgr_persistIface.h). |
 | `BTRMGR_MAX_PERSISTENT_PROFILE_COUNT`   | `int` macro    | `5`     | Max profiles stored in persist file. Defined in [include/persistIf/btrMgr_persistIface.h](include/persistIf/btrMgr_persistIface.h).            |
-
-### Runtime Configuration
-
-No runtime configurations.
-
-RFC parameters (queried via `rfcapi.h`) control audio-in service state and HID gamepad enable at runtime without daemon restart.
 
 ### Configuration Persistence
 
