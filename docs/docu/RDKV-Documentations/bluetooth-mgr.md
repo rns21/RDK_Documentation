@@ -132,7 +132,7 @@ SysDiag --> RBusDaemon
 
 ### RDK-V Platform and Integration Requirements
 
-- **Build Dependencies**: Required (all platforms): `bluetooth-core` (`libbtrCore`), `cjson`, `wpeframework-clientlibraries`, `fcgi`, `rfc`, `rdk-logger`, `commonutilities`, `rdkfwupgrader`, `libsyswrapper`. Platform-specific build-time: `iarmbus` (client and hybrid platforms); `netsrvmgr` (client platform only, when `ENABLE_NETWORKMANAGER` distro feature is absent). Feature-conditional: `gstreamer1.0` + `gstreamer1.0-plugins-base` (when `gstreamer1` distro feature is set); `virtual/vendor-media-utils` + `audiocapturemgr` (client and hybrid platforms). Runtime dependencies (`RDEPENDS`): `bluetooth-core`, `cjson`, `rdk-logger`; `virtual/vendor-media-utils` and `audiocapturemgr` on client and hybrid platforms.
+- **Build Dependencies**: Core: `bluetooth-core` (`libbtrCore`), `cjson`, `wpeframework-clientlibraries`. Audio streaming: `gstreamer1.0` and `gstreamer1.0-plugins-base` (when `gstreamer1` distro feature is set). Audio capture and platform IPC: `virtual/vendor-media-utils`, `audiocapturemgr`, and `iarmbus` (client and hybrid platforms).
 - **Device Services / HAL**: `libbtrCore` must be present and BlueZ `bluetoothd` must be running. HCI adapter (`hci0`) must be up.
 - **IARM Bus**: Bus name `BTRMgrBus`. IARM method names are defined in `btmgr_iarm_interface.h`. Subscribes to events from the `audiocapturemgr` bus.
 - **Systemd Services**: `iarmbusd.service`, `bluetooth.service` (BlueZ), `audiocapturemgr.service`, and `wpeframework-powermanager.service` must all be running before `btmgr.service` starts.
@@ -141,14 +141,11 @@ SysDiag --> RBusDaemon
 - **Build flags** (`EXTRA_OECONF`):
   - `--enable-gstreamer1=yes/no` → GStreamer 1.x for A2DP stream-out; auto-set from `gstreamer1` distro feature.
   - `--enable-safec=yes/no` → SafeC string library; auto-set from `safec` distro feature.
-  - `--enable-brcm-build=yes/no` → Broadcom PCM sink support; auto-set from `btr_bcm_pcm_sink` distro feature.
   - `--enable-rpc` → northbound IARM interface (`IARM_RPC_ENABLED`); applied on client and hybrid platforms only.
   - `--enable-acm=yes/no` → IARM calls to `audiocapturemgr` for audio-in; auto-detected from `audiocapturemgr` runtime dependency.
   - `--enable-ac_rmf=yes/no` → direct RMF AudioCapture for audio-in; auto-detected from `virtual/vendor-media-utils` runtime dependency.
   - `--enable-rdktv-build=yes` → RDK-TV build mode; always enabled.
-  - `--enable-rdk-logger=yes/no` → RDK logger integration; auto-detected from `rdk-logger` runtime dependency.
   - `--enable-autoconnectfeature=yes` → automatic reconnection to last-paired audio device on startup; always enabled.
-  - `--enable-systemd-notify` → `ENABLE_SD_NOTIFY`: systemd `sd_notify` readiness signaling (`Type=notify` in service file); applied when `systemd` distro feature is set.
   - `--enable-sys-diag` → system diagnostics queries (power state, QR code, mesh status); applied on client platforms only.
 
 ---
@@ -282,7 +279,7 @@ sequenceDiagram
 
 | Target Component / Layer    | Interaction Purpose                                                                                             | Key APIs / Topics                                                                                                                                      |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Plugins**           |                                                                                                                 |                                                                                                                                                        |
+| **Plugins**                 |                                                                                                                 |                                                                                                                                                        |
 | `wpeframework-powermanager` | Receive power state change events to pause/resume BT operations (discovery, streaming).                         | `PowerController` API (IARM or direct library)                                                                                                         |
 | **Device Services / HAL**   |                                                                                                                 |                                                                                                                                                        |
 | `libbtrCore`                | All Bluetooth operations — adapter control, device discovery, pairing, connection, A/V media sessions, LE/GATT. | `BTRCore_Init`, `BTRCore_StartDiscovery`, `BTRCore_PairDevice`, `BTRCore_ConnectDevice`, `BTRCore_GetMediaTrackInfo`, `BtrCore_LE_PerformGattOp`, etc. |
@@ -396,11 +393,11 @@ All BT hardware operations go through `libbtrCore`. The audio streaming pipeline
 
 ### Key Configuration Files
 
-| Configuration File                                      | Purpose                                                                                                                                                                 | Override Mechanism                                                                                                                                          |
-| ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/opt/lib/bluetooth/btmgrPersist.json`                  | Primary persistent storage. Stores adapter ID, profile list, per-device connection status, last-connected device, beacon detection setting, and optionally volume/mute. | Written by `btrMgr_persistIface.c` at runtime. Path falls back to `/opt/secure/lib/bluetooth/btmgrPersist.json` if `/opt/lib/bluetooth/` is not accessible. |
-| `${systemd_unitdir}/system/btmgr.service.d/btmgr.conf` | Systemd drop-in for `btmgr.service`. Sets the startup delay via `BTMGR_STARTUP_DELAY` (default: `3` seconds).                                                          | Override `BTMGR_STARTUP_DELAY` in the BitBake recipe or a higher-priority layer.                                                                            |
-| `/etc/debug.ini`                                        | RDK logger configuration.                                                                                                                                               | Overridden by `/opt/debug.ini` if present.                                                                                                                  |
+| Configuration File                                     | Purpose                                                                                                                                                                 | Override Mechanism                                                                                                                                          |
+| ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/opt/lib/bluetooth/btmgrPersist.json`                 | Primary persistent storage. Stores adapter ID, profile list, per-device connection status, last-connected device, beacon detection setting, and optionally volume/mute. | Written by `btrMgr_persistIface.c` at runtime. Path falls back to `/opt/secure/lib/bluetooth/btmgrPersist.json` if `/opt/lib/bluetooth/` is not accessible. |
+| `${systemd_unitdir}/system/btmgr.service.d/btmgr.conf` | Systemd drop-in for `btmgr.service`. Sets the startup delay via `BTMGR_STARTUP_DELAY` (default: `3` seconds).                                                           | Override `BTMGR_STARTUP_DELAY` in the BitBake recipe or a higher-priority layer.                                                                            |
+| `/etc/debug.ini`                                       | RDK logger configuration.                                                                                                                                               | Overridden by `/opt/debug.ini` if present.                                                                                                                  |
 
 ### Key Configuration Parameters
 
