@@ -89,7 +89,6 @@ Northbound interactions (towards applications and runtimes) are provided as C-co
 
 State that needs to survive across calls is held by the Thunder plugin on the other side of the IPC boundary. The libraries cache live interface pointers acquired from an open connection; these are released when the plugin goes offline and reacquired when it comes back.
 
-
 ```mermaid
 graph LR
 
@@ -159,7 +158,7 @@ graph LR
 
 ### RDK-V Platform and Integration Requirements
 
-- **WPEFramework Version**: R5.3 (as declared in the bb file `PV = "5.3.0"`, branch `R5_3`).
+- **WPEFramework Version**: R5.3
 - **Build Dependencies**: `entservices-apis` (provides Thunder Exchange interface headers), `wpeframework-tools-native` (code generation tools), `gstreamer1.0` (required when `CDMI=ON` and the GStreamer adapter is selected).
 - **Plugin Dependencies**: Each library requires the corresponding Thunder plugin to be active at runtime. SecurityAgent requires the SecurityAgent plugin; OpenCDM requires the OpenCDMImplementation plugin; DeviceInfo requires the DeviceInfo plugin; DisplayInfo requires the DisplayInfo plugin; PlayerInfo requires the PlayerInfo plugin; Cryptography requires the Svalbard plugin; ProvisionProxy requires the Provisioning plugin; BluetoothAudio libraries require the BluetoothAudio plugin.
 - **Systemd Services**: The corresponding Thunder plugins must be running when a client library attempts a connection. Each library establishes its connection on first use, and libraries using `RPC::SmartInterfaceType` reconnect automatically once the plugin becomes available.
@@ -176,7 +175,7 @@ Libraries using `RPC::SmartInterfaceType` (DeviceInfo, DisplayInfo, PlayerInfo, 
 
 ```mermaid
 sequenceDiagram
-    participant App as Consuming Process
+    participant App as Apps
     participant Lib as ThunderClientLibrary
     participant RPC as RPC SmartInterfaceType
     participant Thunder as WPEFramework Plugin Host
@@ -259,7 +258,7 @@ The following shows a typical API call on a persistent SmartInterfaceType-based 
 
 ```mermaid
 sequenceDiagram
-    participant App as Consuming Process
+    participant App as Apps
     participant Lib as DisplayInfo Library
     participant Thunder as WPEFramework / DisplayInfo Plugin
     participant HDR as IHDRProperties
@@ -280,19 +279,19 @@ sequenceDiagram
 
 ## Internal Modules
 
-| Module / Class | Description | Key Files |
-|---|---|---|
-| `OpenCDMAccessor` | Singleton that manages the COM-RPC connection to the OpenCDMImplementation plugin. Holds session key maps and provides the `IAccessorOCDM` interface proxy. Receives external data: DRM system metadata and key status updates from the plugin. | `open_cdm_impl.h`, `open_cdm_impl.cpp` |
-| `OpenCDMSession` | Represents a single DRM session. Holds the session ID, the remote `Exchange::ISession` interface, and decrypt context. Created via `OpenCDMAccessor`. Receives external data: license responses and key status changes from the plugin. | `open_cdm_impl.h`, `open_cdm_impl.cpp` |
-| `SecurityAgent ipclink` | Per-call COM-RPC client that connects to the SecurityAgent plugin, calls `IAuthenticate::CreateToken()`, and releases the connection. | `ipclink.cpp` (securityagent) |
-| `DeviceInfo` | Singleton wrapping `RPC::SmartInterfaceType<Exchange::IDeviceInfo>`. Queries video/audio capability interfaces and maps Exchange enums to the public C API enums. | `DeviceInfo.cpp`, `deviceinfo.h` |
-| `DisplayInfo` | Singleton wrapping `RPC::SmartInterfaceType<Exchange::IConnectionProperties>`. Also queries `IHDRProperties` and `IGraphicsProperties`. Registers `IConnectionProperties::INotification` to deliver display-change events. | `DisplayInfo.cpp`, `displayinfo.h` |
-| `PlayerInfo` | Singleton wrapping `RPC::SmartInterfaceType<Exchange::IPlayerProperties>`. Queries `Exchange::Dolby::IOutput` and registers `Dolby::IOutput::INotification` for Dolby mode-change events. | `PlayerInfo.cpp`, `playerinfo.h` |
-| `CryptographyLink` | Singleton wrapping `RPC::SmartInterfaceType<PluginHost::IPlugin>`. Acquires `Exchange::ICryptography` and `Exchange::IDeviceObjects` from the Svalbard plugin. Adapter classes (`RPCDiffieHellmanImpl`, etc.) wrap the remote interfaces and handle connection loss. | `Cryptography.cpp`, `cryptography.h` |
-| `ProvisionProxy ipclink` | Per-call COM-RPC client connecting to the Provisioning plugin. Implements `GetDeviceId()` and `GetDRMId()` via `Exchange::IProvisioning`. | `ipclink.cpp` (provisionproxy) |
-| `AudioSink` | Singleton wrapping `RPC::SmartInterfaceType<Exchange::IBluetoothAudio::ISink>`. Maintains a `Core::SharedBuffer` (`SendBuffer`) for frame delivery. Tracks sink connection state and delivers state-change callbacks. | `BluetoothAudioSink.cpp`, `bluetoothaudiosink.h` |
-| `AudioSource` | Singleton wrapping `RPC::SmartInterfaceType<Exchange::IBluetoothAudio::ISource>`. Contains a `Receiver` worker thread that reads audio frames from a `Core::SharedBuffer` and dispatches them to the registered frame callback. | `BluetoothAudioSource.cpp`, `bluetoothaudiosource.h` |
-| `CompositorClient` | C++ abstraction layer (`IDisplay`, `ISurface`, `IKeyboard`, `IPointer`, `IWheel`, `ITouchPanel`). Implementation is selected at build time via `PLUGIN_COMPOSITOR_IMPLEMENTATION` and compiled from the corresponding subdirectory (e.g., `Wayland`, `Mesa`, `RPI`). | `Client.h`, `src/CMakeLists.txt` |
+| Module / Class           | Description                                                                                                                                                                                                                                                          | Key Files                                            |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `OpenCDMAccessor`        | Singleton that manages the COM-RPC connection to the OpenCDMImplementation plugin. Holds session key maps and provides the `IAccessorOCDM` interface proxy. Receives external data: DRM system metadata and key status updates from the plugin.                      | `open_cdm_impl.h`, `open_cdm_impl.cpp`               |
+| `OpenCDMSession`         | Represents a single DRM session. Holds the session ID, the remote `Exchange::ISession` interface, and decrypt context. Created via `OpenCDMAccessor`. Receives external data: license responses and key status changes from the plugin.                              | `open_cdm_impl.h`, `open_cdm_impl.cpp`               |
+| `SecurityAgent ipclink`  | Per-call COM-RPC client that connects to the SecurityAgent plugin, calls `IAuthenticate::CreateToken()`, and releases the connection.                                                                                                                                | `ipclink.cpp` (securityagent)                        |
+| `DeviceInfo`             | Singleton wrapping `RPC::SmartInterfaceType<Exchange::IDeviceInfo>`. Queries video/audio capability interfaces and maps Exchange enums to the public C API enums.                                                                                                    | `DeviceInfo.cpp`, `deviceinfo.h`                     |
+| `DisplayInfo`            | Singleton wrapping `RPC::SmartInterfaceType<Exchange::IConnectionProperties>`. Also queries `IHDRProperties` and `IGraphicsProperties`. Registers `IConnectionProperties::INotification` to deliver display-change events.                                           | `DisplayInfo.cpp`, `displayinfo.h`                   |
+| `PlayerInfo`             | Singleton wrapping `RPC::SmartInterfaceType<Exchange::IPlayerProperties>`. Queries `Exchange::Dolby::IOutput` and registers `Dolby::IOutput::INotification` for Dolby mode-change events.                                                                            | `PlayerInfo.cpp`, `playerinfo.h`                     |
+| `CryptographyLink`       | Singleton wrapping `RPC::SmartInterfaceType<PluginHost::IPlugin>`. Acquires `Exchange::ICryptography` and `Exchange::IDeviceObjects` from the Svalbard plugin. Adapter classes (`RPCDiffieHellmanImpl`, etc.) wrap the remote interfaces and handle connection loss. | `Cryptography.cpp`, `cryptography.h`                 |
+| `ProvisionProxy ipclink` | Per-call COM-RPC client connecting to the Provisioning plugin. Implements `GetDeviceId()` and `GetDRMId()` via `Exchange::IProvisioning`.                                                                                                                            | `ipclink.cpp` (provisionproxy)                       |
+| `AudioSink`              | Singleton wrapping `RPC::SmartInterfaceType<Exchange::IBluetoothAudio::ISink>`. Maintains a `Core::SharedBuffer` (`SendBuffer`) for frame delivery. Tracks sink connection state and delivers state-change callbacks.                                                | `BluetoothAudioSink.cpp`, `bluetoothaudiosink.h`     |
+| `AudioSource`            | Singleton wrapping `RPC::SmartInterfaceType<Exchange::IBluetoothAudio::ISource>`. Contains a `Receiver` worker thread that reads audio frames from a `Core::SharedBuffer` and dispatches them to the registered frame callback.                                      | `BluetoothAudioSource.cpp`, `bluetoothaudiosource.h` |
+| `CompositorClient`       | C++ abstraction layer (`IDisplay`, `ISurface`, `IKeyboard`, `IPointer`, `IWheel`, `ITouchPanel`). Implementation is selected at build time via `PLUGIN_COMPOSITOR_IMPLEMENTATION` and compiled from the corresponding subdirectory (e.g., `Wayland`, `Mesa`, `RPI`). | `Client.h`, `src/CMakeLists.txt`                     |
 
 ---
 
@@ -300,34 +299,34 @@ sequenceDiagram
 
 ### Interaction Matrix
 
-| Target Component / Layer | Interaction Purpose | Key APIs / Topics |
-|---|---|---|
-| **WPEFramework Plugins** | | |
-| `OpenCDMImplementation` plugin | DRM system management and content decryption | `Exchange::IAccessorOCDM`, `Exchange::IContentDecryption`, `Exchange::ISession` |
-| `SecurityAgent` plugin | Security token acquisition for JSON-RPC authorization | `PluginHost::IAuthenticate::CreateToken()` |
-| `DeviceInfo` plugin | Query device video/audio output capabilities and HDCP support | `Exchange::IDeviceInfo`, `Exchange::IDeviceVideoCapabilities`, `Exchange::IDeviceAudioCapabilities` |
-| `DisplayInfo` plugin | Query connected display properties and receive display change events | `Exchange::IConnectionProperties`, `Exchange::IHDRProperties`, `Exchange::IGraphicsProperties` |
-| `PlayerInfo` plugin | Query playback capabilities and receive Dolby mode change events | `Exchange::IPlayerProperties`, `Exchange::Dolby::IOutput` |
-| `Svalbard` plugin | Cryptographic operations (cipher, hash, DH, vault, random) | `Exchange::ICryptography`, `Exchange::IDiffieHellman`, `Exchange::INetflixSecurity`, `Exchange::IDeviceObjects` |
-| `Provisioning` plugin | Device ID and DRM credential retrieval | `Exchange::IProvisioning::DeviceId()`, `Exchange::IProvisioning` (DRM ID via `DRMInfo`) |
-| `BluetoothAudio` plugin | Bluetooth audio sink/source streaming and state management | `Exchange::IBluetoothAudio::ISink`, `Exchange::IBluetoothAudio::ISource` |
-| `Compositor` plugin | Display surface creation and input event delivery | `Thunder::Compositor::IDisplay`, `ISurface`, `IKeyboard`, `IPointer` |
-| **IPC Transport** | | |
-| COM-RPC / UNIX domain socket | All plugin communication uses Thunder COM-RPC over UNIX domain sockets | `RPC::CommunicatorClient`, `RPC::SmartInterfaceType`, `Core::NodeId` |
-| Shared Memory Buffer | BluetoothAudioSink and BluetoothAudioSource use `Core::SharedBuffer` for audio frame transfer | `Core::SharedBuffer` |
+| Target Component / Layer     | Interaction Purpose                                                                           | Key APIs / Topics                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **WPEFramework Plugins**     |                                                                                               |                                                                                                                 |
+| `OpenCDMImplementation`      | DRM system management and content decryption                                                  | `Exchange::IAccessorOCDM`, `Exchange::IContentDecryption`, `Exchange::ISession`                                 |
+| `SecurityAgent`              | Security token acquisition for JSON-RPC authorization                                         | `PluginHost::IAuthenticate::CreateToken()`                                                                      |
+| `DeviceInfo`                 | Query device video/audio output capabilities and HDCP support                                 | `Exchange::IDeviceInfo`, `Exchange::IDeviceVideoCapabilities`, `Exchange::IDeviceAudioCapabilities`             |
+| `DisplayInfo`                | Query connected display properties and receive display change events                          | `Exchange::IConnectionProperties`, `Exchange::IHDRProperties`, `Exchange::IGraphicsProperties`                  |
+| `PlayerInfo`                 | Query playback capabilities and receive Dolby mode change events                              | `Exchange::IPlayerProperties`, `Exchange::Dolby::IOutput`                                                       |
+| `Svalbard`                   | Cryptographic operations (cipher, hash, DH, vault, random)                                    | `Exchange::ICryptography`, `Exchange::IDiffieHellman`, `Exchange::INetflixSecurity`, `Exchange::IDeviceObjects` |
+| `Provisioning`               | Device ID and DRM credential retrieval                                                        | `Exchange::IProvisioning::DeviceId()`, `Exchange::IProvisioning` (DRM ID via `DRMInfo`)                         |
+| `BluetoothAudio`             | Bluetooth audio sink/source streaming and state management                                    | `Exchange::IBluetoothAudio::ISink`, `Exchange::IBluetoothAudio::ISource`                                        |
+| `Compositor`                 | Display surface creation and input event delivery                                             | `Thunder::Compositor::IDisplay`, `ISurface`, `IKeyboard`, `IPointer`                                            |
+| **IPC Transport**            |                                                                                               |                                                                                                                 |
+| COM-RPC / UNIX domain socket | All plugin communication uses Thunder COM-RPC over UNIX domain sockets                        | `RPC::CommunicatorClient`, `RPC::SmartInterfaceType`, `Core::NodeId`                                            |
+| Shared Memory Buffer         | BluetoothAudioSink and BluetoothAudioSource use `Core::SharedBuffer` for audio frame transfer | `Core::SharedBuffer`                                                                                            |
 
 ### Events Published
 
-| Event Name | Trigger Condition | Delivered To |
-|---|---|---|
-| `displayinfo_display_output_change_cb` | Display connection properties change (e.g. HDMI cable insert/remove), delivered via `IConnectionProperties::INotification::Updated` | Callers registered with `displayinfo_register_display_output_change_callback()` |
-| `displayinfo_operational_state_change_cb` | DisplayInfo plugin goes offline or comes back online | Callers registered with `displayinfo_register_operational_state_change_callback()` |
-| `playerinfo_dolby_audio_updated_cb` | Dolby sound mode changes, delivered via `Exchange::Dolby::IOutput::INotification::AudioModeChanged` | Callers registered with `playerinfo_register_dolby_sound_mode_updated_callback()` |
-| `playerinfo_operational_state_change_cb` | PlayerInfo plugin goes offline or comes back online | Callers registered with `playerinfo_register_operational_state_change_callback()` |
-| `bluetoothaudiosink_state_changed_cb` | Bluetooth audio sink connection state transitions (UNASSIGNED → DISCONNECTED → CONNECTING → CONNECTED / CONNECTED_BAD / CONNECTED_RESTRICTED → READY → STREAMING) | Callers registered with `bluetoothaudiosink_register_state_changed_callback()` |
-| `bluetoothaudiosink_operational_state_update_cb` | BluetoothAudio plugin goes offline or comes back online | Callers registered with `bluetoothaudiosink_register_operational_state_update_callback()` |
-| `bluetoothaudiosource_state_changed_cb` | Bluetooth audio source connection state transitions | Callers registered with `bluetoothaudiosource_register_state_changed_callback()` |
-| `bluetoothaudiosource_frame_cb` | Audio frame received from connected Bluetooth source | Caller-supplied sink struct registered via `bluetoothaudiosource_set_sink()` |
+| Event Name                                       | Trigger Condition                                                                                                                                                 | Delivered To                                                                              |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `displayinfo_display_output_change_cb`           | Display connection properties change (e.g. HDMI cable insert/remove), delivered via `IConnectionProperties::INotification::Updated`                               | Callers registered with `displayinfo_register_display_output_change_callback()`           |
+| `displayinfo_operational_state_change_cb`        | DisplayInfo plugin goes offline or comes back online                                                                                                              | Callers registered with `displayinfo_register_operational_state_change_callback()`        |
+| `playerinfo_dolby_audio_updated_cb`              | Dolby sound mode changes, delivered via `Exchange::Dolby::IOutput::INotification::AudioModeChanged`                                                               | Callers registered with `playerinfo_register_dolby_sound_mode_updated_callback()`         |
+| `playerinfo_operational_state_change_cb`         | PlayerInfo plugin goes offline or comes back online                                                                                                               | Callers registered with `playerinfo_register_operational_state_change_callback()`         |
+| `bluetoothaudiosink_state_changed_cb`            | Bluetooth audio sink connection state transitions (UNASSIGNED → DISCONNECTED → CONNECTING → CONNECTED / CONNECTED_BAD / CONNECTED_RESTRICTED → READY → STREAMING) | Callers registered with `bluetoothaudiosink_register_state_changed_callback()`            |
+| `bluetoothaudiosink_operational_state_update_cb` | BluetoothAudio plugin goes offline or comes back online                                                                                                           | Callers registered with `bluetoothaudiosink_register_operational_state_update_callback()` |
+| `bluetoothaudiosource_state_changed_cb`          | Bluetooth audio source connection state transitions                                                                                                               | Callers registered with `bluetoothaudiosource_register_state_changed_callback()`          |
+| `bluetoothaudiosource_frame_cb`                  | Audio frame received from connected Bluetooth source                                                                                                              | Caller-supplied sink struct registered via `bluetoothaudiosource_set_sink()`              |
 
 ### IPC Flow Patterns
 
@@ -335,7 +334,7 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant App as Consuming Process
+    participant App as Apps
     participant Lib as ThunderClientLibrary
     participant Thunder as WPEFramework Plugin
 
@@ -370,18 +369,18 @@ sequenceDiagram
 
 ThunderClientLibraries operates above the HAL boundary. Each library calls into the corresponding Thunder Exchange interface, which is served by a Thunder plugin that abstracts platform-specific HAL details. The table below lists the primary Exchange interfaces and entry-point methods consumed by each client library.
 
-| Exchange Interface | Entry-Point Methods / Notifications | Consuming Library |
-|---|---|---|
-| `Exchange::IAccessorOCDM` | `CreateSession()`, `IsTypeSupported()`, `SetServerCertificate()`, key status notifications | OpenCDM |
-| `PluginHost::IAuthenticate` | `CreateToken()` | SecurityAgent |
-| `Exchange::IDeviceInfo` / `IDeviceVideoCapabilities` / `IDeviceAudioCapabilities` | `SupportedVideoDisplays()`, `SupportedResolutions()`, `SupportedHdcp()`, `AudioCapabilities()` | DeviceInfo |
-| `Exchange::IConnectionProperties` / `IHDRProperties` / `IGraphicsProperties` | `Width()`, `Height()`, `IsAudioPassthrough()`, `EDID()`, `HDRSetting()`, `TotalGpuRam()` | DisplayInfo |
-| `Exchange::IPlayerProperties` / `Dolby::IOutput` | `VideoCodecs()`, `AudioCodecs()`, `Resolution()`, `SoundMode()`, `EnableAtmosOutput()`, `AudioModeChanged()` notification | PlayerInfo |
-| `Exchange::ICryptography` / `IDiffieHellman` / `IVault` | `Hash()`, `Cipher()`, `DiffieHellman()`, `Vault()`, `Random()` | Cryptography |
-| `Exchange::IProvisioning` | `DeviceId()`, `DRMInfo()` | ProvisionProxy |
-| `Exchange::IBluetoothAudio::ISink` | `Acquire()`, `Relinquish()`, `Speed()`, `Time()`, `Latency()`, state change notifications | BluetoothAudioSink |
-| `Exchange::IBluetoothAudio::ISource` | `Assign()`, `Revoke()`, `Frame()`, state change notifications | BluetoothAudioSource |
-| `Thunder::Compositor::IDisplay` / `ISurface` | `Create()`, `Destroy()`, keyboard/pointer/touch input event dispatch | CompositorClient |
+| Exchange Interface                                                                | Entry-Point Methods / Notifications                                                                                       | Consuming Library    |
+| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `Exchange::IAccessorOCDM`                                                         | `CreateSession()`, `IsTypeSupported()`, `SetServerCertificate()`, key status notifications                                | OpenCDM              |
+| `PluginHost::IAuthenticate`                                                       | `CreateToken()`                                                                                                           | SecurityAgent        |
+| `Exchange::IDeviceInfo` / `IDeviceVideoCapabilities` / `IDeviceAudioCapabilities` | `SupportedVideoDisplays()`, `SupportedResolutions()`, `SupportedHdcp()`, `AudioCapabilities()`                            | DeviceInfo           |
+| `Exchange::IConnectionProperties` / `IHDRProperties` / `IGraphicsProperties`      | `Width()`, `Height()`, `IsAudioPassthrough()`, `EDID()`, `HDRSetting()`, `TotalGpuRam()`                                  | DisplayInfo          |
+| `Exchange::IPlayerProperties` / `Dolby::IOutput`                                  | `VideoCodecs()`, `AudioCodecs()`, `Resolution()`, `SoundMode()`, `EnableAtmosOutput()`, `AudioModeChanged()` notification | PlayerInfo           |
+| `Exchange::ICryptography` / `IDiffieHellman` / `IVault`                           | `Hash()`, `Cipher()`, `DiffieHellman()`, `Vault()`, `Random()`                                                            | Cryptography         |
+| `Exchange::IProvisioning`                                                         | `DeviceId()`, `DRMInfo()`                                                                                                 | ProvisionProxy       |
+| `Exchange::IBluetoothAudio::ISink`                                                | `Acquire()`, `Relinquish()`, `Speed()`, `Time()`, `Latency()`, state change notifications                                 | BluetoothAudioSink   |
+| `Exchange::IBluetoothAudio::ISource`                                              | `Assign()`, `Revoke()`, `Frame()`, state change notifications                                                             | BluetoothAudioSource |
+| `Thunder::Compositor::IDisplay` / `ISurface`                                      | `Create()`, `Destroy()`, keyboard/pointer/touch input event dispatch                                                      | CompositorClient     |
 
 ### Key Implementation Logic
 
@@ -399,12 +398,12 @@ ThunderClientLibraries operates above the HAL boundary. Each library calls into 
 
 ### Key Configuration Parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `SECURITYAGENT_PATH` | env string | `/tmp/SecurityAgent/token` | UNIX domain socket path used to connect to the SecurityAgent plugin. |
-| `OPEN_CDM_SERVER` | env string | `/tmp/ocdm` | UNIX domain socket path used to connect to the OpenCDMImplementation plugin. |
-| `PROVISION_PATH` | env string | `/tmp/provision` | UNIX domain socket path used to connect to the Provisioning plugin. |
-| `BLUETOOTHAUDIOSINK` connector | compile string | `/tmp/bluetoothaudiosink` | Shared buffer name for audio frame transfer to the BluetoothAudio sink (set in `BluetoothAudioSink.cpp` as `#define CONNECTOR`). |
+| Parameter                      | Type           | Default                    | Description                                                                                                                      |
+| ------------------------------ | -------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `SECURITYAGENT_PATH`           | env string     | `/tmp/SecurityAgent/token` | UNIX domain socket path used to connect to the SecurityAgent plugin.                                                             |
+| `OPEN_CDM_SERVER`              | env string     | `/tmp/ocdm`                | UNIX domain socket path used to connect to the OpenCDMImplementation plugin.                                                     |
+| `PROVISION_PATH`               | env string     | `/tmp/provision`           | UNIX domain socket path used to connect to the Provisioning plugin.                                                              |
+| `BLUETOOTHAUDIOSINK` connector | compile string | `/tmp/bluetoothaudiosink`  | Shared buffer name for audio frame transfer to the BluetoothAudio sink (set in `BluetoothAudioSink.cpp` as `#define CONNECTOR`). |
 
 ### Configuration Persistence
 
