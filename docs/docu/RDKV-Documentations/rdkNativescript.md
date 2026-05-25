@@ -1,6 +1,6 @@
 # RdkNativeScript
 
-rdkNativeScript is a JavaScript runtime component in the RDK middleware that enables native execution of JavaScript applications directly on RDK-V devices, outside of a full browser environment. It provides a lightweight, embeddable runtime that exposes device capabilities — such as media playback, networking, and display — to JavaScript applications through a set of controlled API bindings. The component is deployed as a WPEFramework (Thunder) plugin with the callsign `org.rdk.jsruntime` and can be cloned to create multiple independent runtime instances.
+rdkNativeScript is a JavaScript runtime component in the RDK middleware that enables native execution of JavaScript applications directly on RDK-V devices, outside of a full browser environment. It provides a lightweight, embeddable runtime that exposes device capabilities — such as media playback, networking, and display — to JavaScript applications through a set of controlled API bindings. The component is deployed as a Thunder plugin with the callsign `org.rdk.jsruntime` and can be cloned to create multiple independent runtime instances.
 
 At the device level, rdkNativeScript allows non-browser JavaScript applications such as lightweight widgets and streaming clients to run with native-level access to media pipelines, WebSocket communication, and the Wayland display stack. It bridges the gap between JavaScript application logic and low-level device capabilities without requiring a full web engine.
 
@@ -14,18 +14,12 @@ classDef Apps stroke:#00B9F1,fill:#E6F7FD,stroke-width:2px;
 classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px;
 classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 
-%% Apps Layer
-    subgraph Apps["Apps & Runtimes"]
-        FBApps["JS Applications / Widgets"]
-        WPE_RT["WPEFramework / Thunder"]
-    end
-
 %% Middleware
     subgraph RDKMW["RDK Core Middleware"]
         JSRuntime["rdkNativeScript\n(org.rdk.jsruntime)"]
         AAMP["AAMP Media Player"]
         Westeros["Westeros / Wayland"]
-        Thunder["WPEFramework Core"]
+        Thunder["Thunder Core"]
     end
 
 %% Vendor Layer
@@ -36,7 +30,6 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
     end
 
     %% Connections
-    FBApps -->|JSON-RPC: launchApplication| Thunder
     Thunder -->|Dispatch| JSRuntime
     JSRuntime -->|Media playback bindings| AAMP
     JSRuntime -->|Wayland display + key input| Westeros
@@ -53,9 +46,9 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 
 - **Per-Application Module Configuration**: Each application context is configured at creation time with a set of optional module bindings. Supported modules include HTTP, XHR, WebSocket, WebSocketEnhanced, Fetch, JSDOM, MiniJSDOM, Window, and media Player. Modules are activated by passing an options string to `launchApplication`.
 
-- **AAMP Media Player Integration**: Exposes `AAMPMediaPlayer` as a JavaScript global when the player module is enabled. AAMP bindings can be loaded statically at build time or dynamically at runtime, allowing the player library to be decoupled from the runtime binary.
+- **AAMP Media Player Integration**: Exposes `AAMPMediaPlayer` as a JavaScript global when the player module is enabled. AAMP bindings are deployed as a DAC (Downloadable Application Container) module, decoupling the player library from the runtime binary.
 
-- **WebSocket Server and Client IPC**: Provides an optional WebSocket server (port 5000 by default) that accepts JSON-encoded commands to launch, run, and terminate applications remotely. A corresponding client is also provided for applications that need to connect to the server.
+- **WebSocket Server and Client IPC**: Provides an optional WebSocket server (on the port defined by `WS_SERVER_PORT`) that accepts JSON-encoded commands to launch, run, and terminate applications remotely. A corresponding client is also provided for applications that need to connect to the server.
 
 - **Wayland Display and Input Handling**: Integrates with the Essos compositor abstraction layer to set up a Wayland display surface and route keyboard input events from the compositor into the active JavaScript context.
 
@@ -69,7 +62,7 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 
 rdkNativeScript is structured around a layered separation between engine management, context lifecycle, and application dispatch. The runtime is initialized once per process through `NativeJSRenderer`, which owns the `IJavaScriptEngine` instance and manages the map of active application contexts. Each application is represented by a numeric identifier mapped to a `JavaScriptContext` instance. The `JavaScriptContextBase` class provides engine-agnostic operations — file loading, script evaluation delegation, key event routing, and ThunderJS / RDK WebBridge code injection — while engine-specific implementations extend it for JSC or QuickJS.
 
-Northbound, the component exposes its API through the WPEFramework Thunder plugin mechanism: clients issue a JSON-RPC `launchApplication` call to a cloned plugin instance. The server path, when enabled, accepts the same JSON command structure over a WebSocket connection on port 5000, enabling external tooling and testing frameworks to drive the runtime without a Thunder session. The `JSRuntimeServer` dispatches incoming messages to the same `NativeJSRenderer` methods used by the Thunder plugin path. Southbound, the component consumes the JavaScriptCore C API for script evaluation, GStreamer for media pipeline initialization, libcurl for script download from remote URLs, and the Essos API for Wayland compositor setup and keyboard event delivery.
+Northbound, the component exposes its API through the Thunder plugin mechanism: clients issue a JSON-RPC `launchApplication` call to a cloned plugin instance. The server path, when enabled, accepts the same JSON command structure over a WebSocket connection on the port defined by `WS_SERVER_PORT`, enabling external tooling and testing frameworks to drive the runtime without a Thunder session. The `JSRuntimeServer` dispatches incoming messages to the same `NativeJSRenderer` methods used by the Thunder plugin path. Southbound, the component consumes the JavaScriptCore C API for script evaluation, GStreamer for media pipeline initialization, libcurl for script download from remote URLs, and the Essos API for Wayland compositor setup and keyboard event delivery.
 
 The design isolates per-application state (URL, JS context, module flags, performance metrics) inside `JavaScriptContext` and uses a shared `JSContextGroupRef` across all contexts in the process. This allows garbage collection to be coordinated globally through a periodic GLib timer while individual contexts can be released independently. The main GLib event loop processes both JSC internal events and timer callbacks on the main thread; applications are created and run from separate per-application threads that call into the renderer.
 
@@ -99,12 +92,6 @@ graph TD
             BASE["Engine-agnostic ops:\nfile load, runScript, runFile,\nThunderJS injection, key routing"]
         end
 
-        subgraph ServerLayer ["IPC Layer"]
-            SRV["JSRuntimeServer\nWebSocket server (port 5000)\nJSON command dispatch"]
-            CLI["JSRuntimeClient\nWebSocket client with\nsynchronous command/response"]
-            CONT["JSRuntimeContainer\nLinux namespace entry,\ncgroup PID resolution"]
-        end
-
         subgraph SupportLayer ["Support Modules"]
             ES["EssosInstance\nWayland display init,\nkeyboard event callbacks"]
             MS["ModuleSettings\nPer-app feature flags parsed\nfrom options string"]
@@ -118,8 +105,6 @@ graph TD
     NR --> CTX2
     CTX1 --> BASE
     CTX2 --> BASE
-    SRV --> NR
-    CONT --> CLI
     NR --> ES
     NR --> MS
 ```
@@ -142,8 +127,31 @@ graph TD
 - **Plugin Dependencies**: The AAMP media player library (`libaampjsbindings.so`) must be present at the target library path when dynamic AAMP bindings are enabled.
 - **Device Services / HAL**: Essos HAL for Wayland compositor abstraction and keyboard input; GStreamer 1.0 for media pipeline initialization.
 - **Systemd Services**: A running Wayland compositor (Westeros) must be available when Essos integration is enabled and a display is requested.
-- **Configuration Files**: `/tmp/nativejsEmbedThunder` — presence enables ThunderJS embedding. `/tmp/nativejsRdkWebBridge` — presence enables RDK WebBridge embedding. `/tmp/nativejsEnableWebSocketServer` — presence enables the WebSocket server.
-- **Startup Order**: The Thunder Controller must be active to clone and activate `org.rdk.jsruntime` instances via JSON-RPC.
+
+### Module Settings
+
+`ModuleSettings` is a plain data structure that controls which JavaScript binding modules are registered for a given application context. Each application receives its own `ModuleSettings` instance populated at launch time; the settings are fixed for the lifetime of that context.
+
+**Available Modules:**
+
+| Option Token | Field | What It Enables |
+| ------------ | ----- | --------------- |
+| `http` | `enableHttp` | HTTP client bindings in the JavaScript context |
+| `xhr` | `enableXHR` | XMLHttpRequest (XHR) bindings |
+| `ws` | `enableWebSocket` | WebSocket client bindings |
+| `wsenhanced` | `enableWebSocketEnhanced` | Enhanced WebSocket bindings with additional event support |
+| `fetch` | `enableFetch` | Fetch API bindings |
+| `jsdom` | `enableJSDOM` | Full JSDOM bindings for DOM API emulation |
+| `minijsdom` | `enableMiniJSDOM` | Lightweight JSDOM subset; takes precedence over `jsdom` when both tokens are specified |
+| `window` | `enableWindow` | Window object bindings |
+| `player` | `enablePlayer` | AAMP media player bindings; exposes `AAMPMediaPlayer` as a JavaScript global |
+
+**Population Mechanisms:**
+
+- **Via Thunder JSON-RPC or WebSocket command**: The `options` parameter of `launchApplication` is a comma-separated string of token names (e.g., `"player,xhr,ws"`). `ModuleSettings::fromString()` parses this string and sets the corresponding boolean flags.
+- **Via standalone launcher (jsruntime-launcher)**: The launcher reads an `app.config` JSON file at `/package/app.config` and maps `features` array entries (e.g., `{"name": "player", "enable": true}`) to command-line flags (`--enablePlayer`, `--enableXHR`, etc.), which are then parsed into `ModuleSettings` fields before the application context is created.
+
+All flags default to `false`; only tokens present in the options string activate the corresponding module. `minijsdom` and `jsdom` are mutually exclusive — `minijsdom` takes precedence when both tokens appear.
 
 ---
 
@@ -154,7 +162,7 @@ graph TD
 ```mermaid
 sequenceDiagram
     participant System as System / PluginActivator
-    participant Thunder as WPEFramework Core
+    participant Thunder as Thunder
     participant NR as NativeJSRenderer
     participant JSE as JavaScriptEngine-JSC
     participant Essos as EssosInstance
@@ -202,7 +210,7 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant Client as ThunderJS / curl
-    participant Thunder as WPEFramework
+    participant Thunder as Thunder
     participant NR as NativeJSRenderer
     participant JSE as JavaScriptEngine
 
@@ -221,7 +229,7 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant Client as ThunderJS / curl
-    participant Thunder as WPEFramework
+    participant Thunder as Thunder
     participant NR as NativeJSRenderer
     participant CTX as JavaScriptContext
     participant CURL as libcurl
@@ -270,7 +278,7 @@ sequenceDiagram
 | Target Component / Layer  | Interaction Purpose                                                    | Key APIs / Topics                                                                         |
 | ------------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | **Plugins**               |                                                                        |                                                                                           |
-| `WPEFramework / Thunder`  | Plugin activation, JSON-RPC method dispatch, plugin cloning            | `Controller.1.clone`, `Controller.1.activate`, `launchApplication`                        |
+| `Thunder`                 | Plugin activation, JSON-RPC method dispatch, plugin cloning            | `Controller.1.clone`, `Controller.1.activate`, `launchApplication`                        |
 | **Device Services / HAL** |                                                                        |                                                                                           |
 | Essos                     | Wayland display initialization and keyboard input routing              | `EssCtxCreate`, `EssCtxSetKeyboardListener`, `EssCtxStart`                                |
 | GStreamer                 | Media pipeline subsystem initialization required for AAMP playback     | `gst_init()`                                                                              |
@@ -288,25 +296,6 @@ sequenceDiagram
 
 ### IPC Flow Patterns
 
-**Primary Request / Response Flow (Thunder JSON-RPC):**
-
-```mermaid
-sequenceDiagram
-    participant Client as Client Application
-    participant Thunder as WPEFramework / Thunder
-    participant NR as NativeJSRenderer
-    participant CTX as JavaScriptContext
-
-    Client->>Thunder: JSON-RPC: jsruntime1.1.launchApplication {url, options}
-    Thunder->>NR: Dispatch to plugin method
-    Note over NR: Parse options into ModuleSettings
-    NR->>CTX: createApplication(moduleSettings)
-    NR->>CTX: runApplication(id, url)
-    CTX-->>NR: Execution result
-    NR-->>Thunder: Method result {success: true}
-    Thunder-->>Client: JSON-RPC Response
-```
-
 **WebSocket Server Command Flow:**
 
 ```mermaid
@@ -316,7 +305,7 @@ sequenceDiagram
     participant NR as NativeJSRenderer
     participant CTX as JavaScriptContext
 
-    ExtTool->>SRV: WebSocket connect (port 5000)
+    ExtTool->>SRV: WebSocket connect (WS_SERVER_PORT)
     ExtTool->>SRV: JSON: {"method": "launchApplication", "params": {"url": "...", "options": "player,xhr"}}
     SRV->>NR: createApplication(moduleSettings)
     SRV->>NR: runApplication(id, url)
@@ -380,6 +369,7 @@ sequenceDiagram
 | `NATIVEJS_EMBED_THUNDERJS`   | string (env) | _(not set)_ | When set, enables ThunderJS injection into all contexts. Equivalent to creating the `/tmp` sentinel file.      |
 | `WAYLAND_DISPLAY`            | string (env) | _(not set)_ | Set automatically from the `--display` argument to direct the runtime to a specific Wayland compositor socket. |
 | `WS_SERVER_PORT`             | int (build)  | `5000`      | WebSocket server listen port. Defined at build time via `-DWS_SERVER_PORT=5000`.                               |
+| `NATIVEJS_DUMP_NETWORKMETRIC` | string (env) | _(not set)_ | When set, collects network metrics and stores the output to a file in `/tmp`.                                   |
 
 ### Runtime Configuration
 
