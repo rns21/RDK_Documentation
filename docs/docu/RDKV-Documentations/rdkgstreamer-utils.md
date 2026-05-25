@@ -1,8 +1,8 @@
-# RDK GStreamer Utils 
+# RDK GStreamer Utils
 
 `rdk-gstreamer-utils` is a platform abstraction library that provides GStreamer utility functions for media playback within the RDK middleware. It mediates between upper-layer streaming clients and the underlying platform-specific GStreamer pipeline elements, enabling audio/video pipeline operations such as codec capability negotiation, track switching, underflow detection, audio mixing, and DRM HAL access to be expressed through a stable, platform-agnostic API. The library ships two shared objects: a vendor-delegating build (`librdkgstreamerutils.so`) that forwards every call to a vendor-supplied platform implementation, and a Rialto client build (`librdkgstreamerrltclientutils.so`) that implements the same interface directly against Rialto media pipeline sinks.
 
-At the device level, this component enables reliable, codec-agnostic media playback on RDK streaming devices by providing a consistent GStreamer abstraction to consumers such as the Netflix NRDP client. It decouples the streaming client from the specifics of the vendor GStreamer element names and vendor DRM library symbols, allowing platform integrations to be swapped without modifying higher-layer application logic.
+At the device level, this component enables reliable, codec-agnostic media playback on RDK streaming devices by providing a consistent GStreamer abstraction to upper-layer streaming clients. It decouples the streaming client from the specifics of the vendor GStreamer element names and vendor DRM library symbols, allowing platform integrations to be swapped without modifying higher-layer application logic.
 
 At the module level, the component provides a `rdk_gstreamer_utils` C++ namespace that encapsulates all pipeline utility operations. The public API is defined in a single header, while the implementation chooses at build time between the vendor-delegating path or the Rialto client path. DRM-related HAL functions are resolved at runtime via dynamic symbol loading, removing any direct link-time dependency on the DRM shared object.
 
@@ -16,7 +16,7 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 
 %% Apps Layer
     subgraph Apps["Apps & Runtimes"]
-        NRDP["Netflix NRDP Client"]
+        NRDP["Streaming Client"]
         WPE_RT["WPE Runtime"]
     end
 
@@ -74,30 +74,30 @@ graph TD
 
     subgraph Library["rdk-gstreamer-utils (Shared Library)"]
 
-        subgraph PublicAPI["Public API Layer (rdk_gstreamer_utils namespace)"]
-            API["Thin wrapper functions\nfor audio/video/DRM/mixer operations"]
+        subgraph PublicAPI["Public API Layer"]
+            API["rdk_gstreamer_utils API"]
         end
 
-        subgraph DelegationLayer["SoC Delegation Layer (vendor path only)"]
-            SOC_DELEGATE["Forwards calls to _soc functions\nvia static function signatures"]
-            DRM_DLSYM["DRM APIs resolved via dlsym\nat first call (lazy loading)"]
+        subgraph DelegationLayer["SoC Delegation Layer"]
+            SOC_DELEGATE["SoC Delegate"]
+            DRM_DLSYM["DRM Symbol Resolver"]
         end
 
-        subgraph RialtoImpl["Rialto Client Implementation (Rialto path)"]
-            RIALTO_AUDIO["Audio sink configuration\n(rialtomseaudiosink)"]
-            RIALTO_VIDEO["Video sink configuration\n(rialtomsevideosink)"]
-            RIALTO_UI["UI audio sink\n(rialtowebaudiosink)"]
-            AUDIO_MIX["Audio mixer pipeline\nconstruction and control"]
+        subgraph RialtoImpl["Rialto Client Implementation"]
+            RIALTO_AUDIO["rialtomseaudiosink"]
+            RIALTO_VIDEO["rialtomsevideosink"]
+            RIALTO_UI["rialtowebaudiosink"]
+            AUDIO_MIX["Audio Mixer"]
         end
     end
 
     subgraph VendorLayer["Vendor Layer"]
-        PLATFORM_LIB["librdkgstreamerutilsplatform\n(_soc functions)"]
-        DRM_LIB["DRM Shared Object\n(Drmhal_*_soc symbols)"]
+        PLATFORM_LIB["librdkgstreamerutilsplatform"]
+        DRM_LIB["DRM Shared Object"]
     end
 
     subgraph GStreamerPipeline["GStreamer Pipeline (Runtime)"]
-        GST_ELEMENTS["Pipeline GstElements\n(audio/video decoders, sinks)"]
+        GST_ELEMENTS["GStreamer Pipeline Elements"]
     end
 
     API --> SOC_DELEGATE
@@ -107,6 +107,8 @@ graph TD
     RialtoImpl --> GST_ELEMENTS
     PLATFORM_LIB --> GST_ELEMENTS
 ```
+
+The **Public API Layer** exposes the `rdk_gstreamer_utils` namespace as the single entry point for all streaming client calls. On the vendor path, the **SoC Delegation Layer** forwards each call to the corresponding `_soc`-suffixed function in `librdkgstreamerutilsplatform`, while the **DRM Symbol Resolver** lazily loads DRM HAL symbols at first call via `dlsym`. On the Rialto path, the **Rialto Client Implementation** handles all operations directly against the Rialto GStreamer sink elements (`rialtomseaudiosink`, `rialtomsevideosink`, `rialtowebaudiosink`) and manages the audio mixer pipeline inline.
 
 ### Threading Model
 
@@ -258,12 +260,11 @@ The component registers GStreamer signal callbacks on behalf of the calling clie
 ```mermaid
 sequenceDiagram
     participant Client as Streaming Client
-    participant RGU as rdk-gstreamer-utils (librdkgstreamerutils)
+    participant RGU as rdk-gstreamer-utils  (librdkgstreamerutils)
     participant SOC as Vendor Platform Lib (librdkgstreamerutilsplatform)
     participant GstEl as GStreamer Element
 
     Client->>RGU: API call (e.g. setVideoProperty, configAudioCap)
-    Note over RGU: Thin wrapper — no validation
     RGU->>SOC: Corresponding _soc function
     SOC->>GstEl: GStreamer property / caps / event API
     GstEl-->>SOC: Result
