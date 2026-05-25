@@ -191,8 +191,6 @@ flowchart TD
 
 ## Prerequisites & Dependencies
 
-**Documentation Verification Checklist:**
-
 - [x] **Thunder / WPEFramework APIs**: Not used. This component is a standalone systemd service. No `IPlugin`, `JSONRPC`, or `Exchange` interfaces are implemented.
 - [x] **IARM Bus**: Not used. `apparmor_parse.sh` contains no `IARM_Bus_RegisterEventHandler` or `IARM_Bus_Call` calls.
 - [x] **Device Services (DS) APIs**: Not used. No DS function calls are present in any source file in this repository.
