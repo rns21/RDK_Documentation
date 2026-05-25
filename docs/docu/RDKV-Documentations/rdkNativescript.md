@@ -14,6 +14,11 @@ classDef Apps stroke:#00B9F1,fill:#E6F7FD,stroke-width:2px;
 classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px;
 classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 
+%% Apps Layer
+    subgraph Apps["Apps & Runtimes"]
+        WPE_RT["WPEFramework / Thunder"]
+    end
+
 %% Middleware
     subgraph RDKMW["RDK Core Middleware"]
         JSRuntime["rdkNativeScript\n(org.rdk.jsruntime)"]
@@ -30,6 +35,7 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
     end
 
     %% Connections
+    WPE_RT -->|JSON-RPC: launchApplication| Thunder
     Thunder -->|Dispatch| JSRuntime
     JSRuntime -->|Media playback bindings| AAMP
     JSRuntime -->|Wayland display + key input| Westeros
@@ -134,17 +140,17 @@ graph TD
 
 **Available Modules:**
 
-| Option Token | Field | What It Enables |
-| ------------ | ----- | --------------- |
-| `http` | `enableHttp` | HTTP client bindings in the JavaScript context |
-| `xhr` | `enableXHR` | XMLHttpRequest (XHR) bindings |
-| `ws` | `enableWebSocket` | WebSocket client bindings |
-| `wsenhanced` | `enableWebSocketEnhanced` | Enhanced WebSocket bindings with additional event support |
-| `fetch` | `enableFetch` | Fetch API bindings |
-| `jsdom` | `enableJSDOM` | Full JSDOM bindings for DOM API emulation |
-| `minijsdom` | `enableMiniJSDOM` | Lightweight JSDOM subset; takes precedence over `jsdom` when both tokens are specified |
-| `window` | `enableWindow` | Window object bindings |
-| `player` | `enablePlayer` | AAMP media player bindings; exposes `AAMPMediaPlayer` as a JavaScript global |
+| Option Token | Field                     | What It Enables                                                                        |
+| ------------ | ------------------------- | -------------------------------------------------------------------------------------- |
+| `http`       | `enableHttp`              | HTTP client bindings in the JavaScript context                                         |
+| `xhr`        | `enableXHR`               | XMLHttpRequest (XHR) bindings                                                          |
+| `ws`         | `enableWebSocket`         | WebSocket client bindings                                                              |
+| `wsenhanced` | `enableWebSocketEnhanced` | Enhanced WebSocket bindings with additional event support                              |
+| `fetch`      | `enableFetch`             | Fetch API bindings                                                                     |
+| `jsdom`      | `enableJSDOM`             | Full JSDOM bindings for DOM API emulation                                              |
+| `minijsdom`  | `enableMiniJSDOM`         | Lightweight JSDOM subset; takes precedence over `jsdom` when both tokens are specified |
+| `window`     | `enableWindow`            | Window object bindings                                                                 |
+| `player`     | `enablePlayer`            | AAMP media player bindings; exposes `AAMPMediaPlayer` as a JavaScript global           |
 
 **Population Mechanisms:**
 
@@ -350,26 +356,18 @@ sequenceDiagram
 
 ## Configuration
 
-### Key Configuration Files
-
-| Configuration File                   | Purpose                                                                                                 | Override Mechanism                                                                      |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `/tmp/nativejsEmbedThunder`          | Sentinel file whose presence causes `thunderJS.js` to be injected into every new application context    | Create or remove the file at runtime; takes effect on the next `createApplication` call |
-| `/tmp/nativejsRdkWebBridge`          | Sentinel file whose presence causes `webbridgesdk.js` to be injected into every new application context | Create or remove the file at runtime                                                    |
-| `/tmp/nativejsEnableWebSocketServer` | Sentinel file whose presence activates the WebSocket server on startup                                  | Create before process start                                                             |
-
 ### Key Configuration Parameters
 
-| Parameter                    | Type         | Default     | Description                                                                                                    |
-| ---------------------------- | ------------ | ----------- | -------------------------------------------------------------------------------------------------------------- |
-| `NATIVEJS_LOG_LEVEL`         | string (env) | `INFO`      | Sets the logging verbosity. Accepted values: `debug`, `info`, `warn`, `error`, `fatal`.                        |
-| `NATIVEJS_GC_INTERVAL`       | float (env)  | `60000`     | Garbage collection timer interval in milliseconds. Controls how frequently the JSC GC runs.                    |
-| `NATIVEJS_INSPECTOR_SERVER`  | string (env) | _(not set)_ | Activates the remote JavaScript inspector. Format: `host:port` (e.g., `0.0.0.0:9226`).                         |
-| `NATIVEJS_GST_START_DISABLE` | string (env) | _(not set)_ | When set to any value, suppresses `gst_init()` during engine initialization.                                   |
-| `NATIVEJS_EMBED_THUNDERJS`   | string (env) | _(not set)_ | When set, enables ThunderJS injection into all contexts. Equivalent to creating the `/tmp` sentinel file.      |
-| `WAYLAND_DISPLAY`            | string (env) | _(not set)_ | Set automatically from the `--display` argument to direct the runtime to a specific Wayland compositor socket. |
-| `WS_SERVER_PORT`             | int (build)  | `5000`      | WebSocket server listen port. Defined at build time via `-DWS_SERVER_PORT=5000`.                               |
-| `NATIVEJS_DUMP_NETWORKMETRIC` | string (env) | _(not set)_ | When set, collects network metrics and stores the output to a file in `/tmp`.                                   |
+| Parameter                     | Type         | Default     | Description                                                                                                    |
+| ----------------------------- | ------------ | ----------- | -------------------------------------------------------------------------------------------------------------- |
+| `NATIVEJS_LOG_LEVEL`          | string (env) | `INFO`      | Sets the logging verbosity. Accepted values: `debug`, `info`, `warn`, `error`, `fatal`.                        |
+| `NATIVEJS_GC_INTERVAL`        | float (env)  | `60000`     | Garbage collection timer interval in milliseconds. Controls how frequently the JSC GC runs.                    |
+| `NATIVEJS_INSPECTOR_SERVER`   | string (env) | _(not set)_ | Activates the remote JavaScript inspector. Format: `host:port` (e.g., `0.0.0.0:9226`).                         |
+| `NATIVEJS_GST_START_DISABLE`  | string (env) | _(not set)_ | When set to any value, suppresses `gst_init()` during engine initialization.                                   |
+| `NATIVEJS_EMBED_THUNDERJS`    | string (env) | _(not set)_ | When set, enables ThunderJS injection into all contexts. Equivalent to creating the `/tmp` sentinel file.      |
+| `WAYLAND_DISPLAY`             | string (env) | _(not set)_ | Set automatically from the `--display` argument to direct the runtime to a specific Wayland compositor socket. |
+| `WS_SERVER_PORT`              | int (build)  | `5000`      | WebSocket server listen port. Defined at build time via `-DWS_SERVER_PORT=5000`.                               |
+| `NATIVEJS_DUMP_NETWORKMETRIC` | string (env) | _(not set)_ | When set, collects network metrics and stores the output to a file in `/tmp`.                                  |
 
 ### Runtime Configuration
 
