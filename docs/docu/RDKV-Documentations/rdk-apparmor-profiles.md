@@ -200,7 +200,7 @@ flowchart TD
 - [x] **Systemd services**: `apparmor.service` declares `Before=lighttpd.service`. No `After=` or `Requires=` on other services are declared.
 - [x] **Configuration files**: `/etc/apparmor/apparmor_defaults` and `/opt/secure/Apparmor_blocklist` are read via `while IFS=: read -r process mode` in `apparmor_parse.sh`. `/etc/apparmor.d` existence is verified via `ConditionPathExists`.
 
-### RDK-E Platform Requirements
+### Platform Requirements
 
 - **WPEFramework Version**: Not applicable. This is not a WPEFramework plugin.
 - **Build Dependencies**: AppArmor userspace tools (`apparmor_parser` at `/sbin/apparmor_parser`). Linux kernel with `CONFIG_SECURITY_APPARMOR=y` (enforced at runtime by `ConditionSecurity=apparmor`).
