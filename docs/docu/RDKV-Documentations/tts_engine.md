@@ -2,9 +2,9 @@
 
 TTS Engine is a native C/C++ client library that provides a unified, app-facing interface for Text-to-Speech capabilities in the RDK middleware stack. It abstracts the communication complexity involved in invoking TTS functionality exposed by the underlying Thunder (WPEFramework) plugin, allowing application runtimes and native applications to integrate speech synthesis by linking a single shared library and calling straightforward C++ APIs.
 
-The library supports three interchangeable IPC backends — JSON-RPC, COM-RPC, and Firebolt — and exposes a common API surface regardless of the selected backend. This makes the component a stable integration point for apps across both RDK-V and RDK-E build configurations.
+The library supports three interchangeable IPC backends — JSON-RPC, COM-RPC, and Firebolt — and exposes a common API surface regardless of the selected backend.
 
-The TTS Engine client library sits between the application layer and the WPEFramework (Thunder) middleware, bridging app runtimes to the `org.rdk.TextToSpeech.1` Thunder plugin. The plugin, in turn, interfaces with the platform's speech synthesis HAL.
+The TTS Engine client library sits between the application layer and the WPEFramework (Thunder) middleware, bridging app runtimes to the `org.rdk.TextToSpeech` Thunder plugin. The plugin, in turn, interfaces with the platform's speech synthesis HAL.
 
 ```mermaid
 flowchart LR
@@ -24,7 +24,7 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 %% Middleware
     subgraph RDKMW["RDK Core Middleware"]
         TTSClient["TTS Engine\n(TTSClient Library)"]
-        Thunder["WPEFramework (Thunder)\norg.rdk.TextToSpeech.1"]
+        Thunder["WPEFramework (Thunder)\norg.rdk.TextToSpeech"]
         AM["App Manager"]
         Westeros["Westeros"]
     end
@@ -58,7 +58,7 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 
 The TTS Engine client library is structured around a Bridge pattern that cleanly separates the public API from the underlying IPC mechanism. The `TTSClient` class is the sole entry point for callers; it owns a pointer to a `TTSClientPrivateInterface` instance selected at creation time based on the configured or detected backend. This design means the calling application is fully insulated from IPC transport details and requires no change when the backend is switched.
 
-The three backend implementations (`TTSClientPrivateJsonRPC`, `TTSClientPrivateCOMRPC`, `TTSClientPrivateFirebolt`) each own a corresponding service layer singleton (`TextToSpeechService`, `TextToSpeechServiceCOMRPC`, `TextToSpeechServiceFirebolt`) responsible for establishing and maintaining the IPC connection to the `org.rdk.TextToSpeech.1` Thunder plugin. The service singletons handle event subscription, connection monitoring, and per-backend protocol specifics.
+The three backend implementations (`TTSClientPrivateJsonRPC`, `TTSClientPrivateCOMRPC`, `TTSClientPrivateFirebolt`) each own a corresponding service layer singleton (`TextToSpeechService`, `TextToSpeechServiceCOMRPC`, `TextToSpeechServiceFirebolt`) responsible for establishing and maintaining the IPC connection to the `org.rdk.TextToSpeech` Thunder plugin. The service singletons handle event subscription, connection monitoring, and per-backend protocol specifics.
 
 Northbound, the library exposes a C++ object-oriented API (`TTSClient`) with callback interfaces (`TTSConnectionCallback`, `TTSSessionCallback`) that callers implement to receive asynchronous events. Southbound, the JSON-RPC backend communicates over the WPEFramework JSONRPC link type to the Thunder endpoint; the COM-RPC backend uses a `RPC::CommunicatorClient` to open an `Exchange::ITextToSpeech` proxy; the Firebolt backend uses the Firebolt SDK's `TextToSpeech` namespace.
 
@@ -84,15 +84,15 @@ graph TD
         end
 
         subgraph ServiceLayer["Service Connection Layer"]
-            SVC_JSON["TextToSpeechService\n(JSON-RPC singleton)"]
-            SVC_COM["TextToSpeechServiceCOMRPC\n(COM-RPC singleton)"]
-            SVC_FB["TextToSpeechServiceFirebolt\n(Firebolt singleton)"]
+            SVC_JSON["TextToSpeechService\n(JSON-RPC plugin adapter)"]
+            SVC_COM["TextToSpeechServiceCOMRPC\n(COM-RPC plugin adapter)"]
+            SVC_FB["TextToSpeechServiceFirebolt\n(Firebolt plugin adapter)"]
             SVC_BASE["Service\n(Base: security token, WPEFramework link)"]
         end
     end
 
     subgraph ThunderPlugin["WPEFramework"]
-        TTS_PLUGIN["org.rdk.TextToSpeech.1"]
+        TTS_PLUGIN["org.rdk.TextToSpeech"]
     end
 
     TC --> BS
@@ -123,9 +123,9 @@ graph TD
 #### Platform and Integration Requirements
 
 - **Build Dependencies**: `wpeframework`, `wpeframework-clientlibraries`, `gstreamer1.0-plugins-base`, `rdk-logger`, `breakpad` (when `ENABLE_BREAKPAD=1`), `FireboltSDK` (when Firebolt backend is selected).
-- **Plugin Dependencies**: `org.rdk.TextToSpeech.1` must be registered and active in the Thunder framework before `TTSClient::create()` can establish a connection. The library connects to the plugin in its active state; the JSON-RPC path passes `activateIfRequired=false`, relying on the Thunder framework to have the plugin active prior to library initialization.
-- **Device Services / HAL**: All hardware-level speech synthesis interaction is managed by the `org.rdk.TextToSpeech.1` Thunder plugin. This library communicates at the plugin API boundary.
-- **Systemd Services**: WPEFramework must be running and the `org.rdk.TextToSpeech.1` plugin must be loaded.
+- **Plugin Dependencies**: `org.rdk.TextToSpeech` must be registered and active in the Thunder framework before `TTSClient::create()` can establish a connection. The library connects to the plugin in its active state; the JSON-RPC path passes `activateIfRequired=false`, relying on the Thunder framework to have the plugin active prior to library initialization.
+- **Device Services / HAL**: All hardware-level speech synthesis interaction is managed by the `org.rdk.TextToSpeech` Thunder plugin. This library communicates at the plugin API boundary.
+- **Systemd Services**: WPEFramework must be running and the `org.rdk.TextToSpeech` plugin must be loaded.
 - **Configuration Files**: `/etc/WPEFramework/config.json` — used as a fallback to determine the Thunder RPC endpoint (`binding` + `port`).
 - **Startup Order**: The TTS Engine client library is a shared library linked into the calling application process. It connects to the already-running Thunder process on demand.
 
@@ -142,8 +142,8 @@ sequenceDiagram
     participant App as Application / Runtime
     participant TC as TTSClient
     participant BE as TTSClientPrivate*
-    participant SVC as TextToSpeechService*
-    participant Thunder as WPEFramework / org.rdk.TextToSpeech.1
+    participant SVC as TextToSpeechService* (plugin adapter)
+    participant Thunder as WPEFramework / org.rdk.TextToSpeech
 
     App->>TC: TTSClient::create(connectionCallback)
     TC->>TC: getTTSBackend()\n(env TTS_CLIENT_BACKEND or build default)
@@ -165,7 +165,7 @@ After initialization, the client enters active state and responds to both app-dr
 
 **State Change Triggers:**
 
-- When the `org.rdk.TextToSpeech.1` plugin fires `onttsstatechanged`, the service layer dispatches `onTTSStateChanged(bool)` to all registered `TTSConnectionCallback` instances.
+- When the `org.rdk.TextToSpeech` plugin fires `onttsstatechanged`, the service layer dispatches `onTTSStateChanged(bool)` to all registered `TTSConnectionCallback` instances.
 - When the voice is changed on the plugin side, `onVoiceChanged(string)` is delivered.
 - If the Thunder plugin deactivates (detected via the WPEFramework plugin state-change handler), registered clients receive `onTTSServerClosed()`.
 
@@ -185,8 +185,8 @@ sequenceDiagram
     participant App as Application
     participant TC as TTSClient
     participant BE as TTSClientPrivate*
-    participant SVC as TextToSpeechService*
-    participant Thunder as org.rdk.TextToSpeech.1
+    participant SVC as TextToSpeechService* (plugin adapter)
+    participant Thunder as org.rdk.TextToSpeech
 
     App->>TC: TTSClient::create(connCallback)
     TC->>BE: Instantiate backend (JSON/COM/Firebolt)
@@ -207,8 +207,8 @@ sequenceDiagram
     participant App as Application
     participant TC as TTSClient
     participant BE as TTSClientPrivate*
-    participant SVC as TextToSpeechService*
-    participant Thunder as org.rdk.TextToSpeech.1
+    participant SVC as TextToSpeechService* (plugin adapter)
+    participant Thunder as org.rdk.TextToSpeech
 
     App->>TC: speak(sessionId, SpeechData{id, text})
     TC->>BE: speak(sessionId, data)
@@ -240,10 +240,10 @@ sequenceDiagram
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | `TTSClient`                                                                | Public API facade. Owns a `TTSClientPrivateInterface*` selected at creation time. Delegates all API calls to the private implementation.                                                                                   | `TTSClient.cpp`, `TTSClient.h`                                                        |
 | `TTSClientPrivateInterface`                                                | Abstract interface defining the full TTS API contract (global, session, resource, speak APIs) implemented by each backend.                                                                                                 | `TTSClientPrivateInterface.h`                                                         |
-| `TTSClientPrivateJsonRPC`                                                  | JSON-RPC backend. Communicates with `org.rdk.TextToSpeech.1` by invoking JSON-RPC methods via the `TextToSpeechService` singleton.                                                                                         | `TTSClientPrivateJsonRPC.cpp`, `TTSClientPrivateJsonRPC.h`                            |
+| `TTSClientPrivateJsonRPC`                                                  | JSON-RPC backend. Communicates with `org.rdk.TextToSpeech` by invoking JSON-RPC methods via the `TextToSpeechService` singleton.                                                                                         | `TTSClientPrivateJsonRPC.cpp`, `TTSClientPrivateJsonRPC.h`                            |
 | `TTSClientPrivateCOMRPC`                                                   | COM-RPC backend. Communicates via the `Exchange::ITextToSpeech` proxy through the `TextToSpeechServiceCOMRPC` singleton.                                                                                                   | `TTSClientPrivateCOMRPC.cpp`, `TTSClientPrivateCOMRPC.h`                              |
 | `TTSClientPrivateFirebolt`                                                 | Firebolt backend (conditionally compiled). Communicates via the Firebolt SDK's `TextToSpeech` namespace through `TextToSpeechServiceFirebolt`.                                                                             | `TTSClientPrivateFirebolt.cpp`, `TTSClientPrivateFirebolt.h`                          |
-| `TextToSpeechService`                                                      | JSON-RPC service connection manager. Maintains the `WPEFrameworkPlugin` link to `org.rdk.TextToSpeech.1`, manages event subscriptions, and dispatches events to registered clients. Singleton.                             | `TextToSpeechService.cpp`, `TextToSpeechService.h`                                    |
+| `TextToSpeechService`                                                      | JSON-RPC service connection manager. Maintains the `WPEFrameworkPlugin` link to `org.rdk.TextToSpeech`, manages event subscriptions, and dispatches events to registered clients. Singleton.                             | `TextToSpeechService.cpp`, `TextToSpeechService.h`                                    |
 | `TextToSpeechServiceCOMRPC`                                                | COM-RPC service connection manager. Opens `Exchange::ITextToSpeech` proxy via `RPC::CommunicatorClient`. Registers `INotification` for event delivery. Contains an `AsyncWorker` for off-thread event dispatch. Singleton. | `TextToSpeechServiceCOMRPC.cpp`, `TextToSpeechServiceCOMRPC.h`                        |
 | `TextToSpeechServiceFirebolt`                                              | Firebolt service connection manager. Manages Firebolt SDK connection lifecycle and event subscriptions (conditionally compiled). Singleton.                                                                                | `TextToSpeechServiceFirebolt.cpp`, `TextToSpeechServiceFirebolt.h`                    |
 | `Service`                                                                  | Base class for JSON-RPC plugin connection. Handles WPEFramework endpoint discovery, security token acquisition, plugin state-change monitoring, event subscription/unsubscription, and async crash-recovery task queuing.  | `Service.cpp`, `Service.h`                                                            |
@@ -259,27 +259,27 @@ sequenceDiagram
 | Target Component / Layer | Interaction Purpose                                                                                            | Key APIs / Topics                                                                                                                                                                                           |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Plugins**              |                                                                                                                |                                                                                                                                                                                                             |
-| `org.rdk.TextToSpeech.1` | All TTS operations — enable/disable, configuration, voice listing, speech synthesis and control, state queries | JSON-RPC: `enabletts`, `listvoices`, `setttsconfiguration`, `getttsconfiguration`, `isttsenabled`, `speak`, `pause`, `resume`, `cancel`, `isspeaking`, `getspeechstate`; COM-RPC: `Exchange::ITextToSpeech` |
+| `org.rdk.TextToSpeech` | All TTS operations — enable/disable, configuration, voice listing, speech synthesis and control, state queries | JSON-RPC: `enabletts`, `listvoices`, `setttsconfiguration`, `getttsconfiguration`, `isttsenabled`, `speak`, `pause`, `resume`, `cancel`, `isspeaking`, `getspeechstate`; COM-RPC: `Exchange::ITextToSpeech` |
 | **WPEFramework Core**    | Plugin state-change notifications (activation / deactivation)                                                  | `OnPluginStateChange`, JSONRPC controller subscription                                                                                                                                                      |
 | **Firebolt SDK**         | Firebolt backend speech operations and event subscriptions                                                     | `Firebolt::TextToSpeech::ITextToSpeech` (conditional)                                                                                                                                                       |
 | **Security Agent**       | Acquire security tokens for authenticated Thunder communication                                                | `GetSecurityToken()`, `GetToken()` via `securityagent.h`                                                                                                                                                    |
 
 ### Events Published
 
-Events received from `org.rdk.TextToSpeech.1` are relayed to registered application callback objects. The table below lists each event, its origin, and the corresponding callback method invoked on the caller.
+Events received from `org.rdk.TextToSpeech` are relayed to registered application callback objects. The table below lists each event, its origin, and the corresponding callback method invoked on the caller.
 
 | Event Name            | Source                   | Delivered to Caller via                                               |
 | --------------------- | ------------------------ | --------------------------------------------------------------------- |
-| `onttsstatechanged`   | `org.rdk.TextToSpeech.1` | `TTSConnectionCallback::onTTSStateChanged(bool)`                      |
-| `onvoicechanged`      | `org.rdk.TextToSpeech.1` | `TTSConnectionCallback::onVoiceChanged(string)`                       |
-| `onspeechstart`       | `org.rdk.TextToSpeech.1` | `TTSSessionCallback::onSpeechStart(appId, sessionId, SpeechData)`     |
-| `onspeechpause`       | `org.rdk.TextToSpeech.1` | `TTSSessionCallback::onSpeechPause(appId, sessionId, speechId)`       |
-| `onspeechresume`      | `org.rdk.TextToSpeech.1` | `TTSSessionCallback::onSpeechResume(appId, sessionId, speechId)`      |
-| `onspeechcancelled`   | `org.rdk.TextToSpeech.1` | `TTSSessionCallback::onSpeechCancelled(appId, sessionId, speechId)`   |
-| `onspeechinterrupted` | `org.rdk.TextToSpeech.1` | `TTSSessionCallback::onSpeechInterrupted(appId, sessionId, speechId)` |
-| `onnetworkerror`      | `org.rdk.TextToSpeech.1` | `TTSSessionCallback::onNetworkError(appId, sessionId, speechId)`      |
-| `onplaybackerror`     | `org.rdk.TextToSpeech.1` | `TTSSessionCallback::onPlaybackError(appId, sessionId, speechId)`     |
-| `onspeechcomplete`    | `org.rdk.TextToSpeech.1` | `TTSSessionCallback::onSpeechComplete(appId, sessionId, SpeechData)`  |
+| `onttsstatechanged`   | `org.rdk.TextToSpeech` | `TTSConnectionCallback::onTTSStateChanged(bool)`                      |
+| `onvoicechanged`      | `org.rdk.TextToSpeech` | `TTSConnectionCallback::onVoiceChanged(string)`                       |
+| `onspeechstart`       | `org.rdk.TextToSpeech` | `TTSSessionCallback::onSpeechStart(appId, sessionId, SpeechData)`     |
+| `onspeechpause`       | `org.rdk.TextToSpeech` | `TTSSessionCallback::onSpeechPause(appId, sessionId, speechId)`       |
+| `onspeechresume`      | `org.rdk.TextToSpeech` | `TTSSessionCallback::onSpeechResume(appId, sessionId, speechId)`      |
+| `onspeechcancelled`   | `org.rdk.TextToSpeech` | `TTSSessionCallback::onSpeechCancelled(appId, sessionId, speechId)`   |
+| `onspeechinterrupted` | `org.rdk.TextToSpeech` | `TTSSessionCallback::onSpeechInterrupted(appId, sessionId, speechId)` |
+| `onnetworkerror`      | `org.rdk.TextToSpeech` | `TTSSessionCallback::onNetworkError(appId, sessionId, speechId)`      |
+| `onplaybackerror`     | `org.rdk.TextToSpeech` | `TTSSessionCallback::onPlaybackError(appId, sessionId, speechId)`     |
+| `onspeechcomplete`    | `org.rdk.TextToSpeech` | `TTSSessionCallback::onSpeechComplete(appId, sessionId, SpeechData)`  |
 
 ### IPC Flow Patterns
 
@@ -290,8 +290,8 @@ sequenceDiagram
     participant App as Application
     participant TC as TTSClient
     participant BE as TTSClientPrivateJsonRPC
-    participant SVC as TextToSpeechService
-    participant Thunder as org.rdk.TextToSpeech.1
+    participant SVC as TextToSpeechService (plugin adapter)
+    participant Thunder as org.rdk.TextToSpeech
 
     App->>TC: API call (e.g., speak, setTTSConfiguration)
     TC->>BE: Delegate to backend method
@@ -307,7 +307,7 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant Thunder as org.rdk.TextToSpeech.1
+    participant Thunder as org.rdk.TextToSpeech
     participant Notif as ITextToSpeech::INotification
     participant Worker as AsyncWorker Thread
     participant BE as TTSClientPrivateCOMRPC
@@ -399,4 +399,4 @@ The following flags are set at build time via CMake or the Yocto recipe and affe
 
 ### Configuration Persistence
 
-Configuration changes made via `setTTSConfiguration()` are forwarded to the `org.rdk.TextToSpeech.1` plugin at runtime. Persistence of those changes across reboots is governed by the plugin's own implementation.
+Configuration changes made via `setTTSConfiguration()` are forwarded to the `org.rdk.TextToSpeech` plugin at runtime. Persistence of those changes across reboots is governed by the plugin's own implementation.
