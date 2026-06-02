@@ -64,42 +64,33 @@ The component's northbound interface is the CDMi `IMediaKeys` and `IMediaKeysExt
 The DRM store is persisted on the filesystem at the path specified by the `store-location` configuration parameter and is managed by the PlayReady SDK. The component performs a cleanup pass at startup to remove expired licenses. In-memory licenses are removed when the session closes. Temporary persistent licenses acquired during a session are tracked and deleted on session close to prevent unbounded accumulation.
 
 ```mermaid
-graph TD
+graph LR
 
-    subgraph PlayReadyOCDMPlugin["PlayReady OCDM Plugin (Playready.drm)"]
+    OCDM["WPEFramework\nOCDM Subsystem"]
 
-        subgraph SystemLayer["System Layer — PlayReady class"]
-            SysCtx["DRM App Context\n(DRM_APP_CONTEXT)"]
-            SysCfg["Configuration\n(read-dir, store-location, home-path)"]
-            SecStop["Secure Stop Manager"]
-            StoreOps["License Store Operations\n(CleanupStore, DeleteLicenses)"]
+    subgraph Plugin["PlayReady OCDM (Playready.drm)"]
+        subgraph SysL["System Layer"]
+            SysCtx["DRM_APP_CONTEXT"]
+            SecStop["Secure Stop"]
+            StoreOps["Store Ops"]
         end
-
-        subgraph SessionLayer["Session Layer — MediaKeySession"]
-            KeySM["Key State Machine\n(INIT → PENDING → READY → CLOSED)"]
-            LicAcq["License Acquisition\n(Challenge / Response)"]
-            DecCtx["Decrypt Context Pool\n(DRM_DECRYPT_CONTEXT per Key ID)"]
-            OPL["Output Protection\nPolicy Callback"]
+        Mutex["drmAppContextMutex_"]
+        subgraph SessL["Session Layer"]
+            KeySM["Key State Machine"]
+            LicAcq["License Acq"]
+            DecCtx["Decrypt Contexts"]
         end
-
-        Mutex["drmAppContextMutex_\n(CriticalSection)"]
     end
 
-    subgraph VendorLayer["Vendor Layer"]
-        PRSDK["PlayReady SDK\n(Drm_* APIs)"]
-        SVP["gst-svp-ext\n(SVP HAL)"]
-    end
+    PRSDK["PlayReady SDK"]
+    SVP["gst-svp-ext"]
 
-    subgraph Caller["WPEFramework OCDM Subsystem"]
-        OCDM["IMediaKeys / IMediaKeysExt"]
-    end
-
-    OCDM -->|"CreateMediaKeySession\nInitSystemExt\nSecureStop APIs"| SystemLayer
-    OCDM -->|"Run / Update / Decrypt / Close"| SessionLayer
-    SystemLayer --> Mutex
-    SessionLayer --> Mutex
+    OCDM -->|"System APIs"| SysL
+    OCDM -->|"Session APIs"| SessL
+    SysL --> Mutex
+    SessL --> Mutex
     Mutex --> PRSDK
-    SessionLayer -->|"svp_* calls"| SVP
+    SessL -->|"svp_* calls"| SVP
 ```
 
 ### Threading Model
@@ -310,28 +301,28 @@ The component's interactions are with the WPEFramework OCDM subsystem (northboun
 | Target Component / Layer        | Interaction Purpose                                                         | Key APIs / Topics                                                                                                                                                          |
 | ------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **WPEFramework OCDM Subsystem** |                                                                             |                                                                                                                                                                            |
-| OCDM plugin                     | CDMi interface entry points for key system and session lifecycle management | `IMediaKeys::CreateMediaKeySession`, `IMediaKeysExt::InitSystemExt`, `IMediaKeysExt::TeardownSystemExt`, `IMediaKeysExt::GetSecureStop`, `IMediaKeysExt::CommitSecureStop` |
+| OCDM subsystem                  | CDMi interface entry points for key system and session lifecycle management | `IMediaKeys::CreateMediaKeySession`, `IMediaKeysExt::InitSystemExt`, `IMediaKeysExt::TeardownSystemExt`, `IMediaKeysExt::GetSecureStop`, `IMediaKeysExt::CommitSecureStop` |
 | `IMediaKeySessionCallback`      | Session event delivery to the OCDM caller                                   | `OnKeyMessage()`, `OnKeyStatusUpdate()`, `OnKeyStatusesUpdated()`, `OnError()`                                                                                             |
 | **PlayReady SDK**               |                                                                             |                                                                                                                                                                            |
-| PlayReady SDK                   | DRM platform and application context lifecycle                              | `Drm_Platform_Initialize()`, `Drm_Platform_Uninitialize()`, `Drm_Initialize()`, `Drm_Uninitialize()`, `Drm_Reinitialize()`                                                 |
-| PlayReady SDK                   | Content header parsing and key selection                                    | `Drm_Content_SetProperty()` with `DRM_CSP_AUTODETECT_HEADER`, `DRM_CSP_SELECT_KID`, `DRM_CSP_DECRYPTION_OUTPUT_MODE`                                                       |
-| PlayReady SDK                   | License acquisition                                                         | `Drm_LicenseAcq_GenerateChallenge()`, `Drm_LicenseAcq_ProcessResponse()`                                                                                                   |
-| PlayReady SDK                   | Decrypt context binding and content decryption                              | `Drm_Reader_Bind()`, `Drm_Reader_Commit()`, `Drm_Reader_Close()`, `Drm_Reader_DecryptOpaque()`, `Drm_Reader_DecryptMultipleOpaque()`                                       |
-| PlayReady SDK                   | Revocation data management                                                  | `Drm_Revocation_SetBuffer()`                                                                                                                                               |
-| PlayReady SDK                   | Secure time and anti-rollback clock                                         | `Drm_SecureTime_GetValue()`, `Drm_AntiRollBackClock_Init()`                                                                                                                |
-| PlayReady SDK                   | Secure Stop session management                                              | `Drm_SecureStop_EnumerateSessions()`, `Drm_SecureStop_GenerateChallenge()`, `Drm_SecureStop_ProcessResponse()`                                                             |
-| PlayReady SDK                   | License store maintenance                                                   | `Drm_StoreMgmt_CleanupStore()`, `Drm_StoreMgmt_DeleteLicenses()`, `Drm_StoreMgmt_DeleteInMemoryLicenses()`                                                                 |
+|                                 | DRM platform and application context lifecycle                              | `Drm_Platform_Initialize()`, `Drm_Platform_Uninitialize()`, `Drm_Initialize()`, `Drm_Uninitialize()`, `Drm_Reinitialize()`                                                 |
+|                                 | Content header parsing and key selection                                    | `Drm_Content_SetProperty()` with `DRM_CSP_AUTODETECT_HEADER`, `DRM_CSP_SELECT_KID`, `DRM_CSP_DECRYPTION_OUTPUT_MODE`                                                       |
+|                                 | License acquisition                                                         | `Drm_LicenseAcq_GenerateChallenge()`, `Drm_LicenseAcq_ProcessResponse()`                                                                                                   |
+|                                 | Decrypt context binding and content decryption                              | `Drm_Reader_Bind()`, `Drm_Reader_Commit()`, `Drm_Reader_Close()`, `Drm_Reader_DecryptOpaque()`, `Drm_Reader_DecryptMultipleOpaque()`                                       |
+|                                 | Revocation data management                                                  | `Drm_Revocation_SetBuffer()`                                                                                                                                               |
+|                                 | Secure time and anti-rollback clock                                         | `Drm_SecureTime_GetValue()`, `Drm_AntiRollBackClock_Init()`                                                                                                                |
+|                                 | Secure Stop session management                                              | `Drm_SecureStop_EnumerateSessions()`, `Drm_SecureStop_GenerateChallenge()`, `Drm_SecureStop_ProcessResponse()`                                                             |
+|                                 | License store maintenance                                                   | `Drm_StoreMgmt_CleanupStore()`, `Drm_StoreMgmt_DeleteLicenses()`, `Drm_StoreMgmt_DeleteInMemoryLicenses()`                                                                 |
 | **SVP HAL (gst-svp-ext)**       |                                                                             |                                                                                                                                                                            |
-| gst-svp-ext                     | Platform PlayReady initialization and teardown                              | `svpPlatformInitializePlayready()`, `svpPlatformUninitializePlayready()`                                                                                                   |
-| gst-svp-ext                     | DRM and platform context provisioning                                       | `svpGetDrmOEMContext()`, `svpGetDrmPlatformInitData()`                                                                                                                     |
-| gst-svp-ext                     | DRM storage path resolution                                                 | `svpGetDrmStoragePath()`                                                                                                                                                   |
-| gst-svp-ext                     | Revocation list loading and clock initialization flag                       | `svpLoadRevocationList()`, `svpIsSecureClockInitNeed()`                                                                                                                    |
-| gst-svp-ext                     | Secure buffer lifecycle for decrypted video                                 | `svp_allocate_secure_buffers()`, `svp_release_secure_buffers()`, `svp_buffer_alloc_token()`, `svp_buffer_to_token()`, `svp_buffer_free_token()`, `svp_token_size()`        |
-| gst-svp-ext                     | SVP context lifecycle                                                       | `gst_svp_ext_get_context()`, `gst_svp_ext_free_context()`                                                                                                                  |
-| gst-svp-ext                     | SVP buffer header inspection and update                                     | `gst_svp_has_header()`, `gst_svp_header_get_start_of_data()`, `gst_svp_header_get_field()`, `gst_svp_header_set_field()`                                                   |
-| gst-svp-ext                     | Per-stream decrypt path capability queries                                  | `svpIsAudioNeedNonSVPContext()`, `svpIsVideoResCheckNeed()`, `svpIsDynamicSVPEncEnabled()`, `svpIsMultipleOpaqueSupportCTR()`                                              |
+|                                 | Platform PlayReady initialization and teardown                              | `svpPlatformInitializePlayready()`, `svpPlatformUninitializePlayready()`                                                                                                   |
+|                                 | DRM and platform context provisioning                                       | `svpGetDrmOEMContext()`, `svpGetDrmPlatformInitData()`                                                                                                                     |
+|                                 | DRM storage path resolution                                                 | `svpGetDrmStoragePath()`                                                                                                                                                   |
+|                                 | Revocation list loading and clock initialization flag                       | `svpLoadRevocationList()`, `svpIsSecureClockInitNeed()`                                                                                                                    |
+|                                 | Secure buffer lifecycle for decrypted video                                 | `svp_allocate_secure_buffers()`, `svp_release_secure_buffers()`, `svp_buffer_alloc_token()`, `svp_buffer_to_token()`, `svp_buffer_free_token()`, `svp_token_size()`        |
+|                                 | SVP context lifecycle                                                       | `gst_svp_ext_get_context()`, `gst_svp_ext_free_context()`                                                                                                                  |
+|                                 | SVP buffer header inspection and update                                     | `gst_svp_has_header()`, `gst_svp_header_get_start_of_data()`, `gst_svp_header_get_field()`, `gst_svp_header_set_field()`                                                   |
+|                                 | Per-stream decrypt path capability queries                                  | `svpIsAudioNeedNonSVPContext()`, `svpIsVideoResCheckNeed()`, `svpIsDynamicSVPEncEnabled()`, `svpIsMultipleOpaqueSupportCTR()`                                              |
 | **External Systems**            |                                                                             |                                                                                                                                                                            |
-| License Server                  | License challenge dispatch and response retrieval                           | HTTP POST (the caller handles transport; the component generates the challenge binary and processes the response binary)                                                      |
+| License Server                  | License challenge dispatch and response retrieval                           | HTTP POST (the caller handles transport; the component generates the challenge binary and processes the response binary)                                                   |
 
 ### Events Published
 
@@ -436,16 +427,16 @@ sequenceDiagram
 
 ### Key Configuration Files
 
-| Configuration File                            | Purpose                                                                                          | Override Mechanism                                                        |
-| --------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
+| Configuration File                            | Purpose                                                                                             | Override Mechanism                                                        |
+| --------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | JSON configuration string (WPEFramework host) | Specifies the DRM data directory path, DRM store file path, and HOME path for the component process | Delivered by the WPEFramework configuration system at `Initialize()` time |
 
 ### Key Configuration Parameters
 
-| Parameter        | Type   | Default | Description                                                                                                                       |
-| ---------------- | ------ | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `read-dir`       | string | —       | Filesystem path to the directory containing PlayReady data files (device certificate and related assets).                         |
-| `store-location` | string | —       | Filesystem path to the PlayReady DRM store file where licenses are persisted.                                                     |
+| Parameter        | Type   | Default | Description                                                                                                                          |
+| ---------------- | ------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `read-dir`       | string | —       | Filesystem path to the directory containing PlayReady data files (device certificate and related assets).                            |
+| `store-location` | string | —       | Filesystem path to the PlayReady DRM store file where licenses are persisted.                                                        |
 | `home-path`      | string | —       | Value set as the `HOME` environment variable for the component process; required for Secure Stop functionality to operate correctly. |
 
 ### Build-Time Configuration Parameters
