@@ -1,8 +1,8 @@
 # widevine-rdk
 
-`widevine-rdk` is the RDK-E common OCDM (Open Content Decryption Module) MediaSession implementation for the Widevine DRM system. It operates as a dynamically loaded DRM backend plugin within the WPEFramework/Thunder OCDM framework, bridging the platform-neutral OCDM interface with the vendor-supplied Widevine CDM library. The component handles the complete lifecycle of a protected media session: device provisioning, license acquisition, key status tracking, and the decryption of encrypted audio and video samples passed down from the RDK middleware playback pipeline.
+`widevine-rdk` is the common OCDM (Open Content Decryption Module) MediaSession implementation for the Widevine DRM system. It operates as a dynamically loaded DRM backend plugin within the WPEFramework/Thunder OCDM framework, bridging the platform-neutral OCDM interface with the vendor-supplied Widevine CDM library. The component handles the complete lifecycle of a protected media session: device provisioning, license acquisition, key status tracking, and the decryption of encrypted audio and video samples passed down from the RDK middleware playback pipeline.
 
-At the device level, widevine-rdk enables playback of Widevine-protected content on RDK-E devices by managing DRM session state on behalf of media pipeline components. It abstracts the details of the Widevine protocol from upper layers, exposing a standard CDMi interface that the OCDM plugin consumes. Secure Video Path (SVP) integration is provided through the `gst-svp-ext` library, routing decrypted video samples directly into hardware-protected memory regions.
+At the device level, widevine-rdk enables playback of Widevine-protected content on RDK devices by managing DRM session state on behalf of media pipeline components. It abstracts the details of the Widevine protocol from upper layers, exposing a standard CDMi interface that the OCDM plugin consumes. Secure Video Path (SVP) integration is provided through the `gst-svp-ext` library, routing decrypted video samples directly into hardware-protected memory regions.
 
 At the module level, widevine-rdk provides three coordinated units of functionality: a media system manager that owns the single CDM instance and the map of active sessions, a per-session media key session that drives the license request and decryption workflows, and a host-services implementation that supplies the CDM library with storage, clock, and timer services sourced from the WPEFramework core.
 
@@ -416,7 +416,7 @@ sequenceDiagram
 
 ### Runtime Configuration
 
-The CDM session's stream metadata can be updated at runtime through `IMediaKeySession::SetParameter()`:
+The CDM session's stream metadata can be updated at runtime through `MediaKeySession::SetParameter()`:
 
 ```bash
 # Set media type (drives SVP stream type selection)
