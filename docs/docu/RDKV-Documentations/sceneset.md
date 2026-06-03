@@ -242,13 +242,13 @@ sequenceDiagram
     SceneSet->>AppMgr: COMRPC Open IAppManager
     SceneSet->>PreinstallMgr: COMRPC Open IPreinstallManager
     SceneSet->>PkgMgr: COMRPC Open IPackageInstaller
-    SceneSet->>Controller: Fetch downloadDir and appPreinstallDirectory (IShell::ConfigLine)
+    SceneSet->>Controller: Fetch downloadDir and appPreinstallDirectory via IShell.ConfigLine
     Controller-->>SceneSet: Paths resolved
     SceneSet->>Systemd: sd_notify READY=1
     SceneSet->>PreinstallMgr: Register event handler
     SceneSet->>PkgMgr: Register event handler
     SceneSet->>AppMgr: Register event handler
-    SceneSet->>SceneSet: Check first-boot marker; copy factory apps if needed
+    SceneSet->>SceneSet: Check first-boot marker, copy factory apps if needed
     SceneSet->>PreinstallMgr: StartPreinstall(forceInstall)
     PreinstallMgr-->>SceneSet: SUCCESS
 ```
