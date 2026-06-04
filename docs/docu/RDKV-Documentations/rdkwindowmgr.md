@@ -1,10 +1,12 @@
 # RDK Window Manager
 
-RDK Window Manager (`rdkwindowmanager`) is the compositing and window management component in the RDK middleware stack. It creates and manages Wayland display surfaces for client applications, composites application windows onto the screen using OpenGL ES 2.0, and routes all keyboard and pointer input events to the correct application. The component is built as a shared library (`librdkwindowmanager.so`) that exposes a `CompositorController` API surface, and optionally as a standalone process entrypoint that embeds that library.
+RDK Window Manager (rdkwindowmanager) is responsible for creating Wayland displays, compositing application surfaces, managing window properties, and handling input routing and focus on RDK video and entertainment devices. It depends on Westeros for Wayland compositor creation and Essos for display context management, and exposes its control surface as a Thunder plugin that clients reach through the Firebolt API layer.
 
-**As a device-level service**, RDK Window Manager gives every connected Wayland client its own isolated display surface, enforces z-order layering and visibility rules, delivers focus-based and intercepted key events, and emits lifecycle notifications (connect, disconnect, first-frame, focus, blur) to registered listeners. Applications are identified by a display name and may be assigned virtual resolutions, cropped viewports, opacity levels, and scaled bounds independently of one another.
+RDK Window Manager is the display and input management layer within the RDK Core Middleware stack. It initialises a Westeros-backed Wayland compositor, allocates per-application display surfaces, composites those surfaces onto the screen using OpenGL ES 2.0, and routes key and pointer input from Linux input devices to the correct application. Window properties — position, size, opacity, z-order, visibility, and crop — are managed at runtime. An inactivity-detection mechanism monitors the elapsed time since the last key event and notifies subscribers when the device becomes idle.
 
-**At the module level**, the component is organised around a `CompositorController` singleton that owns a list of active `RdkCompositor` objects (one per client display). The `EssosInstance` singleton wraps the Essos EGL and input context; all key and pointer events enter through Essos callbacks and are forwarded to `CompositorController` for routing. Firebolt protocol extensions — `firebolt_shell`, `firebolt_surface`, and `firebolt_wm` — are loadable Westeros plugins that extend the Wayland protocol surface available to Firebolt-capable clients.
+The component ships three Wayland protocol extensions (`firebolt_shell`, `firebolt_surface`, `firebolt_wm`) that give Wayland clients direct access to surface creation and property control without requiring a Thunder round-trip. When enabled at build time, a VNC server provides remote frame-buffer access over a TCP connection.
+
+From a device perspective the component acts as the single Wayland display server for all applications — native, HTML, and Lightning — and arbitrates which application receives keyboard focus at any given moment. It is consumed by the Thunder plugin that bridges higher-level Firebolt API calls down to the compositor.
 
 ```mermaid
 flowchart LR
@@ -15,136 +17,134 @@ classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px;
 classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 
     subgraph Apps["Apps & Runtimes"]
-        RDKUI["UI"]
-        FBApps["Firebolt Apps"]
-        WPE_RT["WPE Runtime"]
+        NativeApp["Native App"]
+        HTMLApp["HTML / WPE App"]
+        LightningApp["Lightning App"]
     end
 
     subgraph RDKMW["RDK Core Middleware"]
-        RWM["RDK Window Manager\n(Compositor + WM)"]
-        AM["App Manager"]
         Thunder["WPEFramework (Thunder)"]
+        RDKWM["RDK Window Manager\n(librdkwindowmanager.so)"]
         Westeros["Westeros Compositor"]
-        Essos["Essos (EGL / Input)"]
+        Essos["Essos Display Context"]
     end
 
     subgraph VL["Vendor Layer"]
         EGL["EGL / OpenGL ES 2.0"]
-        BSP["BSP / Display HW"]
-        Input["Linux Input Devices"]
+        LinuxInput["Linux Input Devices"]
     end
 
-    Apps -->|Wayland protocol| RWM
-    Thunder -->|CompositorController API| RWM
-    AM -->|createDisplay / setFocus| RWM
-    RWM -->|WstCompositor APIs| Westeros
-    RWM -->|EssCtx APIs| Essos
-    Essos -->|EGL context| EGL
-    Essos -->|/dev/input events| Input
-    EGL -->|display output| BSP
+    Apps -->|Wayland / Firebolt WM Protocol| RDKWM
+    Thunder -->|JSON-RPC / Thunder API| RDKWM
+    RDKWM --> Westeros
+    RDKWM --> Essos
+    RDKWM -->|HAL APIs| VL
 ```
 
 **Key Features & Responsibilities:**
 
-- **Multi-client Wayland compositing**: Creates an independent nested Westeros compositor for each application that connects, allowing simultaneous on-screen display of multiple Wayland clients with independent z-order, bounds, opacity, crop, and scale.
-- **Input routing and key interception**: Dispatches keyboard and pointer events from Essos to the focused compositor by default, with a priority-based key intercept and key listener layer that can redirect or duplicate specific key codes to non-focused clients.
-- **Focus and z-order management**: Maintains an ordered compositor list and a separate topmost compositor list; `setFocus`, `moveToFront`, `moveToBack`, and `moveBehind` operations update both lists atomically.
-- **Firebolt protocol extensions**: Loads `firebolt_shell`, `firebolt_surface`, and `firebolt_wm` as Westeros plugins, extending the Wayland protocol to support typed surface creation (standard, video, popup, notification) and focus event delivery.
-- **Framebuffer-based off-screen rendering**: Supports FBO (framebuffer object) composition paths via `FrameBuffer` and `FrameBufferRenderer`, enabling per-compositor render-to-texture and subsequent blending onto the screen.
-- **Software cursor overlay**: Renders a configurable software cursor image (JPEG, PNG, or BMP) at the pointer position using the OpenGL ES rendering pipeline, with automatic hide after an inactivity period.
-- **VNC server (optional)**: When enabled at build time, starts a TCP-based VNC server (`VncServer`) backed by `libsoup` and GLib that captures framebuffer content and streams it to remote VNC clients.
-- **Application lifecycle events**: Notifies registered `RdkWindowManagerEventListener` instances of connect, disconnect, terminate, first-frame, visibility change, focus, and blur events originating from Westeros client status callbacks.
-- **Inactivity reporting**: Tracks the elapsed time since the last key event and fires `onUserInactive` notifications at a configurable interval when no input is received.
+- **Wayland Display Creation**: Creates and manages per-application embedded Westeros compositor instances, assigns display names, and tracks client connection and disconnection lifecycle.
+- **Surface Composition**: Composites multiple application surfaces onto the display each frame using OpenGL ES 2.0, respecting z-order, opacity, position, size, and crop parameters for each surface.
+- **Input Routing and Focus Management**: Receives key and pointer events from Essos, maps Linux/Wayland key codes to RDK virtual key codes, and dispatches events to the focused application or to registered key intercept and listener handlers.
+- **Key Intercept and Listener Registration**: Allows applications to register intercepts for specific key codes — with optional focus-only and propagation modes — and listeners that can activate or suppress key propagation.
+- **Inactivity Reporting**: Tracks elapsed time since the last key event and fires an inactivity notification to registered listeners once the configurable threshold is exceeded.
+- **Firebolt Wayland Extensions**: Provides `firebolt_shell`, `firebolt_surface`, and `firebolt_wm` Westeros protocol plugins that give Wayland clients fine-grained surface management without a Thunder round-trip.
+- **VNC Remote Access**: Optionally starts a TCP-based VNC server that captures the current frame buffer and serves it to remote clients (enabled at build time via `RDK_WINDOW_MANAGER_VNC_SERVER`).
+- **Input Device Classification**: Reads a JSON configuration file to classify attached Linux input devices by vendor, product, and device type, allowing key metadata to carry device-type information to applications.
+- **Memory Monitoring**: Monitors system RAM and swap usage against configurable thresholds, emitting low-memory and critically-low-memory notifications when limits are crossed.
 
 ---
 
 ## Design
 
-RDK Window Manager follows a single-process, render-loop architecture where all compositing, input dispatch, and state mutations occur on one main thread. This removes the need for cross-thread locking on the compositor list and simplifies the event delivery model. The `CompositorController` is a stateless collection of static methods that operate on module-level global state, keeping the internal data structures (compositor list, key intercept map, focused compositor record) centralised. The `EssosInstance` singleton acts as the boundary between the platform EGL/input layer and the compositing logic: all Essos callbacks convert raw Wayland key codes into mapped RDK key codes and immediately invoke `CompositorController::onKeyPress` / `onKeyRelease`.
+RDK Window Manager is designed as a standalone process (`rdkwindowmanager`) that owns the Wayland display server role entirely. Its architecture separates concerns across five focused layers: initialisation and lifecycle (`RdkWindowManager` namespace), Essos context and input ingestion (`EssosInstance`), compositor creation and per-client surface management (`RdkCompositor` / `RdkCompositorNested`), the orchestration and routing logic that operates across all active compositors (`CompositorController`), and the Wayland extension plugins (`firebolt_shell`, `firebolt_surface`, `firebolt_wm`). Each layer communicates through well-defined C++ interfaces, and the component exposes its full north-bound API as a C++ shared library (`librdkwindowmanager.so`) linked by the Thunder plugin.
 
-Northbound interaction is provided through the `CompositorController` API, which is exposed via `librdkwindowmanager.so`. A Thunder plugin in a separate component calls into this API to service JSON-RPC requests from application managers and test clients. Southbound interaction is through Westeros compositor APIs (`WstCompositor*`) for display management and through Essos APIs (`EssCtx*`) for EGL surface and input context management.
+Northbound interaction is through the Thunder JSON-RPC interface exposed by the companion Thunder plugin. That plugin forwards calls directly to `CompositorController` static methods. The Wayland extension layer provides an orthogonal northbound path: Wayland clients load the extension protocols and communicate directly with the window manager process over the existing Wayland socket, bypassing Thunder entirely for performance-sensitive surface property updates.
 
-IPC within the compositing layer uses the Wayland protocol exclusively. Each client application communicates with the RDK Window Manager through a Wayland socket, using either the standard Wayland interfaces or the custom Firebolt Wayland protocol extensions provided by the Westeros plugins. The northbound interface is the in-process `librdkwindowmanager.so` shared library API, consumed directly by the Thunder plugin wrapper.
+Southbound, the component binds to Essos for display context initialisation and key/pointer event delivery, and to Westeros for embedded compositor creation (`WstCompositorCreate`, `WstCompositorStart`, and associated callbacks). OpenGL ES 2.0 is used directly for off-screen frame buffer rendering and final composition. Linux input devices are enumerated and classified through a JSON configuration file parsed by `RdkWindowManagerJson`, and raw Wayland key codes are translated to RDK virtual key codes by `linuxkeys`.
 
-Configuration is runtime-driven through environment variables. The splash screen state is communicated via a sentinel file (`/tmp/.rdkwindowmanagersplash`) and the display resolution override via `/tmp/rdkwindowmanager720`, both read once at initialization.
+IPC between the Thunder plugin and the window manager process is through the shared library interface (`librdkwindowmanager.so`). Communication between the window manager and Wayland client applications is through the standard Wayland socket protocol, extended by the three Firebolt Westeros protocol plugins.
+
+Runtime state — including window property changes, focus assignments, and key intercept registrations — is held in process memory for the duration of the session.
 
 ```mermaid
 graph TD
+    subgraph RDKWindowManagerProcess["rdkwindowmanager process"]
 
-    subgraph RWM["RDK Window Manager (librdkwindowmanager.so)"]
-
-        subgraph CC["CompositorController"]
-            CCLogic["Compositor List\nKey Intercept Map\nFocus State\nInactivity Timer"]
+        subgraph Lifecycle["Lifecycle"]
+            Init["initialize()"]
+            RunLoop["run() / draw() / update()"]
         end
 
-        subgraph EI["EssosInstance"]
-            EssCtx["Essos Context\nEGL Surface\nKey/Pointer Listeners"]
+        subgraph EssosLayer["Essos Integration"]
+            EssCtx["EssosInstance"]
+            KeyEvt["Key / Pointer Callbacks"]
         end
 
-        subgraph RC["RdkCompositorNested (per client)"]
-            WstCtx["WstCompositor\nApplication Thread\nFBO / Direct Draw"]
+        subgraph CtrlLayer["Compositor Controller"]
+            CompCtrl["CompositorController (static)"]
+            KeyIntercept["Key Intercept Table"]
+            KeyListener["Key Listener Table"]
+            InactivityTimer["Inactivity Timer"]
+            VNCServer["VNC Server (optional)"]
         end
 
-        subgraph FBO["FrameBuffer / FrameBufferRenderer"]
-            FBOP["Off-screen FBO\nOpenGL ES Blending"]
+        subgraph CompositorLayer["Per-App Compositors"]
+            RdkComp["RdkCompositor (base)"]
+            NestedComp["RdkCompositorNested"]
+            FrameBuf["FrameBuffer / FrameBufferRenderer"]
+            CursorMgr["Cursor"]
         end
 
-        subgraph Exts["Westeros Extensions (Plugins)"]
-            FBS["firebolt_shell"]
-            FBSF["firebolt_surface"]
-            FBWM["firebolt_wm"]
+        subgraph ExtensionLayer["Wayland Extensions"]
+            FBShell["firebolt_shell plugin"]
+            FBSurface["firebolt_surface plugin"]
+            FBWM["firebolt_wm plugin"]
         end
 
-        subgraph VNC["VncServer (optional)"]
-            VNCS["TCP VNC Server\nGLib Main Loop"]
-        end
-
-        subgraph Logger["Logger"]
-            LOG["Log Level Filter\nFile / stdout Output"]
+        subgraph InputLayer["Input Handling"]
+            LinuxInput["linuxinput (device config)"]
+            LinuxKeys["linuxkeys (key mapping)"]
         end
 
     end
 
-    subgraph Platform["Platform Layer"]
-        Westeros["Westeros Compositor Library"]
-        EssosLib["Essos Library"]
-        GLES["OpenGL ES 2.0 / EGL"]
-        LinuxInput["/dev/input Events"]
-    end
-
-    subgraph NB["Northbound (Thunder Plugin)"]
-        ThunderPlugin["CompositorController API Callers"]
-    end
-
-    ThunderPlugin -->|static API calls| CC
-    CC -->|createDisplay / draw / update| RC
-    CC -->|key/pointer events| RC
-    EI -->|onKeyPress / onKeyRelease| CC
-    RC -->|WstCompositor APIs| Westeros
-    RC -->|FBO render path| FBO
-    FBO -->|GL draw| GLES
-    EI -->|EssCtx APIs| EssosLib
-    EssosLib -->|input events| LinuxInput
-    Exts -->|Wayland protocol| RC
-    VNC -->|framebuffer capture| GLES
+    Init --> EssCtx
+    Init --> CompCtrl
+    RunLoop --> CompCtrl
+    EssCtx --> KeyEvt
+    KeyEvt --> CompCtrl
+    CompCtrl --> KeyIntercept
+    CompCtrl --> KeyListener
+    CompCtrl --> InactivityTimer
+    CompCtrl --> NestedComp
+    NestedComp --> RdkComp
+    RdkComp --> FrameBuf
+    NestedComp --> FBShell
+    NestedComp --> FBSurface
+    NestedComp --> FBWM
+    CompCtrl --> CursorMgr
+    CompCtrl --> VNCServer
+    LinuxInput --> EssCtx
+    LinuxKeys --> CompCtrl
 ```
 
 ### Threading Model
 
-- **Threading Architecture**: Multi-threaded. The main render loop and all compositing operations execute on the main thread; individual application processes run in detached background threads.
-- **Main Thread**: Drives the render loop at the configured frame rate (default 40 FPS). Calls `CompositorController::update()` and `CompositorController::draw()` each frame, then calls `EssosInstance::update()` to pump the Essos/Wayland dispatch loop. All key and pointer event callbacks from Essos execute synchronously on this thread.
+- **Threading Architecture**: Multi-threaded.
+- **Main Thread**: Runs the `RdkWindowManager::run()` loop, calling `EssosInstance::update()`, `CompositorController::update()`, and `CompositorController::draw()` at the configured frame rate (default 40 fps, overridable via `RDK_WINDOW_MANAGER_FRAMERATE`). All Westeros callbacks and key-event processing also execute on this thread.
 - **Worker Threads**:
-  - _Application launch thread_ (`launchApplicationInBackground`): Started per client compositor to launch the Wayland client process without blocking the render loop. The thread terminates once the application process exits.
-  - _VNC GLib main loop thread_ (`VncServer::mainLoopThread`): Runs the GLib `GMainLoop` for the VNC TCP server when VNC support is compiled in.
-- **Synchronization**: A `std::mutex` (`gFireboltExtensionListenerMapMutex`) protects the Firebolt extension listener map accessed by the Westeros plugin callbacks. `RdkCompositor` uses `mInputLock` and `mStateChangeLock` mutexes to protect listener registration from concurrent access. `FireboltShell::mContextLock` protects the client list map in the Westeros plugin context.
-- **Async / Event Dispatch**: Westeros client status callbacks (`WstClient_connected`, `WstClient_disconnected`, `WstClient_firstFrame`, etc.) are delivered synchronously on the Westeros compositor dispatch thread, which is then marshalled into `CompositorController::onEvent()`. Registered `RdkWindowManagerEventListener` instances are called directly within that callback path.
+  - _Application launch thread_: Each `RdkCompositor` can spawn a background thread via `launchApplicationInBackground()` to start the associated application process without blocking the main loop.
+  - _VNC GMainLoop thread_ (when `RDK_WINDOW_MANAGER_VNC_SERVER` is enabled): `VncServer` runs a GLib main loop on a dedicated thread to serve VNC TCP connections.
+- **Synchronization**: A `std::mutex` (`gFireboltExtensionListenerMapMutex`) guards the Firebolt extension event listener map. `RdkCompositor` uses `mInputLock` and `mStateChangeLock` mutexes to protect its input-listener and state-change-listener maps. `FireboltWindowManager` and `FireboltShell` each hold a `mContextLock` mutex protecting their per-compositor client maps.
+- **Async / Event Dispatch**: Essos delivers key and pointer callbacks synchronously on the main thread. Application lifecycle events (connect, disconnect, terminate) are dispatched from Westeros `WstClient_*` status callbacks, also on the main thread, and forwarded to registered `RdkWindowManagerEventListener` implementations.
 
-### RDK-V Platform and Integration Requirements
+### Platform and Integration Requirements
 
-- **Build Dependencies**: `westeros`, `wayland-client`, `wayland-server`, `essos`, `EGL`, `GLESv2`, `rapidjson`, `jpeg`, `libpng`. For VNC server builds: `libsoup-2.4`, `boost`, `libsyswrapper`, `glib-2.0` (`gobject`, `gio`, `gio-unix`).
-- **Westeros Plugins**: Firebolt extensions (`libwstplugin_rdkwmfireboltshell.so`, `libwstplugin_rdkwmfireboltsurface.so`, `libwstplugin_rdkwmfireboltwm.so`) must be installed under `/usr/lib/plugins/westeros/` (configurable via `RDK_WINDOW_MANAGER_WESTEROS_PLUGIN_DIRECTORY` at build time).
-- **Configuration Files**: An optional input device configuration JSON file, whose path is supplied via the `RDK_WINDOW_MANAGER_INPUT_DEVICES_CONFIG` environment variable. The file maps device vendor/product/path to device type and mode values.
-- **Startup Order**: The Essos EGL context must be available (display hardware and EGL stack ready) before `EssosInstance::initialize()` is called. Westeros compositor libraries must be present on the filesystem for `WstCompositorCreate()` to succeed.
+- **Build Dependencies**: `westeros`, `wayland`, `essos`, `virtual/egl`, `rapidjson`, `jpeg`, `libpng`, `curl`. When `RDK_WINDOW_MANAGER_VNC_SERVER=ON`: additionally `libsoup-2.4`, `boost`, `libsyswrapper`. When `BUILD_ENABLE_ERM`: additionally `essos-resmgr`.
+- **Wayland Protocol Extensions**: `firebolt_shell`, `firebolt_surface`, and `firebolt_wm` protocol XML files are compiled into server-side Westeros plugins (`libwstplugin_rdkwmfirebolt*.so`) and client-side shared libraries (`librdkwmext*.so`). Extensions are loaded from the path defined by `RDK_WINDOW_MANAGER_WESTEROS_PLUGIN_DIRECTORY` (default `/usr/lib/plugins/westeros/`).
+- **Configuration Files**: Input device type configuration file path supplied through `RDK_WINDOW_MANAGER_INPUT_DEVICES_CONFIG`. Splash screen suppression: presence of `/tmp/.rdkwindowmanagersplash` controls splash rendering.
+- **Startup Order**: The `rdkwindowmanager` executable must be started before any Wayland client applications attempt to connect.
 
 ---
 
@@ -152,54 +152,55 @@ graph TD
 
 #### Initialization to Active State
 
-The component transitions through the following states during its lifecycle: **Initializing** (set up logging, map key codes, read input device configuration, configure Essos key repeat parameters) → **DisplaySetup** (initialise Essos EGL context at the configured resolution, enable GL blending) → **CompositorReady** (call `CompositorController::initialize()` to prepare the compositor lists) → **Active** (enter the frame render loop, processing input events and servicing API calls each frame) → **Shutdown** (exit the render loop on process termination; `deinitialize()` is a no-op stub).
+The component progresses from system start through Essos and Westeros initialisation before entering its render and event loop.
+
+The component transitions through the following states during its lifecycle: **Initializing** (configure logging, read key mappings, read input device config, apply environment-variable overrides) → **DisplaySetup** (initialise Essos context at target resolution) → **CompositorReady** (`CompositorController::initialize()` called, OpenGL blend state configured) → **Active** (frame-rate render loop running, key and pointer events dispatched) → **Shutdown** (loop exits, resources released).
 
 ```mermaid
 sequenceDiagram
-    participant Proc as Process / Thunder Plugin
     participant Main as main()
-    participant RWM as RdkWindowManager
+    participant WM as RdkWindowManager
     participant Essos as EssosInstance
     participant CC as CompositorController
 
-    Proc->>Main: process start
-    Main->>RWM: initialize()
-    RWM->>RWM: mapNativeKeyCodes() / mapVirtualKeyCodes()
-    RWM->>RWM: readInputDevicesConfiguration()
-    RWM->>Essos: configureKeyInput(initialDelay, repeatInterval)
-    RWM->>Essos: initialize(false, width, height)
-    Note over Essos: EssCtxCreate, register key/pointer listeners
-    Essos-->>RWM: Essos context ready
-    RWM->>RWM: glEnable(GL_BLEND)
-    RWM->>CC: initialize()
-    CC-->>RWM: compositor lists ready
-    RWM-->>Main: initialize() returns
-    Main->>RWM: run()
-    Note over RWM: frame loop active
+    Main->>WM: initialize()
+    WM->>WM: mapNativeKeyCodes() / mapVirtualKeyCodes()
+    WM->>WM: readInputDevicesConfiguration()
+    WM->>WM: Apply env-var overrides (framerate, memory thresholds, key delays)
+    WM->>Essos: instance()->initialize(false, width, height)
+    Essos-->>WM: Essos context ready
+    WM->>WM: glEnable(GL_BLEND)
+    WM->>CC: initialize()
+    CC-->>WM: CompositorController ready
+    WM-->>Main: initialize() returns
 
-    loop Per frame (~40 FPS)
-        RWM->>CC: update()
-        RWM->>CC: draw()
-        RWM->>Essos: update()
+    Main->>WM: run()
+    loop Frame loop (40 fps default)
+        WM->>Essos: update()
+        WM->>CC: update()
+        WM->>CC: draw()
     end
 
-    Proc->>Main: termination signal
-    Main-->>Proc: process exits
+    WM-->>Main: run() returns (on shutdown)
 ```
 
 #### Runtime State Changes
 
+Application connection and disconnection events arrive through Westeros `WstClient_*` callbacks and are forwarded to registered `RdkWindowManagerEventListener` instances. Focus changes are driven by explicit `CompositorController::setFocus()` calls from the Thunder plugin. Inactivity detection runs inside `CompositorController::update()`: when `gEnableInactivityReporting` is true and the time since the last key event exceeds `gInactivityIntervalInSeconds`, `onUserInactive` is fired on the registered listener.
+
 **State Change Triggers:**
 
-- When a Wayland client connects to a display created by `CompositorController::createDisplay()`, Westeros fires `WstClient_connected`, which maps to an `onApplicationConnected` event delivered to all registered listeners. The compositor is added to the active list and begins participating in draw calls.
-- When a client disconnects or terminates, `WstClient_disconnected` / `WstClient_stoppedNormal` / `WstClient_stoppedAbnormal` fires and `onApplicationDisconnected` / `onApplicationTerminated` is emitted. The compositor entry remains in the deleted list until the next update cycle cleans it up.
-- `WstClient_firstFrame` triggers `onApplicationFirstFrame` / `onReady`, marking the compositor's `mFirstFrameRendered` flag.
+- A new Wayland client connecting fires `onApplicationConnected`; disconnection fires `onApplicationDisconnected`.
+- Receipt of the first rendered frame from a client fires `onReady`.
+- Time elapsed without key input exceeding `gInactivityIntervalInSeconds` fires `onUserInactive`.
+- Visibility changes (set via `CompositorController::setVisibility()`) fire `onApplicationVisible` or `onApplicationHidden`.
+- Focus assignment via `CompositorController::setFocus()` fires `onApplicationFocus` on the newly focused client and `onApplicationBlur` on the previously focused one.
 
 **Context Switching Scenarios:**
 
-- **Focus change via `setFocus()`**: Updates `gFocusedCompositor`; the previously focused compositor receives a blur event and the new one receives a focus event via `onFireboltExtensionEvent`.
-- **Display resolution change**: `EssosInstance::onDisplaySizeChanged()` receives the new dimensions from Essos and updates the internal resolution state; subsequent draw calls use the new viewport.
-- **Key input inhibition via `ignoreKeyInputs(true)`**: Sets `gIgnoreKeyInputEnabled`; all subsequent key events from Essos are dropped before reaching the compositor list.
+- When `ignoreKeyInputs(true)` is active, all key events are dropped before reaching the intercept or listener evaluation logic.
+- Key intercept entries marked `focusOnly=true` suppress delivery to non-focused applications.
+- Topmost compositor entries (stored in `gTopmostCompositorList`) are evaluated independently from the standard compositor list, allowing system overlays to receive input regardless of normal focus order.
 
 ---
 
@@ -209,74 +210,72 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant Caller as Caller (Thunder Plugin / main)
-    participant RWM as RdkWindowManager
+    participant Main as main()
+    participant WM as RdkWindowManager::initialize()
     participant Essos as EssosInstance
+    participant Keys as linuxkeys / linuxinput
     participant CC as CompositorController
 
-    Caller->>RWM: initialize()
-    RWM->>RWM: mapNativeKeyCodes()
-    RWM->>RWM: mapVirtualKeyCodes()
-    RWM->>RWM: readInputDevicesConfiguration()
-    RWM->>Essos: configureKeyInput(delay, interval)
-    RWM->>Essos: initialize(useWayland, width, height)
-    Note over Essos: EssCtxCreate(), register key/pointer listeners
-    Essos-->>RWM: ready
-    RWM->>CC: initialize()
-    CC-->>RWM: done
-    RWM-->>Caller: returns
+    Main->>WM: initialize()
+    WM->>Keys: mapNativeKeyCodes()
+    WM->>Keys: mapVirtualKeyCodes()
+    WM->>Keys: readInputDevicesConfiguration()
+    WM->>WM: Read env vars (log level, framerate, memory thresholds, key delays)
+    WM->>Essos: configureKeyInput(initialDelay, repeatInterval)
+    WM->>Essos: initialize(false, width, height)
+    Essos-->>WM: EssContext created and started
+    WM->>WM: glEnable / glBlendFunc
+    WM->>CC: initialize()
+    CC-->>WM: Done
+    WM-->>Main: returns
 ```
 
 #### Request Processing Call Flow
 
-The following flow illustrates creating a new application display and routing the subsequent client connection event back to the API caller.
+The following illustrates `CreateDisplay` — the most common setup call — flowing from the Thunder plugin down through `CompositorController` to the Westeros-backed nested compositor. The component validates the provided parameters before forwarding the request, and propagates the Westeros API result back to the caller as a boolean response.
 
 ```mermaid
 sequenceDiagram
     participant Client as Thunder Plugin
     participant CC as CompositorController
-    participant RC as RdkCompositorNested
-    participant Wst as Westeros (WstCompositor)
-    participant App as Wayland App
+    participant Nested as RdkCompositorNested
+    participant Wst as WstCompositor (Westeros)
 
-    Client->>CC: createDisplay(clientName, displayName, w, h, ...)
-    CC->>RC: createDisplay(displayName, clientName, w, h, ...)
-    RC->>Wst: WstCompositorCreate()
-    RC->>Wst: WstCompositorSetInvalidateCallback()
-    RC->>Wst: WstCompositorSetClientStatusCallback()
-    RC->>Wst: loadExtensions() — Firebolt Westeros plugins
-    RC->>Wst: WstCompositorStart()
-    Wst-->>RC: compositor running
-    RC-->>CC: display created
+    Client->>CC: createDisplay(client, displayName, width, height, ...)
+    CC->>Nested: new RdkCompositorNested
+    Nested->>Wst: WstCompositorCreate()
+    Nested->>Wst: WstCompositorSetIsEmbedded(true)
+    Nested->>Wst: WstCompositorSetOutputSize(width, height)
+    Nested->>Wst: WstCompositorSetDisplayName(displayName)
+    Nested->>Nested: loadExtensions() / loadfireboltExtensions()
+    Nested->>Wst: WstCompositorStart()
+    Wst-->>Nested: compositor started
+    Nested-->>CC: createDisplay returns true
     CC-->>Client: true
-
-    App->>Wst: connect to Wayland display socket
-    Wst->>RC: clientStatus(WstClient_connected, pid)
-    RC->>CC: onEvent(compositor, "onApplicationConnected")
-    CC->>Client: listener->onApplicationConnected(clientName)
 ```
 
 ---
 
 ## Internal Modules
 
-| Module / Class                        | Description                                                                                                                                                                                                                                                                                          | Key Files                                                                                                      |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `RdkWindowManager`                    | Top-level namespace providing `initialize()`, `run()`, `update()`, `draw()`, and `deinitialize()`. Drives the main render loop at the configured frame rate and orchestrates Essos and `CompositorController` per-frame calls.                                                                       | `src/rdkwindowmanager.cpp`, `include/rdkwindowmanager.h`                                                       |
-| `CompositorController`                | Static singleton manager for all active client compositors. Owns the compositor list, topmost compositor list, focused compositor record, key intercept map, and key listener map. Provides the entire northbound API surface consumed by the Thunder plugin wrapper.                                | `src/compositorcontroller.cpp`, `include/compositorcontroller.h`                                               |
-| `EssosInstance`                       | Singleton wrapper around the Essos `EssCtx` context. Initialises the EGL display surface, registers Essos key and pointer listener callbacks, maps modifier key state, and forwards events to `CompositorController`.                                                                                | `src/essosinstance.cpp`, `include/essosinstance.h`                                                             |
-| `RdkCompositor`                       | Abstract base class for per-client compositor objects. Wraps a `WstCompositor` context, manages application state machine (Unknown, Running, Suspended, Stopped), handles FBO vs direct draw selection, and propagates Westeros client status callbacks as `RdkWindowManagerEventListener` events.   | `src/rdkcompositor.cpp`, `include/rdkcompositor.h`                                                             |
-| `RdkCompositorNested`                 | Concrete subclass of `RdkCompositor` for the nested Wayland compositor mode. Implements `createDisplay()` by constructing a `WstCompositor` and setting the Wayland display name, loading Westeros protocol extensions.                                                                              | `src/rdkcompositornested.cpp`, `include/rdkcompositornested.h`                                                 |
-| `FrameBuffer` / `FrameBufferRenderer` | Manages OpenGL ES framebuffer objects for off-screen composite rendering. `FrameBuffer` owns the FBO and its backing texture; `FrameBufferRenderer` is a singleton that holds the GLSL shader program used to blit the FBO texture onto the screen with position, crop, scale, and alpha parameters. | `src/framebuffer.cpp`, `src/framebufferrenderer.cpp`, `include/framebuffer.h`, `include/framebufferrenderer.h` |
-| `Cursor`                              | Renders a software pointer cursor image (loaded from JPEG/PNG/BMP) at the current pointer position using the `Image` rendering pipeline. Automatically hides itself after a configurable inactivity duration.                                                                                        | `src/cursor.cpp`, `include/cursor.h`                                                                           |
-| `Image`                               | OpenGL ES image loader and renderer. Supports JPEG (via `libjpeg`), PNG (via `libpng`), and BMP formats. Uploads decoded pixels as a GL texture and renders it to the screen using a simple GLSL shader. Receives external image data when constructing from a raw pixel buffer.                     | `src/rdkwindowmanagerimage.cpp`, `include/rdkwindowmanagerimage.h`                                             |
-| `Logger`                              | Internal logging facility with configurable verbosity levels: Debug, Information, Warn, Error, Fatal. Writes to stdout (or an optional log file when `RDK_WINDOW_MANAGER_LOGGER` is defined). Log level is controlled at runtime via the `RDK_WINDOW_MANAGER_LOG_LEVEL` environment variable.        | `src/logger.cpp`, `include/logger.h`                                                                           |
-| `RdkWindowManagerJson`                | Thin wrapper around RapidJSON that opens and parses a JSON file from a given filesystem path. Used by `readInputDevicesConfiguration()` to load the input device type-to-mode mapping table.                                                                                                         | `src/rdkwindowmanagerjson.cpp`, `include/rdkwindowmanagerjson.h`                                               |
-| `LinuxInput` / `LinuxKeys`            | `LinuxInput` reads the input device configuration JSON and populates a vector of `LinuxInputDevice` entries keyed by vendor/product/path. `LinuxKeys` provides `keyCodeFromWayland()` and the native/virtual key code mapping tables consumed by Essos key callbacks.                                | `src/linuxinput.cpp`, `src/linuxkeys.cpp`, `include/linuxinput.h`, `include/linuxkeys.h`                       |
-| `firebolt_shell` extension            | Westeros plugin implementing the `firebolt_shell` Wayland protocol. Handles `get_firebolt_surface` requests from Firebolt-capable clients, associates the surface with a typed surface ID in `CompositorController`, and delivers `on_focus` / `on_blur` events back to Wayland clients.             | `extensions/firebolt_shell/src/firebolt_shell.cpp`, `extensions/firebolt_shell/include/firebolt_shell.h`       |
-| `firebolt_surface` extension          | Westeros plugin implementing the `firebolt_surface` Wayland protocol for per-surface management (z-order, bounds, crop, opacity, visibility, destroy).                                                                                                                                               | `extensions/firebolt_surface/src/`                                                                             |
-| `firebolt_wm` extension               | Westeros plugin implementing the `firebolt_wm` Wayland protocol for window manager level operations exposed to Firebolt clients.                                                                                                                                                                     | `extensions/firebolt_wm/src/`                                                                                  |
-| `VncServer`                           | Optional TCP VNC server. When enabled, starts a GLib `GMainLoop` on a background thread, listens for VNC client connections via `VncSoupTcpServer` (libsoup), captures the OpenGL ES framebuffer using `VncFrameBuffer`, and streams encoded frame updates to connected VNC clients.                 | `src/VncServer/`, `include/VncServer/`                                                                         |
+| Module / Class                        | Description                                                                                                                                                                                                                                                                                                                                                        | Key Files                                                                                                      |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `RdkWindowManager` namespace          | Top-level lifecycle: `initialize()` applies environment-variable configuration, sets up Essos, configures OpenGL blend state, and calls `CompositorController::initialize()`. `run()` drives the frame loop.                                                                                                                                                       | `src/rdkwindowmanager.cpp`, `include/rdkwindowmanager.h`                                                       |
+| `EssosInstance`                       | Wraps the Essos display context (`EssContext*`). Owns key and pointer event callbacks from Essos and forwards them to `CompositorController`. Manages resolution, key-repeat configuration, and AV blocking (when ERM is enabled).                                                                                                                         | `src/essosinstance.cpp`, `include/essosinstance.h`                                                             |
+| `CompositorController`                | Static class providing the full public API: display creation, focus, z-order, bounds, opacity, visibility, key intercepts, key listeners, inactivity reporting, cursor control, screenshot, VNC server lifecycle, and Firebolt surface management. Maintains the ordered compositor lists (`gCompositorList`, `gTopmostCompositorList`) and the key intercept map. | `src/compositorcontroller.cpp`, `include/compositorcontroller.h`                                               |
+| `RdkCompositor`                       | Abstract base class for a per-application Westeros compositor instance. Manages the `WstCompositor` context, draw/update cycle, input forwarding, surface properties (position, size, opacity, z-order, visibility, crop), Firebolt surface list, and application process lifecycle.                                                                               | `src/rdkcompositor.cpp`, `include/rdkcompositor.h`                                                             |
+| `RdkCompositorNested`                 | Concrete subclass of `RdkCompositor` that creates a nested (embedded) Westeros display. Loads Westeros protocol extension plugins and starts the compositor.                                                                                                                                                                                                       | `src/rdkcompositornested.cpp`, `include/rdkcompositornested.h`                                                 |
+| `FrameBuffer` / `FrameBufferRenderer` | Off-screen render target (OpenGL FBO + texture) and the GLSL shader program that blits a frame buffer onto the screen with alpha blending, matrix transform, and crop support.                                                                                                                                                                                     | `src/framebuffer.cpp`, `src/framebufferrenderer.cpp`, `include/framebuffer.h`, `include/framebufferrenderer.h` |
+| `Cursor`                              | Manages loading, positioning, showing/hiding, and drawing a cursor image on screen. Supports configurable inactivity-based auto-hide.                                                                                                                                                                                                                              | `src/cursor.cpp`, `include/cursor.h`                                                                           |
+| `linuxkeys`                           | Provides `mapNativeKeyCodes()`, `mapVirtualKeyCodes()`, and `keyCodeFromWayland()` to translate raw Wayland/Linux key codes and modifier flags to RDK virtual key codes.                                                                                                                                                                                           | `src/linuxkeys.cpp`, `include/linuxkeys.h`                                                                     |
+| `linuxinput`                          | Reads the JSON input device configuration file (path from `RDK_WINDOW_MANAGER_INPUT_DEVICES_CONFIG`) and populates the device-type and device-mode tables used by the key-metadata path.                                                                                                                                                                           | `src/linuxinput.cpp`, `include/linuxinput.h`                                                                   |
+| `RdkWindowManagerJson`                | Thin wrapper around RapidJSON for reading JSON configuration files from disk.                                                                                                                                                                                                                                                                                      | `src/rdkwindowmanagerjson.cpp`, `include/rdkwindowmanagerjson.h`                                               |
+| `Image`                               | Loads JPEG, PNG, and BMP images from disk or raw data using libjpeg and libpng, creates an OpenGL texture, and renders it with a GLSL shader. Used for watermarks and the splash screen.                                                                                                                                                                           | `src/rdkwindowmanagerimage.cpp`, `include/rdkwindowmanagerimage.h`                                             |
+| `Logger`                              | Lightweight, level-filtered logger (`Debug`, `Information`, `Warn`, `Error`, `Fatal`). Log level is runtime-configurable via `RDK_WINDOW_MANAGER_LOG_LEVEL`. When built with `RDK_WINDOW_MANAGER_LOGGER`, output goes to `/opt/logs/rdkwindowmanager.log`.                                                                                                         | `src/logger.cpp`, `include/logger.h`                                                                           |
+| `firebolt_shell` extension            | Westeros plugin implementing the `firebolt_shell` Wayland protocol. Handles `get_firebolt_surface` requests from Wayland clients, forwarding surface-ID and type information to `CompositorController`.                                                                                                                                                            | `extensions/firebolt_shell/src/firebolt_shell.cpp`, `extensions/firebolt_shell/include/firebolt_shell.h`       |
+| `firebolt_surface` extension          | Westeros plugin implementing the `firebolt_surface` protocol: destroy, set_name, set_visible, set_bounds, set_crop, set_zorder, set_opacity.                                                                                                                                                                                                                       | `extensions/firebolt_surface/src/`, `extensions/firebolt_surface/include/`                                     |
+| `firebolt_wm` extension               | Westeros plugin implementing the `firebolt_wm` protocol for full surface management (create, create_with_bounds, create_with_properties, destroy, set_properties, set_client_bounds, set_client_display_bounds, set_client_focus, get_properties, get_focused_client, get_clients, set_owner, get_owner) and associated events.                                    | `extensions/firebolt_wm/src/firebolt_wm.cpp`, `extensions/firebolt_wm/include/firebolt_wm.h`                   |
+| `VncServer` (optional)                | TCP VNC server built on libsoup. Captures the compositor frame buffer into a `VncFrameBuffer` and serves it to connecting `VncClient` instances. Enabled only when `RDK_WINDOW_MANAGER_VNC_SERVER=ON`.                                                                                                                                                   | `src/VncServer/`, `include/VncServer/`                                                                         |
 
 ---
 
@@ -284,76 +283,87 @@ sequenceDiagram
 
 ### Interaction Matrix
 
-| Target Component / Layer     | Interaction Purpose                                                                        | Key APIs / Topics                                                                                                                                                                                 |
-| ---------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Westeros**                 |                                                                                            |                                                                                                                                                                                                   |
-| Westeros Compositor          | Create and manage per-client nested Wayland compositors; receive client status callbacks   | `WstCompositorCreate()`, `WstCompositorStart()`, `WstCompositorDestroy()`, `WstCompositorSetInvalidateCallback()`, `WstCompositorSetClientStatusCallback()`, `WstCompositorSetDispatchCallback()` |
-| Westeros Plugin Loader       | Load Firebolt protocol extension plugins at compositor creation time                       | `RdkCompositor::loadExtensions()`, `loadfireboltExtensions()`                                                                                                                                     |
-| **Essos**                    |                                                                                            |                                                                                                                                                                                                   |
-| Essos EGL Context            | Initialise EGL display surface, set display resolution, pump Wayland dispatch loop         | `EssCtxCreate()`, `EssContextSetKeyListener()`, `EssContextSetPointerListener()`, `EssContextStart()`, `EssContextRunEventLoopOnce()`                                                             |
-| Essos Resource Manager (ERM) | Optional resource arbitration for AV blocking per application                              | `EssRMgrCreate()`, `EssRMgrSetAVBlocked()` — conditional on `ENABLE_ERM`                                                                                                                          |
-| **OpenGL ES 2.0 / EGL**      |                                                                                            |                                                                                                                                                                                                   |
-| GLES Rendering               | Viewport setup, frame clear, alpha blending, FBO composition, shader-based image rendering | `glEnable()`, `glBlendFunc()`, `glViewport()`, `glClearColor()`, `glClear()`, `glGenFramebuffers()`, GLSL shader programs                                                                         |
-| **Northbound Callers**       |                                                                                            |                                                                                                                                                                                                   |
-| Thunder Plugin (external)    | Exposes the full compositor API to JSON-RPC clients via the shared library interface       | All `CompositorController::*` static methods                                                                                                                                                      |
-| **Filesystem**               |                                                                                            |                                                                                                                                                                                                   |
-| Input device config file     | Read once at startup to populate input device type and mode table                          | JSON file path from `RDK_WINDOW_MANAGER_INPUT_DEVICES_CONFIG` env var                                                                                                                             |
-| Resolution override file     | Read once at startup to determine 720p override                                            | `/tmp/rdkwindowmanager720`                                                                                                                                                                        |
+| Target Component / Layer         | Interaction Purpose                                                                                                       | Key APIs / Topics                                                                                                                                                                                                                                                                                  |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Westeros Compositor**          | Create, configure, and start per-application embedded Wayland compositors; receive client-status and invalidate callbacks | `WstCompositorCreate()`, `WstCompositorStart()`, `WstCompositorSetIsEmbedded()`, `WstCompositorSetOutputSize()`, `WstCompositorSetDisplayName()`, `WstCompositorSetInvalidateCallback()`, `WstCompositorSetClientStatusCallback()`, `WstCompositorSetDispatchCallback()`, `WstCompositorDestroy()` |
+| **Essos**                        | Obtain display context, receive key and pointer events, manage resolution, control key repeats, block AV by app           | `EssContextCreate()`, `EssContextSetKeyListener()`, `EssContextSetPointerListener()`, `EssContextGetDisplaySize()`, `EssContextUpdateDisplay()`, `EssContextRunEventLoopOnce()`                                                                                                                                                                               |
+| **Essos Resource Manager (ERM)** | Resource management and AV block/unblock per application (optional, enabled by `BUILD_ENABLE_ERM`)                        | `essos-resmgr` API, `EssRMgr` context                                                                                                                                                                                                                                                              |
+| **Thunder Plugin**               | Receive JSON-RPC control calls and forward to `CompositorController`; publish events back to Thunder clients              | `librdkwindowmanager.so` — `CompositorController` static methods                                                                                                                                                                                                                                   |
+| **Wayland Client Applications**  | Deliver key/pointer events; notify of display size changes; receive connect/disconnect lifecycle events                   | Wayland socket protocol; `firebolt_wm`, `firebolt_shell`, `firebolt_surface` protocol extensions                                                                                                                                                                                                   |
+| **OpenGL ES 2.0 / EGL**          | Off-screen frame buffer rendering, texture blit, alpha blending                                                           | `glEnable`, `glBlendFunc`, `glUseProgram`, `glDrawArrays`, `glUniform*`, FBO management                                                                                                                                                                                                            |
+| **libjpeg / libpng**             | Decode image assets (watermarks, splash screen, cursor)                                                                   | `loadJpeg()`, `loadPng()` in `rdkwindowmanagerimage.cpp`                                                                                                                                                                                                                                           |
+| **RapidJSON**                    | Parse input-device configuration JSON                                                                                     | `RdkWindowManagerJson::readJsonFile()`                                                                                                                                                                                                                                                             |
+| **libsoup / GLib** (optional)    | TCP server for VNC remote access                                                                                          | `VncSoupTcpServer`, GLib `GMainLoop`                                                                                                                                                                                                                                                               |
 
 ### Events Published
 
-| Event Name                            | Topic                                               | Trigger Condition                                                                      | Subscriber Components                                                                      |
-| ------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `onApplicationConnected`              | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_CONNECTED`    | Westeros `WstClient_connected` callback fires (first connection for a client)          | Registered `RdkWindowManagerEventListener` instances; Firebolt shell `client_connected`    |
-| `onApplicationDisconnected`           | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_DISCONNECTED` | Westeros `WstClient_disconnected` callback fires (last connection for a client closed) | Registered `RdkWindowManagerEventListener` instances; Firebolt shell `client_disconnected` |
-| `onApplicationTerminated`             | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_TERMINATED`   | Westeros `WstClient_stoppedNormal` or `WstClient_stoppedAbnormal` callback fires       | Registered `RdkWindowManagerEventListener` instances                                       |
-| `onApplicationFirstFrame` / `onReady` | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_FIRST_FRAME`  | Westeros `WstClient_firstFrame` callback fires                                         | Registered `RdkWindowManagerEventListener` instances                                       |
-| `onApplicationFocus`                  | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_FOCUS`        | `CompositorController::setFocus()` changes the focused compositor                      | Registered listeners; Firebolt shell `on_focus`                                            |
-| `onApplicationBlur`                   | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_BLUR`         | Previously focused compositor loses focus                                              | Registered listeners; Firebolt shell `on_blur`                                             |
-| `onApplicationVisible`                | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_VISIBLE`      | `setVisibility(client, true)` invoked                                                  | Registered `RdkWindowManagerEventListener` instances                                       |
-| `onApplicationHidden`                 | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_HIDDEN`       | `setVisibility(client, false)` invoked                                                 | Registered `RdkWindowManagerEventListener` instances                                       |
-| `onUserInactive`                      | `RDK_WINDOW_MANAGER_EVENT_USER_INACTIVE`            | No key event received for `gInactivityIntervalInSeconds` (default 15 minutes)          | Registered `RdkWindowManagerEventListener` instances                                       |
+| Event Name                  | Topic                                                             | Trigger Condition                                                                     | Subscriber                                                                                |
+| --------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `onApplicationConnected`    | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_CONNECTED`                  | Westeros client connects to a display                                                 | Thunder plugin / `RdkWindowManagerEventListener`                                          |
+| `onApplicationDisconnected` | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_DISCONNECTED`               | Westeros client disconnects from a display                                            | Thunder plugin / `RdkWindowManagerEventListener`                                          |
+| `onApplicationTerminated`   | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_TERMINATED`                 | Application process exits                                                             | Thunder plugin / `RdkWindowManagerEventListener`                                          |
+| `onReady`                   | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_FIRST_FRAME`                | First frame rendered for a client                                                     | Thunder plugin / `RdkWindowManagerEventListener`                                          |
+| `onUserInactive`            | `RDK_WINDOW_MANAGER_EVENT_USER_INACTIVE`                          | No key event for `gInactivityIntervalInSeconds` while inactivity reporting is enabled | Thunder plugin / `RdkWindowManagerEventListener`                                          |
+| `onApplicationVisible`      | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_VISIBLE`                    | Visibility set to true for a client                                                   | Thunder plugin / `RdkWindowManagerEventListener`                                          |
+| `onApplicationHidden`       | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_HIDDEN`                     | Visibility set to false for a client                                                  | Thunder plugin / `RdkWindowManagerEventListener`                                          |
+| `onApplicationFocus`        | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_FOCUS`                      | Focus assigned to a client                                                            | Thunder plugin / `RdkWindowManagerEventListener` / `firebolt_wm` (`focused_client` event) |
+| `onApplicationBlur`         | `RDK_WINDOW_MANAGER_EVENT_APPLICATION_BLUR`                       | Focus removed from a client                                                           | Thunder plugin / `RdkWindowManagerEventListener` / `firebolt_wm`                          |
+| `client_connected`          | `RDK_WINDOW_MANAGER_FIREBOLT_EXTENSION_EVENT_CLIENT_CONNECTED`    | Wayland client connects (Firebolt WM extension path)                                  | `firebolt_wm` Wayland clients                                                             |
+| `client_disconnected`       | `RDK_WINDOW_MANAGER_FIREBOLT_EXTENSION_EVENT_CLIENT_DISCONNECTED` | Wayland client disconnects (Firebolt WM extension path)                               | `firebolt_wm` Wayland clients                                                             |
 
 ### IPC Flow Patterns
 
-**Primary Request / Response Flow:**
+**Primary Request / Response Flow (Thunder JSON-RPC to CompositorController):**
 
-API callers (typically a Thunder plugin in a separate component) invoke `CompositorController` static methods in-process via the shared library interface. The call is routed to the target `RdkCompositor`, which calls the corresponding Westeros API. The result is returned synchronously.
+The Thunder plugin receives a JSON-RPC request, validates parameters, and calls the corresponding `CompositorController` static method directly through the shared library interface. The method return value or output parameter is converted back to a JSON-RPC response.
 
 ```mermaid
 sequenceDiagram
-    participant Plugin as Thunder Plugin
+    participant Client as Client Application
+    participant Thunder as WPEFramework (Thunder)
+    participant Plugin as RDK WM Thunder Plugin
     participant CC as CompositorController
-    participant RC as RdkCompositor
-    participant Wst as Westeros
 
-    Plugin->>CC: setBounds(client, x, y, w, h)
-    CC->>CC: getCompositorInfo(client)
-    CC->>RC: setPosition(x, y) / setSize(w, h)
-    RC->>Wst: WstCompositorSetPosition / WstCompositorSetSize
-    Wst-->>RC: applied
-    RC-->>CC: done
-    CC-->>Plugin: true
+    Client->>Thunder: JSON-RPC request (e.g., setFocus)
+    Thunder->>Plugin: Dispatch to plugin handler
+    Plugin->>CC: CompositorController::setFocus(client)
+    CC-->>Plugin: true / false
+    Plugin-->>Thunder: JSON-RPC response
+    Thunder-->>Client: JSON-RPC response
 ```
 
-**Event Notification Flow:**
+**Key Event Flow (Essos to CompositorController to Application):**
 
-Westeros client status callbacks arrive on the Westeros dispatch thread and are forwarded to `CompositorController::onEvent()`, which iterates the registered listeners and invokes the appropriate virtual method. For Firebolt extensions, the same event is forwarded via `onFireboltExtensionEvent()` to the Westeros plugin listener, which then sends a Wayland protocol event to the connected Wayland client.
+```mermaid
+sequenceDiagram
+    participant HW as Linux Input Device
+    participant Essos as EssosInstance
+    participant CC as CompositorController
+    participant App as Focused Wayland App
+
+    HW->>Essos: Key event (Essos callback)
+    Essos->>Essos: Translate modifiers, process metadata
+    Essos->>CC: onKeyPress(keyCode, flags, metadata)
+    CC->>CC: Check ignoreKeyInputs flag
+    CC->>CC: Evaluate key intercepts
+    CC->>CC: Evaluate key listeners
+    CC->>App: compositor->onKeyPress(keyCode, flags, metadata)
+    App-->>CC: (processed)
+```
+
+**Event Notification Flow (Westeros client lifecycle to Thunder plugin):**
 
 ```mermaid
 sequenceDiagram
     participant Wst as Westeros
-    participant RC as RdkCompositor
+    participant Comp as RdkCompositor
     participant CC as CompositorController
-    participant Listener as RdkWindowManagerEventListener
-    participant FbShell as firebolt_shell plugin
+    participant Plugin as Thunder Plugin
 
-    Wst->>RC: clientStatus(WstClient_connected, pid)
-    RC->>CC: onEvent(compositor, "onApplicationConnected")
-    CC->>Listener: onApplicationConnected(clientName)
-    CC->>CC: onFireboltExtensionEvent(compositor, "onApplicationFocus")
-    CC->>FbShell: FireboltExtensionEventListener::client_connected(clientName)
-    FbShell->>FbShell: send Wayland protocol event to client
+    Wst->>Comp: clientStatus(WstClient_connected, pid, ...)
+    Comp->>CC: onEvent(compositor, "onApplicationConnected")
+    CC->>Plugin: listener->onApplicationConnected(client)
+    Plugin->>Plugin: Fire JSON-RPC OnConnected event
 ```
 
 ---
@@ -362,63 +372,76 @@ sequenceDiagram
 
 ### Major HAL APIs Integration
 
-| API                                      | Purpose                                                                                  | Implementation File           |
-| ---------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------- |
-| `WstCompositorCreate()`                  | Allocate a new Westeros compositor context for a client display                          | `src/rdkcompositornested.cpp` |
-| `WstCompositorSetInvalidateCallback()`   | Register a callback to be notified when the compositor surface needs redraw              | `src/rdkcompositor.cpp`       |
-| `WstCompositorSetClientStatusCallback()` | Register a callback for client lifecycle events (connect, disconnect, first-frame, etc.) | `src/rdkcompositor.cpp`       |
-| `WstCompositorSetDispatchCallback()`     | Register a callback for compositor size change completion dispatch                       | `src/rdkcompositor.cpp`       |
-| `WstCompositorStart()`                   | Start the Westeros compositor and begin listening for Wayland client connections         | `src/rdkcompositornested.cpp` |
-| `WstCompositorDestroy()`                 | Release all resources associated with a Westeros compositor context                      | `src/rdkcompositor.cpp`       |
-| `EssCtxCreate()`                         | Create the Essos context encapsulating the EGL display surface and input framework       | `src/essosinstance.cpp`       |
-| `EssContextSetKeyListener()`             | Register key press/release callbacks with the Essos context                              | `src/essosinstance.cpp`       |
-| `EssContextSetPointerListener()`         | Register pointer motion and button callbacks with the Essos context                      | `src/essosinstance.cpp`       |
-| `EssContextStart()`                      | Activate the Essos EGL context and begin dispatching input events                        | `src/essosinstance.cpp`       |
-| `EssContextRunEventLoopOnce()`           | Poll the Essos/Wayland event queue once per render frame                                 | `src/essosinstance.cpp`       |
-| `EssContextSetDisplaySize()`             | Update the Essos context with a new display resolution                                   | `src/essosinstance.cpp`       |
+| HAL / API                                                                    | Purpose                                                                       | Implementation File                                                                        |
+| ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `WstCompositorCreate()`                                                      | Allocate a new Westeros compositor context                                    | `src/rdkcompositornested.cpp`                                                              |
+| `WstCompositorSetIsEmbedded()`                                               | Configure compositor as an embedded (nested) display                          | `src/rdkcompositornested.cpp`                                                              |
+| `WstCompositorSetOutputSize()`                                               | Set the output resolution of the compositor                                   | `src/rdkcompositornested.cpp`                                                              |
+| `WstCompositorSetDisplayName()`                                              | Assign a Wayland display name to the compositor                               | `src/rdkcompositornested.cpp`                                                              |
+| `WstCompositorSetInvalidateCallback()`                                       | Register invalidate (repaint request) callback                                | `src/rdkcompositornested.cpp`                                                              |
+| `WstCompositorSetClientStatusCallback()`                                     | Register client connect/disconnect/terminate callback                         | `src/rdkcompositornested.cpp`                                                              |
+| `WstCompositorSetDispatchCallback()`                                         | Register display-size-change dispatch callback                                | `src/rdkcompositornested.cpp`                                                              |
+| `WstCompositorStart()`                                                       | Start the Westeros compositor and its Wayland socket                          | `src/rdkcompositornested.cpp`                                                              |
+| `WstCompositorDestroy()`                                                     | Release a Westeros compositor context                                         | `src/rdkcompositor.cpp`                                                                    |
+| `WstCompositorGetDisplayName()`                                              | Retrieve the auto-assigned Wayland display name                               | `src/rdkcompositornested.cpp`                                                              |
+| Essos context APIs                                                           | Initialise display context, register key/pointer listeners, update event loop | `src/essosinstance.cpp`                                                                    |
+| GLES2 draw calls (`glEnable`, `glBlendFunc`, `glUseProgram`, `glDrawArrays`) | Configure alpha blending; render compositor surfaces and images to screen     | `src/rdkwindowmanager.cpp`, `src/framebufferrenderer.cpp`, `src/rdkwindowmanagerimage.cpp` |
 
 ### Key Implementation Logic
 
-- **State / Lifecycle Management**: The compositor lifecycle is tracked through `ApplicationState` (Unknown, Running, Suspended, Stopped) held in each `RdkCompositor`. Transitions are driven by Westeros `clientStatus` callbacks. The compositor is inserted into `gCompositorList` or `gTopmostCompositorList` on creation and removed on disconnect. The focused compositor is tracked as a copy (`gFocusedCompositor`) rather than a pointer to avoid dangling references.
-  - Core implementation: `src/compositorcontroller.cpp`
-  - State transition handlers: `src/rdkcompositor.cpp` (`onClientStatus()`)
+- **State / Lifecycle Management**: Application state per compositor (`Unknown`, `Running`, `Suspended`, `Stopped`) is tracked in `RdkCompositor::mApplicationState`. Transitions are driven by `WstClient_*` status codes received in `RdkCompositor::onClientStatus()`. The global flag `gRdkWindowManagerIsRunning` controls the main frame loop.
+  - Core lifecycle: `src/rdkwindowmanager.cpp`
+  - Per-compositor state: `src/rdkcompositor.cpp`
 
-- **Event Processing**: All Essos key and pointer callbacks execute synchronously on the main thread. The key event path in `processKeyEvent()` (`src/essosinstance.cpp`) constructs modifier flags from tracked shift/ctrl/alt state, maps the Wayland key code to an RDK key code via `keyCodeFromWayland()`, then calls `EssosInstance::onKeyPress/onKeyRelease`, which forwards to `CompositorController::onKeyPress/onKeyRelease`. `CompositorController` first checks the key intercept map, then routes to the focused compositor, and finally bubbles through key listeners. The key bubble direction is configurable: with `RDK_WINDOW_MANAGER_ENABLE_KEYBUBBING_TOP_MODE`, bubbling starts from the top of the compositor list rather than from the focused compositor.
+- **Event Processing**: Essos key callbacks (`processKeyEvent` in `essosinstance.cpp`) translate raw Wayland key codes using `keyCodeFromWayland()`, pack modifier flags, and call `CompositorController::onKeyPress` / `onKeyRelease`. `CompositorController` first checks `gIgnoreKeyInputEnabled`, then evaluates the key-intercept map (`gKeyInterceptInfoMap`), and finally dispatches to the focused compositor or evaluates the key-listener table for each matching compositor. Key-repeat generation is handled in `CompositorController::update()` using `gKeyRepeatConfig`.
 
-- **Error Handling Strategy**: Failed Westeros or Essos API calls are logged via `Logger::log(LogLevel::Error, ...)` and the calling function returns `false`. The northbound API callers receive the boolean return value and are responsible for propagating it. Failed compositor creation leaves the compositor absent from the active list.
+- **Error Handling Strategy**: Westeros API failures are logged at `Information` level and propagate as `bool` return values from `createDisplay()`. A failure at any Westeros setup step sets a local `error` flag that causes `createDisplay` to return `false`, which the caller (Thunder plugin) maps to a JSON-RPC error response.
 
-- **Logging & Diagnostics**: The `Logger` class supports five levels: Debug, Information, Warn, Error, Fatal. The active level is set at startup from the `RDK_WINDOW_MANAGER_LOG_LEVEL` environment variable. Key log points include EssosInstance initialization, each Westeros `clientStatus` transition, key intercept and bubble decisions (at Debug level), compositor create/destroy operations, and memory threshold crossings. When `RDK_WINDOW_MANAGER_LOGGER` is defined at build time, log output is redirected to a file specified by `RDK_WINDOW_MANAGER_LOGFILE`.
+- **Logging & Diagnostics**: Log output uses the `RdkWindowManager::Logger` class. Log levels: `Debug`, `Information`, `Warn`, `Error`, `Fatal`. Runtime log level is set via the `RDK_WINDOW_MANAGER_LOG_LEVEL` environment variable. When built with `RDK_WINDOW_MANAGER_LOGGER`, log output is written to `/opt/logs/rdkwindowmanager.log`.
 
 ---
 
 ## Configuration
 
+### Key Configuration Files
+
+| Configuration File                                  | Purpose                                                                                                        | Override Mechanism                    |
+| --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| Path from `RDK_WINDOW_MANAGER_INPUT_DEVICES_CONFIG` | JSON file mapping input device vendor/product IDs to device type and mode, used to annotate key-press metadata | Environment variable at process start |
+
 ### Key Configuration Parameters
 
-| Parameter (Environment Variable)                     | Type   | Default                      | Description                                                                                                                               |
-| ---------------------------------------------------- | ------ | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `RDK_WINDOW_MANAGER_INPUT_DEVICES_CONFIG`            | string | unset                        | Path to a JSON file mapping Linux input device vendor/product/path to internal device type and mode values used for key metadata tagging. |
-| `/tmp/rdkwindowmanager720`                           | file   | absent                       | Sentinel file; if present at startup, forces the Essos display to initialise at 1280×720 instead of 1920×1080.                            |
-| `RDK_WINDOW_MANAGER_LOG_LEVEL`                       | string | `Information`                | Sets the minimum log level. Accepted values: `Debug`, `Information`, `Warn`, `Error`, `Fatal`.                                            |
-| `RDK_WINDOW_MANAGER_FRAMERATE`                       | int    | `40`                         | Target render loop frame rate in frames per second.                                                                                       |
-| `RDK_WINDOW_MANAGER_LOW_MEMORY_THRESHOLD`            | double | `200`                        | RAM threshold in MB below which a low-memory notification is prepared.                                                                    |
-| `RDK_WINDOW_MANAGER_CRITICALLY_LOW_MEMORY_THRESHOLD` | double | `100`                        | RAM threshold in MB below which a critically-low-memory notification is prepared. Must be ≤ `RDK_WINDOW_MANAGER_LOW_MEMORY_THRESHOLD`.    |
-| `RDK_WINDOW_MANAGER_SWAP_MEMORY_INCREASE_THRESHOLD`  | double | `50`                         | Swap usage increase in MB that triggers a swap notification.                                                                              |
-| `RDK_WINDOW_MANAGER_KEY_INITIAL_DELAY`               | int    | `500`                        | Initial delay in milliseconds before key repeat begins.                                                                                   |
-| `RDK_WINDOW_MANAGER_KEY_REPEAT_INTERVAL`             | int    | `100`                        | Interval in milliseconds between subsequent key repeat events.                                                                            |
-| `RDK_WINDOW_MANAGER_SET_GRAPHICS_720`                | string | unset                        | Set to `"1"` to force 1280×720 display initialisation regardless of the `/tmp/rdkwindowmanager720` file.                                  |
-| `RDK_WINDOW_MANAGER_WESTEROS_PLUGIN_DIRECTORY`       | string | `/usr/lib/plugins/westeros/` | Directory scanned for Westeros protocol extension plugins at compositor creation. Set at build time; not runtime-configurable.            |
+| Parameter                                            | Type           | Default                      | Description                                                                                                    |
+| ---------------------------------------------------- | -------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `RDK_WINDOW_MANAGER_FRAMERATE`                       | int            | `40`                         | Target render frames per second for the main compositor loop.                                                  |
+| `RDK_WINDOW_MANAGER_LOW_MEMORY_THRESHOLD`            | double (MB)    | `200`                        | RAM level below which a low-memory notification is emitted.                                                    |
+| `RDK_WINDOW_MANAGER_CRITICALLY_LOW_MEMORY_THRESHOLD` | double (MB)    | `100`                        | RAM level below which a critically-low-memory notification is emitted.                                         |
+| `RDK_WINDOW_MANAGER_SWAP_MEMORY_INCREASE_THRESHOLD`  | double (MB)    | `50`                         | Swap increase (MB per interval) above which a swap-growth notification is emitted.                             |
+| `RDK_WINDOW_MANAGER_KEY_INITIAL_DELAY`               | int (ms)       | `500`                        | Delay before key-repeat begins, forwarded to Essos.                                                            |
+| `RDK_WINDOW_MANAGER_KEY_REPEAT_INTERVAL`             | int (ms)       | `100`                        | Interval between repeated key events while a key is held.                                                      |
+| `RDK_WINDOW_MANAGER_LOG_LEVEL`                       | string         | `Information`                | Runtime log level (`Debug`, `Information`, `Warn`, `Error`, `Fatal`).                                          |
+| `RDK_WINDOW_MANAGER_SET_GRAPHICS_720`                | string (`"1"`) | unset                        | Force graphics resolution to 1280×720 instead of 1920×1080. Requires `RDK_WINDOW_MANAGER_BUILD_FORCE_1080=ON`. |
+| `RDK_WINDOW_MANAGER_INPUT_DEVICES_CONFIG`            | string (path)  | unset                        | Path to the JSON input-device classification configuration file.                                               |
+| `RDK_WINDOW_MANAGER_WESTEROS_PLUGIN_DIRECTORY`       | string (path)  | `/usr/lib/plugins/westeros/` | Directory from which Westeros extension plugins are loaded.                                                    |
 
 ### Runtime Configuration
 
-The following parameters can be changed at runtime through the `CompositorController` API (called by the Thunder plugin wrapper):
+The render frame rate and memory thresholds are configured through environment variables read at process startup. Key-intercept and key-listener registrations, focus assignments, visibility, opacity, z-order, and bounds are adjustable at runtime through the `CompositorController` API, surfaced via the Thunder plugin JSON-RPC interface.
 
-```
-CompositorController::setLogLevel(level)         — change log verbosity
-CompositorController::setKeyRepeatConfig(enabled, initialDelay, repeatInterval)
-CompositorController::setInactivityInterval(minutes)
-CompositorController::enableInactivityReporting(enable)
-CompositorController::enableKeyRepeats(enable)
-CompositorController::ignoreKeyInputs(ignore)
-CompositorController::setScreenResolution(width, height)
-```
+### Build-Time Configuration Flags
+
+The following flags are defined in `CMakeLists.txt` and control compiled-in feature availability:
+
+| Flag                                                                | Default                                   | Effect                                                                                                    |
+| ------------------------------------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `RDK_WINDOW_MANAGER_VNC_SERVER`                                     | `OFF` (prod), `ON` (non-prod via bb file) | Builds the VNC server (libsoup/GLib/Boost required).                                                      |
+| `RDK_WINDOW_MANAGER_BUILD_EXTENSIONS`                               | `ON`                                      | Enables compilation of `firebolt_shell`, `firebolt_surface`, and `firebolt_wm` Wayland extension plugins. |
+| `RDK_WINDOW_MANAGER_BUILD_FORCE_1080`                               | `ON`                                      | Enables 1080p/720p forced-resolution logic at startup.                                                    |
+| `RDK_WINDOW_MANAGER_BUILD_KEY_METADATA`                             | `OFF`                                     | Enables key-press metadata (device-type, device-mode info) propagation to applications.                   |
+| `RDK_WINDOW_MANAGER_BUILD_HIDDEN_SUPPORT`                           | `OFF`                                     | Enables hidden-surface support.                                                                           |
+| `RDK_WINDOW_MANAGER_BUILD_KEYBUBBING_TOP_MODE`                      | `ON`                                      | Enables key-bubbling-to-topmost-compositor mode.                                                          |
+| `RDK_WINDOW_MANAGER_BUILD_ENABLE_KEYREPEATS`                        | `OFF`                                     | Enables built-in key-repeat delivery.                                                                     |
+| `RDK_WINDOW_MANAGER_BUILD_EXTERNAL_APPLICATION_SURFACE_COMPOSITION` | `ON`                                      | Enables external application surface composition path.                                                    |
+| `BUILD_ENABLE_ERM`                                                  | unset                                     | Enables Essos Resource Manager integration for AV blocking.                                               |
+
+
