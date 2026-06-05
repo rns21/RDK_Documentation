@@ -111,7 +111,7 @@ graph TD
 - **Synchronization**: A process-wide recursive `pthread_mutex_t m_Lock` (initialized as `PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP`) serializes access to the registered call list (`m_registeredCallList`) and event handler list (`m_eventHandlerList`).
 - **Async / Event Dispatch**: Event callbacks are invoked from the dispatch thread. The `IARM_Bus_BroadcastEvent()` caller is unblocked immediately after the D-Bus signal is sent; listeners are notified asynchronously on their own dispatch threads.
 
-### Platform and Integration Requirements
+### RDK-V Platform and Integration Requirements
 
 - **Build Dependencies**: `dbus-1` (D-Bus library and headers), `glib-2.0` ≥ 2.24.0 (GList, GThread), `gthread-2.0`, `safec-common-wrapper` (safe C string/memory functions; falls back to standard functions when unavailable). `libxml2` is listed as a build dependency in the bb file.
 - **Systemd Services**: The D-Bus system daemon (`dbus.service`) must be running before `iarmbusd` starts, as declared by `After=dbus.service` in the service unit.
@@ -130,29 +130,29 @@ sequenceDiagram
     participant System as systemd
     participant Main as IARMDaemonMain
     participant DaemonLib as libIBusDaemon
-    participant Bus as libIARMBus (D-Bus)
+    participant Bus as libIARMBus
 
     System->>Main: Start IARMDaemonMain
-    Main->>Main: signals_register() (SIGINT, SIGTERM)
-    Main->>Main: rdk_logger_init() (if RDK_LOGGER_ENABLED)
+    Main->>Main: signals_register SIGINT SIGTERM
+    Main->>Main: rdk_logger_init if RDK_LOGGER_ENABLED
     Main->>DaemonLib: IARM_Bus_DaemonStart()
-    DaemonLib->>Bus: IARM_Bus_Init("Daemon")
+    DaemonLib->>Bus: IARM_Bus_Init(Daemon)
     Bus-->>DaemonLib: Initialized
     DaemonLib->>Bus: IARM_Bus_Connect()
-    Bus-->>DaemonLib: Connected; dispatch thread started
+    Bus-->>DaemonLib: Connected, dispatch thread started
     DaemonLib->>Bus: IARM_Bus_RegisterEvent(IARM_BUS_SIGNAL_MAX)
-    DaemonLib->>Bus: IARM_Bus_RegisterCall(RequestOwnership, ...)
-    DaemonLib->>Bus: IARM_Bus_RegisterCall(ReleaseOwnership, ...)
-    DaemonLib->>Bus: IARM_Bus_RegisterCall(RegisterMember, ...)
-    DaemonLib->>Bus: IARM_Bus_RegisterCall(UnRegisterMember, ...)
-    DaemonLib->>Bus: IARM_Bus_RegisterCall(PowerPreChange, ...)
-    DaemonLib->>Bus: IARM_Bus_RegisterCall(CheckRegistration, ...)
-    DaemonLib->>Bus: IARM_Bus_RegisterCall(ResolutionPreChange, ...)
-    DaemonLib->>Bus: IARM_Bus_RegisterCall(ResolutionPostChange, ...)
-    DaemonLib->>Bus: IARM_Bus_RegisterCall(SysModeChange, ...)
-    DaemonLib->>Bus: IARM_Bus_RegisterCall(DeepSleepWakeup, ...)
+    DaemonLib->>Bus: IARM_Bus_RegisterCall(RequestOwnership)
+    DaemonLib->>Bus: IARM_Bus_RegisterCall(ReleaseOwnership)
+    DaemonLib->>Bus: IARM_Bus_RegisterCall(RegisterMember)
+    DaemonLib->>Bus: IARM_Bus_RegisterCall(UnRegisterMember)
+    DaemonLib->>Bus: IARM_Bus_RegisterCall(PowerPreChange)
+    DaemonLib->>Bus: IARM_Bus_RegisterCall(CheckRegistration)
+    DaemonLib->>Bus: IARM_Bus_RegisterCall(ResolutionPreChange)
+    DaemonLib->>Bus: IARM_Bus_RegisterCall(ResolutionPostChange)
+    DaemonLib->>Bus: IARM_Bus_RegisterCall(SysModeChange)
+    DaemonLib->>Bus: IARM_Bus_RegisterCall(DeepSleepWakeup)
     DaemonLib-->>Main: DaemonStart returns SUCCESS
-    Main->>System: sd_notifyf(READY=1) (if ENABLE_SD_NOTIFY)
+    Main->>System: sd_notifyf READY=1 if ENABLE_SD_NOTIFY
 
     loop Heartbeat (every 300s)
         Main->>Main: Log heartbeat ping
@@ -195,18 +195,18 @@ sequenceDiagram
     participant DBus as D-Bus
     participant Daemon as IARMDaemonMain
 
-    ClientApp->>LibBus: IARM_Bus_Init("ClientName")
-    LibBus->>LibBus: IARM_Init(IARM_BUS_NAME, "ClientName")
+    ClientApp->>LibBus: IARM_Bus_Init('ClientName')
+    LibBus->>LibBus: IARM_Init(IARM_BUS_NAME, 'ClientName')
     LibBus->>LibBus: IARM_Malloc(PROCESSLOCAL, sizeof(IARM_Bus_Member_t))
-    LibBus-->>ClientApp: IARM_RESULT_SUCCESS; m_initialized=1
+    LibBus-->>ClientApp: IARM_RESULT_SUCCESS, m_initialized=1
 
     ClientApp->>LibBus: IARM_Bus_Connect()
-    LibBus->>DBus: dbus_bus_get_private() — acquire system bus connections
-    LibBus->>LibBus: Spawn dispatch thread (<ClientName>_IARMD)
-    LibBus->>Daemon: IARM_Bus_Call("Daemon", "RegisterMember", member_info)
+    LibBus->>DBus: dbus_bus_get_private() - acquire system bus connections
+    LibBus->>LibBus: Spawn dispatch thread (ClientName_IARMD)
+    LibBus->>Daemon: IARM_Bus_Call('Daemon', 'RegisterMember', member_info)
     Daemon->>Daemon: _RegisterMember() — append to m_registeredList
     Daemon-->>LibBus: IARM_RESULT_SUCCESS
-    LibBus-->>ClientApp: IARM_RESULT_SUCCESS; m_connected=1
+    LibBus-->>ClientApp: IARM_RESULT_SUCCESS, m_connected=1
 ```
 
 #### Request Processing Call Flow — Event Broadcast
@@ -218,10 +218,10 @@ sequenceDiagram
     participant DBus as D-Bus
     participant Subscriber as Subscriber Process
 
-    Publisher->>LibBus: IARM_Bus_BroadcastEvent("OwnerName", eventId, data, len)
+    Publisher->>LibBus: IARM_Bus_BroadcastEvent('OwnerName', eventId, data, len)
     LibBus->>DBus: dbus_message_new_signal(iarm.signal.Type)
-    LibBus->>DBus: Append eventId, ownerName, size, data[] as byte array
-    DBus-->>Publisher: Signal sent; returns to caller
+    LibBus->>DBus: Append eventId, ownerName, size, data bytes
+    DBus-->>Publisher: Signal sent, returns to caller
 
     DBus->>Subscriber: D-Bus signal delivered to dispatch thread
     Subscriber->>Subscriber: dbusCallHandler() filters by eventId + ownerName
@@ -237,14 +237,14 @@ sequenceDiagram
     participant DBus as D-Bus
     participant Callee as Callee Process
 
-    Caller->>LibBus: IARM_Bus_Call("OwnerName", "MethodName", arg, argLen)
+    Caller->>LibBus: IARM_Bus_Call('OwnerName', 'MethodName', arg, argLen)
     LibBus->>DBus: dbus_message_new_method_call(iarm.method.Type, MethodName)
     LibBus->>DBus: Append size + arg[] as byte array
     DBus->>Callee: Method call delivered to dispatch thread
     Callee->>Callee: dbusCallHandler() dispatches to registered handler
-    Callee->>Callee: callInfo->handler() executes; writes result into arg
+    Callee->>Callee: callInfo->handler() executes, writes result into arg
     DBus-->>LibBus: Method reply received
-    LibBus-->>Caller: IARM_RESULT_SUCCESS; arg contains output
+    LibBus-->>Caller: IARM_RESULT_SUCCESS, arg contains output
 ```
 
 ---
@@ -256,7 +256,7 @@ sequenceDiagram
 | `IARMDaemonMain` | Entry point for the bus daemon. Registers signal handlers (SIGINT, SIGTERM), initializes the logger, calls `IARM_Bus_DaemonStart()`, sends systemd readiness notification (when `ENABLE_SD_NOTIFY` is defined), and runs the heartbeat loop until shutdown.                                                                                                                                                                                                                              | `IARMDaemonMain-dbus.c` |
 | `libIBusDaemon`  | Daemon-side logic. Implements all daemon RPC handlers (`_RegisterMember`, `_UnRegisterMember`, `_RequestOwnership`, `_ReleaseOwnership`, `_CheckRegistration`, `_PowerPreChange`, `_DeepSleepWakeup`, `_ResolutionPreChange`, `_ResolutionPostChange`, `_SysModeChange`, `_RegisterPreChange`). Maintains the member registry (`m_registeredList`) and resource ownership table (`m_resourceOwner[]`).                                                                                   | `libIBusDaemon-dbus.c`  |
 | `libIBus`        | Client-facing Bus API layer. Implements `IARM_Bus_Init`, `IARM_Bus_Term`, `IARM_Bus_Connect`, `IARM_Bus_Disconnect`, `IARM_Bus_BroadcastEvent`, `IARM_Bus_RegisterEventHandler`, `IARM_Bus_UnRegisterEventHandler`, `IARM_Bus_RemoveEventHandler`, `IARM_Bus_RegisterCall`, `IARM_Bus_Call`, `IARM_Bus_Call_with_IPCTimeout`, `IARM_Bus_RegisterEvent`, and `IARM_Bus_IsConnected`. Wraps the core layer and manages the per-process call and event handler lists protected by `m_Lock`. | `libIBus-dbus.c`        |
-| `libIARMCore`    | Core D-Bus transport layer. Manages `IARM_Ctx_t` per-process context holding three `DBusConnection` handles (`conn`, `connEvent`, `connMethodCall`) and two dispatch threads. Implements `IARM_Init`, `IARM_Malloc`, `IARM_Free`, `IARM_RegisterCall`, `IARM_Call`, `IARM_CallWithTimeout`, `IARM_RegisterListner`. Handles D-Bus message construction, filtering (`dbusCallHandler`), and memory size-prefixing for argument serialization.                                                                                       | `libIARM-dbus.c`        |
+| `libIARMCore`    | Core D-Bus transport layer. Manages `IARM_Ctx_t` per-process context holding three `DBusConnection` handles (`conn`, `connEvent`, `connMethodCall`) and two dispatch threads. Implements `IARM_Init`, `IARM_Malloc`, `IARM_Free`, `IARM_RegisterCall`, `IARM_Call`, `IARM_CallWithTimeout`, `IARM_RegisterListner`. Handles D-Bus message construction, filtering (`dbusCallHandler`), and memory size-prefixing for argument serialization.                                             | `libIARM-dbus.c`        |
 
 ---
 
@@ -276,8 +276,8 @@ IARM Bus operates as an infrastructure component, providing the IPC fabric that 
 
 ### Events Published
 
-| Event Name                         | IARM Topic                                    | Trigger Condition                                                                                   | Subscriber Components                                                                                    |
-| ---------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Event Name                         | IARM Topic                                    | Trigger Condition                                                                   | Subscriber Components                                                                                    |
+| ---------------------------------- | --------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `IARM_BUS_EVENT_RESOURCEAVAILABLE` | `Daemon` / `IARM_BUS_EVENT_RESOURCEAVAILABLE` | A registered member releases ownership of a shared resource via `_ReleaseOwnership` | Any member that previously requested the resource and was denied, or that monitors resource availability |
 
 ### IPC Flow Patterns
@@ -289,14 +289,14 @@ When a caller invokes `IARM_Bus_Call()`, the client library serializes the argum
 ```mermaid
 sequenceDiagram
     participant Caller as Caller Process
-    participant Bus as libIARMBus (D-Bus)
+    participant Bus as libIARMBus
     participant Callee as Callee Process
 
     Caller->>Bus: IARM_Bus_Call(ownerName, methodName, arg, argLen)
     Bus->>Callee: D-Bus method call (iarm.method.Type / methodName)
-    Callee->>Callee: dbusCallHandler() → registered IARM_BusCall_t handler(arg)
+    Callee->>Callee: dbusCallHandler() invokes registered IARM_BusCall_t handler(arg)
     Callee-->>Bus: D-Bus method reply
-    Bus-->>Caller: IARM_RESULT_SUCCESS; output in arg
+    Bus-->>Caller: IARM_RESULT_SUCCESS, output in arg
 ```
 
 **Event Notification Flow:**
@@ -313,8 +313,8 @@ sequenceDiagram
     Publisher->>Bus: IARM_Bus_BroadcastEvent(ownerName, eventId, data, len)
     Bus->>Sub1: D-Bus signal (iarm.signal.Type)
     Bus->>Sub2: D-Bus signal (iarm.signal.Type)
-    Sub1->>Sub1: dbusCallHandler() → IARM_EventHandler_t callback
-    Sub2->>Sub2: dbusCallHandler() → IARM_EventHandler_t callback
+    Sub1->>Sub1: dbusCallHandler() invokes IARM_EventHandler_t callback
+    Sub2->>Sub2: dbusCallHandler() invokes IARM_EventHandler_t callback
 ```
 
 ---
@@ -361,12 +361,10 @@ The following D-Bus library and system functions are called directly by the IARM
 
 ### Key Configuration Parameters
 
-| Parameter            | Type              | Default                                        | Description                                                                                                                                                  |
-| -------------------- | ----------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ENABLE_SD_NOTIFY`   | Compile-time flag | Enabled (set in bb file)                       | When defined, the daemon calls `sd_notifyf(READY=1, ...)` after `IARM_Bus_DaemonStart()` completes, enabling systemd to track service readiness.             |
-| `_USE_DBUS`          | Compile-time flag | Enabled (set in `core/Makefile.am`)            | Selects the D-Bus-backed implementation files (`libIARM-dbus.c`, `libIBus-dbus.c`, `libIBusDaemon-dbus.c`) for compilation.                                  |
-| `RDK_LOGGER_ENABLED` | Compile-time flag | Platform-dependent                             | When defined, routes diagnostic output through the RDK logger (`LOG.RDK.IARMBUS`) instead of `printf`.                                                       |
-| `SAFEC_DUMMY_API`    | Compile-time flag | Set when `safec` is omitted from `DISTRO_FEATURES` | Activates stub implementations of safe-C string and memory functions, substituting standard library equivalents on platforms that build without the `safec` library.                              |
-| `PID_FILE_PATH`      | Compile-time path | Not set by default                             | When defined, the daemon writes a PID file at `<PID_FILE_PATH>/iarmbusd.pid` after startup, providing a readiness indicator for container environments that rely on PID files rather than `sd_notify`. |
-
-
+| Parameter            | Type              | Default                                            | Description                                                                                                                                                                                            |
+| -------------------- | ----------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ENABLE_SD_NOTIFY`   | Compile-time flag | Enabled (set in bb file)                           | When defined, the daemon calls `sd_notifyf(READY=1, ...)` after `IARM_Bus_DaemonStart()` completes, enabling systemd to track service readiness.                                                       |
+| `_USE_DBUS`          | Compile-time flag | Enabled (set in `core/Makefile.am`)                | Selects the D-Bus-backed implementation files (`libIARM-dbus.c`, `libIBus-dbus.c`, `libIBusDaemon-dbus.c`) for compilation.                                                                            |
+| `RDK_LOGGER_ENABLED` | Compile-time flag | Platform-dependent                                 | When defined, routes diagnostic output through the RDK logger (`LOG.RDK.IARMBUS`) instead of `printf`.                                                                                                 |
+| `SAFEC_DUMMY_API`    | Compile-time flag | Set when `safec` is omitted from `DISTRO_FEATURES` | Activates stub implementations of safe-C string and memory functions, substituting standard library equivalents on platforms that build without the `safec` library.                                   |
+| `PID_FILE_PATH`      | Compile-time path | Not set by default                                 | When defined, the daemon writes a PID file at `<PID_FILE_PATH>/iarmbusd.pid` after startup, providing a readiness indicator for container environments that rely on PID files rather than `sd_notify`. |
