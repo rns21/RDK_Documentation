@@ -158,7 +158,7 @@ graph LR
 
 ### RDK-V Platform and Integration Requirements
 
-- **WPEFramework Version**: R5.3
+- **WPEFramework Version**: Thunder 4.4.1 (RDK8)
 - **Build Dependencies**: `entservices-apis` (provides Thunder Exchange interface headers), `wpeframework-tools-native` (code generation tools), `gstreamer1.0` (required when `CDMI=ON` and the GStreamer adapter is selected).
 - **Plugin Dependencies**: Each library requires the corresponding Thunder plugin to be active at runtime. SecurityAgent requires the SecurityAgent plugin; OpenCDM requires the OpenCDMImplementation plugin; DeviceInfo requires the DeviceInfo plugin; DisplayInfo requires the DisplayInfo plugin; PlayerInfo requires the PlayerInfo plugin; Cryptography requires the Svalbard plugin; ProvisionProxy requires the Provisioning plugin; BluetoothAudio libraries require the BluetoothAudio plugin.
 - **Systemd Services**: The corresponding Thunder plugins must be running when a client library attempts a connection. Each library establishes its connection on first use, and libraries using `RPC::SmartInterfaceType` reconnect automatically once the plugin becomes available.
