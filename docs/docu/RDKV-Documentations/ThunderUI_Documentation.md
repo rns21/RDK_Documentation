@@ -6,46 +6,6 @@ ThunderUI provides a single-page web application that communicates with Thunder'
 
 ThunderUI is deployed as static web assets (`bundle.js`, `index.html`, `img/`) under `${datadir}/WPEFramework/Controller/UI` on the target device and is served directly by the Thunder Controller's built-in HTTP server.
 
-
-```mermaid
-flowchart LR
-
-%% Styles
-classDef Apps stroke:#00B9F1,fill:#E6F7FD,stroke-width:2px;
-classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px;
-classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
-
-%% Apps Layer
-    subgraph Apps["Apps & Runtimes"]
-        RDKUI["ThunderUI\n(Browser SPA)"]
-        FBApps["Firebolt Apps"]
-        WPE_RT["WPE Runtime"]
-    end
-
-%% Middleware
-    subgraph RDKMW["RDK Core Middleware"]
-        AM["App Manager"]
-        Westeros["Westeros"]
-        subgraph Thunder["WPEFramework (Thunder)"]
-            Controller["Controller Plugin\n(serves ThunderUI assets)"]
-            Plugins["Thunder Plugins\n(DeviceInfo, Network,\nWifiControl, Monitor, etc.)"]
-        end
-    end
-
-%% Vendor Layer
-    subgraph VL["Vendor Layer"]
-        HAL["Component HAL"]
-        BSP["BSP"]
-    end
-
-    %% Connections
-    RDKUI -->|"JSON-RPC over WebSocket\n/ REST over HTTP"| Controller
-    Controller --> Plugins
-    FBApps -->|Firebolt APIs| RDKMW
-    WPE_RT --> Westeros
-    RDKMW -->|HAL APIs| VL
-```
-
 **Key Features & Responsibilities:**
 
 - **Dynamic plugin discovery**: At startup, ThunderUI queries the Thunder Controller for the full list of active plugins on the device and constructs the navigation menu and plugin views dynamically based on what is present.
@@ -84,7 +44,7 @@ graph TD
 
         subgraph PluginViews["Plugin View Modules (one per Thunder plugin)"]
             PluginBase["plugin.js\nBase class: activate /\ndeactivate / suspend /\nresume / status"]
-            PluginInstances["Controller · DeviceInfo · Network\nWifiControl · BluetoothControl\nPower · Monitor · TraceControl\nMessageControl · WebKitBrowser\nRDKShell · DisplaySettings\nPersistentStore · RemoteControl\n… (40+ plugin modules)"]
+            PluginInstances["Controller · DeviceInfo · Network\nWifiControl · BluetoothControl\nPower · Monitor · TraceControl\nMessageControl · DisplaySettings\nPersistentStore · RemoteControl\n… (40+ plugin modules)"]
         end
     end
 
@@ -230,33 +190,31 @@ sequenceDiagram
 
 ## Internal Modules
 
-| Module / Class | Description | Key Files |
-|---|---|---|
-| `application.js` | Application bootstrap. Calls `WpeApi.getControllerPlugins`, instantiates plugin view objects, constructs the layout shell, and routes navigation. Exposes `showPlugin` globally for the menu. | `src/js/core/application.js` |
-| `WpeApi` | API transport layer. Wraps ThunderJS for JSON-RPC over WebSocket. Falls back to `XMLHttpRequest` REST calls on JSON-RPC failure. Manages the Controller WebSocket notification channel and per-plugin event listener registry. Handles composite plugin prefix routing. | `src/js/core/wpeApi.js` |
-| `Plugin` (base class) | Base class for all plugin view modules. Provides common `activate`, `deactivate`, `suspend`, `resume`, and `status` methods that call the Thunder Controller. Defines the `render` / `close` lifecycle contract. | `src/js/core/plugin.js` |
-| `Menu` | Side navigation bar. Reads the plugin registry to build menu entries with current activation state. Manages composite instance selector buttons. Persists the selected instance and current plugin to `localStorage`. | `src/js/layout/menu.js` |
-| `Footer` | Status bar. Polls `DeviceInfo` at `conf.refresh_interval` to display version, serial number, uptime, CPU load, and RAM (system and GPU). Listens for ThunderJS `connect`/`disconnect` events to show connection state. | `src/js/layout/footer.js` |
-| `Notifications` | On-screen event console. Subscribes to all Controller WebSocket notifications and appends formatted event entries to the notification panel in real time. | `src/js/layout/notifications.js` |
-| `Controller` (plugin view) | Renders the full list of Thunder plugins with their state and activation controls. Handles composite plugin detection, prefix routing for bridged instances, and dynamic menu refresh after state changes. | `src/js/plugins/controller.js` |
-| `DeviceInfo` (plugin view) | Displays device name, serial number, firmware version, uptime, RAM/GPU usage, CPU load, and network interface details with live-updating charts. | `src/js/plugins/deviceinfo.js` |
-| `Network` (plugin view) | Displays network interfaces, current IP address, default interface, and provides a ping tool. Allows changing the default network interface. | `src/js/plugins/network.js` |
-| `WifiControl` (plugin view) | Displays Wi-Fi connection status, scans for available networks, and manages connection configurations. Subscribes to `scanresults` and `connectionchange` events from the WifiControl plugin. | `src/js/plugins/wificontrol.js` |
-| `BluetoothControl` (plugin view) | Displays paired and discovered Bluetooth devices, supports scanning, and provides connect/disconnect/pair controls. | `src/js/plugins/bluetooth.js` |
-| `Monitor` (plugin view) | Displays the list of Thunder plugins being observed by the Monitor plugin and allows configuring restart thresholds. Provides memory consumption data consumed by other plugin views (e.g., WebKitBrowser). | `src/js/plugins/monitor.js` |
-| `WebKitBrowser` (plugin view) | Controls the WPE WebKit browser plugin: displays current URL, allows setting a custom URL or preset, reload, toggle visibility, suspend/resume, and shows memory usage from Monitor if available. | `src/js/plugins/webkit.js` |
-| `TraceControl` (plugin view) | Manages trace categories and their enabled/disabled state by opening a dedicated WebSocket to the TraceControl plugin's streaming endpoint. | `src/js/plugins/tracing.js` |
-| `MessageControl` (plugin view) | Manages message control categories (type, module, category, enabled/disabled) and streams live debug messages via a dedicated WebSocket to the MessageControl plugin. | `src/js/plugins/messaging.js` |
-| `Power` (plugin view) | Displays the current device power state and allows setting a timed power state transition (On, Active standby, Passive standby, Suspend to RAM, Hibernate, Power Off). | `src/js/plugins/power.js` |
-| `RDKShell` (plugin view) | Displays client application details, the list of client apps in Z-order, and available compositor types managed by RDKShell. | `src/js/plugins/rdkShell.js` |
-| `DisplaySettings` (plugin view) | Displays supported and current video resolutions, TV resolutions, sound mode, zoom setting, and connected/supported video displays. | `src/js/plugins/displaySettings.js` |
-| `RemoteControl` (plugin view) | Renders an on-screen keyboard and forwards key events (as WPE key codes) to the RemoteControl Thunder plugin. | `src/js/plugins/remotecontrol.js` |
-| `ScreenCapture` (plugin view) | Triggers an `uploadScreenCapture` call on the ScreenCapture plugin, uploading a screenshot to a specified URL with an optional GUID identifier. | `src/js/plugins/screencapture.js` |
-| `PersistentStore` (plugin view) | Provides a UI to set, read, and delete key-value pairs in namespaces via the PersistentStore Thunder plugin. | `src/js/plugins/persistentStore.js` |
-| `LocationSync` (plugin view) | Displays the device's GeoIP-resolved location (city, country, region, timezone, public IP) and provides a manual sync trigger. | `src/js/plugins/locationsync.js` |
-| `TimeSync` (plugin view) | Displays current device time, NTP source, and last sync timestamp. Allows manually setting the device time. | `src/js/plugins/timesync.js` |
-| `conf.js` | Static configuration values compiled into the bundle: polling interval, API cache period, and the default start plugin. | `src/js/conf.js` |
-| `helpers.js` | Resolves the Thunder host address from the browser's `window.location` when no explicit host is provided. | `src/js/helpers.js` |
+| Module / Class                   | Description                                                                                                                                                                                                                                                             | Key Files                           |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `application.js`                 | Application bootstrap. Calls `WpeApi.getControllerPlugins`, instantiates plugin view objects, constructs the layout shell, and routes navigation. Exposes `showPlugin` globally for the menu.                                                                           | `src/js/core/application.js`        |
+| `WpeApi`                         | API transport layer. Wraps ThunderJS for JSON-RPC over WebSocket. Falls back to `XMLHttpRequest` REST calls on JSON-RPC failure. Manages the Controller WebSocket notification channel and per-plugin event listener registry. Handles composite plugin prefix routing. | `src/js/core/wpeApi.js`             |
+| `Plugin` (base class)            | Base class for all plugin view modules. Provides common `activate`, `deactivate`, `suspend`, `resume`, and `status` methods that call the Thunder Controller. Defines the `render` / `close` lifecycle contract.                                                        | `src/js/core/plugin.js`             |
+| `Menu`                           | Side navigation bar. Reads the plugin registry to build menu entries with current activation state. Manages composite instance selector buttons. Persists the selected instance and current plugin to `localStorage`.                                                   | `src/js/layout/menu.js`             |
+| `Footer`                         | Status bar. Polls `DeviceInfo` at `conf.refresh_interval` to display version, serial number, uptime, CPU load, and RAM (system and GPU). Listens for ThunderJS `connect`/`disconnect` events to show connection state.                                                  | `src/js/layout/footer.js`           |
+| `Notifications`                  | On-screen event console. Subscribes to all Controller WebSocket notifications and appends formatted event entries to the notification panel in real time.                                                                                                               | `src/js/layout/notifications.js`    |
+| `Controller` (plugin view)       | Renders the full list of Thunder plugins with their state and activation controls. Handles composite plugin detection, prefix routing for bridged instances, and dynamic menu refresh after state changes.                                                              | `src/js/plugins/controller.js`      |
+| `DeviceInfo` (plugin view)       | Displays device name, serial number, firmware version, uptime, RAM/GPU usage, CPU load, and network interface details with live-updating charts.                                                                                                                        | `src/js/plugins/deviceinfo.js`      |
+| `Network` (plugin view)          | Displays network interfaces, current IP address, default interface, and provides a ping tool. Allows changing the default network interface.                                                                                                                            | `src/js/plugins/network.js`         |
+| `WifiControl` (plugin view)      | Displays Wi-Fi connection status, scans for available networks, and manages connection configurations. Subscribes to `scanresults` and `connectionchange` events from the WifiControl plugin.                                                                           | `src/js/plugins/wificontrol.js`     |
+| `BluetoothControl` (plugin view) | Displays paired and discovered Bluetooth devices, supports scanning, and provides connect/disconnect/pair controls.                                                                                                                                                     | `src/js/plugins/bluetooth.js`       |
+| `Monitor` (plugin view)          | Displays the list of Thunder plugins being observed by the Monitor plugin and allows configuring restart thresholds. Provides memory consumption data consumed by other plugin views.                                                                                   | `src/js/plugins/monitor.js`         |
+| `TraceControl` (plugin view)     | Manages trace categories and their enabled/disabled state by opening a dedicated WebSocket to the TraceControl plugin's streaming endpoint.                                                                                                                             | `src/js/plugins/tracing.js`         |
+| `MessageControl` (plugin view)   | Manages message control categories (type, module, category, enabled/disabled) and streams live debug messages via a dedicated WebSocket to the MessageControl plugin.                                                                                                   | `src/js/plugins/messaging.js`       |
+| `Power` (plugin view)            | Displays the current device power state and allows setting a timed power state transition (On, Active standby, Passive standby, Suspend to RAM, Hibernate, Power Off).                                                                                                  | `src/js/plugins/power.js`           |
+| `DisplaySettings` (plugin view)  | Displays supported and current video resolutions, TV resolutions, sound mode, zoom setting, and connected/supported video displays.                                                                                                                                     | `src/js/plugins/displaySettings.js` |
+| `RemoteControl` (plugin view)    | Renders an on-screen keyboard and forwards key events (as WPE key codes) to the RemoteControl Thunder plugin.                                                                                                                                                           | `src/js/plugins/remotecontrol.js`   |
+| `ScreenCapture` (plugin view)    | Triggers an `uploadScreenCapture` call on the ScreenCapture plugin, uploading a screenshot to a specified URL with an optional GUID identifier.                                                                                                                         | `src/js/plugins/screencapture.js`   |
+| `PersistentStore` (plugin view)  | Provides a UI to set, read, and delete key-value pairs in namespaces via the PersistentStore Thunder plugin.                                                                                                                                                            | `src/js/plugins/persistentStore.js` |
+| `LocationSync` (plugin view)     | Displays the device's GeoIP-resolved location (city, country, region, timezone, public IP) and provides a manual sync trigger.                                                                                                                                          | `src/js/plugins/locationsync.js`    |
+| `TimeSync` (plugin view)         | Displays current device time, NTP source, and last sync timestamp. Allows manually setting the device time.                                                                                                                                                             | `src/js/plugins/timesync.js`        |
+| `conf.js`                        | Static configuration values compiled into the bundle: polling interval, API cache period, and the default start plugin.                                                                                                                                                 | `src/js/conf.js`                    |
+| `helpers.js`                     | Resolves the Thunder host address from the browser's `window.location` when no explicit host is provided.                                                                                                                                                               | `src/js/helpers.js`                 |
 
 ---
 
@@ -266,37 +224,35 @@ ThunderUI communicates with the Thunder runtime exclusively over JSON-RPC (WebSo
 
 ### Interaction Matrix
 
-| Target Component / Layer | Interaction Purpose | Key APIs / Topics |
-|---|---|---|
-| **Thunder Plugins** | | |
-| `Controller` | Plugin lifecycle management: enumerate active plugins, activate, deactivate, suspend, resume | `Controller.1.status`, `Controller.1.activate`, `Controller.1.deactivate`, `Controller.1.suspend`, `Controller.1.resume` |
-| `DeviceInfo` | Read device identity and resource metrics for the status footer and Device Info view | `DeviceInfo.1.status` (system info, network interfaces) |
-| `Network` | Read network interface list and IP addresses; set default interface; execute ping | `Network.1.interfaces`, `Network.1.defaultinterface`, `Network.1.ping` |
-| `WifiControl` | Read connected SSID, scan networks, connect/disconnect | `WifiControl.1.networks`, `WifiControl.1.connect`, `WifiControl.1.disconnect`; events: `scanresults`, `connectionchange` |
-| `BluetoothControl` | Scan for Bluetooth devices, connect, disconnect, pair | `BluetoothControl.1.scan`, `BluetoothControl.1.connect`; device discovery events |
-| `Monitor` | Read memory and CPU consumption per observed plugin; configure restart thresholds | `Monitor.1.status`, `Monitor.1.restartlimits` |
-| `TraceControl` | Read and set trace module enable/disable state; stream live trace output | `TraceControl.1.set`; WebSocket stream at `/Service/TraceControl` |
-| `MessageControl` | Read and set message control enable/disable state; stream live debug messages | `MessageControl.1.enable`; WebSocket stream at `/Service/MessageControl` |
-| `Power` | Read current power state; trigger power state transitions | `Power.1.state` (read/write) |
-| `WebKitBrowser` | Read/set URL, reload, toggle visibility, suspend/resume browser | `WebKitBrowser.1.url`, `WebKitBrowser.1.visible`, `WebKitBrowser.1.suspend`, `WebKitBrowser.1.fps` |
-| `RDKShell` | Read client apps, Z-order list, available compositor types | `RDKShell.1.clients`, `RDKShell.1.getZOrder`, `RDKShell.1.availabletypes` |
-| `DisplaySettings` | Read/set video resolution, sound mode, zoom setting, connected displays | `DisplaySettings.1.currentresolution`, `DisplaySettings.1.supportedresolutions`, `DisplaySettings.1.setsoundmode` |
-| `RemoteControl` | Send key presses to the device | `RemoteControl.1.send` |
-| `ScreenCapture` | Trigger screenshot upload to a URL | `ScreenCapture.1.uploadScreenCapture` |
-| `PersistentStore` | Read, write, and delete namespaced key-value pairs | `PersistentStore.1.setValue`, `PersistentStore.1.getValue`, `PersistentStore.1.deleteNamespace` |
-| `LocationSync` | Read device GeoIP location; trigger sync | `LocationSync.1.location`, `LocationSync.1.sync` |
-| `TimeSync` | Read device time and source; set time | `TimeSync.1.time`, `TimeSync.1.source`, `TimeSync.1.synced` |
-| **Controller WebSocket** | Receive all plugin state-change and lifecycle notifications in real time | WebSocket at `ws://<host>/Service/Controller`, notification channel |
+| Target Component / Layer | Interaction Purpose                                                                          | Key APIs / Topics                                                                                                        |
+| ------------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| **Thunder Plugins**      |                                                                                              |                                                                                                                          |
+| `Controller`             | Plugin lifecycle management: enumerate active plugins, activate, deactivate, suspend, resume | `Controller.1.status`, `Controller.1.activate`, `Controller.1.deactivate`, `Controller.1.suspend`, `Controller.1.resume` |
+| `DeviceInfo`             | Read device identity and resource metrics for the status footer and Device Info view         | `DeviceInfo.1.status` (system info, network interfaces)                                                                  |
+| `Network`                | Read network interface list and IP addresses; set default interface; execute ping            | `Network.1.interfaces`, `Network.1.defaultinterface`, `Network.1.ping`                                                   |
+| `WifiControl`            | Read connected SSID, scan networks, connect/disconnect                                       | `WifiControl.1.networks`, `WifiControl.1.connect`, `WifiControl.1.disconnect`; events: `scanresults`, `connectionchange` |
+| `BluetoothControl`       | Scan for Bluetooth devices, connect, disconnect, pair                                        | `BluetoothControl.1.scan`, `BluetoothControl.1.connect`; device discovery events                                         |
+| `Monitor`                | Read memory and CPU consumption per observed plugin; configure restart thresholds            | `Monitor.1.status`, `Monitor.1.restartlimits`                                                                            |
+| `TraceControl`           | Read and set trace module enable/disable state; stream live trace output                     | `TraceControl.1.set`; WebSocket stream at `/Service/TraceControl`                                                        |
+| `MessageControl`         | Read and set message control enable/disable state; stream live debug messages                | `MessageControl.1.enable`; WebSocket stream at `/Service/MessageControl`                                                 |
+| `Power`                  | Read current power state; trigger power state transitions                                    | `Power.1.state` (read/write)                                                                                             |
+| `DisplaySettings`        | Read/set video resolution, sound mode, zoom setting, connected displays                      | `DisplaySettings.1.currentresolution`, `DisplaySettings.1.supportedresolutions`, `DisplaySettings.1.setsoundmode`        |
+| `RemoteControl`          | Send key presses to the device                                                               | `RemoteControl.1.send`                                                                                                   |
+| `ScreenCapture`          | Trigger screenshot upload to a URL                                                           | `ScreenCapture.1.uploadScreenCapture`                                                                                    |
+| `PersistentStore`        | Read, write, and delete namespaced key-value pairs                                           | `PersistentStore.1.setValue`, `PersistentStore.1.getValue`, `PersistentStore.1.deleteNamespace`                          |
+| `LocationSync`           | Read device GeoIP location; trigger sync                                                     | `LocationSync.1.location`, `LocationSync.1.sync`                                                                         |
+| `TimeSync`               | Read device time and source; set time                                                        | `TimeSync.1.time`, `TimeSync.1.source`, `TimeSync.1.synced`                                                              |
+| **Controller WebSocket** | Receive all plugin state-change and lifecycle notifications in real time                     | WebSocket at `ws://<host>/Service/Controller`, notification channel                                                      |
 
 ### Events Published
 
-| Event Source | JSON-RPC / WebSocket Topic | How ThunderUI Handles It |
-|---|---|---|
-| Controller | All plugin state-change notifications | Displayed in on-screen Notifications console; Menu refreshes plugin state indicators |
-| `WifiControl` | `scanresults` | WifiControl view re-fetches and renders the network list |
-| `WifiControl` | `connectionchange` | WifiControl view updates the connected SSID display |
-| ThunderJS | `connect` | Footer updates connection indicator to connected |
-| ThunderJS | `disconnect` | Footer updates connection indicator to disconnected; WebSocket reconnection scheduled after `refresh_interval` |
+| Event Source  | JSON-RPC / WebSocket Topic            | How ThunderUI Handles It                                                                                       |
+| ------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Controller    | All plugin state-change notifications | Displayed in on-screen Notifications console; Menu refreshes plugin state indicators                           |
+| `WifiControl` | `scanresults`                         | WifiControl view re-fetches and renders the network list                                                       |
+| `WifiControl` | `connectionchange`                    | WifiControl view updates the connected SSID display                                                            |
+| ThunderJS     | `connect`                             | Footer updates connection indicator to connected                                                               |
+| ThunderJS     | `disconnect`                          | Footer updates connection indicator to disconnected; WebSocket reconnection scheduled after `refresh_interval` |
 
 ### IPC Flow Patterns
 
@@ -365,19 +321,19 @@ sequenceDiagram
 
 ### Key Configuration Files
 
-| Configuration File | Purpose | Override Mechanism |
-|---|---|---|
-| `src/js/conf.js` | Compiled into the bundle. Sets polling interval, API cache period, and default start plugin. | Edit source before building |
+| Configuration File      | Purpose                                                                                                                | Override Mechanism                                                           |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `src/js/conf.js`        | Compiled into the bundle. Sets polling interval, API cache period, and default start plugin.                           | Edit source before building                                                  |
 | `.env.local` (dev only) | Supplies the `HOST` environment variable used during local development builds to point the UI at a specific device IP. | Created from `.env.example`; consumed by `dotenv-webpack` at build time only |
 
 ### Key Configuration Parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `refresh_interval` | int | `5000` | Polling interval in milliseconds for the device status footer and WebSocket reconnection delay. Defined in `conf.js`. |
-| `cache_period` | int | `500` | Duration in milliseconds during which the WPE API will serve a cached response to prevent excessive requests. Defined in `conf.js`. |
-| `startPlugin` | string | `'Controller'` | The plugin view rendered on initial load when no previous session state exists. Defined in `conf.js`. |
-| `HOST` | string | `127.0.0.1` | Target device IP address used for development builds. Set in `.env.local` (not deployed). Falls back to `window.location.hostname` at runtime. |
+| Parameter          | Type   | Default        | Description                                                                                                                                    |
+| ------------------ | ------ | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `refresh_interval` | int    | `5000`         | Polling interval in milliseconds for the device status footer and WebSocket reconnection delay. Defined in `conf.js`.                          |
+| `cache_period`     | int    | `500`          | Duration in milliseconds during which the WPE API will serve a cached response to prevent excessive requests. Defined in `conf.js`.            |
+| `startPlugin`      | string | `'Controller'` | The plugin view rendered on initial load when no previous session state exists. Defined in `conf.js`.                                          |
+| `HOST`             | string | `127.0.0.1`    | Target device IP address used for development builds. Set in `.env.local` (not deployed). Falls back to `window.location.hostname` at runtime. |
 
 ### Runtime Configuration
 
@@ -393,13 +349,12 @@ npm start
 
 Configuration changes (`conf.js` parameters) are not persisted across reboots. They are compiled into the static bundle at build time. The only items written to persistent storage by ThunderUI are browser `localStorage` entries:
 
-| Key | Content |
-|---|---|
-| `lastActivePlugin` | Callsign of the last active plugin view, restored on next page load |
-| `thunderUI_selectedInstance` | Last selected composite Thunder instance name |
-| `thunderUI_currentPlugin` | Last active plugin in the context of the selected instance |
-| `lastSetUrl` | Last URL entered manually in the WebKitBrowser plugin view |
-| `paused` | Whether the device status footer statistics display was hidden |
-| `autoFwdKeys` | Whether automatic key forwarding to RemoteControl is enabled |
+| Key                          | Content                                                             |
+| ---------------------------- | ------------------------------------------------------------------- |
+| `lastActivePlugin`           | Callsign of the last active plugin view, restored on next page load |
+| `thunderUI_selectedInstance` | Last selected composite Thunder instance name                       |
+| `thunderUI_currentPlugin`    | Last active plugin in the context of the selected instance          |
+| `paused`                     | Whether the device status footer statistics display was hidden      |
+| `autoFwdKeys`                | Whether automatic key forwarding to RemoteControl is enabled        |
 
 These entries are local to the browser session and have no effect on device-side state.
