@@ -42,7 +42,7 @@ The component is structured into three distinct parts: startup infrastructure, p
 
 Northbound, the component integrates with systemd via a oneshot unit. `apparmor.service` declares `Before=lighttpd.service` and `WantedBy=local-fs.target`. The `DefaultDependencies=no` directive prevents implicit systemd ordering from interfering. The unit skips silently if `ConditionSecurity=apparmor` fails (AppArmor not enabled in kernel) or if `ConditionPathExists=/etc/apparmor.d` fails. It fails with an assertion error if `AssertPathIsReadWrite=/sys/kernel/security/apparmor/.load` is not satisfied. Southbound, the component calls `/sbin/apparmor_parser` to load compiled profiles into the kernel. Loaded policies are then enforced by the kernel's AppArmor LSM against all covered processes for the duration of the system session.
 
-No IPC mechanisms are used at runtime. `apparmor_parse.sh` calls `t2ValNotify` from `/lib/rdk/t2Shared_api.sh` (sourced if the file is present) for telemetry. No IARM bus, no D-Bus, and no JSON-RPC interfaces are used by this component.
+At runtime, `apparmor_parse.sh` calls `t2ValNotify` from `/lib/rdk/t2Shared_api.sh` (sourced if the file is present) for telemetry. Service orchestration flows exclusively through systemd.
 
 The only persistent runtime data is `/opt/secure/Apparmor_blocklist`, which resides in writable storage and survives reboots. All profile files and the defaults file are part of the read-only rootfs and do not change at runtime. The blocklist file is created empty by `touch` in `apparmor_parse.sh` if it does not exist at service start.
 
@@ -92,9 +92,9 @@ The component separates policy from mechanism. Profile files in `generic_profile
 
 Mode resolution gives the blocklist priority over the defaults file. For each `process:mode` entry read from `/etc/apparmor/apparmor_defaults`, the script checks whether the process has an entry in `/opt/secure/Apparmor_blocklist`. If an override exists and is valid, the override mode takes effect. If not, the defaults-file mode applies. The result per process is one of: added to `complain_list[]`, added to `enforce_list[]`, or skipped (disabled). Both lists are passed to `apparmor_parser` as single batch invocations — `apparmor_parser -rWC` for complain mode and `apparmor_parser -rW[B]` for enforce mode — to minimise the number of parser invocations at startup.
 
-Northbound interaction is via systemd service ordering only. There is no API, no IPC at runtime, and no mechanism for other processes to query or modify the loaded profiles through this component. Southbound, the only interaction is via `/sbin/apparmor_parser` and the kernel sysfs path at `/sys/kernel/security/apparmor/`.
+Northbound interaction is via systemd service ordering. Southbound, the interaction is via `/sbin/apparmor_parser` and the kernel sysfs path at `/sys/kernel/security/apparmor/`.
 
-Data persistence is limited to `/opt/secure/Apparmor_blocklist`. This file is created empty by `apparmor_parse.sh` via `touch` if it does not exist. Profile files and the defaults file reside in read-only rootfs and are not modified at runtime. No database, key-value store, or persistent configuration mechanism other than this plain text file is used.
+Data persistence is limited to `/opt/secure/Apparmor_blocklist`. This file is created empty by `apparmor_parse.sh` via `touch` if it does not exist. Profile files and the defaults file reside in read-only rootfs and are not modified at runtime.
 
 A component diagram showing the internal structure and sub-module dependencies is given below:
 
@@ -399,13 +399,13 @@ sequenceDiagram
 
 - **Optional hook functions**: After the `apparmor_parser` invocations, `apparmor_parse.sh` calls `systemd_apparmor` if `type systemd_apparmor` succeeds, and `apparmor_telemetry` if `type apparmor_telemetry` succeeds. Both functions are expected to come from `/lib/rdk/apparmor_utils.sh` when sourced.
 
-- **`check_list` in `apparmor_cicd.py`**: Contains 20 `SecurityCheckRule` entries. Rules are either raw regex (`raw=True`, `rule[0]=None`) matched against the full profile line, or typed (`rule[0]="Permissions"`) for file permission character matching. Priority distribution in the list: `"High"` (default for most), `"Medium"` (4 rules: `CAP_SYSADMIN`, `FILE_ALLDEV`, `FILE_ALLMINIDUMP`, `PROC_ATTR_W`, `FILE_ALL_TMP`), `"Low"` (3 rules: `CAP_DACOVERRIDE`, `FILE_ETCAPPARMOR_R`, `PROC_MAPS`, `FILE_ALL_LOGS`).
+- **`check_list` in `apparmor_cicd.py`**: Contains 20 `SecurityCheckRule` entries. Rules are either raw regex (`raw=True`, `rule[0]=None`) matched against the full profile line, or typed (`rule[0]="Permissions"`) for file permission character matching. Priority distribution in the list: `"High"` (default for most), `"Medium"` (5 rules: `CAP_SYSADMIN`, `FILE_ALLDEV`, `FILE_ALLMINIDUMP`, `PROC_ATTR_W`, `FILE_ALL_TMP`), `"Low"` (4 rules: `CAP_DACOVERRIDE`, `FILE_ETCAPPARMOR_R`, `PROC_MAPS`, `FILE_ALL_LOGS`).
 
 - **Diff mode in `apparmor_cicd.py`**: `__diff_files()` runs `__check_file()` on both the new and old versions with `silent=True`. It compares `violation_dict` key counts: for each key where the new count exceeds the old count, the extra occurrences are added to `new_only`. Results are deduplicated with a `seen` set before printing. The function returns `True` if new violations are found, causing the CI workflow to exit 1.
 
-- **`exception_list`**: Defined as an empty list (`exception_list = []`) in `apparmor_cicd.py`. No exceptions are currently registered. The `SecurityException` class is defined but no instances exist.
+- **`exception_list`**: Defined in `apparmor_cicd.py` alongside the `SecurityException` class, providing the registration structure for rule exceptions.
 
-- **Logging**: `apparmor_parse.sh` writes to `/opt/logs/startup_stdout_log.txt` via `echo ... >> $RDKLOGS`. No RDK Logger (`LOG.RDK.*`) is used. `apparmor_cicd.py` writes to stdout only.
+- **Logging**: `apparmor_parse.sh` writes startup and telemetry output to `/opt/logs/startup_stdout_log.txt` via `echo ... >> $RDKLOGS`. `apparmor_cicd.py` writes violation output to stdout.
 
 ---
 
@@ -421,7 +421,7 @@ Mode resolution order (lowest to highest precedence):
 |---|---|---|
 | `/etc/apparmor/apparmor_defaults` | Lists each process and its default AppArmor mode. Format: `process:mode` per line. Read by `apparmor_parse.sh` at service start. | Replace at image build; use Apparmor_blocklist for runtime override |
 | `/opt/secure/Apparmor_blocklist` | Operator-writable file that overrides mode per process. Format: `process:mode` per line. Valid modes: `enforce`, `complain`, `disable`. Created empty by `touch` if absent. | Direct file write; takes effect on next `apparmor.service` restart |
-| `/etc/apparmor.d/vendor/usr.bin.<name>` | Optional vendor-specific profile extension. Included via `#include if exists` in each generic profile. Not present in this repository. | Deploy file at the include path |
+| `/etc/apparmor.d/vendor/usr.bin.<name>` | Optional vendor-specific profile extension. Included via `#include if exists` in each generic profile. | Deploy file at the include path |
 
 ### Key Configuration Parameters
 
