@@ -10,42 +10,20 @@ RDK Logger operates as a shared library (`librdkloggers`) that client processes 
 flowchart LR
 
 %% Styles
-classDef Apps stroke:#00B9F1,fill:#E6F7FD,stroke-width:2px
 classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px
-classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px
 classDef Logger stroke:#FF6B35,fill:#FFF0EA,stroke-width:3px
+classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px
 
-    subgraph Apps["Apps & Runtimes"]
-        RDKUI["UI"]
-        FBApps["Firebolt Apps"]
-        WPE_RT["WPE Runtime"]
-    end
+RDKMW["RDK Middleware Components"]
+RDKLogger["RDK Logger"]
+SysLog["Log4C / syslog\n/ systemd journal"]
 
-    subgraph RDKMW["RDK Core Middleware"]
-        AM["App Manager"]
-        Rialto["Rialto"]
-        Westeros["Westeros"]
-        Thunder["WPEFramework (Thunder)"]
-        AAMP["AAMP"]
-        RDKLogger["RDK Logger\n(librdkloggers)"]
-        ProtoAgents["Protocol Agents"]
-    end
+RDKMW -->|RDK_LOG APIs| RDKLogger
+RDKLogger -->|Log4C APIs| SysLog
 
-    subgraph VL["Vendor Layer"]
-        HAL["Component HAL"]
-        BSP["BSP"]
-        SysLog["Log4C / syslog\n/ systemd journal"]
-    end
-
-    Apps -->|Firebolt APIs| RDKMW
-    AM -->|RDK_LOG APIs| RDKLogger
-    Rialto -->|RDK_LOG APIs| RDKLogger
-    Westeros -->|RDK_LOG APIs| RDKLogger
-    Thunder -->|RDK_LOG APIs| RDKLogger
-    AAMP -->|RDK_LOG APIs| RDKLogger
-    ProtoAgents -->|RDK_LOG APIs| RDKLogger
-    RDKLogger -->|Log4C APIs| SysLog
-    RDKMW -->|HAL APIs| VL
+class RDKMW RDKMW
+class RDKLogger Logger
+class SysLog VL
 ```
 
 **Key Features & Responsibilities:**
@@ -145,8 +123,6 @@ flowchart TD
 ### Platform and Integration Requirements
 
 - **Build Dependencies**: `log4c >= 1.2.3` (mandatory, detected via `PKG_CHECK_MODULES`); `libglib-2.0` (mandatory, linked in `librdkloggers_la_LDFLAGS`); `libsystemd >= 209` (optional, auto-detected via `PKG_CHECK_MODULES`; enables systemd journal appender when present).
-- **Plugin Dependencies**: RDK Logger is a foundational library that other RDK middleware components depend on for logging services.
-- **Systemd Services**: When `libsystemd` is available at build time, log output can be directed to the systemd journal via the `to_journal` appender.
 - **Configuration Files**: `/etc/debug.ini` must exist as the default configuration file. `/opt/debug.ini` and `/nvram/debug.ini` are optional override paths. `log4crc` must be installed at the location Log4C searches by default (typically `/etc/log4crc` or the path set by `LOG4C_RCPATH`) to configure appenders and layouts.
 - **Startup Order**: RDK Logger must be initialized before any RDK middleware component that issues `RDK_LOG()` calls. As a shared library, initialization occurs in-process at the time the first component calls `RDK_LOGGER_INIT()`.
 
@@ -339,24 +315,14 @@ RDK Logger is a foundational library where all interactions flow inward — midd
 
 ### Interaction Matrix
 
-| Target Component / Layer          | Interaction Purpose                                                  | Key APIs / Topics                                                                                                          |
-| --------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Video Platform Middleware**     |                                                                      |                                                                                                                            |
-| Thunder Plugins                   | Log output from plugin implementations                               | `RDK_LOG()`, `RDK_LOGGER_INIT()`, module names of the form `LOG.RDK.<PLUGIN>`                                              |
-| AAMP                              | Media pipeline and DRM event logging                                 | `RDK_LOG()`, module `LOG.RDK.AAMP` (and sub-modules)                                                                       |
-| Westeros / Compositor             | Compositor and graphics event logging                                | `RDK_LOG()`, `LOG.RDK.WESTEROS`                                                                                            |
-| App Manager                       | Application lifecycle event logging                                  | `RDK_LOG()`, application-specific module names                                                                             |
-| **Broadband Platform Middleware** |                                                                      |                                                                                                                            |
-| Protocol Agents (TR-069 / TR-369) | Protocol event and diagnostic logging                                | `RDK_LOG()`, module `LOG.RDK.TR069` / `LOG.RDK.TR369`                                                                      |
-| WiFi Agent                        | WiFi connection and security event logging                           | `RDK_LOG()`, module `LOG.RDK.WIFI`                                                                                         |
-| Platform Management               | System status and configuration logging                              | `RDK_LOG()`, module `LOG.RDK.PAM`                                                                                          |
-| WAN Manager                       | WAN interface and failover event logging                             | `RDK_LOG()`, module `LOG.RDK.WANMGR`                                                                                       |
-| **System & Platform Layers**      |                                                                      |                                                                                                                            |
-| Log4C Library                     | Backend log message formatting, routing, and file management         | `log4c_init()`, `log4c_category_get()`, `log4c_category_set_priority()`, `log4c_category_log()`                            |
-| syslog daemon                     | System-wide log integration                                          | `openlog()`, `syslog()`, `closelog()` — active when `HAVE_SYSLOG_H` is defined                                             |
-| systemd journal                   | Modern Linux logging integration                                     | `sd_journal_print()` — active when `HAVE_SYSTEMD` is defined and `libsystemd >= 209` is present                            |
-| File system                       | Configuration file parsing; milestone and onboarding log persistence | `fopen()`, `fgets()`, `fprintf()` on `/etc/debug.ini`, `/opt/debug.ini`, `/nvram/debug.ini`, milestone log, onboarding log |
-| UDP socket (loopback)             | Runtime log level control from `rdklogctrl`                          | `socket(AF_INET, SOCK_DGRAM)`, port 12035, `127.255.255.255` broadcast                                                     |
+| Target Component / Layer     | Interaction Purpose                                                  | Key APIs / Topics                                                                                                          |
+| ---------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **System & Platform Layers** |                                                                      |                                                                                                                            |
+| Log4C Library                | Backend log message formatting, routing, and file management         | `log4c_init()`, `log4c_category_get()`, `log4c_category_set_priority()`, `log4c_category_log()`                            |
+| syslog daemon                | System-wide log integration                                          | `openlog()`, `syslog()`, `closelog()` — active when `HAVE_SYSLOG_H` is defined                                             |
+| systemd journal              | Modern Linux logging integration                                     | `sd_journal_print()` — active when `HAVE_SYSTEMD` is defined and `libsystemd >= 209` is present                            |
+| File system                  | Configuration file parsing; milestone and onboarding log persistence | `fopen()`, `fgets()`, `fprintf()` on `/etc/debug.ini`, `/opt/debug.ini`, `/nvram/debug.ini`, milestone log, onboarding log |
+| UDP socket (loopback)        | Runtime log level control from `rdklogctrl`                          | `socket(AF_INET, SOCK_DGRAM)`, port 12035, `127.255.255.255` broadcast                                                     |
 
 ### Events Published
 
@@ -415,26 +381,6 @@ sequenceDiagram
 ---
 
 ## Implementation Details
-
-### Major HAL APIs Integration
-
-RDK Logger operates at the middleware library layer, interfacing directly with system-level APIs. The table below lists the system-level APIs it calls directly.
-
-| System API                                     | Purpose                                                         | Implementation File                                      |
-| ---------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------------------- |
-| `socket()`, `bind()`, `recvfrom()`, `select()` | UDP socket for runtime log level control                        | `src/rdk_dynamic_logger.c`                               |
-| `sendto()`                                     | Sends log level change commands from `rdklogctrl`               | `utils/rdklogctrl.c`                                     |
-| `fopen()`, `fgets()`, `fclose()`               | Configuration file parsing (debug.ini)                          | `src/rdk_debug_priv.c`                                   |
-| `fopen()`, `fprintf()`, `fclose()`             | Milestone and onboarding log file writing                       | `src/rdk_logger_milestone.c`, `src/rdk_logger_onboard.c` |
-| `log4c_init()`, `log4c_category_get()`         | Log4C backend initialization and category lookup                | `src/rdk_debug_priv.c`                                   |
-| `log4c_category_set_priority()`                | Apply parsed or runtime log level to a module category          | `src/rdk_debug_priv.c`                                   |
-| `log4c_category_vlog()`                        | Emit a formatted log event through the Log4C routing chain      | `src/rdk_debug_priv.c`                                   |
-| `gmtime_r()`, `syscall(SYS_gettid)`            | Timestamp and thread ID generation for log message formatting   | `src/rdk_debug_priv.c`                                   |
-| `clock_gettime(CLOCK_MONOTONIC_RAW, ...)`      | Uptime timestamp for milestone log entries                      | `src/rdk_logger_milestone.c`                             |
-| `pthread_mutex_lock/unlock()`                  | Thread safety for initialization and extended config            | `src/rdk_logger_init.c`, `src/rdk_debug_priv.c`          |
-| `access()`                                     | Configuration file existence check in `RDK_LOGGER_INIT()` macro | `include/rdk_logger.h`                                   |
-| `sd_journal_print()`                           | systemd journal output (conditional on `HAVE_SYSTEMD`)          | `src/rdk_debug_priv.c`                                   |
-| `openlog()`, `syslog()`, `closelog()`          | syslog output (conditional on `HAVE_SYSLOG_H`)                  | `src/rdk_debug_priv.c`                                   |
 
 ### Key Implementation Logic
 
