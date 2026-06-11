@@ -6,35 +6,6 @@ ThunderTools addresses the significant boilerplate burden involved in writing CO
 
 The toolset is distributed as a `native` and `nativesdk` Yocto recipe (`wpeframework-tools_5.3.bb`), ensuring the generators run on the build host during cross-compilation.
 
-```mermaid
-flowchart LR
-
-classDef BuildInfra stroke:#00B9F1,fill:#E6F7FD,stroke-width:2px
-classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px
-classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px
-
-subgraph BuildInfra["Build Infrastructure (Host)"]
-    Interfaces["C++ Interface Headers\n/ JSON Schemas"]
-    ThunderTools["ThunderTools\n(Code Generators)"]
-    GeneratedCode["Generated C++ / JSON\nArtifacts"]
-    Interfaces -->|input| ThunderTools
-    ThunderTools -->|output| GeneratedCode
-end
-
-subgraph RDKMW["RDK Core Middleware (Target)"]
-    Thunder["WPEFramework (Thunder)"]
-    Plugins["Thunder Plugins"]
-    GeneratedCode -->|compiled into| Plugins
-    Plugins --> Thunder
-end
-
-subgraph VL["Vendor Layer (Target)"]
-    HAL["Platform HAL"]
-end
-
-RDKMW -->|HAL APIs| VL
-```
-
 **Key Features & Responsibilities:**
 
 - **JsonGenerator**: Parses annotated C++ interface headers and JSON-schema definition files to produce JSON data-class headers (`JsonData_<Name>.h`), enum-registration translation units (`JsonEnum_<Name>.cpp`), JSON-RPC dispatch headers (`J<Name>.h`), combined API headers, and Markdown reference documentation for each plugin interface.
@@ -113,10 +84,6 @@ graph TD
 
 - **Threading Architecture**: Single-threaded per generator invocation. Each generator script is an independent OS process; parallelism is achieved by the build system launching multiple generator processes simultaneously.
 - **Main Thread**: All input parsing, AST traversal, code emission, and file I/O are handled on a single Python interpreter thread per invocation.
-
-### Prerequisites and Dependencies
-
-- **Build Dependencies**: `python3-native`, `python3-jsonref-native` (Yocto); CMake 3.15 or later; Python 3.5 or later; the `gitpython` package for DocumentGenerator.
 
 ---
 
@@ -255,27 +222,6 @@ sequenceDiagram
 ## Component Interactions
 
 ThunderTools generators are invoked by the build system and exchange data exclusively through the file system. All interactions described below occur at build time.
-
-### Interaction Matrix
-
-| Target Component / Layer     | Interaction Purpose                                                                                                                        | Key APIs / Topics                                                                      |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
-| **Build System**             |                                                                                                                                            |                                                                                        |
-| CMake build system           | Invokes generators as child processes via the installed `JsonGenerator()`, `ProxyStubGenerator()`, and `ConfigGenerator()` CMake functions | `FindJsonGenerator.cmake`, `FindProxyStubGenerator.cmake`, `FindConfigGenerator.cmake` |
-| **Inputs consumed**          |                                                                                                                                            |                                                                                        |
-| C++ interface headers        | Source of interface definitions for JsonGenerator and ProxyStubGenerator                                                                   | `header_loader.py`, `CppParser.py`                                                     |
-| JSON schema files            | Alternative interface definition format for JsonGenerator                                                                                  | `json_loader.py` via `jsonref`                                                         |
-| Python configuration scripts | Source of plugin configuration parameters for ConfigGenerator                                                                              | `config_generator.load_module()`                                                       |
-| YAML / interactive prompts   | Source of plugin metadata for PluginSkeletonGenerator                                                                                      | `PluginSkeletonGenerator/parser/`                                                      |
-| **Outputs produced**         |                                                                                                                                            |                                                                                        |
-| `JsonData_<Name>.h`          | C++ JSON data-class header consumed by Thunder plugin source                                                                               | `code_generator.Create()`                                                              |
-| `JsonEnum_<Name>.cpp`        | Enum registration translation unit linked into the plugin                                                                                  | `code_generator.Create()`                                                              |
-| `J<Name>.h`                  | JSON-RPC dispatch header or version header compiled into the plugin                                                                        | `rpc_emitter.EmitRpcCode()`                                                            |
-| `json_<Name>.h`              | Combined plugin API header                                                                                                                 | `code_generator.CreateApiHeader()`                                                     |
-| `ProxyStubs_<Name>.cpp`      | COM-RPC proxy and stub implementation compiled into a shared library                                                                       | `StubGenerator.py`                                                                     |
-| `<Plugin>.json`              | Plugin JSON configuration file deployed to the target                                                                                      | `config_generator.py`                                                                  |
-| Plugin skeleton files        | Ready-to-compile plugin repository (`.h`, `.cpp`, `CMakeLists.txt`, `.conf.in`, `.json`)                                                   | `GeneratorCoordinator.generateAll()`                                                   |
-| `<Name>.md`                  | Markdown API reference documentation                                                                                                       | `documentation_generator.Create()`                                                     |
 
 ### IPC Flow Patterns
 
