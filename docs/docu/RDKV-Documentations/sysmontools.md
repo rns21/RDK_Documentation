@@ -6,45 +6,6 @@ At the device level, these tools allow operators and test systems to trigger sta
 
 At the module level, each tool establishes a connection to its target middleware service, performs its operation, and exits. Power state operations communicate with the Power Manager plugin via a COM-RPC client library (`libWPEFrameworkPowerController`). Event injection tools connect to the middleware IPC bus transiently to broadcast events to the System Manager, Device Settings Manager, and other registered consumers. The key simulator injects input events directly into the Linux kernel via the `uinput` subsystem. The manufacturer utility performs a synchronous RPC call to the MFR Manager to retrieve serialized device identity data.
 
-```mermaid
-flowchart LR
-
-%% Styles
-classDef Apps stroke:#00B9F1,fill:#E6F7FD,stroke-width:2px;
-classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px;
-classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
-
-%% Apps Layer
-    subgraph Apps["Apps & Runtimes"]
-        RDKUI["UI"]
-        FBApps["Firebolt Apps"]
-        WPE_RT["WPE Runtime"]
-    end
-
-%% Middleware
-    subgraph RDKMW["RDK Core Middleware"]
-        SysMon["System Monitor Tools"]
-        Thunder["WPEFramework (Thunder)"]
-        SysMgr["System Manager"]
-        DSMgr["Device Settings Manager"]
-        MFRMgr["MFR Manager"]
-    end
-
-%% Vendor Layer
-    subgraph VL["Vendor Layer"]
-        UInput["Linux uinput"]
-        BSP["BSP"]
-    end
-
-    %% External connections
-    Apps -->|Firebolt APIs| RDKMW
-    SysMon -->|COM-RPC| Thunder
-    SysMon -->|IPC Bus| SysMgr
-    SysMon -->|IPC Bus| DSMgr
-    SysMon -->|IPC Bus| MFRMgr
-    SysMon -->|key events| UInput
-```
-
 **Key Features & Responsibilities:**
 
 - **System Event Injection**: The `IARM_event_sender` tool injects named system state and device manager events into the middleware IPC bus, enabling test automation and manual state simulation against live middleware services.
@@ -94,7 +55,9 @@ graph LR
 
 ### Threading Model
 
-- **Threading Architecture**: Most tools are single-threaded. `pwr-state-monitor` is multi-threaded. `SetPowerState` optionally spawns a worker thread for asynchronous pre-change acknowledgment.
+Each tool in sys_mon_tools is a separate binary with its own independent process and threading model. There is no shared threading context between tools.
+
+- **Threading Architecture**: All tools except `pwr-state-monitor` and `SetPowerState` are single-threaded processes that connect, execute, and exit. `pwr-state-monitor` is multi-threaded and runs as a persistent daemon. `SetPowerState` optionally spawns a worker thread for asynchronous pre-change acknowledgment.
 - **Main Thread** (`pwr-state-monitor`): Initializes the PowerController client, queries and sets the initial power state flags, registers the power state change callback, then blocks indefinitely on a GLib async queue (`GAsyncQueue`), keeping the process alive without busy-waiting.
 - **Worker Threads** (if applicable):
   - _lightsleep_monitor_: Spawned as a detached thread when the device transitions to any standby or sleep state. Polls the `/tmp/.power_on` flag at 60-second intervals and appends timestamped entries to `/tmp/lightsleep.log`. Exits when the device returns to the power-on state. Guarded by `/tmp/.lightsleep_on` to prevent duplicate thread creation.
