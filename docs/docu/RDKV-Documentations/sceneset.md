@@ -1,4 +1,4 @@
-'# SceneSet
+# SceneSet
 
 SceneSet is a standalone application launcher service for RDK-based devices. It runs as a systemd service and is responsible for coordinating the boot-time preinstallation of app bundles and the launch of the configured reference application. It establishes connections to WPEFramework Thunder plugins — AppManager, PreinstallManager, and PackageManagerRDKEMS — over COMRPC, and manages the full lifecycle of the reference app from first boot through runtime updates and crash recovery.
 
