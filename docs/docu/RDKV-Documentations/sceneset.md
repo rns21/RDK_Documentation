@@ -1,4 +1,4 @@
-# SceneSet
+'# SceneSet
 
 SceneSet is a standalone application launcher service for RDK-based devices. It runs as a systemd service and is responsible for coordinating the boot-time preinstallation of app bundles and the launch of the configured reference application. It establishes connections to WPEFramework Thunder plugins — AppManager, PreinstallManager, and PackageManagerRDKEMS — over COMRPC, and manages the full lifecycle of the reference app from first boot through runtime updates and crash recovery.
 
@@ -409,6 +409,6 @@ echo "com.rdkcentral.refui" > /opt/sceneset_app.conf
 ### Configuration Persistence
 
 - Changes to `/opt/sceneset_app.conf` are persisted across reboots and take effect on the next service start.
-- The factory apps copy marker at `/opt/persistent/.sceneset_factory_apps_copied` is written once on first boot and persists indefinitely.
+- The factory apps copy marker at `/opt/persistent/.sceneset_factory_apps_copied` is written once on first boot and persists across reboots. It is cleared on a factory reset, causing the factory app copy to run again on the next boot.
 - Build-time parameters (`SCENESET_DEFAULT_APPNAME`, `FACTORY_APP_PATH`, `APP_PREINSTALL_DIRECTORY`, `DAC_APP_CERT_PATH`, `DISABLE_REFERENCE_APP_UPDATE`) are compiled into the binary; updates to these values require a rebuild.
 - Environment variable overrides (`THUNDER_ACCESS`, `SCENESET_INITIAL_DOWNLOAD_SWEEP`) take effect for the duration of the service instance in which they are set.
