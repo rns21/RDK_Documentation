@@ -390,7 +390,7 @@ sequenceDiagram
 
     HDCP_HAL->>IARM: IARM_BUS_DSMGR_EVENT_HDCP_STATUS (authenticated)
     IARM->>DSMgr: _EventHandler callback
-    DSMgr->>DSMgr: bHDCPAuthenticated = true; trigger resolution apply
+    DSMgr->>DSMgr: bHDCPAuthenticated = true, trigger resolution apply
     DSMgr->>IARM: IARM_Bus_BroadcastEvent("SYSMgr", SYSTEMSTATE, HDCP_ENABLED=1)
     IARM->>SYSMgr: _sysEventHandler (update systemStates.hdcp_enabled)
     IARM->>Other: Deliver SYSTEMSTATE event to all registered subscribers
