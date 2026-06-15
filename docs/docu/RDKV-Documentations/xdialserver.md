@@ -57,8 +57,8 @@ Apps -->|"Firebolt APIs"| RDKMW
 - **REST Application Lifecycle Interface**: Exposes an HTTP REST server on port 56889 that accepts application launch, stop, hide, resume, and state-query requests from DIAL clients, enforcing CORS origin validation per registered application.
 - **Application Registry**: Maintains a list of applications registered for DIAL control (Netflix, YouTube, YouTubeTV, YouTubeKids, AmazonInstantVideo, System), with per-application properties including allowed origins, URI prefixes, and singleton configuration.
 - **Application State Cache**: Maintains an in-memory cache (`GDialAppStatusCache`) of the last-reported application state for each registered application. Updated by the platform layer when WPEFramework reports state changes, and queried when the platform layer handles application state requests from the REST server.
-- **Platform Integration via WPEFramework**: The platform layer communicates with the WPEFramework plugin infrastructure to dispatch application launch, stop, hide, resume, and state requests. It also queries the `org.rdk.AuthService.1.getExperience` JSON-RPC method to determine device experience values used in device identity.
-- **RFC-Controlled Activation**: The server's availability on the network is gated by the RFC flag `Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Feature.XDial.Enable`. Startup is deferred until this RFC value is confirmed. The application list, friendly-name feature, and Wake-on-LAN feature are also RFC-configurable at runtime.
+- **Platform Integration via WPEFramework**: The platform layer exposes the XCAST_2 API through the WPEFramework plugin interface, communicating with the plugin infrastructure to dispatch application launch, stop, hide, resume, and state requests. It also queries the `org.rdk.AuthService.1.getExperience` JSON-RPC method to determine device experience values used in device identity.
+- **RFC-Controlled Activation**: The server's availability on the network is gated by the RFC flag `Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Feature.XDial.Enable`, which defaults to `true`. Startup is deferred until this RFC value is confirmed. The application list, friendly-name feature, and Wake-on-LAN feature are also RFC-configurable at runtime.
 - **HTTP Connection Protection**: The `gdial-shield` subsystem enforces per-connection read timeouts on the HTTP server, closing connections that do not complete their request within the configured window.
 - **Power State and Network Standby Handling**: Receives power state change commands (`ON`, `STANDBY`, `TOGGLE`) and network standby mode changes from upper layers, propagating them to the platform device abstraction layer. In network standby mode, a `WAKEUP` header is appended to SSDP advertisements to support Wake-on-LAN.
 
@@ -124,19 +124,16 @@ PLATDEV -->|power/standby| GDIALOBJ
 
 ### Threading Model
 
-- **Threading Architecture**: Multi-threaded with a GLib GMainLoop driving all network I/O on a dedicated server thread.
-- **Main Thread**: Owns the `gdialServiceImpl` instance, starts the GLib main loop, registers platform callbacks, and creates the three `SoupServer` instances (external REST, local REST, SSDP HTTP).
+- **Threading Architecture**: Multi-threaded with a GLib GMainLoop driving all network I/O on the main thread.
+- **Main Thread**: Runs the GLib event loop via `g_main_loop_run()`; handles all HTTP request callbacks from `libsoup`, SSDP resource events from `libgssdp`, and application state change signals from `GDialApp` objects. Also owns `gdialServiceImpl`, registers platform callbacks, and creates the three `SoupServer` instances (external REST, local REST, SSDP HTTP).
 - **Worker Threads**:
-  - _GLib Main Loop Thread_: Runs the GLib event loop; handles all HTTP request callbacks from `libsoup`, SSDP resource events from `libgssdp`, and application state change signals from `GDialApp` objects.
   - _Request Handler Thread_ (gdialServiceImpl): Processes the inbound `RequestHandlerPayload` queue (`APP_STATE_CHANGED`, `ACTIVATION_CHANGED`, `FRIENDLYNAME_CHANGED`, `REGISTER_APPLICATIONS`, `UPDATE_NW_STANDBY`, `UPDATE_MANUFACTURER_NAME`, `UPDATE_MODEL_NAME`) forwarded from the platform layer.
-- **Synchronization**: `pthread_mutex_t` protects the SSDP event handling path (`ssdpServerEventSync`). `std::mutex` and `std::condition_variable` are used in `gdialServiceImpl` to coordinate the request/response event queues between threads.
 - **Async / Event Dispatch**: Application start and state-query operations are posted as GLib timeout sources (`g_timeout_add`) on the main context, ensuring they execute on the GLib main loop thread rather than on the calling thread.
 
 ### Platform and Integration Requirements
 
 - **Build Dependencies**: `libsoup-2.4`, `gssdp`, `glib-2.0`, `openssl`, `c-ares`, `curl`, `util-linux`, `wpeframework`, `wpeframework-clientlibraries`, `entservices-apis`, `iarmmgrs`, `cmake-native`, `libxml-2.0`.
 - **Plugin Dependencies**: `org.rdk.AuthService` must be active before startup, as the launch script waits for a successful `getExperience` response before starting the daemon.
-- **Device Services / HAL**: Platform interaction for network configuration is performed via POSIX socket `ioctl` calls (`SIOCGIFADDR`, `SIOCGIFHWADDR`) implemented in `gdial-plat-util.c`.
 - **Systemd Services**: `tr69hostif.service`, `virtual-wifi-iface.service`, `virtual-moca-iface.service` must be running before `xdial.service` starts, as declared in the `After=` directive.
 - **Configuration Files**: `/etc/device.properties`, `/etc/include.properties` (sourced for `MODEL_NUM`, `MFG_NAME`, `MOCA_INTERFACE`, `RDK_PROFILE`, `RDK_PATH`). UUID file: `/opt/.dial_uuid.txt`.
 - **Startup Order**: `xdial.service` is ordered after network interface services; the startup script additionally polls the RFC `Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Feature.XDial.Enable` with up to 40 retries (2-second interval) before starting the server binary.
@@ -189,6 +186,8 @@ During normal operation, the server changes its advertisement and REST availabil
 
 **State Change Triggers:**
 
+- **Application launch state transitions**: A launch request for an application that is not running causes the app to start. A launch request for an app running in background mode brings it to foreground. A launch request for an app already in foreground mode produces no state change. Each launch request results in an `onApplicationStateChanged` event.
+- **Application stop state transitions**: A stop request for a running app (foreground or background) destroys the application instance. A stop request for an app that is not running results in an `onApplicationStateChanged` event with `error = "Invalid"`.
 - **Activation Changed** (`server_activation_handler`): Received when the Thunder plugin calls `ActivationChanged`. When activation is `true`, the SSDP resource group is advertised and the REST server begins accepting requests. When `false`, the SSDP advertisement is withdrawn and the REST server returns `404` for all requests via the throttle callback.
 - **RFC Runtime Disable**: The `signal_handler_rest_server_rest_enable` handler processes a REST-enable signal. Setting it to `false` deactivates the server without restarting the process.
 - **Power State Change**: `server_powerstate_handler` forwards power state strings (`ON`, `STANDBY`, `TOGGLE`) into the `gdialServiceImpl` request queue for asynchronous processing.
@@ -284,18 +283,18 @@ xdialserver interacts with external DIAL clients over the network, with WPEFrame
 
 ### Interaction Matrix
 
-| Target Component / Layer                          | Interaction Purpose                                                                                          | Key APIs / Topics                                                                                                  |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| **Plugins**                                       |                                                                                                              |                                                                                                                    |
-| `org.rdk.AuthService`                             | Retrieves device experience value (`Flex` or other) used to compose device model name for SSDP advertisement | `org.rdk.AuthService.1.getExperience` (JSON-RPC via curl in `startXdial.sh`)                                       |
-| WPEFramework plugin layer (via `GDialCastObject`) | Receives application state changes, activation changes, friendly name changes, and app registration lists    | WPEFramework COM interfaces; `Exchange::` plugin IDs                                                               |
-| **External Systems**                              |                                                                                                              |                                                                                                                    |
-| DIAL Client (phone / tablet)                      | Application discovery, launch, stop, hide, resume, and state query over HTTP                                 | HTTP REST on port 56889; SSDP on `urn:dial-multiscreen-org:service:dial:1`; `dd.xml` on port 56890                 |
-| RFC / tr181 parameter store                       | Runtime control of server enable/disable, application list, friendly name feature, WoL feature               | `Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Feature.XDial.Enable`, `.AppList`, `.FriendlyNameEnable`, `.WolWakeEnable` |
-| **OS / Platform**                                 |                                                                                                              |                                                                                                                    |
-| Network interface                                 | Bind REST and SSDP servers to the device IP; retrieve MAC for WoL WAKEUP header                              | POSIX `ioctl` (`SIOCGIFADDR`, `SIOCGIFHWADDR`) in `gdial-plat-util.c`                                              |
-| iptables                                          | Open ports 56889 (DIAL REST), 56890 (SSDP HTTP), 9081 (Netflix MDX) on the ESTB interface                    | `iptables -I INPUT` in `startXdial.sh`                                                                             |
-| UUID file                                         | Persist device UUID across reboots                                                                           | `/opt/.dial_uuid.txt`                                                                                              |
+| Target Component / Layer                          | Interaction Purpose                                                                                       | Key APIs / Topics                                                                                                  |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Plugins**                                       |                                                                                                           |                                                                                                                    |
+| `org.rdk.AuthService`                             | Retrieves device experience value used to compose device model name for SSDP advertisement                | `org.rdk.AuthService.1.getExperience` (JSON-RPC via curl in `startXdial.sh`)                                       |
+| WPEFramework plugin layer (via `GDialCastObject`) | Receives application state changes, activation changes, friendly name changes, and app registration lists | WPEFramework COM interfaces; `Exchange::` plugin IDs                                                               |
+| **External Systems**                              |                                                                                                           |                                                                                                                    |
+| DIAL Client (phone / tablet)                      | Application discovery, launch, stop, hide, resume, and state query over HTTP                              | HTTP REST on port 56889; SSDP on `urn:dial-multiscreen-org:service:dial:1`; `dd.xml` on port 56890                 |
+| RFC / tr181 parameter store                       | Runtime control of server enable/disable, application list, friendly name feature, WoL feature            | `Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Feature.XDial.Enable`, `.AppList`, `.FriendlyNameEnable`, `.WolWakeEnable` |
+| **OS / Platform**                                 |                                                                                                           |                                                                                                                    |
+| Network interface                                 | Bind REST and SSDP servers to the device IP; retrieve MAC for WoL WAKEUP header                           | POSIX `ioctl` (`SIOCGIFADDR`, `SIOCGIFHWADDR`) in `gdial-plat-util.c`                                              |
+| iptables                                          | Open ports 56889 (DIAL REST), 56890 (SSDP HTTP), 9081 (Netflix MDX) on the ESTB interface                 | `iptables -I INPUT` in `startXdial.sh`                                                                             |
+| UUID file                                         | Persist device UUID across reboots                                                                        | `/opt/.dial_uuid.txt`                                                                                              |
 
 ### Events Published
 
@@ -445,4 +444,4 @@ tr181Set -s Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Feature.XDial.WolWakeEnable t
 
 ### Configuration Persistence
 
-The device UUID is persisted across reboots at `/opt/.dial_uuid.txt`. The application list is reconstructed from RFC configuration and command-line arguments on each startup. RFC parameter values are managed by the tr181 parameter store and persist across reboots through that mechanism.
+The device UUID is persisted across reboots at `/opt/.dial_uuid.txt`. The service activation state (`XDial.Enable`) is persisted via the tr181 parameter store; the stored value is applied on each reboot or reconnect. The application list is reconstructed from RFC configuration and command-line arguments on each startup. Other RFC parameter values are likewise managed by the tr181 parameter store and persist across reboots.
