@@ -1,11 +1,11 @@
 # RDK-AT Bridge (rdkat)
 
-The RDK-AT Bridge (rdkat) is an accessibility middleware component that enables Text-To-Speech (TTS) output driven by UI accessibility events in RDK-based devices. It intercepts accessibility information from UI runtimes and translates focused element names, roles, descriptions, and document load events into text that is forwarded to the TTS service for audible speech output.
+The RDK-AT Bridge (rdkat) is an Assistive Technology (AT) middleware component that enables Text-To-Speech (TTS) output driven by UI accessibility events in RDK-based devices. It intercepts accessibility information from UI runtimes and translates focused element names, roles, descriptions, and document load events into text that is forwarded to the TTS service for audible speech output.
 
 The component ships as two independent shared libraries built from the same repository, each targeting a different accessibility protocol:
 
 - **librdkat.so** — an ATK-based bridge that registers GLib signal hooks at the ATK (Accessibility Toolkit) layer within the WPE runtime process. Accessibility events are received inline within the runtime process.
-- **librdkatatspi2.so** — an AT-SPI2-based bridge that runs a D-Bus server implementing a trimmed-down AT-SPI2 registry service. Applications connect to this service over D-Bus and emit accessibility events, which the embedded screen reader consumes to produce TTS output.
+- **librdkatatspi2.so** — an AT-SPI2 (Assistive Technology Service Provider Interface 2) based bridge that runs a D-Bus server implementing a trimmed-down AT-SPI2 registry service. AT-SPI2 is a D-Bus based protocol that allows assistive technologies to interact with UI elements in running applications. Applications connect to this service over D-Bus and emit accessibility events, which the embedded screen reader consumes to produce TTS output.
 
 Both variants connect to the TTS service through a TTSClient abstraction and react to TTS enable/disable state changes to conditionally process accessibility events.
 
@@ -58,7 +58,7 @@ flowchart LR
 
 The component is designed around a strict separation between the accessibility event source, the screen reader logic, and the TTS output path. Each layer is defined by a pure-virtual interface (`IAtspiRegistryService`, `IScreenReader`, `ITTSClient`), and concrete implementations are wired together at startup by the `CFactory` class. This structure allows the individual layers to be tested independently using mocks.
 
-The ATK bridge follows a simpler, callback-heavy design. A singleton `RDKAt` instance registers multiple GLib emission hooks on the ATK signal system at initialization time. All event callbacks invoke a central `HandleEvent` dispatch function that performs role-based text construction and drives TTS output. This design leverages the fact that ATK events are delivered in the same thread context as the WPE runtime, so no additional threading is required.
+The ATK bridge follows a simpler, callback-heavy design. The `RDKAt` class exposes a static `Instance()` method that returns one process-wide instance, and registers multiple GLib emission hooks on the ATK signal system at initialization time. All event callbacks invoke a central `HandleEvent` dispatch function that performs role-based text construction and drives TTS output. This design leverages the fact that ATK events are delivered in the same thread context as the WPE runtime, so no additional threading is required.
 
 The AT-SPI2 bridge separates the D-Bus server and screen reader onto a dedicated GLib worker thread. The `CScreenReader::initialize()` call spawns a named worker thread (`ScreenReader`) that runs a private `GMainLoop`. Initialization, uninitialization, and TTS state-change callbacks are all dispatched to this worker thread via `g_main_context_invoke`, ensuring all interactions with the D-Bus server and event listeners occur from a single thread context. Synchronization between the caller thread and the worker thread is handled using a GMutex/GCond pair.
 
@@ -96,7 +96,7 @@ subgraph TTSService["TTS Service"]
 end
 
 subgraph ATKBridge["librdkat.so"]
-    subgraph RDKAtSingleton["RDKAt (Singleton)"]
+    subgraph RDKAtNode["RDKAt"]
         RA[RDKAt\nGLib signal hooks\nHandle ATK events\nMedia volume callback]
     end
 end
@@ -175,12 +175,12 @@ sequenceDiagram
 
 **ATK bridge lifecycle:**
 
-The ATK bridge initializes as a singleton and registers GLib signal emission hooks on the ATK signal system. It relies on the host process's GLib event loop for event delivery.
+The ATK bridge initializes by registering GLib signal emission hooks on the ATK signal system via the `RDKAt::Instance()` entry point. It relies on the host process's GLib event loop for event delivery.
 
 ```mermaid
 sequenceDiagram
     participant Caller as Caller
-    participant RDKAt as RDKAt (Singleton)
+    participant RDKAt as RDKAt
     participant ATK as ATK Signal System
 
     Caller->>RDKAt: RDK_AT::Initialize()
@@ -296,7 +296,7 @@ sequenceDiagram
 
 | Module / Class           | Description                                                                                                                                                                                                                                                       | Key Files                                                              |
 | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `RDKAt`                  | Singleton class for the ATK bridge. Registers GLib emission hooks on ATK signals, implements `TTS::TTSConnectionCallback` and `TTS::TTSSessionCallback`, drives TTS session lifecycle, and dispatches all ATK events to the central handler.                      | `rdkat.cpp`, `rdkat.h`                                                 |
+| `RDKAt`                  | Primary class for the ATK bridge. Exposes a static `Instance()` method returning the process-wide instance. Registers GLib emission hooks on ATK signals, implements `TTS::TTSConnectionCallback` and `TTS::TTSSessionCallback`, drives TTS session lifecycle, and dispatches all ATK events to the central handler. | `rdkat.cpp`, `rdkat.h`                                                 |
 | `CFactory`               | Factory class that creates and destroys concrete instances of `IAtspiRegistryService`, `ITTSClient`, and `IScreenReader`. Determines the D-Bus socket address from `AT_SPI_BUS_ADDRESS` or a temporary directory.                                                 | `CFactory.cpp`, `CFactory.h`                                           |
 | `CScreenReader`          | Implementation of `IScreenReader`. Runs a dedicated GLib worker thread, registers AT-SPI2 event listeners conditionally on TTS state, and translates `Object:StateChanged` and `Document:LoadComplete` events into speech text forwarded to the TTS client.       | `screenreader/CScreenReader.cpp`, `screenreader/CScreenReader.h`       |
 | `CAtspiRegistryService`  | Trimmed-down D-Bus server implementing the AT-SPI2 registry protocol. Manages D-Bus client connections, dispatches incoming method calls and signals, and delivers accessibility events to registered `EventListener` callbacks.                                  | `atspi2/CAtspiRegistryService.cpp`, `atspi2/CAtspiRegistryService.h`   |
