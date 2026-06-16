@@ -126,7 +126,9 @@ graph TD
 ### Prerequisites and Dependencies
 
 - **Build Dependencies**: `librt` (POSIX real-time extensions for `mq_*`), `libpthread` (POSIX threads), `libstdc++`. The `perfservice` daemon is built and installed only when `ENABLE_PERF_REMOTE=1` is set at build time.
-- **Systemd Services**: The `rdkperf.service` unit starts `/usr/bin/perfservice` in remote mode builds. `WantedBy=multi-user.target`.
+- **Systemd Services**: The `rdkperf.service` unit starts `/usr/bin/perfservice` in remote mode builds. `WantedBy=multi-user.target`. The service is installed and activated only when the `rdkperf_service` Yocto distro feature is present.
+- **Syslog-ng Integration**: When the `rdkperf_service` distro feature is enabled, the recipe inherits `syslog-ng-config-gen` and generates a syslog-ng filter rule for the `perfservice` process. The generated configuration routes output to the destination file `rdkperf.log` at a `low` log rate. The filter name, service association, and destination are defined by the `SYSLOG-NG_FILTER`, `SYSLOG-NG_SERVICE_rdkperf`, `SYSLOG-NG_DESTINATION_rdkperf`, and `SYSLOG-NG_LOGRATE_rdkperf` variables in the recipe.
+- **Installed Artifacts**: `librdkperf.so` and `libperftool.so` are installed to `${libdir}`. The public header `rdk_perf.h` and all `src/*.h` internal headers are installed to `/usr/include`. When the `rdkperf_service` distro feature is enabled, `perfservice` is additionally installed to `/usr/bin` and the `rdkperf.service` systemd unit is installed to `${systemd_unitdir}/system`.
 - **Startup Order**: The library self-initializes via `__attribute__((constructor))` when loaded by any instrumented process.
 
 ---
@@ -349,6 +351,30 @@ sequenceDiagram
 | `mq_open()` / `mq_send()` / `mq_receive()` | POSIX message queue communication between instrumented process and `perfservice` (remote mode only) | `rdk_perf_msgqueue.cpp`                      |
 | `fopen` / `fread` on `/proc/<pid>/cmdline` | Process name discovery for report headers                                                           | `rdk_perf_process.cpp`, `rdk_perf.cpp`       |
 | `sysconf(_SC_CLK_TCK)`                     | System clock tick rate retrieval for CPU time normalisation                                         | `rdk_perf_clock.cpp`                         |
+| `getpid()`                                 | Retrieves the calling process ID; used as the key when looking up or creating a `PerfProcess` entry | `rdk_perf_record.cpp`, `rdk_perf.cpp`, `rdk_perf_msgqueue.cpp` |
+| `mq_close()` / `mq_unlink()` / `mq_setattr()` / `mq_getattr()` | POSIX message queue teardown, server-side cleanup on exit, attribute configuration, and queue attribute retrieval | `rdk_perf_msgqueue.cpp` |
+| `clock_gettime(CLOCK_REALTIME, ...)`        | Absolute deadline construction for timed `mq_receive` calls (remote mode timeout path)              | `rdk_perf_msgqueue.cpp`                      |
+
+### Component-Internal API
+
+The following functions are defined by the rdkperf component itself and are not standard library calls. They constitute the internal interface between the public API layer, the process map, and the per-thread call trees.
+
+| Function / Macro                                              | Purpose                                                                                                                                                                  | Implementation File                          |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
+| `RDKPerf_InitializeMap()`                                     | Allocates the global `std::map<pid_t, PerfProcess*>` process registry. Called from `PerfModuleInit()` on library load.                                                  | `rdk_perf_process.cpp`                       |
+| `RDKPerf_DeleteMap()`                                         | Deallocates the global process map. Called from `PerfModuleTerminate()` on library unload.                                                                               | `rdk_perf_process.cpp`                       |
+| `RDKPerf_FindProcess(pid_t pID)`                              | Looks up a `PerfProcess` instance by process ID. Returns `NULL` if not found. Used by `PerfRecord` constructor and the timer thread.                                    | `rdk_perf_process.cpp`                       |
+| `RDKPerf_InsertProcess(pid_t pID, PerfProcess*)`              | Inserts a newly created `PerfProcess` into the global map. Called when an instrumented scope is first entered in a process with no existing map entry.                   | `rdk_perf_process.cpp`                       |
+| `RDKPerf_RemoveProcess(pid_t pID)`                            | Removes and deletes the `PerfProcess` entry for the given PID. Called from `PerfModuleTerminate()` and `RDKPerf_CloseProcess()`.                                         | `rdk_perf_process.cpp`                       |
+| `RDKPerf_GetMapSize()`                                        | Returns the current number of entries in the global process map. Used by the timer thread for diagnostic logging.                                                        | `rdk_perf_process.cpp`                       |
+| `RDKPerf_ReportProcess(pid_t pID)`                            | Public C API. Triggers an immediate performance report for all threads in the given process. In remote mode, sends an `eReportProcess` message to `perfservice`.         | `rdk_perf.cpp`                               |
+| `RDKPerf_ReportThread(pthread_t tID)`                         | Public C API. Triggers an immediate performance report for a single thread's call tree. In remote mode, sends an `eReportThread` message to `perfservice`.               | `rdk_perf.cpp`                               |
+| `RDKPerf_CloseThread(pthread_t tID)`                          | Public C API. Explicitly removes the `PerfTree` for the given thread ID from the process map without waiting for the inactive-thread pruning cycle.                      | `rdk_perf.cpp`                               |
+| `RDKPerf_CloseProcess(pid_t pID)`                             | Public C API. Explicitly removes the `PerfProcess` entry for the given PID. In remote mode, sends an `eCloseProcess` message to `perfservice`.                          | `rdk_perf.cpp`                               |
+| `RDKPerfStart(const char* szName)`                            | Public C API handle-based entry point. Heap-allocates an `RDKPerf` object and returns it as an opaque `RDKPerfHandle`. Used by C callers that cannot use RAII objects.  | `rdk_perf.cpp`                               |
+| `RDKPerfStop(RDKPerfHandle hPerf)`                            | Public C API. Deletes the `RDKPerf` object returned by `RDKPerfStart`, triggering elapsed time recording and node closure.                                               | `rdk_perf.cpp`                               |
+| `RDKPerfSetThreshold(RDKPerfHandle hPerf, uint32_t nUS)`      | Public C API. Sets the threshold on an active `RDKPerfHandle`; if elapsed time exceeds the value in microseconds, an immediate stack dump is logged on scope exit.       | `rdk_perf.cpp`                               |
+| `FUNC_METRICS_START(depth)` / `FUNC_METRICS_END()`            | Macro-based lightweight inline metrics capture. Accumulates `depth` elapsed time samples in a static array, then prints the average to stdout. No `PerfNode` overhead.  | `rdk_perf.h`                                 |
 
 ### Key Implementation Logic
 
@@ -391,7 +417,21 @@ The following parameters are controlled at build time via make command-line flag
 | CPU time tracking      | `ENABLE_SHOW_CPU=1`    | `-DPERF_SHOW_CPU` | Off     | Adds user and system CPU time fields to each report node, captured via `getrusage`. When off, `PerfRecord` uses `gettimeofday` only and skips `PerfClock` entirely.         |
 | Instrumentation bypass | `ENABLE_NO_PERF=1`     | `-DNO_PERF`       | Off     | Replaces `RDKPerf` with the `RDKPerfEmpty` no-op stub. All instrumentation calls compile to empty functions, producing zero overhead.                                       |
 
+The following Yocto distro feature gates the service-mode build and associated system integration:
+
+| Distro Feature      | Effect                                                                                                                                                                                          |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `rdkperf_service`   | When present: sets `ENABLE_PERF_REMOTE=1` at build time, installs `perfservice` to `/usr/bin`, installs `rdkperf.service` systemd unit, and generates syslog-ng routing for `rdkperf.log`. When absent: only `librdkperf.so`, `libperftool.so`, and the public headers are installed. |
+
 ### Runtime Configuration
+
+Trace-level log output can be enabled at runtime without a rebuild:
+
+```bash
+export RDKPER_EXTENDED_LOGGING=true
+```
+
+This environment variable is read during library initialisation (`LogModuleInit`). It must be set before the instrumented process starts.
 
 Trace-level log output can be enabled at runtime without a rebuild:
 
