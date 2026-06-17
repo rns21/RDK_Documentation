@@ -1,6 +1,6 @@
-# breakpad_wrapper
+# Breakpad Wrapper
 
-Breakpad_wrapper is a C-compatible shared library (`libbreakpadwrapper.so`) that gives RDK middleware components automatic crash capture and minidump generation by wrapping the Google Breakpad exception handling framework. It exposes a minimal C interface, allowing any process that links against it to register a crash handler and annotate the handler with custom memory mapping metadata through a plain C interface.
+Breakpad wrapper is a C-compatible shared library (`libbreakpadwrapper.so`) that gives RDK middleware components automatic crash capture and minidump generation by wrapping the Google Breakpad exception handling framework. It exposes a minimal C interface, allowing any process that links against it to register a crash handler and annotate the handler with custom memory mapping metadata through a plain C interface.
 
 At the device level, the library operates transparently. Any process that links against `libbreakpadwrapper.so` has a crash handler registered automatically at load time, before `main()` executes, with the host application needing only a link dependency. On an unhandled exception or crash signal, a minidump file is written to a configurable filesystem path for retrieval and post-mortem analysis.
 
@@ -9,19 +9,12 @@ At the module level, the library provides two distinct services: crash handler r
 ```mermaid
 flowchart LR
 
-%% Styles
-classDef Apps stroke:#00B9F1,fill:#E6F7FD,stroke-width:2px;
-classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px;
-classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
-
-%% Apps Layer
     subgraph Apps["Apps & Runtimes"]
         RDKUI["UI"]
         FBApps["Firebolt Apps"]
         WPE_RT["WPE Runtime"]
     end
 
-%% Middleware
     subgraph RDKMW["RDK Core Middleware"]
         AM["App Manager"]
         Rialto["Rialto"]
@@ -30,14 +23,12 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
         BPW["breakpad_wrapper"]
     end
 
-%% Vendor Layer
     subgraph VL["Vendor Layer"]
         Breakpad["Google Breakpad Library"]
         BSP["BSP"]
     end
 
     Apps -->|Firebolt APIs| RDKMW
-    RDKMW -->|Links libbreakpadwrapper.so| BPW
     BPW -->|ExceptionHandler API| Breakpad
 ```
 
@@ -99,7 +90,6 @@ graph TD
     Handler --> EH
     AddMap --> Handler
     EH -->|on crash| Callback
-    MD --> FS
 ```
 
 ### Threading Model
@@ -183,13 +173,12 @@ sequenceDiagram
 
     alt BREAKPAD_FD set
         BPW->>Breakpad: MinidumpDescriptor(atoi(fd))
-    else BREAKPAD_FD unset
+    else BREAKPAD_FD unset — flag file present
         BPW->>FS: fopen("/tmp/.SecureDumpDisable")
-        alt Flag file present
-            BPW->>Breakpad: MinidumpDescriptor("/opt/minidumps")
-        else Flag file absent
-            BPW->>Breakpad: MinidumpDescriptor("/opt/secure/minidumps")
-        end
+        BPW->>Breakpad: MinidumpDescriptor("/opt/minidumps")
+    else BREAKPAD_FD unset — flag file absent
+        BPW->>FS: fopen("/tmp/.SecureDumpDisable")
+        BPW->>Breakpad: MinidumpDescriptor("/opt/secure/minidumps")
     end
 
     BPW->>Breakpad: new ExceptionHandler(descriptor, NULL, callback, NULL, true, -1)
