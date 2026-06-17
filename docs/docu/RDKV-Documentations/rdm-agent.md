@@ -1,8 +1,8 @@
 # RDM Agent
 
-RDM Agent (RDK Download Manager Agent) is a standalone C executable in the RDK middleware layer that manages the full lifecycle of downloadable application packages on a device. It reads a device manifest (`rdm-manifest.json`) to determine which packages are required, retrieves the download URL from the system configuration parameter store via rbus, and transfers packages from a cloud server over HTTPS with mutual TLS authentication. After each transfer, the package's RSA signature is verified before extraction and installation. Download outcomes are persisted to a status tracking file and broadcast to other components through the system event bus. The agent supports four operational modes triggered from the command line: manifest-driven bulk download, targeted single-application install, versioned or bundle application install, and USB-based local install. It is launched as a one-shot systemd service that activates when the XConf SSR download URL file appears or changes on the filesystem.
+RDM Agent (RDK Download Manager Agent) is a standalone C executable in the RDK middleware layer that manages the full lifecycle of downloadable application packages on a device. It reads a device manifest (`rdm-manifest.json`) to determine which packages are required, retrieves the download URL from the system configuration parameter store via rbus, and transfers packages from a cloud server over HTTPS with mutual TLS authentication. After each transfer, the package's RSA signature is verified before extraction and installation. Download outcomes are persisted to a status tracking file and broadcast to other components through the system event bus. The agent supports four operational modes triggered from the command line: manifest-driven bulk download, targeted single-application install, versioned or bundle application install, and USB-based local install. It is launched as a one-shot systemd service that activates when the XConf download URL file appears or changes on the filesystem.
 
-As a middleware service, RDM Agent provides the device with the ability to acquire and update software components independently of firmware upgrades. It connects to cloud delivery infrastructure to pull application packages, enforces security through cryptographic signature verification, and integrates with the plugin runtime (WPEFramework/Thunder Packager) to handle plugin-type packages through the standard plugin installation path.
+As a middleware service, RDM Agent provides the device with the ability to acquire and update software components independently of firmware upgrades. It connects to cloud delivery infrastructure to pull application packages, enforces security through cryptographic signature verification, and integrates with the WPEFramework package manager to handle plugin-type packages through the standard plugin installation path.
 
 At the module level, RDM Agent is structured around a set of focused C modules covering orchestration, download control, package extraction, signature verification, manifest parsing, rbus-based configuration access, and event notification. These modules are composed at runtime by the main entry point to execute the appropriate download path based on the operation mode.
 
@@ -18,7 +18,7 @@ classDef Ext stroke:#FF8C00,fill:#FFF3E0,stroke-width:2px;
 %% External Systems
     subgraph ExtSys["External Systems"]
         CloudSrv["Cloud Download Server"]
-        XConf["XConf / SSR"]
+        XConf["XConf"]
     end
 
 %% Apps Layer
@@ -47,10 +47,10 @@ classDef Ext stroke:#FF8C00,fill:#FFF3E0,stroke-width:2px;
 
     Apps -->|Firebolt APIs| RDKMW
     RDKMW -->|HAL APIs| VL
-    XConf -->|SSR Download URL| RDMAgent
+    XConf -->|Download URL| RDMAgent
     RDMAgent -->|HTTPS mTLS Download| CloudSrv
     RDMAgent -->|RFC param read/write| RbusD
-    RDMAgent -->|Packager.1.install JSON-RPC| Thunder
+    RDMAgent -->|Package install JSON-RPC| Thunder
 
 class RDMAgent RDKMW;
 class CloudSrv,XConf Ext;
@@ -63,7 +63,7 @@ class CloudSrv,XConf Ext;
 - **HTTPS mutual TLS package transfer**: Downloads packages from the configured cloud URL using libcurl with mTLS certificate authentication, enforcing HTTPS by replacing any HTTP scheme in the resolved URL before initiating the transfer.
 - **RSA signature verification**: Validates every downloaded package using OpenSSL RSA before extraction, rejecting packages whose signature does not match the embedded public key material.
 - **Filesystem health check**: Before downloading to secondary storage, verifies that the target mount point is writable and has sufficient free space, falling back to a default temporary path if the check fails.
-- **Multiple installation paths**: Supports distinct install flows for legacy tar/IPK packages, versioned applications with `package.json` metadata, plugin-type packages delegated to Thunder Packager, and local USB packages.
+- **Multiple installation paths**: Supports distinct install flows for legacy tar/IPK packages, versioned applications with `package.json` metadata, plugin-type packages delegated to the package manager, and local USB packages.
 - **Download status persistence and notification**: Appends download outcomes per application to `rdmDownloadInfo.txt` and broadcasts a status event over the system event bus and via rbus to notify dependent components of completion or failure.
 - **Post-install script execution**: After successful installation, runs per-application post-scripts from `/etc/rdm/post-services/` to perform any additional device-side configuration.
 
@@ -73,7 +73,7 @@ class CloudSrv,XConf Ext;
 
 RDM Agent follows a single-threaded, sequential processing model suited to its role as a one-shot daemon. The component is structured as a layered set of C modules, each with a well-defined responsibility: the orchestration layer (main entry point) drives control flow, the download layer manages the fetch-verify-install pipeline, and the infrastructure layer provides reusable services for rbus access, HTTPS transfer, JSON parsing, signature verification, and event notification. This separation allows each concern to be tested independently, as reflected in the unit test structure that mocks each infrastructure module.
 
-Northbound interaction is handled through rbus, from which the agent reads RFC parameters to obtain the download URL and per-feature enable flags, and to which it writes the download status. Southbound interaction targets the local filesystem for package storage, the system event bus for status broadcasting, and the Thunder Packager plugin for plugin-type package installs. The agent is invoked as a one-shot process by systemd and exits on completion, with IPC interactions limited to outbound rbus calls and event broadcasts made during execution.
+Northbound interaction is handled through rbus, from which the agent reads RFC parameters to obtain the download URL and per-feature enable flags, and to which it writes the download status. Southbound interaction targets the local filesystem for package storage, the system event bus for status broadcasting, and the WPEFramework package manager for plugin-type package installs. The agent is invoked as a one-shot process by systemd and exits on completion, with IPC interactions limited to outbound rbus calls and event broadcasts made during execution.
 
 The download pipeline integrates rbus for configuration resolution, libcurl for transfer, and OpenSSL for signature verification in a chain that mirrors the security requirements of package delivery: the URL is resolved from a trusted RFC parameter, the transfer uses mutual TLS, and the resulting file is rejected if its RSA signature is invalid. This chain is enforced at each stage before the next step proceeds.
 
@@ -99,7 +99,7 @@ graph TD
 
     RbusD[("rbus Daemon")]
     CloudSrv[("Cloud Download Server")]
-    ThunderPkg["Thunder Packager Plugin"]
+    ThunderPkg["Package Manager"]
     EventBus["System Event Bus"]
     Manifest[("rdm-manifest.json")]
     DLInfo[("rdmDownloadInfo.txt")]
@@ -132,11 +132,11 @@ graph TD
 ### Platform and Integration Requirements
 
 - **Build Dependencies**: rbus, opkg, commonutilities (provides `downloadUtil`, `json_parse`, `system_utils`), telemetry (T2 event API), libsyswrapper (`secure_wrapper`), SafeC (`libsafec`), libcurl, OpenSSL, cJSON.
-- **Plugin Dependencies**: WPEFramework Thunder with Packager plugin active — required only for plugin-type package installations.
+- **Plugin Dependencies**: WPEFramework package manager active — required only for plugin-type package installations.
 - **IARM Bus / System Event Bus**: Registers as `AppDownloadEvent`; broadcasts to the `RDMMGR` event namespace. Enabled at build time with `--enable-iarmbusSupport`.
-- **Systemd Services**: `apps_rdm.path` must be enabled at boot so that `apps-rdm.service` is triggered when the SSR download URL file appears.
-- **Configuration Files**: `/etc/rdm/rdm-manifest.json` — mandatory; defines the package list. `/tmp/.xconfssrdownloadurl` — triggers service activation and provides the download base URL. `/nvram` — optional persistent path for broadband device download info.
-- **Startup Order**: The service starts only when `/tmp/.xconfssrdownloadurl` exists, meaning the XConf/SSR URL resolution step must have completed before the agent runs.
+- **Systemd Services**: `apps_rdm.path` must be enabled at boot so that `apps-rdm.service` is triggered when the XConf download URL file appears.
+- **Configuration Files**: `/etc/rdm/rdm-manifest.json` — mandatory; defines the package list. `/tmp/.xconfssrdownloadurl` — triggers service activation and provides the XConf download URL. `/nvram` — optional persistent path for broadband device download info.
+- **Startup Order**: The service starts only when `/tmp/.xconfssrdownloadurl` exists, meaning the XConf URL resolution step must have completed before the agent runs.
 
 ---
 
@@ -184,7 +184,7 @@ During active processing, the agent steps through each manifest entry and transi
 - If an application has `dwld_on_demand` set in the manifest and its RFC flag is not enabled, the entry is skipped and the index advances without downloading.
 - If the filesystem health check for the secondary storage mount fails, download paths are rerouted to the default temporary path (`/tmp`) and processing continues rather than aborting.
 - If a download attempt fails and the retry count (`RDM_RETRY_COUNT = 2`) is not exhausted, the download path is cleaned and the attempt is retried; after all retries are consumed, an error status is recorded and the loop advances.
-- For plugin-type packages, the agent polls a set of sentinel files (`PACKAGE_SIGN_VERIFY_SUCCESS`, `PACKAGE_DOWNLOAD_FAILED`, etc.) in a timed loop to determine whether the Thunder Packager completed the installation.
+- For plugin-type packages, the agent polls a set of sentinel files (`PACKAGE_SIGN_VERIFY_SUCCESS`, `PACKAGE_DOWNLOAD_FAILED`, etc.) in a timed loop to determine whether the package manager completed the installation.
 
 **Context Switching Scenarios:**
 
@@ -269,13 +269,13 @@ sequenceDiagram
 | `rdm_main`           | Entry point and top-level orchestration. Parses command-line arguments to select the operational mode, calls `rdmInit`, and drives the appropriate download loop or install path. Also contains bundle list parsing logic for versioned installs.                                                  | `rdm_main.c`, `rdm.h`                                      |
 | `rdm_download`       | Download controller that dispatches to the correct installation flow — versioned app, plugin, or legacy — based on the `pkg_type` and `is_versioned` flags in the app details structure. Updates the persistent download info file on completion.                                                  | `src/rdm_download.c`, `include/rdm_download.h`             |
 | `rdm_downloadmgr`    | Package extractor that handles the extraction of outer and inner package archives (tar and IPK). Reads `packages.list` to determine the constituent files, handles LXC container IPK format, and invokes the system event bus on extraction errors.                                                | `src/rdm_downloadmgr.c`                                    |
-| `rdm_downloadutils`  | Download utility layer providing URL resolution from the SSR location file, directory creation, download blocking enforcement, mTLS certificate selection, direct HTTPS download (via `downloadUtil`), post-install script execution, and app uninstall helpers.                                   | `src/rdm_downloadutils.c`, `include/rdm_downloadutils.h`   |
+| `rdm_downloadutils`  | Download utility layer providing URL resolution from the XConf download URL file, directory creation, download blocking enforcement, mTLS certificate selection, direct HTTPS download (via `downloadUtil`), post-install script execution, and app uninstall helpers.                             | `src/rdm_downloadutils.c`, `include/rdm_downloadutils.h`   |
 | `rdm_downloadverapp` | Manages versioned application downloads. Resolves the installed and available versions from `package.json` metadata, computes which version to install or uninstall, handles bundle-type metadata path resolution for certificate and application bundles, and drives the verify-install sequence. | `src/rdm_downloadverapp.c`, `include/rdm_download.h`       |
 | `rdm_rbus`           | rbus interface module. Opens and closes the rbus handle, reads RFC parameters (boolean and string types) via `rbus_get`, and writes the download completion status via `rbus_set` to `Device.DeviceInfo.X_RDKCENTRAL-COM_RDKDownloadManager.DownloadStatus`.                                       | `src/rdm_rbus.c`, `include/rdm_rbus.h`                     |
 | `rdm_curldownload`   | libcurl wrapper providing low-level HTTPS download capability with configurable SSL version, connection timeout, full transfer timeout, mTLS certificate parameters, and peer verification.                                                                                                        | `src/rdm_curldownload.c`, `include/rdm_curldownload.h`     |
 | `rdm_openssl`        | RSA signature verification module. Reads the package data file and signature file, converts ASCII-hex signatures and hashes to binary, and verifies the RSA2048 signature using OpenSSL EVP APIs. Also provides key decryption (`rdmDecryptKey`) and SSL library initialization.                   | `src/rdm_openssl.c`, `include/rdm_openssl.h`               |
 | `rdm_jsonquery`      | JSON manifest parser built on cJSON. Provides path-based queries into the manifest file to retrieve the total package count and per-index or per-name application details. Receives data from the manifest file on the filesystem.                                                                 | `src/rdm_jsonquery.c`, `include/rdm_jsonquery.h`           |
-| `rdm_packagemgr`     | Plugin-type package installer. Obtains an authorization token via a secure utility, constructs a `Packager.1.install` JSON-RPC request, posts it to the Thunder Packager endpoint, and polls filesystem sentinel files to determine installation outcome.                                          | `src/rdm_packagemgr.c`, `include/rdm_packagemgr.h`         |
+| `rdm_packagemgr`     | Plugin-type package installer. Obtains an authorization token via a secure utility, constructs a package install JSON-RPC request, posts it to the WPEFramework package manager endpoint, and polls filesystem sentinel files to determine installation outcome.                                   | `src/rdm_packagemgr.c`, `include/rdm_packagemgr.h`         |
 | `rdm_usbinstall`     | USB installation module. Scans the given USB path for signed tar archives, matches each against the manifest by package name, populates the app details structure, and routes each matched package through the standard download/install pipeline without a network fetch.                         | `src/rdm_usbinstall.c`, `include/rdm_usbinstall.h`         |
 | `rdm_utils`          | Logging subsystem initialization and system event bus helpers. Initializes RDK Logger with the `LOG.RDK.RDMAGENT` module name, and provides `rdmIARMEvntSendStatus` and `rdmIARMEvntSendPayload` for broadcasting download status and package install payload events.                              | `src/rdm_utils.c`, `include/rdm_utils.h`                   |
 | `codebigUtils`       | OAuth-based download path utilities (conditionally compiled with `RDM_ENABLE_CODEBIG`). Provides token generation and codebig-authenticated HTTPS download as an alternative to the direct download path.                                                                                          | `src/codebig/codebigUtils.c`, `src/codebig/codebigUtils.h` |
@@ -294,13 +294,13 @@ sequenceDiagram
 | rbus daemon                           | Read CodeBig enable flag                                    | `rbus_get("Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Feature.CodeBigFirst.Enable")`   |
 | rbus daemon                           | Write download completion status                            | `rbus_set("Device.DeviceInfo.X_RDKCENTRAL-COM_RDKDownloadManager.DownloadStatus")` |
 | **Plugins**                           |                                                             |                                                                                    |
-| Thunder Packager                      | Install plugin-type packages via JSON-RPC                   | `Packager.1.install` (POST to `RDM_JSONRPC_URL`)                                   |
+| Package Manager                       | Install plugin-type packages via JSON-RPC                   | Package install call (POST to `RDM_JSONRPC_URL`)                                   |
 | **System Event Bus**                  |                                                             |                                                                                    |
 | System event bus                      | Broadcast download status change (status-only)              | `IARM_BUS_RDMMGR_EVENT_APPDOWNLOADS_CHANGED` on `IARM_BUS_RDMMGR_NAME`             |
 | System event bus                      | Broadcast detailed package install result                   | `IARM_Bus_RDMMgr_EventData_t` (pkg name, version, install path, status)            |
 | **External Systems**                  |                                                             |                                                                                    |
 | Cloud download server                 | Fetch application packages over HTTPS with mTLS             | `doHttpFileDownload()` via libcurl                                                 |
-| XConf / SSR                           | Obtain device-specific download URL                         | `/tmp/.xconfssrdownloadurl` — read on startup                                      |
+| XConf                                 | Obtain device-specific download URL                         | `/tmp/.xconfssrdownloadurl` — read on startup                                      |
 | **Filesystem**                        |                                                             |                                                                                    |
 | `/etc/rdm/rdm-manifest.json`          | Source of the package list                                  | Read via `rdmJSONGetLen`, `rdmJSONGetAppDetID`, `rdmJSONGetAppDetName`             |
 | `/opt/persistent/rdmDownloadInfo.txt` | Persist download outcomes per application                   | File read and written by `rdm_download.c`                                          |
@@ -339,18 +339,18 @@ sequenceDiagram
 
 **Plugin Package Installation Flow:**
 
-For packages with `pkg_type = "plugin"`, the agent delegates installation to the Thunder Packager plugin and polls for completion via filesystem sentinel files.
+For packages with `pkg_type = "plugin"`, the agent delegates installation to the WPEFramework package manager and polls for completion via filesystem sentinel files.
 
 ```mermaid
 sequenceDiagram
     participant RDM as RDM Agent
     participant SecUtil as Secure Utility
-    participant Thunder as Thunder Packager
+    participant Thunder as Package Manager
     participant FS as Filesystem Sentinel Files
 
     RDM->>SecUtil: Obtain authorization token
     SecUtil-->>RDM: Token string
-    RDM->>Thunder: POST Packager.1.install (JSON-RPC, Bearer token)
+    RDM->>Thunder: POST package install request (JSON-RPC, Bearer token)
     Thunder-->>RDM: Accepted
     loop Poll until sentinel file appears
         RDM->>FS: Check PACKAGE_SIGN_VERIFY_SUCCESS / PACKAGE_DOWNLOAD_FAILED
@@ -408,7 +408,7 @@ Platform-level capabilities are accessed through system utility libraries (`syst
 | Configuration File           | Purpose                                                                                                                                                        | Override Mechanism                                                             |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | `/etc/rdm/rdm-manifest.json` | Defines the list of application packages the agent should download and install, including package name, type, version, size, and on-demand flags.              | Deployed with the firmware image; updated by replacing the file on the device. |
-| `/tmp/.xconfssrdownloadurl`  | Contains the XConf/SSR base URL used as the package download location. Written by the XConf client process; triggers service activation via systemd path unit. | Managed by the XConf client process.                                           |
+| `/tmp/.xconfssrdownloadurl`  | Contains the XConf download URL used as the package download location. Written by the XConf client process; triggers service activation via systemd path unit. | Managed by the XConf client process.                                           |
 | `/etc/debug.ini`             | RDK Logger configuration file read during logger initialization.                                                                                               | Replace file on device.                                                        |
 
 ### Key Configuration Parameters
