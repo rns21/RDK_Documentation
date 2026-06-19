@@ -9,31 +9,23 @@ At the module level, libSyscallWrapper exposes a small, focused public API: `v_s
 ```mermaid
 flowchart LR
 
-%% Styles
-classDef Apps stroke:#00B9F1,fill:#E6F7FD,stroke-width:2px;
-classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px;
-classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
+classDef Apps stroke:#00B9F1,fill:#E6F7FD,stroke-width:2px
+classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px
+classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px
 
-%% Apps Layer
     subgraph Apps["Apps & Runtimes"]
         RDKUI["UI"]
         FBApps["Firebolt Apps"]
         WPE_RT["WPE Runtime"]
     end
 
-%% Middleware
     subgraph RDKMW["RDK Core Middleware"]
-        AM["App Manager"]
-        Westeros["Westeros"]
-        Thunder["WPEFramework Thunder"]
+        RDKComp["RDK Components\n(e.g. iarmmgrs, bluetooth-mgr,\nrdm-agent, rdkwindowmanager)"]
         LSW["libSyscallWrapper"]
-        RDKComp["RDK Components"]
         RDKLog["rdk-logger"]
     end
 
-%% Vendor Layer
-    subgraph VL["Vendor Layer"]
-        BSP["BSP"]
+    subgraph VL["System Layer"]
         OS["Linux OS / Kernel"]
     end
 
@@ -41,7 +33,6 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
     RDKComp -->|v_secure_system / v_secure_popen| LSW
     LSW -->|fork + execvp| OS
     LSW -->|RDK_LOG| RDKLog
-    RDKMW -->|HAL APIs| VL
 ```
 
 **Key Features & Responsibilities:**
@@ -146,7 +137,7 @@ libSyscallWrapper is a shared library that initializes its static state through 
 
 ```mermaid
 sequenceDiagram
-    participant Consumer as Consumer Process
+    participant Consumer as iarmmgrs
     participant Linker as Dynamic Linker
     participant Lib as libsecure_wrapper.so
     participant OS as Linux Kernel
@@ -186,7 +177,7 @@ The library is stateless per call, with the exception of open popen streams trac
 
 ```mermaid
 sequenceDiagram
-    participant Consumer as Consumer Process
+    participant Consumer as iarmmgrs
     participant Linker as Dynamic Linker
     participant Lib as libsecure_wrapper.so
 
@@ -202,7 +193,7 @@ The following describes the call flow for `v_secure_system()`. The function pars
 
 ```mermaid
 sequenceDiagram
-    participant Client as Calling Component
+    participant Client as iarmmgrs
     participant Lib as libsecure_wrapper
     participant Parser as command_parser()
     participant Executor as execute_task_list()
@@ -267,7 +258,7 @@ The library's inter-process communication model is POSIX process creation. Upon 
 
 ```mermaid
 sequenceDiagram
-    participant Caller as Calling Component
+    participant Caller as iarmmgrs
     participant Lib as libsecure_wrapper
     participant Child as Child Process
     participant OS as Linux Kernel
@@ -286,7 +277,7 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant Caller as Calling Component
+    participant Caller as bluetooth-mgr
     participant Lib as libsecure_wrapper
     participant Child as Child Process
     participant OS as Linux Kernel
