@@ -137,44 +137,21 @@ The component is invoked on demand and each call operates independently on the c
 
 ### Call Flows
 
-#### Initialization Call Flow
-
-```mermaid
-sequenceDiagram
-    participant Caller as Caller Component
-    participant Lib as librdkversion
-    participant FS as Device Filesystem
-
-    Caller->>Lib: rdk_version_parse_version(&version_info)
-    Lib->>FS: g_file_test() - check existence
-    FS-->>Lib: File found
-    Lib->>FS: g_file_get_contents()
-    FS-->>Lib: File contents
-    Lib->>FS: stat() - validate filesystem device identity
-    FS-->>Lib: Validation passed
-    Lib-->>Caller: return 0, version_info populated
-```
-
 #### Request Processing Call Flow
 
-For each invocation, the library sequentially extracts all supported version tags from the file buffer, then determines the production build flag.
+Once the file buffer is loaded, the library sequentially extracts each version tag and determines the production build flag before populating the output structure.
 
 ```mermaid
 sequenceDiagram
     participant Caller as Caller Component
     participant Lib as librdkversion
-    participant FS as Device Filesystem
 
     Caller->>Lib: rdk_version_parse_version(&version_info)
-    Lib->>FS: Read /version.txt
-    FS-->>Lib: File contents buffer
-
-    Lib->>Lib: rdk_version_value_get() - extract imagename
+    Lib->>Lib: rdk_version_value_get() - extract imagename, stb_name
     Lib->>Lib: rdk_version_value_get() - extract BRANCH, VERSION, YOCTO_VERSION
     Lib->>Lib: rdk_version_value_get() - extract BUILD_TIME, JENKINS_JOB, JENKINS_BUILD_NUMBER
     Lib->>Lib: rdk_version_value_contains() - check PROD flag
     Lib->>Lib: rdk_version_string_create() - allocate output strings
-
     Lib-->>Caller: Populated rdk_version_info_t, return code
 ```
 
@@ -210,11 +187,8 @@ rdkversion is an in-process shared library. Callers invoke `rdk_version_parse_ve
 sequenceDiagram
     participant Client as Client Component
     participant Lib as librdkversion
-    participant FS as Device Filesystem
 
     Client->>Lib: rdk_version_parse_version(&version_info)
-    Lib->>FS: Read /version.txt
-    FS-->>Lib: File contents
     Lib-->>Client: Populated rdk_version_info_t, return code
     Client->>Lib: rdk_version_object_free(&version_info)
     Lib-->>Client: Memory released
