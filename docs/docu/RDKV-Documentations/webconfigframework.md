@@ -40,7 +40,7 @@ WebcfgClient -->|"Config blob delivery"| CompA
 WebcfgClient -->|"Config blob delivery"| CompB
 CompA -->|"register / PushBlobRequest"| WCF
 CompB -->|"register / PushBlobRequest"| WCF
-WCF -->|"ACK / NACK\nrbus signal"| WebcfgClient
+WCF -->|"ACK / NACK (rbus signal)"| WebcfgClient
 Apps -->|"Firebolt APIs"| RDKMW
 RDKMW -->|"HAL APIs"| VL
 
@@ -80,17 +80,17 @@ The IPC mechanism selection is uniform across all interactions: rbus is used for
 
 ```mermaid
 graph TD
-    REG["Registration Module\nregister_sub_docs\ncheck_component_crash\nblobRegInfo registry"]
+    REG["Registration Module\nregister_sub_docs / check_component_crash"]
     QUEUE["Circular Queue\nqueueInfo"]
     MQ["POSIX Message Queue\nper-process"]
-    MQPROC["messageQueueProcessing Thread"]
+    MQPROC["messageQueueProcessing\nThread"]
     EXECTH["execute_request Thread\ntimed and cancelable"]
     RBUS["rbus Interface\nrbusInit / rbusEvent_Subscribe"]
-    FORCERESET["subscribeSubdocForceReset Thread"]
-    MASTER["Multi-Component Master\nQueue and Processing Thread"]
-    SLAVE["Multi-Component Slave\nQueue and Processing Thread"]
-    EVTS["rbus Events\nBroadcast / Master / Slave signals"]
-    LOG["Logging Module\nwbTraceLogAPI / LOG.RDK.WEBCONFIG"]
+    FORCERESET["subscribeSubdocForceReset\nThread"]
+    MASTER["Multi-Comp Master\nQueue and Processing Thread"]
+    SLAVE["Multi-Comp Slave\nQueue and Processing Thread"]
+    EVTS["rbus Events\nBroadcast / Master / Slave"]
+    LOG["Logging Module\nLOG.RDK.WEBCONFIG"]
     CompCB["Component Callback"]
 
     REG -->|"initialize"| MQ
