@@ -192,17 +192,15 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant App as Application
-    participant API as rtRemote.h API
     participant Env as rtRemoteEnvironment
     participant Srv as rtRemoteServer
     participant Cfg as rtRemoteConfig
     participant Res as Resolver
 
-    App->>API: rtEnvironmentGetGlobal()
-    API-->>App: env pointer
+    App->>Env: rtEnvironmentGetGlobal()
+    Env-->>App: env pointer
 
-    App->>API: rtRemoteInit(env)
-    API->>Env: check Initialized flag
+    App->>Env: rtRemoteInit(env)
     Env->>Srv: open()
     Srv->>Cfg: read resolver_type, socket_family, unix_socket_template
     Cfg-->>Srv: config values
@@ -212,8 +210,7 @@ sequenceDiagram
     Res-->>Srv: RT_OK
     Srv-->>Env: RT_OK
     Env->>Env: start StreamSelector thread
-    Env-->>API: RT_OK
-    API-->>App: RT_OK
+    Env-->>App: RT_OK
 ```
 
 #### Object Registration Call Flow
@@ -221,17 +218,14 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant ServerApp as Server Application
-    participant API as rtRemote.h API
     participant Srv as rtRemoteServer
     participant Res as Resolver
 
-    ServerApp->>API: rtRemoteRegisterObject(env, "obj_name", objRef)
-    API->>Srv: registerObject("obj_name", objRef)
+    ServerApp->>Srv: rtRemoteRegisterObject(env, "obj_name", objRef)
     Srv->>Srv: store in local object map
     Srv->>Res: registerObject("obj_name", rpc_endpoint)
     Res-->>Srv: RT_OK
-    Srv-->>API: RT_OK
-    API-->>ServerApp: RT_OK
+    Srv-->>ServerApp: RT_OK
 ```
 
 #### Object Discovery and Property Get Call Flow
@@ -239,14 +233,12 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant ClientApp as Client Application
-    participant API as rtRemote.h API
     participant Srv as rtRemoteServer
     participant Res as Resolver
     participant RemoteSrv as Remote rtRemoteServer
     participant Cache as rtRemoteObjectCache
 
-    ClientApp->>API: rtRemoteLocateObject(env, "obj_name", objRef)
-    API->>Srv: findObject("obj_name", ...)
+    ClientApp->>Srv: rtRemoteLocateObject(env, "obj_name", objRef)
     Srv->>Cache: findObject("obj_name")
     Cache-->>Srv: not found
     Srv->>Res: locateObject("obj_name", timeout)
@@ -256,8 +248,7 @@ sequenceDiagram
     Srv->>RemoteSrv: session.open.request
     RemoteSrv-->>Srv: session.open.response
     Srv->>Cache: insert proxy reference
-    Srv-->>API: proxy rtObjectRef
-    API-->>ClientApp: RT_OK + objRef
+    Srv-->>ClientApp: RT_OK + objRef
 
     ClientApp->>objRef: Get("prop", &val)
     objRef->>RemoteSrv: get.byname.request {property.name:"prop"}
@@ -323,15 +314,10 @@ All inter-process communication uses the rtRemote protocol messages defined in t
 | `session.open.request`  | Client → server           | Client receives a `locate` response and opens a new session             |
 | `session.open.response` | Server → client           | Server accepts a `session.open.request`                                 |
 | `keep_alive.request`    | Either peer               | Stream inactivity timer fires in StreamSelector                         |
-| `keep_alive.response`   | Either peer               | A `keep_alive.request` is received                                      |
 | `get.byname.request`    | Client → server           | Application calls `Get()` with a property name on a proxy object        |
 | `get.byname.response`   | Server → client           | Server processes a `get.byname.request`                                 |
 | `set.byname.request`    | Client → server           | Application calls `Set()` with a property name on a proxy object        |
 | `set.byname.response`   | Server → client           | Server processes a `set.byname.request`                                 |
-| `get.byindex.request`   | Client → server           | Application calls `Get()` with a property index on a proxy object       |
-| `get.byindex.response`  | Server → client           | Server processes a `get.byindex.request`                                |
-| `set.byindex.request`   | Client → server           | Application calls `Set()` with a property index on a proxy object       |
-| `set.byindex.response`  | Server → client           | Server processes a `set.byindex.request`                                |
 | `method_call.request`   | Client → server           | Application invokes a method on a proxy object                          |
 | `method_call.response`  | Server → client           | Server processes a `method_call.request`                                |
 
@@ -451,15 +437,20 @@ The configuration file at `/etc/rtremote.conf` is generated from the build-time 
 
 The following build-time flags are relevant for target builds. They are derived from the CMake `option()` and `add_definitions()` directives in `CMakeLists.txt` and from the `EXTRA_OECMAKE`, `SELECTED_OPTIMIZATION`, `TARGET_CFLAGS`, and `TARGET_CXXFLAGS` assignments in the Yocto recipe.
 
-| Flag                              | Default        | Description                                                                                                                                                                                                             |
-| --------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `BUILD_RTREMOTE_SHARED_LIB`       | `ON`           | Builds `librtRemote.so`. This is the primary deliverable consumed by other middleware components.                                                                                                                       |
-| `BUILD_RTREMOTE_STATIC_LIB`       | `ON`           | Builds `librtRemote_s.a` for use in static-linked configurations.                                                                                                                                                       |
-| `ENABLE_RTREMOTE_DEBUG`           | `OFF`          | Defines `RT_RPC_DEBUG` and `RT_DEBUG`; sets `-g -O0 -fno-inline`. Enables verbose protocol tracing.                                                                                                                     |
-| `ENABLE_RTREMOTE_PROFILE`         | `OFF`          | Adds `-pg` for gprof profiling instrumentation.                                                                                                                                                                         |
-| `RAPIDJSON_HAS_STDSTRING`         | always defined | Enables `std::string` support in the RapidJSON library.                                                                                                                                                                 |
-| `RT_PLATFORM_LINUX`               | always defined | Selects Linux-specific socket and file path behavior within rtRemote.                                                                                                                                                   |
-| `RT_REMOTE_LOOPBACK_ONLY`         | always defined | Restricts resolver binding to the loopback interface in the default build configuration.                                                                                                                                |
-| `-O3` optimization                | Yocto recipe   | The recipe removes `-O1`, `-O2`, and `-Os` from `SELECTED_OPTIMIZATION` and substitutes `-O3` for all compilation units.                                                                                                |
-| `-fno-delete-null-pointer-checks` | Yocto recipe   | Applied to both C and C++ compilation via `TARGET_CFLAGS` and `TARGET_CXXFLAGS` to prevent the compiler from eliminating null pointer guard checks.                                                                     |
-| `RTREMOTE_GENERATOR_EXPORT`       | Yocto recipe   | Path to the native-build `rtRemoteConfigGen_export.cmake` used during cross-compilation. Differs between Yocto release codenames: points to `${WORKDIR}/build/` for kirkstone and to `${S}/temp/` for earlier releases. |
+| Flag                                                                 | Default        | Description                                                                                                                                                                                                             |
+| -------------------------------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BUILD_RTREMOTE_SHARED_LIB`                                          | `ON`           | Builds `librtRemote.so`. This is the primary deliverable consumed by other middleware components.                                                                                                                       |
+| `BUILD_RTREMOTE_STATIC_LIB`                                          | `ON`           | Builds `librtRemote_s.a` for use in static-linked configurations.                                                                                                                                                       |
+| `ENABLE_RTREMOTE_DEBUG`                                              | `OFF`          | Defines `RT_RPC_DEBUG` and `RT_DEBUG`; sets `-g -O0 -fno-inline`. Enables verbose protocol tracing.                                                                                                                     |
+| `ENABLE_RTREMOTE_PROFILE`                                            | `OFF`          | Adds `-pg` for gprof profiling instrumentation.                                                                                                                                                                         |
+| `RAPIDJSON_HAS_STDSTRING`                                            | always defined | Enables `std::string` support in the RapidJSON library.                                                                                                                                                                 |
+| `RT_PLATFORM_LINUX`                                                  | always defined | Selects Linux-specific socket and file path behavior within rtRemote.                                                                                                                                                   |
+| `RT_REMOTE_LOOPBACK_ONLY`                                            | always defined | Restricts resolver binding to the loopback interface in the default build configuration.                                                                                                                                |
+| `-O3` optimization                                                   | Yocto recipe   | The recipe removes `-O1`, `-O2`, and `-Os` from `SELECTED_OPTIMIZATION` and substitutes `-O3` for all compilation units.                                                                                                |
+| `-Wno-deprecated-declarations -Wno-maybe-uninitialized -Wno-address` | Yocto recipe   | Warning suppression flags appended to `SELECTED_OPTIMIZATION` to silence deprecation, conditional-initialization, and address warnings across all compilation units.                                                    |
+| `-fno-delete-null-pointer-checks`                                    | Yocto recipe   | Applied to both C and C++ compilation via `TARGET_CFLAGS` and `TARGET_CXXFLAGS` to prevent the compiler from eliminating null pointer guard checks.                                                                     |
+| `-Wl,--warn-unresolved-symbols`                                      | Yocto recipe   | Linker warning flag appended to `TARGET_CXXFLAGS`. Causes the linker to emit warnings for unresolved symbols rather than failing silently.                                                                              |
+| `RT_INCLUDE_DIR`                                                     | Yocto recipe   | CMake variable passed via `EXTRA_OECMAKE` pointing to the staged rtcore include directory (`${STAGING_INCDIR}/rtcore`), used to locate rtcore headers during cross-compilation.                                         |
+| `RTREMOTE_GENERATOR_EXPORT`                                          | Yocto recipe   | Path to the native-build `rtRemoteConfigGen_export.cmake` used during cross-compilation. Differs between Yocto release codenames: points to `${WORKDIR}/build/` for kirkstone and to `${S}/temp/` for earlier releases. |
+| `--with-arm-float-abi`                                               | Yocto recipe   | ARM ABI selection driven by `TUNE_FEATURES`: set to `hard` when `callconvention-hard` is present in `TUNE_FEATURES`, otherwise `softfp`. Applied via `ARCHFLAGS:append:arm` for ARM targets.                            |
+| `--with-mips-arch-variant=r1`                                        | Yocto recipe   | MIPS architecture variant pinned to revision 1. Applied unconditionally via `ARCHFLAGS:append:mipsel` for MIPS little-endian targets.                                                                                   |
