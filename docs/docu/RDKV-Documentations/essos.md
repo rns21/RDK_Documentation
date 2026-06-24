@@ -358,16 +358,18 @@ sequenceDiagram
 
 ### Major HAL APIs Integration
 
-| HAL / DS API                     | Purpose                                                                | Implementation File |
-| -------------------------------- | ---------------------------------------------------------------------- | ------------------- |
-| `WstGLInit()`                    | Create the westeros-gl platform context for direct EGL mode            | `essos.cpp`         |
-| `WstGLTerm()`                    | Release the westeros-gl platform context on shutdown                   | `essos.cpp`         |
-| `WstGLCreateNativeWindow()`      | Allocate a native EGL window of the specified dimensions               | `essos.cpp`         |
-| `WstGLDestroyNativeWindow()`     | Free the native EGL window                                             | `essos.cpp`         |
-| `_WstGLAddDisplaySizeListener()` | Register a callback to receive display resolution change notifications | `essos.cpp`         |
-| `_WstGLGetDisplaySafeArea()`     | Query the visible safe area rectangle from the platform                | `essos.cpp`         |
-| `_WstGLGetDisplayCaps()`         | Query platform display capabilities, including mode-setting support    | `essos.cpp`         |
-| `_WstGLSetDisplayMode()`         | Request a display mode change when the platform supports it            | `essos.cpp`         |
+| HAL / DS API                                                                         | Purpose                                                                | Implementation File |
+| ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- | ------------------- |
+| **westeros-gl Static API** (directly linked via `libwesteros_gl`)                    |                                                                        |                     |
+| `WstGLInit()`                                                                        | Create the westeros-gl platform context for direct EGL mode            | `essos.cpp`         |
+| `WstGLTerm()`                                                                        | Release the westeros-gl platform context on shutdown                   | `essos.cpp`         |
+| `WstGLCreateNativeWindow()`                                                          | Allocate a native EGL window of the specified dimensions               | `essos.cpp`         |
+| `WstGLDestroyNativeWindow()`                                                         | Free the native EGL window                                             | `essos.cpp`         |
+| **westeros-gl Extended API** (resolved at runtime via `dlopen` / `dlsym` — optional) |                                                                        |                     |
+| `_WstGLAddDisplaySizeListener()`                                                     | Register a callback to receive display resolution change notifications | `essos.cpp`         |
+| `_WstGLGetDisplaySafeArea()`                                                         | Query the visible safe area rectangle from the platform                | `essos.cpp`         |
+| `_WstGLGetDisplayCaps()`                                                             | Query platform display capabilities, including mode-setting support    | `essos.cpp`         |
+| `_WstGLSetDisplayMode()`                                                             | Request a display mode change when the platform supports it            | `essos.cpp`         |
 
 ### Key Implementation Logic
 
