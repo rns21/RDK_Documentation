@@ -48,9 +48,9 @@ The component is structured into three distinct parts: startup infrastructure, p
 
 Northbound, the component integrates with systemd via a oneshot unit. `apparmor.service` declares `Before=lighttpd.service` and `WantedBy=local-fs.target`. The `DefaultDependencies=no` directive prevents implicit systemd ordering from interfering. The unit skips silently if `ConditionSecurity=apparmor` fails (AppArmor not enabled in kernel) or if `ConditionPathExists=/etc/apparmor.d` fails. It fails with an assertion error if `AssertPathIsReadWrite=/sys/kernel/security/apparmor/.load` is not satisfied. Southbound, the component calls `/sbin/apparmor_parser` to load compiled profiles into the kernel. Loaded policies are then enforced by the kernel's AppArmor LSM against all covered processes for the duration of the system session.
 
-No IPC mechanisms are used at runtime. `apparmor_parse.sh` calls `t2ValNotify` from `/lib/rdk/t2Shared_api.sh` (sourced if the file is present) for telemetry. No IARM bus, no D-Bus, and no JSON-RPC interfaces are used by this component.
+`apparmor_parse.sh` calls `t2ValNotify` from `/lib/rdk/t2Shared_api.sh` (sourced if the file is present) for one-way telemetry after profile loading completes. Runtime communication is limited to this telemetry call; all other interactions are file-based reads and writes.
 
-The only persistent runtime data is `/opt/secure/Apparmor_blocklist`, which resides in writable storage and survives reboots. All profile files and the defaults file are part of the read-only rootfs and do not change at runtime. The blocklist file is created empty by `touch` in `apparmor_parse.sh` if it does not exist at service start.
+The only persistent runtime data is `/opt/secure/Apparmor_blocklist`, which resides in writable storage and survives reboots. All profile files and the defaults file are part of the read-only rootfs and remain unchanged at runtime. The blocklist file is created empty by `touch` in `apparmor_parse.sh` if it does not exist at service start.
 
 A component diagram showing the component's internal structure and dependencies is given below:
 
@@ -92,21 +92,20 @@ graph TD
 
 - **Threading Architecture**: Single-threaded. `apparmor_parse.sh` is a shell script executed once as a systemd oneshot service. `apparmor_cicd.py` is a single-threaded Python program.
 - **Main Thread**: Sequential execution — read blocklist, read defaults, build lists, invoke `apparmor_parser`, read sysfs, emit telemetry.
-- **Worker Threads**: None.
-- **Synchronization**: None required. Systemd service ordering (`Before=lighttpd.service`, `local-fs.target`) ensures profiles are fully loaded before any profiled process is started.
-- **Async / Event Dispatch**: Not applicable. This is a oneshot startup component with no runtime event loop.
+- **Synchronization**: Systemd service ordering (`Before=lighttpd.service`, `local-fs.target`) ensures profiles are fully loaded before any profiled process is started.
+- **Execution model**: Sequential oneshot — the service runs to completion at boot and exits after profile loading is done.
 
 ---
 
 ## Design
 
-The component separates policy from mechanism. Profile files in `generic_profiles/` contain only AppArmor policy rules and are independent of the loading logic. `apparmor_parse.sh` contains all loading and mode-resolution logic and does not embed any policy rules. This allows profile files to be updated in source control without touching the startup script, and vice versa. The blocklist file provides a runtime escape hatch for operators to adjust enforcement without modifying read-only filesystem content.
+The component separates policy from mechanism. Profile files in `generic_profiles/` contain only AppArmor policy rules and are independent of the loading logic. `apparmor_parse.sh` contains all loading and mode-resolution logic, keeping policy rules strictly in the profile files. This allows profile files to be updated in source control without touching the startup script, and vice versa. The blocklist file provides a runtime escape hatch for operators to adjust enforcement without modifying read-only filesystem content.
 
 Mode resolution gives the blocklist priority over the defaults file. For each `process:mode` entry read from `/etc/apparmor/apparmor_defaults`, the script checks whether the process has an entry in `/opt/secure/Apparmor_blocklist`. If an override exists and is valid, the override mode takes effect. If not, the defaults-file mode applies. The result per process is one of: added to `complain_list[]`, added to `enforce_list[]`, or skipped (disabled). Both lists are passed to `apparmor_parser` as single batch invocations — `apparmor_parser -rWC` for complain mode and `apparmor_parser -rW[B]` for enforce mode — to minimise the number of parser invocations at startup.
 
-Northbound interaction is via systemd service ordering only. There is no API, no IPC at runtime, and no mechanism for other processes to query or modify the loaded profiles through this component. Southbound, the only interaction is via `/sbin/apparmor_parser` and the kernel sysfs path at `/sys/kernel/security/apparmor/`.
+Northbound interaction is via systemd service ordering only. Profiles are loaded once at boot; runtime mode changes take effect on the next service restart via the blocklist file. Southbound, the only interaction is via `/sbin/apparmor_parser` and the kernel sysfs path at `/sys/kernel/security/apparmor/`.
 
-Data persistence is limited to `/opt/secure/Apparmor_blocklist`. This file is created empty by `apparmor_parse.sh` via `touch` if it does not exist. Profile files and the defaults file reside in read-only rootfs and are not modified at runtime. No database, key-value store, or persistent configuration mechanism other than this plain text file is used.
+Data persistence is limited to `/opt/secure/Apparmor_blocklist`. This file is created empty by `apparmor_parse.sh` via `touch` if it does not exist. Profile files and the defaults file reside in the read-only rootfs and remain unchanged at runtime. The only persistent configuration mechanism is this single plain text file in writable storage.
 
 ### Component Diagram
 
@@ -175,14 +174,14 @@ flowchart TD
 
 ## Prerequisites & Dependencies
 
-- [x] **Persistent store**: `/opt/secure/Apparmor_blocklist` is the only persistent file. It is read via shell `read` and created via `touch`. No RDK persistent store API is used.
-- [x] **Systemd services**: `apparmor.service` declares `Before=lighttpd.service`. No `After=` or `Requires=` on other services are declared.
+- [x] **Persistent store**: `/opt/secure/Apparmor_blocklist` is the only persistent file. It is read via shell `read` and created via `touch`.
+- [x] **Systemd services**: `apparmor.service` declares `Before=lighttpd.service`.
 - [x] **Configuration files**: `/etc/apparmor/apparmor_defaults` and `/opt/secure/Apparmor_blocklist` are read via `while IFS=: read -r process mode` in `apparmor_parse.sh`. `/etc/apparmor.d` existence is verified via `ConditionPathExists`.
 
 ### Platform Requirements
 
 - **Build Dependencies**: AppArmor userspace tools (`apparmor_parser` at `/sbin/apparmor_parser`). Linux kernel with `CONFIG_SECURITY_APPARMOR=y` (enforced at runtime by `ConditionSecurity=apparmor`).
-- **Systemd Services**: None declared as `After=` or `Requires=`. The service runs before `lighttpd.service` and is attached to `local-fs.target`.
+- **Systemd Services**: The service runs before `lighttpd.service` and is attached to `local-fs.target`.
 - **Configuration Files**:
   - `/etc/apparmor/apparmor_defaults` — required; lists process names and default modes.
   - `/etc/apparmor.d` — directory must exist (`ConditionPathExists=/etc/apparmor.d`).
@@ -252,7 +251,7 @@ Mode resolution order (lowest to highest precedence):
 | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `/etc/apparmor/apparmor_defaults`       | Lists each process and its default AppArmor mode. Format: `process:mode` per line. Read by `apparmor_parse.sh` at service start.                                            | Replace at image build; use Apparmor_blocklist for runtime override |
 | `/opt/secure/Apparmor_blocklist`        | Operator-writable file that overrides mode per process. Format: `process:mode` per line. Valid modes: `enforce`, `complain`, `disable`. Created empty by `touch` if absent. | Direct file write; takes effect on next `apparmor.service` restart  |
-| `/etc/apparmor.d/vendor/usr.bin.<name>` | Optional vendor-specific profile extension. Included via `#include if exists` in each generic profile. Not present in this repository.                                      | Deploy file at the include path                                     |
+| `/etc/apparmor.d/vendor/usr.bin.<name>` | Optional vendor-specific profile extension. Included via `#include if exists` in each generic profile.                                                                       | Deploy file at the include path                                     |
 
 ### Configuration Parameters
 
@@ -280,7 +279,7 @@ systemctl restart apparmor.service
 
 ### Configuration Persistence
 
-`/opt/secure/Apparmor_blocklist` persists across reboots as it resides in writable storage. Entries written to this file apply on every subsequent `apparmor.service` start. All other configuration (profile files, `apparmor_defaults`) is part of the read-only rootfs and does not persist across image flashes.
+`/opt/secure/Apparmor_blocklist` persists across reboots as it resides in writable storage. Entries written to this file apply on every subsequent `apparmor.service` start. Profile files and `apparmor_defaults` reside in the read-only rootfs and are updated through the image build process.
 
 ---
 
@@ -288,15 +287,11 @@ systemctl restart apparmor.service
 
 ### Interface Type
 
-No external API is provided. `rdk-apparmor-profiles` is a systemd oneshot service. It exposes no JSON-RPC interface, no COM-RPC Exchange interface, no C/C++ library API, no IARM events, and no D-Bus interface. The only external interaction point is `/opt/secure/Apparmor_blocklist`, a plain text file read at service start.
-
-### Methods / Functions
-
-No methods or functions are exposed to external callers. There is no API surface.
+`rdk-apparmor-profiles` is a systemd oneshot service. Its sole external interaction point is `/opt/secure/Apparmor_blocklist`, a plain text file read at service start. The service interface is entirely file-based.
 
 ### Events / Notifications
 
-No events or notifications are published to external subscribers. This component does not register with any event bus. The `t2ValNotify` calls in `apparmor_parse.sh` are one-way telemetry emissions; they are not subscribable events.
+The `t2ValNotify` calls in `apparmor_parse.sh` emit one-way telemetry after profile loading completes. See the Events Published table in the Component Interactions section for telemetry marker details.
 
 ---
 
@@ -365,8 +360,6 @@ flowchart TD
 | ------------------- | ---------------------------------------------------------------- | ------------------------------------------- |
 | `APPARMOR_C_split:` | After profile load, if one or more profiles are in complain mode | `"<count>,<comma-separated profile names>"` |
 | `APPARMOR_E_split:` | After profile load, if one or more profiles are in enforce mode  | `"<count>,<comma-separated profile names>"` |
-
-No IARM events are published. No JSON-RPC notifications are sent.
 
 ### IPC Flow Patterns
 
@@ -453,11 +446,11 @@ sequenceDiagram
 
 ### Runtime State Changes
 
-Once `apparmor.service` completes, AppArmor policies are enforced by the kernel. This component has no runtime daemon, no state machine, and no runtime state changes after the oneshot exits.
+Once `apparmor.service` completes, AppArmor policies are enforced by the kernel for the duration of the session. The oneshot service exits after profile loading; the kernel LSM takes over all subsequent enforcement.
 
-**Blocklist override takes effect**: A new entry written to `/opt/secure/Apparmor_blocklist` does not take effect until `apparmor.service` is restarted. On restart, `apparmor_parse.sh` re-reads both files and reloads all profiles.
+**Blocklist override takes effect**: A new entry written to `/opt/secure/Apparmor_blocklist` takes effect on the next `apparmor.service` restart. On restart, `apparmor_parse.sh` re-reads both files and reloads all profiles.
 
-**Kernel enforcement**: If a profiled process attempts an access not listed in its profile, the kernel denies it (enforce mode) or logs it (complain mode). This component is not involved in per-access enforcement decisions at runtime.
+**Kernel enforcement**: If a profiled process attempts an access not listed in its profile, the kernel denies it (enforce mode) or logs it (complain mode). Per-access enforcement is handled entirely by the kernel LSM at runtime.
 
 ---
 
@@ -498,10 +491,6 @@ sequenceDiagram
     SH-->>SYSTEMD: Exit 0
 ```
 
-### Request Processing Call Flow
-
-No request processing flow exists. This component is a oneshot service and does not process any runtime requests. There is no request handler, no API, and no daemon loop.
-
 ---
 
 ## Implementation Details
@@ -522,9 +511,9 @@ No request processing flow exists. This component is a oneshot service and does 
 
 - **Diff mode in `apparmor_cicd.py`**: `__diff_files()` runs `__check_file()` on both the new and old versions with `silent=True`. It compares `violation_dict` key counts: for each key where the new count exceeds the old count, the extra occurrences are added to `new_only`. Results are deduplicated with a `seen` set before printing. The function returns `True` if new violations are found, causing the CI workflow to exit 1.
 
-- **`exception_list`**: Defined as an empty list (`exception_list = []`) in `apparmor_cicd.py`. No exceptions are currently registered. The `SecurityException` class is defined but no instances exist.
+- **`exception_list`**: Defined as an empty list (`exception_list = []`) in `apparmor_cicd.py`. The `SecurityException` class is available for registering per-rule exceptions; the current empty list means all violations are reported without exception.
 
-- **Logging**: `apparmor_parse.sh` writes to `/opt/logs/startup_stdout_log.txt` via `echo ... >> $RDKLOGS`. No RDK Logger (`LOG.RDK.*`) is used. `apparmor_cicd.py` writes to stdout only.
+- **Logging**: `apparmor_parse.sh` writes to `/opt/logs/startup_stdout_log.txt` via `echo ... >> $RDKLOGS`. `apparmor_cicd.py` writes diagnostic output to stdout.
 
 ---
 
@@ -605,7 +594,7 @@ No request processing flow exists. This component is a oneshot service and does 
 
 ### Running Tests
 
-The tests below are performed on a target device. The CI violation scan runs automatically on every pull request and does not require manual execution.
+The tests below are performed on a target device. The CI violation scan runs automatically on every pull request.
 
 **Service startup verification:**
 
