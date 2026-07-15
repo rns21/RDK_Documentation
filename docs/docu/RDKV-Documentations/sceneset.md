@@ -51,7 +51,9 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 - **Factory Settings Reset Support**: Detects first boot by checking for a persistent marker file. On first boot, factory app bundles are copied to the preinstall directory and a force-install is used. Subsequent boots use a version-aware install mode.
 - **Over-the-Air Update Monitoring**: Monitors a configured download directory for new RALF packages using inotify, verifies and identifies them using libralf, and stages them into the preinstall directory for installation.
 - **Reference App Update and Restart**: Detects when a new version of the reference app is installed and automatically kills the running instance, then restarts it once the app reaches the UNLOADED state.
-- **Crash Recovery**: Restarts the reference app automatically when it terminates with an ABORT error reason.
+- **PackageInstaller Event Monitoring**: Tracks per-package installation status from PackageManagerRDKEMS to confirm successful preinstall before cleaning up staged bundles.
+- **Crash Recovery**: Restarts the reference app automatically when it terminates with an ABORT error reason. When built with `RESTART_HOMEAPP_ALWAYS=ON`, the restart triggers on any `TERMINATING` to `UNLOADED` transition, not only on `APP_ERROR_ABORT`.
+- **Signal Handling**: Manages graceful shutdown on SIGTERM and SIGINT signals, stopping all worker threads and releasing COMRPC interfaces before exit.
 - **Systemd Integration**: Reports readiness via `sd_notify` and runs as a `Type=notify` systemd service. Service startup is conditioned on the presence of `/opt/ai2managers`.
 
 ---
@@ -66,7 +68,7 @@ All southbound communication is through WPEFramework COMRPC. SceneSet opens COMR
 
 COMRPC is the sole IPC mechanism used. All plugin calls and callbacks go over a WPEFramework COMRPC Unix domain socket. The socket path defaults to `/tmp/communicator` and can be overridden by setting the `THUNDER_ACCESS` environment variable before service start.
 
-Persistent state is minimal. The factory apps copy state is recorded in a marker file at `/opt/persistent/.sceneset_factory_apps_copied`, which survives reboots and gates the first-boot factory app copy logic. An optional file at `/opt/sceneset_app.conf` provides a runtime override for the reference app ID that persists across reboots. Volatile runtime state — whether the app is launched, whether a restart is pending, whether preinstall completion is awaited — is tracked using `std::atomic` variables that reset with each service start.
+Persistent state is minimal. The factory apps copy state is recorded in a marker file at `/opt/persistent/.sceneset_factory_apps_copied`, which survives reboots and gates the first-boot factory app copy logic. An optional file at `/opt/sceneset_app.conf` provides a runtime override for the reference app ID that persists across reboots. When built with `ENABLE_SYSTEM_CONFIG=ON`, a system-level configuration file at `/etc/sceneset.conf` is read for keys such as `defaultHomeApp` and `preinstallLocation`; an optional operator override at `/opt/sceneset.conf` (enabled via `ENABLE_CONFIG_OVERRIDE=ON`) can selectively override individual keys from that system configuration. Volatile runtime state — whether the app is launched, whether a restart is pending, whether preinstall completion is awaited — is tracked using `std::atomic` variables that reset with each service start.
 
 ```mermaid
 graph TD
@@ -139,10 +141,10 @@ graph TD
 
 #### Platform and Integration Requirements
 
-- **Build Dependencies**: `wpeframework` (Thunder core and COM interfaces), `entservices-apis` (Exchange interface definitions: `IAppManager`, `IPreinstallManager`, `IAppPackageManager`), `ralf-utils` (libralf for RALF package verification and metadata extraction), `libsystemd` (sd_notify integration). WPEFrameworkCore, WPEFrameworkPlugins, WPEFrameworkWebSocket, and WPEFrameworkDefinitions are resolved via pkg-config.
+- **Build Dependencies**: `wpeframework` (Thunder core and COM interfaces), `entservices-apis` (Exchange interface definitions: `IAppManager`, `IPreinstallManager`, `IPackageInstaller`), `ralf-utils` (libralf for RALF package verification and metadata extraction), `libsystemd` (sd_notify integration). WPEFrameworkCore, WPEFrameworkPlugins, WPEFrameworkWebSocket, and WPEFrameworkDefinitions are resolved via pkg-config.
 - **Plugin Dependencies**: `org.rdk.AppManager`, `org.rdk.PreinstallManager`, and `org.rdk.PackageManagerRDKEMS` must be active before SceneSet can complete initialization. Failure to open any of these interfaces causes the service to exit.
 - **Systemd Services**: `wpeframework-appmanager.service` must be running before SceneSet starts (`Requires=` and `After=` in the service unit). The service additionally requires the path `/opt/ai2managers` to exist (`ConditionPathExists=/opt/ai2managers`).
-- **Configuration Files**: `/opt/sceneset_app.conf` (optional runtime override for app ID). `/opt/persistent/.sceneset_factory_apps_copied` (first-boot state marker, created by the service itself).
+- **Configuration Files**: `/opt/sceneset_app.conf` (optional runtime override for app ID). `/opt/persistent/.sceneset_factory_apps_copied` (first-boot state marker, created by the service itself). `/etc/sceneset.conf` (system configuration, when built with `ENABLE_SYSTEM_CONFIG=ON`). `/opt/sceneset.conf` (operator key override, when built with `ENABLE_CONFIG_OVERRIDE=ON`).
 - **Startup Order**: SceneSet must start after `wpeframework-appmanager.service` to ensure AppManager, PreinstallManager, and PackageManagerRDKEMS plugins are active in Thunder before COMRPC open calls are attempted.
 
 ---
@@ -214,13 +216,13 @@ sequenceDiagram
 
 - `OnAppLifecycleStateChanged` for the reference app with `APP_STATE_RUNNING` or `APP_STATE_ACTIVE` sets `m_appLaunched = true`.
 - `OnAppLifecycleStateChanged` with `APP_STATE_UNLOADED` and `m_pendingRestart = true` triggers a restart via `startLaunchThread()`; this is the post-update restart path.
-- `OnAppLifecycleStateChanged` with `APP_STATE_UNLOADED`, previous state `APP_STATE_TERMINATING`, and error reason `APP_ERROR_ABORT` triggers a crash recovery restart via `startLaunchThread()`.
+- `OnAppLifecycleStateChanged` with `APP_STATE_UNLOADED`, previous state `APP_STATE_TERMINATING`, and error reason `APP_ERROR_ABORT` triggers a crash recovery restart via `startLaunchThread()`. When built with `RESTART_HOMEAPP_ALWAYS=ON`, any `TERMINATING` to `UNLOADED` transition triggers a restart regardless of error reason.
 - `OnAppInstalled` for the reference app while it is running sets `m_pendingRestart = true` and calls `KillApp()`. The restart completes when the UNLOADED lifecycle state is received.
 
 **Context Switching Scenarios:**
 
 - **New version installed while app is running**: `OnAppInstalled` fires, `m_pendingRestart` is set, `KillApp()` is requested. When `OnAppLifecycleStateChanged` delivers `APP_STATE_UNLOADED`, `startLaunchThread()` re-launches the app with the updated version.
-- **App crash (ABORT termination)**: `OnAppLifecycleStateChanged` detects the ABORT error reason on transition to UNLOADED. `startLaunchThread()` is called to restart the app.
+- **App crash (ABORT termination)**: `OnAppLifecycleStateChanged` detects the ABORT error reason on transition to UNLOADED. `startLaunchThread()` is called to restart the app. When built with `RESTART_HOMEAPP_ALWAYS=ON`, any `TERMINATING` to `UNLOADED` transition triggers a restart.
 - **SIGTERM/SIGINT received**: `sigwait()` returns on the main thread, `onTerminate()` is called, all worker threads are stopped, the reference app is killed, handlers are unregistered, and COMRPC interfaces are released.
 
 ---
@@ -365,7 +367,7 @@ sequenceDiagram
 
 - **Error Handling Strategy**: `Core::hresult` return codes from all COMRPC calls are checked and logged. A failed `StartPreinstall()` call falls through to `completeStartupAfterPreinstall()` immediately rather than waiting for a callback that will never arrive. Preinstall package states outside `INSTALLED` or `INSTALLING` mark the preinstall as failed, causing the preinstall directory to be preserved for retry on next boot. File rename failures in the download staging path fall back to a copy-then-delete sequence.
 
-- **Logging & Diagnostics**: All output goes to stdout (`std::cout`) and stderr (`std::cerr`). The syslog-ng configuration defined in the Yocto recipe routes this output to `/opt/logs/sceneset.log` with a high log rate. Key log points include: COMRPC interface acquisition, sd_notify delivery, event handler registration, first-boot detection, preinstall start and completion, app launch and lifecycle transitions, OTA package detection, and shutdown sequence steps.
+- **Logging & Diagnostics**: All output goes to stdout (`std::cout`) and stderr (`std::cerr`). The Yocto recipe configures syslog-ng (`SYSLOG-NG_DESTINATION_sceneset = "sceneset.log"`, `SYSLOG-NG_LOGRATE_sceneset = "high"`) to route service output to `sceneset.log` under the platform log directory (conventionally `/opt/logs/sceneset.log`). Key log points include: COMRPC interface acquisition, sd_notify delivery, event handler registration, first-boot detection, preinstall start and completion, app launch and lifecycle transitions, OTA package detection, and shutdown sequence steps.
 
 ---
 
@@ -373,10 +375,12 @@ sequenceDiagram
 
 ### Key Configuration Files
 
-| Configuration File                              | Purpose                                                                                                                          | Override Mechanism                                                                   |
-| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| `/opt/sceneset_app.conf`                        | Optional plain-text file; first line overrides the compiled-in default app ID at runtime                                         | Write a new app ID as the first line of the file; takes effect on next service start |
-| `/opt/persistent/.sceneset_factory_apps_copied` | Marker file written after the first-boot factory app copy. Its presence prevents repeated factory app copies on subsequent boots | Delete this file to force the factory app copy to run again on next service start    |
+| Configuration File                              | Purpose                                                                                                                                      | Override Mechanism                                                                   |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `/opt/sceneset_app.conf`                        | Optional plain-text file; first line overrides the compiled-in default app ID at runtime                                                     | Write a new app ID as the first line of the file; takes effect on next service start |
+| `/opt/persistent/.sceneset_factory_apps_copied` | Marker file written after the first-boot factory app copy. Its presence prevents repeated factory app copies on subsequent boots             | Delete this file to force the factory app copy to run again on next service start    |
+| `/etc/sceneset.conf`                            | System-level configuration providing keys such as `defaultHomeApp` and `preinstallLocation`. Read when built with `ENABLE_SYSTEM_CONFIG=ON`. | Updated at the system image level                                                    |
+| `/opt/sceneset.conf`                            | Operator-level key override applied on top of `/etc/sceneset.conf`. Active when built with `ENABLE_CONFIG_OVERRIDE=ON`.                      | Write or update individual keys in the file                                          |
 
 ### Key Configuration Parameters
 
@@ -387,6 +391,9 @@ sequenceDiagram
 | `APP_PREINSTALL_DIRECTORY`     | string | `""`             | Compile-time fallback path for the preinstall directory. At runtime this value is superseded by the `appPreinstallDirectory` key from the PreinstallManager plugin configuration if available. |
 | `DAC_APP_CERT_PATH`            | string | `/etc/rdk/certs` | Directory containing DAC certificates used by libralf for RALF package signature verification.                                                                                                 |
 | `DISABLE_REFERENCE_APP_UPDATE` | bool   | `OFF`            | When set to `ON` at build time, disables the download directory monitor and all OTA update staging logic.                                                                                      |
+| `ENABLE_SYSTEM_CONFIG`         | bool   | `OFF`            | When set to `ON`, enables reading `/etc/sceneset.conf` for system configuration keys such as `defaultHomeApp` and `preinstallLocation`.                                                        |
+| `ENABLE_CONFIG_OVERRIDE`       | bool   | `OFF`            | When set to `ON`, enables an optional `/opt/sceneset.conf` that overrides individual keys from `/etc/sceneset.conf`.                                                                           |
+| `RESTART_HOMEAPP_ALWAYS`       | bool   | `OFF`            | When set to `ON`, restarts the reference app on any `TERMINATING` to `UNLOADED` lifecycle transition. When `OFF`, restarts only on `APP_ERROR_ABORT` terminations.                             |
 
 ### Runtime Configuration
 
