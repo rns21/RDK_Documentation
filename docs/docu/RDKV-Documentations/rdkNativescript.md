@@ -1,6 +1,6 @@
 # RdkNativeScript
 
-rdkNativeScript is a JavaScript runtime component in the RDK middleware that enables native execution of JavaScript applications directly on RDK-V devices, outside of a full browser environment. It provides a lightweight, embeddable runtime that exposes device capabilities — such as media playback, networking, and display — to JavaScript applications through a set of controlled API bindings. The component is deployed as a Thunder plugin with the callsign `org.rdk.jsruntime` and can be cloned to create multiple independent runtime instances.
+rdkNativeScript is a JavaScript runtime component in the RDK middleware that enables native execution of JavaScript applications directly on RDKE/RDKV devices, outside of a full browser environment. It provides a lightweight, embeddable runtime that exposes device capabilities — such as media playback, networking, and display — to JavaScript applications through a set of controlled API bindings. The component is deployed as a Thunder plugin with the callsign `org.rdk.jsruntime` and can be cloned to create multiple independent runtime instances.
 
 At the device level, rdkNativeScript allows non-browser JavaScript applications such as lightweight widgets and streaming clients to run with native-level access to media pipelines, WebSocket communication, and the Wayland display stack. It bridges the gap between JavaScript application logic and low-level device capabilities without requiring a full web engine.
 
@@ -127,11 +127,11 @@ graph TD
 - **Synchronization**: `NativeJSRenderer` protects the context map with `mUserMutex`. The console state uses `isProcessing_cv` (condition variable + mutex) for producer/consumer coordination of queued scripts. `JSRuntimeServer` protects the connection set with `mDataMutex`. `JSRuntimeClient` uses `mResponseMutex` and `mResponseCondition` with a 5-second wait-for-response timeout.
 - **Async / Event Dispatch**: Key events from Essos are dispatched synchronously into the registered `JavaScriptKeyListener` (the active context). Timer callbacks and deferred JS execution are scheduled through the GLib main loop rather than blocking caller threads.
 
-### RDK-V Platform and Integration Requirements
+### RDKE/RDKV Platform and Integration Requirements
 
 - **Build Dependencies**: westeros, essos, rapidjson, rtcore, libuv, gstreamer1.0, uwebsockets, JavaScriptCore, websocketpp, cjson, boost, virtual/egl. When container widget support is enabled, dobby is additionally required.
 - **Plugin Dependencies**: The AAMP media player library (`libaampjsbindings.so`) must be present at the target library path when dynamic AAMP bindings are enabled.
-- **Device Services / HAL**: Essos HAL for Wayland compositor abstraction and keyboard input; GStreamer 1.0 for media pipeline initialization.
+- **HAL**: Essos HAL for Wayland compositor abstraction and keyboard input; GStreamer 1.0 for media pipeline initialization.
 - **Systemd Services**: A running Wayland compositor (Westeros) must be available when Essos integration is enabled and a display is requested.
 
 ### Module Settings
@@ -281,18 +281,18 @@ sequenceDiagram
 
 ### Interaction Matrix
 
-| Target Component / Layer  | Interaction Purpose                                                    | Key APIs / Topics                                                                         |
-| ------------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| **Plugins**               |                                                                        |                                                                                           |
-| `Thunder`                 | Plugin activation, JSON-RPC method dispatch, plugin cloning            | `Controller.1.clone`, `Controller.1.activate`, `launchApplication`                        |
-| **Device Services / HAL** |                                                                        |                                                                                           |
-| Essos                     | Wayland display initialization and keyboard input routing              | `EssCtxCreate`, `EssCtxSetKeyboardListener`, `EssCtxStart`                                |
-| GStreamer                 | Media pipeline subsystem initialization required for AAMP playback     | `gst_init()`                                                                              |
-| AAMP JS Bindings          | Media playback control exposed as `AAMPMediaPlayer` in JavaScript      | `AAMPPlayer_LoadJS()`, `AAMPPlayer_UnloadJS()` (dynamic: `libaampjsbindings.so`)          |
-| libcurl                   | Remote script file download by URL before evaluation                   | `curl_easy_perform`, write callbacks                                                      |
-| **External Systems**      |                                                                        |                                                                                           |
-| WebSocket Server (self)   | External tools and container clients send application control commands | WebSocket JSON messages: `launchApplication`, `createApplication`, `terminateApplication` |
-| Remote Inspector          | JavaScript debugger connection over network                            | `JSRemoteInspectorStart()`, env `NATIVEJS_INSPECTOR_SERVER`                               |
+| Target Component / Layer | Interaction Purpose                                                    | Key APIs / Topics                                                                         |
+| ------------------------ | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| **Plugins**              |                                                                        |                                                                                           |
+| `Thunder`                | Plugin activation, JSON-RPC method dispatch, plugin cloning            | `Controller.1.clone`, `Controller.1.activate`, `launchApplication`                        |
+| **HAL**                  |                                                                        |                                                                                           |
+| Essos                    | Wayland display initialization and keyboard input routing              | `EssCtxCreate`, `EssCtxSetKeyboardListener`, `EssCtxStart`                                |
+| GStreamer                | Media pipeline subsystem initialization required for AAMP playback     | `gst_init()`                                                                              |
+| AAMP JS Bindings         | Media playback control exposed as `AAMPMediaPlayer` in JavaScript      | `AAMPPlayer_LoadJS()`, `AAMPPlayer_UnloadJS()` (dynamic: `libaampjsbindings.so`)          |
+| libcurl                  | Remote script file download by URL before evaluation                   | `curl_easy_perform`, write callbacks                                                      |
+| **External Systems**     |                                                                        |                                                                                           |
+| WebSocket Server (self)  | External tools and container clients send application control commands | WebSocket JSON messages: `launchApplication`, `createApplication`, `terminateApplication` |
+| Remote Inspector         | JavaScript debugger connection over network                            | `JSRemoteInspectorStart()`, env `NATIVEJS_INSPECTOR_SERVER`                               |
 
 ### Events Published
 
@@ -326,7 +326,7 @@ sequenceDiagram
 
 ### Major HAL APIs Integration
 
-| HAL / DS API                                | Purpose                                                                | Implementation File             |
+| HAL API                                     | Purpose                                                                | Implementation File             |
 | ------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------- |
 | `EssCtxCreate()`                            | Creates an Essos compositor context                                    | `src/EssosInstance.cpp`         |
 | `EssCtxSetTerminateListener()`              | Registers a termination callback with the compositor                   | `src/EssosInstance.cpp`         |
