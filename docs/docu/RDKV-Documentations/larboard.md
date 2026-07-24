@@ -152,16 +152,18 @@ sequenceDiagram
     Sys->>Thunder: Activate plugin callsign
     Thunder->>Cobalt: Initialize(IShell)
     Cobalt->>Thunder: Register remote connection notification
-    Cobalt->>Impl: service->Root() - instantiate CobaltImplementation
+    Cobalt->>Impl: service->Root() -- instantiate CobaltImplementation
     Impl-->>Cobalt: IBrowser interface returned
-    Cobalt->>Impl: Configure(IShell)
-    Impl->>Impl: Read /etc/WPEFramework/config.json for THUNDER_ACCESS
+    Cobalt->>Impl: QueryInterface -- obtain IStateControl
+    Cobalt->>Impl: Register IBrowser notification
+    Cobalt->>Impl: Register IStateControl notification
+    Cobalt->>Impl: stateControl->Configure(IShell)
     Impl->>Impl: Set HOME, COBALT_TEMP, WAYLAND_DISPLAY, LANG, etc.
+    Impl->>Impl: Read /etc/WPEFramework/config.json for THUNDER_ACCESS
     Impl->>Impl: Apply URL, preload, closurepolicy, systemproperties settings
     Impl->>Engine: Start CobaltWindow thread
     Engine->>Engine: StarboardMain (Cobalt event loop running)
     Impl-->>Cobalt: Configure returns SUCCESS
-    Cobalt->>Impl: Register IBrowser and IStateControl notifications
     Cobalt-->>Thunder: Initialize() returns empty string
     Thunder-->>Sys: Plugin active
 
@@ -205,21 +207,23 @@ sequenceDiagram
     participant Activator as PluginActivator
     participant Cobalt as Cobalt (Plugin Host)
     participant Impl as CobaltImplementation
-    participant Config as WPEFramework Config / Environment
     participant Engine as StarboardMain
 
     Activator->>Cobalt: Initialize(IShell)
     Cobalt->>Cobalt: Parse config line (URL, preload, closurepolicy, etc.)
     Cobalt->>Cobalt: Register IRemoteConnection::INotification
-    Cobalt->>Impl: service->Root(IBrowser) - create implementation
-    Impl->>Config: Open /etc/WPEFramework/config.json
-    Config-->>Impl: binding + port for THUNDER_ACCESS
-    Impl->>Config: Set HOME, COBALT_TEMP, WAYLAND_DISPLAY, CLIENT_IDENTIFIER
+    Cobalt->>Impl: service->Root(IBrowser) -- create CobaltImplementation
+    Impl-->>Cobalt: IBrowser interface returned
+    Cobalt->>Impl: QueryInterface -- obtain IStateControl
+    Cobalt->>Impl: Register IBrowser notification
+    Cobalt->>Impl: Register IStateControl notification
+    Cobalt->>Impl: stateControl->Configure(IShell)
+    Impl->>Impl: Set HOME, COBALT_TEMP, WAYLAND_DISPLAY, CLIENT_IDENTIFIER
+    Impl->>Impl: Read /etc/WPEFramework/config.json for THUNDER_ACCESS
     Impl->>Impl: Apply systemproperties and advertisingid via SbRdkSetSetting
     Impl->>Engine: Start CobaltWindow thread (StarboardMain)
     Engine-->>Impl: Thread running
-    Impl-->>Cobalt: IBrowser interface returned
-    Cobalt->>Impl: Register IBrowser and IStateControl notifications
+    Impl-->>Cobalt: Configure returns SUCCESS
     Cobalt-->>Activator: SUCCESS (empty error string)
 ```
 
@@ -260,7 +264,7 @@ sequenceDiagram
 | `Application`          | RDK Starboard application class. Integrates Essos compositing for window creation, display size change events, and keyboard/remote input event injection. Receives external display and input data.                                                                                                     | `application_rdk.cc`, `application_rdk.h`         |
 | `RDKServicesInterface` | Starboard platform interface that queries display capabilities (resolution, HDR), device properties, network connectivity, text-to-speech, and advertising identifiers from RDK middleware plugins via Thunder JSON-RPC. Receives external device and platform data.                                    | `rdkservices.cc`, `rdkservices.h`                 |
 | `DrmSystemOcdm`        | OpenCDM-based DRM system. Manages DRM key sessions, generates license requests, processes key responses, and reports key status changes to the Cobalt engine via registered callbacks.                                                                                                                  | `drm/drm_system_ocdm.cc`, `drm/drm_system_ocdm.h` |
-| `EssInput`             | Translates Essos keyboard events to Starboard `SbInputData` events. Tracks modifier key state, generates key-repeat events, and maps Linux keycodes to Starboard key identifiers.                                                                                                                       | `ess_input.cc`, `ess_input.h`                     |
+| `Essos Input`          | Translates Essos keyboard events to Starboard `SbInputData` events. Tracks modifier key state, generates key-repeat events, and maps Linux keycodes to Starboard key identifiers.                                                                                                                       | `ess_input.cc`, `ess_input.h`                     |
 | `HangMonitor`          | Per-thread watchdog. Each monitored thread registers a `HangMonitor` instance and calls `Reset()` periodically; the `HangDetector` checks expiration times to identify hung threads.                                                                                                                    | `hang_detector.cc`, `hang_detector.h`             |
 | GStreamer Media Player | Implements the Starboard player API over a GStreamer pipeline. Handles A/V demux, decode, HDR signalling, and synchronized playback.                                                                                                                                                                    | `player/`                                         |
 | GStreamer Audio Sink   | Implements the Starboard audio sink API using a GStreamer pipeline for audio-only output paths.                                                                                                                                                                                                         | `audio_sink/`                                     |
@@ -349,7 +353,7 @@ sequenceDiagram
 
 ### Major HAL APIs Integration
 
-| HAL / Starboard API               | Purpose                                                                                                             | Implementation File                       |
+| Starboard API                     | Purpose                                                                                                             | Implementation File                       |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
 | `StarboardMain()`                 | Cobalt engine entry point; drives the application event loop until exit                                             | `main_rdk.cc`, `CobaltImplementation.cpp` |
 | `SbRdkHandleDeepLink()`           | Delivers a deep link URL to the running Cobalt application                                                          | `CobaltImplementation.cpp`                |
