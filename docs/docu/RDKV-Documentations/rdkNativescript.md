@@ -324,9 +324,9 @@ sequenceDiagram
 
 ## Implementation Details
 
-### Major HAL APIs Integration
+### Key External API Integrations
 
-| HAL API                                     | Purpose                                                                | Implementation File             |
+| API                                         | Purpose                                                                | Implementation File             |
 | ------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------- |
 | `EssCtxCreate()`                            | Creates an Essos compositor context                                    | `src/EssosInstance.cpp`         |
 | `EssCtxSetTerminateListener()`              | Registers a termination callback with the compositor                   | `src/EssosInstance.cpp`         |
