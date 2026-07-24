@@ -1,6 +1,6 @@
 # libpackage
 
-`libpackage` is a shared library that implements the `IPackageImpl` interface, providing the package management abstraction layer used by the Local Inventory & Storage Manager (LISA) for DAC (Downloadable Application Container) applications in the RDK AI 2.0 app management framework. It handles the complete lifecycle of DAC application packages in the RALF (`.ralf`) format: installation to persistent storage, dependency resolution, cryptographic signature verification, on-demand mounting, and removal.
+`libpackage` is a shared library that implements the `IPackageImpl` interface, providing the package management abstraction layer used by LISA (Local Inventory Storage Manager of DAC Apps) in the RDK AI 2.0 app management framework. It handles the complete lifecycle of DAC application packages in the RALF (`.ralf`) format: installation to persistent storage, dependency resolution, cryptographic signature verification, on-demand mounting, and removal.
 
 The library sits between the app management layer above — which drives install, launch, and remove workflows — and the `libralf` package-format library below, which provides the underlying mechanics for opening, verifying, and mounting RALF package archives. `libpackage` adds the coordination logic on top: resolving and recursively handling package dependencies, managing mount reference counts, serialising mount metadata as JSON for consumers, and building the certificate verification bundle from the device certificate store.
 
