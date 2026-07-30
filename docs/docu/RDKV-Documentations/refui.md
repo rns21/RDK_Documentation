@@ -126,7 +126,7 @@ graph TD
             VoiceApi["VoiceApi\n(org.rdk.VoiceControl)"]
             AlexaApi["AlexaApi\n(SmartScreen / VoiceControl)"]
             PackageMgrApi["PackageManagerApi\n(org.rdk.AppPackageManager)"]
-            LISA["LISAApi\n(LISA Plugin)"]
+            LISA["LISAApi\n(LISA — deprecated)"]
             PictureSettingsApi["PictureSettingsApi\n(org.rdk.tv.ControlSettings)"]
             FireboltApi["FireBoltApi\n(Firebolt SDK)"]
         end
@@ -172,7 +172,7 @@ graph TD
 #### Platform and Integration Requirements
 
 - **Build Dependencies**: `@lightningjs/sdk ^4.8.1`, `ThunderJS` (rdkcentral fork), `@firebolt-js/sdk 0.15.0`, `@firebolt-js/manage-sdk 1.1.0`, `esbuild ^0.17.18` (bundler), Lightning CLI (`@lightningjs/cli`).
-- **Plugin Dependencies**: `org.rdk.AppManager`, `org.rdk.RDKWindowManager`, `org.rdk.RDKShell`, `org.rdk.NetworkManager`, `org.rdk.PowerManager`, `org.rdk.PersistentStore`, `org.rdk.UserSettings`, `org.rdk.Bluetooth`, `org.rdk.HdmiInput`, `org.rdk.HdmiCecSource`, `org.rdk.Xcast`, `org.rdk.VoiceControl`, `org.rdk.MiracastService`, `org.rdk.MiracastPlayer`, `org.rdk.TextToSpeech`, `org.rdk.tv.ControlSettings`, `DTV`, `LISA`, `org.rdk.AppPackageManager`, `org.rdk.System`, `SmartScreen`.
+- **Plugin Dependencies**: `org.rdk.AppManager`, `org.rdk.RDKWindowManager`, `org.rdk.RDKShell`, `org.rdk.NetworkManager`, `org.rdk.PowerManager`, `org.rdk.PersistentStore`, `org.rdk.UserSettings`, `org.rdk.Bluetooth`, `org.rdk.HdmiInput`, `org.rdk.HdmiCecSource`, `org.rdk.Xcast`, `org.rdk.VoiceControl`, `org.rdk.MiracastService`, `org.rdk.MiracastPlayer`, `org.rdk.TextToSpeech`, `org.rdk.tv.ControlSettings`, `DTV`, `LISA` _(deprecated)_, `org.rdk.AppPackageManager`, `org.rdk.System`, `SmartScreen`.
 - **Systemd Services**: The application is served by a `lighttpd` web server instance that maps the `/lxresui` alias to the installed dist directory. The WPE browser process must be running and pointing to the UI's `index.html`.
 - **Configuration Files**:
   - `settings.json` — Lightning SDK platform and stage settings, loaded at application startup from the static directory.
@@ -360,7 +360,7 @@ sequenceDiagram
 | `DTV`                                      | Retrieve DTV country list, service list, and schedule event data                                    | `numberOfCountries()`, `countryList()`, `serviceList()`                                                                               |
 | `org.rdk.TextToSpeech`                     | Enable/disable TTS and speak UI text                                                                | `enabletts()`, `isttsenabled()`, `speak()`                                                                                            |
 | `org.rdk.tv.ControlSettings`               | Get and set picture mode, color temperature, backlight, brightness, contrast, sharpness, saturation | `getPictureMode()`, `setPictureMode()`, `getBacklight()`, `setBacklight()`, etc.                                                      |
-| `LISA`                                     | Retrieve DAC application metadata and platform configuration for DAC app installation               | `getMetadata()`                                                                                                                       |
+| `LISA` _(deprecated)_                      | Retrieve DAC application metadata and platform configuration for DAC app installation               | `getMetadata()`                                                                                                                       |
 | `org.rdk.AppPackageManager`                | List, install, and remove application packages                                                      | `listPackages()`, `install()`, `uninstall()`                                                                                          |
 | `org.rdk.System`                           | Query and set time zone                                                                             | `getTimeZones()`, `getTimeZoneDST()`, `setTimeZoneDST()`                                                                              |
 | **Firebolt SDK**                           |                                                                                                     |                                                                                                                                       |
@@ -455,7 +455,7 @@ sequenceDiagram
 | `org.rdk.TextToSpeech`       | `enabletts()` / `speak()`                               | Enable TTS and synthesise speech for UI elements                 | `src/api/TTSApi.js`                                                  |
 | `org.rdk.System`             | `getTimeZoneDST()` / `setTimeZoneDST()`                 | Read and write device time zone                                  | `src/api/AppApi.js`                                                  |
 | `DTV`                        | `numberOfCountries()`, `countryList()`, `serviceList()` | Retrieve DTV country configuration and channel service list      | `src/api/DTVApi.js`                                                  |
-| `LISA`                       | `getMetadata()`                                         | Retrieve DAC bundle platform and config URL metadata             | `src/api/LISAApi.js`                                                 |
+| `LISA` _(deprecated)_        | `getMetadata()`                                         | Retrieve DAC bundle platform and config URL metadata             | `src/api/LISAApi.js`                                                 |
 
 ### Key Implementation Logic
 
