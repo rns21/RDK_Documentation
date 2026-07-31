@@ -1,12 +1,12 @@
 # libpackage
 
-`libpackage` is a shared library that implements the `IPackageImpl` interface, providing the package management abstraction layer used by LISA (Local Inventory Storage Manager of DAC Apps) in the RDK AI 2.0 app management framework. It handles the complete lifecycle of DAC application packages in the RALF (`.ralf`) format: installation to persistent storage, dependency resolution, cryptographic signature verification, on-demand mounting, and removal.
+`libpackage` is a shared library that implements the `IPackageImpl` interface, providing the package management abstraction layer for DAC (Downloadable Application Container) applications in RDK. It handles the complete lifecycle of DAC application packages in the RALF (`.ralf`) format: installation to persistent storage, dependency resolution, cryptographic signature verification, on-demand mounting, and removal.
 
 The library sits between the app management layer above — which drives install, launch, and remove workflows — and the `libralf` package-format library below, which provides the underlying mechanics for opening, verifying, and mounting RALF package archives. `libpackage` adds the coordination logic on top: resolving and recursively handling package dependencies, managing mount reference counts, serialising mount metadata as JSON for consumers, and building the certificate verification bundle from the device certificate store.
 
 At the device level, `libpackage` enables an app management stack that installs and runs containerised DAC applications directly from signed RALF packages. Packages are stored persistently on the filesystem, re-discovered at each library initialisation, and mounted on-demand into isolated directories under `/tmp/mounts/` so that the app runtime can locate and execute application content. Dependency packages are resolved and co-mounted in the same operation, ensuring all shared assets are available before the application is launched.
 
-At the module level, `libpackage` exposes six operations through the `IPackageImpl` interface: `Initialize`, `Install`, `Uninstall`, `Lock`, `Unlock`, and `GetFileMetadata`. These map directly to the stages of a DAC application lifecycle as seen by LISA, and the library is obtained via the `IPackageImpl::instance()` factory, which returns the `RalfPackageImpl` implementation.
+At the module level, `libpackage` exposes six operations through the `IPackageImpl` interface: `Initialize`, `Install`, `Uninstall`, `Lock`, `Unlock`, and `GetFileMetadata`. These map directly to the stages of a DAC application lifecycle, and the library is obtained via the `IPackageImpl::instance()` factory, which returns the `RalfPackageImpl` implementation.
 
 ```mermaid
 flowchart LR
@@ -25,7 +25,7 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 
 %% Middleware
     subgraph RDKMW["RDK Core Middleware"]
-        AM["App Manager (LISA)"]
+        AM["App Manager"]
         libpkg["libpackage"]
         Westeros["Westeros"]
         Thunder["WPEFramework (Thunder)"]
@@ -240,13 +240,13 @@ sequenceDiagram
 
 ## Internal Modules
 
-| Module / Class             | Description                                                                                                                                                                                                                                               | Key Files                                     |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| `RalfPackageImpl`          | Primary implementation class. Implements all six `IPackageImpl` operations. Owns the verification bundle, the installed-package list, and the mounted-package map. Receives package file paths and serialised configuration strings from the App Manager. | `RalfPackageHandler.cpp`, `RalfPackageImpl.h` |
-| `IPackageImpl::instance()` | Factory function that constructs and returns a `std::shared_ptr<IPackageImpl>` pointing to a new `RalfPackageImpl`. Acts as the sole entry point for callers obtaining a library instance.                                                                | `RalfPackageHandler.cpp`                      |
-| `MountedPackageInfo`       | Internal bookkeeping structure. Holds the `ralf::PackageMount` RAII object, the path to the extracted `config.json`, and a reference count for tracking how many concurrent locks hold a given package mounted.                                           | `RalfPackageImpl.h`                           |
-| `RalfPackageInfo`          | Plain data structure used during a lock operation to accumulate the mount path and metadata JSON path for each package in the dependency tree before they are serialised to the output JSON file.                                                         | `RalfPackageImpl.h`                           |
-| `PackageImplTestApp`       | Interactive command-line test utility that exercises all `IPackageImpl` operations. Built only when `BUILD_TEST_APP=ON`. Not included in the production library.                                                                                          | `PackageImplTestApp.cpp`                      |
+| Module / Class             | Description                                                                                                                                                                                                                                                        | Key Files                                     |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------- |
+| `RalfPackageImpl`          | Primary implementation class. Implements all six `IPackageImpl` operations. Owns the verification bundle, the installed-package list, and the mounted-package map. Receives package file paths and serialised configuration strings from the app management layer. | `RalfPackageHandler.cpp`, `RalfPackageImpl.h` |
+| `IPackageImpl::instance()` | Factory function that constructs and returns a `std::shared_ptr<IPackageImpl>` pointing to a new `RalfPackageImpl`. Acts as the sole entry point for callers obtaining a library instance.                                                                         | `RalfPackageHandler.cpp`                      |
+| `MountedPackageInfo`       | Internal bookkeeping structure. Holds the `ralf::PackageMount` RAII object, the path to the extracted `config.json`, and a reference count for tracking how many concurrent locks hold a given package mounted.                                                    | `RalfPackageImpl.h`                           |
+| `RalfPackageInfo`          | Plain data structure used during a lock operation to accumulate the mount path and metadata JSON path for each package in the dependency tree before they are serialised to the output JSON file.                                                                  | `RalfPackageImpl.h`                           |
+| `PackageImplTestApp`       | Interactive command-line test utility that exercises all `IPackageImpl` operations. Built only when `BUILD_TEST_APP=ON`. Not included in the production library.                                                                                                   | `PackageImplTestApp.cpp`                      |
 
 ---
 
@@ -270,11 +270,11 @@ All interactions are in-process: the app management layer invokes library operat
 
 ### IPC Flow Patterns
 
-The App Manager accesses `libpackage` through direct in-process function calls via the `IPackageImpl` interface obtained from `IPackageImpl::instance()`.
+The app management layer accesses `libpackage` through direct in-process function calls via the `IPackageImpl` interface obtained from `IPackageImpl::instance()`.
 
 **Primary Request / Response Flow:**
 
-All operations follow a synchronous call-and-return pattern. The App Manager calls an `IPackageImpl` method, which executes synchronously (including any `libralf` calls and filesystem operations) and returns a `Result` enum (`SUCCESS` or `FAILED`) directly to the caller.
+All operations follow a synchronous call-and-return pattern. The app management layer calls an `IPackageImpl` method, which executes synchronously (including any `libralf` calls and filesystem operations) and returns a `Result` enum (`SUCCESS` or `FAILED`) directly to the caller.
 
 ```mermaid
 sequenceDiagram
