@@ -1,8 +1,8 @@
 # Cobalt
 
-The Cobalt component (hosted in the `larboard` repository) integrates the Cobalt web browser engine into the RDK middleware stack as a WPEFramework/Thunder plugin. It provides the runtime environment for web-based streaming applications on RDK devices, with YouTube TV as the primary target application.
+The Cobalt component (hosted in the `larboard` repository) is the RDK integration layer for the Cobalt web browser engine. It does not include the Cobalt engine itself; the engine is supplied as an external runtime binary (`libloader_app.so`) via the Evergreen loader model. The `larboard` repository provides the WPEFramework/Thunder plugin wrapper and the Starboard RDK platform adaptation layer that the engine depends on, for running Cobalt/YouTube applications in RDK devices.
 
-The component is organized into two coupled parts. The first is a Thunder plugin front-end (`libWPEFrameworkCobalt.so`) that manages the plugin lifecycle, exposes JSON-RPC and REST interfaces, and monitors the browser process for crashes. The second is a platform implementation (`libWPEFrameworkCobaltImpl.so`) that hosts the Cobalt engine via the Starboard API, managing the engine thread, lifecycle state machine, and connections to the GStreamer media pipeline, Essos windowing system, and OpenCDM DRM.
+The component is organized into two coupled parts. The first is a Thunder plugin front-end (`libWPEFrameworkCobalt.so`) that manages the plugin lifecycle, exposes JSON-RPC and REST interfaces, and monitors the app process for crashes. The second is a platform implementation (`libWPEFrameworkCobaltImpl.so`) that hosts the Cobalt engine via the Starboard API, managing the engine thread, lifecycle state machine, and connections to the GStreamer media pipeline, Essos windowing system, and OpenCDM DRM.
 
 The Starboard RDK platform layer within the repository implements all Cobalt platform abstractions for the RDK environment. This covers audio and video media playback via GStreamer, input handling via Essos, DRM session management via OpenCDM, display and device property queries via Thunder JSON-RPC to peer RDK middleware services, and speech synthesis via the Text-to-Speech service. Configuration is applied once at plugin activation; the engine's own persistent storage is anchored to the Thunder-managed persistent path for the plugin.
 
@@ -14,34 +14,24 @@ classDef RDKMW stroke:#75D701,fill:#F1FFE6,stroke-width:2px
 classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px
 
     subgraph Apps["Apps & Runtimes"]
-        StreamApp["Streaming Application"]
-        FBApps["Firebolt Apps"]
-        RDKUI["UI"]
+        YouTubeApp["YouTube App"]
     end
 
     subgraph RDKMW["RDK Core Middleware"]
         AM["App Manager"]
-        Thunder["WPEFramework (Thunder)"]
-        CobaltPlugin["Cobalt Plugin (larboard)"]
+        Thunder["WPEFramework / RDK Services"]
         Westeros["Westeros"]
+        OCDM_MW["OpenCDM"]
     end
 
     subgraph VL["Vendor Layer"]
         Essos["Essos"]
         GStreamer["GStreamer"]
-        OCDM["OpenCDM"]
         BSP["BSP / HAL"]
     end
 
-    StreamApp -->|Firebolt APIs| Thunder
-    FBApps -->|Firebolt APIs| Thunder
-    RDKUI -->|Firebolt APIs| Thunder
-    Thunder -->|Plugin lifecycle| CobaltPlugin
-    CobaltPlugin -->|Windowing and Input| Essos
-    CobaltPlugin -->|Media pipeline| GStreamer
-    CobaltPlugin -->|DRM sessions| OCDM
-    Essos --> BSP
-    GStreamer --> BSP
+    Apps <-->|"Firebolt APIs / JSON-RPC"| RDKMW
+    RDKMW <--> VL
 ```
 
 **Key Features & Responsibilities:**
@@ -139,7 +129,7 @@ graph TD
 
 #### Initialization to Active State
 
-The component transitions through the following states during its lifecycle: **Initializing** (register remote connection notification, allocate resources) → **ConnectingImpl** (instantiate `CobaltImplementation` via `Root<Exchange::IBrowser>()`) → **ConfiguringEngine** (`Configure()` sets environment variables, prepares `StarboardMain` arguments, starts `CobaltWindow` thread) → **Active** (handling JSON-RPC calls and events) → **Shutdown** (unregister notifications, release interfaces, terminate remote process).
+During plugin activation, `Initialize()` executes the following sequential steps: registers the remote connection notification with Thunder; instantiates `CobaltImplementation` via `service->Root<Exchange::IBrowser>()`; queries the `IStateControl` interface; registers browser and state control notifications; and calls `stateControl->Configure(IShell)`, which sets environment variables, prepares `StarboardMain` arguments, and starts the `CobaltWindow` thread. Once `Configure()` returns successfully, the plugin is active and ready to handle JSON-RPC requests and events. On deactivation, `Deinitialize()` unregisters notifications, releases interface pointers, and terminates the remote process if necessary.
 
 ```mermaid
 sequenceDiagram
@@ -279,7 +269,9 @@ The Cobalt plugin communicates northbound with Thunder and applications, and sou
 
 | Target Component / Layer        | Interaction Purpose                                                                                  | Key APIs / Topics                                                                                                       |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| **Plugins**                     |                                                                                                      |                                                                                                                         |
+| **Application**           |                                                                                                      |                                                                                                                         |
+| `libloader_app.so`              | Cobalt engine entry point and lifecycle control                                                      | `StarboardMain()`, `SbRdkSuspend()`, `SbRdkResume()`, `SbRdkHandleDeepLink()`, `SbRdkSetSetting()`, `SbRdkGetSetting()` |
+| **Middleware**                  |                                                                                                      |                                                                                                                         |
 | `DisplayInfo.1`                 | Query display resolution and HDR format for Starboard media capability reporting                     | `DisplayInfo.1` display resolution and HDR properties methods                                                           |
 | `PlayerInfo.1`                  | Query audio output configuration for Starboard audio capability reporting                            | `PlayerInfo.1` audio output methods                                                                                     |
 | `org.rdk.Network.1`             | Query network connection state for Starboard network API                                             | `org.rdk.Network.1` connection status methods                                                                           |
@@ -288,11 +280,10 @@ The Cobalt plugin communicates northbound with Thunder and applications, and sou
 | `org.rdk.AuthService.1`         | Query auth service experience data                                                                   | `AuthService.1`                                                                                                         |
 | `org.rdk.UserSettings.1`        | Query user preference settings                                                                       | `UserSettings.1`                                                                                                        |
 | `org.rdk.Bluetooth.1`           | Query Bluetooth audio configuration                                                                  | `Bluetooth.1`                                                                                                           |
+| OpenCDM                         | DRM key session create, update, close; key status notifications                                      | OpenCDM session management API (`ocdm`)                                                                                 |
 | **Vendor Layer**                |                                                                                                      |                                                                                                                         |
 | Essos                           | Window creation, display resize notifications, keyboard and remote input events                      | Essos context and event listener API (`essos-app.h`)                                                                    |
 | GStreamer                       | Audio and video decode pipeline, audio sink                                                          | GStreamer 1.0 pipeline elements                                                                                         |
-| OpenCDM                         | DRM key session create, update, close; key status notifications                                      | OpenCDM session management API (`ocdm`)                                                                                 |
-| `libloader_app.so`              | Cobalt engine entry point and lifecycle control                                                      | `StarboardMain()`, `SbRdkSuspend()`, `SbRdkResume()`, `SbRdkHandleDeepLink()`, `SbRdkSetSetting()`, `SbRdkGetSetting()` |
 | **External Systems**            |                                                                                                      |                                                                                                                         |
 | `/etc/WPEFramework/config.json` | Determine Thunder access endpoint for JSON-RPC connections to peer plugins                           | `binding`, `port` fields                                                                                                |
 
@@ -351,7 +342,7 @@ sequenceDiagram
 
 ## Implementation Details
 
-### Major HAL APIs Integration
+### Major APIs Integration
 
 | Starboard API                     | Purpose                                                                                                             | Implementation File                       |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
