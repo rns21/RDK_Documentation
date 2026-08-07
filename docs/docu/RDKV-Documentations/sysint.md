@@ -1,6 +1,6 @@
 # Sysint
 
-Sysint (System Integration) is the foundational system initialization and lifecycle management component in RDK middleware. It provides the runtime environment that all other middleware components depend on: consistent file-path abstractions, device identity resolution, network bring-up, security policy enforcement, log lifecycle management, and periodic system health monitoring. The component is implemented entirely as a collection of shell scripts, configuration property files, and systemd service and timer units — it acts as the operational integration layer that initializes the device from early boot through to an active, fully monitored state.
+Sysint is the foundational system initialization and lifecycle management component in RDK middleware. It provides the runtime environment that all other middleware components depend on: consistent file-path abstractions, device identity resolution, network bring-up, security policy enforcement, log lifecycle management, and periodic system health monitoring. The component is implemented entirely as a collection of shell scripts, configuration property files, and systemd service and timer units — it acts as the operational integration layer that initializes the device from early boot through to an active, fully monitored state.
 
 At the device level, Sysint ensures every RDK device boots into a known, reproducible operating state. It backs up logs from the previous boot cycle, enforces firewall rules, establishes secure remote-access sessions, initializes compressed swap space, drives the system clock signal chain, triggers crash artifact staging and upload, and recovers autonomously from network connectivity failures. It also coordinates state-change transitions such as factory reset, warehouse reset, and state-red firmware recovery, ensuring orderly teardown and restart of dependent services.
 
@@ -57,12 +57,12 @@ classDef Cloud stroke:#FFA500,fill:#FFF3E0,stroke-width:2px;
 
 **Key Features & Responsibilities:**
 
-- **Log Lifecycle Management**: Backs up logs from the previous boot cycle into a rolling set of `PreviousLogs` directories before new log files are opened, and runs periodic log rotation via `logrotate` to cap log directory size.
+- **Log Lifecycle Management**: Backs up logs from the previous boot cycle into a rolling set of `PreviousLogs` directories before new log files are opened, routes service-specific journal output to dedicated log files under `/opt/logs/` through syslog-ng filter and destination rules (e.g., `system.log`, `dropbear.log`, `ntp.log`, `iptables.log`, `ConnectionStats.txt`), captures kernel log output via the journal into `messages.txt`, and runs periodic log rotation via `logrotate` to cap log directory sizes.
 - **Network Management Integration**: Provides NetworkManager dispatcher scripts (`NM_Dispatcher.sh`, `NM_preDown.sh`) that refresh the device IP cache on interface state changes, and runs a periodic network connectivity recovery service that detects and remediates packet-loss and driver-level failures.
 - **Security Enforcement**: Applies firewall rules through `iptables_init` at each boot after the network is available, manages the Dropbear SSH server lifecycle with RFC-controlled access lists, and evaluates OCSP/CRL status flags based on RFC parameters.
 - **Crash and Dump Management**: Stages core dumps and mini-dumps from the previous session into upload-ready paths, and triggers upload services for both secure and non-secure dump types on network availability.
 - **Time Synchronization Event Chain**: Monitors filesystem flags set by the time-sync daemon and emits system event bus signals and D-Bus signals (`org.NtpSync.TimeSet`, `org.Systime.TimeSet`) that downstream components use to gate time-dependent operations.
-- **System Health Monitoring**: Periodically collects CPU utilization, free memory, process table snapshots, and disk space metrics, emitting telemetry markers via the Telemetry 2.0 shared API.
+- **System Health Monitoring**: Periodically collects CPU utilization, free memory, process table snapshots, and disk space metrics, emitting telemetry markers via the Telemetry 2.0 API.
 - **Disk Space Enforcement**: Monitors configured directory size thresholds using `diskMon.conf` and performs cleanup of stale log and cache files when persistent storage exceeds defined limits.
 - **Device Identity Resolution**: Resolves and caches the device identifier and partner identifier from provisioned data files, falling back to bootstrap configuration or compile-time defaults when provisioning files are absent.
 - **System Lifecycle Coordination**: Provides the `rebootNow.sh` entry point used by all other RDK components to request an orderly reboot; classifies the originating caller into application-triggered, operations-triggered, or maintenance-triggered categories and persists reboot metadata before invoking the OS reboot.
@@ -260,21 +260,21 @@ The reboot management flow is the most widely invoked Sysint interface: all othe
 sequenceDiagram
     participant Caller as Calling Component
     participant RebootNow as rebootNow.sh
-    participant RebootDir as /opt/secure/reboot/
-    participant RFC as tr181 (RFC store)
-    participant OS as /sbin/reboot
+    participant RebootStore as Reboot Metadata Store
+    participant RFC as RFC Store
+    participant OS as OS
 
-    Caller->>RebootNow: rebootNow.sh -s SourceName -o Reason
-    RebootNow->>RebootNow: Validate arguments (exit if missing)
-    RebootNow->>RebootDir: Read rebootCounter
-    RebootNow->>RFC: Read RebootStop.Duration and RebootStop.Detection
-    RebootNow->>RebootNow: Classify reason as APP / OPS / MAINTENANCE triggered
+    Caller->>RebootNow: invoke with source and reason arguments
+    RebootNow->>RebootNow: Validate caller arguments
+    RebootNow->>RebootStore: Read rebootCounter
+    RebootNow->>RFC: Read RebootStop Duration and Detection flags
+    RebootNow->>RebootNow: Classify into APP, OPS, or MAINTENANCE category
     alt Cyclic reboot detected
-        RebootNow->>RebootNow: Apply pause window; write pauseReboot flag
+        RebootNow->>RebootNow: Apply pause window and write pauseReboot flag
     end
-    RebootNow->>RebootDir: Write reboot.info (source, reason, timestamp, CDL file)
-    RebootNow->>RebootDir: Increment rebootCounter
-    RebootNow->>OS: /sbin/reboot
+    RebootNow->>RebootStore: Persist reboot.info with source, reason, timestamp
+    RebootNow->>RebootStore: Increment rebootCounter
+    RebootNow->>OS: Issue system reboot
 ```
 
 ---
