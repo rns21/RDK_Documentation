@@ -1,25 +1,3 @@
----
-title: "GPON Manager Documentation"
-component: "gpon-manager"
-version: "1"
-owner: "RDK Management"
-last_updated: "2026-07-02"
-status: "Draft"
-repository: "gpon-manager"
-source_root: "source/"
-tags:
-  - "GPON"
-  - "ONT"
-  - "TR-181"
-  - "CCSP"
-  - "RDK-B"
-related_components:
-  - "WAN Manager"
-  - "ETH Manager"
-  - "JSON HAL Server"
-documentation_version: "1.0"
----
-
 # GPON Manager
 
 ## Overview
