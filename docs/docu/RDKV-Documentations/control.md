@@ -156,26 +156,26 @@ sequenceDiagram
     participant Thunder as WPEFramework
 
     System->>Main: execve / service start
-    Main->>IPC: ctrlm_iarm_init() — connect to bus
+    Main->>IPC: ctrlm_iarm_init() - connect to bus
     IPC-->>Main: Connected
 
     Main->>Main: GLib main loop start, spawn main thread
-    Main->>Main: ctrlm_load_config() — read ctrlm_config.json
-    Main->>DB: ctrlm_db_init() — open SQLite database
+    Main->>Main: ctrlm_load_config() - read ctrlm_config.json
+    Main->>DB: ctrlm_db_init() - open SQLite database
     DB-->>Main: DB ready
 
-    Main->>NW: ctrlm_vendor_network_factory() — create RF4CE / BLE networks
-    NW->>NW: Load RF4CE HAL via dlopen; init BLE via BTMgr
+    Main->>NW: ctrlm_vendor_network_factory() - create RF4CE / BLE networks
+    NW->>NW: Load RF4CE HAL via dlopen, init BLE via BTMgr
 
     Main->>Main: Voice subsystem init (ctrlm_voice_t)
     Main->>Main: RFC init, Telemetry init, IR controller init
-    Main->>IPC: ctrlm_main_iarm_init() — register IPC call handlers
+    Main->>IPC: ctrlm_main_iarm_init() - register IPC call handlers
     IPC-->>Main: Handlers registered
 
     Main->>Thunder: Connect to DeviceInfo, System, PowerManager plugins
     Thunder-->>Main: Plugins ready
 
-    Main->>System: sd_notify "READY=1"
+    Main->>System: sd_notify READY=1
 
     loop Runtime
         IPC->>Main: IPC call dispatch (enqueue msg)
@@ -185,7 +185,7 @@ sequenceDiagram
 
     System->>Main: SIGTERM
     Main->>NW: ctrlm_networks_terminate()
-    Main->>DB: ctrlm_db_terminate() — flush and backup
+    Main->>DB: ctrlm_db_terminate() - flush and backup
     Main->>IPC: ctrlm_iarm_terminate()
     Main-->>System: exit
 ```
