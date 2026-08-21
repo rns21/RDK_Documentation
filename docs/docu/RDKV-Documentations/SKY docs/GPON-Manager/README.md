@@ -34,27 +34,17 @@ GPON Manager runs as a background daemon process and is responsible for:
 ### Prerequisites
 
 - RDK-B build environment (Yocto-based).
-- CCSP common library (`ccsp_common`).
-- ANSC platform library.
 - JSON-C library (`json-c`).
 - `json_hal_client` library.
-- `syscfg` library.
 - `secure_wrapper` library (for `v_secure_system`).
-- Autotools (`autoconf`, `automake`, `libtool`).
 
 ### Build Process
 
+The GPON Manager is built as part of the RDK-B build system. The component uses Autotools (`configure.ac`, `Makefile.am`).
+
 ```bash
-# Example only.
-# Replace with actual build commands for the target platform.
-
-autoreconf -i
-./configure
-make
-make install
+bitbake gpon-manager
 ```
-
-The component is typically built as part of the RDK-B Yocto meta-layer. The build system is Autotools (`configure.ac`, `Makefile.am`).
 
 ---
 
@@ -82,18 +72,77 @@ The component is typically built as part of the RDK-B Yocto meta-layer. The buil
 ## Directory Structure
 
 ```text
-docs/
-├── README.md
-├── configuration-guide.md
-├── architecture/
-│   └── component-diagram.md
-└── components/
-    ├── ssp.md
-    ├── controller.md
-    ├── link-state-machine.md
-    ├── data-model-layer.md
-    ├── hal-abstraction.md
-    └── eth-iface.md
+gpon-manager/
+├── cfg/                                    # Autotools auxiliary files
+│   └── Makefile.am
+│
+├── config/                                 # Runtime configuration files
+│   ├── gpon_manager_conf.json
+│   ├── gpon_manager_wan_unify_conf.json
+│   └── RdkGponManager.xml
+│
+├── hal_schema/                             # HAL schema definitions and examples
+│   ├── example_getParametersResponse_msg.json
+│   ├── example_getParameters_msg.json
+│   ├── example_getSchemaResponse_msg.json
+│   ├── example_getSchema_msg.json
+│   ├── example_publishEvent_msg.json
+│   ├── example_result_msg.json
+│   ├── example_setParameters_msg.json
+│   ├── example_subscribeEvent_msg.json
+│   ├── gpon_hal_schema.json
+│   └── gpon_wan_unify_hal_schema.json
+│
+├── source/
+│   ├── Makefile.am
+│   │
+│   ├── GponManager/                        # Core GPON Manager component
+│   │   ├── gponmgr_controller.c
+│   │   ├── gponmgr_controller.h
+│   │   ├── gponmgr_link_state_machine.c
+│   │   ├── gponmgr_link_state_machine.h
+│   │   ├── Makefile.am
+│   │   ├── ssp_action.c
+│   │   ├── ssp_global.h
+│   │   ├── ssp_internal.h
+│   │   ├── ssp_main.c
+│   │   ├── ssp_messagebus_interface.c
+│   │   └── ssp_messagebus_interface.h
+│   │
+│   └── TR-181/                             # TR-181 Data Model implementation
+│       ├── Makefile.am
+│       │
+│       ├── include/
+│       │   └── gpon_apis.h
+│       │
+│       └── middle_layer_src/
+│           ├── gponmgr_dml_backendmgr.c
+│           ├── gponmgr_dml_backendmgr.h
+│           ├── gponmgr_dml_data.c
+│           ├── gponmgr_dml_data.h
+│           ├── gponmgr_dml_eth_iface.c
+│           ├── gponmgr_dml_eth_iface.h
+│           ├── gponmgr_dml_func.c
+│           ├── gponmgr_dml_func.h
+│           ├── gponmgr_dml_hal.c
+│           ├── gponmgr_dml_hal.h
+│           ├── gponmgr_dml_hal_param.c
+│           ├── gponmgr_dml_hal_param.h
+│           ├── gponmgr_dml_internal.c
+│           ├── gponmgr_dml_internal.h
+│           ├── gponmgr_dml_obj.c
+│           ├── gponmgr_dml_obj.h
+│           ├── gponmgr_dml_plugin_main.c
+│           ├── gponmgr_dml_plugin_main.h
+│           └── Makefile.am
+│
+├── configure.ac
+├── CONTRIBUTING.md
+├── COPYING
+├── LICENSE
+├── Makefile.am
+├── NOTICE
+└── README.md
 ```
 
 ---
@@ -103,8 +152,7 @@ docs/
 ### Building the Component
 
 ```bash
-# Example only.
-autoreconf -i && ./configure && make
+bitbake gpon-manager
 ```
 
 ### Configuration
