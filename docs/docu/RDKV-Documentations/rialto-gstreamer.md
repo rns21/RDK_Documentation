@@ -67,42 +67,39 @@ IPC with the Rialto server is performed entirely by the Rialto Client library us
 All playback state, position, and configuration are maintained in memory for the duration of the media session and re-established when a new GStreamer pipeline is created.
 
 ```mermaid
-graph TD
+flowchart LR
 
-    subgraph PluginBoundary["libgstrialtosinks.so (GStreamer Plugin)"]
-
-        subgraph SinkElements["GStreamer Sink Elements"]
-            VSink["RialtoGStreamerMSEVideoSink"]
-            ASink["RialtoGStreamerMSEAudioSink"]
-            SSink["RialtoGStreamerMSESubtitleSink"]
-            WASink["RialtoGStreamerWebAudioSink"]
-            BaseSink["RialtoMSEBaseSink (Base)"]
-        end
-
-        subgraph Delegates["Playback Delegates"]
-            PullVideo["PullModeVideoPlaybackDelegate"]
-            PullAudio["PullModeAudioPlaybackDelegate"]
-            PullSubtitle["PullModeSubtitlePlaybackDelegate"]
-            PushAudio["PushModeAudioPlaybackDelegate"]
-        end
-
-        subgraph Clients["Media Client Layer"]
-            MPClient["GStreamerMSEMediaPlayerClient\n(IMediaPipelineClient)"]
-            WAClient["GStreamerWebAudioPlayerClient\n(IWebAudioPlayerClient)"]
-            MPMgr["MediaPlayerManager"]
-        end
-
-        subgraph Support["Support Components"]
-            BufParser["BufferParser\n(Audio / Video / Subtitle)"]
-            MsgQueue["MessageQueue\n(Worker Thread)"]
-            FlushSync["FlushAndDataSynchronizer"]
-            CtrlBackend["ControlBackend\n(IControl)"]
-            LogHandler["LogToGstHandler"]
-            Timer["Timer"]
-        end
+    subgraph Sinks["GStreamer Sink Elements"]
+        VSink["RialtoGStreamerMSEVideoSink"]
+        ASink["RialtoGStreamerMSEAudioSink"]
+        SSink["RialtoGStreamerMSESubtitleSink"]
+        WASink["RialtoGStreamerWebAudioSink"]
+        BaseSink["RialtoMSEBaseSink"]
     end
 
-    subgraph RialtoClient["Rialto Client Library"]
+    subgraph Delegates["Playback Delegates"]
+        PullVideo["PullModeVideoPlaybackDelegate"]
+        PullAudio["PullModeAudioPlaybackDelegate"]
+        PullSubtitle["PullModeSubtitlePlaybackDelegate"]
+        PushAudio["PushModeAudioPlaybackDelegate"]
+    end
+
+    subgraph Clients["Media Client Layer"]
+        MPMgr["MediaPlayerManager"]
+        MPClient["GStreamerMSEMediaPlayerClient"]
+        WAClient["GStreamerWebAudioPlayerClient"]
+        CtrlBackend["ControlBackend"]
+    end
+
+    subgraph Support["Support Components"]
+        BufParser["BufferParser"]
+        MsgQueue["MessageQueue"]
+        FlushSync["FlushAndDataSynchronizer"]
+        LogHandler["LogToGstHandler"]
+        Timer["Timer"]
+    end
+
+    subgraph RialtoLib["Rialto Client Library"]
         IMP["IMediaPipeline"]
         IWA["IWebAudioPlayer"]
         ICtrl["IControl"]
@@ -118,7 +115,6 @@ graph TD
     PullAudio --> MPMgr
     PullSubtitle --> MPMgr
     MPMgr --> MPClient
-
     PushAudio --> WAClient
 
     MPClient --> BufParser
