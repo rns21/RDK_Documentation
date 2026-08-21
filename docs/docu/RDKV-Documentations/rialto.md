@@ -365,7 +365,7 @@ sequenceDiagram
 
 ## Implementation Details
 
-### Major HAL APIs Integration
+### Key External Library Integrations
 
 Rialto accesses the platform media subsystem directly through the following wrapped interfaces:
 
