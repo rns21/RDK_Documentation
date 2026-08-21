@@ -165,13 +165,13 @@ The component transitions through the following states: **Constructed** (objects
 
 ```mermaid
 sequenceDiagram
-    participant Caller as "Caller (Browser / App)"
+    participant Caller as Caller
     participant OpenCDM as "open_cdm.cpp"
     participant SysPriv as OpenCDMSystemPrivate
     participant CdmB as CdmBackend
     participant MsgD as MessageDispatcher
-    participant ICtrl as "IControl (Rialto Client)"
-    participant IMK as "IMediaKeys (Rialto Client)"
+    participant ICtrl as IControl
+    participant IMK as IMediaKeys
 
     Caller->>OpenCDM: opencdm_create_system(keySystem)
     OpenCDM->>MsgD: new MessageDispatcher
@@ -248,7 +248,7 @@ sequenceDiagram
     participant ActS as ActiveSessions
     participant Sess as OpenCDMSessionPrivate
     participant CdmB as CdmBackend
-    participant IMK as "IMediaKeys (Rialto)"
+    participant IMK as IMediaKeys
     participant MsgD as MessageDispatcher
 
     Caller->>OpenCDM: opencdm_construct_session(system, licenseType, initDataType, initData, callbacks)
@@ -269,7 +269,7 @@ sequenceDiagram
     Note over IMK,MsgD: Rialto server delivers license challenge asynchronously
     IMK->>MsgD: onLicenseRequest(keySessionId, challenge, url)
     MsgD->>Sess: onLicenseRequest(keySessionId, challenge, url)
-    Sess->>Sess: updateChallenge(challenge); m_challengeCv.notify_all()
+    Note over Sess: stores challenge, signals m_challengeCv
     Sess->>Caller: callbacks->process_challenge_callback(session, url, challenge)
 
     Caller->>OpenCDM: opencdm_session_update(session, licenseResponse)
@@ -336,11 +336,11 @@ All DRM operation calls are dispatched synchronously through `CdmBackend` to `IM
 
 ```mermaid
 sequenceDiagram
-    participant Caller as OpenCDM Caller
+    participant Caller as "OpenCDM Caller"
     participant API as "open_cdm / open_cdm_ext"
     participant SessOrSys as "OpenCDMSessionPrivate / OpenCDMSystemPrivate"
     participant CdmB as CdmBackend
-    participant IMK as "IMediaKeys (Rialto Client)"
+    participant IMK as IMediaKeys
 
     Caller->>API: OpenCDM API call
     API->>SessOrSys: Delegate to object method
@@ -362,7 +362,7 @@ sequenceDiagram
     participant MsgD as MessageDispatcher
     participant Sess1 as "OpenCDMSessionPrivate (session A)"
     participant Sess2 as "OpenCDMSessionPrivate (session B)"
-    participant App as Application Callbacks
+    participant App as "Application Callbacks"
 
     RialtoClient->>MsgD: onLicenseRequest / onLicenseRenewal / onKeyStatusesChanged
     MsgD->>Sess1: forward event (if keySessionId matches)
