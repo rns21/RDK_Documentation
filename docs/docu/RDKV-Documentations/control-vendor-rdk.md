@@ -161,9 +161,9 @@ sequenceDiagram
 
 | Module / Class                        | Description                                                                                                                                                                                                        | Key Files                               |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------- |
-| Vendor Network Factory Chain          | Maintains an ordered list of vendor-supplied network factory callbacks and invokes each to populate Control Manager's network map at startup.                                                                      | `ctrlm_vendor_network_factory.cpp`      |
+| `ctrlm_vendor_network_factory()`      | Maintains an ordered list of vendor-supplied network factory callbacks, registered via `ctrlm_vendor_network_factory_func_add()`, and invokes each to populate Control Manager's network map at startup.           | `ctrlm_vendor_network_factory.cpp`      |
 | `ctrlm_voice_packet_analysis_rf4ce_t` | RF4CE implementation of the voice packet analysis interface. Tracks total, duplicated, and lost packet counts and sequence numbering for received voice audio, and receives packet data from the RF4CE voice path. | `ctrlm_rf4ce_voice_packet_analysis.cpp` |
-| IR Database Factory                   | Instantiates an offline-mode IR code database instance consumed by Control Manager.                                                                                                                                | `irdb/ctrlm_irdb_factory.cpp`           |
+| `ctrlm_irdb_create()`                 | Instantiates an offline-mode IR code database instance consumed by Control Manager.                                                                                                                                | `irdb/ctrlm_irdb_factory.cpp`           |
 
 ---
 
@@ -171,12 +171,9 @@ sequenceDiagram
 
 ### Interaction Matrix
 
-| Target Component / Layer | Interaction Purpose                                                      | Key APIs / Topics                                                           |
-| ------------------------ | ------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
-| **Plugins**              |                                                                          |                                                                             |
-| Control Manager          | Registers and queries vendor-specific network implementations at startup | `ctrlm_vendor_network_factory()`, `ctrlm_vendor_network_factory_func_add()` |
-| Control Manager          | Retrieves voice packet quality statistics for the RF4CE network          | `packet_check()`, `stats_get()`, `reset()`                                  |
-| Control Manager          | Obtains an IR code database instance for IR-based device control         | `ctrlm_irdb_create()`                                                       |
+| Target Component / Layer | Interaction Purpose                                                                                                                                                                                             | Key APIs / Topics                                                                                                                                  |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Control Manager          | Registers and queries vendor-specific network implementations at startup<br>Retrieves voice packet quality statistics for the RF4CE network<br>Obtains an IR code database instance for IR-based device control | `ctrlm_vendor_network_factory()`, `ctrlm_vendor_network_factory_func_add()`<br>`packet_check()`, `stats_get()`, `reset()`<br>`ctrlm_irdb_create()` |
 
 ### IPC Flow Patterns
 
