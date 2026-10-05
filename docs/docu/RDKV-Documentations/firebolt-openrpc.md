@@ -73,7 +73,7 @@ The tool is organized as a small CLI (`cli.mjs`) that dispatches to one of five 
 
 North-bound, the tool's input is file-based: OpenRPC module documents, shared JSON Schema files, optional external Markdown description files, an optional SDK configuration manifest (for the `slice` task), and a directory of template files per target language. South-bound, its output is likewise file-based: generated SDK source trees, TypeScript-style declaration files, and Markdown documentation trees written to the directory passed via `--output`. The tool operates as an offline, single-process, file-to-file transformation pipeline, communicating through the file system rather than through inter-process channels; the one exception is the `validate` task, which fetches the public JSON-Schema and OpenRPC meta-schemas over HTTPS to validate against.
 
-Every invocation is stateless: all generation decisions are derived anew from the input document(s), the selected language's `language.config.json`, and any `--template` overrides supplied on that invocation. The tool optionally copies file system permissions (such as an executable bit) from a template file onto the generated output file when a language's `persistPermission` flag is enabled.
+Every invocation is stateless: all generation decisions are derived from scratch from the input document(s), the selected language's `language.config.json`, and any `--template` overrides supplied on that invocation. The tool optionally copies file system permissions (such as an executable bit) from a template file onto the generated output file when a language's `persistPermission` flag is enabled.
 
 ```mermaid
 graph TD
@@ -104,10 +104,10 @@ subgraph Shared["Shared Utilities"]
 end
 
 subgraph LangTemplates["Per-Language Templates"]
-    JS["javascript/"]
-    CPPLang["cpp/"]
-    CLang["c/"]
-    MD["markdown/"]
+    JS["javascript"]
+    CPPLang["cpp"]
+    CLang["c"]
+    MD["markdown"]
 end
 
 subgraph Output["Generated Artifacts"]
@@ -276,11 +276,11 @@ sequenceDiagram
 | Module / Class                    | Description                                                                                                                                                                                                  | Key Files                                                                                                                      |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | `cli.mjs`                         | CLI entry point; parses arguments with `nopt` and dispatches to the requested task.                                                                                                                          | `src/cli.mjs`                                                                                                                  |
-| `openrpc` task                    | Merges a directory of module documents and shared schemas into one compiled OpenRPC document, applying Firebolt tag semantics and Markdown inlining. Receives external module/schema files as input.         | `src/openrpc/index.mjs`                                                                                                        |
-| `slice` task                      | Filters a compiled OpenRPC document to the methods matched by an external SDK configuration manifest's module/capability rules, then tree-shakes unused schemas. Receives an external SDK manifest as input. | `src/slice/index.mjs`                                                                                                          |
-| `sdk` task                        | Thin wrapper that loads a language configuration and invokes the macrofier engine to generate SDK source and declarations.                                                                                   | `src/sdk/index.mjs`                                                                                                            |
-| `docs` task                       | Thin wrapper that invokes the macrofier engine to generate Markdown API reference documentation.                                                                                                             | `src/docs/index.mjs`                                                                                                           |
-| `validate` task                   | Validates OpenRPC documents and shared schemas (and their examples) against JSON-Schema, OpenRPC, and Firebolt meta-schemas using AJV; fetches the public meta-schemas over HTTPS.                           | `src/validate/index.mjs`, `src/validate/validator/`                                                                            |
+| `openrpc`                         | Merges a directory of module documents and shared schemas into one compiled OpenRPC document, applying Firebolt tag semantics and Markdown inlining. Receives external module/schema files as input.         | `src/openrpc/index.mjs`                                                                                                        |
+| `slice`                           | Filters a compiled OpenRPC document to the methods matched by an external SDK configuration manifest's module/capability rules, then tree-shakes unused schemas. Receives an external SDK manifest as input. | `src/slice/index.mjs`                                                                                                          |
+| `sdk`                             | Thin wrapper that loads a language configuration and invokes the macrofier engine to generate SDK source and declarations.                                                                                   | `src/sdk/index.mjs`                                                                                                            |
+| `docs`                            | Thin wrapper that invokes the macrofier engine to generate Markdown API reference documentation.                                                                                                             | `src/docs/index.mjs`                                                                                                           |
+| `validate`                        | Validates OpenRPC documents and shared schemas (and their examples) against JSON-Schema, OpenRPC, and Firebolt meta-schemas using AJV; fetches the public meta-schemas over HTTPS.                           | `src/validate/index.mjs`, `src/validate/validator/`                                                                            |
 | Macrofier engine                  | Shared macro-expansion engine that renders per-module and per-schema template macros (method signatures, parameter lists, type declarations, examples) for the `sdk` and `docs` tasks.                       | `src/macrofier/index.mjs`, `src/macrofier/engine.mjs`                                                                          |
 | `modules.mjs`                     | Implements Firebolt method-tag semantics: `fireboltize`, provider-interface extraction, and module/schema filtering used by the `openrpc`, `slice`, and macrofier code paths.                                | `src/shared/modules.mjs`                                                                                                       |
 | `json-schema.mjs`                 | JSON-Schema `$ref` resolution, dereferencing, `allOf` merging, and sub-schema extraction utilities used across tasks.                                                                                        | `src/shared/json-schema.mjs`                                                                                                   |
@@ -363,11 +363,11 @@ sequenceDiagram
 
 The closest equivalent integrations for this tool are the schema-validation and meta-schema retrieval APIs it calls directly.
 
-| External API / Library   | Purpose                                                                                           | Implementation File      |
-| ------------------------ | ------------------------------------------------------------------------------------------------- | ------------------------ |
-| `Ajv` compile / validate | Compiles JSON-Schema, OpenRPC, and Firebolt meta-schemas and validates documents against them.    | `src/validate/index.mjs` |
-| `ajv-formats`            | Adds standard string format validators (date, uri, etc.) to the AJV instance used for validation. | `src/validate/index.mjs` |
-| `node-fetch`             | Retrieves the public JSON-Schema and OpenRPC meta-schema documents over HTTPS for validation.     | `src/validate/index.mjs` |
+| External API / Library | Purpose                                                                                           | Implementation File      |
+| ---------------------- | ------------------------------------------------------------------------------------------------- | ------------------------ |
+| `Ajv`                  | Compiles JSON-Schema, OpenRPC, and Firebolt meta-schemas and validates documents against them.    | `src/validate/index.mjs` |
+| `ajv-formats`          | Adds standard string format validators (date, uri, etc.) to the AJV instance used for validation. | `src/validate/index.mjs` |
+| `node-fetch`           | Retrieves the public JSON-Schema and OpenRPC meta-schema documents over HTTPS for validation.     | `src/validate/index.mjs` |
 
 ### Key Implementation Logic
 
@@ -394,7 +394,7 @@ The closest equivalent integrations for this tool are the schema-validation and 
 | Configuration File                          | Purpose                                                                                                                                                                                    | Override Mechanism                       |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------- |
 | `languages/<language>/language.config.json` | Declares per-language generation behavior (template file layout, primitives, operators, tree-shaking pattern, polymorphic method generation, etc.) consumed by the `sdk` and `docs` tasks. | Selected via `--language <path>`         |
-| SDK configuration manifest                  | Declares the SDK's title and the module/capability rules used by the `slice` task to select methods.                                                                                       | Supplied via `--sdk <path>`              |
+| `sdk.config.json`                           | Declares the SDK's title and the module/capability rules used by the `slice` task to select methods.                                                                                       | Supplied via `--sdk <path>`              |
 | `src/firebolt-openrpc.json`                 | Firebolt-specific meta-schema used by the `validate` task to check method tag structure.                                                                                                   | Loaded internally by the `validate` task |
 | `package.json`                              | Declares the CLI's own build/test/validate scripts and the version copied into generated OpenRPC `info.version`.                                                                           | Maintained directly in the repository    |
 
