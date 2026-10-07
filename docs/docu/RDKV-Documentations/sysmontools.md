@@ -123,31 +123,6 @@ Power state transitions are the primary runtime events handled by `pwr-state-mon
 
 ### Call Flows
 
-#### Initialization Call Flow
-
-```mermaid
-sequenceDiagram
-    participant OS as Operating System
-    participant PSM as pwr-state-monitor
-    participant PC as PowerController Client Lib
-    participant PMP as PowerManager Plugin
-    participant FS as Filesystem
-
-    OS->>PSM: Launch process
-    PSM->>PC: PowerController_Init()
-    loop Until PowerController_IsOperational()
-        PSM->>PC: PowerController_Connect()
-        PC->>PMP: COM-RPC request
-        PMP-->>PC: Connected / Unavailable
-    end
-    PSM->>PC: PowerController_GetPowerState()
-    PC-->>PSM: curState, previousState
-    PSM->>FS: setModeSettings — create and delete state flags
-    PSM->>PC: PowerController_RegisterPowerModeChangedCallback(_lightsleepEventHandler)
-    PC-->>PSM: Registered
-    PSM-->>OS: Running — blocking on GAsyncQueue
-```
-
 #### Request Processing Call Flow
 
 The following illustrates a system event injection using `IARM_event_sender`. The tool parses the command-line arguments to resolve the event name and status, connects to the middleware IPC bus, broadcasts the event with the appropriate payload structure, then disconnects.
