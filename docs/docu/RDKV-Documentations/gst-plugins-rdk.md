@@ -22,7 +22,6 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
 
 %% Middleware
     subgraph RDKMW["RDK Core Middleware"]
-        AAMP["AAMP / Media Pipeline"]
         httpsrc["gst-plugins-rdk\n(httpsrc)"]
         GStreamer["GStreamer Framework"]
     end
@@ -33,8 +32,7 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px;
         NET["HTTP/HTTPS Network"]
     end
 
-    Apps -->|Playback Request| AAMP
-    AAMP -->|Pipeline Construction| GStreamer
+    Apps -->|Playback Request| GStreamer
     GStreamer -->|URI Source Element| httpsrc
     httpsrc -->|HTTP Transfer| CURL
     CURL -->|TCP/TLS| NET
@@ -264,16 +262,16 @@ sequenceDiagram
 
 ## Internal Modules
 
-| Module / Class | Description | Key Files |
-| --- | --- | --- |
-| `GstHttpSrc` | The main plugin element struct; holds all state including curl handle, socket descriptor, queue pointers, property values, and thread handles. Receives data directly from the libcurl write callback. | `gsthttpsrc.c`, `gsthttpsrc.h` |
-| `httpsrc_init` | GStreamer plugin entry point; registers the `httpsrc` element type with the GStreamer registry under the element name `httpsrc`. | `gsthttpsrc.c` |
-| `gst_http_src_session_thread` | Producer thread function; owns the libcurl easy handle and drives the full HTTP transfer lifecycle, including range request construction on seek, error classification, and session pause/resume. | `gsthttpsrc.c` |
-| `gst_http_src_flow_timer_thread` | Timer thread; wakes every 50 ms and calls `gst_http_src_data_received()` with a zero-length payload to flush any partially-assembled data block to the queue. | `gsthttpsrc.c` |
-| `gst_http_src_data_received` | libcurl write callback; assembles incoming data into fixed-size blocks and enqueues them into the FIFO, signaling the streaming thread. Also applies the adaptive read delay if `ENABLE_READ_DELAY` is defined. | `gsthttpsrc.c` |
-| `gst_http_src_header_callback` | libcurl header callback; parses response headers to extract content-type, content-length, seekability, custom GOP/PTS metadata, and trailer declarations. Posts GStreamer caps and duration messages. | `gsthttpsrc.c` |
-| `gst_http_src_opensocket_callback` | libcurl open-socket callback; creates the network socket and configures `SO_RCVLOWAT` based on bitrate mode before returning the socket to libcurl. | `gsthttpsrc.c` |
-| `GstHttpSrcBlockQueueElement` | Internal singly-linked list node used to implement the FIFO data queue between the session thread and the streaming thread. | `gsthttpsrc.h` |
+| Module / Class                     | Description                                                                                                                                                                                                     | Key Files                      |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `GstHttpSrc`                       | The main plugin element struct; holds all state including curl handle, socket descriptor, queue pointers, property values, and thread handles. Receives data directly from the libcurl write callback.          | `gsthttpsrc.c`, `gsthttpsrc.h` |
+| `httpsrc_init`                     | GStreamer plugin entry point; registers the `httpsrc` element type with the GStreamer registry under the element name `httpsrc`.                                                                                | `gsthttpsrc.c`                 |
+| `gst_http_src_session_thread`      | Producer thread function; owns the libcurl easy handle and drives the full HTTP transfer lifecycle, including range request construction on seek, error classification, and session pause/resume.               | `gsthttpsrc.c`                 |
+| `gst_http_src_flow_timer_thread`   | Timer thread; wakes every 50 ms and calls `gst_http_src_data_received()` with a zero-length payload to flush any partially-assembled data block to the queue.                                                   | `gsthttpsrc.c`                 |
+| `gst_http_src_data_received`       | libcurl write callback; assembles incoming data into fixed-size blocks and enqueues them into the FIFO, signaling the streaming thread. Also applies the adaptive read delay if `ENABLE_READ_DELAY` is defined. | `gsthttpsrc.c`                 |
+| `gst_http_src_header_callback`     | libcurl header callback; parses response headers to extract content-type, content-length, seekability, custom GOP/PTS metadata, and trailer declarations. Posts GStreamer caps and duration messages.           | `gsthttpsrc.c`                 |
+| `gst_http_src_opensocket_callback` | libcurl open-socket callback; creates the network socket and configures `SO_RCVLOWAT` based on bitrate mode before returning the socket to libcurl.                                                             | `gsthttpsrc.c`                 |
+| `GstHttpSrcBlockQueueElement`      | Internal singly-linked list node used to implement the FIFO data queue between the session thread and the streaming thread.                                                                                     | `gsthttpsrc.h`                 |
 
 ---
 
@@ -283,25 +281,25 @@ The `httpsrc` plugin's interactions are scoped to the GStreamer framework and th
 
 ### Interaction Matrix
 
-| Target Component / Layer | Interaction Purpose | Key APIs / Topics |
-| --- | --- | --- |
-| **GStreamer Framework** | | |
-| `GstPushSrc` | Base class providing the `create()` scheduling model for the streaming thread | `gst_http_src_create()`, `gst_pad_push()`, `gst_pad_push_event()` |
-| `GstBaseSrc` | Base class for seek, size query, URI query, and start/stop lifecycle | `gst_http_src_start()`, `gst_http_src_stop()`, `gst_http_src_do_seek()`, `gst_http_src_get_size()` |
-| `GstURIHandler` | Registers the element as a URI source for `http://` and `https://` schemes | `gst_http_src_uri_handler_init()`, `get_type`, `get_protocols`, `set_uri`, `get_uri` |
-| GStreamer Bus | Posts duration, custom trailer, and element error messages | `gst_element_post_message()`, `gst_message_new_duration()`, `gst_message_new_custom()`, `GST_ELEMENT_ERROR()` |
-| **External Libraries** | | |
-| libcurl | HTTP/HTTPS transfer; all network I/O is performed through the libcurl easy interface | `curl_easy_init()`, `curl_easy_setopt()`, `curl_easy_perform()`, `curl_easy_pause()`, `curl_easy_getinfo()`, `curl_easy_cleanup()`, `curl_slist_append()` |
-| libsafec | Bounds-checked memory operations (`memset_s`, `sprintf_s`, `strcat_s`) | `memset_s()`, `sprintf_s()`, `strcat_s()` (conditionally compiled via `DISTRO_FEATURES safec`) |
+| Target Component / Layer | Interaction Purpose                                                                  | Key APIs / Topics                                                                                                                                         |
+| ------------------------ | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **GStreamer Framework**  |                                                                                      |                                                                                                                                                           |
+| `GstPushSrc`             | Base class providing the `create()` scheduling model for the streaming thread        | `gst_http_src_create()`, `gst_pad_push()`, `gst_pad_push_event()`                                                                                         |
+| `GstBaseSrc`             | Base class for seek, size query, URI query, and start/stop lifecycle                 | `gst_http_src_start()`, `gst_http_src_stop()`, `gst_http_src_do_seek()`, `gst_http_src_get_size()`                                                        |
+| `GstURIHandler`          | Registers the element as a URI source for `http://` and `https://` schemes           | `gst_http_src_uri_handler_init()`, `get_type`, `get_protocols`, `set_uri`, `get_uri`                                                                      |
+| GStreamer Bus            | Posts duration, custom trailer, and element error messages                           | `gst_element_post_message()`, `gst_message_new_duration()`, `gst_message_new_custom()`, `GST_ELEMENT_ERROR()`                                             |
+| **External Libraries**   |                                                                                      |                                                                                                                                                           |
+| libcurl                  | HTTP/HTTPS transfer; all network I/O is performed through the libcurl easy interface | `curl_easy_init()`, `curl_easy_setopt()`, `curl_easy_perform()`, `curl_easy_pause()`, `curl_easy_getinfo()`, `curl_easy_cleanup()`, `curl_slist_append()` |
+| libsafec                 | Bounds-checked memory operations (`memset_s`, `sprintf_s`, `strcat_s`)               | `memset_s()`, `sprintf_s()`, `strcat_s()` (conditionally compiled via `DISTRO_FEATURES safec`)                                                            |
 
 ### Events Published
 
-| Event Name | Topic | Trigger Condition | Subscriber Components |
-| --- | --- | --- | --- |
-| `http/trailer` | `GST_MESSAGE_ELEMENT` on GStreamer bus | All expected HTTP chunked trailer headers have been received; trailer count tracked via `Trailer:` response header | Any GStreamer element or application monitoring the pipeline bus |
-| Duration message | `GST_MESSAGE_DURATION` on GStreamer bus | `Content-Length` is parsed from the HTTP response header | GStreamer pipeline / playback engine |
-| EOS event | `GST_EVENT_EOS` on source pad | HTTP transfer complete and queue drained, or fatal error | Downstream GStreamer demuxer / decoder elements |
-| Element error | `GST_MESSAGE_ERROR` on GStreamer bus | Fatal libcurl error (HTTP 4xx/5xx, connection failure, timeout) | GStreamer pipeline error handler |
+| Event Name       | Topic                                   | Trigger Condition                                                                                                  | Subscriber Components                                            |
+| ---------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| `http/trailer`   | `GST_MESSAGE_ELEMENT` on GStreamer bus  | All expected HTTP chunked trailer headers have been received; trailer count tracked via `Trailer:` response header | Any GStreamer element or application monitoring the pipeline bus |
+| Duration message | `GST_MESSAGE_DURATION` on GStreamer bus | `Content-Length` is parsed from the HTTP response header                                                           | GStreamer pipeline / playback engine                             |
+| EOS event        | `GST_EVENT_EOS` on source pad           | HTTP transfer complete and queue drained, or fatal error                                                           | Downstream GStreamer demuxer / decoder elements                  |
+| Element error    | `GST_MESSAGE_ERROR` on GStreamer bus    | Fatal libcurl error (HTTP 4xx/5xx, connection failure, timeout)                                                    | GStreamer pipeline error handler                                 |
 
 ### IPC Flow Patterns
 
@@ -350,16 +348,16 @@ sequenceDiagram
 
 ### Major HAL APIs Integration
 
-| API | Purpose | Implementation File |
-| --- | --- | --- |
-| `curl_easy_init()` | Creates a new libcurl easy session handle for the transfer | `gsthttpsrc.c` |
-| `curl_easy_setopt()` | Configures all transfer options: URL, callbacks, authentication, proxy, timeouts, signal handling | `gsthttpsrc.c` |
-| `curl_easy_perform()` | Executes the blocking HTTP transfer, invoking registered callbacks for headers, data, and progress | `gsthttpsrc.c` |
-| `curl_easy_getinfo()` | Retrieves response metadata (HTTP status code, content-length, content-type) and session timing diagnostics (name lookup, connect, transfer-start, total, redirect times) from the completed transfer | `gsthttpsrc.c` |
-| `curl_easy_pause()` | Pauses the curl session after transfer completion or trailer detection | `gsthttpsrc.c` |
-| `curl_easy_cleanup()` | Releases the curl handle and associated resources at session end | `gsthttpsrc.c` |
-| `curl_slist_append()` / `curl_slist_free_all()` | Manages the linked list of custom HTTP request headers | `gsthttpsrc.c` |
-| `setsockopt(SO_RCVLOWAT)` | Configures the socket receive low-water mark for adaptive buffer tuning | `gsthttpsrc.c` |
+| API                                             | Purpose                                                                                                                                                                                               | Implementation File |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| `curl_easy_init()`                              | Creates a new libcurl easy session handle for the transfer                                                                                                                                            | `gsthttpsrc.c`      |
+| `curl_easy_setopt()`                            | Configures all transfer options: URL, callbacks, authentication, proxy, timeouts, signal handling                                                                                                     | `gsthttpsrc.c`      |
+| `curl_easy_perform()`                           | Executes the blocking HTTP transfer, invoking registered callbacks for headers, data, and progress                                                                                                    | `gsthttpsrc.c`      |
+| `curl_easy_getinfo()`                           | Retrieves response metadata (HTTP status code, content-length, content-type) and session timing diagnostics (name lookup, connect, transfer-start, total, redirect times) from the completed transfer | `gsthttpsrc.c`      |
+| `curl_easy_pause()`                             | Pauses the curl session after transfer completion or trailer detection                                                                                                                                | `gsthttpsrc.c`      |
+| `curl_easy_cleanup()`                           | Releases the curl handle and associated resources at session end                                                                                                                                      | `gsthttpsrc.c`      |
+| `curl_slist_append()` / `curl_slist_free_all()` | Manages the linked list of custom HTTP request headers                                                                                                                                                | `gsthttpsrc.c`      |
+| `setsockopt(SO_RCVLOWAT)`                       | Configures the socket receive low-water mark for adaptive buffer tuning                                                                                                                               | `gsthttpsrc.c`      |
 
 ### Key Implementation Logic
 
@@ -390,31 +388,31 @@ sequenceDiagram
 
 The following GObject properties are exposed by the `httpsrc` element and may be set prior to or during a transfer session.
 
-| Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| `location` | string | `""` | URI to read from (`http://` or `https://`). |
-| `automatic-redirect` | bool | `TRUE` | Automatically follow HTTP redirects. |
-| `is-live` | bool | `FALSE` | Operate as a live source; disables pipeline buffering heuristics. |
-| `timeout` | uint | `0` | Connect and low-speed timeout in seconds; `0` disables timeout enforcement. |
-| `proxy` | string | `""` | Proxy server URI in the form `http://HOSTNAME:PORT`. |
-| `proxy-id` | string | `""` | Username for proxy authentication. |
-| `proxy-pw` | string | `""` | Password for proxy authentication. |
-| `user-id` | string | `""` | Username for origin server authentication. |
-| `user-pw` | string | `""` | Password for origin server authentication. |
-| `user-agent` | string | `"RMF httpsrc "` | Value sent as the `User-Agent` HTTP request header. |
-| `extra-headers` | GstStructure | `NULL` | Additional HTTP request headers appended to each request. |
-| `cookies` | string array | `NULL` | HTTP cookies sent with each request. |
-| `redirect-expected` | bool | `FALSE` | When `TRUE`, resets the socket receive low-water mark to 1 byte to handle redirect responses without stalling. |
-| `low-bitrate-content` | bool | `FALSE` | When `TRUE`, reduces the socket receive low-water mark to `CURL_MAX_WRITE_SIZE/8` for low-bandwidth streams. |
-| `disable-process-signaling` | bool | `FALSE` | Enables `CURLOPT_NOSIGNAL` to prevent libcurl from using POSIX signals for DNS timeout resolution. |
-| `startPTS` | ulong | `0` | Content starting PTS in seconds, populated from the `PresentationTimeStamps` response header. |
-| `endPTS` | ulong | `0` | Content ending PTS in seconds, populated from the `PresentationTimeStamps` response header. |
-| `GopSize` | ulong | `15` | Number of frames per GOP, populated from the `FramesPerGOP` response header. |
-| `numbframes` | ulong | `8` | Number of B-frames per GOP, populated from the `BFramesPerGOP` response header. |
-| `http-status` | int | `0` | HTTP status code received from the server (readable after transfer). |
-| `content-type` | string | `NULL` | MIME type from the HTTP `Content-Type` response header (read-only). |
-| `content-length` | ulong | `-1` | Content duration in seconds from `availableSeekRange` header (read-only). |
-| `trailer` | string | `NULL` | Concatenated trailer header values received after chunked body (read-only). |
+| Parameter                   | Type         | Default          | Description                                                                                                    |
+| --------------------------- | ------------ | ---------------- | -------------------------------------------------------------------------------------------------------------- |
+| `location`                  | string       | `""`             | URI to read from (`http://` or `https://`).                                                                    |
+| `automatic-redirect`        | bool         | `TRUE`           | Automatically follow HTTP redirects.                                                                           |
+| `is-live`                   | bool         | `FALSE`          | Operate as a live source; disables pipeline buffering heuristics.                                              |
+| `timeout`                   | uint         | `0`              | Connect and low-speed timeout in seconds; `0` disables timeout enforcement.                                    |
+| `proxy`                     | string       | `""`             | Proxy server URI in the form `http://HOSTNAME:PORT`.                                                           |
+| `proxy-id`                  | string       | `""`             | Username for proxy authentication.                                                                             |
+| `proxy-pw`                  | string       | `""`             | Password for proxy authentication.                                                                             |
+| `user-id`                   | string       | `""`             | Username for origin server authentication.                                                                     |
+| `user-pw`                   | string       | `""`             | Password for origin server authentication.                                                                     |
+| `user-agent`                | string       | `"RMF httpsrc "` | Value sent as the `User-Agent` HTTP request header.                                                            |
+| `extra-headers`             | GstStructure | `NULL`           | Additional HTTP request headers appended to each request.                                                      |
+| `cookies`                   | string array | `NULL`           | HTTP cookies sent with each request.                                                                           |
+| `redirect-expected`         | bool         | `FALSE`          | When `TRUE`, resets the socket receive low-water mark to 1 byte to handle redirect responses without stalling. |
+| `low-bitrate-content`       | bool         | `FALSE`          | When `TRUE`, reduces the socket receive low-water mark to `CURL_MAX_WRITE_SIZE/8` for low-bandwidth streams.   |
+| `disable-process-signaling` | bool         | `FALSE`          | Enables `CURLOPT_NOSIGNAL` to prevent libcurl from using POSIX signals for DNS timeout resolution.             |
+| `startPTS`                  | ulong        | `0`              | Content starting PTS in seconds, populated from the `PresentationTimeStamps` response header.                  |
+| `endPTS`                    | ulong        | `0`              | Content ending PTS in seconds, populated from the `PresentationTimeStamps` response header.                    |
+| `GopSize`                   | ulong        | `15`             | Number of frames per GOP, populated from the `FramesPerGOP` response header.                                   |
+| `numbframes`                | ulong        | `8`              | Number of B-frames per GOP, populated from the `BFramesPerGOP` response header.                                |
+| `http-status`               | int          | `0`              | HTTP status code received from the server (readable after transfer).                                           |
+| `content-type`              | string       | `NULL`           | MIME type from the HTTP `Content-Type` response header (read-only).                                            |
+| `content-length`            | ulong        | `-1`             | Content duration in seconds from `availableSeekRange` header (read-only).                                      |
+| `trailer`                   | string       | `NULL`           | Concatenated trailer header values received after chunked body (read-only).                                    |
 
 ### Runtime Configuration
 
