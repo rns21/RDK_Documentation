@@ -433,6 +433,22 @@ The configuration file at `/etc/rtremote.conf` is generated from the build-time 
 
 ---
 
+## Prerequisites
+
+| Requirement                 | Notes                                                                                                                                                                                                                                                                                                                                   |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CMake ≥ 2.8**             | Minimum version declared in `CMakeLists.txt`.                                                                                                                                                                                                                                                                                           |
+| **C++11 compiler**          | `CMAKE_CXX_STANDARD` is set to 11, and `-std=c++0x` is applied explicitly in `CMAKE_CXX_FLAGS`.                                                                                                                                                                                                                                         |
+| **rtCore library**          | Supplies the `rtObject`, `rtValue`, and `rtLog` types rtRemote builds on. Built from the `pxCore` repository with `BUILD_RTCORE_LIBS=ON`. Its header path is passed in via `RT_INCLUDE_DIR` for compiling the rtRemote library; its library path is passed in via `RT_LIBRARY_DIR` for linking the sample applications and `rtresolvd`. |
+| **RapidJSON**               | Vendored under `external/rapidjson`; no separate installation required.                                                                                                                                                                                                                                                                 |
+| **libuuid (util-linux)**    | Linked via `-luuid`. Used to generate UUID correlation keys and object identifiers.                                                                                                                                                                                                                                                     |
+| **POSIX threads (pthread)** | Linked via `-pthread`. Required by the StreamSelector, dispatch worker, and resolver listener threads.                                                                                                                                                                                                                                  |
+| **libdl**                   | Linked via `-ldl`.                                                                                                                                                                                                                                                                                                                      |
+
+These dependencies carry through to the target build, where the Yocto recipe declares `util-linux` and `rtcore` as the corresponding `DEPENDS`, as referenced in the Build-Time Configurations section below.
+
+---
+
 ## Build-Time Configurations
 
 The following build-time flags are relevant for target builds. They are derived from the CMake `option()` and `add_definitions()` directives in `CMakeLists.txt` and from the `EXTRA_OECMAKE`, `SELECTED_OPTIMIZATION`, `TARGET_CFLAGS`, and `TARGET_CXXFLAGS` assignments in the Yocto recipe.
